@@ -13,7 +13,9 @@
     "fluture": "^14.0.0",
     "ramda": "^0.28.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint-config-monoculture": "*"
+  },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "build": "dotenv -- nps -c ./package-scripts.cjs build",
