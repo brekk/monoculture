@@ -1,0 +1,33 @@
+{
+  "name": "doc",
+  "version": "0.0.1",
+  "description": "Parse jsdoc-style comments in a monorepo context",
+  "main": "doc.js",
+  "bin": "cli.js",
+  "type": "module",
+  "repository": "brekk/monoculture",
+  "author": "brekk",
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "mono-fs": "*",
+    "fluture": "^14.0.0",
+    "ramda": "^0.29.0"
+  },
+  "devDependencies": {
+    "madge": "^6.0.0"
+  },
+  "scripts": {
+    "nps": "dotenv -- nps -c ./package-scripts.cjs",
+    "build": "dotenv -- nps -c ./package-scripts.cjs build",
+    "build:cli": "dotenv -- nps -c ./package-scripts.cjs build.cli",
+    "build:module": "dotenv -- nps -c ./package-scripts.cjs build.module",
+    "build:watch": "dotenv -- nps -c ./package-scripts.cjs build.watch",
+    "dev": "dotenv -- nps -c ./package-scripts.cjs dev",
+    "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
+    "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
+    "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
+    "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "mono-fs",
+  "version": "0.0.0",
+  "description": "tools for working with futures + fs simply",
+  "main": "mono-fs.js",
+  "type": "module",
+  "repository": "brekk/monoculture",
+  "author": "brekk",
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "execa": "^6.1.0",
+    "fluture": "^14.0.0",
+    "ramda": "^0.28.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "nps": "dotenv -- nps -c ./package-scripts.cjs",
+    "build": "dotenv -- nps -c ./package-scripts.cjs build",
+    "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
+    "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
+    "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
+    "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:all": "dotenv -- nps -c ./package-scripts.cjs test.all",
+    "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
+  }
+}

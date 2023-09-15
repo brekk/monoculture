@@ -1,0 +1,179 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parseFile 1`] = `
+{
+  "comments": [
+    {
+      "addTo": "",
+      "end": 11,
+      "fileGroup": "",
+      "keywords": [
+        "@example",
+        "@name",
+      ],
+      "lines": [
+        "Reusable ProtenusUser type",
+        "@name ProtenusUser",
+        "@example",
+        "\`\`\`ts",
+        "import type { ProtenusUser } from 'data-hooks/protenusUser'",
+        "\`\`\`",
+      ],
+      "links": [],
+      "start": 4,
+      "structure": {
+        "example": "\`\`\`ts
+import type { ProtenusUser } from 'data-hooks/protenusUser'
+\`\`\`",
+        "name": "ProtenusUser",
+      },
+      "summary": "Reusable ProtenusUser type",
+    },
+    {
+      "addTo": "",
+      "end": 36,
+      "fileGroup": "",
+      "keywords": [
+        "@example",
+        "@name",
+      ],
+      "lines": [
+        "Reusable ProtenusUserGroup type",
+        "@name ProtenusUserGroup",
+        "@example",
+        "\`\`\`ts",
+        "import type { ProtenusUserGroup } from 'data-hooks/protenusUser'",
+        "\`\`\`",
+      ],
+      "links": [],
+      "start": 29,
+      "structure": {
+        "example": "\`\`\`ts
+import type { ProtenusUserGroup } from 'data-hooks/protenusUser'
+\`\`\`",
+        "name": "ProtenusUserGroup",
+      },
+      "summary": "Reusable ProtenusUserGroup type",
+    },
+    {
+      "addTo": "",
+      "end": 58,
+      "fileGroup": "",
+      "keywords": [
+        "@example",
+        "@name",
+        "@private",
+      ],
+      "lines": [
+        "Generic localStorage getter, privately exposes keys of localStorage as stateful values",
+        "@name _useLocalStorage",
+        "@private",
+        "@example",
+        "\`\`\`ts",
+        "const [$jwt, $setJwt] = _useLocalStorage('jwt', '')",
+        "\`\`\`",
+      ],
+      "links": [],
+      "start": 50,
+      "structure": {
+        "example": "\`\`\`ts
+const [$jwt, $setJwt] = _useLocalStorage('jwt', '')
+\`\`\`",
+        "name": "_useLocalStorage",
+        "private": true,
+      },
+      "summary": "Generic localStorage getter, privately exposes keys of localStorage as stateful values",
+    },
+    {
+      "addTo": "",
+      "end": 77,
+      "fileGroup": "",
+      "keywords": [
+        "@example",
+        "@name",
+      ],
+      "lines": [
+        "A custom React hook for accessing a user",
+        "@name useProtenusUser",
+        "@example",
+        "\`\`\`",
+        "import { useProtenusUser } from 'data-hooks/protenusUser'",
+        "// [...]",
+        "const Component = ({appRole}) => {",
+        "  const { hasRole } = useProtenusUser()",
+        "  return hasRole(appRole) ? <strong>cool</strong> : <strong>uncool</strong>",
+        "}",
+        "\`\`\`",
+      ],
+      "links": [],
+      "start": 65,
+      "structure": {
+        "example": "\`\`\`
+import { useProtenusUser } from 'data-hooks/protenusUser'
+// [...]
+const Component = ({appRole}) => {
+  const { hasRole } = useProtenusUser()
+  return hasRole(appRole) ? <strong>cool</strong> : <strong>uncool</strong>
+}
+\`\`\`",
+        "name": "useProtenusUser",
+      },
+      "summary": "A custom React hook for accessing a user",
+    },
+    {
+      "addTo": "",
+      "end": 96,
+      "fileGroup": "",
+      "keywords": [
+        "@example",
+        "@link",
+        "@name",
+        "@see",
+      ],
+      "lines": [
+        "Show the visible actions for the user",
+        "@name useVisibleActions",
+        "@see {@link data-hooks.useProtenusUser}",
+        "@see {@link simulacra.zipzapzop}",
+        "@example",
+        "\`\`\`ts",
+        "import { useVisibleActions } from 'logic/caseDropDownPermissions'",
+        "// [...]",
+        "const MyComponent = () => {",
+        "  const { visibleActions } = useVisibleActions()",
+        "  return <pre><code>{JSON.stringify(visibleActions, null, 2)}</code></pre>",
+        "}",
+        "\`\`\`",
+      ],
+      "links": [
+        "data-hooks.useProtenusUser",
+        "simulacra.zipzapzop",
+      ],
+      "start": 82,
+      "structure": {
+        "example": "\`\`\`ts
+import { useVisibleActions } from 'logic/caseDropDownPermissions'
+// [...]
+const MyComponent = () => {
+  const { visibleActions } = useVisibleActions()
+  return <pre><code>{JSON.stringify(visibleActions, null, 2)}</code></pre>
+}
+\`\`\`",
+        "name": "useVisibleActions",
+        "see": [
+          "data-hooks.useProtenusUser",
+          "simulacra.zipzapzop",
+        ],
+      },
+      "summary": "Show the visible actions for the user",
+    },
+  ],
+  "fileGroup": undefined,
+  "filename": "scripts/daffy-doc/fixture.ts",
+  "links": [
+    "data-hooks.useProtenusUser",
+    "simulacra.zipzapzop",
+  ],
+  "order": 0,
+}
+`;
