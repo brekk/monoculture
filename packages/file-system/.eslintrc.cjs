@@ -1,5 +1,5 @@
 module.exports = {
   root: true,
-  extends: ['custom'],
-  ignorePatterns: ['fl-utils.js'],
+  extends: ['monoculture'],
+  ignorePatterns: ['file-system.js'],
 }

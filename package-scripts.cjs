@@ -47,21 +47,10 @@ module.exports = {
           // use :read !node scripts/list-all-workspaces.cjs
 
           [
-            'apps/cases',
-            'apps/docs',
-            'apps/ui-admin',
-            'apps/ui-entity-admin',
-            'packages/data-hooks',
-            'packages/eslint-config-custom',
-            'packages/fake-data',
-            'packages/fl-utils',
-            'packages/jest-config',
-            'packages/simulacra',
-            'packages/tsconfig',
-            'packages/ui-scaffold',
-            'scripts/copy2workspace',
-            'scripts/simulacra-cli',
-            'scripts/typewriter',
+            'packages/file-system',
+            'packages/introspect',
+            'shared/eslint-config-monoculture',
+            'tools/conventions',
             '.',
           ]
         ),

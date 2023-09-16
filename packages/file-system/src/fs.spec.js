@@ -105,7 +105,7 @@ test('readFile - fail', done => {
     pipe(split(' '), of, ap([init, last]), ([a, b]) => {
       expect(a.join(' ')).toEqual('ENOENT: no such file or directory, open')
       expect(localsOnly(b.slice(1, -1))).toEqual(
-        'packages/fl-utils/coolfilenice.biz'
+        'packages/file-system/coolfilenice.biz'
       )
     })(z.message)
     done()

@@ -1,0 +1,21 @@
+{
+  "name": "pkg",
+  "version": "0.0.1",
+  "description": "tools for packages",
+  "main": "pkg.js",
+  "type": "module",
+  "repository": "brekk/monoculture",
+  "author": "brekk",
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "snang": "latest",
+    "execa": "^6.1.0",
+    "fluture": "^14.0.0",
+    "ramda": "^0.28.0"
+  },
+  "devDependencies": {
+    "nps-utils": "^1.7.0",
+    "eslint-config-monoculture": "*"
+  }
+}

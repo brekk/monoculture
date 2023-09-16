@@ -15,7 +15,7 @@ import glob from 'glob'
  * @name localize
  * @example
  * ```js
- * import { localize } from 'fl-utils'
+ * import { localize } from 'file-system'
  * console.log(`support localize('business')`)
  * ```
  */
@@ -27,7 +27,7 @@ export const localize = z => `./${z}`
  * @example
  * ```js
  * import { fork } from 'fluture'
- * import { readFile } from 'fl-utils'
+ * import { readFile } from 'file-system'
  * fork(console.warn)(console.log)(readFile('./README.md'))
  * ```
  */
@@ -43,7 +43,7 @@ export const readFile = x =>
  * @example
  * ```js
  * import { fork } from 'fluture'
- * import { readJSONFile } from 'fl-utils'
+ * import { readJSONFile } from 'file-system'
  * fork(console.warn)(console.log)(readJSONFile('./package.json'))
  * ```
  */
@@ -55,7 +55,7 @@ export const readJSONFile = pipe(readFile, map(JSON.parse))
  * @example
  * ```js
  * import { fork } from 'fluture'
- * import { readDirWithConfig } from 'fl-utils'
+ * import { readDirWithConfig } from 'file-system'
  * // [...]
  * fork(console.warn)(console.log)(readDirWithConfig({}, 'src/*'))
  * // [...]
@@ -85,7 +85,7 @@ export const readDirWithConfig = curry(
  * @example
  * ```js
  * import { fork } from 'fluture'
- * import { readDirWithConfig } from 'fl-utils'
+ * import { readDirWithConfig } from 'file-system'
  * // [...]
  * fork(console.warn)(console.log)(readDir('src/*'))
  * ```
@@ -98,7 +98,7 @@ export const readDir = readDirWithConfig({})
  * @example
  * ```js
  * import { fork } from 'fluture'
- * import { writeFileWithConfig } from 'fl-utils'
+ * import { writeFileWithConfig } from 'file-system'
  * // [...]
  * fork(console.warn)(console.log)(
  *   writeFileWithConfig(
@@ -129,7 +129,7 @@ export const writeFileWithConfig = curry(
  * @example
  * ```js
  * import { fork } from 'fluture'
- * import { writeFile } from 'fl-utils'
+ * import { writeFile } from 'file-system'
  * // [...]
  * fork(console.warn)(console.log)(
  *   writeFile(
@@ -147,7 +147,7 @@ export const writeFile = writeFileWithConfig({ encoding: 'utf8' })
  * @example
  * ```js
  * import { fork } from 'fluture'
- * import { removeFileWithConfig } from 'fl-utils'
+ * import { removeFileWithConfig } from 'file-system'
  * // [...]
  * fork(console.warn)(console.log)(
  *   removeFileWithConfig(
@@ -178,7 +178,7 @@ export const DEFAULT_REMOVAL_CONFIG = {
  * @example
  * ```js
  * import { fork } from 'fluture'
- * import { removeFile } from 'fl-utils'
+ * import { removeFile } from 'file-system'
  * // [...]
  * fork(console.warn)(console.log)(
  *   removeFile(
@@ -195,7 +195,7 @@ export const removeFile = removeFileWithConfig(DEFAULT_REMOVAL_CONFIG)
  * @example
  * ```js
  * import { fork } from 'fluture'
- * import { removeFilesWithConfig } from 'fl-utils'
+ * import { removeFilesWithConfig } from 'file-system'
  * // [...]
  * fork(console.warn)(console.log)(
  *   removeFilesWithConfig(
@@ -218,7 +218,7 @@ export const removeFilesWithConfig = curry((conf, list) =>
  * @example
  * ```js
  * import { fork } from 'fluture'
- * import { removeFiles } from 'fl-utils'
+ * import { removeFiles } from 'file-system'
  * // [...]
  * fork(console.warn)(console.log)(
  *   removeFiles(
@@ -235,7 +235,7 @@ export const removeFiles = removeFilesWithConfig(DEFAULT_REMOVAL_CONFIG)
  * @example
  * ```js
  * import { fork } from 'fluture'
- * import { mkdir } from 'fl-utils'
+ * import { mkdir } from 'file-system'
  * // [...]
  * fork(console.warn)(console.log)(
  *   mkdir(
@@ -274,7 +274,7 @@ export const directoryOnly = filePath =>
  * @example
  * ```js
  * import { fork } from 'fluture'
- * import { writeFileWithAutoPath } from 'fl-utils'
+ * import { writeFileWithAutoPath } from 'file-system'
  * // [...]
  * fork(console.warn)(console.log)(
  *   writeFileWithAutoPath(
