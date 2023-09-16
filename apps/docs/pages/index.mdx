@@ -1,0 +1,48 @@
+import {
+  mdiAccountCircle,
+  mdiCodeBraces,
+  mdiBrush,
+  mdiSourceRepository,
+  mdiHook,
+} from '@mdi/js'
+import { Icon } from 'ui-scaffold/components/Icon'
+import { Card, Cards } from 'nextra-theme-docs'
+
+# UI Factory
+
+Welcome to ui factory monorepo
+
+<Cards num={2}>
+  <Card
+    arrow
+    title="Monorepo"
+    href="/monorepo"
+    icon={<Icon d={mdiSourceRepository} boxSize={6} />}
+  >
+    <>![Monorepo](/assets/blog-theme.png)</>
+  </Card>
+  <Card
+    arrow
+    title="Code Style"
+    href="/code-style"
+    icon={<Icon d={mdiCodeBraces} boxSize={6} />}
+  >
+    <>![Code Style](/assets/blog-theme.png)</>
+  </Card>
+  <Card
+    arrow
+    title="UI Scaffold"
+    href="/ui-scaffold"
+    icon={<Icon d={mdiBrush} boxSize={6} />}
+  >
+    <>![UI Scaffold](/assets/blog-theme.png)</>
+  </Card>
+  <Card
+    arrow
+    title="Data Hooks"
+    href="/data-hooks"
+    icon={<Icon d={mdiAccountCircle} boxSize={6} />}
+  >
+    <>![Data Hooks](/assets/blog-theme.png)</>
+  </Card>
+</Cards>

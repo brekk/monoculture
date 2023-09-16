@@ -1,0 +1,143 @@
+# `daffy-doc`
+_A tool for automatic code generation_
+
+We've elected to use `jsdoc` style comments plus a few custom additions so that we can have documentation which is co-located with the code it describes. A more thorough summary of `jsdoc` and its usage can be found at this [link](https://jsdoc.app)
+
+Since we are leveraging TypeScript in several of these packages and it already affords certain aspects of what a function / model needs in terms of inputs and outputs, on the whole we have eschewed using `@param` or `@return` values by convention.
+
+However, there are a few custom additions which require additional context to use effectively.
+
+## Usage
+
+### Adding documentation
+
+Let's say you have a simple function and it looks like this:
+
+```ts
+const add = (x: number) => (y: number) => x + y
+```
+
+In order to add comments that `daffy-doc` can pick up, the comments must start with `/**` (note the two asterisks), end with `*/` (as all multiline comments must) and have a leading `*` per line.
+
+So for `add` in the example above, we'd add a comment like something like:
+```ts
+/**
+ * Adds two numbers together. Manually curried.
+ * @name add
+ * @example
+ * ```ts
+ * const five = add(5)
+ * [1,2,3,4,5].map(five)
+ * ```
+ */
+const add = (x: number) => (y: number) => x + y
+```
+
+☝️  Note that we have a description (first line, untagged), an explicit `@name` and an `@example` here.
+
+This is then consumed by `daffy-doc` downstream, and it will spit out a JSON file with a lot of entries that look like:
+
+```
+[
+  {
+    "filename": "packages/my-cool-package/math.ts",
+    "comments": [
+      {
+        "start": 24,
+        "end": 32,
+        "lines": [
+          "Adds two numbers together. Manually curried.",
+          "@name add",
+          "@example",
+          "```ts",
+          "const five = add(5)",
+          "[1,2,3,4,5].map(five)"
+          "```"
+        ],
+        "summary": "Adds two numbers together. Manually curried.",
+        "links": [],
+        "structure": {
+          "name": "add",
+          "example": "```ts\nconst five = add(5)\n[1,2,3,4,5].map(five)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name",
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Adding documentation for a component
+
+Let's say you have a simple `react` component and it looks kinda like this:
+
+```tsx
+import {chakra} from "@chakra-ui/react"
+
+interface CCProps {
+  children: ReactNode
+}
+export const CustomComponent = ({children}: CCProps) => <chakra.strong>{children}</chakra.strong>
+```
+
+To add documentation which `daffy-doc` can understand and auto generate, (including a live example), you'd want to do something like this:
+
+```tsx
+import {chakra} from "@chakra-ui/react"
+
+interface CCProps {
+  children: ReactNode
+}
+/**
+ * This Component is an example. It probably shouldn't be a custom component IRL!
+ * @name CustomComponent
+ * @example
+ * ```tsx live=true
+ * import { CustomComponent } from "ui-scaffold/components/Custom"
+ *  
+ * <CustomComponent>{`Hey there`}</CustomComponent>
+ * ```
+ */
+export const CustomComponent = ({children}: CCProps) => (
+  <chakra.strong>{children}</chakra.strong>
+)
+```
+
+☝️  Some important things to remember when making documentation with a live example:
+
+1. `live=true` is a specific thing needed if you want `docs` to render your component
+2. Note that the import is from `"ui-scaffold"` even though (ostensibly) this component + documentation is located _in_ `packages/ui-scaffold`. That's because this comment is magically whisked away and copied to `apps/docs`, so all of your paths should be written as though you're in the `docs` folder.
+3. The empty line between the `import` and the raw TSX is essential (without it you get a weird MDX error that is kinda inscrutable. See [troubleshooting](#troubleshooting) for more information.
+4. MDX only allows for JSX expressions, not JS nor TS. So you cannot save a variable and re-use it, for instance.
+
+### Re-generating documentation
+
+`yarn workspace docs run autodoc` should be all that is required when you change any file in any workspace (unless it's within the `daffy-doc` itself) to add magic / `jsdoc` style comments. But if something is broken, see the [troubleshooting](#troubleshooting) section below.
+
+Additionally, `daffy-doc` generates a file in `apps/docs` which is `daffy-doc-generated.json`, in the even of an error it might be a useful diagnostic to see what `daffy-doc` parsed relative to what you wrote.
+
+### Custom Page Names
+
+In any file you can rename the resulting documentation title with a `@page` tag anywhere in the document
+
+```
+/**
+ * @Page My really cool page
+ */
+```
+
+### Troubleshooting
+#### MDX
+
+This is a very useful page for [understanding MDX errors](https://mdxjs.com/docs/troubleshooting-mdx/#problems-writing-mdx). In general if you have a class of errors here, your best bet is to play around with the `.mdx` file that `daffy-doc` generated.
+
+### Roadmap
+
+#### Future improvements
+
+ 1. Update `daffy-doc` to be more aware of `nextra` routing so that we can control pathing more in a more granular fashion.
+ 2. Allow for logical grouping of entries.
+ 3. Update `daffy-doc` to do double-duty on `live=true` examples; make it so that the examples can function as tests (and thus be provably incorrect over time)

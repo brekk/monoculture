@@ -48,7 +48,6 @@ module.exports = {
 
           [
             'packages/file-system',
-            'packages/introspect',
             'shared/eslint-config-monoculture',
             'tools/conventions',
             '.',

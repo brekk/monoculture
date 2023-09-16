@@ -89,8 +89,7 @@ module.exports = {
     'jsdoc/require-example': 2,
     'jsdoc/no-undefined-types': 0,
   },
-  // extends: ["standard", "prettier", "next/core-web-vitals"],
-  extends: ['next', 'turbo', 'prettier', 'plugin:jsdoc/recommended-typescript'],
+  extends: ['turbo', 'prettier', 'plugin:jsdoc/recommended-typescript'],
   plugins: [
     'babel',
     'fp',

@@ -1,9 +1,9 @@
 {
-  "name": "conventions",
+  "name": "monodoc",
   "version": "0.0.1",
   "description": "Enforce conventions in a monorepo context",
-  "main": "doc.js",
-  "bin": "cli.js",
+  "main": "monodoc.js",
+  "bin": "monodoc-cli.js",
   "type": "module",
   "repository": "brekk/monoculture",
   "author": "brekk",

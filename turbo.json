@@ -1,14 +1,8 @@
 {
-  "globalEnv": [
-    "NODE_ENV",
-  ],
+  "globalEnv": ["NODE_ENV"],
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "test": {
-      "outputs": ["coverage/**"],
-      "outputMode": "full"
-    },
-    "test:all": {
       "outputs": ["coverage/**"],
       "outputMode": "full"
     },
@@ -17,7 +11,7 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**"]
+      "outputs": ["dist/**", ".next/**", "*.artifact.js"]
     },
     "lint": {
       "outputs": []

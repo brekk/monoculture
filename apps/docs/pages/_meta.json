@@ -1,0 +1,10 @@
+{
+  "index": "UI Factory",
+  "code-style": "Code Style",
+  "monorepo": "Monorepo",
+  "---": {
+    "type": "separator"
+  },
+  "ui-scaffold": "UI Scaffold",
+  "data-hooks": "Data Hooks"
+}
