@@ -1,10 +1,8 @@
 {
-  "index": "UI Factory",
-  "code-style": "Code Style",
+  "index": "Monoculture",
   "monorepo": "Monorepo",
+  "monodoc": "Monodoc",
   "---": {
     "type": "separator"
-  },
-  "ui-scaffold": "UI Scaffold",
-  "data-hooks": "Data Hooks"
+  }
 }

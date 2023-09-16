@@ -5,23 +5,40 @@
   "license": "MIT",
   "homepage": "https://github.com/brekk/monoculture",
   "dependencies": {
+    "@chakra-ui/react": "^2.8.1",
+    "@chakra-ui/system": "^2.6.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mdi/js": "^7.2.96",
+    "framer-motion": "^10.16.4",
     "next": "^13.0.6",
     "nextra": "^2.4.0",
     "nextra-theme-docs": "^2.2.14",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@types/node": "18.11.10",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
-    "monodoc": "*",
     "eslint": "7.32.0",
     "eslint-config-monoculture": "*",
+    "eslint-plugin-next": "^0.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "monoculture-tsconfig": "*",
+    "monodoc": "*",
     "typescript": "^4.9.3"
   },
   "scripts": {
+    "nps": "dotenv -- nps -c ./package-scripts.cjs",
+    "autodoc": "dotenv -- nps -c ./package-scripts.cjs autodoc",
+    "build": "dotenv -- nps -c ./package-scripts.cjs build",
+    "deploy": "dotenv -- nps -c ./package-scripts.cjs deploy",
+    "dev": "dotenv -- nps -c ./package-scripts.cjs dev",
+    "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
+    "start": "dotenv -- nps -c ./package-scripts.cjs start"
   }
 }

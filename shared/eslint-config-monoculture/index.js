@@ -71,11 +71,9 @@ module.exports = {
         js: 'never',
       },
     ],
-    'react-hooks/rules-of-hooks': 2,
-    'react/jsx-key': 2,
     'object-shorthand': 2,
     // jsdoc
-    // we are using jsdoc in concert with daffy-doc and typescript, so we can turn some rules off
+    // we are using jsdoc in concert with monodoc and typescript, so we can turn some rules off
     'jsdoc/check-tag-names': 0,
     'jsdoc/require-jsdoc': 0,
     'jsdoc/require-returns': 0,

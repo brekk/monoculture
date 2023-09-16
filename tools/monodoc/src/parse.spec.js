@@ -1,7 +1,7 @@
 import { cwd } from 'node:process'
 
 import { fork } from 'fluture'
-import { pathRelativeTo } from 'fl-utils'
+import { pathRelativeTo } from 'file-system'
 
 import { parse, parseFile } from './parse'
 

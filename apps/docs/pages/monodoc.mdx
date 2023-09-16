@@ -1,4 +1,4 @@
-# `daffy-doc`
+# `monodoc`
 _A tool for automatic code generation_
 
 We've elected to use `jsdoc` style comments plus a few custom additions so that we can have documentation which is co-located with the code it describes. A more thorough summary of `jsdoc` and its usage can be found at this [link](https://jsdoc.app)
@@ -17,7 +17,7 @@ Let's say you have a simple function and it looks like this:
 const add = (x: number) => (y: number) => x + y
 ```
 
-In order to add comments that `daffy-doc` can pick up, the comments must start with `/**` (note the two asterisks), end with `*/` (as all multiline comments must) and have a leading `*` per line.
+In order to add comments that `monodoc` can pick up, the comments must start with `/**` (note the two asterisks), end with `*/` (as all multiline comments must) and have a leading `*` per line.
 
 So for `add` in the example above, we'd add a comment like something like:
 ```ts
@@ -35,7 +35,7 @@ const add = (x: number) => (y: number) => x + y
 
 ☝️  Note that we have a description (first line, untagged), an explicit `@name` and an `@example` here.
 
-This is then consumed by `daffy-doc` downstream, and it will spit out a JSON file with a lot of entries that look like:
+This is then consumed by `monodoc` downstream, and it will spit out a JSON file with a lot of entries that look like:
 
 ```
 [
@@ -83,7 +83,7 @@ interface CCProps {
 export const CustomComponent = ({children}: CCProps) => <chakra.strong>{children}</chakra.strong>
 ```
 
-To add documentation which `daffy-doc` can understand and auto generate, (including a live example), you'd want to do something like this:
+To add documentation which `monodoc` can understand and auto generate, (including a live example), you'd want to do something like this:
 
 ```tsx
 import {chakra} from "@chakra-ui/react"
@@ -96,7 +96,7 @@ interface CCProps {
  * @name CustomComponent
  * @example
  * ```tsx live=true
- * import { CustomComponent } from "ui-scaffold/components/Custom"
+ * import { CustomComponent } from "your-library/components/Custom"
  *  
  * <CustomComponent>{`Hey there`}</CustomComponent>
  * ```
@@ -109,15 +109,15 @@ export const CustomComponent = ({children}: CCProps) => (
 ☝️  Some important things to remember when making documentation with a live example:
 
 1. `live=true` is a specific thing needed if you want `docs` to render your component
-2. Note that the import is from `"ui-scaffold"` even though (ostensibly) this component + documentation is located _in_ `packages/ui-scaffold`. That's because this comment is magically whisked away and copied to `apps/docs`, so all of your paths should be written as though you're in the `docs` folder.
+2. Note that the import is from `"your-library"` even though (ostensibly) this component + documentation is located _in_ `packages/your-library`. That's because this comment is magically whisked away and copied to `apps/docs`, so all of your paths should be written as though you're in the `docs` folder.
 3. The empty line between the `import` and the raw TSX is essential (without it you get a weird MDX error that is kinda inscrutable. See [troubleshooting](#troubleshooting) for more information.
 4. MDX only allows for JSX expressions, not JS nor TS. So you cannot save a variable and re-use it, for instance.
 
 ### Re-generating documentation
 
-`yarn workspace docs run autodoc` should be all that is required when you change any file in any workspace (unless it's within the `daffy-doc` itself) to add magic / `jsdoc` style comments. But if something is broken, see the [troubleshooting](#troubleshooting) section below.
+`yarn workspace docs run autodoc` should be all that is required when you change any file in any workspace (unless it's within the `monodoc` itself) to add magic / `jsdoc` style comments. But if something is broken, see the [troubleshooting](#troubleshooting) section below.
 
-Additionally, `daffy-doc` generates a file in `apps/docs` which is `daffy-doc-generated.json`, in the even of an error it might be a useful diagnostic to see what `daffy-doc` parsed relative to what you wrote.
+Additionally, `monodoc` generates a file in `apps/docs` which is `monodoc-generated.json`, in the even of an error it might be a useful diagnostic to see what `monodoc` parsed relative to what you wrote.
 
 ### Custom Page Names
 
@@ -132,12 +132,10 @@ In any file you can rename the resulting documentation title with a `@page` tag 
 ### Troubleshooting
 #### MDX
 
-This is a very useful page for [understanding MDX errors](https://mdxjs.com/docs/troubleshooting-mdx/#problems-writing-mdx). In general if you have a class of errors here, your best bet is to play around with the `.mdx` file that `daffy-doc` generated.
+This is a very useful page for [understanding MDX errors](https://mdxjs.com/docs/troubleshooting-mdx/#problems-writing-mdx). In general if you have a class of errors here, your best bet is to play around with the `.mdx` file that `monodoc` generated.
 
 ### Roadmap
 
 #### Future improvements
 
- 1. Update `daffy-doc` to be more aware of `nextra` routing so that we can control pathing more in a more granular fashion.
- 2. Allow for logical grouping of entries.
- 3. Update `daffy-doc` to do double-duty on `live=true` examples; make it so that the examples can function as tests (and thus be provably incorrect over time)
+ 1. Update `monodoc` to do double-duty on `live=true` examples; make it so that the examples can function as tests (and thus be provably incorrect over time)

@@ -3,19 +3,17 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "test": {
-      "outputs": ["coverage/**"],
-      "outputMode": "full"
+      "dependsOn": ["build"],
+      "inputs": ["src/*.js", "src/*.ts"],
+      "outputs": ["coverage/**"]
     },
     "test:watch": {
       "cache": false
     },
     "build": {
-      "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**", "*.artifact.js"]
     },
-    "lint": {
-      "outputs": []
-    },
+    "lint": {},
     "dev": {
       "cache": false
     },

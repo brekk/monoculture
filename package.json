@@ -21,9 +21,10 @@
     "execa": "6.1.0",
     "husky": "8.0.0",
     "jest": "^29.4.2",
+    "lint-staged": "^14.0.1",
     "plop": "^4.0.0",
     "prettier": "latest",
-    "turbo": "latest"
+    "turbo": "^1.10.14"
   },
   "engines": {
     "node": ">=18.15.0"
@@ -34,20 +35,9 @@
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "build": "dotenv -- nps -c ./package-scripts.cjs build",
-    "copy": "dotenv -- nps -c ./package-scripts.cjs copy",
-    "copy:rebuild": "dotenv -- nps -c ./package-scripts.cjs copy.rebuild",
-    "deploy": "dotenv -- nps -c ./package-scripts.cjs deploy",
-    "dev": "dotenv -- nps -c ./package-scripts.cjs dev",
-    "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
+    "care": "dotenv -- nps -c ./package-scripts.cjs care",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
-    "meta:docs": "dotenv -- nps -c ./package-scripts.cjs meta.docs",
-    "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
     "prepare": "dotenv -- nps -c ./package-scripts.cjs prepare",
-    "proxy": "dotenv -- nps -c ./package-scripts.cjs proxy",
-    "readme": "dotenv -- nps -c ./package-scripts.cjs readme",
-    "syncScripts": "dotenv -- nps -c ./package-scripts.cjs syncScripts",
-    "test": "dotenv -- nps -c ./package-scripts.cjs test",
-    "test:all": "dotenv -- nps -c ./package-scripts.cjs test.all",
-    "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
+    "sync:scripts": "dotenv -- nps -c ./package-scripts.cjs sync.scripts"
   }
 }

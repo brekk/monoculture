@@ -1,14 +1,16 @@
 {
   "name": "monodoc",
   "version": "0.0.1",
-  "description": "Enforce conventions in a monorepo context",
+  "description": "Magical documentation for monorepos",
   "main": "monodoc.js",
-  "bin": "monodoc-cli.js",
   "type": "module",
   "repository": "brekk/monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
+  "bin": {
+    "monodoc": "./monodoc-cli.js"
+  },
   "dependencies": {
     "file-system": "*",
     "fluture": "^14.0.0",

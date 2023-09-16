@@ -42,7 +42,7 @@ import {
   readDirWithConfig,
   writeFile,
   writeFileWithAutoPath,
-} from 'fl-utils'
+} from 'file-system'
 import { rarestBy } from './stats'
 
 import { parseFile } from './parse'
@@ -301,12 +301,12 @@ const runner = ({
       )
     ),
     // tell the user about it
-    map(K(`Wrote to ${outputDir}/daffy-doc-generated.json`))
+    map(K(`Wrote to ${outputDir}/monodoc-generated.json`))
   )(pkgJson)
 }
 
-const daffydoc = pipe(slice(2, Infinity), parser(YARGS_CONFIG), runner)
+const monodoc = pipe(slice(2, Infinity), parser(YARGS_CONFIG), runner)
 
 // fork it so it actually executes!
 // eslint-disable-next-line no-console
-fork(console.error)(console.log)(daffydoc(process.argv))
+fork(console.error)(console.log)(monodoc(process.argv))

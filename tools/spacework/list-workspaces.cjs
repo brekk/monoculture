@@ -1,6 +1,10 @@
-const pkg = require('../package.json')
+#!/usr/bin/env node
+const path = require('path')
+const pkg = require(path.resolve(__dirname, '../../package.json'))
 const { argv } = require('node:process')
 const {
+  j2,
+  identity: I,
   reduce,
   flatten,
   concat,
@@ -18,6 +22,8 @@ const {
   F,
 } = require('snang/script')
 
+const NAME_ONLY = (process.argv || []).slice(2)[0] === '--name-only'
+
 pipe(
   F.resolve,
   map(
@@ -28,6 +34,7 @@ pipe(
   ),
   chain(F.parallel(10)),
   map(reduce(concat, [])),
-  // map(trace('nice')),
+  NAME_ONLY ? map(map(z => z.slice(z.indexOf('/') + 1))) : I,
+  map(j2),
   fork(console.warn)(console.log)
 )(pkg)

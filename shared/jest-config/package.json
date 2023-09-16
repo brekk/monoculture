@@ -1,0 +1,19 @@
+{
+  "name": "jest-config",
+  "version": "0.0.0",
+  "main": "index.js",
+  "author": "Protenus",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@swc/core": "^1.3.31",
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "@swc/jest": "^0.2.24"
+  },
+  "scripts": {
+    "nps": "dotenv -- nps -c ./package-scripts.cjs",
+    "lint": "dotenv -- nps -c ./package-scripts.cjs lint"
+  }
+}

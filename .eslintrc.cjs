@@ -1,13 +1,9 @@
 module.exports = {
   root: true,
-  // see packages/eslint-config-custom
-  extends: ['custom'],
+  extends: ['monoculture'],
   settings: {
     next: {
       rootDir: ['apps/*/'],
     },
-  },
-  rules: {
-    'jest/expect-expect': 'off',
   },
 }

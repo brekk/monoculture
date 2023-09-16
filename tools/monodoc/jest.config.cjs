@@ -1,4 +1,4 @@
-const config = require('../../packages/jest-config/jest.config')
+const config = require('../../shared/jest-config/jest.config')
 module.exports = {
   ...config,
   collectCoverage: true,

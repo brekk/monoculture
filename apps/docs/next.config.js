@@ -9,6 +9,6 @@ module.exports = withNextra({
     unoptimized: true,
   },
   trailingSlash: true,
-  basePath: '/ui/ui-factory/docs',
-  transpilePackages: ['ui-scaffold', 'data-hooks'],
+  basePath: '/docs',
+  transpilePackages: ['monodoc'],
 })

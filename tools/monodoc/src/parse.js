@@ -12,7 +12,7 @@ import {
   propOr,
   uniq,
 } from 'ramda'
-import { readFile, pathRelativeTo } from 'fl-utils'
+import { readFile, pathRelativeTo } from 'file-system'
 import { addLineNumbers, groupContiguousBlocks } from './file'
 import { lines, j2, stripRelative } from './text'
 import { isJSDocComment, objectifyComments } from './comment'

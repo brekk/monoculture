@@ -1,5 +1,5 @@
 module.exports = {
   root: true,
-  extends: ['custom'],
-  ignorePatterns: ['daffy-doc.js', 'daffy-doc-cli.js', 'fixture.ts'],
+  extends: ['monoculture'],
+  ignorePatterns: ['monodoc.js', 'monodoc-cli.js', 'fixture.ts'],
 }

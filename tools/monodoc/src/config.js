@@ -1,7 +1,7 @@
 import { slice, curry, pipe, chain, identity as I } from 'ramda'
 import yargsParser from 'yargs-parser'
 
-import { readJSONFile, writeFile } from 'fl-utils'
+import { readJSONFile, writeFile } from 'file-system'
 
 // parser :: YargsConfig -> List String -> Object
 export const parser = curry((opts, args) => yargsParser(args, opts))

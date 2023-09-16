@@ -1,5 +1,5 @@
-import * as DAFFY_DOC from './index'
+import * as MONODOC from './index'
 
 test('default export', () => {
-  expect(DAFFY_DOC).toMatchSnapshot()
+  expect(MONODOC).toMatchSnapshot()
 })
