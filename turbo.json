@@ -1,0 +1,36 @@
+{
+  "globalEnv": [
+    "NODE_ENV",
+  ],
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "test": {
+      "outputs": ["coverage/**"],
+      "outputMode": "full"
+    },
+    "test:all": {
+      "outputs": ["coverage/**"],
+      "outputMode": "full"
+    },
+    "test:watch": {
+      "cache": false
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**"]
+    },
+    "lint": {
+      "outputs": []
+    },
+    "dev": {
+      "cache": false
+    },
+    "deploy": {
+      "dependsOn": ["test", "build"],
+      "outputs": ["public/**"]
+    },
+    "meta:graph": {
+      "outputs": ["graph.svg"]
+    }
+  }
+}
