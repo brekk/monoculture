@@ -573,6 +573,7 @@ var runner = ({
   artifact = false
 }) => {
   const current = cwd();
+  console.log({ input, output, searchGlob, ignore, artifact, current });
   const rel = pathRelativeTo2(current);
   const [pkgJson, outputDir, relativeArtifact] = map7(rel, [
     input,

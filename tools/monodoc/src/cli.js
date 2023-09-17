@@ -165,6 +165,9 @@ const prepareMetaFiles = curry((outputDir, workspace, commentedFiles) =>
   )(commentedFiles)
 )
 
+const processHelpOrRun = x =>
+  x.help || !x.input || !x.output ? resolve(HELP) : runner(x)
+
 const runner = ({
   input,
   output,
@@ -173,6 +176,7 @@ const runner = ({
   artifact = false,
 }) => {
   const current = cwd()
+  console.log({ input, output, searchGlob, ignore, artifact, current })
   const rel = pathRelativeTo(current)
   const [pkgJson, outputDir, relativeArtifact] = map(rel, [
     input,
@@ -305,8 +309,8 @@ const runner = ({
   )(pkgJson)
 }
 
-const monodoc = pipe(slice(2, Infinity), parser(YARGS_CONFIG), runner)
-
-// fork it so it actually executes!
-// eslint-disable-next-line no-console
-fork(console.error)(console.log)(monodoc(process.argv))
+export const monodoc = pipe(
+  slice(2, Infinity),
+  parser(YARGS_CONFIG),
+  processHelpOrRun
+)

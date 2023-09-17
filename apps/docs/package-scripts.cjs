@@ -7,6 +7,6 @@ module.exports = {
     deploy: 'next export -o ../../public/docs',
     autodoc:
       // eslint-disable-next-line max-len
-      'daffy-doc -i ../../package.json -o pages/automated -a daffy-doc-generated.json',
+      'monodoc -i ../../package.json -o pages -a monodoc-generated.json',
   },
 }

@@ -128,7 +128,12 @@ var rimraf = rm({ force: true, recursive: true });
 // src/path.js
 import { join, normalize } from "node:path";
 import { curry as curry3 } from "ramda";
-var pathRelativeTo = curry3((pwd, x) => join(pwd, normalize(x)));
+var pathRelativeTo = curry3((pwd, x) => {
+  if (typeof pwd !== "string" || typeof x !== "string") {
+    throw new Error("Cannot normalize bad paths.");
+  }
+  return join(pwd, normalize(x));
+});
 export {
   DEFAULT_REMOVAL_CONFIG,
   access,

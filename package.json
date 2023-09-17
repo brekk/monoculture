@@ -34,10 +34,6 @@
   "peerDependencies": {},
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
-    "build": "dotenv -- nps -c ./package-scripts.cjs build",
-    "care": "dotenv -- nps -c ./package-scripts.cjs care",
-    "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
-    "prepare": "dotenv -- nps -c ./package-scripts.cjs prepare",
     "sync:scripts": "dotenv -- nps -c ./package-scripts.cjs sync.scripts"
   }
 }

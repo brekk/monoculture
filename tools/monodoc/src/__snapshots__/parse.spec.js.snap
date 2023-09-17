@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parseFile 1`] = `
+{
+  "comments": [
+    {
+      "addTo": "",
+      "end": 11,
+      "fileGroup": "",
+      "keywords": [
+        "@example",
+        "@name",
+      ],
+      "lines": [
+        "A curried binary addition function",
+        "@name add",
+        "@example",
+        "\`\`\`ts live=true",
+        "import { add } from './fixture'",
+        "*",
+        "add(10)(20) === 30",
+        "\`\`\`",
+      ],
+      "links": [],
+      "start": 2,
+      "structure": {
+        "example": "\`\`\`ts live=true
+import { add } from './fixture'
+
+add(10)(20) === 30
+\`\`\`",
+        "name": "add",
+      },
+      "summary": "A curried binary addition function",
+    },
+  ],
+  "fileGroup": undefined,
+  "filename": "tools/monodoc/fixture.ts",
+  "links": [],
+  "order": 0,
+}
+`;

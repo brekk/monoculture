@@ -1,0 +1,156 @@
+## localize
+make a file string relative
+### Usage
+```js
+import { localize } from 'file-system'
+console.log(`support localize('business')`)
+```
+## readFile
+read a file asynchronously and future wrapped
+### Usage
+```js
+import { fork } from 'fluture'
+import { readFile } from 'file-system'
+fork(console.warn)(console.log)(readFile('./README.md'))
+```
+## readJSONFile
+read a JSON file asynchronously and future wrapped
+### Usage
+```js
+import { fork } from 'fluture'
+import { readJSONFile } from 'file-system'
+fork(console.warn)(console.log)(readJSONFile('./package.json'))
+```
+## readDirWithConfig
+read a `glob` asynchronously and future wrapped, with configuration
+### Usage
+```js
+import { fork } from 'fluture'
+import { readDirWithConfig } from 'file-system'
+// [...]
+fork(console.warn)(console.log)(readDirWithConfig({}, 'src/*'))
+// [...]
+pipe(
+  fork(console.warn)(console.log)
+)(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))
+```
+## readDir
+read a `glob` asynchronously and future wrapped, no config needed
+### Usage
+```js
+import { fork } from 'fluture'
+import { readDirWithConfig } from 'file-system'
+// [...]
+fork(console.warn)(console.log)(readDir('src/*'))
+```
+## writeFileWithConfig
+Write a file, with configuration
+### Usage
+```js
+import { fork } from 'fluture'
+import { writeFileWithConfig } from 'file-system'
+// [...]
+fork(console.warn)(console.log)(
+  writeFileWithConfig(
+    { ...fs.writeFileConfig },
+    'my-file.txt',
+    'hey I am a file'
+  )
+)
+```
+## writeFile
+Write a file, assuming 'utf8'
+### Usage
+```js
+import { fork } from 'fluture'
+import { writeFile } from 'file-system'
+// [...]
+fork(console.warn)(console.log)(
+  writeFile(
+    'my-file.txt',
+    'hey I am a file'
+  )
+)
+```
+## removeFileWithConfig
+Remove a file, configurably
+### Usage
+```js
+import { fork } from 'fluture'
+import { removeFileWithConfig } from 'file-system'
+// [...]
+fork(console.warn)(console.log)(
+  removeFileWithConfig(
+    { ...fs.removeFileConfig },
+    'my-file.txt'
+  )
+)
+```
+## removeFile
+Remove a file, default config
+### Usage
+```js
+import { fork } from 'fluture'
+import { removeFile } from 'file-system'
+// [...]
+fork(console.warn)(console.log)(
+  removeFile(
+    'my-file.txt'
+  )
+)
+```
+## removeFilesWithConfig
+Remove multiple files, configurably
+### Usage
+```js
+import { fork } from 'fluture'
+import { removeFilesWithConfig } from 'file-system'
+// [...]
+fork(console.warn)(console.log)(
+  removeFilesWithConfig(
+    { parallel: 30 },
+    [...list, ...of, ...thirty, ...files]
+  )
+)
+```
+## removeFiles
+Remove multiple files, sans configuration
+### Usage
+```js
+import { fork } from 'fluture'
+import { removeFiles } from 'file-system'
+// [...]
+fork(console.warn)(console.log)(
+  removeFiles(
+    [...list, ...of, ...files]
+  )
+)
+```
+## mkdir
+Make a directory, but futuristically
+### Usage
+```js
+import { fork } from 'fluture'
+import { mkdir } from 'file-system'
+// [...]
+fork(console.warn)(console.log)(
+  mkdir(
+    {},
+    'my-dir'
+  )
+)
+```
+## writeFileWithAutoPath
+Write a file to a nested folder and automatically create needed folders
+### Usage
+```js
+import { fork } from 'fluture'
+import { writeFileWithAutoPath } from 'file-system'
+// [...]
+fork(console.warn)(console.log)(
+  writeFileWithAutoPath(
+    "folders/you/must/exist/file.biz",
+    "my cool content"
+  )
+)
+```

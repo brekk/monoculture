@@ -1,0 +1,413 @@
+[
+  {
+    "filename": "packages/file-system/src/fs.js",
+    "comments": [
+      {
+        "start": 12,
+        "end": 20,
+        "lines": [
+          "make a file string relative",
+          "@name localize",
+          "@example",
+          "```js",
+          "import { localize } from 'file-system'",
+          "console.log(`support localize('business')`)",
+          "```"
+        ],
+        "summary": "make a file string relative",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "localize",
+          "example": "```js\nimport { localize } from 'file-system'\nconsole.log(`support localize('business')`)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/file-system/src/fs.js"
+      },
+      {
+        "start": 23,
+        "end": 32,
+        "lines": [
+          "read a file asynchronously and future wrapped",
+          "@name readFile",
+          "@example",
+          "```js",
+          "import { fork } from 'fluture'",
+          "import { readFile } from 'file-system'",
+          "fork(console.warn)(console.log)(readFile('./README.md'))",
+          "```"
+        ],
+        "summary": "read a file asynchronously and future wrapped",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "readFile",
+          "example": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(readFile('./README.md'))\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/file-system/src/fs.js"
+      },
+      {
+        "start": 39,
+        "end": 48,
+        "lines": [
+          "read a JSON file asynchronously and future wrapped",
+          "@name readJSONFile",
+          "@example",
+          "```js",
+          "import { fork } from 'fluture'",
+          "import { readJSONFile } from 'file-system'",
+          "fork(console.warn)(console.log)(readJSONFile('./package.json'))",
+          "```"
+        ],
+        "summary": "read a JSON file asynchronously and future wrapped",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "readJSONFile",
+          "example": "```js\nimport { fork } from 'fluture'\nimport { readJSONFile } from 'file-system'\nfork(console.warn)(console.log)(readJSONFile('./package.json'))\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/file-system/src/fs.js"
+      },
+      {
+        "start": 51,
+        "end": 65,
+        "lines": [
+          "read a `glob` asynchronously and future wrapped, with configuration",
+          "@name readDirWithConfig",
+          "@example",
+          "```js",
+          "import { fork } from 'fluture'",
+          "import { readDirWithConfig } from 'file-system'",
+          "// [...]",
+          "fork(console.warn)(console.log)(readDirWithConfig({}, 'src/*'))",
+          "// [...]",
+          "pipe(",
+          "  fork(console.warn)(console.log)",
+          ")(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))",
+          "```"
+        ],
+        "summary": "read a `glob` asynchronously and future wrapped, with configuration",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "readDirWithConfig",
+          "example": "```js\nimport { fork } from 'fluture'\nimport { readDirWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(readDirWithConfig({}, 'src/*'))\n// [...]\npipe(\n  fork(console.warn)(console.log)\n)(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/file-system/src/fs.js"
+      },
+      {
+        "start": 81,
+        "end": 91,
+        "lines": [
+          "read a `glob` asynchronously and future wrapped, no config needed",
+          "@name readDir",
+          "@example",
+          "```js",
+          "import { fork } from 'fluture'",
+          "import { readDirWithConfig } from 'file-system'",
+          "// [...]",
+          "fork(console.warn)(console.log)(readDir('src/*'))",
+          "```"
+        ],
+        "summary": "read a `glob` asynchronously and future wrapped, no config needed",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "readDir",
+          "example": "```js\nimport { fork } from 'fluture'\nimport { readDirWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(readDir('src/*'))\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/file-system/src/fs.js"
+      },
+      {
+        "start": 94,
+        "end": 110,
+        "lines": [
+          "Write a file, with configuration",
+          "@name writeFileWithConfig",
+          "@example",
+          "```js",
+          "import { fork } from 'fluture'",
+          "import { writeFileWithConfig } from 'file-system'",
+          "// [...]",
+          "fork(console.warn)(console.log)(",
+          "  writeFileWithConfig(",
+          "    { ...fs.writeFileConfig },",
+          "    'my-file.txt',",
+          "    'hey I am a file'",
+          "  )",
+          ")",
+          "```"
+        ],
+        "summary": "Write a file, with configuration",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "writeFileWithConfig",
+          "example": "```js\nimport { fork } from 'fluture'\nimport { writeFileWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  writeFileWithConfig(\n    { ...fs.writeFileConfig },\n    'my-file.txt',\n    'hey I am a file'\n  )\n)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/file-system/src/fs.js"
+      },
+      {
+        "start": 125,
+        "end": 140,
+        "lines": [
+          "Write a file, assuming 'utf8'",
+          "@name writeFile",
+          "@example",
+          "```js",
+          "import { fork } from 'fluture'",
+          "import { writeFile } from 'file-system'",
+          "// [...]",
+          "fork(console.warn)(console.log)(",
+          "  writeFile(",
+          "    'my-file.txt',",
+          "    'hey I am a file'",
+          "  )",
+          ")",
+          "```"
+        ],
+        "summary": "Write a file, assuming 'utf8'",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "writeFile",
+          "example": "```js\nimport { fork } from 'fluture'\nimport { writeFile } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  writeFile(\n    'my-file.txt',\n    'hey I am a file'\n  )\n)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/file-system/src/fs.js"
+      },
+      {
+        "start": 143,
+        "end": 158,
+        "lines": [
+          "Remove a file, configurably",
+          "@name removeFileWithConfig",
+          "@example",
+          "```js",
+          "import { fork } from 'fluture'",
+          "import { removeFileWithConfig } from 'file-system'",
+          "// [...]",
+          "fork(console.warn)(console.log)(",
+          "  removeFileWithConfig(",
+          "    { ...fs.removeFileConfig },",
+          "    'my-file.txt'",
+          "  )",
+          ")",
+          "```"
+        ],
+        "summary": "Remove a file, configurably",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "removeFileWithConfig",
+          "example": "```js\nimport { fork } from 'fluture'\nimport { removeFileWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFileWithConfig(\n    { ...fs.removeFileConfig },\n    'my-file.txt'\n  )\n)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/file-system/src/fs.js"
+      },
+      {
+        "start": 174,
+        "end": 188,
+        "lines": [
+          "Remove a file, default config",
+          "@name removeFile",
+          "@example",
+          "```js",
+          "import { fork } from 'fluture'",
+          "import { removeFile } from 'file-system'",
+          "// [...]",
+          "fork(console.warn)(console.log)(",
+          "  removeFile(",
+          "    'my-file.txt'",
+          "  )",
+          ")",
+          "```"
+        ],
+        "summary": "Remove a file, default config",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "removeFile",
+          "example": "```js\nimport { fork } from 'fluture'\nimport { removeFile } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFile(\n    'my-file.txt'\n  )\n)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/file-system/src/fs.js"
+      },
+      {
+        "start": 191,
+        "end": 206,
+        "lines": [
+          "Remove multiple files, configurably",
+          "@name removeFilesWithConfig",
+          "@example",
+          "```js",
+          "import { fork } from 'fluture'",
+          "import { removeFilesWithConfig } from 'file-system'",
+          "// [...]",
+          "fork(console.warn)(console.log)(",
+          "  removeFilesWithConfig(",
+          "    { parallel: 30 },",
+          "    [...list, ...of, ...thirty, ...files]",
+          "  )",
+          ")",
+          "```"
+        ],
+        "summary": "Remove multiple files, configurably",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "removeFilesWithConfig",
+          "example": "```js\nimport { fork } from 'fluture'\nimport { removeFilesWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFilesWithConfig(\n    { parallel: 30 },\n    [...list, ...of, ...thirty, ...files]\n  )\n)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/file-system/src/fs.js"
+      },
+      {
+        "start": 214,
+        "end": 228,
+        "lines": [
+          "Remove multiple files, sans configuration",
+          "@name removeFiles",
+          "@example",
+          "```js",
+          "import { fork } from 'fluture'",
+          "import { removeFiles } from 'file-system'",
+          "// [...]",
+          "fork(console.warn)(console.log)(",
+          "  removeFiles(",
+          "    [...list, ...of, ...files]",
+          "  )",
+          ")",
+          "```"
+        ],
+        "summary": "Remove multiple files, sans configuration",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "removeFiles",
+          "example": "```js\nimport { fork } from 'fluture'\nimport { removeFiles } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFiles(\n    [...list, ...of, ...files]\n  )\n)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/file-system/src/fs.js"
+      },
+      {
+        "start": 231,
+        "end": 246,
+        "lines": [
+          "Make a directory, but futuristically",
+          "@name mkdir",
+          "@example",
+          "```js",
+          "import { fork } from 'fluture'",
+          "import { mkdir } from 'file-system'",
+          "// [...]",
+          "fork(console.warn)(console.log)(",
+          "  mkdir(",
+          "    {},",
+          "    'my-dir'",
+          "  )",
+          ")",
+          "```"
+        ],
+        "summary": "Make a directory, but futuristically",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "mkdir",
+          "example": "```js\nimport { fork } from 'fluture'\nimport { mkdir } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  mkdir(\n    {},\n    'my-dir'\n  )\n)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/file-system/src/fs.js"
+      },
+      {
+        "start": 270,
+        "end": 285,
+        "lines": [
+          "Write a file to a nested folder and automatically create needed folders",
+          "@name writeFileWithAutoPath",
+          "@example",
+          "```js",
+          "import { fork } from 'fluture'",
+          "import { writeFileWithAutoPath } from 'file-system'",
+          "// [...]",
+          "fork(console.warn)(console.log)(",
+          "  writeFileWithAutoPath(",
+          "    \"folders/you/must/exist/file.biz\",",
+          "    \"my cool content\"",
+          "  )",
+          ")",
+          "```"
+        ],
+        "summary": "Write a file to a nested folder and automatically create needed folders",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "writeFileWithAutoPath",
+          "example": "```js\nimport { fork } from 'fluture'\nimport { writeFileWithAutoPath } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  writeFileWithAutoPath(\n    \"folders/you/must/exist/file.biz\",\n    \"my cool content\"\n  )\n)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/file-system/src/fs.js"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "file-system"
+  }
+]

@@ -17,8 +17,9 @@
     "ramda": "^0.29.0"
   },
   "devDependencies": {
-    "madge": "^6.0.0",
-    "eslint-config-monoculture": "*"
+    "eslint-config-monoculture": "*",
+    "jest-environment-jsdom": "^29.7.0",
+    "madge": "^6.0.0"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",

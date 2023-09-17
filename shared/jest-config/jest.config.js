@@ -6,14 +6,9 @@ module.exports = {
     '^.+\\.(t|j)sx?$': ['@swc/jest'],
   },
   transformIgnorePatterns: [],
-  setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
   globals: {
     'ts-jest': {
-      tsconfig: '../tsconfig/react-library.json',
+      tsconfig: '../monoculture-tsconfig/react-library.json',
     },
   },
-  watchPlugins: [
-    'jest-watch-typeahead/filename',
-    'jest-watch-typeahead/testname',
-  ],
 }
