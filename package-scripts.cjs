@@ -24,6 +24,7 @@ module.exports = {
             // use :read !./tools/spacework/list.cjs
             [
               'apps/docs',
+              'packages/configurate',
               'packages/file-system',
               'shared/eslint-config-monoculture',
               'tools/monodoc',

@@ -1,36 +1,56 @@
 import {
-  curry,
-  pipe,
-  prop,
-  toPairs,
-  map,
-  of,
+  __ as $,
   ap,
-  pipe,
   concat,
-  map,
-  length,
-  ifElse,
+  curry,
   equals,
+  ifElse,
   join,
+  length,
+  map,
+  pipe,
+  propOr,
+  toPairs,
 } from 'ramda'
 
-export const generateHelp = curry((name, yargsConfig) =>
+export const trace = curry((a, b) => {
+  // eslint-disable-next-line no-console
+  console.log(a, b)
+  return b
+})
+
+// shortFlag :: String -> String
+export const shortFlag = z => `-${z}`
+
+// longFlag :: String -> String
+export const longFlag = z => `--${z}`
+
+// invalidHelpConfig :: String -> ()
+export const invalidHelpConfig = key => {
+  throw new Error(`You must add a ${key} key to the helpConfig!`)
+}
+
+// failIfMissingFlag :: String -> String -> String
+export const failIfMissingFlag = curry((env, k, raw) =>
+  env !== 'production' && raw === '???' ? invalidHelpConfig(k) : raw
+)
+
+export const generateHelp = curry((name, helpConfig, yargsConfig) =>
   pipe(
-    prop('alias'),
+    propOr({}, 'alias'),
     toPairs,
     map(([k, v]) =>
       pipe(
-        of,
+        x => [x],
         ap([
           pipe(
-            of,
+            x => [x],
             concat(v),
             map(ifElse(pipe(length, equals(1)), shortFlag, longFlag)),
             join(' / ')
           ),
           pipe(
-            propOr('???', $, HELP_CONFIG),
+            propOr('???', $, helpConfig),
             failIfMissingFlag(process.env.NODE_ENV, k)
           ),
         ]),
@@ -40,20 +60,4 @@ export const generateHelp = curry((name, yargsConfig) =>
     join('\n\n'),
     z => `${name}\n\n${z}`
   )(yargsConfig)
-)
-
-// shortFlag :: String -> String
-const shortFlag = z => `-${z}`
-
-// longFlag :: String -> String
-const longFlag = z => `--${z}`
-
-// invalidHelpConfig :: String -> ()
-export const invalidHelpConfig = key => {
-  throw new Error(`You must add a ${key} key to HELP_CONFIG!`)
-}
-
-// failIfMissingFlag :: String -> String -> String
-export const failIfMissingFlag = curry((env, k, raw) =>
-  env !== 'production' && raw === '???' ? invalidHelpConfig(k) : raw
 )

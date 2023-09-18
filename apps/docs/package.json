@@ -39,7 +39,6 @@
     "deploy": "dotenv -- nps -c ./package-scripts.cjs deploy",
     "dev": "dotenv -- nps -c ./package-scripts.cjs dev",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
-    "start": "dotenv -- nps -c ./package-scripts.cjs start",
-    "test": "echo 'no tests...'"
+    "start": "dotenv -- nps -c ./package-scripts.cjs start"
   }
 }

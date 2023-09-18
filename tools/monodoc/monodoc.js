@@ -11,37 +11,37 @@ import {
   includes as includes3,
   __,
   always as K3,
-  chain as chain3,
+  chain as chain2,
   curry as curry6,
   defaultTo as defaultTo2,
   filter as filter3,
   flatten as flatten2,
   groupBy as groupBy2,
   head as head4,
-  identity as I4,
+  identity as I3,
   join as join3,
   length as length5,
   lt,
   map as map7,
   path,
   pathOr as pathOr3,
-  pipe as pipe8,
+  pipe as pipe7,
   propOr as propOr4,
   replace as replace4,
-  slice as slice5,
+  slice as slice4,
   sortBy as sortBy2,
   tap,
   toLower as toLower2,
   toPairs as toPairs3,
   toUpper
 } from "ramda";
-import { and as futureAnd, fork, parallel } from "fluture";
+import { resolve, and as futureAnd, fork, parallel } from "fluture";
 import {
   pathRelativeTo as pathRelativeTo2,
-  readJSONFile as readJSONFile2,
+  readJSONFile,
   mkdirp,
   readDirWithConfig,
-  writeFile as writeFile2,
+  writeFile,
   writeFileWithAutoPath
 } from "file-system";
 
@@ -436,10 +436,51 @@ ${liveExample(example)}` : ""
   )
 );
 
+// package.json
+var package_default = {
+  name: "monodoc",
+  version: "0.0.1",
+  description: "Magical documentation for monorepos",
+  main: "monodoc.js",
+  type: "module",
+  repository: "brekk/monoculture",
+  author: "brekk",
+  license: "ISC",
+  private: true,
+  bin: {
+    monodoc: "./monodoc-cli.js"
+  },
+  dependencies: {
+    configurate: "*",
+    "file-system": "*",
+    fluture: "^14.0.0",
+    ramda: "^0.29.0"
+  },
+  devDependencies: {
+    dotenv: "^16.3.1",
+    "eslint-config-monoculture": "*",
+    "jest-environment-jsdom": "^29.7.0",
+    madge: "^6.0.0"
+  },
+  scripts: {
+    nps: "dotenv -- nps -c ./package-scripts.cjs",
+    build: "dotenv -- nps -c ./package-scripts.cjs build",
+    "build:cli": "dotenv -- nps -c ./package-scripts.cjs build.cli",
+    "build:module": "dotenv -- nps -c ./package-scripts.cjs build.module",
+    "build:watch": "dotenv -- nps -c ./package-scripts.cjs build.watch",
+    dev: "dotenv -- nps -c ./package-scripts.cjs dev",
+    lint: "dotenv -- nps -c ./package-scripts.cjs lint",
+    meta: "dotenv -- nps -c ./package-scripts.cjs meta",
+    "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
+    test: "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
+  }
+};
+
 // src/config.js
-import { slice as slice4, curry as curry5, pipe as pipe7, chain as chain2, identity as I3 } from "ramda";
+import { curry as curry5 } from "ramda";
+import { generateHelp } from "configurate";
 import yargsParser from "yargs-parser";
-import { readJSONFile, writeFile } from "file-system";
 var parser = curry5((opts, args) => yargsParser(args, opts));
 var YARGS_CONFIG = {
   alias: {
@@ -453,6 +494,14 @@ var YARGS_CONFIG = {
     "strip-aliased": true
   }
 };
+var HELP_CONFIG = {
+  help: "This text!",
+  input: "A file to read!",
+  output: "The file to output!",
+  search: "The glob to use for searching (default: '**//*.{js,jsx,ts,tsx}')",
+  artifact: "Would you like to create an artifact file? (Useful for downstream transformation)",
+  ignore: "Files to ignore when searching, can be specified multiple times"
+};
 var CONFIG_DEFAULTS = {
   ignore: [
     "**/node_modules/**",
@@ -463,6 +512,7 @@ var CONFIG_DEFAULTS = {
   ],
   search: "**/*.{js,jsx,ts,tsx}"
 };
+var HELP = generateHelp(package_default.name, HELP_CONFIG, YARGS_CONFIG);
 
 // src/cli.js
 var parsePackageName = (y) => {
@@ -471,13 +521,13 @@ var parsePackageName = (y) => {
   const end = y.indexOf("/", start);
   return y.slice(start, end);
 };
-var capitalToKebab = (s) => pipe8(
+var capitalToKebab = (s) => pipe7(
   replace4(/\//g, "-"),
   replace4(/--/g, "-")
 )(s.replace(/[A-Z]/g, (match3) => `-` + match3));
 var readPackageJsonWorkspaces = curry6(
   (root, x) => map7(
-    pipe8(
+    pipe7(
       // grab the workspaces field
       propOr4([], "workspaces"),
       // we want directories only
@@ -489,11 +539,11 @@ var readPackageJsonWorkspaces = curry6(
 );
 var iterateOverWorkspacesAndReadFiles = curry6(
   (searchGlob, ignore, root, x) => map7(
-    pipe8(
+    pipe7(
       // look for specific file types
       map7((workspace) => workspace + searchGlob),
       // exclude some search spaces
-      chain3(
+      chain2(
         readDirWithConfig({
           ignore,
           cwd: root
@@ -502,7 +552,7 @@ var iterateOverWorkspacesAndReadFiles = curry6(
     )
   )(x)
 );
-var pullPageTitleFromAnyComment = pipe8(
+var pullPageTitleFromAnyComment = pipe7(
   filter3(pathOr3(false, ["structure", "page"])),
   map7(path(["structure", "page"])),
   head4,
@@ -510,7 +560,7 @@ var pullPageTitleFromAnyComment = pipe8(
   replace4(/\s/g, "-"),
   defaultTo2(false)
 );
-var capitalize = (raw) => `${toUpper(raw[0])}${slice5(1, Infinity)(raw)}`;
+var capitalize = (raw) => `${toUpper(raw[0])}${slice4(1, Infinity)(raw)}`;
 var cleanFilename = ({ workspace, fileGroup, filename, comments }) => {
   const title = pullPageTitleFromAnyComment(comments);
   const sliced = title || slug(filename);
@@ -526,29 +576,29 @@ var combineFiles = curry6(
   }
 );
 var prepareMetaFiles = curry6(
-  (outputDir, workspace, commentedFiles) => pipe8(
+  (outputDir, workspace, commentedFiles) => pipe7(
     map7((raw) => [
-      pipe8(cleanFilename, (x) => basename(x, ".mdx"))(raw),
-      pipe8(
+      pipe7(cleanFilename, (x) => basename(x, ".mdx"))(raw),
+      pipe7(
         propOr4([], "comments"),
         filter3(pathOr3(false, ["structure", "name"])),
         head4,
         applySpec3({
-          order: pipe8(
+          order: pipe7(
             pathOr3("0", ["structure", "order"]),
             (x) => parseInt(x, 10)
           ),
           group: pathOr3("", ["structure", "group"]),
-          name: pipe8(pathOr3("???", ["structure", "name"]))
+          name: pipe7(pathOr3("???", ["structure", "name"]))
         })
       )(raw)
     ]),
-    groupBy2(pipe8(last4, propOr4("", "group"))),
+    groupBy2(pipe7(last4, propOr4("", "group"))),
     map7(
-      pipe8(
+      pipe7(
         sortBy2(pathOr3(0, ["order"])),
         map7(([title, { name }]) => [
-          pipe8(capitalToKebab, stripLeadingHyphen)(title),
+          pipe7(capitalToKebab, stripLeadingHyphen)(title),
           name
         ]),
         fromPairs2
@@ -563,6 +613,7 @@ var prepareMetaFiles = curry6(
     )
   )(commentedFiles)
 );
+var processHelpOrRun = (x) => x.help || !x.input || !x.output ? resolve(HELP) : runner(x);
 var runner = ({
   input,
   output,
@@ -571,7 +622,6 @@ var runner = ({
   artifact = false
 }) => {
   const current = cwd();
-  console.log({ input, output, searchGlob, ignore, artifact, current });
   const rel = pathRelativeTo2(current);
   const [pkgJson, outputDir, relativeArtifact] = map7(rel, [
     input,
@@ -581,32 +631,32 @@ var runner = ({
   const root = pkgJson.slice(0, pkgJson.lastIndexOf("/"));
   const toLocal = input.slice(0, input.lastIndexOf("/"));
   const relativize = (r) => toLocal + "/" + r;
-  return pipe8(
+  return pipe7(
     // read the package.json file
-    readJSONFile2,
+    readJSONFile,
     // reach into the Future
     readPackageJsonWorkspaces(root),
     // take the Future of an array of Futures, make it a single Future
-    chain3(parallel(10)),
+    chain2(parallel(10)),
     // take [[apps/workspace, apps/workspace2], [scripts/workspace]]
     // and make them [apps/workspace, apps/workspace2, scripts/workspace]
     map7(flatten2),
     // let's add globs
     iterateOverWorkspacesAndReadFiles(searchGlob, ignore, root),
     // Future<error, Future<error, string>[]>
-    chain3(parallel(10)),
+    chain2(parallel(10)),
     // Future<error, string[]>
     // take [[files, in], [workspaces]] and make them [files, in, workspaces]
     map7(flatten2),
     map7(map7(relativize)),
     // check each file for comments
     // Future<error, Future<error, CommentBlock>[]>
-    map7(chain3(parseFile(root))),
+    map7(chain2(parseFile(root))),
     // Future<error, CommentBlock[]>
-    chain3(parallel(10)),
+    chain2(parallel(10)),
     // Future<error, CommentBlock[]>
     // exclude any files which don't have any comments
-    map7(filter3(pipe8(propOr4([], "comments"), length5, lt(0)))),
+    map7(filter3(pipe7(propOr4([], "comments"), length5, lt(0)))),
     map7(
       map7((raw) => {
         const filename = stripRelative(raw.filename);
@@ -626,11 +676,11 @@ var runner = ({
           ({ structure }) => structure.asFile
         );
         const someFile = anyFile.length > 0 ? anyFile[0] : false;
-        const asFilePath = pipe8(
+        const asFilePath = pipe7(
           defaultTo2({}),
           pathOr3("???", ["structure", "asFile"])
         )(someFile);
-        const withOrder = pipe8(
+        const withOrder = pipe7(
           pathOr3("0", ["structure", "order"]),
           (x) => parseInt(x, 10)
         )(someFile);
@@ -654,24 +704,24 @@ var runner = ({
     // if you gave an artifact
     artifact ? (
       // write to a file
-      chain3(
-        (content) => pipe8(
+      chain2(
+        (content) => pipe7(
           // (as JSON)
           j2,
-          writeFile2(relativeArtifact),
+          writeFile(relativeArtifact),
           // but persist our original content for downstream consumption
           map7(K3(content))
         )(content)
       )
     ) : (
       // otherwise do nothing (identity)
-      I4
+      I3
     ),
     // x => x
     // underlying structure here is { [filename]: CommentBlock[] }
     // so we need to apply it to sub-paths
-    chain3(
-      pipe8(
+    chain2(
+      pipe7(
         groupBy2(propOr4("unknown", "workspace")),
         toPairs3,
         map7(([workspace, commentedFiles]) => {
@@ -683,7 +733,7 @@ var runner = ({
                 // this part is the structure of the file we wanna write
                 cleanFilename(file)
               ),
-              pipe8(map7(commentToMarkdown), join3("\n"))(file.comments)
+              pipe7(map7(commentToMarkdown), join3("\n"))(file.comments)
             )
           )(commentedFiles);
           const metaFiles = prepareMetaFiles(
@@ -701,5 +751,12 @@ var runner = ({
     map7(K3(`Wrote to ${outputDir}/monodoc-generated.json`))
   )(pkgJson);
 };
-var monodoc = pipe8(slice5(2, Infinity), parser(YARGS_CONFIG), runner);
-fork(console.error)(console.log)(monodoc(process.argv));
+var monodoc = pipe7(
+  slice4(2, Infinity),
+  parser(YARGS_CONFIG),
+  processHelpOrRun
+);
+
+// src/executable.js
+import { fork as fork2 } from "fluture";
+fork2(console.error)(console.log)(monodoc(process.argv));

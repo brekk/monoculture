@@ -26,7 +26,7 @@ const buildModule = ([infile, outfile]) =>
     `--packages=external`,
   ].join(' ')
 
-const INPUT = `src/cli.js`
+const INPUT = `src/executable.js`
 const OUTPUT_CLI = `${pkg.name}-cli.js`
 const OUTPUT = `${pkg.name}.js`
 const watchMode = sd(

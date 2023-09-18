@@ -2,14 +2,23 @@
   "name": "configurate",
   "version": "0.0.0",
   "description": "Tooling to configure all-the-things",
-  "main": "index.js",
+  "main": "configurate.js",
   "type": "module",
   "repository": "monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
   "dependencies": {
+    "ramda": "^0.29.0"
   },
   "devDependencies": {
+    "eslint-config-monoculture": "*"
+  },
+  "scripts": {
+    "nps": "dotenv -- nps -c ./package-scripts.cjs",
+    "build": "dotenv -- nps -c ./package-scripts.cjs build",
+    "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
+    "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }
 }

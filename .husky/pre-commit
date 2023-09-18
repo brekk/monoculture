@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
-yarn lint-staged
-yarn test:all build
 yarn workspace docs run autodoc
+yarn lint-staged

@@ -18,12 +18,14 @@
     "@types/testing-library__jest-dom": "5.14.5",
     "dotenv-cli": "6.0.0",
     "esbuild": "^0.19.3",
+    "eslint-config-monoculture": "*",
     "execa": "6.1.0",
     "husky": "8.0.0",
     "jest": "^29.4.2",
     "lint-staged": "^14.0.1",
     "plop": "^4.0.0",
     "prettier": "latest",
+    "eslint": "latest",
     "turbo": "^1.10.14"
   },
   "engines": {

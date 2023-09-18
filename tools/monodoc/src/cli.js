@@ -34,7 +34,7 @@ import {
   toPairs,
   toUpper,
 } from 'ramda'
-import { and as futureAnd, fork, parallel } from 'fluture'
+import { resolve, and as futureAnd, fork, parallel } from 'fluture'
 import {
   pathRelativeTo,
   readJSONFile,
@@ -49,7 +49,7 @@ import { parseFile } from './parse'
 import { stripRelative, j2 } from './text'
 import { scopedBinaryEffect, trace } from './trace'
 import { commentToMarkdown } from './renderer'
-import { YARGS_CONFIG, parser, CONFIG_DEFAULTS } from './config'
+import { HELP, YARGS_CONFIG, parser, CONFIG_DEFAULTS } from './config'
 import { slug, stripLeadingHyphen } from './comment'
 
 const parsePackageName = y => {
@@ -176,7 +176,6 @@ const runner = ({
   artifact = false,
 }) => {
   const current = cwd()
-  console.log({ input, output, searchGlob, ignore, artifact, current })
   const rel = pathRelativeTo(current)
   const [pkgJson, outputDir, relativeArtifact] = map(rel, [
     input,

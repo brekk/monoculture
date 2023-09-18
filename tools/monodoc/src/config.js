@@ -1,7 +1,7 @@
-import { slice, curry, pipe, chain, identity as I } from 'ramda'
+import pkg from '../package.json'
+import { curry } from 'ramda'
+import { generateHelp } from 'configurate'
 import yargsParser from 'yargs-parser'
-
-import { readJSONFile, writeFile } from 'file-system'
 
 // parser :: YargsConfig -> List String -> Object
 export const parser = curry((opts, args) => yargsParser(args, opts))
@@ -19,6 +19,16 @@ export const YARGS_CONFIG = {
   },
 }
 
+export const HELP_CONFIG = {
+  help: 'This text!',
+  input: 'A file to read!',
+  output: 'The file to output!',
+  search: "The glob to use for searching (default: '**//*.{js,jsx,ts,tsx}')",
+  artifact:
+    'Would you like to create an artifact file? (Useful for downstream transformation)',
+  ignore: 'Files to ignore when searching, can be specified multiple times',
+}
+
 export const CONFIG_DEFAULTS = {
   ignore: [
     '**/node_modules/**',
@@ -29,3 +39,5 @@ export const CONFIG_DEFAULTS = {
   ],
   search: '**/*.{js,jsx,ts,tsx}',
 }
+
+export const HELP = generateHelp(pkg.name, HELP_CONFIG, YARGS_CONFIG)
