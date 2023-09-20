@@ -2,7 +2,7 @@
   "name": "monoplug",
   "version": "0.0.0",
   "description": "plugin architecture for monoculture tools",
-  "main": "index.js",
+  "main": "monoplug.js",
   "type": "module",
   "repository": "monoculture",
   "author": "brekk",
@@ -13,6 +13,14 @@
   },
   "devDependencies": {
     "eslint-config-monoculture": "*",
-    "jest-config": "*"
+    "jest-config": "*",
+    "nps": "^5.10.0"
+  },
+  "scripts": {
+    "nps": "dotenv -- nps -c ./package-scripts.cjs",
+    "build": "dotenv -- nps -c ./package-scripts.cjs build",
+    "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
+    "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }
 }

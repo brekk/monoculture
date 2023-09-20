@@ -21,12 +21,17 @@ module.exports = {
             map(syncScripts),
             sequence
           )(
-            // use :read !./tools/spacework/list.cjs
+            // use :read !./tools/spacework/list-workspaces.cjs
             [
               'apps/docs',
               'packages/configurate',
               'packages/file-system',
+              'packages/monocle',
+              'packages/monoplug',
+              'packages/plugin-word-analysis',
               'shared/eslint-config-monoculture',
+              'shared/jest-config',
+              'shared/monoculture-tsconfig',
               'tools/monodoc',
               'tools/spacework',
             ]

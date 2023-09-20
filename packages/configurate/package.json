@@ -12,7 +12,8 @@
     "ramda": "^0.29.0"
   },
   "devDependencies": {
-    "eslint-config-monoculture": "*"
+    "eslint-config-monoculture": "*",
+    "eslint-plugin-prettier": "^5.0.0"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",

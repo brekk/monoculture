@@ -1,7 +1,16 @@
 import path from 'node:path'
 
 import { fork, parallel } from 'fluture'
-import { chain, pipe, prop, identity as I, split, addIndex, map } from 'ramda'
+import {
+  chain,
+  pipe,
+  prop,
+  objOf,
+  identity as I,
+  split,
+  addIndex,
+  map,
+} from 'ramda'
 
 import { readDir, readFile } from 'file-system'
 
@@ -174,30 +183,4 @@ test('taskProcessor - with store config', () => {
     ['omega', 3589],
   ])
   expect(out2.state).toEqual(3589)
-})
-
-test('taskManager + file-system', done => {
-  const files = pipe(
-    readDir,
-    map(
-      pipe(
-        map(readFile),
-        map(
-          map(
-            pipe(
-              split('\n'),
-              addIndex(map)((y, i) => [i, y])
-            )
-          )
-        )
-      )
-    ),
-    chain(parallel(10))
-  )(path.join(__dirname, '/*'))
-  fork(console.warn)(
-    pipe(z => {
-      console.log('oh yeah', z)
-      done()
-    })
-  )(files)
 })

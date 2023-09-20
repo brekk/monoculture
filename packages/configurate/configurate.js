@@ -9,9 +9,7 @@ import {
   join,
   length,
   map,
-  of,
   pipe,
-  prop,
   propOr,
   toPairs
 } from "ramda";
@@ -61,5 +59,6 @@ export {
   generateHelp,
   invalidHelpConfig,
   longFlag,
-  shortFlag
+  shortFlag,
+  trace
 };

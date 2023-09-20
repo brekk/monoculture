@@ -1,18 +1,19 @@
 {
-  "name": "plugin-word-analysis",
-  "version": "0.0.1",
-  "description": "Apply stemming and word case analysis to find patterns in words / word-stems.",
-  "main": "plugin-word-analysis.js",
+  "name": "monocle",
+  "version": "0.0.0",
+  "description": "Apply plugins to a future-based file-system",
+  "main": "monocle.js",
   "type": "module",
-  "repository": "brekk/monoculture",
+  "repository": "monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "monoplug": "*"
+    "fluture": "^14.0.0",
+    "monoplug": "*",
+    "ramda": "^0.29.0"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.1.3",
     "eslint-config-monoculture": "*",
     "jest-config": "*"
   },
