@@ -1,4 +1,7 @@
 import {
+  of,
+  ap,
+  without,
   all,
   applySpec,
   curry,
@@ -11,11 +14,17 @@ import {
   values,
 } from 'ramda'
 
+export const trace = curry((a, b) => {
+  // eslint-disable-next-line no-console
+  console.log(a, b)
+  return b
+})
+
 export const kindIs = curry((expected, x) => equals(expected, typeof x))
 
 export const coerce = x => !!x
 
-export const testPlugin = applySpec({
+export const PLUGIN_SHAPE = {
   // unique identifier for the plugin
   name: pipe(propOr(false, 'name'), coerce),
   // the "fn" property actually produces a value given
@@ -26,6 +35,10 @@ export const testPlugin = applySpec({
     propOr(() => {}, 'selector'),
     kindIs('function')
   ),
+  processLine: x => {
+    const { processLine: p = true } = x
+    return kindIs('boolean', p)
+  },
   // store
   store: pipe(
     propOr(() => {}, 'store'),
@@ -33,7 +46,18 @@ export const testPlugin = applySpec({
   ),
   // does this plugin depend on anything specific to have happened before this?
   dependencies: pipe(propOr([], 'dependencies'), Array.isArray),
-})
+}
+export const EXPECTED_KEYS = keys(PLUGIN_SHAPE)
+export const noExtraKeys = x =>
+  pipe(keys, without(EXPECTED_KEYS), y =>
+    y.length ? `Found additional or misspelled keys: [${y.join(', ')}]` : ``
+  )(x)
+
+export const testPlugin = pipe(
+  of,
+  ap([applySpec(PLUGIN_SHAPE), noExtraKeys]),
+  ([x, error]) => (error ? { ...x, error } : x)
+)
 
 export const checkPlugin = pipe(testPlugin, values, all(equals(true)))
 

@@ -2,6 +2,8 @@ import path from 'node:path'
 
 import { fork, parallel } from 'fluture'
 import {
+  reduce,
+  trim,
   chain,
   pipe,
   prop,
@@ -14,8 +16,29 @@ import {
 
 import { readDir, readFile } from 'file-system'
 
-import { validatePlugins, testPlugin, checkPlugin } from './validate'
-import { taskProcessor } from './runner'
+import {
+  EXPECTED_KEYS,
+  noExtraKeys,
+  validatePlugins,
+  testPlugin,
+  checkPlugin,
+} from './validate'
+import { taskProcessor, fileProcessor } from './runner'
+
+test('EXPECTED_KEYS', () =>
+  expect(EXPECTED_KEYS).toEqual([
+    'name',
+    'fn',
+    'selector',
+    'processLine',
+    'store',
+    'dependencies',
+  ]))
+
+test('noExtraKeys', () => {
+  const outcome = noExtraKeys({ a: 'a', b: 'b', c: 'c' })
+  expect(outcome).toEqual(`Found additional or misspelled keys: [a, b, c]`)
+})
 
 const makeCounter = () => {
   let count = 0
@@ -30,11 +53,14 @@ test('testPlugin - basics', () => {
   const myPlugin = {
     name: 'yo',
     fn: counter,
+    squibble: 'zorp',
   }
 
   const results = testPlugin(myPlugin)
   expect(results).toEqual({
     name: true,
+    processLine: true,
+    error: 'Found additional or misspelled keys: [squibble]',
     fn: true,
     store: true,
     dependencies: true,
@@ -51,18 +77,49 @@ test('testPlugin - invalid', () => {
     // nothing set
     {},
     // defaults are wrong kind
-    { dependencies: 1, selector: [], name: 'yo', fn: () => {} },
+    { dependencies: 1, selector: [], name: 'again', fn: () => {} },
+    // misspelled keys
+    {
+      depepepependencies: [],
+      name: 'incorrectkeys',
+      fn: () => {},
+      processLine: 1000,
+    },
   ])
   expect(results).toEqual([
     {
-      name: true,
-      fn: false,
       dependencies: true,
+      fn: false,
+      name: true,
+      processLine: true,
       selector: true,
       store: true,
     },
-    { name: false, fn: false, dependencies: true, selector: true, store: true },
-    { name: true, selector: false, dependencies: false, fn: true, store: true },
+    {
+      dependencies: true,
+      fn: false,
+      name: false,
+      processLine: true,
+      selector: true,
+      store: true,
+    },
+    {
+      dependencies: false,
+      fn: true,
+      name: true,
+      processLine: true,
+      selector: false,
+      store: true,
+    },
+    {
+      dependencies: true,
+      error: 'Found additional or misspelled keys: [depepepependencies]',
+      fn: true,
+      name: true,
+      processLine: false,
+      selector: true,
+      store: true,
+    },
   ])
 })
 
@@ -183,4 +240,88 @@ test('taskProcessor - with store config', () => {
     ['omega', 3589],
   ])
   expect(out2.state).toEqual(3589)
+})
+
+test('fileProcessor', () => {
+  const ctx = {}
+  const plugins = [
+    {
+      name: 'wordcount',
+      dependencies: [],
+      fn: (c, f) =>
+        pipe(
+          map(([, lineContent]) => lineContent.split(' ').map(trim).length),
+          reduce((a, b) => a + b, 0)
+        )(f.body),
+    },
+    {
+      name: 't-words',
+      dependencies: [],
+      processLine: true,
+      fn: (c, line) => line.split(' ').filter(z => z.startsWith('t')).length,
+    },
+  ]
+  const out2 = fileProcessor(
+    ctx,
+    [...plugins],
+    [
+      {
+        file: '/a/b/c/cool.txt',
+        body: `oh yeah
+this is pretty
+terribly
+great`
+          .split('\n')
+          .map((x, i) => [i, x]),
+      },
+      {
+        file: '/a/b/c/really-cool.txt',
+        body: `hey there,
+this is a cool and tricky tool which can process files and answer introspection questions
+
+
+newlines are also cool
+`
+          .split('\n')
+          .map((x, i) => [i, x]),
+      },
+    ]
+  )
+  expect(out2).toEqual({
+    events: ['t-words', 'wordcount'],
+    state: {
+      't-words': [
+        [
+          '/a/b/c/cool.txt',
+          {
+            file: '/a/b/c/cool.txt',
+            body: [
+              [0, 0],
+              [1, 1],
+              [2, 1],
+              [3, 0],
+            ],
+          },
+        ],
+        [
+          '/a/b/c/really-cool.txt',
+          {
+            file: '/a/b/c/really-cool.txt',
+            body: [
+              [0, 1],
+              [1, 3],
+              [2, 0],
+              [3, 0],
+              [4, 0],
+              [5, 0],
+            ],
+          },
+        ],
+      ],
+      wordcount: [
+        ['/a/b/c/cool.txt', 7],
+        ['/a/b/c/really-cool.txt', 24],
+      ],
+    },
+  })
 })

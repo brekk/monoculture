@@ -13,9 +13,14 @@ import {
 import { parallel } from 'fluture'
 
 import { readDir, readFile } from 'file-system'
-import { taskProcessor } from 'monoplug'
+import { fileProcessor } from 'monoplug'
 
 import { hash } from './hash'
+const trace = curry((a, b) => {
+  // eslint-disable-next-line no-console
+  console.log(a, b)
+  return b
+})
 
 export const readMonoFile = curry((basePath, file) => {
   return pipe(
@@ -24,10 +29,10 @@ export const readMonoFile = curry((basePath, file) => {
       pipe(
         split('\n'),
         addIndex(map)((y, i) => [i, y]),
-        lines => ({
+        body => ({
           file: path.relative(basePath, file),
           hash: hash(buf),
-          lines,
+          body,
         })
       )(buf)
     )
@@ -36,11 +41,14 @@ export const readMonoFile = curry((basePath, file) => {
 
 export const reader = curry(({ basePath }, dirglob) =>
   pipe(
+    trace('>>@>@>@'),
     readDir,
+    map(trace('dir files')),
     chain(files =>
       pipe(
         map(readMonoFile(basePath)),
         parallel(10),
+        map(trace('files')),
         map(content => ({
           content,
           files: pipe(
@@ -53,6 +61,9 @@ export const reader = curry(({ basePath }, dirglob) =>
   )(dirglob)
 )
 
-export const monoprocessor = curry(({ basePath }, plugins, dirGlob) =>
-  pipe(reader({ basePath }), map(taskProcessor($, plugins)))(dirGlob)
+export const monoprocessor = curry((config, plugins, dirGlob) =>
+  pipe(
+    reader({ basePath: config.basePath }),
+    map(xxx => fileProcessor(config, plugins, xxx.content))
+  )(dirGlob)
 )

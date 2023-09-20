@@ -2,6 +2,9 @@
 
 // src/validate.js
 import {
+  of,
+  ap,
+  without,
   all,
   applySpec,
   curry,
@@ -13,9 +16,13 @@ import {
   reject,
   values
 } from "ramda";
+var trace = curry((a, b) => {
+  console.log(a, b);
+  return b;
+});
 var kindIs = curry((expected, x) => equals(expected, typeof x));
 var coerce = (x) => !!x;
-var testPlugin = applySpec({
+var PLUGIN_SHAPE = {
   // unique identifier for the plugin
   name: pipe(propOr(false, "name"), coerce),
   // the "fn" property actually produces a value given
@@ -27,6 +34,10 @@ var testPlugin = applySpec({
     }, "selector"),
     kindIs("function")
   ),
+  processLine: (x) => {
+    const { processLine: p = true } = x;
+    return kindIs("boolean", p);
+  },
   // store
   store: pipe(
     propOr(() => {
@@ -35,7 +46,18 @@ var testPlugin = applySpec({
   ),
   // does this plugin depend on anything specific to have happened before this?
   dependencies: pipe(propOr([], "dependencies"), Array.isArray)
-});
+};
+var EXPECTED_KEYS = keys(PLUGIN_SHAPE);
+var noExtraKeys = (x) => pipe(
+  keys,
+  without(EXPECTED_KEYS),
+  (y) => y.length ? `Found additional or misspelled keys: [${y.join(", ")}]` : ``
+)(x);
+var testPlugin = pipe(
+  of,
+  ap([applySpec(PLUGIN_SHAPE), noExtraKeys]),
+  ([x, error]) => error ? { ...x, error } : x
+);
 var checkPlugin = pipe(testPlugin, values, all(equals(true)));
 var validatePlugins = reduce((agg, plugin) => {
   const check = checkPlugin(plugin);
@@ -62,7 +84,16 @@ var insertAfter = curry2((idx, x, arr) => [
 ]);
 
 // src/runner.js
-import { curry as curry4, pipe as pipe3, reduce as reduce3, identity as I } from "ramda";
+import {
+  curry as curry4,
+  pipe as pipe3,
+  reduce as reduce3,
+  identity as I,
+  mergeRight,
+  prop,
+  map as map2,
+  fromPairs
+} from "ramda";
 
 // src/sort.js
 import {
@@ -75,11 +106,11 @@ import {
   propEq,
   last
 } from "ramda";
-var without = curry3((name, x) => reject2(propEq("name", name), x));
+var without2 = curry3((name, x) => reject2(propEq("name", name), x));
 var topologicalDependencySort = (raw) => reduce2(
   (agg, plugin) => {
     const { name, dependencies = [] } = plugin;
-    const cleaned = without(name, agg);
+    const cleaned = without2(name, agg);
     return pipe2(
       map((d) => findIndex(propEq("name", d), cleaned)),
       (z) => z.sort(),
@@ -109,14 +140,53 @@ var taskProcessor = curry4(
     )
   )(plugins)
 );
+var fileProcessor = curry4(
+  (context, plugins, files) => pipe3(
+    topologicalDependencySort,
+    reduce3(
+      ({ state, events }, { name, fn, selector = I, store: __focus = false, processLine = false }) => {
+        const store = __focus || I;
+        const outcome = reduce3((agg, __file) => {
+          const selected = selector(state);
+          const { hash } = __file;
+          const step = (f) => processLine ? {
+            ...f,
+            body: map2(([line, content]) => [line, fn(selected, content)])(
+              f.body
+            )
+          } : fn(selected, f);
+          return [...agg, [hash, step(__file)]];
+        }, [])(files);
+        const newState = { ...state, [name]: outcome };
+        return {
+          events: [...events, name],
+          state: __focus ? store(newState) : newState
+        };
+      },
+      { state: context, events: [] }
+    ),
+    mergeRight({
+      files,
+      hashMap: pipe3(
+        map2((x) => [prop("hash", x), prop("file", x)]),
+        fromPairs
+      )(files)
+    })
+  )(plugins)
+);
 export {
+  EXPECTED_KEYS,
+  PLUGIN_SHAPE,
   checkPlugin,
   coerce,
+  fileProcessor,
   insertAfter,
   kindIs,
+  noExtraKeys,
   taskProcessor,
   testPlugin,
   topologicalDependencySort,
+  trace,
   validatePlugins,
-  without
+  without2 as without
 };
