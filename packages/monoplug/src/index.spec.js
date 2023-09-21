@@ -249,20 +249,21 @@ test('fileProcessor', () => {
     {
       name: 'wordcount',
       dependencies: [],
-      fn: binary((c, f) =>
+      fn: (c, f) =>
         pipe(
           map(([, lineContent]) => lineContent.split(' ').map(trim).length),
           reduce((a, b) => a + b, 0)
-        )(f.body)
-      ),
+        )(f.body),
     },
     {
       name: 't-words',
       dependencies: [],
       processLine: true,
-      fn: binary(
-        (c, line) => line.split(' ').filter(z => z.startsWith('t')).length
-      ),
+      fn: (c, line) => {
+        const out = line.split(' ').filter(z => z.startsWith('t')).length
+        console.log('....', c, line, out)
+        return out
+      },
     },
   ]
   const out2 = fileProcessor(
@@ -271,6 +272,7 @@ test('fileProcessor', () => {
     [
       {
         file: '/a/b/c/cool.txt',
+        hash: '/a/b/c/cool.txt',
         body: `oh yeah
 this is pretty
 terribly
@@ -280,6 +282,7 @@ great`
       },
       {
         file: '/a/b/c/really-cool.txt',
+        hash: '/a/b/c/really-cool.txt',
         body: `hey there,
 this is a cool and tricky tool which can process files and answer introspection questions
 
@@ -293,12 +296,17 @@ newlines are also cool
   )
   expect(out2).toEqual({
     events: ['t-words', 'wordcount'],
+    hashMap: {
+      '/a/b/c/cool.txt': '/a/b/c/cool.txt',
+      '/a/b/c/really-cool.txt': '/a/b/c/really-cool.txt',
+    },
     state: {
       't-words': [
         [
           '/a/b/c/cool.txt',
           {
             file: '/a/b/c/cool.txt',
+            hash: '/a/b/c/cool.txt',
             body: [
               [0, 0],
               [1, 1],
@@ -311,6 +319,7 @@ newlines are also cool
           '/a/b/c/really-cool.txt',
           {
             file: '/a/b/c/really-cool.txt',
+            hash: '/a/b/c/really-cool.txt',
             body: [
               [0, 1],
               [1, 3],

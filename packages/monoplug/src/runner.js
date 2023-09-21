@@ -31,6 +31,38 @@ export const taskProcessor = curry((context, plugins) =>
   )(plugins)
 )
 
+const stepFunction = curry((selected, { processLine, fn }, file) =>
+  processLine
+    ? {
+        ...file,
+        body: map(([k, v]) => [k, fn(selected, v)])(file.body),
+      }
+    : fn(selected, file)
+)
+
+const processRelativeToFile = curry((state, plugin, files) =>
+  reduce(
+    (agg, __file) => {
+      const {
+        name,
+        fn,
+        selector = I,
+        store: __focus = false,
+        processLine = false,
+      } = plugin
+      const selected = selector(state)
+      const { hash } = __file
+      console.log('processLine', processLine, fn)
+
+      // I figure we wanna keep things as arrays for lookups
+      // but might entirely change this with respect to futures over time
+      return [...agg, [hash, stepFunction(selected, plugin, __file)]]
+    },
+    [],
+    files
+  )
+)
+
 // files: List { file :: string, body :: List [Number, String] }
 export const fileProcessor = curry((context, plugins, files) =>
   pipe(
@@ -40,23 +72,11 @@ export const fileProcessor = curry((context, plugins, files) =>
         // context
         { state, events },
         // plugin
-        { name, fn, selector = I, store: __focus = false, processLine = false }
+        plugin
       ) => {
+        const { store: __focus = false, name } = plugin
         const store = __focus || I
-        const outcome = reduce((agg, __file) => {
-          const selected = selector(state)
-          const { hash } = __file
-          const step = f =>
-            processLine
-              ? {
-                  ...f,
-                  body: pipe(raw => fn(selected, raw))(f.body),
-                }
-              : fn(selected, f)
-          // I figure we wanna keep things as arrays for lookups
-          // but might entirely change this with respect to futures over time
-          return [...agg, [hash, step(__file)]]
-        }, [])(files)
+        const outcome = processRelativeToFile(state, plugin, files)
         const newState = { ...state, [name]: outcome }
         return {
           events: [...events, name],
@@ -66,7 +86,6 @@ export const fileProcessor = curry((context, plugins, files) =>
       { state: context, events: [] }
     ),
     mergeRight({
-      files,
       hashMap: pipe(
         map(x => [prop('hash', x), prop('file', x)]),
         fromPairs

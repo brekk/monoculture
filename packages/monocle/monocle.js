@@ -3,7 +3,7 @@
 // src/index.js
 import { pipe as pipe2, map as map2, chain as chain2 } from "ramda";
 import { parallel as parallel2 } from "fluture";
-import { readDir as readDir2 } from "file-system";
+import { readDir } from "file-system";
 import { fileProcessor as fileProcessor2 } from "monoplug";
 
 // src/reader.js
@@ -19,7 +19,7 @@ import {
   __ as $
 } from "ramda";
 import { parallel } from "fluture";
-import { readDir, readFile } from "file-system";
+import { readDirWithConfig, readFile } from "file-system";
 import { fileProcessor } from "monoplug";
 
 // src/hash.js
@@ -52,15 +52,12 @@ var readMonoFile = curry((basePath, file) => {
   )(file);
 });
 var reader = curry(
-  ({ basePath }, dirglob) => pipe(
-    trace(">>@>@>@"),
-    readDir,
-    map(trace("dir files")),
+  (config, dirglob) => pipe(
+    readDirWithConfig(config),
     chain(
       (files) => pipe(
-        map(readMonoFile(basePath)),
+        map(readMonoFile(config.basePath)),
         parallel(10),
-        map(trace("files")),
         map((content) => ({
           content,
           files: pipe(
@@ -74,7 +71,7 @@ var reader = curry(
 );
 var monoprocessor = curry(
   (config, plugins, dirGlob) => pipe(
-    reader({ basePath: config.basePath }),
+    reader(config),
     map((xxx) => fileProcessor(config, plugins, xxx.content))
   )(dirGlob)
 );
