@@ -151,9 +151,7 @@ var fileProcessor = curry4(
           const { hash } = __file;
           const step = (f) => processLine ? {
             ...f,
-            body: map2(([line, content]) => [line, fn(selected, content)])(
-              f.body
-            )
+            body: pipe3((raw) => fn(selected, raw))(f.body)
           } : fn(selected, f);
           return [...agg, [hash, step(__file)]];
         }, [])(files);

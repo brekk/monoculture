@@ -8,7 +8,7 @@ import {
 } from 'node:fs'
 import { propOr, without, curry, pipe, map } from 'ramda'
 import { chain, chainRej, Future, parallel } from 'fluture'
-import glob from 'glob'
+import { glob } from 'glob'
 
 /**
  * make a file string relative

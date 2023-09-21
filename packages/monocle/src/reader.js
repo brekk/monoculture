@@ -12,10 +12,11 @@ import {
 } from 'ramda'
 import { parallel } from 'fluture'
 
-import { readDir, readFile } from 'file-system'
+import { readDirWithConfig, readFile } from 'file-system'
 import { fileProcessor } from 'monoplug'
 
 import { hash } from './hash'
+
 const trace = curry((a, b) => {
   // eslint-disable-next-line no-console
   console.log(a, b)
@@ -39,16 +40,13 @@ export const readMonoFile = curry((basePath, file) => {
   )(file)
 })
 
-export const reader = curry(({ basePath }, dirglob) =>
+export const reader = curry((config, dirglob) =>
   pipe(
-    trace('>>@>@>@'),
-    readDir,
-    map(trace('dir files')),
+    readDirWithConfig(config),
     chain(files =>
       pipe(
-        map(readMonoFile(basePath)),
+        map(readMonoFile(config.basePath)),
         parallel(10),
-        map(trace('files')),
         map(content => ({
           content,
           files: pipe(
@@ -63,7 +61,7 @@ export const reader = curry(({ basePath }, dirglob) =>
 
 export const monoprocessor = curry((config, plugins, dirGlob) =>
   pipe(
-    reader({ basePath: config.basePath }),
+    reader(config),
     map(xxx => fileProcessor(config, plugins, xxx.content))
   )(dirGlob)
 )

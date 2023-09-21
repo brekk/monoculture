@@ -50,9 +50,7 @@ export const fileProcessor = curry((context, plugins, files) =>
             processLine
               ? {
                   ...f,
-                  body: map(([line, content]) => [line, fn(selected, content)])(
-                    f.body
-                  ),
+                  body: pipe(raw => fn(selected, raw))(f.body),
                 }
               : fn(selected, f)
           // I figure we wanna keep things as arrays for lookups

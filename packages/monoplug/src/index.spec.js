@@ -1,6 +1,6 @@
 import path from 'node:path'
 
-import { fork, parallel } from 'fluture'
+import { Future, fork, parallel } from 'fluture'
 import {
   reduce,
   trim,
@@ -15,6 +15,7 @@ import {
 } from 'ramda'
 
 import { readDir, readFile } from 'file-system'
+import { binary } from './async'
 
 import {
   EXPECTED_KEYS,
@@ -248,17 +249,20 @@ test('fileProcessor', () => {
     {
       name: 'wordcount',
       dependencies: [],
-      fn: (c, f) =>
+      fn: binary((c, f) =>
         pipe(
           map(([, lineContent]) => lineContent.split(' ').map(trim).length),
           reduce((a, b) => a + b, 0)
-        )(f.body),
+        )(f.body)
+      ),
     },
     {
       name: 't-words',
       dependencies: [],
       processLine: true,
-      fn: (c, line) => line.split(' ').filter(z => z.startsWith('t')).length,
+      fn: binary(
+        (c, line) => line.split(' ').filter(z => z.startsWith('t')).length
+      ),
     },
   ]
   const out2 = fileProcessor(

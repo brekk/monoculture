@@ -4,13 +4,23 @@
 import { pipe as pipe2, map as map2, chain as chain2 } from "ramda";
 import { parallel as parallel2 } from "fluture";
 import { readDir as readDir2 } from "file-system";
+import { fileProcessor as fileProcessor2 } from "monoplug";
 
 // src/reader.js
 import path from "node:path";
-import { curry, pipe, map, split, addIndex, chain, __ as $ } from "ramda";
+import {
+  curry,
+  pipe,
+  map,
+  split,
+  addIndex,
+  fromPairs,
+  chain,
+  __ as $
+} from "ramda";
 import { parallel } from "fluture";
 import { readDir, readFile } from "file-system";
-import { taskProcessor } from "monoplug";
+import { fileProcessor } from "monoplug";
 
 // src/hash.js
 import crypto from "node:crypto";
@@ -21,6 +31,10 @@ var hash = (buf) => {
 };
 
 // src/reader.js
+var trace = curry((a, b) => {
+  console.log(a, b);
+  return b;
+});
 var readMonoFile = curry((basePath, file) => {
   return pipe(
     readFile,
@@ -28,24 +42,39 @@ var readMonoFile = curry((basePath, file) => {
       (buf) => pipe(
         split("\n"),
         addIndex(map)((y, i) => [i, y]),
-        (lines) => ({
+        (body) => ({
           file: path.relative(basePath, file),
           hash: hash(buf),
-          lines
+          body
         })
       )(buf)
     )
   )(file);
 });
 var reader = curry(
-  ({ basePath }, dirglob) => pipe(readDir, chain(pipe(map(readMonoFile(basePath)), parallel(10))))(dirglob)
+  ({ basePath }, dirglob) => pipe(
+    trace(">>@>@>@"),
+    readDir,
+    map(trace("dir files")),
+    chain(
+      (files) => pipe(
+        map(readMonoFile(basePath)),
+        parallel(10),
+        map(trace("files")),
+        map((content) => ({
+          content,
+          files: pipe(
+            map((f) => [f.hash, f.file]),
+            fromPairs
+          )(content)
+        }))
+      )(files)
+    )
+  )(dirglob)
 );
 var monoprocessor = curry(
-  ({ basePath }, plugins, dirGlob) => pipe(reader({ basePath }), map(taskProcessor($, plugins)))(dirGlob)
+  (config, plugins, dirGlob) => pipe(
+    reader({ basePath: config.basePath }),
+    map((xxx) => fileProcessor(config, plugins, xxx.content))
+  )(dirGlob)
 );
-
-// src/index.js
-var monocle = pipe2(readDir2, map2(map2(reader)), chain2(parallel2(10)));
-export {
-  monocle
-};
