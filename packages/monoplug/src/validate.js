@@ -14,12 +14,6 @@ import {
   values,
 } from 'ramda'
 
-export const trace = curry((a, b) => {
-  // eslint-disable-next-line no-console
-  console.log(a, b)
-  return b
-})
-
 export const kindIs = curry((expected, x) => equals(expected, typeof x))
 
 export const coerce = x => !!x
@@ -35,8 +29,12 @@ export const PLUGIN_SHAPE = {
     propOr(() => {}, 'selector'),
     kindIs('function')
   ),
-  processLine: x => {
-    const { processLine: p = true } = x
+  preserveOffset: x => {
+    const { preserveOffset: p = true } = x
+    return kindIs('boolean', p)
+  },
+  preserveLine: x => {
+    const { preserveLine: p = true } = x
     return kindIs('boolean', p)
   },
   // store

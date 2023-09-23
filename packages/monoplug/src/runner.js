@@ -31,8 +31,8 @@ export const taskProcessor = curry((context, plugins) =>
   )(plugins)
 )
 
-const stepFunction = curry((selected, { processLine, fn }, file) =>
-  processLine
+const stepFunction = curry((selected, { preserveLine, fn }, file) =>
+  preserveLine
     ? {
         ...file,
         body: map(([k, v]) => [k, fn(selected, v)])(file.body),
@@ -48,14 +48,11 @@ const processRelativeToFile = curry((state, plugin, files) =>
         fn,
         selector = I,
         store: __focus = false,
-        processLine = false,
+        preserveLine = false,
+        preserveOffset = false,
       } = plugin
       const selected = selector(state)
       const { hash } = __file
-      console.log('processLine', processLine, fn)
-
-      // I figure we wanna keep things as arrays for lookups
-      // but might entirely change this with respect to futures over time
       return [...agg, [hash, stepFunction(selected, plugin, __file)]]
     },
     [],
@@ -74,13 +71,12 @@ export const fileProcessor = curry((context, plugins, files) =>
         // plugin
         plugin
       ) => {
-        const { store: __focus = false, name } = plugin
-        const store = __focus || I
+        const { store = I, name } = plugin
         const outcome = processRelativeToFile(state, plugin, files)
         const newState = { ...state, [name]: outcome }
         return {
           events: [...events, name],
-          state: __focus ? store(newState) : newState,
+          state: store(newState),
         }
       },
       { state: context, events: [] }

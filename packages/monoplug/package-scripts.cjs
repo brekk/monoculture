@@ -23,8 +23,8 @@ module.exports = {
     build: sd(build([INPUT, OUTPUT]), 'build an export!'),
     lint: sd('eslint --fix .', 'lint!'),
     test: {
-      ...sd('jest', 'test!'),
-      watch: sd('jest --watch', 'test with watch-mode!'),
+      ...sd('jest --coverage', 'test!'),
+      watch: sd('jest --watch --coverage', 'test with watch-mode!'),
     },
   },
 }

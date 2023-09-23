@@ -140,21 +140,39 @@ var taskProcessor = curry4(
     )
   )(plugins)
 );
+var stepFunction = curry4(
+  (selected, { processLine, fn }, file) => processLine ? {
+    ...file,
+    body: map2(([k, v]) => [k, fn(selected, v)])(file.body)
+  } : fn(selected, file)
+);
+var processRelativeToFile = curry4(
+  (state, plugin, files) => reduce3(
+    (agg, __file) => {
+      const {
+        name,
+        fn,
+        selector = I,
+        store: __focus = false,
+        processLine = false
+      } = plugin;
+      const selected = selector(state);
+      const { hash } = __file;
+      console.log("processLine", processLine, fn);
+      return [...agg, [hash, stepFunction(selected, plugin, __file)]];
+    },
+    [],
+    files
+  )
+);
 var fileProcessor = curry4(
   (context, plugins, files) => pipe3(
     topologicalDependencySort,
     reduce3(
-      ({ state, events }, { name, fn, selector = I, store: __focus = false, processLine = false }) => {
+      ({ state, events }, plugin) => {
+        const { store: __focus = false, name } = plugin;
         const store = __focus || I;
-        const outcome = reduce3((agg, __file) => {
-          const selected = selector(state);
-          const { hash } = __file;
-          const step = (f) => processLine ? {
-            ...f,
-            body: pipe3((raw) => fn(selected, raw))(f.body)
-          } : fn(selected, f);
-          return [...agg, [hash, step(__file)]];
-        }, [])(files);
+        const outcome = processRelativeToFile(state, plugin, files);
         const newState = { ...state, [name]: outcome };
         return {
           events: [...events, name],
@@ -164,7 +182,6 @@ var fileProcessor = curry4(
       { state: context, events: [] }
     ),
     mergeRight({
-      files,
       hashMap: pipe3(
         map2((x) => [prop("hash", x), prop("file", x)]),
         fromPairs

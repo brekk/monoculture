@@ -31,7 +31,8 @@ test('EXPECTED_KEYS', () =>
     'name',
     'fn',
     'selector',
-    'processLine',
+    'preserveOffset',
+    'preserveLine',
     'store',
     'dependencies',
   ]))
@@ -60,7 +61,8 @@ test('testPlugin - basics', () => {
   const results = testPlugin(myPlugin)
   expect(results).toEqual({
     name: true,
-    processLine: true,
+    preserveLine: true,
+    preserveOffset: true,
     error: 'Found additional or misspelled keys: [squibble]',
     fn: true,
     store: true,
@@ -84,7 +86,7 @@ test('testPlugin - invalid', () => {
       depepepependencies: [],
       name: 'incorrectkeys',
       fn: () => {},
-      processLine: 1000,
+      preserveLine: 1000,
     },
   ])
   expect(results).toEqual([
@@ -92,7 +94,8 @@ test('testPlugin - invalid', () => {
       dependencies: true,
       fn: false,
       name: true,
-      processLine: true,
+      preserveLine: true,
+      preserveOffset: true,
       selector: true,
       store: true,
     },
@@ -100,7 +103,8 @@ test('testPlugin - invalid', () => {
       dependencies: true,
       fn: false,
       name: false,
-      processLine: true,
+      preserveLine: true,
+      preserveOffset: true,
       selector: true,
       store: true,
     },
@@ -108,7 +112,8 @@ test('testPlugin - invalid', () => {
       dependencies: false,
       fn: true,
       name: true,
-      processLine: true,
+      preserveLine: true,
+      preserveOffset: true,
       selector: false,
       store: true,
     },
@@ -117,7 +122,8 @@ test('testPlugin - invalid', () => {
       error: 'Found additional or misspelled keys: [depepepependencies]',
       fn: true,
       name: true,
-      processLine: false,
+      preserveLine: false,
+      preserveOffset: true,
       selector: true,
       store: true,
     },
@@ -258,10 +264,11 @@ test('fileProcessor', () => {
     {
       name: 't-words',
       dependencies: [],
-      processLine: true,
+      preserveLine: true,
       fn: (c, line) => {
         const out = line.split(' ').filter(z => z.startsWith('t')).length
-        console.log('....', c, line, out)
+        // eslint-disable-next-line no-console
+        // console.log('....', c, line, out)
         return out
       },
     },

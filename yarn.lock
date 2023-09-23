@@ -11263,6 +11263,14 @@ untildify@^4.0.0:
   resolved "https://registry.yarnpkg.com/untildify/-/untildify-4.0.0.tgz#2bc947b953652487e4600949fb091e3ae8cd919b"
   integrity sha512-KK8xQ1mkzZeg9inewmFVDNkg3l5LUhoq9kN6iWYB/CC9YMG8HA+c1Q8HwDe6dEX7kErrEVNVBO3fWsVq5iDgtw==
 
+unusual@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/unusual/-/unusual-0.0.3.tgz#eaaa776c2f93d0e0dc6c4afbce505a291e08d7b3"
+  integrity sha512-bgUOJH1QC9GC+5UIq0+5SoI/41Avf+9Iy9vsuBKUfnuEfzD5cMasCnhkOuIVlXb180/oWP8nPj8V79pPwBkcng==
+  dependencies:
+    envtrace "^0.0.2"
+    katsu-curry "^0.7.8"
+
 update-browserslist-db@^1.0.11:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/update-browserslist-db/-/update-browserslist-db-1.0.11.tgz#9a2a641ad2907ae7b3616506f4b977851db5b940"

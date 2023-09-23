@@ -14,7 +14,8 @@
   "devDependencies": {
     "eslint-config-monoculture": "*",
     "jest-config": "*",
-    "nps": "^5.10.0"
+    "nps": "^5.10.0",
+    "unusual": "^0.0.3"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",

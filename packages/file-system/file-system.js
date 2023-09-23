@@ -26,7 +26,7 @@ import {
 } from "node:fs";
 import { propOr as propOr2, without, curry as curry2, pipe as pipe2, map } from "ramda";
 import { chain, chainRej, Future as Future2, parallel } from "fluture";
-import { glob } from "glob";
+import glob from "glob";
 var localize = (z) => `./${z}`;
 var readFile = (x) => new Future2((bad, good) => {
   __readFile(x, "utf8", (err, data) => err ? bad(err) : good(data));
