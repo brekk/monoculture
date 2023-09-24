@@ -12,12 +12,6 @@ import PKG from '../package.json'
 
 const u = Unusual(PKG.name + '@' + PKG.version)
 
-const trace = curry((a, b) => {
-  // eslint-disable-next-line no-console
-  console.log(a, b)
-  return b
-})
-
 const double = z => z * 2
 
 const xWithRandomDelay = curry((x, fn, args) =>

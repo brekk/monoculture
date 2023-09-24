@@ -16,7 +16,6 @@ import { readFile, pathRelativeTo } from 'file-system'
 import { addLineNumbers, groupContiguousBlocks } from './file'
 import { lines, j2, stripRelative } from './text'
 import { isJSDocComment, objectifyComments } from './comment'
-import { trace } from './trace'
 
 const getAny = curry((def, keyPath, comments) =>
   pipe(
@@ -74,7 +73,6 @@ export const parseFile = curry((root, x) =>
         map(p => ({
           ...p,
           comments: pipe(
-            // trace('RAW'),
             filter(
               ({ lines: l, start, end, summary }) =>
                 start !== end && !!summary && l.length > 0

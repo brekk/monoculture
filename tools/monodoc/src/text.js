@@ -14,8 +14,6 @@ import {
   when,
 } from 'ramda'
 
-import { trace } from './trace'
-
 export const lines = split('\n')
 export const unlines = join('\n')
 
@@ -26,11 +24,8 @@ export const trimComment = pipe(
 )
 
 export const trimSummary = pipe(
-  // trace('in'),
   reject(equals('/**')),
-  // trace('rej'),
   map(trimComment),
-  // trace('trim'),
   unlines
 )
 
@@ -39,7 +34,7 @@ export const nixKeyword = when(includes('@'), replace(/@/g, ''))
 
 // wipeComment :: String -> String
 export const wipeComment = pipe(trimComment, nixKeyword)
-const replaceAsterisks = replace(/^\*$/g, '')
+// const replaceAsterisks = replace(/^\*$/g, '')
 
 // formatComment :: List Comment -> List Comment
 export const formatComment = block =>

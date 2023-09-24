@@ -19,9 +19,11 @@
   },
   "devDependencies": {
     "dotenv": "^16.3.1",
+    "envtrace": "^0.0.2",
     "eslint-config-monoculture": "*",
     "jest-environment-jsdom": "^29.7.0",
-    "madge": "^6.0.0"
+    "madge": "^6.0.0",
+    "xtrace": "^0.3.0"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",

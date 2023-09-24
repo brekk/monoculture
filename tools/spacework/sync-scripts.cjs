@@ -28,7 +28,6 @@ const {
   replace,
   split,
   toPairs,
-  trace,
   unless,
   ifElse,
   is,
@@ -85,7 +84,7 @@ const process = curry((rawPkg, rawScripts) =>
     omit(['scripts']),
     mergeRight($, { scripts: consumeScripts(rawScripts) }),
     j2,
-    z => z + '\n',
+    z => z + '\n'
   )(rawPkg)
 )
 

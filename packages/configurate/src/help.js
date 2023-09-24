@@ -13,12 +13,6 @@ import {
   toPairs,
 } from 'ramda'
 
-export const trace = curry((a, b) => {
-  // eslint-disable-next-line no-console
-  console.log(a, b)
-  return b
-})
-
 // shortFlag :: String -> String
 export const shortFlag = z => `-${z}`
 

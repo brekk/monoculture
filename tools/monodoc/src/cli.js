@@ -47,7 +47,7 @@ import { rarestBy } from './stats'
 
 import { parseFile } from './parse'
 import { stripRelative, j2 } from './text'
-import { scopedBinaryEffect, trace } from './trace'
+import { scopedBinaryEffect } from 'glue'
 import { commentToMarkdown } from './renderer'
 import { HELP, YARGS_CONFIG, parser, CONFIG_DEFAULTS } from './config'
 import { slug, stripLeadingHyphen } from './comment'

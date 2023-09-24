@@ -1,79 +1,33 @@
 #!/usr/bin/env node
 
-// src/validate.js
-import {
-  of,
-  ap,
-  without,
-  all,
-  applySpec,
-  curry,
-  equals,
-  keys,
-  pipe,
-  propOr,
-  reduce,
-  reject,
-  values
-} from "ramda";
-var trace = curry((a, b) => {
-  console.log(a, b);
-  return b;
+// src/async.js
+import { Future } from "fluture";
+import { curry } from "ramda";
+var cancellableTask = curry((cancel, fn, args) => {
+  return Future((bad, good) => {
+    try {
+      const value = fn(...args);
+      good(value);
+    } catch (e) {
+      bad(e);
+    }
+    return cancel;
+  });
 });
-var kindIs = curry((expected, x) => equals(expected, typeof x));
-var coerce = (x) => !!x;
-var PLUGIN_SHAPE = {
-  // unique identifier for the plugin
-  name: pipe(propOr(false, "name"), coerce),
-  // the "fn" property actually produces a value given
-  // (selectedContext, config, file) => and stores it keyed by "name"
-  fn: pipe(propOr(false, "fn"), kindIs("function")),
-  // the selector function accesses part of context to pass it to the "fn" transformer
-  selector: pipe(
-    propOr(() => {
-    }, "selector"),
-    kindIs("function")
-  ),
-  processLine: (x) => {
-    const { processLine: p = true } = x;
-    return kindIs("boolean", p);
-  },
-  // store
-  store: pipe(
-    propOr(() => {
-    }, "store"),
-    kindIs("function")
-  ),
-  // does this plugin depend on anything specific to have happened before this?
-  dependencies: pipe(propOr([], "dependencies"), Array.isArray)
+var cancelSilently = () => {
 };
-var EXPECTED_KEYS = keys(PLUGIN_SHAPE);
-var noExtraKeys = (x) => pipe(
-  keys,
-  without(EXPECTED_KEYS),
-  (y) => y.length ? `Found additional or misspelled keys: [${y.join(", ")}]` : ``
-)(x);
-var testPlugin = pipe(
-  of,
-  ap([applySpec(PLUGIN_SHAPE), noExtraKeys]),
-  ([x, error]) => error ? { ...x, error } : x
+var unaryWithCancel = curry(
+  (cancel, fn, x) => cancellableTask(cancel, fn, [x])
 );
-var checkPlugin = pipe(testPlugin, values, all(equals(true)));
-var validatePlugins = reduce((agg, plugin) => {
-  const check = checkPlugin(plugin);
-  const name = propOr("unnamed", "name", plugin);
-  if (!check) {
-    const err = [name, pipe(testPlugin, reject(equals(true)), keys)(plugin)];
-    return {
-      ...agg,
-      incorrect: agg.incorrect ? [...agg.incorrect, err] : [err]
-    };
-  }
-  return {
-    ...agg,
-    correct: agg.correct ? [...agg.correct, name] : [name]
-  };
-}, {});
+var unary = unaryWithCancel(cancelSilently);
+var binaryWithCancel = curry(
+  (cancel, fn, x, y) => cancellableTask(cancel, fn, [x, y])
+);
+var binary = binaryWithCancel(cancelSilently);
+var tertiaryWithCancel = curry(
+  (cancel, fn, x, y, z) => cancellableTask(cancel, fn, [x, y, z])
+);
+var tertiary = tertiaryWithCancel(cancelSilently);
 
 // src/list.js
 import { curry as curry2 } from "ramda";
@@ -86,32 +40,34 @@ var insertAfter = curry2((idx, x, arr) => [
 // src/runner.js
 import {
   curry as curry4,
-  pipe as pipe3,
-  reduce as reduce3,
+  propOr,
+  pipe as pipe2,
+  reduce as reduce2,
   identity as I,
   mergeRight,
   prop,
   map as map2,
   fromPairs
 } from "ramda";
+import { pap, resolve } from "fluture";
 
 // src/sort.js
 import {
   curry as curry3,
-  reject as reject2,
-  reduce as reduce2,
-  pipe as pipe2,
+  reject,
+  reduce,
+  pipe,
   map,
   findIndex,
   propEq,
   last
 } from "ramda";
-var without2 = curry3((name, x) => reject2(propEq("name", name), x));
-var topologicalDependencySort = (raw) => reduce2(
+var without = curry3((name, x) => reject(propEq("name", name), x));
+var topologicalDependencySort = (raw) => reduce(
   (agg, plugin) => {
     const { name, dependencies = [] } = plugin;
-    const cleaned = without2(name, agg);
-    return pipe2(
+    const cleaned = without(name, agg);
+    return pipe(
       map((d) => findIndex(propEq("name", d), cleaned)),
       (z) => z.sort(),
       last,
@@ -124,9 +80,9 @@ var topologicalDependencySort = (raw) => reduce2(
 
 // src/runner.js
 var taskProcessor = curry4(
-  (context, plugins) => pipe3(
+  (context, plugins) => pipe2(
     topologicalDependencySort,
-    reduce3(
+    reduce2(
       ({ state, events }, { name, fn, selector = I, store: __focus = false }) => {
         const store = __focus || I;
         const outcome = fn(selector(state));
@@ -141,67 +97,147 @@ var taskProcessor = curry4(
   )(plugins)
 );
 var stepFunction = curry4(
-  (selected, { processLine, fn }, file) => processLine ? {
-    ...file,
-    body: map2(([k, v]) => [k, fn(selected, v)])(file.body)
-  } : fn(selected, file)
+  (state, { selector = I, preserveLine = false, fn }, file) => {
+    const selected = selector(state);
+    return preserveLine ? {
+      ...file,
+      body: map2(([k, v]) => [k, fn(selected, v)])(file.body)
+    } : fn(selected, file);
+  }
 );
-var processRelativeToFile = curry4(
-  (state, plugin, files) => reduce3(
+var processRelativeToFile = curry4((state, plugin, files) => {
+  console.log({ state, plugin, files });
+  return reduce2(
     (agg, __file) => {
-      const {
-        name,
-        fn,
-        selector = I,
-        store: __focus = false,
-        processLine = false
-      } = plugin;
-      const selected = selector(state);
       const { hash } = __file;
-      console.log("processLine", processLine, fn);
-      return [...agg, [hash, stepFunction(selected, plugin, __file)]];
+      return [...agg, [hash, stepFunction(state, plugin, __file)]];
     },
     [],
     files
-  )
-);
+  );
+});
 var fileProcessor = curry4(
-  (context, plugins, files) => pipe3(
+  (context, plugins, files) => pipe2(
     topologicalDependencySort,
-    reduce3(
+    reduce2(
       ({ state, events }, plugin) => {
-        const { store: __focus = false, name } = plugin;
-        const store = __focus || I;
+        const { store = I, name } = plugin;
         const outcome = processRelativeToFile(state, plugin, files);
         const newState = { ...state, [name]: outcome };
         return {
           events: [...events, name],
-          state: __focus ? store(newState) : newState
+          state: store(newState)
         };
       },
       { state: context, events: [] }
     ),
     mergeRight({
-      hashMap: pipe3(
+      hashMap: pipe2(
         map2((x) => [prop("hash", x), prop("file", x)]),
         fromPairs
       )(files)
     })
   )(plugins)
 );
+var futureFileProcessor = curry4(
+  (context, pluginsF, filesF) => pipe2(pap(pluginsF), pap(filesF))(resolve(fileProcessor(context)))
+);
+
+// src/validate.js
+import {
+  of,
+  ap,
+  without as without2,
+  all,
+  applySpec,
+  curry as curry5,
+  equals,
+  keys,
+  pipe as pipe3,
+  propOr as propOr2,
+  reduce as reduce3,
+  reject as reject2,
+  values
+} from "ramda";
+var kindIs = curry5((expected, x) => equals(expected, typeof x));
+var coerce = (x) => !!x;
+var PLUGIN_SHAPE = {
+  // unique identifier for the plugin
+  name: pipe3(propOr2(false, "name"), coerce),
+  // the "fn" property actually produces a value given
+  // (selectedContext, config, file) => and stores it keyed by "name"
+  fn: pipe3(propOr2(false, "fn"), kindIs("function")),
+  // the selector function accesses part of context to pass it to the "fn" transformer
+  selector: pipe3(
+    propOr2(() => {
+    }, "selector"),
+    kindIs("function")
+  ),
+  preserveOffset: (x) => {
+    const { preserveOffset: p = true } = x;
+    return kindIs("boolean", p);
+  },
+  preserveLine: (x) => {
+    const { preserveLine: p = true } = x;
+    return kindIs("boolean", p);
+  },
+  // store
+  store: pipe3(
+    propOr2(() => {
+    }, "store"),
+    kindIs("function")
+  ),
+  // does this plugin depend on anything specific to have happened before this?
+  dependencies: pipe3(propOr2([], "dependencies"), Array.isArray)
+};
+var EXPECTED_KEYS = keys(PLUGIN_SHAPE);
+var noExtraKeys = (x) => pipe3(
+  keys,
+  without2(EXPECTED_KEYS),
+  (y) => y.length ? `Found additional or misspelled keys: [${y.join(", ")}]` : ``
+)(x);
+var testPlugin = pipe3(
+  of,
+  ap([applySpec(PLUGIN_SHAPE), noExtraKeys]),
+  ([x, error]) => error ? { ...x, error } : x
+);
+var checkPlugin = pipe3(testPlugin, values, all(equals(true)));
+var validatePlugins = reduce3((agg, plugin) => {
+  const check = checkPlugin(plugin);
+  const name = propOr2("unnamed", "name", plugin);
+  if (!check) {
+    const err = [name, pipe3(testPlugin, reject2(equals(true)), keys)(plugin)];
+    return {
+      ...agg,
+      incorrect: agg.incorrect ? [...agg.incorrect, err] : [err]
+    };
+  }
+  return {
+    ...agg,
+    correct: agg.correct ? [...agg.correct, name] : [name]
+  };
+}, {});
 export {
   EXPECTED_KEYS,
   PLUGIN_SHAPE,
+  binary,
+  binaryWithCancel,
+  cancelSilently,
+  cancellableTask,
   checkPlugin,
   coerce,
   fileProcessor,
+  futureFileProcessor,
   insertAfter,
   kindIs,
   noExtraKeys,
   taskProcessor,
+  tertiary,
+  tertiaryWithCancel,
   testPlugin,
   topologicalDependencySort,
-  trace,
+  unary,
+  unaryWithCancel,
   validatePlugins,
-  without2 as without
+  without
 };

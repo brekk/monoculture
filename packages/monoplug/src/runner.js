@@ -1,5 +1,6 @@
 import {
   curry,
+  propOr,
   pipe,
   reduce,
   identity as I,
@@ -8,6 +9,7 @@ import {
   map,
   fromPairs,
 } from 'ramda'
+import { pap, resolve } from 'fluture'
 import { topologicalDependencySort } from './sort'
 
 export const taskProcessor = curry((context, plugins) =>
@@ -31,29 +33,23 @@ export const taskProcessor = curry((context, plugins) =>
   )(plugins)
 )
 
-const stepFunction = curry((selected, { preserveLine, fn }, file) =>
-  preserveLine
-    ? {
-        ...file,
-        body: map(([k, v]) => [k, fn(selected, v)])(file.body),
-      }
-    : fn(selected, file)
+const stepFunction = curry(
+  (state, { selector = I, preserveLine = false, fn }, file) => {
+    const selected = selector(state)
+    return preserveLine
+      ? {
+          ...file,
+          body: map(([k, v]) => [k, fn(selected, v)])(file.body),
+        }
+      : fn(selected, file)
+  }
 )
 
 const processRelativeToFile = curry((state, plugin, files) =>
   reduce(
     (agg, __file) => {
-      const {
-        name,
-        fn,
-        selector = I,
-        store: __focus = false,
-        preserveLine = false,
-        preserveOffset = false,
-      } = plugin
-      const selected = selector(state)
       const { hash } = __file
-      return [...agg, [hash, stepFunction(selected, plugin, __file)]]
+      return [...agg, [hash, stepFunction(state, plugin, __file)]]
     },
     [],
     files
@@ -88,4 +84,8 @@ export const fileProcessor = curry((context, plugins, files) =>
       )(files),
     })
   )(plugins)
+)
+
+export const futureFileProcessor = curry((context, pluginsF, filesF) =>
+  pipe(pap(pluginsF), pap(filesF))(resolve(fileProcessor(context)))
 )

@@ -1,6 +1,15 @@
 import path from 'node:path'
 import { fork } from 'fluture'
-import { toPairs, pipe, map, trim, reduce, invertObj, filter } from 'ramda'
+import {
+  toPairs,
+  pipe,
+  map,
+  prop,
+  trim,
+  reduce,
+  invertObj,
+  filter,
+} from 'ramda'
 import { reader, monoprocessor } from './reader'
 
 test('reader', done => {
@@ -17,8 +26,12 @@ test('reader', done => {
     done()
   })(
     pipe(z => {
-      expect(Object.keys(z)).toEqual(['content', 'files'])
-      // eslint-disable-next-line no-console
+      const out = map(prop('hash'))(z)
+      expect(out).toEqual([
+        '5cd99d9df3d8e4c2fcc83cf248314a4836c71d88f8d6e4fdc0d84c4e8c7b029d',
+        'c58cb552a847bf29bec7e5c61d15cf07bbb9a000b8b0a565c7981c29ebf00f5a',
+        '4e2ab6dbbaf93f2897db5ff8865837bd33850c7e6babaeb3c7c3bd20e488ba0c',
+      ])
       done()
     })
   )(files)
@@ -37,7 +50,7 @@ const PLUGINS = [
   {
     name: 't-words',
     dependencies: [],
-    processLine: true,
+    preserveLine: true,
     fn: (c, line) => line.split(' ').filter(z => z.startsWith('t')).length,
   },
 ]
@@ -53,7 +66,7 @@ test('monoprocessor', done => {
     expect(rawState.wordcount).toEqual([
       ['5cd99d9df3d8e4c2fcc83cf248314a4836c71d88f8d6e4fdc0d84c4e8c7b029d', 27],
       ['c58cb552a847bf29bec7e5c61d15cf07bbb9a000b8b0a565c7981c29ebf00f5a', 44],
-      ['6351420d863bbf1b0ce0b322f6e5077759d9f60981cab05c92fe4ada76be7010', 387],
+      ['4e2ab6dbbaf93f2897db5ff8865837bd33850c7e6babaeb3c7c3bd20e488ba0c', 225],
     ])
     done()
   })(

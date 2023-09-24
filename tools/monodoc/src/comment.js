@@ -46,7 +46,6 @@ import {
   trimComment,
   wipeComment,
 } from './text'
-import { trace } from './trace'
 
 const linkRegex = /\{@link (.*)+\}/g
 export const matchLinks = pipe(

@@ -1,6 +1,6 @@
 import path from 'node:path'
 
-import { Future, fork, parallel } from 'fluture'
+import { Future, fork, parallel, resolve } from 'fluture'
 import {
   reduce,
   trim,
@@ -24,7 +24,7 @@ import {
   testPlugin,
   checkPlugin,
 } from './validate'
-import { taskProcessor, fileProcessor } from './runner'
+import { taskProcessor, futureFileProcessor, fileProcessor } from './runner'
 
 test('EXPECTED_KEYS', () =>
   expect(EXPECTED_KEYS).toEqual([
@@ -213,16 +213,16 @@ test('taskProcessor - with store config', () => {
   const store = v => ({ value: v.value })
   const selector = y => y.value
   const plugins = [
-    { name: 'a', dependencies: [], fn: c => c, selector, store },
-    { name: 'b', dependencies: ['a'], fn: c => c * 7, selector, store },
-    { name: 'a3', dependencies: ['a'], fn: c => c * 11, selector, store },
-    { name: 'a4', dependencies: ['a', 'a3'], fn: c => c * 13, selector, store },
-    { name: 'a1', dependencies: ['a'], fn: c => c * 17, selector, store },
-    { name: 'c', dependencies: ['b'], fn: c => c * 19, selector, store },
-    { name: 'a2', dependencies: ['a', 'b'], fn: c => c * 23, selector, store },
-    { name: 'd', dependencies: ['b', 'c'], fn: c => c * 29, selector, store },
-    { name: 'e', dependencies: ['b', 'd'], fn: c => c * 31, selector, store },
-  ]
+    { name: 'a', dependencies: [], fn: c => c },
+    { name: 'b', dependencies: ['a'], fn: c => c * 7 },
+    { name: 'a3', dependencies: ['a'], fn: c => c * 11 },
+    { name: 'a4', dependencies: ['a', 'a3'], fn: c => c * 13 },
+    { name: 'a1', dependencies: ['a'], fn: c => c * 17 },
+    { name: 'c', dependencies: ['b'], fn: c => c * 19 },
+    { name: 'a2', dependencies: ['a', 'b'], fn: c => c * 23 },
+    { name: 'd', dependencies: ['b', 'c'], fn: c => c * 29 },
+    { name: 'e', dependencies: ['b', 'd'], fn: c => c * 31 },
+  ].map(z => ({ ...z, selector, store }))
   const out2 = taskProcessor(ctx, [
     ...plugins,
     {
@@ -249,99 +249,107 @@ test('taskProcessor - with store config', () => {
   expect(out2.state).toEqual(3589)
 })
 
-test('fileProcessor', () => {
-  const ctx = {}
-  const plugins = [
-    {
-      name: 'wordcount',
-      dependencies: [],
-      fn: (c, f) =>
-        pipe(
-          map(([, lineContent]) => lineContent.split(' ').map(trim).length),
-          reduce((a, b) => a + b, 0)
-        )(f.body),
+const PLUGINS = [
+  {
+    name: 'wordcount',
+    dependencies: [],
+    fn: (c, f) =>
+      pipe(
+        map(([, lineContent]) => lineContent.split(' ').map(trim).length),
+        reduce((a, b) => a + b, 0)
+      )(f.body),
+  },
+  {
+    name: 't-words',
+    dependencies: [],
+    preserveLine: true,
+    fn: (c, line) => {
+      const out = line.split(' ').filter(z => z.startsWith('t')).length
+      // eslint-disable-next-line no-console
+      // console.log('....', c, line, out)
+      return out
     },
-    {
-      name: 't-words',
-      dependencies: [],
-      preserveLine: true,
-      fn: (c, line) => {
-        const out = line.split(' ').filter(z => z.startsWith('t')).length
-        // eslint-disable-next-line no-console
-        // console.log('....', c, line, out)
-        return out
-      },
-    },
-  ]
-  const out2 = fileProcessor(
-    ctx,
-    [...plugins],
-    [
-      {
-        file: '/a/b/c/cool.txt',
-        hash: '/a/b/c/cool.txt',
-        body: `oh yeah
+  },
+]
+const FILES = [
+  {
+    file: '/a/b/c/cool.txt',
+    hash: '/a/b/c/cool.txt',
+    body: `oh yeah
 this is pretty
 terribly
 great`
-          .split('\n')
-          .map((x, i) => [i, x]),
-      },
-      {
-        file: '/a/b/c/really-cool.txt',
-        hash: '/a/b/c/really-cool.txt',
-        body: `hey there,
+      .split('\n')
+      .map((x, i) => [i, x]),
+  },
+  {
+    file: '/a/b/c/really-cool.txt',
+    hash: '/a/b/c/really-cool.txt',
+    body: `hey there,
 this is a cool and tricky tool which can process files and answer introspection questions
 
 
 newlines are also cool
 `
-          .split('\n')
-          .map((x, i) => [i, x]),
-      },
-    ]
-  )
-  expect(out2).toEqual({
-    events: ['t-words', 'wordcount'],
-    hashMap: {
-      '/a/b/c/cool.txt': '/a/b/c/cool.txt',
-      '/a/b/c/really-cool.txt': '/a/b/c/really-cool.txt',
-    },
-    state: {
-      't-words': [
-        [
-          '/a/b/c/cool.txt',
-          {
-            file: '/a/b/c/cool.txt',
-            hash: '/a/b/c/cool.txt',
-            body: [
-              [0, 0],
-              [1, 1],
-              [2, 1],
-              [3, 0],
-            ],
-          },
-        ],
-        [
-          '/a/b/c/really-cool.txt',
-          {
-            file: '/a/b/c/really-cool.txt',
-            hash: '/a/b/c/really-cool.txt',
-            body: [
-              [0, 1],
-              [1, 3],
-              [2, 0],
-              [3, 0],
-              [4, 0],
-              [5, 0],
-            ],
-          },
-        ],
+      .split('\n')
+      .map((x, i) => [i, x]),
+  },
+]
+
+const EXPECTED_PROCESSING_OUTCOME = {
+  events: ['t-words', 'wordcount'],
+  hashMap: {
+    '/a/b/c/cool.txt': '/a/b/c/cool.txt',
+    '/a/b/c/really-cool.txt': '/a/b/c/really-cool.txt',
+  },
+  state: {
+    't-words': [
+      [
+        '/a/b/c/cool.txt',
+        {
+          file: '/a/b/c/cool.txt',
+          hash: '/a/b/c/cool.txt',
+          body: [
+            [0, 0],
+            [1, 1],
+            [2, 1],
+            [3, 0],
+          ],
+        },
       ],
-      wordcount: [
-        ['/a/b/c/cool.txt', 7],
-        ['/a/b/c/really-cool.txt', 24],
+      [
+        '/a/b/c/really-cool.txt',
+        {
+          file: '/a/b/c/really-cool.txt',
+          hash: '/a/b/c/really-cool.txt',
+          body: [
+            [0, 1],
+            [1, 3],
+            [2, 0],
+            [3, 0],
+            [4, 0],
+            [5, 0],
+          ],
+        },
       ],
-    },
-  })
+    ],
+    wordcount: [
+      ['/a/b/c/cool.txt', 7],
+      ['/a/b/c/really-cool.txt', 24],
+    ],
+  },
+}
+test('fileProcessor', () => {
+  const ctx = {}
+  const outF = fileProcessor(ctx, PLUGINS, FILES)
+  expect(outF).toEqual(EXPECTED_PROCESSING_OUTCOME)
+})
+
+test('futureFileProcessor', done => {
+  const ctx = {}
+  const outF = futureFileProcessor(ctx, resolve(PLUGINS), resolve(FILES))
+  fork(done)(out => {
+    expect(out).toEqual(EXPECTED_PROCESSING_OUTCOME)
+    done()
+  })(outF)
 })
