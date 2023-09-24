@@ -4,23 +4,14 @@
 import { pipe as pipe2, map as map2, chain as chain2 } from "ramda";
 import { parallel as parallel2 } from "fluture";
 import { readDir } from "file-system";
-import { fileProcessor as fileProcessor2 } from "monoplug";
+import { fileProcessor } from "monorail";
 
 // src/reader.js
 import path from "node:path";
-import {
-  curry,
-  pipe,
-  map,
-  split,
-  addIndex,
-  fromPairs,
-  chain,
-  __ as $
-} from "ramda";
-import { parallel } from "fluture";
+import { curry, pipe, map, split, addIndex, fromPairs, chain } from "ramda";
+import { parallel, resolve } from "fluture";
 import { readDirWithConfig, readFile } from "file-system";
-import { fileProcessor } from "monoplug";
+import { futureFileProcessor } from "monorail";
 
 // src/hash.js
 import crypto from "node:crypto";
@@ -31,10 +22,6 @@ var hash = (buf) => {
 };
 
 // src/reader.js
-var trace = curry((a, b) => {
-  console.log(a, b);
-  return b;
-});
 var readMonoFile = curry((basePath, file) => {
   return pipe(
     readFile,
@@ -51,27 +38,14 @@ var readMonoFile = curry((basePath, file) => {
     )
   )(file);
 });
-var reader = curry(
+var readAll = curry(
   (config, dirglob) => pipe(
     readDirWithConfig(config),
     chain(
-      (files) => pipe(
-        map(readMonoFile(config.basePath)),
-        parallel(10),
-        map((content) => ({
-          content,
-          files: pipe(
-            map((f) => [f.hash, f.file]),
-            fromPairs
-          )(content)
-        }))
-      )(files)
+      (files) => pipe(map(readMonoFile(config.basePath)), parallel(10))(files)
     )
   )(dirglob)
 );
 var monoprocessor = curry(
-  (config, plugins, dirGlob) => pipe(
-    reader(config),
-    map((xxx) => fileProcessor(config, plugins, xxx.content))
-  )(dirGlob)
+  (config, plugins, dirGlob) => pipe(readAll(config), futureFileProcessor(config, resolve(plugins)))(dirGlob)
 );

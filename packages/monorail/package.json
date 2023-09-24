@@ -1,20 +1,21 @@
 {
-  "name": "plugin-word-analysis",
-  "version": "0.0.1",
-  "description": "Apply stemming and word case analysis to find patterns in words / word-stems.",
-  "main": "plugin-word-analysis.js",
+  "name": "monorail",
+  "version": "0.0.0",
+  "description": "plugin architecture for monoculture tools",
+  "main": "monorail.js",
   "type": "module",
-  "repository": "brekk/monoculture",
+  "repository": "monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "monoplug": "*"
+    "file-system": "*"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.1.3",
     "eslint-config-monoculture": "*",
-    "jest-config": "*"
+    "jest-config": "*",
+    "nps": "^5.10.0",
+    "unusual": "^0.0.3"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",

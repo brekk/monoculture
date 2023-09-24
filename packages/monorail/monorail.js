@@ -40,14 +40,13 @@ var insertAfter = curry2((idx, x, arr) => [
 // src/runner.js
 import {
   curry as curry4,
-  propOr,
-  pipe as pipe2,
-  reduce as reduce2,
+  fromPairs,
   identity as I,
-  mergeRight,
-  prop,
   map as map2,
-  fromPairs
+  mergeRight,
+  pipe as pipe2,
+  prop,
+  reduce as reduce2
 } from "ramda";
 import { pap, resolve } from "fluture";
 
@@ -105,17 +104,16 @@ var stepFunction = curry4(
     } : fn(selected, file);
   }
 );
-var processRelativeToFile = curry4((state, plugin, files) => {
-  console.log({ state, plugin, files });
-  return reduce2(
+var processRelativeToFile = curry4(
+  (state, plugin, files) => reduce2(
     (agg, __file) => {
       const { hash } = __file;
       return [...agg, [hash, stepFunction(state, plugin, __file)]];
     },
     [],
     files
-  );
-});
+  )
+);
 var fileProcessor = curry4(
   (context, plugins, files) => pipe2(
     topologicalDependencySort,
@@ -139,8 +137,23 @@ var fileProcessor = curry4(
     })
   )(plugins)
 );
+var futureApplicator = curry4(
+  (context, plugins, files) => pipe2(
+    map2((plugin) => [
+      plugin.name,
+      pipe2(
+        map2((file) => [file.hash, stepFunction(context, plugin, file)]),
+        fromPairs
+      )(files)
+    ]),
+    fromPairs
+  )(plugins)
+);
 var futureFileProcessor = curry4(
-  (context, pluginsF, filesF) => pipe2(pap(pluginsF), pap(filesF))(resolve(fileProcessor(context)))
+  (context, pluginsF, filesF) => pipe2(
+    pap(map2(topologicalDependencySort, pluginsF)),
+    pap(filesF)
+  )(resolve(futureApplicator(context)))
 );
 
 // src/validate.js
@@ -154,7 +167,7 @@ import {
   equals,
   keys,
   pipe as pipe3,
-  propOr as propOr2,
+  propOr,
   reduce as reduce3,
   reject as reject2,
   values
@@ -163,13 +176,13 @@ var kindIs = curry5((expected, x) => equals(expected, typeof x));
 var coerce = (x) => !!x;
 var PLUGIN_SHAPE = {
   // unique identifier for the plugin
-  name: pipe3(propOr2(false, "name"), coerce),
+  name: pipe3(propOr(false, "name"), coerce),
   // the "fn" property actually produces a value given
   // (selectedContext, config, file) => and stores it keyed by "name"
-  fn: pipe3(propOr2(false, "fn"), kindIs("function")),
+  fn: pipe3(propOr(false, "fn"), kindIs("function")),
   // the selector function accesses part of context to pass it to the "fn" transformer
   selector: pipe3(
-    propOr2(() => {
+    propOr(() => {
     }, "selector"),
     kindIs("function")
   ),
@@ -183,12 +196,12 @@ var PLUGIN_SHAPE = {
   },
   // store
   store: pipe3(
-    propOr2(() => {
+    propOr(() => {
     }, "store"),
     kindIs("function")
   ),
   // does this plugin depend on anything specific to have happened before this?
-  dependencies: pipe3(propOr2([], "dependencies"), Array.isArray)
+  dependencies: pipe3(propOr([], "dependencies"), Array.isArray)
 };
 var EXPECTED_KEYS = keys(PLUGIN_SHAPE);
 var noExtraKeys = (x) => pipe3(
@@ -204,7 +217,7 @@ var testPlugin = pipe3(
 var checkPlugin = pipe3(testPlugin, values, all(equals(true)));
 var validatePlugins = reduce3((agg, plugin) => {
   const check = checkPlugin(plugin);
-  const name = propOr2("unnamed", "name", plugin);
+  const name = propOr("unnamed", "name", plugin);
   if (!check) {
     const err = [name, pipe3(testPlugin, reject2(equals(true)), keys)(plugin)];
     return {
@@ -227,10 +240,12 @@ export {
   checkPlugin,
   coerce,
   fileProcessor,
+  futureApplicator,
   futureFileProcessor,
   insertAfter,
   kindIs,
   noExtraKeys,
+  stepFunction,
   taskProcessor,
   tertiary,
   tertiaryWithCancel,

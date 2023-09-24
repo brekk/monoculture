@@ -10,7 +10,7 @@
   "private": true,
   "dependencies": {
     "fluture": "^14.0.0",
-    "monoplug": "*",
+    "monorail": "*",
     "ramda": "^0.29.0"
   },
   "devDependencies": {

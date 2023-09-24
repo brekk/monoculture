@@ -4,7 +4,7 @@ import { curry, pipe, map, split, addIndex, fromPairs, chain } from 'ramda'
 import { parallel, resolve } from 'fluture'
 
 import { readDirWithConfig, readFile } from 'file-system'
-import { futureFileProcessor } from 'monoplug'
+import { futureFileProcessor } from 'monorail'
 
 import { hash } from './hash'
 
@@ -25,7 +25,7 @@ export const readMonoFile = curry((basePath, file) => {
   )(file)
 })
 
-export const reader = curry((config, dirglob) =>
+export const readAll = curry((config, dirglob) =>
   pipe(
     readDirWithConfig(config),
     chain(files =>
@@ -35,5 +35,5 @@ export const reader = curry((config, dirglob) =>
 )
 
 export const monoprocessor = curry((config, plugins, dirGlob) =>
-  pipe(reader(config), futureFileProcessor(config, resolve(plugins)))(dirGlob)
+  pipe(readAll(config), futureFileProcessor(config, resolve(plugins)))(dirGlob)
 )

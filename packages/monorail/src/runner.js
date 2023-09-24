@@ -1,13 +1,12 @@
 import {
   curry,
-  propOr,
-  pipe,
-  reduce,
-  identity as I,
-  mergeRight,
-  prop,
-  map,
   fromPairs,
+  identity as I,
+  map,
+  mergeRight,
+  pipe,
+  prop,
+  reduce,
 } from 'ramda'
 import { pap, resolve } from 'fluture'
 import { topologicalDependencySort } from './sort'
@@ -33,7 +32,7 @@ export const taskProcessor = curry((context, plugins) =>
   )(plugins)
 )
 
-const stepFunction = curry(
+export const stepFunction = curry(
   (state, { selector = I, preserveLine = false, fn }, file) => {
     const selected = selector(state)
     return preserveLine
@@ -86,6 +85,22 @@ export const fileProcessor = curry((context, plugins, files) =>
   )(plugins)
 )
 
+export const futureApplicator = curry((context, plugins, files) =>
+  pipe(
+    map(plugin => [
+      plugin.name,
+      pipe(
+        map(file => [file.hash, stepFunction(context, plugin, file)]),
+        fromPairs
+      )(files),
+    ]),
+    fromPairs
+  )(plugins)
+)
+
 export const futureFileProcessor = curry((context, pluginsF, filesF) =>
-  pipe(pap(pluginsF), pap(filesF))(resolve(fileProcessor(context)))
+  pipe(
+    pap(map(topologicalDependencySort, pluginsF)),
+    pap(filesF)
+  )(resolve(futureApplicator(context)))
 )

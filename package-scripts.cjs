@@ -22,16 +22,17 @@ module.exports = {
             sequence
           )(
             // use :read !./tools/spacework/list-workspaces.cjs
+
             [
               'apps/docs',
               'packages/configurate',
               'packages/file-system',
               'packages/monocle',
-              'packages/monoplug',
-              'packages/plugin-word-analysis',
+              'packages/monorail',
               'shared/eslint-config-monoculture',
               'shared/jest-config',
               'shared/monoculture-tsconfig',
+              'tools/glue',
               'tools/monodoc',
               'tools/spacework',
             ]
