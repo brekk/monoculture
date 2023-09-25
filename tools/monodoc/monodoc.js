@@ -12,13 +12,13 @@ import {
   __,
   always as K3,
   chain as chain2,
-  curry as curry6,
+  curry as curry5,
   defaultTo as defaultTo2,
   filter as filter3,
   flatten as flatten2,
   groupBy as groupBy2,
   head as head4,
-  identity as I3,
+  identity as I2,
   join as join3,
   length as length5,
   lt,
@@ -48,7 +48,7 @@ import {
 // src/stats.js
 import {
   length,
-  curry as curry2,
+  curry,
   pipe,
   groupBy,
   map,
@@ -59,27 +59,13 @@ import {
   always,
   head
 } from "ramda";
-
-// src/trace.js
-import { curry, __ as $, identity as I } from "ramda";
-var scopedBinaryEffect = curry((effect, scope, a, b) => {
-  effect(a, scope(b));
-  return b;
-});
-var binaryEffect = scopedBinaryEffect($, I);
-var trace = binaryEffect(console.log);
-
-// src/stats.js
-var histogramBy = curry2(
+var histogramBy = curry(
   (pred, list) => pipe(groupBy(pred), map(length), toPairs)(list)
 );
-var rarestBy = curry2(
+var rarestBy = curry(
   (pred, list) => pipe(
-    trace("snake"),
     histogramBy(pred),
-    trace("grammmmmm"),
     (x) => x.sort(([_1, v], [_2, v2]) => v - v2),
-    trace("SORTED?"),
     when(pipe(length, equals(0)), always([[]])),
     head,
     head
@@ -88,7 +74,7 @@ var rarestBy = curry2(
 
 // src/parse.js
 import {
-  curry as curry4,
+  curry as curry3,
   filter as filter2,
   flatten,
   head as head3,
@@ -157,16 +143,12 @@ var trimComment = pipe3(
   when2(startsWith("* "), slice(2, Infinity))
 );
 var trimSummary = pipe3(
-  // trace('in'),
   reject(equals2("/**")),
-  // trace('rej'),
   map3(trimComment),
-  // trace('trim'),
   unlines
 );
 var nixKeyword = when2(includes("@"), replace2(/@/g, ""));
 var wipeComment = pipe3(trimComment, nixKeyword);
-var replaceAsterisks = replace2(/^\*$/g, "");
 var formatComment = (block) => pipe3(
   map3(([, v]) => v),
   map3(trimComment),
@@ -182,21 +164,21 @@ import {
   join as join2,
   propOr,
   prop,
-  __ as $2,
+  __ as $,
   addIndex as addIndex2,
   always as K,
   anyPass,
   applySpec,
   chain,
   cond,
-  curry as curry3,
+  curry as curry2,
   defaultTo,
   either,
   equals as equals3,
   filter,
   fromPairs,
   head as head2,
-  identity as I2,
+  identity as I,
   ifElse,
   includes as includes2,
   last as last2,
@@ -221,7 +203,7 @@ var matchLinks = pipe4(
   chain(match2(linkRegex)),
   map4((z) => slice2("{@link ".length, z.length - 1, z))
 );
-var handleSpecificKeywords = curry3(
+var handleSpecificKeywords = curry2(
   (keyword, value, rest, file, end, i) => cond([
     // if example found, pull from raw file
     [equals3("example"), () => getExample(file, end, i)],
@@ -238,7 +220,7 @@ var handleSpecificKeywords = curry3(
     [K(true), () => value]
   ])(keyword)
 );
-var structureKeywords = curry3(
+var structureKeywords = curry2(
   (file, block, end) => pipe4(
     map4(([i, line]) => [
       i,
@@ -271,10 +253,10 @@ var summarize = (lines2) => {
   const stripped = reject2(equals3("*"), lines2);
   return pipe4(
     addIndex2(map4)((x, i) => ifElse(startsWith2("@"), K(i), K(false))(x)),
-    filter(I2),
+    filter(I),
     head2,
     defaultTo(length3(stripped)),
-    slice2(0, $2, stripped),
+    slice2(0, $, stripped),
     unlines
   )(stripped);
 };
@@ -285,7 +267,7 @@ var slug = (name) => {
 var stripLeadingHyphen = replace3(/^-/g, "");
 var getFileGroup = propOr("", "group");
 var addTo = propOr("", "addTo");
-var objectifyComments = curry3(
+var objectifyComments = curry2(
   (filename, file, comments) => reduce2(
     (agg, block) => agg.concat(
       pipe4(
@@ -316,7 +298,7 @@ var objectifyComments = curry3(
     comments
   )
 );
-var getExample = curry3(
+var getExample = curry2(
   (file, end, i) => pipe4(
     slice2(i + 1, end),
     map4(trimComment),
@@ -330,7 +312,7 @@ var isJSDocComment = pipe4(
 );
 
 // src/parse.js
-var getAny = curry4(
+var getAny = curry3(
   (def, keyPath, comments) => pipe5(
     map5(pathOr(def, keyPath)),
     filter2(identity),
@@ -339,7 +321,7 @@ var getAny = curry4(
     head3
   )(comments)
 );
-var parse = curry4((root, filename, content) => {
+var parse = curry3((root, filename, content) => {
   const newName = stripRelative(filename);
   const newNameFolder = newName.slice(0, newName.lastIndexOf("/"));
   return pipe5(
@@ -370,7 +352,7 @@ var parse = curry4((root, filename, content) => {
     // CommentedFile
   )(content);
 });
-var parseFile = curry4(
+var parseFile = curry3(
   (root, x) => pipe5(
     // String
     (filename) => pipe5(
@@ -382,7 +364,6 @@ var parseFile = curry4(
       map5((p) => ({
         ...p,
         comments: pipe5(
-          // trace('RAW'),
           filter2(
             ({ lines: l, start, end, summary }) => start !== end && !!summary && l.length > 0
           )
@@ -395,6 +376,9 @@ var parseFile = curry4(
     // CommentedFile
   )(x)
 );
+
+// src/cli.js
+import { scopedBinaryEffect } from "glue";
 
 // src/renderer.js
 import {
@@ -458,9 +442,11 @@ var package_default = {
   },
   devDependencies: {
     dotenv: "^16.3.1",
+    envtrace: "^0.0.2",
     "eslint-config-monoculture": "*",
     "jest-environment-jsdom": "^29.7.0",
-    madge: "^6.0.0"
+    madge: "^6.0.0",
+    xtrace: "^0.3.0"
   },
   scripts: {
     nps: "dotenv -- nps -c ./package-scripts.cjs",
@@ -478,10 +464,10 @@ var package_default = {
 };
 
 // src/config.js
-import { curry as curry5 } from "ramda";
+import { curry as curry4 } from "ramda";
 import { generateHelp } from "configurate";
 import yargsParser from "yargs-parser";
-var parser = curry5((opts, args) => yargsParser(args, opts));
+var parser = curry4((opts, args) => yargsParser(args, opts));
 var YARGS_CONFIG = {
   alias: {
     input: ["i"],
@@ -525,7 +511,7 @@ var capitalToKebab = (s) => pipe7(
   replace4(/\//g, "-"),
   replace4(/--/g, "-")
 )(s.replace(/[A-Z]/g, (match3) => `-` + match3));
-var readPackageJsonWorkspaces = curry6(
+var readPackageJsonWorkspaces = curry5(
   (root, x) => map7(
     pipe7(
       // grab the workspaces field
@@ -537,7 +523,7 @@ var readPackageJsonWorkspaces = curry6(
     )
   )(x)
 );
-var iterateOverWorkspacesAndReadFiles = curry6(
+var iterateOverWorkspacesAndReadFiles = curry5(
   (searchGlob, ignore, root, x) => map7(
     pipe7(
       // look for specific file types
@@ -567,7 +553,7 @@ var cleanFilename = ({ workspace, fileGroup, filename, comments }) => {
   const result = capitalToKebab(sliced) + ".mdx";
   return (fileGroup ? fileGroup + "/" : "") + stripLeadingHyphen(sliced !== title ? capitalize(result) : result);
 };
-var combineFiles = curry6(
+var combineFiles = curry5(
   (leftToRight, a, b) => !leftToRight ? combineFiles(true, b, a) : {
     ...a,
     ...b,
@@ -575,7 +561,7 @@ var combineFiles = curry6(
     links: [...a.links, ...b.links]
   }
 );
-var prepareMetaFiles = curry6(
+var prepareMetaFiles = curry5(
   (outputDir, workspace, commentedFiles) => pipe7(
     map7((raw) => [
       pipe7(cleanFilename, (x) => basename(x, ".mdx"))(raw),
@@ -715,7 +701,7 @@ var runner = ({
       )
     ) : (
       // otherwise do nothing (identity)
-      I3
+      I2
     ),
     // x => x
     // underlying structure here is { [filename]: CommentBlock[] }
@@ -733,7 +719,7 @@ var runner = ({
                 // this part is the structure of the file we wanna write
                 cleanFilename(file)
               ),
-              pipe7(map7(commentToMarkdown), join3("\n"))(file.comments)
+              pipe7(map7(commentToMarkdown), join3("\n\n"))(file.comments)
             )
           )(commentedFiles);
           const metaFiles = prepareMetaFiles(

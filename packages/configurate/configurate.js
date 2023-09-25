@@ -1,7 +1,7 @@
 // src/help.js
 import {
+  applySpec,
   __ as $,
-  ap,
   concat,
   curry,
   equals,
@@ -13,14 +13,11 @@ import {
   propOr,
   toPairs
 } from "ramda";
-var trace = curry((a, b) => {
-  console.log(a, b);
-  return b;
-});
+import { trace } from "xtrace";
 var shortFlag = (z) => `-${z}`;
 var longFlag = (z) => `--${z}`;
 var invalidHelpConfig = (key) => {
-  throw new Error(`You must add a ${key} key to the helpConfig!`);
+  throw new Error(`You must add a "${key}" key to the helpConfig!`);
 };
 var failIfMissingFlag = curry(
   (env, k, raw) => env !== "production" && raw === "???" ? invalidHelpConfig(k) : raw
@@ -31,20 +28,19 @@ var generateHelp = curry(
     toPairs,
     map(
       ([k, v]) => pipe(
-        (x) => [x],
-        ap([
-          pipe(
+        applySpec({
+          flags: pipe(
             (x) => [x],
             concat(v),
             map(ifElse(pipe(length, equals(1)), shortFlag, longFlag)),
             join(" / ")
           ),
-          pipe(
+          description: pipe(
             propOr("???", $, helpConfig),
             failIfMissingFlag(process.env.NODE_ENV, k)
           )
-        ]),
-        ([flags, description]) => `${flags}
+        }),
+        ({ flags, description }) => `${flags}
   ${description}`
       )(k)
     ),
@@ -59,6 +55,5 @@ export {
   generateHelp,
   invalidHelpConfig,
   longFlag,
-  shortFlag,
-  trace
+  shortFlag
 };

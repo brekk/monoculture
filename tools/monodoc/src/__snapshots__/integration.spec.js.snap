@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`monodoc fixture.ts 1`] = `
+"monodoc
+
+-i / --input
+  A file to read!
+
+-o / --output
+  The file to output!
+
+-s / --search
+  The glob to use for searching (default: '**//*.{js,jsx,ts,tsx}')
+
+-a / --artifact
+  Would you like to create an artifact file? (Useful for downstream transformation)
+
+-g / --ignore
+  Files to ignore when searching, can be specified multiple times"
+`;

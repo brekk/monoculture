@@ -52,7 +52,7 @@ module.exports = {
     prepare: sd('husky install', 'add git pre-commit hook'),
     meta: {
       docs: sd(
-        `tools/monodoc/monodoc.js -i package.json -o autodoc`,
+        `yarn workspace docs run autodoc build`,
         'generate a monodoc-based JSON document'
       ),
       script: 'nps meta.graph',

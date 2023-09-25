@@ -289,7 +289,7 @@ const runner = ({
                 // this part is the structure of the file we wanna write
                 cleanFilename(file)
               ),
-              pipe(map(commentToMarkdown), join('\n'))(file.comments)
+              pipe(map(commentToMarkdown), join('\n\n'))(file.comments)
             )
           )(commentedFiles)
           const metaFiles = prepareMetaFiles(

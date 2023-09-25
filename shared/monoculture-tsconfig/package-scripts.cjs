@@ -3,7 +3,7 @@ const sd = (script, description = '') =>
 
 module.exports = {
   scripts: {
-    lint: sd('eslint --fix .', 'lint!'),
+    // lint: sd('eslint --fix .', 'lint!'),
     test: {
       ...sd('jest', 'test!'),
       all: sd('jest', 'test!'),

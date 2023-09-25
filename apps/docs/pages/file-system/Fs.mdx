@@ -5,6 +5,7 @@ make a file string relative
 import { localize } from 'file-system'
 console.log(`support localize('business')`)
 ```
+
 ## readFile
 read a file asynchronously and future wrapped
 ### Usage
@@ -13,6 +14,7 @@ import { fork } from 'fluture'
 import { readFile } from 'file-system'
 fork(console.warn)(console.log)(readFile('./README.md'))
 ```
+
 ## readJSONFile
 read a JSON file asynchronously and future wrapped
 ### Usage
@@ -21,6 +23,7 @@ import { fork } from 'fluture'
 import { readJSONFile } from 'file-system'
 fork(console.warn)(console.log)(readJSONFile('./package.json'))
 ```
+
 ## readDirWithConfig
 read a `glob` asynchronously and future wrapped, with configuration
 ### Usage
@@ -34,6 +37,7 @@ pipe(
   fork(console.warn)(console.log)
 )(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))
 ```
+
 ## readDir
 read a `glob` asynchronously and future wrapped, no config needed
 ### Usage
@@ -43,6 +47,7 @@ import { readDirWithConfig } from 'file-system'
 // [...]
 fork(console.warn)(console.log)(readDir('src/*'))
 ```
+
 ## writeFileWithConfig
 Write a file, with configuration
 ### Usage
@@ -58,6 +63,7 @@ fork(console.warn)(console.log)(
   )
 )
 ```
+
 ## writeFile
 Write a file, assuming 'utf8'
 ### Usage
@@ -72,6 +78,7 @@ fork(console.warn)(console.log)(
   )
 )
 ```
+
 ## removeFileWithConfig
 Remove a file, configurably
 ### Usage
@@ -86,6 +93,7 @@ fork(console.warn)(console.log)(
   )
 )
 ```
+
 ## removeFile
 Remove a file, default config
 ### Usage
@@ -99,6 +107,7 @@ fork(console.warn)(console.log)(
   )
 )
 ```
+
 ## removeFilesWithConfig
 Remove multiple files, configurably
 ### Usage
@@ -113,6 +122,7 @@ fork(console.warn)(console.log)(
   )
 )
 ```
+
 ## removeFiles
 Remove multiple files, sans configuration
 ### Usage
@@ -126,6 +136,7 @@ fork(console.warn)(console.log)(
   )
 )
 ```
+
 ## mkdir
 Make a directory, but futuristically
 ### Usage
@@ -140,6 +151,7 @@ fork(console.warn)(console.log)(
   )
 )
 ```
+
 ## writeFileWithAutoPath
 Write a file to a nested folder and automatically create needed folders
 ### Usage

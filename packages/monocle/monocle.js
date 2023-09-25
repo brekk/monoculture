@@ -1,18 +1,5 @@
 #!/usr/bin/env node
 
-// src/index.js
-import { pipe as pipe2, map as map2, chain as chain2 } from "ramda";
-import { parallel as parallel2 } from "fluture";
-import { readDir } from "file-system";
-import { fileProcessor } from "monorail";
-
-// src/reader.js
-import path from "node:path";
-import { curry, pipe, map, split, addIndex, fromPairs, chain } from "ramda";
-import { parallel, resolve } from "fluture";
-import { readDirWithConfig, readFile } from "file-system";
-import { futureFileProcessor } from "monorail";
-
 // src/hash.js
 import crypto from "node:crypto";
 var hash = (buf) => {
@@ -22,6 +9,11 @@ var hash = (buf) => {
 };
 
 // src/reader.js
+import path from "node:path";
+import { curry, pipe, map, split, addIndex, fromPairs, chain } from "ramda";
+import { parallel, resolve } from "fluture";
+import { readDirWithConfig, readFile } from "file-system";
+import { futureFileProcessor } from "monorail";
 var readMonoFile = curry((basePath, file) => {
   return pipe(
     readFile,
@@ -49,3 +41,9 @@ var readAll = curry(
 var monoprocessor = curry(
   (config, plugins, dirGlob) => pipe(readAll(config), futureFileProcessor(config, resolve(plugins)))(dirGlob)
 );
+export {
+  hash,
+  monoprocessor,
+  readAll,
+  readMonoFile
+};

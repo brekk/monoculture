@@ -1,6 +1,6 @@
 import {
+  applySpec,
   __ as $,
-  ap,
   concat,
   curry,
   equals,
@@ -12,6 +12,7 @@ import {
   propOr,
   toPairs,
 } from 'ramda'
+import { trace } from 'xtrace'
 
 // shortFlag :: String -> String
 export const shortFlag = z => `-${z}`
@@ -21,7 +22,7 @@ export const longFlag = z => `--${z}`
 
 // invalidHelpConfig :: String -> ()
 export const invalidHelpConfig = key => {
-  throw new Error(`You must add a ${key} key to the helpConfig!`)
+  throw new Error(`You must add a "${key}" key to the helpConfig!`)
 }
 
 // failIfMissingFlag :: String -> String -> String
@@ -35,20 +36,19 @@ export const generateHelp = curry((name, helpConfig, yargsConfig) =>
     toPairs,
     map(([k, v]) =>
       pipe(
-        x => [x],
-        ap([
-          pipe(
+        applySpec({
+          flags: pipe(
             x => [x],
             concat(v),
             map(ifElse(pipe(length, equals(1)), shortFlag, longFlag)),
             join(' / ')
           ),
-          pipe(
+          description: pipe(
             propOr('???', $, helpConfig),
             failIfMissingFlag(process.env.NODE_ENV, k)
           ),
-        ]),
-        ([flags, description]) => `${flags}\n  ${description}`
+        }),
+        ({ flags, description }) => `${flags}\n  ${description}`
       )(k)
     ),
     join('\n\n'),

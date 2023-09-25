@@ -11,7 +11,6 @@ const goodrun = (args, expectation = I) =>
       run,
       fork(done)(z => {
         expectation(z)
-        console.log('zzzzzz', z)
         expect(z).toBeTruthy()
         expect(z).toMatchSnapshot()
         done()
