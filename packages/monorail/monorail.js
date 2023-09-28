@@ -39,6 +39,7 @@ var insertAfter = curry2((idx, x, arr) => [
 
 // src/runner.js
 import {
+  pathOr,
   curry as curry4,
   fromPairs,
   identity as I,
@@ -98,10 +99,11 @@ var taskProcessor = curry4(
 var stepFunction = curry4(
   (state, { selector = I, preserveLine = false, fn }, file) => {
     const selected = selector(state);
-    return preserveLine ? {
+    const output = preserveLine ? {
       ...file,
       body: map2(([k, v]) => [k, fn(selected, v)])(file.body)
     } : fn(selected, file);
+    return output;
   }
 );
 var processRelativeToFile = curry4(
@@ -139,7 +141,7 @@ var fileProcessor = curry4(
 );
 var futureApplicator = curry4((context, plugins, files) => ({
   state: pipe2(
-    map2((plugin) => [
+    map2(({ default: plugin }) => [
       plugin.name,
       pipe2(
         map2((file) => [file.hash, stepFunction(context, plugin, file)]),
@@ -153,7 +155,7 @@ var futureApplicator = curry4((context, plugins, files) => ({
     map2((z) => [prop("hash", z), prop("file", z)]),
     fromPairs
   )(files),
-  plugins: map2(prop("name"), plugins)
+  plugins: map2(pathOr("???", ["default", "name"]), plugins)
 }));
 var futureFileProcessor = curry4(
   (context, pluginsF, filesF) => pipe2(

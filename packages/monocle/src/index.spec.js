@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { fork } from 'fluture'
+import { resolve, fork } from 'fluture'
 import { pipe, map, prop, trim, reduce } from 'ramda'
 import { readAll, monoprocessor } from './reader'
 import * as EVERYTHING from './index'
@@ -34,19 +34,23 @@ test('readAll', done => {
 
 const PLUGINS = [
   {
-    name: 'wordcount',
-    dependencies: [],
-    fn: (c, f) =>
-      pipe(
-        map(([, lineContent]) => lineContent.split(' ').map(trim).length),
-        reduce((a, b) => a + b, 0)
-      )(f.body),
+    default: {
+      name: 'wordcount',
+      dependencies: [],
+      fn: (c, f) =>
+        pipe(
+          map(([, lineContent]) => lineContent.split(' ').map(trim).length),
+          reduce((a, b) => a + b, 0)
+        )(f.body),
+    },
   },
   {
-    name: 'c-words',
-    dependencies: [],
-    preserveLine: true,
-    fn: (c, line) => line.split(' ').filter(z => z.startsWith('c')).length,
+    default: {
+      name: 'c-words',
+      dependencies: [],
+      preserveLine: true,
+      fn: (c, line) => line.split(' ').filter(z => z.startsWith('c')).length,
+    },
   },
 ]
 
@@ -62,7 +66,7 @@ test('monoprocessor', done => {
         // don't read test files, don't read snapshots
         ignore: [path.join(__dirname, '*.spec.js'), '**/__snapshots__/*.snap'],
       },
-      PLUGINS,
+      resolve(PLUGINS),
       path.join(__dirname, '/**')
     )
   )

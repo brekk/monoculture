@@ -1,10 +1,12 @@
+import { resolve as pathResolve } from 'node:path'
 import { pipe, chain, map } from 'ramda'
-import { fork } from 'fluture'
+import { fork, parallel } from 'fluture'
+import { interpret } from 'file-system'
 import { monoprocessor } from './reader'
 import { configurate } from 'configurate'
 import PKG from '../package.json'
 import { CONFIG, HELP_CONFIG, CONFIG_DEFAULTS } from './config'
-import { trace } from 'xtrace'
+// import { trace } from 'xtrace'
 
 // eslint-disable no-console
 
@@ -16,9 +18,13 @@ pipe(
     PKG.name
   ),
   chain(config => {
-    const { plugins = [], _: dirGlob = [] } = config
-    trace('parsed', JSON.stringify(config, null, 2))
-    return monoprocessor(config, plugins, dirGlob[0])
+    const { basePath, plugin: plugins = [], _: dirGlob = [] } = config
+    const pluginsF = pipe(
+      map(x => pathResolve(basePath, x)),
+      map(interpret),
+      parallel(10)
+    )(plugins)
+    return monoprocessor(config, pluginsF, dirGlob[0])
   }),
   // eslint-disable-next-line no-console
   fork(console.warn)(console.log)

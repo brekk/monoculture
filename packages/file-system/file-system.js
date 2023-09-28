@@ -134,6 +134,14 @@ var pathRelativeTo = curry3((pwd, x) => {
   }
   return join(pwd, normalize(x));
 });
+
+// src/interpret.js
+import { Future as Future3 } from "fluture";
+var interpret = (filepath) => Future3((bad, good) => {
+  import(filepath).catch(bad).then(good);
+  return () => {
+  };
+});
 export {
   DEFAULT_REMOVAL_CONFIG,
   access,
@@ -141,6 +149,7 @@ export {
   exists,
   flexeca,
   flexecaWithCanceller,
+  interpret,
   localize,
   mkdir,
   mkdirp,

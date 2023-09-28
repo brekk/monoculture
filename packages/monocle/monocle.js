@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 
 // src/cli.js
+import { resolve as pathResolve } from "node:path";
 import { pipe as pipe2, chain as chain2, map as map2 } from "ramda";
-import { fork } from "fluture";
+import { fork, parallel as parallel2 } from "fluture";
+import { interpret } from "file-system";
 
 // src/reader.js
 import path from "node:path";
 import { curry, pipe, map, split, addIndex, fromPairs, chain } from "ramda";
 import { parallel, resolve } from "fluture";
-import { trace } from "xtrace";
 import { readDirWithConfig, readFile } from "file-system";
 import { futureFileProcessor } from "monorail";
 
@@ -46,7 +47,7 @@ var readAll = curry((config, dirglob) => {
   )(dirglob);
 });
 var monoprocessor = curry(
-  (config, plugins, dirGlob) => pipe(readAll(config), futureFileProcessor(config, resolve(plugins)))(dirGlob)
+  (config, pluginsF, dirGlob) => pipe(readAll(config), futureFileProcessor(config, pluginsF))(dirGlob)
 );
 
 // src/cli.js
@@ -109,7 +110,6 @@ var HELP_CONFIG = {
 };
 
 // src/cli.js
-import { trace as trace2 } from "xtrace";
 pipe2(
   configurate(
     CONFIG,
@@ -118,9 +118,13 @@ pipe2(
     package_default.name
   ),
   chain2((config) => {
-    const { plugins = [], _: dirGlob = [] } = config;
-    trace2("parsed", JSON.stringify(config, null, 2));
-    return monoprocessor(config, plugins, dirGlob[0]);
+    const { basePath, plugin: plugins = [], _: dirGlob = [] } = config;
+    const pluginsF = pipe2(
+      map2((x) => pathResolve(basePath, x)),
+      map2(interpret),
+      parallel2(10)
+    )(plugins);
+    return monoprocessor(config, pluginsF, dirGlob[0]);
   }),
   // eslint-disable-next-line no-console
   fork(console.warn)(console.log)

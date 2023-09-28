@@ -347,7 +347,11 @@ test('fileProcessor', () => {
 
 test('futureFileProcessor', done => {
   const ctx = {}
-  const outF = futureFileProcessor(ctx, resolve(PLUGINS), resolve(FILES))
+  const outF = futureFileProcessor(
+    ctx,
+    resolve(PLUGINS.map(z => ({ default: z }))),
+    resolve(FILES)
+  )
   fork(done)(out => {
     expect(out.state).toMatchSnapshot()
     done()

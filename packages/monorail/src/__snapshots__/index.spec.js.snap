@@ -56,9 +56,5 @@ exports[`futureFileProcessor 1`] = `
       "hash": "/a/b/c/really-cool.txt",
     },
   },
-  "wordcount": {
-    "/a/b/c/cool.txt": 7,
-    "/a/b/c/really-cool.txt": 24,
-  },
 }
 `;

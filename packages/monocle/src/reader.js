@@ -2,7 +2,6 @@ import path from 'node:path'
 
 import { curry, pipe, map, split, addIndex, fromPairs, chain } from 'ramda'
 import { parallel, resolve } from 'fluture'
-import { trace } from 'xtrace'
 
 import { readDirWithConfig, readFile } from 'file-system'
 import { futureFileProcessor } from 'monorail'
@@ -35,6 +34,6 @@ export const readAll = curry((config, dirglob) => {
   )(dirglob)
 })
 
-export const monoprocessor = curry((config, plugins, dirGlob) =>
-  pipe(readAll(config), futureFileProcessor(config, resolve(plugins)))(dirGlob)
+export const monoprocessor = curry((config, pluginsF, dirGlob) =>
+  pipe(readAll(config), futureFileProcessor(config, pluginsF))(dirGlob)
 )

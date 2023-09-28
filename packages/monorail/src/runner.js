@@ -1,4 +1,5 @@
 import {
+  pathOr,
   curry,
   fromPairs,
   identity as I,
@@ -35,12 +36,13 @@ export const taskProcessor = curry((context, plugins) =>
 export const stepFunction = curry(
   (state, { selector = I, preserveLine = false, fn }, file) => {
     const selected = selector(state)
-    return preserveLine
+    const output = preserveLine
       ? {
           ...file,
           body: map(([k, v]) => [k, fn(selected, v)])(file.body),
         }
       : fn(selected, file)
+    return output
   }
 )
 
@@ -87,7 +89,7 @@ export const fileProcessor = curry((context, plugins, files) =>
 
 export const futureApplicator = curry((context, plugins, files) => ({
   state: pipe(
-    map(plugin => [
+    map(({ default: plugin }) => [
       plugin.name,
       pipe(
         map(file => [file.hash, stepFunction(context, plugin, file)]),
@@ -101,7 +103,7 @@ export const futureApplicator = curry((context, plugins, files) => ({
     map(z => [prop('hash', z), prop('file', z)]),
     fromPairs
   )(files),
-  plugins: map(prop('name'), plugins),
+  plugins: map(pathOr('???', ['default', 'name']), plugins),
 }))
 
 export const futureFileProcessor = curry((context, pluginsF, filesF) =>
