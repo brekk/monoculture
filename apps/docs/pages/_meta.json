@@ -1,8 +1,4 @@
 {
   "index": "Monoculture",
-  "monorepo": "Monorepo",
-  "monodoc": "Monodoc",
-  "---": {
-    "type": "separator"
-  }
+  "monodoc": "Monodoc"
 }

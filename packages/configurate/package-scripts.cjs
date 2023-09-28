@@ -14,7 +14,7 @@ const build = ([infile, outfile]) =>
 
 module.exports = {
   scripts: {
-    build: build(['src/help.js', PKG.main]),
+    build: build(['src/index.js', PKG.main]),
     lint: sd('eslint --fix .', 'lint!'),
     test: {
       ...sd('jest', 'test!'),

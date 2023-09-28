@@ -22,7 +22,7 @@ module.exports = {
             sequence
           )(
             // use :read !./tools/spacework/list-workspaces.cjs
-
+            //
             [
               'apps/docs',
               'packages/configurate',

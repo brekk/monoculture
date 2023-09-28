@@ -50,10 +50,47 @@ var generateHelp = curry(
 ${z}`
   )(yargsConfig)
 );
+
+// src/builder.js
+import {
+  ifElse as ifElse2,
+  always,
+  pipe as pipe2,
+  mergeRight,
+  curry as curry3,
+  F as alwaysFalse
+} from "ramda";
+
+// src/parser.js
+import { curry as curry2 } from "ramda";
+import yargsParser from "yargs-parser";
+var parse = curry2((opts, args) => yargsParser(args, opts));
+
+// src/builder.js
+import { reject, resolve } from "fluture";
+import { trace as trace2 } from "xtrace";
+var showHelpWhen = curry3(
+  (check, parsed) => check(parsed) || parsed.help
+);
+var configurateWithOptions = curry3(
+  ({ check = alwaysFalse, options = {} }, yargsConfig, configDefaults, helpConfig, name, argv) => {
+    const HELP = generateHelp(name, helpConfig, yargsConfig);
+    return pipe2(
+      parse(options),
+      mergeRight(configDefaults),
+      trace2("parsed"),
+      ifElse2(showHelpWhen(check), always(reject(HELP)), resolve)
+    )(argv);
+  }
+);
+var configurate = configurateWithOptions({});
 export {
+  configurate,
+  configurateWithOptions,
   failIfMissingFlag,
   generateHelp,
   invalidHelpConfig,
   longFlag,
-  shortFlag
+  shortFlag,
+  showHelpWhen
 };

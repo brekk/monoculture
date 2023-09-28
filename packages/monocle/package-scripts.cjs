@@ -12,7 +12,7 @@ const build = ([infile, outfile]) =>
     `--banner:js="#!/usr/bin/env node"`,
   ].join(' ')
 
-const INPUT = `src/index.js`
+const INPUT = `src/cli.js`
 const OUTPUT = PKG.main
 
 const sd = (script, description = '') =>
