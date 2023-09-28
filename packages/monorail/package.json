@@ -9,6 +9,7 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
+    "envtrace": "^0.0.2",
     "file-system": "*"
   },
   "devDependencies": {

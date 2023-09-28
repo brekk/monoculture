@@ -62,21 +62,36 @@ import {
   propEq,
   last
 } from "ramda";
+
+// src/trace.js
+import { complextrace } from "envtrace";
+var log = complextrace("monorail", [
+  "async",
+  "validate",
+  "sort",
+  "route",
+  "run"
+]);
+
+// src/sort.js
 var without = curry3((name, x) => reject(propEq("name", name), x));
-var topologicalDependencySort = (raw) => reduce(
-  (agg, plugin) => {
-    const { name, dependencies = [] } = plugin;
-    const cleaned = without(name, agg);
-    return pipe(
-      map((d) => findIndex(propEq("name", d), cleaned)),
-      (z) => z.sort(),
-      last,
-      (ix = -1) => insertAfter(ix, plugin, cleaned)
-    )(dependencies);
-  },
-  raw,
-  raw
-);
+var topologicalDependencySort = (raw) => pipe(
+  map((rawPlug) => rawPlug?.default ?? rawPlug),
+  (defaulted) => reduce(
+    (agg, plugin) => {
+      const { name, dependencies = [] } = plugin;
+      const cleaned = without(name, agg);
+      return pipe(
+        map((d) => findIndex(propEq("name", d), cleaned)),
+        (z) => z.sort(),
+        last,
+        (ix = -1) => insertAfter(ix, plugin, cleaned)
+      )(dependencies);
+    },
+    defaulted,
+    defaulted
+  )
+)(raw);
 
 // src/runner.js
 var taskProcessor = curry4(
@@ -141,13 +156,26 @@ var fileProcessor = curry4(
 );
 var futureApplicator = curry4((context, plugins, files) => ({
   state: pipe2(
-    map2(({ default: plugin }) => [
-      plugin.name,
-      pipe2(
-        map2((file) => [file.hash, stepFunction(context, plugin, file)]),
-        fromPairs
-      )(files)
-    ]),
+    map2((plugin) => {
+      log.run("plugin", {
+        name: plugin.name,
+        dependencies: plugin.dependencies
+      });
+      return [
+        plugin.name,
+        pipe2(
+          map2((file) => [file.hash, stepFunction(context, plugin, file)]),
+          fromPairs
+        )(files)
+      ];
+    }),
+    (z) => {
+      log.run(
+        "state updated...",
+        map2(([k]) => k, z)
+      );
+      return z;
+    },
     fromPairs
   )(plugins),
   files,
@@ -155,7 +183,7 @@ var futureApplicator = curry4((context, plugins, files) => ({
     map2((z) => [prop("hash", z), prop("file", z)]),
     fromPairs
   )(files),
-  plugins: map2(pathOr("???", ["default", "name"]), plugins)
+  plugins: map2(prop("name"), plugins)
 }));
 var futureFileProcessor = curry4(
   (context, pluginsF, filesF) => pipe2(

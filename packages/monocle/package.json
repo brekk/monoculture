@@ -10,6 +10,7 @@
   "private": true,
   "dependencies": {
     "configurate": "*",
+    "envtrace": "^0.0.2",
     "fluture": "^14.0.0",
     "monorail": "*",
     "ramda": "^0.29.0"

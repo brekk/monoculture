@@ -5,6 +5,7 @@ import { interpret } from 'file-system'
 import { monoprocessor } from './reader'
 import { configurate } from 'configurate'
 import PKG from '../package.json'
+import { log } from './trace'
 import { CONFIG, HELP_CONFIG, CONFIG_DEFAULTS } from './config'
 // import { trace } from 'xtrace'
 
@@ -17,9 +18,11 @@ pipe(
     HELP_CONFIG,
     PKG.name
   ),
+  map(log.config('parsed')),
   chain(config => {
     const { basePath, plugin: plugins = [], _: dirGlob = [] } = config
     const pluginsF = pipe(
+      map(log.plugin('loading')),
       map(x => pathResolve(basePath, x)),
       map(interpret),
       parallel(10)

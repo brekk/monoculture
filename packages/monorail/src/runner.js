@@ -11,6 +11,7 @@ import {
 } from 'ramda'
 import { pap, resolve } from 'fluture'
 import { topologicalDependencySort } from './sort'
+import { log } from './trace'
 
 export const taskProcessor = curry((context, plugins) =>
   pipe(
@@ -42,6 +43,8 @@ export const stepFunction = curry(
           body: map(([k, v]) => [k, fn(selected, v)])(file.body),
         }
       : fn(selected, file)
+    // log.run('transforming...', file.file)
+    // log.run('transformed...', output)
     return output
   }
 )
@@ -89,13 +92,26 @@ export const fileProcessor = curry((context, plugins, files) =>
 
 export const futureApplicator = curry((context, plugins, files) => ({
   state: pipe(
-    map(({ default: plugin }) => [
-      plugin.name,
-      pipe(
-        map(file => [file.hash, stepFunction(context, plugin, file)]),
-        fromPairs
-      )(files),
-    ]),
+    map(plugin => {
+      log.run('plugin', {
+        name: plugin.name,
+        dependencies: plugin.dependencies,
+      })
+      return [
+        plugin.name,
+        pipe(
+          map(file => [file.hash, stepFunction(context, plugin, file)]),
+          fromPairs
+        )(files),
+      ]
+    }),
+    z => {
+      log.run(
+        'state updated...',
+        map(([k]) => k, z)
+      )
+      return z
+    },
     fromPairs
   )(plugins),
   files,
@@ -103,7 +119,7 @@ export const futureApplicator = curry((context, plugins, files) => ({
     map(z => [prop('hash', z), prop('file', z)]),
     fromPairs
   )(files),
-  plugins: map(pathOr('???', ['default', 'name']), plugins),
+  plugins: map(prop('name'), plugins),
 }))
 
 export const futureFileProcessor = curry((context, pluginsF, filesF) =>

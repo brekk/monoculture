@@ -21,9 +21,14 @@ var hash = (buf) => {
   return sum.digest("hex");
 };
 
+// src/trace.js
+import { complextrace } from "envtrace";
+var log = complextrace("monocle", ["config", "file", "plugin"]);
+
 // src/reader.js
 var readMonoFile = curry(
   (basePath, file) => pipe(
+    log.file("reading"),
     readFile,
     map(
       (buf) => pipe(
@@ -40,6 +45,7 @@ var readMonoFile = curry(
 );
 var readAll = curry((config, dirglob) => {
   return pipe(
+    log.file("reading glob"),
     readDirWithConfig({ ...config, nodir: true }),
     chain(
       (files) => pipe(map(readMonoFile(config.basePath)), parallel(10))(files)
@@ -66,6 +72,7 @@ var package_default = {
   private: true,
   dependencies: {
     configurate: "*",
+    envtrace: "^0.0.2",
     fluture: "^14.0.0",
     monorail: "*",
     ramda: "^0.29.0"
@@ -117,9 +124,11 @@ pipe2(
     HELP_CONFIG,
     package_default.name
   ),
+  map2(log.config("parsed")),
   chain2((config) => {
     const { basePath, plugin: plugins = [], _: dirGlob = [] } = config;
     const pluginsF = pipe2(
+      map2(log.plugin("loading")),
       map2((x) => pathResolve(basePath, x)),
       map2(interpret),
       parallel2(10)
