@@ -7,6 +7,7 @@ import {
   equals,
   ifElse,
   join,
+  mergeRight,
   length,
   map,
   pipe,
@@ -56,7 +57,7 @@ import {
   ifElse as ifElse2,
   always,
   pipe as pipe2,
-  mergeRight,
+  mergeRight as mergeRight2,
   curry as curry3,
   F as alwaysFalse
 } from "ramda";
@@ -70,15 +71,19 @@ var parse = curry2((opts, args) => yargsParser(args, opts));
 import { reject, resolve } from "fluture";
 import { trace as trace2 } from "xtrace";
 var showHelpWhen = curry3(
-  (check, parsed) => check(parsed) || parsed.help
+  (check, parsed) => parsed.help || check(parsed)
 );
 var configurateWithOptions = curry3(
-  ({ check = alwaysFalse, options = {} }, yargsConfig, configDefaults, helpConfig, name, argv) => {
-    const HELP = generateHelp(name, helpConfig, yargsConfig);
+  ({ check = alwaysFalse }, yargsConfig, configDefaults, helpConfig, name, argv) => {
+    const help = ["help"];
+    const updatedConfig = mergeRight2(yargsConfig, {
+      alias: mergeRight2(yargsConfig.alias, { help: ["h"] }),
+      boolean: yargsConfig.boolean ? yargsConfig.boolean.includes("help") : yargsConfig.boolean ? yargsConfig.boolean.concat(help) : help
+    });
+    const HELP = generateHelp(name, helpConfig, updatedConfig);
     return pipe2(
-      parse(options),
-      mergeRight(configDefaults),
-      trace2("parsed"),
+      parse(updatedConfig),
+      mergeRight2(configDefaults),
       ifElse2(showHelpWhen(check), always(reject(HELP)), resolve)
     )(argv);
   }

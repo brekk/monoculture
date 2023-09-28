@@ -349,33 +349,7 @@ test('futureFileProcessor', done => {
   const ctx = {}
   const outF = futureFileProcessor(ctx, resolve(PLUGINS), resolve(FILES))
   fork(done)(out => {
-    expect(out).toEqual({
-      't-words': {
-        '/a/b/c/cool.txt': {
-          body: [
-            [0, 0],
-            [1, 1],
-            [2, 1],
-            [3, 0],
-          ],
-          file: '/a/b/c/cool.txt',
-          hash: '/a/b/c/cool.txt',
-        },
-        '/a/b/c/really-cool.txt': {
-          body: [
-            [0, 1],
-            [1, 3],
-            [2, 0],
-            [3, 0],
-            [4, 0],
-            [5, 0],
-          ],
-          file: '/a/b/c/really-cool.txt',
-          hash: '/a/b/c/really-cool.txt',
-        },
-      },
-      wordcount: { '/a/b/c/cool.txt': 7, '/a/b/c/really-cool.txt': 24 },
-    })
+    expect(out.state).toMatchSnapshot()
     done()
   })(outF)
 })

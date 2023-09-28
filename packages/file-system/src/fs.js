@@ -64,19 +64,18 @@ export const readJSONFile = pipe(readFile, map(JSON.parse))
  * )(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))
  * ```
  */
-export const readDirWithConfig = curry(
-  (conf, g) =>
-    new Future((bad, good) => {
-      try {
-        glob(g, conf, (e, x) =>
-          // thus far I cannot seem to ever call `bad` from within here
-          e ? bad(e) : good(x)
-        )
-      } catch (e) {
-        bad(e)
-      }
-      return () => {}
-    })
+export const readDirWithConfig = curry((conf, g) =>
+  Future((bad, good) => {
+    try {
+      glob(g, conf, (e, x) =>
+        // thus far I cannot seem to ever call `bad` from within here
+        e ? bad(e) : good(x)
+      )
+    } catch (e) {
+      bad(e)
+    }
+    return () => {}
+  })
 )
 
 /**

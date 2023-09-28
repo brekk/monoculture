@@ -12,23 +12,31 @@ import { reject, resolve } from 'fluture'
 import { trace } from 'xtrace'
 
 export const showHelpWhen = curry(
-  (check, parsed) => check(parsed) || parsed.help
+  (check, parsed) => parsed.help || check(parsed)
 )
 
 export const configurateWithOptions = curry(
   (
-    { check = alwaysFalse, options = {} },
+    { check = alwaysFalse },
     yargsConfig,
     configDefaults,
     helpConfig,
     name,
     argv
   ) => {
-    const HELP = generateHelp(name, helpConfig, yargsConfig)
+    const help = ['help']
+    const updatedConfig = mergeRight(yargsConfig, {
+      alias: mergeRight(yargsConfig.alias, { help: ['h'] }),
+      boolean: yargsConfig.boolean
+        ? yargsConfig.boolean.includes('help')
+        : yargsConfig.boolean
+        ? yargsConfig.boolean.concat(help)
+        : help,
+    })
+    const HELP = generateHelp(name, helpConfig, updatedConfig)
     return pipe(
-      parse(options),
+      parse(updatedConfig),
       mergeRight(configDefaults),
-      trace('parsed'),
       ifElse(showHelpWhen(check), always(reject(HELP)), resolve)
     )(argv)
   }

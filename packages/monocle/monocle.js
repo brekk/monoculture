@@ -37,23 +37,16 @@ var readMonoFile = curry(
     )
   )(file)
 );
-var readAll = curry(
-  (config, dirglob) => pipe(
-    trace("readallllll"),
-    readDirWithConfig(config),
-    map(trace("oh hey")),
+var readAll = curry((config, dirglob) => {
+  return pipe(
+    readDirWithConfig({ ...config, nodir: true }),
     chain(
       (files) => pipe(map(readMonoFile(config.basePath)), parallel(10))(files)
     )
-  )(dirglob)
-);
+  )(dirglob);
+});
 var monoprocessor = curry(
-  (config, plugins, dirGlob) => pipe(
-    trace("dirglobbo"),
-    readAll(config),
-    map(trace("glibbo")),
-    futureFileProcessor(config, resolve(plugins))
-  )(dirGlob)
+  (config, plugins, dirGlob) => pipe(readAll(config), futureFileProcessor(config, resolve(plugins)))(dirGlob)
 );
 
 // src/cli.js
@@ -92,15 +85,23 @@ var package_default = {
 // src/config.js
 var CONFIG = {
   alias: {
+    help: ["h"],
+    ignore: ["i"],
     plugin: ["p"],
     rule: ["r"],
     error: ["e"],
     rulefile: ["c"]
+  },
+  boolean: ["help"],
+  array: ["plugin", "rule", "ignore"],
+  configuration: {
+    "strip-aliased": true
   }
 };
 var CONFIG_DEFAULTS = {};
 var HELP_CONFIG = {
   help: `This text you're reading now!`,
+  ignore: `Pass ignore values to glob. Array type`,
   plugin: "Specify a plugin to add to the run. Multiple plugins can be specified by invoking monocle with multiple flags, e.g. --plugin x --plugin y",
   rule: "Specify a rule to add to the run. Multiple rules can be specified by invoking monocle with multiple flags, e.g. --rule one --rule two",
   error: "Should this invocation be a warning or an error?",
@@ -110,19 +111,16 @@ var HELP_CONFIG = {
 // src/cli.js
 import { trace as trace2 } from "xtrace";
 pipe2(
-  trace2("input!"),
-  (x) => configurate(
+  configurate(
     CONFIG,
     { ...CONFIG_DEFAULTS, basePath: process.cwd() },
     HELP_CONFIG,
-    package_default.name,
-    x
+    package_default.name
   ),
-  trace2("raw"),
   chain2((config) => {
-    trace2("parsed", config);
-    const { plugins = [], _: dirGlob } = config;
-    return monoprocessor(config, plugins, dirGlob);
+    const { plugins = [], _: dirGlob = [] } = config;
+    trace2("parsed", JSON.stringify(config, null, 2));
+    return monoprocessor(config, plugins, dirGlob[0]);
   }),
   // eslint-disable-next-line no-console
   fork(console.warn)(console.log)

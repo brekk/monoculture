@@ -9,20 +9,16 @@ import { trace } from 'xtrace'
 // eslint-disable no-console
 
 pipe(
-  trace('input!'),
-  x =>
-    configurate(
-      CONFIG,
-      { ...CONFIG_DEFAULTS, basePath: process.cwd() },
-      HELP_CONFIG,
-      PKG.name,
-      x
-    ),
-  trace('raw'),
+  configurate(
+    CONFIG,
+    { ...CONFIG_DEFAULTS, basePath: process.cwd() },
+    HELP_CONFIG,
+    PKG.name
+  ),
   chain(config => {
-    trace('parsed', config)
-    const { plugins = [], _: dirGlob } = config
-    return monoprocessor(config, plugins, dirGlob)
+    const { plugins = [], _: dirGlob = [] } = config
+    trace('parsed', JSON.stringify(config, null, 2))
+    return monoprocessor(config, plugins, dirGlob[0])
   }),
   // eslint-disable-next-line no-console
   fork(console.warn)(console.log)

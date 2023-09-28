@@ -26,22 +26,15 @@ export const readMonoFile = curry((basePath, file) =>
   )(file)
 )
 
-export const readAll = curry((config, dirglob) =>
-  pipe(
-    trace('readallllll'),
-    readDirWithConfig(config),
-    map(trace('oh hey')),
+export const readAll = curry((config, dirglob) => {
+  return pipe(
+    readDirWithConfig({ ...config, nodir: true }),
     chain(files =>
       pipe(map(readMonoFile(config.basePath)), parallel(10))(files)
     )
   )(dirglob)
-)
+})
 
 export const monoprocessor = curry((config, plugins, dirGlob) =>
-  pipe(
-    trace('dirglobbo'),
-    readAll(config),
-    map(trace('glibbo')),
-    futureFileProcessor(config, resolve(plugins))
-  )(dirGlob)
+  pipe(readAll(config), futureFileProcessor(config, resolve(plugins)))(dirGlob)
 )

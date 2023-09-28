@@ -52,7 +52,7 @@ const PLUGINS = [
 
 test('monoprocessor', done => {
   fork(done)(x => {
-    expect(x).toMatchSnapshot()
+    expect(x.state).toMatchSnapshot()
     done()
   })(
     monoprocessor(

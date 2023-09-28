@@ -35,7 +35,7 @@ var readFile = (x) => new Future2((bad, good) => {
 });
 var readJSONFile = pipe2(readFile, map(JSON.parse));
 var readDirWithConfig = curry2(
-  (conf, g) => new Future2((bad, good) => {
+  (conf, g) => Future2((bad, good) => {
     try {
       glob(
         g,

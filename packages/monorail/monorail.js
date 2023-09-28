@@ -137,8 +137,8 @@ var fileProcessor = curry4(
     })
   )(plugins)
 );
-var futureApplicator = curry4(
-  (context, plugins, files) => pipe2(
+var futureApplicator = curry4((context, plugins, files) => ({
+  state: pipe2(
     map2((plugin) => [
       plugin.name,
       pipe2(
@@ -147,8 +147,14 @@ var futureApplicator = curry4(
       )(files)
     ]),
     fromPairs
-  )(plugins)
-);
+  )(plugins),
+  files,
+  hashes: pipe2(
+    map2((z) => [prop("hash", z), prop("file", z)]),
+    fromPairs
+  )(files),
+  plugins: map2(prop("name"), plugins)
+}));
 var futureFileProcessor = curry4(
   (context, pluginsF, filesF) => pipe2(
     pap(map2(topologicalDependencySort, pluginsF)),

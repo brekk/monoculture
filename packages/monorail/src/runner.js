@@ -85,8 +85,8 @@ export const fileProcessor = curry((context, plugins, files) =>
   )(plugins)
 )
 
-export const futureApplicator = curry((context, plugins, files) =>
-  pipe(
+export const futureApplicator = curry((context, plugins, files) => ({
+  state: pipe(
     map(plugin => [
       plugin.name,
       pipe(
@@ -95,8 +95,14 @@ export const futureApplicator = curry((context, plugins, files) =>
       )(files),
     ]),
     fromPairs
-  )(plugins)
-)
+  )(plugins),
+  files,
+  hashes: pipe(
+    map(z => [prop('hash', z), prop('file', z)]),
+    fromPairs
+  )(files),
+  plugins: map(prop('name'), plugins),
+}))
 
 export const futureFileProcessor = curry((context, pluginsF, filesF) =>
   pipe(

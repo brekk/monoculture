@@ -6,6 +6,7 @@ import {
   equals,
   ifElse,
   join,
+  mergeRight,
   length,
   map,
   pipe,
