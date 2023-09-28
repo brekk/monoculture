@@ -281,17 +281,21 @@ const runner = ({
         groupBy(propOr('unknown', 'workspace')),
         toPairs,
         map(([workspace, commentedFiles]) => {
-          const filesToWrite = map(file =>
-            writeFileWithAutoPath(
+          const filesToWrite = map(file => {
+            return writeFileWithAutoPath(
               pathJoin(
                 outputDir,
                 workspace,
                 // this part is the structure of the file we wanna write
                 cleanFilename(file)
               ),
-              pipe(map(commentToMarkdown), join('\n\n'))(file.comments)
+              pipe(
+                map(commentToMarkdown),
+                z => ['# ' + file.slugName, ...z],
+                join('\n\n')
+              )(file.comments)
             )
-          )(commentedFiles)
+          })(commentedFiles)
           const metaFiles = prepareMetaFiles(
             outputDir,
             workspace,

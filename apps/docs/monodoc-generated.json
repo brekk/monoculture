@@ -1,5 +1,6 @@
 [
   {
+    "slugName": "fs",
     "filename": "packages/file-system/src/fs.js",
     "comments": [
       {

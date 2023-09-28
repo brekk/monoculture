@@ -2,7 +2,7 @@
 
 // src/cli.js
 import { cwd } from "node:process";
-import { basename, join as pathJoin, dirname } from "node:path";
+import { basename as basename2, join as pathJoin, dirname } from "node:path";
 import {
   fromPairs as fromPairs2,
   last as last4,
@@ -75,6 +75,7 @@ var rarestBy = curry(
 );
 
 // src/parse.js
+import { basename, extname } from "node:path";
 import {
   curry as curry3,
   filter as filter2,
@@ -340,6 +341,8 @@ var parse = curry3((root, filename, content) => {
       objectifyComments(newName, raw),
       // List CommentBlock
       (comments) => ({
+        slugName: basename(newName, extname(newName)),
+        filename: newName,
         comments,
         order: pipe5(
           getAny("0", ["structure", "order"]),
@@ -347,9 +350,7 @@ var parse = curry3((root, filename, content) => {
         )(comments),
         fileGroup: getAny("", ["fileGroup"], comments),
         links: pipe5(map5(propOr2([], "links")), flatten)(comments)
-      }),
-      // { comments :: List CommentBlock }
-      mergeRight2({ filename: stripRelative(filename) })
+      })
     )(raw)
     // CommentedFile
   )(content);
@@ -566,7 +567,7 @@ var combineFiles = curry5(
 var prepareMetaFiles = curry5(
   (outputDir, workspace, commentedFiles) => pipe7(
     map7((raw) => [
-      pipe7(cleanFilename, (x) => basename(x, ".mdx"))(raw),
+      pipe7(cleanFilename, (x) => basename2(x, ".mdx"))(raw),
       pipe7(
         propOr4([], "comments"),
         filter3(pathOr3(false, ["structure", "name"])),
@@ -713,17 +714,21 @@ var runner = ({
         groupBy2(propOr4("unknown", "workspace")),
         toPairs3,
         map7(([workspace, commentedFiles]) => {
-          const filesToWrite = map7(
-            (file) => writeFileWithAutoPath(
+          const filesToWrite = map7((file) => {
+            return writeFileWithAutoPath(
               pathJoin(
                 outputDir,
                 workspace,
                 // this part is the structure of the file we wanna write
                 cleanFilename(file)
               ),
-              pipe7(map7(commentToMarkdown), join3("\n\n"))(file.comments)
-            )
-          )(commentedFiles);
+              pipe7(
+                map7(commentToMarkdown),
+                (z) => ["# " + file.slugName, ...z],
+                join3("\n\n")
+              )(file.comments)
+            );
+          })(commentedFiles);
           const metaFiles = prepareMetaFiles(
             outputDir,
             workspace,

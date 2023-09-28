@@ -1,3 +1,4 @@
+import { basename, extname } from 'node:path'
 import {
   curry,
   filter,
@@ -45,15 +46,15 @@ export const parse = curry((root, filename, content) => {
         objectifyComments(newName, raw),
         // List CommentBlock
         comments => ({
+          slugName: basename(newName, extname(newName)),
+          filename: newName,
           comments,
           order: pipe(getAny('0', ['structure', 'order']), x =>
             parseInt(x, 10)
           )(comments),
           fileGroup: getAny('', ['fileGroup'], comments),
           links: pipe(map(propOr([], 'links')), flatten)(comments),
-        }),
-        // { comments :: List CommentBlock }
-        mergeRight({ filename: stripRelative(filename) })
+        })
       )(raw)
     // CommentedFile
   )(content)

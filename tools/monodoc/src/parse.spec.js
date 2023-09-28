@@ -87,6 +87,7 @@ import { nice } from './parse'
     filename: 'i-yam-what-i.yaml',
     links: ['emoji.sunglasses'],
     order: 0,
+    slugName: 'i-yam-what-i',
   })
 })
 test('parseFile', done => {
