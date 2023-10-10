@@ -22,13 +22,13 @@ module.exports = {
             sequence
           )(
             // use :read !./tools/spacework/list-workspaces.cjs
-            //
             [
               'apps/docs',
               'packages/configurate',
               'packages/file-system',
               'packages/monocle',
               'packages/monorail',
+              'packages/plugin-robot-tourist',
               'shared/eslint-config-monoculture',
               'shared/jest-config',
               'shared/monoculture-tsconfig',

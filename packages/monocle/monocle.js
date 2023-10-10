@@ -8,7 +8,16 @@ import { interpret } from "file-system";
 
 // src/reader.js
 import path from "node:path";
-import { curry, pipe, map, split, addIndex, fromPairs, chain } from "ramda";
+import {
+  curry,
+  pipe,
+  map,
+  trim,
+  split,
+  addIndex,
+  fromPairs,
+  chain
+} from "ramda";
 import { parallel, resolve } from "fluture";
 import { readDirWithConfig, readFile } from "file-system";
 import { futureFileProcessor } from "monorail";
@@ -27,13 +36,14 @@ var log = complextrace("monocle", ["config", "file", "plugin"]);
 
 // src/reader.js
 var readMonoFile = curry(
-  (basePath, file) => pipe(
+  (basePath, trimContent, file) => pipe(
     log.file("reading"),
     readFile,
     map(
       (buf) => pipe(
         split("\n"),
-        addIndex(map)((y, i) => [i, y]),
+        // ostensibly files have content that starts at a 1 index
+        addIndex(map)((y, i) => [i + 1, trimContent ? trim(y) : y]),
         (body) => ({
           file: path.relative(basePath, file),
           hash: hash(buf),
@@ -48,7 +58,7 @@ var readAll = curry((config, dirglob) => {
     log.file("reading glob"),
     readDirWithConfig({ ...config, nodir: true }),
     chain(
-      (files) => pipe(map(readMonoFile(config.basePath)), parallel(10))(files)
+      (files) => pipe(map(readMonoFile(config.basePath, config.trim)), parallel(10))(files)
     )
   )(dirglob);
 });
@@ -78,6 +88,7 @@ var package_default = {
     ramda: "^0.29.0"
   },
   devDependencies: {
+    "plugin-robot-tourist": "*",
     "eslint-config-monoculture": "*",
     "jest-config": "*"
   },
@@ -94,13 +105,14 @@ var package_default = {
 var CONFIG = {
   alias: {
     help: ["h"],
+    rulefile: ["c"],
     ignore: ["i"],
     plugin: ["p"],
     rule: ["r"],
     error: ["e"],
-    rulefile: ["c"]
+    trim: ["t"]
   },
-  boolean: ["help"],
+  boolean: ["help", "trim"],
   array: ["plugin", "rule", "ignore"],
   configuration: {
     "strip-aliased": true
@@ -110,6 +122,7 @@ var CONFIG_DEFAULTS = {};
 var HELP_CONFIG = {
   help: `This text you're reading now!`,
   ignore: `Pass ignore values to glob. Array type`,
+  trim: "Trim the lines on read",
   plugin: "Specify a plugin to add to the run. Multiple plugins can be specified by invoking monocle with multiple flags, e.g. --plugin x --plugin y",
   rule: "Specify a rule to add to the run. Multiple rules can be specified by invoking monocle with multiple flags, e.g. --rule one --rule two",
   error: "Should this invocation be a warning or an error?",

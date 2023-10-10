@@ -1,13 +1,14 @@
 export const CONFIG = {
   alias: {
     help: ['h'],
+    rulefile: ['c'],
     ignore: ['i'],
     plugin: ['p'],
     rule: ['r'],
     error: ['e'],
-    rulefile: ['c'],
+    trim: ['t'],
   },
-  boolean: ['help'],
+  boolean: ['help', 'trim'],
   array: ['plugin', 'rule', 'ignore'],
   configuration: {
     'strip-aliased': true,
@@ -20,6 +21,7 @@ export const CONFIG_DEFAULTS = {}
 export const HELP_CONFIG = {
   help: `This text you're reading now!`,
   ignore: `Pass ignore values to glob. Array type`,
+  trim: 'Trim the lines on read',
   plugin:
     'Specify a plugin to add to the run. Multiple plugins can be specified by invoking monocle with multiple flags, e.g. --plugin x --plugin y',
   rule: 'Specify a rule to add to the run. Multiple rules can be specified by invoking monocle with multiple flags, e.g. --rule one --rule two',

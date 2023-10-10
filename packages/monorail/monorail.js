@@ -158,6 +158,7 @@ var futureApplicator = curry4((context, plugins, files) => ({
   state: pipe2(
     map2((plugin) => {
       log.run("plugin", {
+        plugin,
         name: plugin.name,
         dependencies: plugin.dependencies
       });

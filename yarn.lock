@@ -2177,7 +2177,7 @@
     "@jest/create-cache-key-function" "^27.4.2"
     jsonc-parser "^3.2.0"
 
-"@swc/jest@^0.2.24":
+"@swc/jest@^0.2.29":
   version "0.2.29"
   resolved "https://registry.yarnpkg.com/@swc/jest/-/jest-0.2.29.tgz#b27d647ec430c909f9bb567d1df2a47eaa3841f4"
   integrity sha512-8reh5RvHBsSikDC3WGCd5ZTd2BXKkyOdK7QwynrCH58jk2cQFhhHhFBg/jvnWZehUQe/EoOImLENc9/DwbBFow==
@@ -3387,6 +3387,11 @@ change-case@^4.1.2:
     sentence-case "^3.0.4"
     snake-case "^3.0.4"
     tslib "^2.0.3"
+
+change-case@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/change-case/-/change-case-5.0.1.tgz#d9a330f1d6b5e577c8cfde683f0809a1ff9b08c1"
+  integrity sha512-iQ4vIQKF6hFRAGi3AKnoZPRpYfzj6/Zc4trhe/Ngzlk1FblM573PgfIiccATvQc81oFYub8Z9UY5QSOxsSSQYA==
 
 char-regex@^1.0.2:
   version "1.0.2"
@@ -10466,6 +10471,11 @@ stdin-discarder@^0.1.0:
   integrity sha512-xhV7w8S+bUwlPTb4bAOUQhv8/cSS5offJuX8GQGq32ONF0ZtDWKfkdomM3HMRA+LhX6um/FZ0COqlwsjD53LeQ==
   dependencies:
     bl "^5.0.0"
+
+stemmer@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/stemmer/-/stemmer-2.0.1.tgz#1012cf0e5070d0279526f206f379d824accadca5"
+  integrity sha512-bkWvSX2JR4nSZFfs113kd4C6X13bBBrg4fBKv2pVdzpdQI2LA5pZcWzTFNdkYsiUNl13E4EzymSRjZ0D55jBYg==
 
 stream-combiner@~0.0.4:
   version "0.0.4"

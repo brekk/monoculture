@@ -94,6 +94,7 @@ export const futureApplicator = curry((context, plugins, files) => ({
   state: pipe(
     map(plugin => {
       log.run('plugin', {
+        plugin,
         name: plugin.name,
         dependencies: plugin.dependencies,
       })
