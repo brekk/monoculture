@@ -1,6 +1,6 @@
 import {
-  pathOr,
   curry,
+  applySpec,
   fromPairs,
   identity as I,
   map,
@@ -10,6 +10,7 @@ import {
   reduce,
 } from 'ramda'
 import { pap, resolve } from 'fluture'
+import { makeHelpers } from './helpers'
 import { topologicalDependencySort } from './sort'
 import { log } from './trace'
 
@@ -35,14 +36,15 @@ export const taskProcessor = curry((context, plugins) =>
 )
 
 export const stepFunction = curry(
-  (state, { selector = I, preserveLine = false, fn }, file) => {
+  (state, { name, selector = I, preserveLine = false, fn }, file) => {
     const selected = selector(state)
+    const helpers = makeHelpers(file)
     const output = preserveLine
       ? {
           ...file,
-          body: map(([k, v]) => [k, fn(selected, v)])(file.body),
+          body: map(([k, v]) => [k, fn(selected, v, helpers)])(file.body),
         }
-      : fn(selected, file)
+      : fn(selected, file, helpers)
     // log.run('transforming...', file.file)
     // log.run('transformed...', output)
     return output

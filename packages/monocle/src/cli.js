@@ -22,9 +22,9 @@ pipe(
   chain(config => {
     const { basePath, plugin: plugins = [], _: dirGlob = [] } = config
     const pluginsF = pipe(
-      map(log.plugin('loading')),
-      map(x => pathResolve(basePath, x)),
-      map(interpret),
+      map(
+        pipe(log.plugin('loading'), x => pathResolve(basePath, x), interpret)
+      ),
       parallel(10)
     )(plugins)
     return monoprocessor(config, pluginsF, dirGlob[0])

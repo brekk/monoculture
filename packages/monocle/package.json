@@ -16,9 +16,10 @@
     "ramda": "^0.29.0"
   },
   "devDependencies": {
-    "plugin-robot-tourist": "*",
     "eslint-config-monoculture": "*",
-    "jest-config": "*"
+    "execa": "^8.0.1",
+    "jest-config": "*",
+    "plugin-robot-tourist": "*"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",

@@ -88,9 +88,10 @@ var package_default = {
     ramda: "^0.29.0"
   },
   devDependencies: {
-    "plugin-robot-tourist": "*",
     "eslint-config-monoculture": "*",
-    "jest-config": "*"
+    execa: "^8.0.1",
+    "jest-config": "*",
+    "plugin-robot-tourist": "*"
   },
   scripts: {
     nps: "dotenv -- nps -c ./package-scripts.cjs",
@@ -141,9 +142,9 @@ pipe2(
   chain2((config) => {
     const { basePath, plugin: plugins = [], _: dirGlob = [] } = config;
     const pluginsF = pipe2(
-      map2(log.plugin("loading")),
-      map2((x) => pathResolve(basePath, x)),
-      map2(interpret),
+      map2(
+        pipe2(log.plugin("loading"), (x) => pathResolve(basePath, x), interpret)
+      ),
       parallel2(10)
     )(plugins);
     return monoprocessor(config, pluginsF, dirGlob[0]);
