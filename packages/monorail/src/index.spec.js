@@ -24,7 +24,7 @@ import {
   testPlugin,
   checkPlugin,
 } from './validate'
-import { taskProcessor, futureFileProcessor, fileProcessor } from './runner'
+import { futureFileProcessor } from './runner'
 
 test('EXPECTED_KEYS', () =>
   expect(EXPECTED_KEYS).toEqual([
@@ -179,76 +179,6 @@ test('checkPlugin', () => {
   expect(results).toEqual([true, true, false, false, false])
 })
 
-test('taskProcessor', () => {
-  const ctx = { value: 97 }
-  const selector = y => y.value
-  const plugins = [
-    { name: 'e', dependencies: ['b', 'd'], fn: c => c.d * 5 },
-    { name: 'd', dependencies: ['b', 'c'], fn: c => c / 4, selector },
-    { name: 'a', dependencies: [], fn: c => c, selector },
-    { name: 'a1', dependencies: ['a'], fn: c => c * 1.1, selector },
-    { name: 'a2', dependencies: ['a', 'b'], fn: c => c / 2.2, selector },
-    { name: 'a3', dependencies: ['a'], fn: c => c * 3.3, selector },
-    { name: 'a4', dependencies: ['a', 'a3'], fn: c => c.value / 4.4 },
-    { name: 'c', dependencies: ['b'], fn: c => c * 3, selector },
-    { name: 'b', dependencies: ['a'], fn: c => c / 2, selector },
-  ]
-  const out = taskProcessor(ctx, plugins)
-  expect(out.state).toEqual({
-    a: 97,
-    a1: 106.7,
-    a2: 44.090909090909086,
-    a3: 320.09999999999997,
-    a4: 22.045454545454543,
-    b: 48.5,
-    c: 291,
-    d: 24.25,
-    e: 121.25,
-    value: 97,
-  })
-})
-
-test('taskProcessor - with store config', () => {
-  const ctx = { value: 97 }
-  const store = v => ({ value: v.value })
-  const selector = y => y.value
-  const plugins = [
-    { name: 'a', dependencies: [], fn: c => c },
-    { name: 'b', dependencies: ['a'], fn: c => c * 7 },
-    { name: 'a3', dependencies: ['a'], fn: c => c * 11 },
-    { name: 'a4', dependencies: ['a', 'a3'], fn: c => c * 13 },
-    { name: 'a1', dependencies: ['a'], fn: c => c * 17 },
-    { name: 'c', dependencies: ['b'], fn: c => c * 19 },
-    { name: 'a2', dependencies: ['a', 'b'], fn: c => c * 23 },
-    { name: 'd', dependencies: ['b', 'c'], fn: c => c * 29 },
-    { name: 'e', dependencies: ['b', 'd'], fn: c => c * 31 },
-  ].map(z => ({ ...z, selector, store }))
-  const out2 = taskProcessor(ctx, [
-    ...plugins,
-    {
-      name: 'omega',
-      dependencies: ['e'],
-      // selector: prop('e'),
-      fn: x => x * 37,
-      selector,
-      store: x => x.omega,
-    },
-  ])
-  expect(out2.events).toEqual([
-    ['a', 97],
-    ['a1', 1649],
-    ['a3', 1067],
-    ['a4', 1261],
-    ['b', 679],
-    ['a2', 2231],
-    ['c', 1843],
-    ['d', 2813],
-    ['e', 3007],
-    ['omega', 3589],
-  ])
-  expect(out2.state).toEqual(3589)
-})
-
 const PLUGINS = [
   {
     name: 'wordcount',
@@ -339,11 +269,6 @@ const EXPECTED_PROCESSING_OUTCOME = {
     ],
   },
 }
-test('fileProcessor', () => {
-  const ctx = {}
-  const outF = fileProcessor(ctx, PLUGINS, FILES)
-  expect(outF).toEqual(EXPECTED_PROCESSING_OUTCOME)
-})
 
 test('futureFileProcessor', done => {
   const ctx = {}

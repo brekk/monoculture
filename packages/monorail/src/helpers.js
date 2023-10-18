@@ -1,27 +1,32 @@
 import {
-  length,
-  lt,
-  reduce,
   __ as $,
+  any,
   ap,
-  findLast,
-  slice,
+  curry,
   defaultTo,
-  map,
   filter,
   find,
+  findLast,
   head,
-  curry,
-  propOr,
-  any,
-  pipe,
   last,
+  length,
+  lt,
+  map,
+  pipe,
+  propOr,
+  reduce,
+  slice,
   test,
 } from 'ramda'
 import { trace } from 'xtrace'
 
+export const getBody = propOr([], 'body')
+
 export const bodyTest = curry((fn, file, needle) =>
-  pipe(propOr([], 'body'), fn(pipe(last, test(needle))))(file)
+  pipe(getBody, fn(pipe(last, test(needle))))(file)
+)
+export const _reduce = curry((file, fn, initial) =>
+  pipe(getBody, reduce(fn, initial))(file)
 )
 
 export const _any = bodyTest(any)
@@ -40,7 +45,7 @@ export const onLastLine = curry((file, needle) =>
 export const selectBetween = curry((file, start, end) =>
   pipe(
     z => [z],
-    ap([onLine($, start), onLastLine($, end), propOr([], 'body')]),
+    ap([onLine($, start), onLastLine($, end), getBody]),
 
     ([a, z, body]) =>
       a === -1 || z === -1
@@ -50,24 +55,26 @@ export const selectBetween = curry((file, start, end) =>
 )
 export const selectAll = curry((file, start, end) =>
   pipe(
-    propOr([], 'body'),
+    getBody,
     reduce(
       ({ active, all, current }, [line, content]) => {
-        const checkStart = test(start, content)
-        const checkEnd = test(end, content)
+        const testContent = test($, content)
+        const checkStart = testContent(start)
         const stillActive = checkStart || active
         if (stillActive) {
+          const newCurrent = current.concat([line, content])
+          const checkEnd = testContent(end)
           if (checkEnd) {
             return {
               active: false,
-              all: all.concat([current.concat([line, content])]),
+              all: all.concat([newCurrent]),
               current: [],
             }
           }
           return {
             active: !checkEnd,
             all,
-            current: current.concat([line, content]),
+            current: newCurrent,
           }
         }
         return {
@@ -80,9 +87,6 @@ export const selectAll = curry((file, start, end) =>
     ),
     propOr([], 'all'),
     filter(pipe(length, lt(0)))
-
-    // z => JSON.stringify(z, null, 2)
-    // reduce((agg, [line, content]) =>
   )(file)
 )
 
@@ -95,4 +99,5 @@ export const makeHelpers = file => ({
   filter: _filter(file),
   between: selectBetween(file),
   selectAll: selectAll(file),
+  reduce: _reduce(file),
 })
