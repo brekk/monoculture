@@ -217,7 +217,7 @@ var runPluginOnFilesWithContext = curry5((context, files, plugin) => {
   return [
     plugin.name,
     pipe3(
-      map3((file) => [file.hash, stepFunction(context, plugin, file)]),
+      map3((file) => [file.file, stepFunction(context, plugin, file)]),
       fromPairs
     )(files)
   ];

@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`makeHelpers any 1`] = `true`;
+
+exports[`makeHelpers between 1`] = `
+[
+  [
+    1,
+    "import {",
+  ],
+  [
+    2,
+    "  __ as $,",
+  ],
+  [
+    3,
+    "  any,",
+  ],
+  [
+    4,
+    "  ap,",
+  ],
+  [
+    5,
+    "  curry,",
+  ],
+  [
+    6,
+    "  defaultTo,",
+  ],
+  [
+    7,
+    "  filter,",
+  ],
+  [
+    8,
+    "  find,",
+  ],
+  [
+    9,
+    "  findLast,",
+  ],
+  [
+    10,
+    "  head,",
+  ],
+  [
+    11,
+    "  last,",
+  ],
+  [
+    12,
+    "  length,",
+  ],
+  [
+    13,
+    "  lt,",
+  ],
+  [
+    14,
+    "  map,",
+  ],
+  [
+    15,
+    "  pipe,",
+  ],
+  [
+    16,
+    "  propOr,",
+  ],
+  [
+    17,
+    "  reduce,",
+  ],
+  [
+    18,
+    "  slice,",
+  ],
+  [
+    19,
+    "  test,",
+  ],
+  [
+    20,
+    "} from 'ramda'",
+  ],
+  [
+    21,
+    "import { trace } from 'xtrace'",
+  ],
+]
+`;
+
+exports[`makeHelpers filter 1`] = `
+[
+  [
+    23,
+    "export const getBody = propOr([], 'body')",
+  ],
+  [
+    25,
+    "export const bodyTest = curry((fn, file, needle) =>",
+  ],
+  [
+    28,
+    "export const _reduce = curry((file, fn, initial) =>",
+  ],
+]
+`;
+
+exports[`makeHelpers line 1`] = `20`;
+
+exports[`makeHelpers lines 1`] = `
+[
+  1,
+  21,
+]
+`;
+
+exports[`makeHelpers reduce 1`] = `
+[
+  "import {",
+  "  __ as $,",
+  "  any,",
+  "  ap,",
+  "  curry,",
+  "  defaultTo,",
+  "  filter,",
+  "  find,",
+  "  findLast,",
+  "  head,",
+  "  last,",
+  "  length,",
+  "  lt,",
+  "  map,",
+  "  pipe,",
+  "  propOr,",
+  "  reduce,",
+  "  slice,",
+  "  test,",
+  "} from 'ramda'",
+  "import { trace } from 'xtrace'",
+  "",
+  "export const getBody = propOr([], 'body')",
+  "",
+  "export const bodyTest = curry((fn, file, needle) =>",
+  "  pipe(getBody, fn(pipe(last, test(needle))))(file)",
+  ")",
+  "export const _reduce = curry((file, fn, initial) =>",
+  "  pipe(getBody, reduce(fn, initial))(file)",
+  ")",
+  "",
+]
+`;
+
+exports[`makeHelpers selectAll 1`] = `
+[
+  [
+    1,
+    "import {",
+    2,
+    "  __ as $,",
+    3,
+    "  any,",
+    4,
+    "  ap,",
+    5,
+    "  curry,",
+    6,
+    "  defaultTo,",
+    7,
+    "  filter,",
+    8,
+    "  find,",
+    9,
+    "  findLast,",
+    10,
+    "  head,",
+    11,
+    "  last,",
+    12,
+    "  length,",
+    13,
+    "  lt,",
+    14,
+    "  map,",
+    15,
+    "  pipe,",
+    16,
+    "  propOr,",
+    17,
+    "  reduce,",
+    18,
+    "  slice,",
+    19,
+    "  test,",
+    20,
+    "} from 'ramda'",
+  ],
+  [
+    21,
+    "import { trace } from 'xtrace'",
+  ],
+]
+`;

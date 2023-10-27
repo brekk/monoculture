@@ -2,6 +2,7 @@
   "name": "monocle",
   "version": "0.0.0",
   "description": "Apply plugins to a future-based file-system",
+  "bin": "monocle.js",
   "main": "monocle.js",
   "type": "module",
   "repository": "monoculture",

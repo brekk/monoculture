@@ -2,13 +2,14 @@
 
 // src/cli.js
 import { resolve as pathResolve } from "node:path";
-import { pipe as pipe2, chain as chain2, map as map2 } from "ramda";
-import { fork, parallel as parallel2 } from "fluture";
-import { interpret } from "file-system";
+import { always as K, pipe as pipe2, chain as chain2, map as map2, length, identity as I2 } from "ramda";
+import { fork, parallel as parallel2, resolve as resolve2 } from "fluture";
+import { interpret, writeFile } from "file-system";
 
 // src/reader.js
 import path from "node:path";
 import {
+  identity as I,
   curry,
   pipe,
   map,
@@ -57,13 +58,19 @@ var readAll = curry((config, dirglob) => {
   return pipe(
     log.file("reading glob"),
     readDirWithConfig({ ...config, nodir: true }),
-    chain(
-      (files) => pipe(map(readMonoFile(config.basePath, config.trim)), parallel(10))(files)
+    config.showMatchesOnly ? I : chain(
+      (files) => pipe(
+        map(readMonoFile(config.basePath, config.trim)),
+        parallel(10)
+      )(files)
     )
   )(dirglob);
 });
 var monoprocessor = curry(
-  (config, pluginsF, dirGlob) => pipe(readAll(config), futureFileProcessor(config, pluginsF))(dirGlob)
+  (config, pluginsF, dirGlob) => pipe(
+    readAll(config),
+    config.showMatchesOnly ? I : futureFileProcessor(config, pluginsF)
+  )(dirGlob)
 );
 
 // src/cli.js
@@ -74,6 +81,7 @@ var package_default = {
   name: "monocle",
   version: "0.0.0",
   description: "Apply plugins to a future-based file-system",
+  bin: "monocle.js",
   main: "monocle.js",
   type: "module",
   repository: "monoculture",
@@ -106,31 +114,51 @@ var package_default = {
 var CONFIG = {
   alias: {
     help: ["h"],
+    showMatchesOnly: ["m", "showMatches"],
+    showTotalMatchesOnly: ["n", "showTotalMatches"],
     rulefile: ["c"],
     ignore: ["i"],
     plugin: ["p"],
     rule: ["r"],
     error: ["e"],
-    trim: ["t"]
+    trim: ["t"],
+    output: ["o"],
+    jsonIndent: ["j"]
   },
-  boolean: ["help", "trim"],
+  number: ["jsonIndent"],
+  boolean: ["help", "trim", "showMatchesOnly"],
   array: ["plugin", "rule", "ignore"],
   configuration: {
     "strip-aliased": true
   }
 };
-var CONFIG_DEFAULTS = {};
+var CONFIG_DEFAULTS = {
+  output: "monocle-findings.json",
+  showMatchesOnly: false,
+  showTotalMatchesOnly: false,
+  jsonIndent: 2
+};
 var HELP_CONFIG = {
   help: `This text you're reading now!`,
   ignore: `Pass ignore values to glob. Array type`,
   trim: "Trim the lines on read",
-  plugin: "Specify a plugin to add to the run. Multiple plugins can be specified by invoking monocle with multiple flags, e.g. --plugin x --plugin y",
-  rule: "Specify a rule to add to the run. Multiple rules can be specified by invoking monocle with multiple flags, e.g. --rule one --rule two",
+  plugin: `Specify a plugin to add to the run.
+  Multiple plugins can be specified by invoking monocle with multiple flags, e.g.
+    monocle --plugin x --plugin y`,
+  rule: `Specify a rule to add to the run.
+  Multiple rules can be specified by invoking monocle with multiple flags, e.g.
+    monocle --rule one --rule two`,
   error: "Should this invocation be a warning or an error?",
-  rulefile: "Express the context of a run in a single file. This overrides all other flags (except --help)"
+  rulefile: `Express the context of a run in a single file.
+  This overrides all other flags (except --help)`,
+  output: "Where should the findings be written?",
+  showMatchesOnly: `List the files which matched the search, but *do not* run plugins`,
+  showTotalMatchesOnly: `List the number files which matched the search, but *do not* run plugins (implies -m)`,
+  jsonIndent: `How much should we indent JSON output? (default: 2)`
 };
 
 // src/cli.js
+var j = (i) => (x) => JSON.stringify(x, null, i);
 pipe2(
   configurate(
     CONFIG,
@@ -141,14 +169,31 @@ pipe2(
   map2(log.config("parsed")),
   chain2((config) => {
     const { basePath, plugin: plugins = [], _: dirGlob = [] } = config;
+    if (config.showTotalMatchesOnly)
+      config.showMatchesOnly = true;
     const pluginsF = pipe2(
       map2(
         pipe2(log.plugin("loading"), (x) => pathResolve(basePath, x), interpret)
       ),
       parallel2(10)
     )(plugins);
-    return monoprocessor(config, pluginsF, dirGlob[0]);
+    return pipe2(
+      monoprocessor(config, pluginsF),
+      map2((z) => [config, z])
+    )(dirGlob[0]);
   }),
+  chain2(
+    ([{ showMatchesOnly, showTotalMatchesOnly, jsonIndent, output }, body]) => pipe2(
+      showMatchesOnly ? (
+        // later we should make this less clunky (re-wrapping futures)
+        pipe2(showTotalMatchesOnly ? length : j(jsonIndent), resolve2)
+      ) : pipe2(
+        j(jsonIndent),
+        writeFile(output),
+        map2(K(`Wrote file to ${output}`))
+      )
+    )(body)
+  ),
   // eslint-disable-next-line no-console
   fork(console.warn)(console.log)
 )(process.argv.slice(2));

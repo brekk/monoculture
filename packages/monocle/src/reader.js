@@ -1,6 +1,7 @@
 import path from 'node:path'
 
 import {
+  identity as I,
   curry,
   pipe,
   map,
@@ -41,12 +42,20 @@ export const readAll = curry((config, dirglob) => {
   return pipe(
     log.file('reading glob'),
     readDirWithConfig({ ...config, nodir: true }),
-    chain(files =>
-      pipe(map(readMonoFile(config.basePath, config.trim)), parallel(10))(files)
-    )
+    config.showMatchesOnly
+      ? I
+      : chain(files =>
+          pipe(
+            map(readMonoFile(config.basePath, config.trim)),
+            parallel(10)
+          )(files)
+        )
   )(dirglob)
 })
 
 export const monoprocessor = curry((config, pluginsF, dirGlob) =>
-  pipe(readAll(config), futureFileProcessor(config, pluginsF))(dirGlob)
+  pipe(
+    readAll(config),
+    config.showMatchesOnly ? I : futureFileProcessor(config, pluginsF)
+  )(dirGlob)
 )
