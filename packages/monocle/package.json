@@ -19,8 +19,7 @@
   "devDependencies": {
     "eslint-config-monoculture": "*",
     "execa": "^8.0.1",
-    "jest-config": "*",
-    "plugin-robot-tourist": "*"
+    "jest-config": "*"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",

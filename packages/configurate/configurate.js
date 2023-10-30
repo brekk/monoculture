@@ -54,6 +54,7 @@ ${z}`
 
 // src/builder.js
 import {
+  __ as $2,
   ifElse as ifElse2,
   always,
   pipe as pipe2,
@@ -68,7 +69,8 @@ import yargsParser from "yargs-parser";
 var parse = curry2((opts, args) => yargsParser(args, opts));
 
 // src/builder.js
-import { reject, resolve } from "fluture";
+import { Future, reject, resolve } from "fluture";
+import { cosmiconfig } from "cosmiconfig";
 import { trace as trace2 } from "xtrace";
 var showHelpWhen = curry3(
   (check, parsed) => parsed.help || check(parsed)
@@ -78,7 +80,7 @@ var configurateWithOptions = curry3(
     const help = ["help"];
     const updatedConfig = mergeRight2(yargsConfig, {
       alias: mergeRight2(yargsConfig.alias, { help: ["h"] }),
-      boolean: yargsConfig.boolean ? yargsConfig.boolean.includes("help") : yargsConfig.boolean ? yargsConfig.boolean.concat(help) : help
+      boolean: !yargsConfig.boolean ? help : yargsConfig.boolean.includes("help") ? yargsConfig.boolean : yargsConfig.boolean.concat(help)
     });
     const HELP = generateHelp(name, helpConfig, updatedConfig);
     return pipe2(
@@ -89,7 +91,20 @@ var configurateWithOptions = curry3(
   }
 );
 var configurate = configurateWithOptions({});
+var spaceconfig = curry3(
+  (config, ns, loadPath) => Future((bad, good) => {
+    const explorer = cosmiconfig(ns, config);
+    const toRun = loadPath ? explorer.load(loadPath) : explorer.search();
+    toRun.catch(bad).then(good);
+    return () => {
+    };
+  })
+);
+var configFile = spaceconfig({});
+var configSearch = spaceconfig($2, $2, false);
 export {
+  configFile,
+  configSearch,
   configurate,
   configurateWithOptions,
   failIfMissingFlag,
@@ -97,5 +112,6 @@ export {
   invalidHelpConfig,
   longFlag,
   shortFlag,
-  showHelpWhen
+  showHelpWhen,
+  spaceconfig
 };

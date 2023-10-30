@@ -74,7 +74,7 @@ var monoprocessor = curry(
 );
 
 // src/cli.js
-import { configurate } from "configurate";
+import { configurate, configFile } from "configurate";
 
 // package.json
 var package_default = {
@@ -98,8 +98,7 @@ var package_default = {
   devDependencies: {
     "eslint-config-monoculture": "*",
     execa: "^8.0.1",
-    "jest-config": "*",
-    "plugin-robot-tourist": "*"
+    "jest-config": "*"
   },
   scripts: {
     nps: "dotenv -- nps -c ./package-scripts.cjs",
@@ -118,8 +117,8 @@ var CONFIG = {
     showTotalMatchesOnly: ["n", "showTotalMatches"],
     rulefile: ["c"],
     ignore: ["i"],
-    plugin: ["p"],
-    rule: ["r"],
+    plugin: ["p", "plugins"],
+    rule: ["r", "rules"],
     error: ["e"],
     trim: ["t"],
     output: ["o"],
@@ -159,6 +158,7 @@ var HELP_CONFIG = {
 
 // src/cli.js
 var j = (i) => (x) => JSON.stringify(x, null, i);
+var readConfigFile = configFile("monocle");
 pipe2(
   configurate(
     CONFIG,
@@ -166,9 +166,21 @@ pipe2(
     HELP_CONFIG,
     package_default.name
   ),
+  chain2((config) => {
+    const result = config.rulefile ? pipe2(
+      readConfigFile,
+      map2((read) => ({ ...config, ...read.config }))
+    )(config.rulefile) : (
+      // TODO we should eschew chain(Future(x))
+      resolve2(config)
+    );
+    return result;
+  }),
   map2(log.config("parsed")),
   chain2((config) => {
-    const { basePath, plugin: plugins = [], _: dirGlob = [] } = config;
+    const plugins = config.plugin || config.plugins || [];
+    const { basePath, _: dirGlob = [] } = config;
+    log.plugin("plugins...", plugins);
     if (config.showTotalMatchesOnly)
       config.showMatchesOnly = true;
     const pluginsF = pipe2(

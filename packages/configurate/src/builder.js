@@ -1,4 +1,5 @@
 import {
+  __ as $,
   ifElse,
   always,
   pipe,
@@ -8,7 +9,8 @@ import {
 } from 'ramda'
 import { parse } from './parser'
 import { generateHelp } from './help'
-import { reject, resolve } from 'fluture'
+import { Future, reject, resolve } from 'fluture'
+import { cosmiconfig } from 'cosmiconfig'
 import { trace } from 'xtrace'
 
 export const showHelpWhen = curry(
@@ -27,11 +29,11 @@ export const configurateWithOptions = curry(
     const help = ['help']
     const updatedConfig = mergeRight(yargsConfig, {
       alias: mergeRight(yargsConfig.alias, { help: ['h'] }),
-      boolean: yargsConfig.boolean
-        ? yargsConfig.boolean.includes('help')
-        : yargsConfig.boolean
-        ? yargsConfig.boolean.concat(help)
-        : help,
+      boolean: !yargsConfig.boolean
+        ? help
+        : yargsConfig.boolean.includes('help')
+        ? yargsConfig.boolean
+        : yargsConfig.boolean.concat(help),
     })
     const HELP = generateHelp(name, helpConfig, updatedConfig)
     return pipe(
@@ -43,3 +45,14 @@ export const configurateWithOptions = curry(
 )
 
 export const configurate = configurateWithOptions({})
+
+export const spaceconfig = curry((config, ns, loadPath) =>
+  Future((bad, good) => {
+    const explorer = cosmiconfig(ns, config)
+    const toRun = loadPath ? explorer.load(loadPath) : explorer.search()
+    toRun.catch(bad).then(good)
+    return () => {}
+  })
+)
+export const configFile = spaceconfig({})
+export const configSearch = spaceconfig($, $, false)

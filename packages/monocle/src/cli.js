@@ -3,14 +3,13 @@ import { always as K, pipe, chain, map, length, identity as I } from 'ramda'
 import { fork, parallel, resolve } from 'fluture'
 import { interpret, writeFile } from 'file-system'
 import { monoprocessor } from './reader'
-import { configurate } from 'configurate'
+import { configurate, configFile } from 'configurate'
 import PKG from '../package.json'
 import { log } from './trace'
 import { CONFIG, HELP_CONFIG, CONFIG_DEFAULTS } from './config'
-// import { trace } from 'xtrace'
 
 const j = i => x => JSON.stringify(x, null, i)
-
+const readConfigFile = configFile('monocle')
 // eslint-disable no-console
 
 pipe(
@@ -20,9 +19,22 @@ pipe(
     HELP_CONFIG,
     PKG.name
   ),
+  chain(config => {
+    const result = config.rulefile
+      ? pipe(
+          readConfigFile,
+          map(read => ({ ...config, ...read.config }))
+        )(config.rulefile)
+      : // TODO we should eschew chain(Future(x))
+        resolve(config)
+    return result
+  }),
   map(log.config('parsed')),
   chain(config => {
-    const { basePath, plugin: plugins = [], _: dirGlob = [] } = config
+    const plugins = config.plugin || config.plugins || []
+    const { basePath, _: dirGlob = [] } = config
+    log.plugin('plugins...', plugins)
+
     if (config.showTotalMatchesOnly) config.showMatchesOnly = true
     const pluginsF = pipe(
       map(
