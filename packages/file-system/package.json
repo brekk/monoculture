@@ -26,7 +26,6 @@
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
-    "test:all": "dotenv -- nps -c ./package-scripts.cjs test.all",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }
 }

@@ -6,7 +6,6 @@ module.exports = {
     // lint: sd('eslint --fix .', 'lint!'),
     test: {
       ...sd('jest', 'test!'),
-      all: sd('jest', 'test!'),
       watch: sd('jest --watch', 'test with watch-mode!'),
     },
   },

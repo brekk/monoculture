@@ -14,7 +14,6 @@ import {
   toPairs,
 } from 'ramda'
 import { trace } from 'xtrace'
-import * as CC from 'change-case'
 
 // shortFlag :: String -> String
 export const shortFlag = z => `-${z}`

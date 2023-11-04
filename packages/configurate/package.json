@@ -9,7 +9,6 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "change-case": "^5.1.2",
     "cosmiconfig": "^8.3.6",
     "ramda": "^0.29.1"
   },

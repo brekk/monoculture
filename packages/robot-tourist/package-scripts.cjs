@@ -21,11 +21,7 @@ module.exports = {
     },
     lint: sd('eslint --fix .', 'lint!'),
     test: {
-      ...sd(
-        'jest --testPathIgnorePatterns ".*" --passWithNoTests',
-        'skip running tests in CI'
-      ),
-      all: sd('jest', 'test'),
+      ...sd('jest', 'test'),
       watch: sd('jest --watch', 'test with watch-mode!'),
     },
     meta: {

@@ -3,7 +3,11 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "outputs": ["dist/**", ".next/**", "*.artifact.js", "coverage/**"]
+      "outputs": ["dist/**", ".next/**", "*.artifact.js"]
+    },
+    "test": {
+      "dependsOn": ["build"],
+      "outputs": ["coverage/lcov-info"]
     }
   }
 }

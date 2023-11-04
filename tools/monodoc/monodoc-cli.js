@@ -434,21 +434,19 @@ var package_default = {
   author: "brekk",
   license: "ISC",
   private: true,
-  bin: {
-    monodoc: "./monodoc-cli.js"
-  },
+  bin: "./monodoc-cli.js",
   dependencies: {
-    configurate: "*",
-    "file-system": "*",
+    configurate: "^0.1.4",
+    "file-system": "workspace:packages/file-system",
     fluture: "^14.0.0",
-    ramda: "^0.29.0"
+    ramda: "^0.29.1"
   },
   devDependencies: {
     dotenv: "^16.3.1",
     envtrace: "^0.0.2",
-    "eslint-config-monoculture": "*",
+    "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     "jest-environment-jsdom": "^29.7.0",
-    madge: "^6.0.0",
+    madge: "^6.1.0",
     xtrace: "^0.3.0"
   },
   scripts: {

@@ -8,7 +8,6 @@
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
-    "test:all": "dotenv -- nps -c ./package-scripts.cjs test.all",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }
 }

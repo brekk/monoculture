@@ -23,6 +23,7 @@ module.exports = {
           )(
             // use :read !./tools/spacework/list-workspaces.cjs
             [
+              '.',
               'apps/docs',
               'packages/configurate',
               'packages/file-system',

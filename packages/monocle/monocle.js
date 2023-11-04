@@ -89,16 +89,18 @@ var package_default = {
   license: "ISC",
   private: true,
   dependencies: {
-    configurate: "*",
+    configurate: "^0.1.4",
     envtrace: "^0.0.2",
     fluture: "^14.0.0",
-    monorail: "*",
-    ramda: "^0.29.0"
+    monorail: "workspace:packages/monorail",
+    ramda: "^0.29.1"
   },
   devDependencies: {
-    "eslint-config-monoculture": "*",
+    "dotenv-cli": "^7.3.0",
+    "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     execa: "^8.0.1",
-    "jest-config": "*"
+    jest: "^29.7.0",
+    "jest-config": "workspace:shared/jest-config"
   },
   scripts: {
     nps: "dotenv -- nps -c ./package-scripts.cjs",
