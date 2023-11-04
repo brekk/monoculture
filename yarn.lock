@@ -4625,10 +4625,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"change-case@npm:5.0.1":
-  version: 5.0.1
-  resolution: "change-case@npm:5.0.1"
-  checksum: b3ec23f0892b4853a77f6c3ccef373e26825a12d6582bbd2f7796c73a85c1fe48adeafe0b97c761862e86c61f106bbf37d54a526cd20f7f86c4514d9b46a97cf
+"change-case@npm:5.0.0":
+  version: 5.0.0
+  resolution: "change-case@npm:5.0.0"
+  checksum: 0c10ce84aeb2023dc554d18ae296aa0646118c5b9f0514c58dae78f3a7bacb60ea80d24a285879e257e3af32ac2de6cd2cf7e264c12fdf0053df94efd5d43a6f
   languageName: node
   linkType: hard
 
@@ -13884,7 +13884,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "robot-tourist@workspace:packages/robot-tourist"
   dependencies:
-    change-case: "npm:5.0.1"
+    change-case: "npm:5.0.0"
     configurate: "workspace:packages/configurate"
     dotenv-cli: "npm:^7.3.0"
     eslint: "npm:^8.53.0"

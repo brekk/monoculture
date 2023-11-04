@@ -10,7 +10,7 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "change-case": "5.0.1",
+    "change-case": "5.0.0",
     "configurate": "workspace:packages/configurate",
     "file-system": "workspace:packages/file-system",
     "ramda": "^0.29.1",
