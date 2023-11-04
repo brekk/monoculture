@@ -1,5 +1,23 @@
+#!/usr/bin/env node
+
+// src/cli.js
+import {
+  always as K2,
+  mergeRight as mergeRight4,
+  addIndex as addIndex2,
+  curry as curry8,
+  map as map6,
+  pipe as pipe6,
+  split as split3,
+  trim as trim2
+} from "ramda";
+import yargsParser2 from "yargs-parser";
+import { readFile } from "file-system";
+import { fork, resolve } from "fluture";
+
 // src/robot-tourist.js
 import {
+  mergeRight as mergeRight3,
   curry as curry6,
   equals as equals3,
   identity as I3,
@@ -159,6 +177,21 @@ var CONFIG = {
   ],
   number: ["histogramMinimum"],
   configuration: { "strip-aliased": true }
+};
+var CERTAIN_COMMON_WORDS = ["use", "get", "id"];
+var USER_DEFINED_VALUES = ["useSWR"];
+var DEFAULT_CONFIG = {
+  help: false,
+  fun: true,
+  limit: Infinity,
+  skipWords: [],
+  ignore: USER_DEFINED_VALUES,
+  ignoreTokens: CERTAIN_COMMON_WORDS,
+  dropStrings: true,
+  histogramMinimum: 1,
+  assumeSimilarWords: true,
+  dropJSKeywords: true,
+  dropTSKeywords: true
 };
 var HELP_CONFIG = {
   help: "This text!",
@@ -332,6 +365,20 @@ var getWordsFromEntities = curry5(
     (z) => z.sort()
   )(raw)
 );
+var parseWords = ({ limit, skip, entities, minimum, infer = true }) => pipe4(
+  getWordsFromEntities(infer, skip),
+  reduce3((agg, x) => {
+    const y = infer ? stemmer(x) : x;
+    const current = agg[y] || 0;
+    agg[y] = current + 1;
+    return agg;
+  }, {}),
+  minimum > 0 ? filter2((z) => z > minimum) : I2,
+  toPairs3,
+  sortWith2([descend2(last2)]),
+  slice(0, limit),
+  fromPairs
+)(entities);
 var compareContentToWords = curry5((infer, line, content, _words) => {
   if (isEmpty(content) || isEmpty(_words))
     return false;
@@ -449,9 +496,89 @@ var parse = curry6(
 var parseAndClassify = curry6(
   (conf, x) => pipe5(parse(conf), classifyEntities)(x)
 );
+var parseAndClassifyWithFile = curry6(
+  (file, conf, x) => pipe5(parseAndClassify(conf), mergeRight3({ file }))(x)
+);
+
+// src/stats.js
+import { curry as curry7 } from "ramda";
+var histograph = curry7(
+  ({
+    wordlimit: $wordlimit,
+    skip: $skipWords,
+    minimum: $hMin,
+    infer: $similarWords
+  }, { entities, ...x }) => ({
+    ...x,
+    entities,
+    words: parseWords({
+      limit: $wordlimit,
+      skip: $skipWords,
+      entities,
+      minimum: $hMin,
+      infer: $similarWords
+    })
+  })
+);
+var correlateSimilar = curry7(
+  ($similarWords, { words: w, lines: l, ...x }) => {
+    const report = correlate($similarWords, w, l);
+    return { ...x, lines: l, words: w, report };
+  }
+);
+
+// src/cli.js
+var parser2 = curry8((opts, args) => yargsParser2(args, opts));
+var cli = ({
+  help: $help,
+  fun: $fun,
+  file: $file,
+  limit: $wordlimit,
+  ignore: $ignore,
+  skipWords: $skipWords,
+  dropStrings: $dropStrings,
+  histogramMinimum: $hMin,
+  assumeSimilarWords: $similarWords,
+  dropJSKeywords: $dropJS,
+  dropTSKeywords: $dropTS,
+  dropImports: $dropImports
+}) => pipe6(
+  $help ? K2(resolve(HELP)) : pipe6(
+    readFile,
+    map6(
+      pipe6(
+        split3("\n"),
+        // add line numbers
+        addIndex2(map6)((x, i) => [i + 1, trim2(x)]),
+        parseAndClassifyWithFile($file, {
+          ignore: $ignore,
+          dropImports: $dropImports,
+          dropStrings: $dropStrings,
+          dropJS: $dropJS,
+          dropTS: $dropTS
+        }),
+        histograph({
+          wordlimit: $wordlimit,
+          skip: $skipWords,
+          minimum: $hMin,
+          infer: $similarWords
+        }),
+        correlateSimilar($similarWords),
+        robotTouristReporter($wordlimit, $fun)
+      )
+    )
+  ),
+  // eslint-disable-next-line no-console
+  fork(console.error)(console.log)
+)($file);
+pipe6(
+  parser2(CONFIG),
+  // TODO: use `configurate` here
+  (z) => ({ ...z, file: z._[0] }),
+  mergeRight4(DEFAULT_CONFIG),
+  // trace('CONFIG'),
+  cli
+)(process.argv.slice(2));
 export {
-  classifyEntities,
-  parse,
-  parseAndClassify,
-  parser
+  parser2 as parser
 };

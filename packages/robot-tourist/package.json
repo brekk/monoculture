@@ -8,15 +8,21 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "change-case": "^5.1.2",
+    "file-system": "*",
+    "ramda": "latest",
+    "stemmer": "^2.0.1"
+  },
   "devDependencies": {
-    "prettier": "^3.0.3",
     "eslint-config-monoculture": "*",
-    "jest-config": "*"
+    "jest-config": "*",
+    "prettier": "^3.0.3"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "build": "dotenv -- nps -c ./package-scripts.cjs build",
+    "build:bin": "dotenv -- nps -c ./package-scripts.cjs build.bin",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"

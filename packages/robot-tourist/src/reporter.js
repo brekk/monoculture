@@ -3,21 +3,17 @@ import {
   mergeRight,
   addIndex,
   curry,
-  descend,
   join,
-  last,
   map,
   pipe,
   reduce,
   replace,
-  sortWith,
   toPairs,
   zip,
   length,
 } from 'ramda'
 import { RG_JS_KEYWORDS, RG_TS_KEYWORDS } from './constants'
 import { mapSnd } from './tuple'
-import { trace } from './trace'
 import { LOGO } from './config'
 
 export const getWords = pipe(

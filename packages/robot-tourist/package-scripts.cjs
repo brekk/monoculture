@@ -26,10 +26,13 @@ const buildModule = ([infile, outfile]) =>
 
 module.exports = {
   scripts: {
-    build: sd(
-      buildModule(['./src/index.js', 'robot-tourist.js']),
-      'build the project'
-    ),
+    build: {
+      ...sd(
+        buildModule(['./src/index.js', 'robot-tourist.js']),
+        'build the project'
+      ),
+      bin: sd(build(['./src/cli.js', 'wordbot.js']), 'build the CLI tool'),
+    },
     lint: sd('eslint --fix .', 'lint!'),
     test: {
       ...sd('jest', 'test!'),

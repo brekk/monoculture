@@ -30,6 +30,7 @@ export const LOGO = `   /\\/\\
  |______|
 `
 
+// TODO: use `configurate`
 export const CONFIG = {
   alias: {
     help: ['h'],

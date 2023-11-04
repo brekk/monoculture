@@ -35,9 +35,9 @@ import {
   values,
   when,
 } from 'ramda'
-import CC from 'change-case'
+import * as CC from 'change-case'
 import { stemmer } from 'stemmer'
-import { mapSnd, anySnd } from './tuple'
+import { rejectSnd, mapSnd, anySnd } from './tuple'
 import { evidenceOfImports } from './source-matcher'
 import { trace } from './trace'
 
@@ -103,10 +103,9 @@ export const compareContentToWords = curry((infer, line, content, _words) => {
       }
       const stem = infer ? stemmer(word) : word
       const matched = includes(stem, cleancontent)
-      if (matched) {
-        return { matched, relationships: [...agg.relationships, [line, word]] }
-      }
-      return agg
+      return matched
+        ? { matched, relationships: [...agg.relationships, [line, word]] }
+        : agg
     },
     { matched: false, relationships: [] },
     keys(_words)
@@ -140,7 +139,9 @@ export const dropMultilineCommentsWithSteps = reduce(
 )
 export const dropMultilineComments = pipe(
   dropMultilineCommentsWithSteps,
-  prop('stack')
+  prop('stack'),
+  // clean up some stuff we missed
+  rejectSnd(equals('*/'))
 )
 
 export const dropImports = when(

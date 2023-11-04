@@ -1,4 +1,5 @@
 import {
+  mergeRight,
   curry,
   equals,
   identity as I,
@@ -12,7 +13,6 @@ import {
 } from 'ramda'
 import yargsParser from 'yargs-parser'
 
-import { trace } from './trace'
 import { mapSnd, rejectSnd } from './tuple'
 import {
   createEntitiesFromRaw,
@@ -29,15 +29,6 @@ import {
   dropStrings,
   cleanups,
 } from './string'
-
-// const { findSimilar } = require('find-similar')
-
-/*
-const brainfog = memoizeWith(
-  (a, b) => a + b.join('.'),
-  (key, ref) => findSimilar(key, ref)
-)
-*/
 
 export const parser = curry((opts, args) => yargsParser(args, opts))
 
@@ -70,8 +61,6 @@ export const parse = curry(
       rejectSnd(startsWith('//')),
       // throw away multi line comments
       dropMultilineComments,
-      // clean up some stuff we missed
-      rejectSnd(equals('*/')),
       // we don't care about the imports, that's all stuff upstream from this file
       $dropImports ? dropImports : I,
       // throw away strings, we don't care about them* - now configurable
@@ -93,4 +82,8 @@ export const parse = curry(
 
 export const parseAndClassify = curry((conf, x) =>
   pipe(parse(conf), classifyEntities)(x)
+)
+
+export const parseAndClassifyWithFile = curry((file, conf, x) =>
+  pipe(parseAndClassify(conf), mergeRight({ file }))(x)
 )
