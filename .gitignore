@@ -37,3 +37,10 @@ yarn-error.log*
 
 # public direcotry for built outputs
 public
+
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

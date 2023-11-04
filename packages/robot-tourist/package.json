@@ -10,13 +10,16 @@
   "private": true,
   "dependencies": {
     "change-case": "^5.1.2",
-    "file-system": "*",
-    "ramda": "latest",
+    "configurate": "^0.1.4",
+    "file-system": "workspace:packages/file-system",
+    "ramda": "^0.29.1",
     "stemmer": "^2.0.1"
   },
   "devDependencies": {
-    "eslint-config-monoculture": "*",
-    "jest-config": "*",
+    "dotenv-cli": "^7.3.0",
+    "eslint": "^8.53.0",
+    "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
+    "jest": "^29.7.0",
     "prettier": "^3.0.3"
   },
   "scripts": {

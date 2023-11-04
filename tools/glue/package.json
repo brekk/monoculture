@@ -8,10 +8,9 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "dependencies": {},
   "devDependencies": {
-    "eslint-config-monoculture": "*",
-    "jest-config": "*"
+    "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
+    "jest-config": "workspace:shared/jest-config"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",

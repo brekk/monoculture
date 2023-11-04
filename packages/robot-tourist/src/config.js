@@ -1,26 +1,4 @@
-import {
-  __ as $,
-  propOr,
-  ap,
-  concat,
-  curry,
-  equals,
-  filter,
-  identity as I,
-  ifElse,
-  join,
-  map,
-  mergeRight,
-  objOf,
-  of,
-  pipe,
-  prop,
-  reduce,
-  length,
-  toPairs,
-} from 'ramda'
 import H from 'chalk'
-import { trace } from './trace'
 
 export const LOGO = `   /\\/\\
  .======.
@@ -58,7 +36,7 @@ export const CONFIG = {
 }
 
 export const CERTAIN_COMMON_WORDS = ['use', 'get', 'id']
-export const USER_DEFINED_VALUES = ['useSWR']
+export const USER_DEFINED_VALUES = []
 
 export const DEFAULT_CONFIG = {
   help: false,
@@ -88,61 +66,3 @@ export const HELP_CONFIG = {
   dropJSKeywords: 'Should JS keywords be dropped? (default: true)',
   dropTSKeywords: 'Should TS keywords be dropped? (default: true)',
 }
-
-export const supplantYargsParsery = raw =>
-  pipe(
-    toPairs,
-    reduce(
-      (agg, [k, alt]) =>
-        pipe(
-          map(key => prop(key, agg)),
-          filter(I),
-          map(objOf(k)),
-          reduce(mergeRight, {}),
-          mergeRight(agg)
-        )(alt),
-      raw
-    )
-  )(CONFIG.alias)
-
-// shortFlag :: String -> String
-const shortFlag = z => `-${z}`
-
-// longFlag :: String -> String
-const longFlag = z => `--${z}`
-
-// invalidHelpConfig :: String -> ()
-export const invalidHelpConfig = key => {
-  throw new Error(`You must add a ${key} key to HELP_CONFIG!`)
-}
-
-// failIfMissingFlag :: String -> String -> String
-export const failIfMissingFlag = curry((env, k, raw) =>
-  env !== 'production' && raw === '???' ? invalidHelpConfig(k) : raw
-)
-
-// HELP :: Config -> String
-export const HELP = pipe(
-  propOr({}, 'alias'),
-  toPairs,
-  map(([k, v]) =>
-    pipe(
-      z => [z],
-      ap([
-        pipe(
-          z => [z],
-          concat(v),
-          map(ifElse(pipe(length, equals(1)), shortFlag, longFlag)),
-          join(' / ')
-        ),
-        pipe(
-          propOr('???', $, HELP_CONFIG),
-          failIfMissingFlag(process.env.NODE_ENV, k)
-        ),
-      ]),
-      ([flags, description]) => `${flags}\n  ${description}`
-    )(k)
-  ),
-  join('\n\n'),
-  z => `robot-tourist\n${LOGO}\n${z}`
-)(CONFIG)

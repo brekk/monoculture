@@ -2,27 +2,8 @@
   "globalEnv": ["NODE_ENV"],
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
-    "test": {
-      "dependsOn": ["build"],
-      "inputs": ["src/*.js", "src/*.ts"],
-      "outputs": ["coverage/**"]
-    },
-    "test:watch": {
-      "cache": false
-    },
     "build": {
-      "outputs": ["dist/**", ".next/**", "*.artifact.js"]
-    },
-    "lint": {},
-    "dev": {
-      "cache": false
-    },
-    "deploy": {
-      "dependsOn": ["test", "build"],
-      "outputs": ["public/**"]
-    },
-    "meta:graph": {
-      "outputs": ["graph.svg"]
+      "outputs": ["dist/**", ".next/**", "*.artifact.js", "coverage/**"]
     }
   }
 }

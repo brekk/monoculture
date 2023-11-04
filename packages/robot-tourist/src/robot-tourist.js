@@ -1,3 +1,5 @@
+import { histograph, correlateSimilar } from './stats'
+
 import {
   mergeRight,
   curry,
@@ -86,4 +88,38 @@ export const parseAndClassify = curry((conf, x) =>
 
 export const parseAndClassifyWithFile = curry((file, conf, x) =>
   pipe(parseAndClassify(conf), mergeRight({ file }))(x)
+)
+
+export const robotTourist = curry(
+  (
+    {
+      file: $file,
+      ignore: $ignore,
+      skipWords: $skipWords,
+      dropStrings: $dropStrings,
+      histogramMinimum: $hMin,
+      assumeSimilarWords: $similarWords,
+      dropJSKeywords: $dropJS,
+      dropTSKeywords: $dropTS,
+      dropImports: $dropImports,
+      limit: $wordlimit,
+    },
+    x
+  ) =>
+    pipe(
+      parseAndClassifyWithFile($file, {
+        ignore: $ignore,
+        dropImports: $dropImports,
+        dropStrings: $dropStrings,
+        dropJS: $dropJS,
+        dropTS: $dropTS,
+      }),
+      histograph({
+        wordlimit: $wordlimit,
+        skip: $skipWords,
+        minimum: $hMin,
+        infer: $similarWords,
+      }),
+      correlateSimilar($similarWords)
+    )(x)
 )

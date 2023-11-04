@@ -6,9 +6,4 @@ module.exports = {
     '^.+\\.(t|j)sx?$': ['@swc/jest'],
   },
   transformIgnorePatterns: [],
-  globals: {
-    'ts-jest': {
-      tsconfig: '../monoculture-tsconfig/react-library.json',
-    },
-  },
 }
