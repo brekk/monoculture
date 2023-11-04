@@ -41,6 +41,7 @@ import {
   pascalCase,
   pathCase,
   paramCase,
+  noCase,
 } from 'change-case'
 import { stemmer } from 'stemmer'
 import { rejectSnd, mapSnd, anySnd } from './tuple'
@@ -67,7 +68,7 @@ export const cleanups = anyPass([
 
 export const getWordsFromEntities = curry((infer, skippables, raw) =>
   pipe(
-    map(map(CC.noCase)),
+    map(map(noCase)),
     values,
     reduce((agg, x) => [...agg, ...x], []),
     chain(split(' ')),
@@ -97,7 +98,7 @@ export const parseWords = ({ limit, skip, entities, minimum, infer = true }) =>
 export const compareContentToWords = curry((infer, line, content, _words) => {
   if (isEmpty(content) || isEmpty(_words)) return false
   const cleancontent = pipe(
-    map(CC.noCase),
+    map(noCase),
     chain(split(' ')),
     infer ? map(stemmer) : I,
     uniq

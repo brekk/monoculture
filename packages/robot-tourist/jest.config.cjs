@@ -5,6 +5,6 @@ module.exports = {
   collectCoverageFrom: ['src/*.js'],
   coverageReporters: ['html', 'text', 'text-summary', 'cobertura', 'lcov'],
   transform: {
-    ...(config.transform || {}),
+    ...config.transform,
   },
 }
