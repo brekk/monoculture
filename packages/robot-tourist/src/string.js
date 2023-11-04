@@ -35,7 +35,13 @@ import {
   values,
   when,
 } from 'ramda'
-import * as CC from 'change-case'
+import {
+  camelCase,
+  constantCase,
+  pascalCase,
+  pathCase,
+  paramCase,
+} from 'change-case'
 import { stemmer } from 'stemmer'
 import { rejectSnd, mapSnd, anySnd } from './tuple'
 import { evidenceOfImports } from './source-matcher'
@@ -45,11 +51,11 @@ export const matchesCaseFormat = curry((formatter, x) => formatter(x) === x)
 
 export const classify = cond([
   [anyPass([includes('"'), includes("'"), includes('`')]), K('string')],
-  [matchesCaseFormat(CC.constantCase), K('constant')],
-  [both(includes('-'), matchesCaseFormat(CC.paramCase)), K('param')],
-  [matchesCaseFormat(CC.pascalCase), K('proper')],
-  [both(includes('/'), matchesCaseFormat(CC.pathCase)), K('path')],
-  [both(z => toLower(z) !== z, matchesCaseFormat(CC.camelCase)), K('content')],
+  [matchesCaseFormat(constantCase), K('constant')],
+  [both(includes('-'), matchesCaseFormat(paramCase)), K('param')],
+  [matchesCaseFormat(pascalCase), K('proper')],
+  [both(includes('/'), matchesCaseFormat(pathCase)), K('path')],
+  [both(z => toLower(z) !== z, matchesCaseFormat(camelCase)), K('content')],
   [K(true), K('text')],
 ])
 export const cleanups = anyPass([

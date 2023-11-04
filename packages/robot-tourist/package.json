@@ -1,16 +1,17 @@
 {
   "name": "robot-tourist",
-  "version": "0.0.0",
-  "description": "A means of flattening source code to human readable words",
+  "version": "0.0.1",
+  "description": "human-centric code reader",
   "main": "robot-tourist.js",
+  "bin": "wordbot.js",
   "type": "module",
-  "repository": "monoculture",
+  "repository": "brekk/monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "change-case": "^5.1.2",
-    "configurate": "^0.1.4",
+    "change-case": "5.0.0",
+    "configurate": "workspace:packages/configurate",
     "file-system": "workspace:packages/file-system",
     "ramda": "^0.29.1",
     "stemmer": "^2.0.1"
@@ -25,9 +26,11 @@
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "build": "dotenv -- nps -c ./package-scripts.cjs build",
-    "build:bin": "dotenv -- nps -c ./package-scripts.cjs build.bin",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
+    "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
+    "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:all": "dotenv -- nps -c ./package-scripts.cjs test.all",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }
 }
