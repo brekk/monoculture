@@ -86,6 +86,16 @@ module.exports = {
     'jsdoc/require-param-type': 0,
     'jsdoc/require-example': 2,
     'jsdoc/no-undefined-types': 0,
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
+      {
+        vars: 'all',
+        varsIgnorePattern: '^_',
+        args: 'after-used',
+        argsIgnorePattern: '^_',
+      },
+    ],
   },
   extends: ['turbo', 'prettier', 'plugin:jsdoc/recommended-typescript'],
   plugins: [
@@ -96,5 +106,6 @@ module.exports = {
     'ramda',
     '@typescript-eslint',
     'jsdoc',
+    'unused-imports',
   ],
 }
