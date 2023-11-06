@@ -82,8 +82,7 @@ const INPUT = [
 const OUTPUT_ALL_DROPPED = [
   [4, ['mergeRight']],
   [5, ['curry']],
-  [6, ['identity', 'as', 'I']],
-  [7, ['map']],
+  [6, ['identity', 'I']],
   [8, ['pipe']],
   [9, ['reject']],
   [10, ['replace']],
@@ -100,25 +99,12 @@ const OUTPUT_ALL_DROPPED = [
   [30, ['dropImports']],
   [31, ['dropStrings']],
   [32, ['cleanups']],
-  [
-    35,
-    [
-      'export',
-      'const',
-      'parser',
-      'curry',
-      'opts',
-      'args',
-      'yargsParser',
-      'args',
-      'opts',
-    ],
-  ],
-  [37, ['export', 'const', 'classifyEntities', 'pipe']],
-  [39, ['map', 'line', 'content']],
+  [35, ['parser', 'curry', 'opts', 'args', 'yargsParser', 'args', 'opts']],
+  [37, ['classifyEntities', 'pipe']],
+  [39, ['line', 'content']],
   [40, ['line']],
   [41, ['content']],
-  [42, ['classification', 'map', 'classify', 'content']],
+  [42, ['classification', 'classify', 'content']],
   [45, ['createEntitiesFromRaw']],
   [47, ['cleanEntities']],
 ]
@@ -186,20 +172,22 @@ test('parse', () => {
         ignore: [],
         dropImports: true,
         dropStrings: true,
-        dropJS: true,
-        dropTS: true,
+        dropJSKeywords: true,
+        dropTSKeywords: true,
       },
       INPUT
     )
   ).toEqual(OUTPUT_ALL_DROPPED)
+})
+test('parse - all false', () => {
   expect(
     parse(
       {
         ignore: [],
         dropImports: false,
         dropStrings: false,
-        dropJS: false,
-        dropTS: false,
+        dropJSKeywords: false,
+        dropTSKeywords: false,
       },
       INPUT
     )

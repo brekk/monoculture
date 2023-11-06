@@ -4,6 +4,7 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['src/*.js'],
   coveragePathIgnorePatterns: [
+    'src/index.js',
     'src/cli.js',
     'src/plugin-simple.js',
     'src/plugin-robot-tourist.js',
