@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CERTAIN_COMMON_WORDS 1`] = `
+[
+  "use",
+  "get",
+  "id",
+]
+`;
+
+exports[`CONFIG 1`] = `
+{
+  "alias": {
+    "assumeSimilarWords": [
+      "similar",
+      "a",
+    ],
+    "dropJSKeywords": [
+      "j",
+    ],
+    "dropStrings": [
+      "s",
+    ],
+    "dropTSKeywords": [
+      "J",
+    ],
+    "fun": [
+      "f",
+    ],
+    "help": [
+      "h",
+    ],
+    "histogramMinimum": [
+      "hits",
+      "m",
+    ],
+    "ignore": [
+      "i",
+    ],
+    "ignoreTokens": [
+      "t",
+    ],
+    "limit": [
+      "l",
+    ],
+    "skipWords": [
+      "w",
+    ],
+  },
+  "array": [
+    "skipWords",
+    "ignoreTokens",
+    "ignore",
+  ],
+  "boolean": [
+    "dropStrings",
+    "assumeSimilarWords",
+    "dropJSKeywords",
+    "dropTSKeywords",
+    "fun",
+  ],
+  "configuration": {
+    "strip-aliased": true,
+  },
+  "number": [
+    "histogramMinimum",
+  ],
+}
+`;
+
+exports[`DEFAULT_CONFIG 1`] = `
+{
+  "assumeSimilarWords": true,
+  "dropJSKeywords": true,
+  "dropStrings": true,
+  "dropTSKeywords": true,
+  "fun": true,
+  "help": false,
+  "histogramMinimum": 1,
+  "ignore": [],
+  "ignoreTokens": [
+    "use",
+    "get",
+    "id",
+  ],
+  "limit": Infinity,
+  "skipWords": [],
+}
+`;
+
+exports[`HELP_CONFIG 1`] = `
+{
+  "assumeSimilarWords": "Should we attempt to infer whether words are similar?",
+  "dropJSKeywords": "Should JS keywords be dropped? (default: true)",
+  "dropStrings": "Should strings be retained or removed?",
+  "dropTSKeywords": "Should TS keywords be dropped? (default: true)",
+  "fun": "Show the robot",
+  "help": "This text!",
+  "histogramMinimum": "What is the minimum number of matches as a threshold?",
+  "ignore": "Ignore a matched string (can be specified multiple times)",
+  "ignoreTokens": "Ignore a token once it is processed (more reliable than \`--ignore\`)",
+  "limit": "What top number of words do you want to see? (default: Infinity)",
+  "skipWords": "Ignore a given word (this should be merged with --ignore)",
+}
+`;
+
+exports[`LOGO 1`] = `
+"   /\\/\\
+ .======.
+<dIIIIIIb>
+ |[[31mo[39m><[31mo[39m]|
+ [36m(||||||)[39m
+ |______|
+"
+`;
+
+exports[`USER_DEFINED_VALUES 1`] = `[]`;

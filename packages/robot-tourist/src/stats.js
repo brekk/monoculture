@@ -1,5 +1,6 @@
 import { curry } from 'ramda'
 import { correlate, parseWords } from './string'
+const j2 = x => JSON.stringify(x, null, 2)
 
 // produce words in a histogram (and throw away anything which only occurs once)
 export const histograph = curry(

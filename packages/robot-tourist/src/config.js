@@ -3,7 +3,7 @@ import H from 'chalk'
 export const LOGO = `   /\\/\\
  .======.
 <dIIIIIIb>
- |[${H.red('o')}><${H.red('o')}]| 
+ |[${H.red('o')}><${H.red('o')}]|
  ${H.cyan('(||||||)')}
  |______|
 `

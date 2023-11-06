@@ -3,7 +3,6 @@ import { histograph, correlateSimilar } from './stats'
 import {
   mergeRight,
   curry,
-  equals,
   identity as I,
   map,
   pipe,

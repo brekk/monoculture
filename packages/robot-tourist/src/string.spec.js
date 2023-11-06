@@ -6,10 +6,7 @@ import {
   parseWords,
   compareContentToWords,
   correlate,
-  dropMultilineCommentsWithSteps,
   dropMultilineComments,
-  dropImports,
-  dropStrings,
   cleanEntities,
 } from './string'
 

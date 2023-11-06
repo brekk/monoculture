@@ -40,13 +40,12 @@ import {
   constantCase,
   pascalCase,
   pathCase,
-  paramCase,
+  kebabCase as paramCase,
   noCase,
 } from 'change-case'
 import { stemmer } from 'stemmer'
 import { rejectSnd, mapSnd, anySnd } from './tuple'
 import { evidenceOfImports } from './source-matcher'
-import { trace } from './trace'
 
 export const matchesCaseFormat = curry((formatter, x) => formatter(x) === x)
 

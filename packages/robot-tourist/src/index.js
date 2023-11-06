@@ -1,1 +1,1 @@
-export * from './robot-tourist'
+export * from './core'

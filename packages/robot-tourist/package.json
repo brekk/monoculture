@@ -18,14 +18,17 @@
   },
   "devDependencies": {
     "dotenv-cli": "^7.3.0",
+    "esbuild": "^0.19.5",
     "eslint": "^8.53.0",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     "jest": "^29.7.0",
-    "prettier": "^3.0.3"
+    "prettier": "^3.0.3",
+    "strip-ansi": "^7.1.0"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "build": "dotenv -- nps -c ./package-scripts.cjs build",
+    "build:bin": "dotenv -- nps -c ./package-scripts.cjs build.bin",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",

@@ -1,5 +1,5 @@
 module.exports = {
   root: true,
   extends: ['monoculture'],
-  ignorePatterns: ['configurate.js'],
+  ignorePatterns: ['robot-tourist.js'],
 }

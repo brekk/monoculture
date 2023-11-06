@@ -1,29 +1,20 @@
 import { configurate } from 'configurate'
-import {
-  chain,
-  always as K,
-  mergeRight,
-  addIndex,
-  curry,
-  map,
-  pipe,
-  split,
-  trim,
-} from 'ramda'
+import { chain, addIndex, curry, map, pipe, split, trim } from 'ramda'
 import yargsParser from 'yargs-parser'
 import { readFile } from 'file-system'
-import { fork, resolve } from 'fluture'
+import { fork } from 'fluture'
 
 // import { mapSnd, rejectSnd } from './tuple'
 import { CONFIG, DEFAULT_CONFIG, HELP_CONFIG } from './config'
 import { robotTouristReporter } from './reporter'
-import { robotTourist } from './robot-tourist'
+import { robotTourist } from './core'
 // import { replaceNoise } from './source-matcher'
 
 export const parser = curry((opts, args) => yargsParser(args, opts))
 
 const cli = ({ fun: $fun, _: [$file], limit: $wordlimit, ...$config }) =>
   pipe(
+    // TODO: this will be replaced by the behavior of `monocle` eventually
     readFile,
     map(
       pipe(

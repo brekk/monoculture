@@ -4652,13 +4652,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"change-case@npm:^5.1.2":
-  version: 5.1.2
-  resolution: "change-case@npm:5.1.2"
-  checksum: 80ea44e2c6da8bf53556a669b8ca0f7044223450d2aac6076ae2e212a1af397e4b4a72643f9ad188fff92984ca358bd3fe3d02dae2ef04f81cb9cb8e78f27770
-  languageName: node
-  linkType: hard
-
 "char-regex@npm:^1.0.2":
   version: 1.0.2
   resolution: "char-regex@npm:1.0.2"
@@ -5059,7 +5052,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "configurate@workspace:packages/configurate"
   dependencies:
-    change-case: "npm:^5.1.2"
     cosmiconfig: "npm:^8.3.6"
     dotenv-cli: "npm:^7.3.0"
     eslint: "npm:^8.53.0"
@@ -11708,6 +11700,7 @@ __metadata:
     configurate: "npm:^0.1.4"
     dotenv-cli: "npm:^7.3.0"
     envtrace: "npm:^0.0.2"
+    esbuild: "npm:^0.19.5"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     execa: "npm:^8.0.1"
     fluture: "npm:^14.0.0"
@@ -13887,6 +13880,7 @@ __metadata:
     change-case: "npm:5.0.0"
     configurate: "workspace:packages/configurate"
     dotenv-cli: "npm:^7.3.0"
+    esbuild: "npm:^0.19.5"
     eslint: "npm:^8.53.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     file-system: "workspace:packages/file-system"
@@ -13894,6 +13888,7 @@ __metadata:
     prettier: "npm:^3.0.3"
     ramda: "npm:^0.29.1"
     stemmer: "npm:^2.0.1"
+    strip-ansi: "npm:^7.1.0"
   bin:
     robot-tourist: wordbot.js
   languageName: unknown
