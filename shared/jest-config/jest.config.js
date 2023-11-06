@@ -11,6 +11,7 @@ module.exports = {
     '^.+\\.(t|j)sx?$': ['@swc/jest', { swcrc: false }],
   },
   resolver: 'ts-jest-resolver',
+  // setupFilesAfterEnv: ['./jest.setup.js'],
   /*
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',

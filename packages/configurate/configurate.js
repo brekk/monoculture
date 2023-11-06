@@ -38,7 +38,7 @@ var generateHelp = curry(
           ),
           description: pipe(
             propOr("???", $, helpConfig),
-            failIfMissingFlag(process.env.NODE_ENV, k)
+            failIfMissingFlag("development", k)
           )
         }),
         ({ flags, description }) => `${flags}

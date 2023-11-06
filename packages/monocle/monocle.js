@@ -97,6 +97,7 @@ var package_default = {
   },
   devDependencies: {
     "dotenv-cli": "^7.3.0",
+    esbuild: "^0.19.5",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     execa: "^8.0.1",
     jest: "^29.7.0",

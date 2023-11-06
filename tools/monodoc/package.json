@@ -10,14 +10,16 @@
   "private": true,
   "bin": "./monodoc-cli.js",
   "dependencies": {
-    "configurate": "^0.1.4",
+    "configurate": "workspace:packages/configurate",
     "file-system": "workspace:packages/file-system",
     "fluture": "^14.0.0",
     "ramda": "^0.29.1"
   },
   "devDependencies": {
     "dotenv": "^16.3.1",
+    "dotenv-cli": "^7.3.0",
     "envtrace": "^0.0.2",
+    "esbuild": "^0.19.5",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     "jest-environment-jsdom": "^29.7.0",
     "madge": "^6.1.0",

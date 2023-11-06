@@ -5,86 +5,53 @@ import {
   fromPairs as fromPairs2,
   last as last4,
   applySpec as applySpec3,
-  ap,
   prop as prop2,
   reduce as reduce3,
-  includes as includes3,
-  __,
   always as K3,
   chain as chain2,
-  curry as curry5,
+  curry as curry4,
   defaultTo as defaultTo2,
   filter as filter3,
   flatten as flatten2,
-  groupBy as groupBy2,
-  head as head4,
+  groupBy,
+  head as head3,
   identity as I2,
   join as join3,
-  length as length5,
+  length as length4,
   lt,
-  map as map7,
+  map as map6,
   path,
   pathOr as pathOr3,
-  pipe as pipe7,
+  pipe as pipe6,
   propOr as propOr4,
   replace as replace4,
   slice as slice4,
-  sortBy as sortBy2,
-  tap,
-  toLower as toLower2,
-  toPairs as toPairs3,
+  sortBy,
+  toPairs as toPairs2,
   toUpper
 } from "ramda";
-import { resolve, and as futureAnd, fork, parallel } from "fluture";
+import { resolve, parallel } from "fluture";
 import {
   pathRelativeTo as pathRelativeTo2,
   readJSONFile,
-  mkdirp,
   readDirWithConfig,
   writeFile,
   writeFileWithAutoPath
 } from "file-system";
 
-// src/stats.js
-import {
-  length,
-  curry,
-  pipe,
-  groupBy,
-  map,
-  toPairs,
-  sortBy,
-  when,
-  equals,
-  always,
-  head
-} from "ramda";
-var histogramBy = curry(
-  (pred, list) => pipe(groupBy(pred), map(length), toPairs)(list)
-);
-var rarestBy = curry(
-  (pred, list) => pipe(
-    histogramBy(pred),
-    (x) => x.sort(([_1, v], [_2, v2]) => v - v2),
-    when(pipe(length, equals(0)), always([[]])),
-    head,
-    head
-  )(list)
-);
-
 // src/parse.js
 import { basename, extname } from "node:path";
 import {
-  curry as curry3,
+  curry as curry2,
   filter as filter2,
   flatten,
-  head as head3,
+  head as head2,
   identity,
   last as last3,
-  map as map5,
+  map as map4,
   mergeRight as mergeRight2,
   pathOr,
-  pipe as pipe5,
+  pipe as pipe4,
   propOr as propOr2,
   uniq as uniq2
 } from "ramda";
@@ -93,18 +60,18 @@ import { readFile, pathRelativeTo } from "file-system";
 // src/file.js
 import {
   addIndex,
-  map as map2,
+  map,
   match,
-  pipe as pipe2,
+  pipe,
   split,
   reduce,
   last,
   replace,
   init
 } from "ramda";
-var addLineNumbers = addIndex(map2)((a, i) => [i, a]);
+var addLineNumbers = addIndex(map)((a, i) => [i, a]);
 var findJSDocKeywords = match(/@(\w*)/g);
-var cleanupKeywords = pipe2(
+var cleanupKeywords = pipe(
   replace(/(.*)@(\w*)\s(.*)$/g, "$2 $3"),
   split(" ")
 );
@@ -124,36 +91,36 @@ var groupContiguousBlocks = reduce((agg, raw) => {
 // src/text.js
 import {
   reject,
-  equals as equals2,
-  length as length2,
+  equals,
+  length,
   includes,
   join,
-  map as map3,
-  pipe as pipe3,
+  map as map2,
+  pipe as pipe2,
   replace as replace2,
   slice,
   split as split2,
   startsWith,
   trim,
-  when as when2
+  when
 } from "ramda";
 var lines = split2("\n");
 var unlines = join("\n");
-var trimComment = pipe3(
+var trimComment = pipe2(
   trim,
-  when2(startsWith("* "), slice(2, Infinity))
+  when(startsWith("* "), slice(2, Infinity))
 );
-var trimSummary = pipe3(
-  reject(equals2("/**")),
-  map3(trimComment),
+var trimSummary = pipe2(
+  reject(equals("/**")),
+  map2(trimComment),
   unlines
 );
-var nixKeyword = when2(includes("@"), replace2(/@/g, ""));
-var wipeComment = pipe3(trimComment, nixKeyword);
-var formatComment = (block) => pipe3(
-  map3(([, v]) => v),
-  map3(trimComment),
-  slice(1, length2(block) - 1)
+var nixKeyword = when(includes("@"), replace2(/@/g, ""));
+var wipeComment = pipe2(trimComment, nixKeyword);
+var formatComment = (block) => pipe2(
+  map2(([, v]) => v),
+  map2(trimComment),
+  slice(1, length(block) - 1)
 )(block);
 var j2 = (x) => JSON.stringify(x, null, 2);
 var stripRelative = replace2(/\.\.\//g, "");
@@ -172,47 +139,47 @@ import {
   applySpec,
   chain,
   cond,
-  curry as curry2,
+  curry,
   defaultTo,
   either,
-  equals as equals3,
+  equals as equals2,
   filter,
   fromPairs,
-  head as head2,
+  head,
   identity as I,
   ifElse,
   includes as includes2,
   last as last2,
-  length as length3,
-  map as map4,
+  length as length2,
+  map as map3,
   match as match2,
   mergeRight,
   objOf,
-  pipe as pipe4,
+  pipe as pipe3,
   reduce as reduce2,
   reject as reject2,
   replace as replace3,
   slice as slice2,
   startsWith as startsWith2,
-  toPairs as toPairs2,
+  toPairs,
   trim as trim2,
   uniq,
-  when as when3
+  when as when2
 } from "ramda";
 var linkRegex = /\{@link (.*)+\}/g;
-var matchLinks = pipe4(
+var matchLinks = pipe3(
   chain(match2(linkRegex)),
-  map4((z) => slice2("{@link ".length, z.length - 1, z))
+  map3((z) => slice2("{@link ".length, z.length - 1, z))
 );
-var handleSpecificKeywords = curry2(
+var handleSpecificKeywords = curry(
   (keyword, value, rest, file, end, i) => cond([
     // if example found, pull from raw file
-    [equals3("example"), () => getExample(file, end, i)],
+    [equals2("example"), () => getExample(file, end, i)],
     // if see found, do some light cleanup
-    [equals3("see"), () => pipe4(head2, slice2(0, -1))(rest)],
+    [equals2("see"), () => pipe3(head, slice2(0, -1))(rest)],
     // Consume pages + names as sentences
     [
-      either(equals3("name"), equals3("page")),
+      either(equals2("name"), equals2("page")),
       () => trim2(`${value} ${rest.join(" ")}`)
     ],
     // if an array value, concat it
@@ -221,29 +188,29 @@ var handleSpecificKeywords = curry2(
     [K(true), () => value]
   ])(keyword)
 );
-var structureKeywords = curry2(
-  (file, block, end) => pipe4(
-    map4(([i, line]) => [
+var structureKeywords = curry(
+  (file, block, end) => pipe3(
+    map3(([i, line]) => [
       i,
       ifElse(
-        pipe4(findJSDocKeywords, length3, (z) => z > 0),
-        pipe4(wipeComment, cleanupKeywords),
+        pipe3(findJSDocKeywords, length2, (z) => z > 0),
+        pipe3(wipeComment, cleanupKeywords),
         K(false)
       )(line)
     ]),
     filter(last2),
-    map4(([i, [keyword, value = true, ...rest]]) => [
+    map3(([i, [keyword, value = true, ...rest]]) => [
       i,
       [keyword, handleSpecificKeywords(keyword, value, rest, file, end, i)]
     ]),
-    map4(last2),
+    map3(last2),
     // fromPairs truncates duplicate keys, so we have to arrayify them
     reduce2(
       (agg, [key, ...value]) => agg[key] && Array.isArray(agg[key]) ? { ...agg, [key]: agg[key].concat(value) } : { ...agg, [key]: value },
       {}
     ),
-    toPairs2,
-    map4(([k, v]) => [
+    toPairs,
+    map3(([k, v]) => [
       k,
       k !== "see" && Array.isArray(v) && v.length === 1 ? v[0] : v
     ]),
@@ -251,12 +218,12 @@ var structureKeywords = curry2(
   )(block)
 );
 var summarize = (lines2) => {
-  const stripped = reject2(equals3("*"), lines2);
-  return pipe4(
-    addIndex2(map4)((x, i) => ifElse(startsWith2("@"), K(i), K(false))(x)),
+  const stripped = reject2(equals2("*"), lines2);
+  return pipe3(
+    addIndex2(map3)((x, i) => ifElse(startsWith2("@"), K(i), K(false))(x)),
     filter(I),
-    head2,
-    defaultTo(length3(stripped)),
+    head,
+    defaultTo(length2(stripped)),
     slice2(0, $, stripped),
     unlines
   )(stripped);
@@ -268,14 +235,14 @@ var slug = (name) => {
 var stripLeadingHyphen = replace3(/^-/g, "");
 var getFileGroup = propOr("", "group");
 var addTo = propOr("", "addTo");
-var objectifyComments = curry2(
+var objectifyComments = curry(
   (filename, file, comments) => reduce2(
     (agg, block) => agg.concat(
-      pipe4(
+      pipe3(
         // pass one
         applySpec({
-          start: pipe4(head2, head2),
-          end: pipe4(last2, head2),
+          start: pipe3(head, head),
+          end: pipe3(last2, head),
           lines: formatComment
         }),
         // pass two
@@ -288,7 +255,7 @@ var objectifyComments = curry2(
             fileGroup: getFileGroup(structure),
             addTo: addTo(structure),
             structure,
-            keywords: pipe4(unlines, findJSDocKeywords, uniq, (z) => z.sort())(
+            keywords: pipe3(unlines, findJSDocKeywords, uniq, (z) => z.sort())(
               gen.lines
             )
           };
@@ -299,40 +266,40 @@ var objectifyComments = curry2(
     comments
   )
 );
-var getExample = curry2(
-  (file, end, i) => pipe4(
+var getExample = curry(
+  (file, end, i) => pipe3(
     slice2(i + 1, end),
-    map4(trimComment),
-    map4(replace3(/^\*$/g, "")),
+    map3(trimComment),
+    map3(replace3(/^\*$/g, "")),
     unlines
   )(file)
 );
-var isJSDocComment = pipe4(
+var isJSDocComment = pipe3(
   trim2,
   anyPass([startsWith2("/**"), startsWith2("*"), startsWith2("*/")])
 );
 
 // src/parse.js
-var getAny = curry3(
-  (def, keyPath, comments) => pipe5(
-    map5(pathOr(def, keyPath)),
+var getAny = curry2(
+  (def, keyPath, comments) => pipe4(
+    map4(pathOr(def, keyPath)),
     filter2(identity),
     uniq2,
     (x) => x.sort(),
-    head3
+    head2
   )(comments)
 );
-var parse = curry3((root, filename, content) => {
+var parse = curry2((root, filename, content) => {
   const newName = stripRelative(filename);
   const newNameFolder = newName.slice(0, newName.lastIndexOf("/"));
-  return pipe5(
+  return pipe4(
     // String
     lines,
     // List String
-    (raw) => pipe5(
+    (raw) => pipe4(
       addLineNumbers,
       // List #[Integer, String]
-      filter2(pipe5(last3, isJSDocComment)),
+      filter2(pipe4(last3, isJSDocComment)),
       // List #[Integer, String]
       groupContiguousBlocks,
       // List #[Integer, String]
@@ -342,29 +309,29 @@ var parse = curry3((root, filename, content) => {
         slugName: basename(newName, extname(newName)),
         filename: newName,
         comments,
-        order: pipe5(
+        order: pipe4(
           getAny("0", ["structure", "order"]),
           (x) => parseInt(x, 10)
         )(comments),
         fileGroup: getAny("", ["fileGroup"], comments),
-        links: pipe5(map5(propOr2([], "links")), flatten)(comments)
+        links: pipe4(map4(propOr2([], "links")), flatten)(comments)
       })
     )(raw)
     // CommentedFile
   )(content);
 });
-var parseFile = curry3(
-  (root, x) => pipe5(
+var parseFile = curry2(
+  (root, x) => pipe4(
     // String
-    (filename) => pipe5(
+    (filename) => pipe4(
       // String
       readFile,
       // Future<Error, String>
-      map5(parse(root, filename)),
+      map4(parse(root, filename)),
       // remove orphan comments (parser found it but its not well-formed)
-      map5((p) => ({
+      map4((p) => ({
         ...p,
-        comments: pipe5(
+        comments: pipe4(
           filter2(
             ({ lines: l, start, end, summary }) => start !== end && !!summary && l.length > 0
           )
@@ -378,31 +345,28 @@ var parseFile = curry3(
   )(x)
 );
 
-// src/cli.js
-import { scopedBinaryEffect } from "glue";
-
 // src/renderer.js
 import {
   ifElse as ifElse2,
-  pipe as pipe6,
+  pipe as pipe5,
   applySpec as applySpec2,
   pathOr as pathOr2,
   propOr as propOr3,
-  when as when4,
+  when as when3,
   startsWith as startsWith3,
-  length as length4,
+  length as length3,
   always as K2,
-  map as map6,
+  map as map5,
   slice as slice3
 } from "ramda";
-var stripFence = when4(startsWith3("```"), K2(""));
-var liveExample = (ex) => pipe6(lines, map6(stripFence), slice3(1, length4(ex)), unlines)(ex);
+var stripFence = when3(startsWith3("```"), K2(""));
+var liveExample = (ex) => pipe5(lines, map5(stripFence), slice3(1, length3(ex)), unlines)(ex);
 var commentToMarkdown = ifElse2(
   // this is a special case where we want to be able to dynamically rename the page
   pathOr2(false, ["structure", "page"]),
   // but since we're cheating we don't want to list it as a comment
   K2(""),
-  pipe6(
+  pipe5(
     applySpec2({
       title: pathOr2("Unknown", ["structure", "name"]),
       summary: propOr3("?", "summary"),
@@ -434,14 +398,16 @@ var package_default = {
   private: true,
   bin: "./monodoc-cli.js",
   dependencies: {
-    configurate: "^0.1.4",
+    configurate: "workspace:packages/configurate",
     "file-system": "workspace:packages/file-system",
     fluture: "^14.0.0",
     ramda: "^0.29.1"
   },
   devDependencies: {
     dotenv: "^16.3.1",
+    "dotenv-cli": "^7.3.0",
     envtrace: "^0.0.2",
+    esbuild: "^0.19.5",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     "jest-environment-jsdom": "^29.7.0",
     madge: "^6.1.0",
@@ -463,10 +429,10 @@ var package_default = {
 };
 
 // src/config.js
-import { curry as curry4 } from "ramda";
+import { curry as curry3 } from "ramda";
 import { generateHelp } from "configurate";
 import yargsParser from "yargs-parser";
-var parser = curry4((opts, args) => yargsParser(args, opts));
+var parser = curry3((opts, args) => yargsParser(args, opts));
 var YARGS_CONFIG = {
   alias: {
     input: ["i"],
@@ -506,27 +472,27 @@ var parsePackageName = (y) => {
   const end = y.indexOf("/", start);
   return y.slice(start, end);
 };
-var capitalToKebab = (s) => pipe7(
+var capitalToKebab = (s) => pipe6(
   replace4(/\//g, "-"),
   replace4(/--/g, "-")
 )(s.replace(/[A-Z]/g, (match3) => `-` + match3));
-var readPackageJsonWorkspaces = curry5(
-  (root, x) => map7(
-    pipe7(
+var readPackageJsonWorkspaces = curry4(
+  (root, x) => map6(
+    pipe6(
       // grab the workspaces field
       propOr4([], "workspaces"),
       // we want directories only
-      map7((z) => `${z}/`),
+      map6((z) => `${z}/`),
       // read all the directories
-      map7(readDirWithConfig({ cwd: root }))
+      map6(readDirWithConfig({ cwd: root }))
     )
   )(x)
 );
-var iterateOverWorkspacesAndReadFiles = curry5(
-  (searchGlob, ignore, root, x) => map7(
-    pipe7(
+var iterateOverWorkspacesAndReadFiles = curry4(
+  (searchGlob, ignore, root, x) => map6(
+    pipe6(
       // look for specific file types
-      map7((workspace) => workspace + searchGlob),
+      map6((workspace) => workspace + searchGlob),
       // exclude some search spaces
       chain2(
         readDirWithConfig({
@@ -537,10 +503,10 @@ var iterateOverWorkspacesAndReadFiles = curry5(
     )
   )(x)
 );
-var pullPageTitleFromAnyComment = pipe7(
+var pullPageTitleFromAnyComment = pipe6(
   filter3(pathOr3(false, ["structure", "page"])),
-  map7(path(["structure", "page"])),
-  head4,
+  map6(path(["structure", "page"])),
+  head3,
   defaultTo2(""),
   replace4(/\s/g, "-"),
   defaultTo2(false)
@@ -552,7 +518,7 @@ var cleanFilename = ({ workspace, fileGroup, filename, comments }) => {
   const result = capitalToKebab(sliced) + ".mdx";
   return (fileGroup ? fileGroup + "/" : "") + stripLeadingHyphen(sliced !== title ? capitalize(result) : result);
 };
-var combineFiles = curry5(
+var combineFiles = curry4(
   (leftToRight, a, b) => !leftToRight ? combineFiles(true, b, a) : {
     ...a,
     ...b,
@@ -560,37 +526,37 @@ var combineFiles = curry5(
     links: [...a.links, ...b.links]
   }
 );
-var prepareMetaFiles = curry5(
-  (outputDir, workspace, commentedFiles) => pipe7(
-    map7((raw) => [
-      pipe7(cleanFilename, (x) => basename2(x, ".mdx"))(raw),
-      pipe7(
+var prepareMetaFiles = curry4(
+  (outputDir, workspace, commentedFiles) => pipe6(
+    map6((raw) => [
+      pipe6(cleanFilename, (x) => basename2(x, ".mdx"))(raw),
+      pipe6(
         propOr4([], "comments"),
         filter3(pathOr3(false, ["structure", "name"])),
-        head4,
+        head3,
         applySpec3({
-          order: pipe7(
+          order: pipe6(
             pathOr3("0", ["structure", "order"]),
             (x) => parseInt(x, 10)
           ),
           group: pathOr3("", ["structure", "group"]),
-          name: pipe7(pathOr3("???", ["structure", "name"]))
+          name: pipe6(pathOr3("???", ["structure", "name"]))
         })
       )(raw)
     ]),
-    groupBy2(pipe7(last4, propOr4("", "group"))),
-    map7(
-      pipe7(
-        sortBy2(pathOr3(0, ["order"])),
-        map7(([title, { name }]) => [
-          pipe7(capitalToKebab, stripLeadingHyphen)(title),
+    groupBy(pipe6(last4, propOr4("", "group"))),
+    map6(
+      pipe6(
+        sortBy(pathOr3(0, ["order"])),
+        map6(([title, { name }]) => [
+          pipe6(capitalToKebab, stripLeadingHyphen)(title),
           name
         ]),
         fromPairs2
       )
     ),
-    toPairs3,
-    map7(
+    toPairs2,
+    map6(
       ([folder, data]) => writeFileWithAutoPath(
         pathJoin(outputDir, workspace, folder, "_meta.json"),
         JSON.stringify(data, null, 2)
@@ -608,7 +574,7 @@ var runner = ({
 }) => {
   const current = cwd();
   const rel = pathRelativeTo2(current);
-  const [pkgJson, outputDir, relativeArtifact] = map7(rel, [
+  const [pkgJson, outputDir, relativeArtifact] = map6(rel, [
     input,
     output,
     artifact
@@ -616,7 +582,7 @@ var runner = ({
   const root = pkgJson.slice(0, pkgJson.lastIndexOf("/"));
   const toLocal = input.slice(0, input.lastIndexOf("/"));
   const relativize = (r) => toLocal + "/" + r;
-  return pipe7(
+  return pipe6(
     // read the package.json file
     readJSONFile,
     // reach into the Future
@@ -625,25 +591,25 @@ var runner = ({
     chain2(parallel(10)),
     // take [[apps/workspace, apps/workspace2], [scripts/workspace]]
     // and make them [apps/workspace, apps/workspace2, scripts/workspace]
-    map7(flatten2),
+    map6(flatten2),
     // let's add globs
     iterateOverWorkspacesAndReadFiles(searchGlob, ignore, root),
     // Future<error, Future<error, string>[]>
     chain2(parallel(10)),
     // Future<error, string[]>
     // take [[files, in], [workspaces]] and make them [files, in, workspaces]
-    map7(flatten2),
-    map7(map7(relativize)),
+    map6(flatten2),
+    map6(map6(relativize)),
     // check each file for comments
     // Future<error, Future<error, CommentBlock>[]>
-    map7(chain2(parseFile(root))),
+    map6(chain2(parseFile(root))),
     // Future<error, CommentBlock[]>
     chain2(parallel(10)),
     // Future<error, CommentBlock[]>
     // exclude any files which don't have any comments
-    map7(filter3(pipe7(propOr4([], "comments"), length5, lt(0)))),
-    map7(
-      map7((raw) => {
+    map6(filter3(pipe6(propOr4([], "comments"), length4, lt(0)))),
+    map6(
+      map6((raw) => {
         const filename = stripRelative(raw.filename);
         return {
           ...raw,
@@ -653,25 +619,25 @@ var runner = ({
         };
       })
     ),
-    map7(
+    map6(
       reduce3((agg, file) => {
-        const filenames = map7(prop2("filename"), agg);
+        const filenames = map6(prop2("filename"), agg);
         const alreadyInList = filenames.includes(file.filename);
         const anyFile = file.comments.filter(
           ({ structure }) => structure.asFile
         );
         const someFile = anyFile.length > 0 ? anyFile[0] : false;
-        const asFilePath = pipe7(
+        const asFilePath = pipe6(
           defaultTo2({}),
           pathOr3("???", ["structure", "asFile"])
         )(someFile);
-        const withOrder = pipe7(
+        const withOrder = pipe6(
           pathOr3("0", ["structure", "order"]),
           (x) => parseInt(x, 10)
         )(someFile);
         const dir = dirname(file.filename);
         const newFile = someFile ? pathJoin(dir, asFilePath) : "???";
-        return alreadyInList ? map7((raw) => {
+        return alreadyInList ? map6((raw) => {
           const check = raw.filename === file.filename;
           return check ? combineFiles(raw.order < withOrder, raw, file) : raw;
         })(agg) : [
@@ -690,12 +656,12 @@ var runner = ({
     artifact ? (
       // write to a file
       chain2(
-        (content) => pipe7(
+        (content) => pipe6(
           // (as JSON)
           j2,
           writeFile(relativeArtifact),
           // but persist our original content for downstream consumption
-          map7(K3(content))
+          map6(K3(content))
         )(content)
       )
     ) : (
@@ -706,11 +672,11 @@ var runner = ({
     // underlying structure here is { [filename]: CommentBlock[] }
     // so we need to apply it to sub-paths
     chain2(
-      pipe7(
-        groupBy2(propOr4("unknown", "workspace")),
-        toPairs3,
-        map7(([workspace, commentedFiles]) => {
-          const filesToWrite = map7((file) => {
+      pipe6(
+        groupBy(propOr4("unknown", "workspace")),
+        toPairs2,
+        map6(([workspace, commentedFiles]) => {
+          const filesToWrite = map6((file) => {
             return writeFileWithAutoPath(
               pathJoin(
                 outputDir,
@@ -718,8 +684,8 @@ var runner = ({
                 // this part is the structure of the file we wanna write
                 cleanFilename(file)
               ),
-              pipe7(
-                map7(commentToMarkdown),
+              pipe6(
+                map6(commentToMarkdown),
                 (z) => ["# " + file.slugName, ...z],
                 join3("\n\n")
               )(file.comments)
@@ -737,15 +703,15 @@ var runner = ({
       )
     ),
     // tell the user about it
-    map7(K3(`Wrote to ${outputDir}/monodoc-generated.json`))
+    map6(K3(`Wrote to ${outputDir}/monodoc-generated.json`))
   )(pkgJson);
 };
-var monodoc = pipe7(
+var monodoc = pipe6(
   slice4(2, Infinity),
   parser(YARGS_CONFIG),
   processHelpOrRun
 );
 
 // src/executable.js
-import { fork as fork2 } from "fluture";
-fork2(console.error)(console.log)(monodoc(process.argv));
+import { fork } from "fluture";
+fork(console.error)(console.log)(monodoc(process.argv));

@@ -7,9 +7,9 @@ import * as EVERYTHING from './index'
 test('default export', () => {
   expect(Object.keys(EVERYTHING)).toEqual([
     'hash',
-    'readMonoFile',
-    'readAll',
     'monoprocessor',
+    'readAll',
+    'readMonoFile',
   ])
 })
 

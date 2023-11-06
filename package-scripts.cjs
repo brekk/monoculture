@@ -33,7 +33,6 @@ module.exports = {
               'shared/eslint-config-monoculture',
               'shared/jest-config',
               'shared/monoculture-tsconfig',
-              'tools/glue',
               'tools/monodoc',
               'tools/spacework',
             ]

@@ -8,13 +8,13 @@ const build = ([infile, outfile]) =>
     `--outfile=${outfile}`,
     `--bundle`,
     `--format=esm`,
-    `--platform=node`,
+    // `--platform=node`,
     `--packages=external`,
   ].join(' ')
 
 module.exports = {
   scripts: {
-    build: build(['src/index.js', PKG.main]),
+    build: build(['src/index.js', PKG.exports[0]]),
     lint: sd('eslint --fix .', 'lint!'),
     test: {
       ...sd('jest', 'test!'),

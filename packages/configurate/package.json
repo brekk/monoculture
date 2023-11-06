@@ -2,7 +2,9 @@
   "name": "configurate",
   "version": "0.0.0",
   "description": "Tooling to configure all-the-things",
-  "main": "configurate.js",
+  "exports": [
+    "./configurate.js"
+  ],
   "type": "module",
   "repository": "monoculture",
   "author": "brekk",

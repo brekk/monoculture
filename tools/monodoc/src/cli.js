@@ -4,11 +4,8 @@ import {
   fromPairs,
   last,
   applySpec,
-  ap,
   prop,
   reduce,
-  includes,
-  __,
   always as K,
   chain,
   curry,
@@ -29,25 +26,20 @@ import {
   replace,
   slice,
   sortBy,
-  tap,
-  toLower,
   toPairs,
   toUpper,
 } from 'ramda'
-import { resolve, and as futureAnd, fork, parallel } from 'fluture'
+import { resolve, parallel } from 'fluture'
 import {
   pathRelativeTo,
   readJSONFile,
-  mkdirp,
   readDirWithConfig,
   writeFile,
   writeFileWithAutoPath,
 } from 'file-system'
-import { rarestBy } from './stats'
 
 import { parseFile } from './parse'
 import { stripRelative, j2 } from './text'
-import { scopedBinaryEffect } from 'glue'
 import { commentToMarkdown } from './renderer'
 import { HELP, YARGS_CONFIG, parser, CONFIG_DEFAULTS } from './config'
 import { slug, stripLeadingHyphen } from './comment'

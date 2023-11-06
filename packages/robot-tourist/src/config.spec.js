@@ -6,9 +6,10 @@ import {
   DEFAULT_CONFIG,
   HELP_CONFIG,
 } from './config'
+import stripAnsi from 'strip-ansi'
 
 test('LOGO', () => {
-  expect(LOGO).toMatchSnapshot()
+  expect(stripAnsi(LOGO)).toMatchSnapshot()
 })
 test('CONFIG', () => {
   expect(CONFIG).toMatchSnapshot()
