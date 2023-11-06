@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`readMonoFile 1`] = `"b06982b10f9b42aac49f5422f41e390843cc359e823363b45d8c7a72a3005d5a"`;

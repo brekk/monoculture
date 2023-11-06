@@ -1,5 +1,5 @@
 import { resolve as pathResolve } from 'node:path'
-import { always as K, pipe, chain, map, length, identity as I } from 'ramda'
+import { always as K, pipe, chain, map, length } from 'ramda'
 import { fork, parallel, resolve } from 'fluture'
 import { interpret, writeFile } from 'file-system'
 import { monoprocessor } from './reader'

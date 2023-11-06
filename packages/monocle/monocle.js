@@ -2,7 +2,7 @@
 
 // src/cli.js
 import { resolve as pathResolve } from "node:path";
-import { always as K, pipe as pipe2, chain as chain2, map as map2, length, identity as I2 } from "ramda";
+import { always as K, pipe as pipe2, chain as chain2, map as map2, length } from "ramda";
 import { fork, parallel as parallel2, resolve as resolve2 } from "fluture";
 import { interpret, writeFile } from "file-system";
 

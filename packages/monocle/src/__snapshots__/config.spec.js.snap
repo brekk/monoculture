@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CONFIG 1`] = `
+{
+  "alias": {
+    "error": [
+      "e",
+    ],
+    "help": [
+      "h",
+    ],
+    "ignore": [
+      "i",
+    ],
+    "jsonIndent": [
+      "j",
+    ],
+    "output": [
+      "o",
+    ],
+    "plugin": [
+      "p",
+      "plugins",
+    ],
+    "rule": [
+      "r",
+      "rules",
+    ],
+    "rulefile": [
+      "c",
+    ],
+    "showMatchesOnly": [
+      "m",
+      "showMatches",
+    ],
+    "showTotalMatchesOnly": [
+      "n",
+      "showTotalMatches",
+    ],
+    "trim": [
+      "t",
+    ],
+  },
+  "array": [
+    "plugin",
+    "rule",
+    "ignore",
+  ],
+  "boolean": [
+    "help",
+    "trim",
+    "showMatchesOnly",
+  ],
+  "configuration": {
+    "strip-aliased": true,
+  },
+  "number": [
+    "jsonIndent",
+  ],
+}
+`;
+
+exports[`CONFIG_DEFAULTS 1`] = `
+{
+  "jsonIndent": 2,
+  "output": "monocle-findings.json",
+  "showMatchesOnly": false,
+  "showTotalMatchesOnly": false,
+}
+`;
+
+exports[`HELP_CONFIG 1`] = `
+{
+  "error": "Should this invocation be a warning or an error?",
+  "help": "This text you're reading now!",
+  "ignore": "Pass ignore values to glob. Array type",
+  "jsonIndent": "How much should we indent JSON output? (default: 2)",
+  "output": "Where should the findings be written?",
+  "plugin": "Specify a plugin to add to the run.
+  Multiple plugins can be specified by invoking monocle with multiple flags, e.g.
+    monocle --plugin x --plugin y",
+  "rule": "Specify a rule to add to the run.
+  Multiple rules can be specified by invoking monocle with multiple flags, e.g.
+    monocle --rule one --rule two",
+  "rulefile": "Express the context of a run in a single file.
+  This overrides all other flags (except --help)",
+  "showMatchesOnly": "List the files which matched the search, but *do not* run plugins",
+  "showTotalMatchesOnly": "List the number files which matched the search, but *do not* run plugins (implies -m)",
+  "trim": "Trim the lines on read",
+}
+`;
