@@ -12,6 +12,7 @@ import {
   startsWith,
   trim,
 } from 'ramda'
+import { trace } from 'xtrace'
 import yargsParser from 'yargs-parser'
 
 import { mapSnd, rejectSnd } from './tuple'
@@ -52,8 +53,8 @@ export const parse = curry(
       ignore: $ignore,
       dropImports: $dropImports,
       dropStrings: $dropStrings,
-      dropJS: $dropJS,
-      dropTS: $dropTS,
+      dropJSKeywords: $dropJS,
+      dropTSKeywords: $dropTS,
     },
     input
   ) =>
@@ -89,61 +90,14 @@ export const parseAndClassifyWithFile = curry((file, conf, x) =>
   pipe(parseAndClassify(conf), mergeRight({ file }))(x)
 )
 
-export const simplifier = curry(
-  (
-    {
-      file: $file,
-      ignore: $ignore,
-      dropStrings: $dropStrings,
-      dropJSKeywords: $dropJS,
-      dropTSKeywords: $dropTS,
-      dropImports: $dropImports,
-    },
-    x
-  ) =>
-    parseAndClassifyWithFile(
-      $file,
-      {
-        ignore: $ignore,
-        dropImports: $dropImports,
-        dropStrings: $dropStrings,
-        dropJS: $dropJS,
-        dropTS: $dropTS,
-      },
-      x
-    )
+export const simplifier = curry((conf, x) =>
+  parseAndClassifyWithFile(conf.file, conf, x)
 )
 
-export const robotTourist = curry(
-  (
-    {
-      file: $file,
-      ignore: $ignore,
-      skipWords: $skipWords,
-      dropStrings: $dropStrings,
-      histogramMinimum: $hMin,
-      assumeSimilarWords: $similarWords,
-      dropJSKeywords: $dropJS,
-      dropTSKeywords: $dropTS,
-      dropImports: $dropImports,
-      limit: $wordlimit,
-    },
-    x
-  ) =>
-    pipe(
-      simplifier($file, {
-        ignore: $ignore,
-        dropImports: $dropImports,
-        dropStrings: $dropStrings,
-        dropJS: $dropJS,
-        dropTS: $dropTS,
-      }),
-      histograph({
-        wordlimit: $wordlimit,
-        skip: $skipWords,
-        minimum: $hMin,
-        infer: $similarWords,
-      }),
-      correlateSimilar($similarWords)
-    )(x)
+export const robotTourist = curry((config, x) =>
+  pipe(
+    simplifier(config),
+    histograph(config),
+    correlateSimilar(config.assumeSimilarWords)
+  )(x)
 )

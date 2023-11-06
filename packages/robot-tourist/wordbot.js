@@ -2,6 +2,7 @@
 
 // src/cli.js
 import { configurate } from "configurate";
+import { trace as trace2 } from "xtrace";
 import { chain as chain2, addIndex as addIndex2, curry as curry6, map as map5, pipe as pipe5, split as split3, trim as trim2 } from "ramda";
 import yargsParser2 from "yargs-parser";
 import { readFile } from "file-system";
@@ -44,17 +45,18 @@ var CONFIG = {
 var CERTAIN_COMMON_WORDS = ["use", "get", "id"];
 var USER_DEFINED_VALUES = [];
 var DEFAULT_CONFIG = {
-  help: false,
-  fun: true,
-  limit: Infinity,
-  skipWords: [],
-  ignore: USER_DEFINED_VALUES,
-  ignoreTokens: CERTAIN_COMMON_WORDS,
-  dropStrings: true,
-  histogramMinimum: 1,
   assumeSimilarWords: true,
   dropJSKeywords: true,
-  dropTSKeywords: true
+  dropImports: true,
+  dropStrings: true,
+  dropTSKeywords: true,
+  fun: true,
+  help: false,
+  histogramMinimum: 1,
+  ignore: USER_DEFINED_VALUES,
+  ignoreTokens: CERTAIN_COMMON_WORDS,
+  limit: Infinity,
+  skipWords: []
 };
 var HELP_CONFIG = {
   help: "This text!",
@@ -416,6 +418,7 @@ import {
   startsWith as startsWith2,
   trim
 } from "ramda";
+import { trace } from "xtrace";
 import yargsParser from "yargs-parser";
 var parser = curry5((opts, args) => yargsParser(args, opts));
 var classifyEntities = pipe4(
@@ -435,8 +438,8 @@ var parse = curry5(
     ignore: $ignore,
     dropImports: $dropImports,
     dropStrings: $dropStrings,
-    dropJS: $dropJS,
-    dropTS: $dropTS
+    dropJSKeywords: $dropJS,
+    dropTSKeywords: $dropTS
   }, input) => pipe4(
     // throw away single line comments
     rejectSnd(startsWith2("//")),
@@ -467,52 +470,13 @@ var parseAndClassifyWithFile = curry5(
   (file, conf, x) => pipe4(parseAndClassify(conf), mergeRight2({ file }))(x)
 );
 var simplifier = curry5(
-  ({
-    file: $file,
-    ignore: $ignore,
-    dropStrings: $dropStrings,
-    dropJSKeywords: $dropJS,
-    dropTSKeywords: $dropTS,
-    dropImports: $dropImports
-  }, x) => parseAndClassifyWithFile(
-    $file,
-    {
-      ignore: $ignore,
-      dropImports: $dropImports,
-      dropStrings: $dropStrings,
-      dropJS: $dropJS,
-      dropTS: $dropTS
-    },
-    x
-  )
+  (conf, x) => parseAndClassifyWithFile(conf.file, conf, x)
 );
 var robotTourist = curry5(
-  ({
-    file: $file,
-    ignore: $ignore,
-    skipWords: $skipWords,
-    dropStrings: $dropStrings,
-    histogramMinimum: $hMin,
-    assumeSimilarWords: $similarWords,
-    dropJSKeywords: $dropJS,
-    dropTSKeywords: $dropTS,
-    dropImports: $dropImports,
-    limit: $wordlimit
-  }, x) => pipe4(
-    simplifier($file, {
-      ignore: $ignore,
-      dropImports: $dropImports,
-      dropStrings: $dropStrings,
-      dropJS: $dropJS,
-      dropTS: $dropTS
-    }),
-    histograph({
-      wordlimit: $wordlimit,
-      skip: $skipWords,
-      minimum: $hMin,
-      infer: $similarWords
-    }),
-    correlateSimilar($similarWords)
+  (config, x) => pipe4(
+    simplifier(config),
+    histograph(config),
+    correlateSimilar(config.assumeSimilarWords)
   )(x)
 );
 
@@ -533,6 +497,7 @@ var cli = ({ fun: $fun, _: [$file], limit: $wordlimit, ...$config }) => pipe5(
 )($file);
 pipe5(
   configurate(CONFIG, DEFAULT_CONFIG, HELP_CONFIG, "robot-tourist"),
+  map5(trace2("raw config")),
   chain2(cli),
   // eslint-disable-next-line no-console
   fork(console.error)(console.log)

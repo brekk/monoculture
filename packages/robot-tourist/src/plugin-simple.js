@@ -2,10 +2,11 @@ import { simplifier } from './core'
 
 const plugin = {
   name: 'robot-tourist-simple',
-  fn: (c, { file }) =>
+  dependencies: [],
+  fn: (c, file) =>
     simplifier(
       {
-        file,
+        file: file.file,
         ignore: [],
         dropStrings: true,
         dropJSKeywords: true,

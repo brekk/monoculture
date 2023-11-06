@@ -419,12 +419,23 @@ var robotTourist = curry5(
     correlateSimilar(config.assumeSimilarWords)
   )(x)
 );
+
+// src/plugin-robot-tourist.js
+var plugin = {
+  name: "robot-tourist",
+  fn: (c, { file }) => robotTourist(
+    {
+      file,
+      ignore: [],
+      dropStrings: true,
+      dropJSKeywords: true,
+      dropTSKeywords: true,
+      dropImports: true
+    },
+    file.body
+  )
+};
+var plugin_robot_tourist_default = plugin;
 export {
-  classifyEntities,
-  parse,
-  parseAndClassify,
-  parseAndClassifyWithFile,
-  parser,
-  robotTourist,
-  simplifier
+  plugin_robot_tourist_default as default
 };

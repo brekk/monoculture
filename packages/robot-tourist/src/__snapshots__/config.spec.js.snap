@@ -71,6 +71,7 @@ exports[`CONFIG 1`] = `
 exports[`DEFAULT_CONFIG 1`] = `
 {
   "assumeSimilarWords": true,
+  "dropImports": true,
   "dropJSKeywords": true,
   "dropStrings": true,
   "dropTSKeywords": true,

@@ -39,17 +39,18 @@ export const CERTAIN_COMMON_WORDS = ['use', 'get', 'id']
 export const USER_DEFINED_VALUES = []
 
 export const DEFAULT_CONFIG = {
-  help: false,
-  fun: true,
-  limit: Infinity,
-  skipWords: [],
-  ignore: USER_DEFINED_VALUES,
-  ignoreTokens: CERTAIN_COMMON_WORDS,
-  dropStrings: true,
-  histogramMinimum: 1,
   assumeSimilarWords: true,
   dropJSKeywords: true,
+  dropImports: true,
+  dropStrings: true,
   dropTSKeywords: true,
+  fun: true,
+  help: false,
+  histogramMinimum: 1,
+  ignore: USER_DEFINED_VALUES,
+  ignoreTokens: CERTAIN_COMMON_WORDS,
+  limit: Infinity,
+  skipWords: [],
 }
 
 export const HELP_CONFIG = {

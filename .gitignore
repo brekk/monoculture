@@ -44,3 +44,4 @@ public
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+monocle-findings.json

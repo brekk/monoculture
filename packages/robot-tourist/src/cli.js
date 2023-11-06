@@ -1,4 +1,5 @@
 import { configurate } from 'configurate'
+import { trace } from 'xtrace'
 import { chain, addIndex, curry, map, pipe, split, trim } from 'ramda'
 import yargsParser from 'yargs-parser'
 import { readFile } from 'file-system'
@@ -29,6 +30,7 @@ const cli = ({ fun: $fun, _: [$file], limit: $wordlimit, ...$config }) =>
 
 pipe(
   configurate(CONFIG, DEFAULT_CONFIG, HELP_CONFIG, 'robot-tourist'),
+  map(trace('raw config')),
   chain(cli),
   // eslint-disable-next-line no-console
   fork(console.error)(console.log)
