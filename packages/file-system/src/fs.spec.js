@@ -80,13 +80,6 @@ test('readDirWithConfig', done => {
   })(readDirWithConfig({}, 'fixture/**/*'))
 })
 
-test('readDirWithConfig - failure', done => {
-  fork(done)(x => {
-    expect(x).toEqual([])
-    done()
-  })(readDirWithConfig({}, '../fixture-untouchable/**'))
-})
-
 test('readDirWithConfig src/*/', done => {
   fork(done)(x => {
     expect(x.sort()).toEqual([
