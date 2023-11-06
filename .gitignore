@@ -44,4 +44,6 @@ public
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# monocle makes useful but large files
 monocle-findings.json

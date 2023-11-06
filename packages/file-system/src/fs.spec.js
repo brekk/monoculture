@@ -4,6 +4,7 @@ import { fork } from 'fluture'
 import { split, of, ap, init, last, pipe } from 'ramda'
 import U from 'unusual'
 import {
+  localize,
   DEFAULT_REMOVAL_CONFIG,
   removeFilesWithConfig,
   mkdirp,
@@ -17,6 +18,9 @@ import { localsOnly } from './test-helpers'
 import PKG from '../package.json'
 
 const u = U(PKG.name + '@' + PKG.version)
+test('localize', () => {
+  expect(localize('rawr')).toEqual('./rawr')
+})
 
 test('writeFile', done => {
   const input = `` + u.integer({ min: 0, max: 1e6 })
@@ -65,6 +69,7 @@ test('readDirWithConfig', done => {
       'fixture/packages/eslint-pretend/fakefile.biz',
       'fixture/packages/ui-pretend',
       'fixture/packages/ui-pretend/fakefile.biz',
+      'fixture/raw.js',
       'fixture/scripts',
       'fixture/scripts/cool-script',
       'fixture/scripts/cool-script/fakefile.biz',
@@ -73,6 +78,13 @@ test('readDirWithConfig', done => {
     ])
     done()
   })(readDirWithConfig({}, 'fixture/**/*'))
+})
+
+test('readDirWithConfig - failure', done => {
+  fork(done)(x => {
+    expect(x).toEqual([])
+    done()
+  })(readDirWithConfig({}, '../fixture-untouchable/**'))
 })
 
 test('readDirWithConfig src/*/', done => {
@@ -160,6 +172,18 @@ test('writeFileWithAutoPath', done => {
       removeFilesWithConfig(DEFAULT_REMOVAL_CONFIG, [FILE_PATH])
     )
   })(writeFileWithAutoPath(FILE_PATH, 'cool cool content'))
+})
+
+test('readFile', done => {
+  fork(done)(x => {
+    expect(x).toEqual(`const raw = {
+  input: 'this is a fixture',
+}
+
+export default raw
+`)
+    done()
+  })(readFile(__dirname + '/../fixture/raw.js'))
 })
 
 afterAll(done => {
