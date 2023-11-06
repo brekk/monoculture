@@ -22,7 +22,8 @@
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     "execa": "^8.0.1",
     "jest": "^29.7.0",
-    "jest-config": "workspace:shared/jest-config"
+    "jest-config": "workspace:shared/jest-config",
+    "robot-tourist": "workspace:packages/robot-tourist"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",

@@ -56,6 +56,8 @@ describe('makeHelpers', () => {
   it('between', () => {
     const between = helpers.between(/^import/, /from (.*)$/)
     expect(between).toMatchSnapshot()
+    const twixtNothing = helpers.between(/aaa/, /bbb/)
+    expect(twixtNothing).toMatchSnapshot()
   })
   it('selectAll', () => {
     const selectAll = helpers.selectAll(/^import/, /from (.*)$/)

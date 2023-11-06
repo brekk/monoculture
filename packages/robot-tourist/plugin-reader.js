@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // src/stats.js
 import { curry as curry3 } from "ramda";
 
@@ -457,12 +459,23 @@ var robotTourist = curry5(
     correlateSimilar($similarWords)
   )(x)
 );
+
+// src/plugin.js
+var plugin = {
+  name: "robot-tourist-simple",
+  fn: (c, { file }) => simplifier(
+    {
+      file,
+      ignore: [],
+      dropStrings: true,
+      dropJSKeywords: true,
+      dropTSKeywords: true,
+      dropImports: true
+    },
+    file.body
+  )
+};
+var plugin_default = plugin;
 export {
-  classifyEntities,
-  parse,
-  parseAndClassify,
-  parseAndClassifyWithFile,
-  parser,
-  robotTourist,
-  simplifier
+  plugin_default as default
 };

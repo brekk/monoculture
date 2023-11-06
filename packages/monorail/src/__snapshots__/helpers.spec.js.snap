@@ -91,6 +91,8 @@ exports[`makeHelpers between 1`] = `
 ]
 `;
 
+exports[`makeHelpers between 2`] = `[]`;
+
 exports[`makeHelpers filter 1`] = `
 [
   [

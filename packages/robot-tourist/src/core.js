@@ -89,6 +89,31 @@ export const parseAndClassifyWithFile = curry((file, conf, x) =>
   pipe(parseAndClassify(conf), mergeRight({ file }))(x)
 )
 
+export const simplifier = curry(
+  (
+    {
+      file: $file,
+      ignore: $ignore,
+      dropStrings: $dropStrings,
+      dropJSKeywords: $dropJS,
+      dropTSKeywords: $dropTS,
+      dropImports: $dropImports,
+    },
+    x
+  ) =>
+    parseAndClassifyWithFile(
+      $file,
+      {
+        ignore: $ignore,
+        dropImports: $dropImports,
+        dropStrings: $dropStrings,
+        dropJS: $dropJS,
+        dropTS: $dropTS,
+      },
+      x
+    )
+)
+
 export const robotTourist = curry(
   (
     {
@@ -106,7 +131,7 @@ export const robotTourist = curry(
     x
   ) =>
     pipe(
-      parseAndClassifyWithFile($file, {
+      simplifier($file, {
         ignore: $ignore,
         dropImports: $dropImports,
         dropStrings: $dropStrings,
