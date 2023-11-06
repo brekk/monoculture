@@ -227,7 +227,15 @@ const X = {
 test('histograph', () => {
   expect(histograph).toBeTruthy()
   expect(
-    histograph({ wordlimit: Infinity, skip: 0, minimum: 0, infer: true }, X)
+    histograph(
+      {
+        limit: Infinity,
+        skipWords: 0,
+        histogramMinimum: 0,
+        assumeSimilarWords: true,
+      },
+      X
+    )
   ).toEqual({
     entities: {
       constant: ['I'],

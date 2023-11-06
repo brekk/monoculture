@@ -1,3 +1,4 @@
+import { trace } from 'xtrace'
 import {
   prop,
   __ as $,
@@ -78,7 +79,13 @@ export const getWordsFromEntities = curry((infer, skippables, raw) =>
   )(raw)
 )
 
-export const parseWords = ({ limit, skip, entities, minimum, infer = true }) =>
+export const parseWords = ({
+  limit,
+  skipWords: skip = [],
+  entities,
+  histogramMinimum: minimum,
+  assumeSimilarWords: infer = true,
+}) =>
   pipe(
     getWordsFromEntities(infer, skip),
     reduce((agg, x) => {

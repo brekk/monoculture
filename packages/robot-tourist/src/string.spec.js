@@ -38,18 +38,18 @@ test('parseWords', () => {
     parseWords({
       entities: ['yo'],
       limit: 1,
-      skip: false,
-      infer: false,
-      minimum: 0,
+      skipWords: false,
+      assumeSimilarWords: false,
+      histogramMinimum: 0,
     })
   ).toEqual({ o: 1 })
   expect(
     parseWords({
-      entities: ['wizard', 'ghoul'],
+      entities: [['wizard', 'ghoul']],
       limit: 100,
-      skip: false,
-      infer: true,
-      minimum: 100,
+      skipWords: false,
+      assumeSimilarWords: true,
+      histogramMinimum: 100,
     })
   ).toEqual({})
 })

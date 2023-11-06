@@ -2,15 +2,16 @@ import { robotTourist } from './core'
 
 const plugin = {
   name: 'robot-tourist',
-  fn: (c, { file }) =>
+  dependencies: [],
+  fn: (c, file) =>
     robotTourist(
       {
-        file,
-        ignore: [],
+        file: file.file,
         dropStrings: true,
         dropJSKeywords: true,
         dropTSKeywords: true,
         dropImports: true,
+        assumeSimilarWords: true,
       },
       file.body
     ),

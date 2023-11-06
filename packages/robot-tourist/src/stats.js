@@ -3,31 +3,15 @@ import { correlate, parseWords } from './string'
 const j2 = x => JSON.stringify(x, null, 2)
 
 // produce words in a histogram (and throw away anything which only occurs once)
-export const histograph = curry(
-  (
-    {
-      wordlimit: $wordlimit,
-      skip: $skipWords,
-      minimum: $hMin,
-      infer: $similarWords,
-    },
-    { entities, ...x }
-  ) => ({
-    ...x,
-    entities,
-    words: parseWords({
-      limit: $wordlimit,
-      skip: $skipWords,
-      entities,
-      minimum: $hMin,
-      infer: $similarWords,
-    }),
-  })
-)
+export const histograph = curry((config, { entities, ...x }) => ({
+  ...x,
+  entities,
+  words: parseWords({ ...config, entities }),
+}))
 
 export const correlateSimilar = curry(
-  ($similarWords, { words: w, lines: l, ...x }) => {
-    const report = correlate($similarWords, w, l)
-    return { ...x, lines: l, words: w, report }
+  ($similarWords, { words, lines, ...x }) => {
+    const report = correlate($similarWords, words, lines)
+    return { ...x, lines, words, report }
   }
 )

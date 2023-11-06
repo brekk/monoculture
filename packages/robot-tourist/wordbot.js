@@ -2,7 +2,7 @@
 
 // src/cli.js
 import { configurate } from "configurate";
-import { trace as trace2 } from "xtrace";
+import { trace as trace3 } from "xtrace";
 import { chain as chain2, addIndex as addIndex2, curry as curry6, map as map5, pipe as pipe5, split as split3, trim as trim2 } from "ramda";
 import yargsParser2 from "yargs-parser";
 import { readFile } from "file-system";
@@ -210,6 +210,7 @@ var createEntities = curry2(
 import { curry as curry4 } from "ramda";
 
 // src/string.js
+import { trace } from "xtrace";
 import {
   prop,
   __ as $,
@@ -295,7 +296,13 @@ var getWordsFromEntities = curry3(
     (z) => z.sort()
   )(raw)
 );
-var parseWords = ({ limit, skip, entities, minimum, infer = true }) => pipe3(
+var parseWords = ({
+  limit,
+  skipWords: skip = [],
+  entities,
+  histogramMinimum: minimum,
+  assumeSimilarWords: infer = true
+}) => pipe3(
   getWordsFromEntities(infer, skip),
   reduce2((agg, x) => {
     const y = infer ? stemmer(x) : x;
@@ -380,28 +387,15 @@ var cleanEntities = ({ entities, ...x }) => ({
 });
 
 // src/stats.js
-var histograph = curry4(
-  ({
-    wordlimit: $wordlimit,
-    skip: $skipWords,
-    minimum: $hMin,
-    infer: $similarWords
-  }, { entities, ...x }) => ({
-    ...x,
-    entities,
-    words: parseWords({
-      limit: $wordlimit,
-      skip: $skipWords,
-      entities,
-      minimum: $hMin,
-      infer: $similarWords
-    })
-  })
-);
+var histograph = curry4((config, { entities, ...x }) => ({
+  ...x,
+  entities,
+  words: parseWords({ ...config, entities })
+}));
 var correlateSimilar = curry4(
-  ($similarWords, { words: w, lines: l, ...x }) => {
-    const report = correlate($similarWords, w, l);
-    return { ...x, lines: l, words: w, report };
+  ($similarWords, { words, lines, ...x }) => {
+    const report = correlate($similarWords, words, lines);
+    return { ...x, lines, words, report };
   }
 );
 
@@ -418,7 +412,7 @@ import {
   startsWith as startsWith2,
   trim
 } from "ramda";
-import { trace } from "xtrace";
+import { trace as trace2 } from "xtrace";
 import yargsParser from "yargs-parser";
 var parser = curry5((opts, args) => yargsParser(args, opts));
 var classifyEntities = pipe4(
@@ -497,7 +491,7 @@ var cli = ({ fun: $fun, _: [$file], limit: $wordlimit, ...$config }) => pipe5(
 )($file);
 pipe5(
   configurate(CONFIG, DEFAULT_CONFIG, HELP_CONFIG, "robot-tourist"),
-  map5(trace2("raw config")),
+  map5(trace3("raw config")),
   chain2(cli),
   // eslint-disable-next-line no-console
   fork(console.error)(console.log)

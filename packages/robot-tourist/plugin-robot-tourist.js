@@ -2,6 +2,7 @@
 import { curry as curry3 } from "ramda";
 
 // src/string.js
+import { trace } from "xtrace";
 import {
   prop,
   __ as $,
@@ -155,7 +156,13 @@ var getWordsFromEntities = curry2(
     (z) => z.sort()
   )(raw)
 );
-var parseWords = ({ limit, skip, entities, minimum, infer = true }) => pipe2(
+var parseWords = ({
+  limit,
+  skipWords: skip = [],
+  entities,
+  histogramMinimum: minimum,
+  assumeSimilarWords: infer = true
+}) => pipe2(
   getWordsFromEntities(infer, skip),
   reduce((agg, x) => {
     const y = infer ? stemmer(x) : x;
@@ -240,28 +247,15 @@ var cleanEntities = ({ entities, ...x }) => ({
 });
 
 // src/stats.js
-var histograph = curry3(
-  ({
-    wordlimit: $wordlimit,
-    skip: $skipWords,
-    minimum: $hMin,
-    infer: $similarWords
-  }, { entities, ...x }) => ({
-    ...x,
-    entities,
-    words: parseWords({
-      limit: $wordlimit,
-      skip: $skipWords,
-      entities,
-      minimum: $hMin,
-      infer: $similarWords
-    })
-  })
-);
+var histograph = curry3((config, { entities, ...x }) => ({
+  ...x,
+  entities,
+  words: parseWords({ ...config, entities })
+}));
 var correlateSimilar = curry3(
-  ($similarWords, { words: w, lines: l, ...x }) => {
-    const report = correlate($similarWords, w, l);
-    return { ...x, lines: l, words: w, report };
+  ($similarWords, { words, lines, ...x }) => {
+    const report = correlate($similarWords, words, lines);
+    return { ...x, lines, words, report };
   }
 );
 
@@ -278,7 +272,7 @@ import {
   startsWith as startsWith2,
   trim
 } from "ramda";
-import { trace } from "xtrace";
+import { trace as trace2 } from "xtrace";
 import yargsParser from "yargs-parser";
 
 // src/reporter.js
@@ -423,14 +417,15 @@ var robotTourist = curry5(
 // src/plugin-robot-tourist.js
 var plugin = {
   name: "robot-tourist",
-  fn: (c, { file }) => robotTourist(
+  dependencies: [],
+  fn: (c, file) => robotTourist(
     {
-      file,
-      ignore: [],
+      file: file.file,
       dropStrings: true,
       dropJSKeywords: true,
       dropTSKeywords: true,
-      dropImports: true
+      dropImports: true,
+      assumeSimilarWords: true
     },
     file.body
   )
