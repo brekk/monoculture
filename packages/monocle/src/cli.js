@@ -9,7 +9,7 @@ import { log } from './trace'
 import { CONFIG, HELP_CONFIG, CONFIG_DEFAULTS } from './config'
 
 const j = i => x => JSON.stringify(x, null, i)
-const readConfigFile = configFile('monocle')
+// const readConfigFile = configFile('monocle')
 // eslint-disable no-console
 
 pipe(
@@ -22,7 +22,7 @@ pipe(
   chain(config => {
     const result = config.rulefile
       ? pipe(
-          readConfigFile,
+          configFile({ ns: 'monocle' }),
           map(read => ({ ...config, ...read.config }))
         )(config.rulefile)
       : // TODO we should eschew chain(Future(x))

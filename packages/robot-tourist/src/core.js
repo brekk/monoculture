@@ -1,6 +1,5 @@
-import { histograph, correlateSimilar } from './stats'
-
 import {
+  equals,
   mergeRight,
   curry,
   identity as I,
@@ -15,6 +14,7 @@ import {
 import { trace } from 'xtrace'
 import yargsParser from 'yargs-parser'
 
+import { histograph, correlateSimilar } from './stats'
 import { mapSnd, rejectSnd } from './tuple'
 import {
   createEntitiesFromRaw,
@@ -63,6 +63,7 @@ export const parse = curry(
       rejectSnd(startsWith('//')),
       // throw away multi line comments
       dropMultilineComments,
+      rejectSnd(equals('*/')),
       // we don't care about the imports, that's all stuff upstream from this file
       $dropImports ? dropImports : I,
       // throw away strings, we don't care about them* - now configurable

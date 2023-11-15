@@ -16,26 +16,36 @@ var flexeca = flexecaWithCanceller(() => {
 });
 
 // src/fs.js
+import fs from "node:fs";
+import { reduce, F, propOr as propOr2, without, curry as curry2, pipe as pipe2, map, __ as $ } from "ramda";
 import {
-  rm as __rm,
-  mkdir as __mkdir,
-  readFile as __readFile,
-  writeFile as __writeFile,
-  access as __access,
-  constants
-} from "node:fs";
-import { propOr as propOr2, without, curry as curry2, pipe as pipe2, map } from "ramda";
-import { chain, chainRej, Future as Future2, parallel } from "fluture";
+  Future as Future2,
+  chain,
+  chainRej,
+  isFuture,
+  mapRej,
+  parallel,
+  race
+} from "fluture";
 import glob from "glob";
+var { constants } = fs;
+var NO_OP = () => {
+};
 var localize = (z) => `./${z}`;
-var readFile = (x) => new Future2((bad, good) => {
-  __readFile(x, "utf8", (err, data) => err ? bad(err) : good(data));
-  return () => {
-  };
-});
-var readJSONFile = pipe2(readFile, map(JSON.parse));
-var readDirWithConfig = curry2(
-  (conf, g) => Future2((bad, good) => {
+var readFileWithFormatAndCancel = curry2(
+  (cancel, format, x) => Future2((bad, good) => {
+    fs.readFile(x, format, (err, data) => err ? bad(err) : good(data));
+    return cancel;
+  })
+);
+var readFileWithCancel = readFileWithFormatAndCancel($, "utf8");
+var readFile = readFileWithCancel(NO_OP);
+var readJSONFileWithCancel = curry2(
+  (cancel, x) => pipe2(readFileWithCancel(cancel), map(JSON.parse))(x)
+);
+var readJSONFile = readJSONFileWithCancel(NO_OP);
+var readDirWithConfigAndCancel = curry2(
+  (cancel, conf, g) => Future2((bad, good) => {
     try {
       glob(
         g,
@@ -48,32 +58,32 @@ var readDirWithConfig = curry2(
     } catch (e) {
       bad(e);
     }
-    return () => {
-    };
+    return cancel;
   })
 );
+var readDirWithConfig = readDirWithConfigAndCancel(NO_OP);
 var readDir = readDirWithConfig({});
-var writeFileWithConfig = curry2(
-  (conf, file, content) => new Future2((bad, good) => {
-    __writeFile(file, content, conf, (e) => {
+var writeFileWithConfigAndCancel = curry2(
+  (cancel, conf, file, content) => new Future2((bad, good) => {
+    fs.writeFile(file, content, conf, (e) => {
       if (e) {
         bad(e);
         return;
       }
       good(content);
     });
-    return () => {
-    };
+    return cancel;
   })
 );
+var writeFileWithConfig = writeFileWithConfigAndCancel(NO_OP);
 var writeFile = writeFileWithConfig({ encoding: "utf8" });
-var removeFileWithConfig = curry2(
-  (options, fd) => new Future2((bad, good) => {
-    __rm(fd, options, (err) => err ? bad(err) : good(fd));
-    return () => {
-    };
+var removeFileWithConfigAndCancel = curry2(
+  (cancel, options, fd) => new Future2((bad, good) => {
+    fs.rm(fd, options, (err) => err ? bad(err) : good(fd));
+    return cancel;
   })
 );
+var removeFileWithConfig = removeFileWithConfigAndCancel(NO_OP);
 var DEFAULT_REMOVAL_CONFIG = {
   force: false,
   maxRetries: 0,
@@ -82,16 +92,17 @@ var DEFAULT_REMOVAL_CONFIG = {
   parallel: 10
 };
 var removeFile = removeFileWithConfig(DEFAULT_REMOVAL_CONFIG);
-var removeFilesWithConfig = curry2(
-  (conf, list) => pipe2(
-    map(removeFileWithConfig(without(["parallel"], conf))),
+var removeFilesWithConfigAndCancel = curry2(
+  (cancel, conf, list) => pipe2(
+    map(removeFileWithConfigAndCancel(cancel, without(["parallel"], conf))),
     parallel(propOr2(10, "parallel", conf))
   )(list)
 );
+var removeFilesWithConfig = removeFilesWithConfigAndCancel(NO_OP);
 var removeFiles = removeFilesWithConfig(DEFAULT_REMOVAL_CONFIG);
 var mkdir = curry2(
   (conf, x) => new Future2((bad, good) => {
-    __mkdir(x, conf, (err) => err ? bad(err) : good(x));
+    fs.mkdir(x, conf, (err) => err ? bad(err) : good(x));
     return () => {
     };
   })
@@ -99,12 +110,13 @@ var mkdir = curry2(
 var mkdirp = mkdir({ recursive: true });
 var access = curry2(
   (permissions, filePath) => new Future2((bad, good) => {
-    __access(filePath, permissions, (err) => err ? bad(err) : good(true));
+    fs.access(filePath, permissions, (err) => err ? bad(err) : good(true));
     return () => {
     };
   })
 );
 var exists = access(constants.F_OK);
+var readable = access(constants.R_OK);
 var directoryOnly = (filePath) => filePath.slice(0, filePath.lastIndexOf("/"));
 var writeFileWithAutoPath = curry2(
   (filePath, content) => pipe2(
@@ -118,12 +130,37 @@ var writeFileWithAutoPath = curry2(
 );
 var rm = curry2(
   (conf, x) => new Future2((bad, good) => {
-    __rm(x, conf, (err) => err ? bad(err) : good(x));
+    fs.rm(x, conf, (err) => err ? bad(err) : good(x));
     return () => {
     };
   })
 );
 var rimraf = rm({ force: true, recursive: true });
+var ioWithCancel = curry2(
+  (cancel, fn, fd, buffer, offset, len, position) => Future2((bad, good) => {
+    fn(
+      fd,
+      buffer,
+      offset,
+      len,
+      position,
+      (e, bytes, buff) => e ? bad(e) : good(bytes, buff)
+    );
+    return cancel;
+  })
+);
+var io = ioWithCancel(NO_OP);
+var read = io(fs.read);
+var write = io(fs.write);
+var findFile = curry2(
+  (fn, def, x) => pipe2(
+    map(pipe2(fn, mapRej(F))),
+    reduce((a, b) => isFuture(a) ? race(a)(b) : b, def)
+  )(x)
+);
+var readAnyOr = curry2((def, format, x) => findFile(readFile, def, x));
+var readAny = readAnyOr(null);
+var requireAnyOr = findFile(readable);
 
 // src/path.js
 import { join, normalize } from "node:path";
@@ -144,27 +181,44 @@ var interpret = (filepath) => Future3((bad, good) => {
 });
 export {
   DEFAULT_REMOVAL_CONFIG,
+  NO_OP,
   access,
   directoryOnly,
   exists,
+  findFile,
   flexeca,
   flexecaWithCanceller,
   interpret,
+  io,
+  ioWithCancel,
   localize,
   mkdir,
   mkdirp,
   pathRelativeTo,
+  read,
+  readAny,
+  readAnyOr,
   readDir,
   readDirWithConfig,
+  readDirWithConfigAndCancel,
   readFile,
+  readFileWithCancel,
+  readFileWithFormatAndCancel,
   readJSONFile,
+  readJSONFileWithCancel,
+  readable,
   removeFile,
   removeFileWithConfig,
+  removeFileWithConfigAndCancel,
   removeFiles,
   removeFilesWithConfig,
+  removeFilesWithConfigAndCancel,
+  requireAnyOr,
   rimraf,
   rm,
+  write,
   writeFile,
   writeFileWithAutoPath,
-  writeFileWithConfig
+  writeFileWithConfig,
+  writeFileWithConfigAndCancel
 };

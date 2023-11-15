@@ -2156,6 +2156,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hapi/hoek@npm:^11.0.2":
+  version: 11.0.2
+  resolution: "@hapi/hoek@npm:11.0.2"
+  checksum: 6e010f9645c2463f612b66954e72449f64d47dfd829cd6720e7c7d30272d45d2fd6f42cbb5a3dc0e17d78bcdf7d8e3c5f33bdfb6c1de69b18ee5f6a5d6d84a78
+  languageName: node
+  linkType: hard
+
+"@hapi/topo@npm:6.0.2":
+  version: 6.0.2
+  resolution: "@hapi/topo@npm:6.0.2"
+  dependencies:
+    "@hapi/hoek": "npm:^11.0.2"
+  checksum: 5a0079805e9a542bdb852912ce6ed3221ddd0a58569354b3900e165faabe50fb1d2d488067db97c494194835684b055828b6267be3064ac42cf2ce28db02edfc
+  languageName: node
+  linkType: hard
+
 "@headlessui/react@npm:^1.7.10":
   version: 1.7.17
   resolution: "@headlessui/react@npm:1.7.17"
@@ -3863,6 +3879,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"add@npm:^2.0.6":
+  version: 2.0.6
+  resolution: "add@npm:2.0.6"
+  checksum: 6b21d5f2e58cf5e15d56cc6f9ebce04f04f4c33ae25f09d600ddacf8df00036ba521f17feb1b3f81307b7c6d2ef0bed8b511a0f86f062eb90c2f909b48b588ae
+  languageName: node
+  linkType: hard
+
 "agent-base@npm:6":
   version: 6.0.2
   resolution: "agent-base@npm:6.0.2"
@@ -5114,18 +5137,47 @@ __metadata:
   languageName: node
   linkType: hard
 
+"configurate@npm:^0.1.4":
+  version: 0.1.4
+  resolution: "configurate@npm:0.1.4"
+  dependencies:
+    mkdirp: "npm:~0.3.5"
+    runnel: "npm:~0.5.0"
+    sinless: "npm:~0.1.0"
+  checksum: 6b79f9f0cfbb5e3ecc3321f68cba541f0ad67510deca0dfbcb2d380cf6a61d477cf064835a29f2d5b87a6d1ddf5ef0b305c035f8cfadf45088008573d704e296
+  languageName: node
+  linkType: hard
+
 "configurate@workspace:packages/configurate":
   version: 0.0.0-use.local
   resolution: "configurate@workspace:packages/configurate"
   dependencies:
+    add: "npm:^2.0.6"
+    configurate: "npm:^0.1.4"
     cosmiconfig: "npm:^8.3.6"
+    dotenv-cli: "npm:^7.3.0"
+    eslint: "npm:^8.53.0"
+    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
+    eslint-plugin-prettier: "npm:^5.0.1"
+    find-up: "npm:^6.3.0"
+    jest: "npm:^29.7.0"
+    prettier: "npm:^3.0.3"
+    ramda: "npm:^0.29.1"
+    workspace: "npm:^0.0.1-preview.1"
+  languageName: unknown
+  linkType: soft
+
+"consort@workspace:packages/consort":
+  version: 0.0.0-use.local
+  resolution: "consort@workspace:packages/consort"
+  dependencies:
+    "@hapi/topo": "npm:6.0.2"
     dotenv-cli: "npm:^7.3.0"
     eslint: "npm:^8.53.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     eslint-plugin-prettier: "npm:^5.0.1"
     jest: "npm:^29.7.0"
     prettier: "npm:^3.0.3"
-    ramda: "npm:^0.29.1"
   languageName: unknown
   linkType: soft
 
@@ -7632,6 +7684,16 @@ __metadata:
     locate-path: "npm:^6.0.0"
     path-exists: "npm:^4.0.0"
   checksum: 062c5a83a9c02f53cdd6d175a37ecf8f87ea5bbff1fdfb828f04bfa021441bc7583e8ebc0872a4c1baab96221fb8a8a275a19809fb93fbc40bd69ec35634069a
+  languageName: node
+  linkType: hard
+
+"find-up@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "find-up@npm:6.3.0"
+  dependencies:
+    locate-path: "npm:^7.1.0"
+    path-exists: "npm:^5.0.0"
+  checksum: 07e0314362d316b2b13f7f11ea4692d5191e718ca3f7264110127520f3347996349bf9e16805abae3e196805814bc66ef4bff2b8904dc4a6476085fc9b0eba07
   languageName: node
   linkType: hard
 
@@ -10538,6 +10600,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"locate-path@npm:^7.1.0":
+  version: 7.2.0
+  resolution: "locate-path@npm:7.2.0"
+  dependencies:
+    p-locate: "npm:^6.0.0"
+  checksum: 139e8a7fe11cfbd7f20db03923cacfa5db9e14fa14887ea121345597472b4a63c1a42a8a5187defeeff6acf98fd568da7382aa39682d38f0af27433953a97751
+  languageName: node
+  linkType: hard
+
 "lodash-es@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash-es@npm:4.17.21"
@@ -11835,6 +11906,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mkdirp@npm:~0.3.5":
+  version: 0.3.5
+  resolution: "mkdirp@npm:0.3.5"
+  checksum: 73b9ea9e94ef3cb465d9846289131ed202a2a6402b62dc9a9425609514e5a1819ac1990406c58c55fc8fa73890d7bfdf4e3540f3b6aa2b9d32702374be7f4387
+  languageName: node
+  linkType: hard
+
 "module-definition@npm:^3.3.1":
   version: 3.4.0
   resolution: "module-definition@npm:3.4.0"
@@ -11951,6 +12029,7 @@ __metadata:
   dependencies:
     dotenv-cli: "npm:^7.3.0"
     envtrace: "npm:^0.0.2"
+    esbuild: "npm:^0.19.5"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     file-system: "workspace:packages/file-system"
     jest: "npm:^29.7.0"
@@ -12675,6 +12754,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"p-limit@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "p-limit@npm:4.0.0"
+  dependencies:
+    yocto-queue: "npm:^1.0.0"
+  checksum: a56af34a77f8df2ff61ddfb29431044557fcbcb7642d5a3233143ebba805fc7306ac1d448de724352861cb99de934bc9ab74f0d16fe6a5460bdbdf938de875ad
+  languageName: node
+  linkType: hard
+
 "p-locate@npm:^2.0.0":
   version: 2.0.0
   resolution: "p-locate@npm:2.0.0"
@@ -12708,6 +12796,15 @@ __metadata:
   dependencies:
     p-limit: "npm:^3.0.2"
   checksum: 2290d627ab7903b8b70d11d384fee714b797f6040d9278932754a6860845c4d3190603a0772a663c8cb5a7b21d1b16acb3a6487ebcafa9773094edc3dfe6009a
+  languageName: node
+  linkType: hard
+
+"p-locate@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "p-locate@npm:6.0.0"
+  dependencies:
+    p-limit: "npm:^4.0.0"
+  checksum: d72fa2f41adce59c198270aa4d3c832536c87a1806e0f69dffb7c1a7ca998fb053915ca833d90f166a8c082d3859eabfed95f01698a3214c20df6bb8de046312
   languageName: node
   linkType: hard
 
@@ -12908,6 +13005,13 @@ __metadata:
   version: 4.0.0
   resolution: "path-exists@npm:4.0.0"
   checksum: 8c0bd3f5238188197dc78dced15207a4716c51cc4e3624c44fc97acf69558f5ebb9a2afff486fe1b4ee148e0c133e96c5e11a9aa5c48a3006e3467da070e5e1b
+  languageName: node
+  linkType: hard
+
+"path-exists@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "path-exists@npm:5.0.0"
+  checksum: b170f3060b31604cde93eefdb7392b89d832dfbc1bed717c9718cbe0f230c1669b7e75f87e19901da2250b84d092989a0f9e44d2ef41deb09aa3ad28e691a40a
   languageName: node
   linkType: hard
 
@@ -13319,6 +13423,15 @@ __metadata:
   version: 2.0.1
   resolution: "process-nextick-args@npm:2.0.1"
   checksum: bec089239487833d46b59d80327a1605e1c5287eaad770a291add7f45fda1bb5e28b38e0e061add0a1d0ee0984788ce74fa394d345eed1c420cacf392c554367
+  languageName: node
+  linkType: hard
+
+"project-bin-path@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "project-bin-path@npm:2.0.0"
+  dependencies:
+    find-up: "npm:^2.1.0"
+  checksum: 24a229354adbc0d81721a3d03372fe94f24ce4a0c2fe4c9adc29de49f669ff612f213cb038c9936b5060ddf8eca6cdec9a9b7b2d09b0c3820ef974c7eb5b4e00
   languageName: node
   linkType: hard
 
@@ -14138,6 +14251,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"runnel@npm:~0.5.0":
+  version: 0.5.3
+  resolution: "runnel@npm:0.5.3"
+  checksum: 327d3680630153ed50bb253f9dc5dd4ba5c0aa30d2cabdec81188a19d7cde1c570c030c7a5be30e41b105f0c660c3f149ee108833ed6357b0ffc543c022d8d7c
+  languageName: node
+  linkType: hard
+
 "rw@npm:1":
   version: 1.3.3
   resolution: "rw@npm:1.3.3"
@@ -14334,6 +14454,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"setimmediate@npm:~1.0.1":
+  version: 1.0.5
+  resolution: "setimmediate@npm:1.0.5"
+  checksum: 5bae81bfdbfbd0ce992893286d49c9693c82b1bcc00dcaaf3a09c8f428fdeacf4190c013598b81875dfac2b08a572422db7df779a99332d0fce186d15a3e4d49
+  languageName: node
+  linkType: hard
+
 "shallow-clone@npm:^3.0.0":
   version: 3.0.1
   resolution: "shallow-clone@npm:3.0.1"
@@ -14409,6 +14536,15 @@ __metadata:
   version: 4.1.0
   resolution: "signal-exit@npm:4.1.0"
   checksum: 41602dce540e46d599edba9d9860193398d135f7ff72cab629db5171516cfae628d21e7bfccde1bbfdf11c48726bc2a6d1a8fb8701125852fbfda7cf19c6aa83
+  languageName: node
+  linkType: hard
+
+"sinless@npm:~0.1.0":
+  version: 0.1.0
+  resolution: "sinless@npm:0.1.0"
+  dependencies:
+    setimmediate: "npm:~1.0.1"
+  checksum: 8ad1c8ecad827f944733be76e4a3d108fd3b57e924b1f635cc8b200b73ee71b7d6a8f4e74f9105881b17e9cfdcfc5bd8de633599a679c63078dadceb76bf4d4e
   languageName: node
   linkType: hard
 
@@ -15027,6 +15163,25 @@ __metadata:
   checksum: cf387d99e1bf0f5e9a13ef3332b261ef902bc0846e417aeb2a33c19b6ce634386efa26c13c0c73fc66b32ba9ff51d27f3f9051354c94902662d258ab9ea15da2
   languageName: node
   linkType: hard
+
+"superorganism@workspace:tools/superorganism":
+  version: 0.0.0-use.local
+  resolution: "superorganism@workspace:tools/superorganism"
+  dependencies:
+    configurate: "workspace:packages/configurate"
+    dotenv-cli: "npm:^7.3.0"
+    envtrace: "npm:^0.0.2"
+    esbuild: "npm:^0.19.5"
+    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
+    file-system: "workspace:packages/file-system"
+    fluture: "npm:^14.0.0"
+    jest-config: "workspace:shared/jest-config"
+    project-bin-path: "npm:^2.0.0"
+    ramda: "npm:^0.29.1"
+  bin:
+    superorganism: cli.mjs
+  languageName: unknown
+  linkType: soft
 
 "supports-color@npm:^3.2.3":
   version: 3.2.3
@@ -16269,6 +16424,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"workspace@npm:^0.0.1-preview.1":
+  version: 0.0.1-preview.1
+  resolution: "workspace@npm:0.0.1-preview.1"
+  checksum: 8c2a2d67ff7d02edbbdde587ca010e9e1fbd57e96faf8ce91092ad4ca94ff61f26342de113152e8e890e24a808376aef4453a9f99c5d96710e0fad26e39f21bf
+  languageName: node
+  linkType: hard
+
 "wrap-ansi-cjs@npm:wrap-ansi@^7.0.0, wrap-ansi@npm:^7.0.0":
   version: 7.0.0
   resolution: "wrap-ansi@npm:7.0.0"
@@ -16479,6 +16641,13 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: dceb44c28578b31641e13695d200d34ec4ab3966a5729814d5445b194933c096b7ced71494ce53a0e8820685d1d010df8b2422e5bf2cdea7e469d97ffbea306f
+  languageName: node
+  linkType: hard
+
+"yocto-queue@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "yocto-queue@npm:1.0.0"
+  checksum: 856117aa15cf5103d2a2fb173f0ab4acb12b4b4d0ed3ab249fdbbf612e55d1cadfd27a6110940e24746fb0a78cf640b522cc8bca76f30a3b00b66e90cf82abe0
   languageName: node
   linkType: hard
 

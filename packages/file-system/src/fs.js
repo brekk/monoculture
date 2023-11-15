@@ -1,14 +1,23 @@
+import fs from 'node:fs'
+import { reduce, F, propOr, without, curry, pipe, map, __ as $ } from 'ramda'
 import {
-  rm as __rm,
-  mkdir as __mkdir,
-  readFile as __readFile,
-  writeFile as __writeFile,
-  access as __access,
-  constants,
-} from 'node:fs'
-import { propOr, without, curry, pipe, map } from 'ramda'
-import { chain, chainRej, Future, parallel } from 'fluture'
+  Future,
+  chain,
+  chainRej,
+  isFuture,
+  mapRej,
+  parallel,
+  race,
+} from 'fluture'
 import glob from 'glob'
+// import { passFailCallbackWithArity } from './future'
+
+const { constants } = fs
+
+export const NO_OP = () => {}
+
+// fs functions that use callbacks of specific arity; a helper
+// const [__cb, __cb2, __cb3] = map(passFailCallbackWithArity, [1, 2, 3])
 
 /**
  * make a file string relative
@@ -31,11 +40,16 @@ export const localize = z => `./${z}`
  * fork(console.warn)(console.log)(readFile('./README.md'))
  * ```
  */
-export const readFile = x =>
-  new Future((bad, good) => {
-    __readFile(x, 'utf8', (err, data) => (err ? bad(err) : good(data)))
-    return () => {}
+export const readFileWithFormatAndCancel = curry((cancel, format, x) =>
+  Future((bad, good) => {
+    fs.readFile(x, format, (err, data) => (err ? bad(err) : good(data)))
+    return cancel
   })
+)
+
+export const readFileWithCancel = readFileWithFormatAndCancel($, 'utf8')
+
+export const readFile = readFileWithCancel(NO_OP)
 
 /**
  * read a JSON file asynchronously and future wrapped
@@ -47,7 +61,10 @@ export const readFile = x =>
  * fork(console.warn)(console.log)(readJSONFile('./package.json'))
  * ```
  */
-export const readJSONFile = pipe(readFile, map(JSON.parse))
+export const readJSONFileWithCancel = curry((cancel, x) =>
+  pipe(readFileWithCancel(cancel), map(JSON.parse))(x)
+)
+export const readJSONFile = readJSONFileWithCancel(NO_OP)
 
 /**
  * read a `glob` asynchronously and future wrapped, with configuration
@@ -64,7 +81,7 @@ export const readJSONFile = pipe(readFile, map(JSON.parse))
  * )(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))
  * ```
  */
-export const readDirWithConfig = curry((conf, g) =>
+export const readDirWithConfigAndCancel = curry((cancel, conf, g) =>
   Future((bad, good) => {
     try {
       glob(g, conf, (e, x) =>
@@ -74,9 +91,11 @@ export const readDirWithConfig = curry((conf, g) =>
     } catch (e) {
       bad(e)
     }
-    return () => {}
+    return cancel
   })
 )
+
+export const readDirWithConfig = readDirWithConfigAndCancel(NO_OP)
 
 /**
  * read a `glob` asynchronously and future wrapped, no config needed
@@ -108,19 +127,21 @@ export const readDir = readDirWithConfig({})
  * )
  * ```
  */
-export const writeFileWithConfig = curry(
-  (conf, file, content) =>
+export const writeFileWithConfigAndCancel = curry(
+  (cancel, conf, file, content) =>
     new Future((bad, good) => {
-      __writeFile(file, content, conf, e => {
+      fs.writeFile(file, content, conf, e => {
         if (e) {
           bad(e)
           return
         }
         good(content)
       })
-      return () => {}
+      return cancel
     })
 )
+
+export const writeFileWithConfig = writeFileWithConfigAndCancel(NO_OP)
 
 /**
  * Write a file, assuming 'utf8'
@@ -156,13 +177,15 @@ export const writeFile = writeFileWithConfig({ encoding: 'utf8' })
  * )
  * ```
  */
-export const removeFileWithConfig = curry(
-  (options, fd) =>
+export const removeFileWithConfigAndCancel = curry(
+  (cancel, options, fd) =>
     new Future((bad, good) => {
-      __rm(fd, options, err => (err ? bad(err) : good(fd)))
-      return () => {}
+      fs.rm(fd, options, err => (err ? bad(err) : good(fd)))
+      return cancel
     })
 )
+
+export const removeFileWithConfig = removeFileWithConfigAndCancel(NO_OP)
 export const DEFAULT_REMOVAL_CONFIG = {
   force: false,
   maxRetries: 0,
@@ -204,12 +227,13 @@ export const removeFile = removeFileWithConfig(DEFAULT_REMOVAL_CONFIG)
  * )
  * ```
  */
-export const removeFilesWithConfig = curry((conf, list) =>
+export const removeFilesWithConfigAndCancel = curry((cancel, conf, list) =>
   pipe(
-    map(removeFileWithConfig(without(['parallel'], conf))),
+    map(removeFileWithConfigAndCancel(cancel, without(['parallel'], conf))),
     parallel(propOr(10, 'parallel', conf))
   )(list)
 )
+export const removeFilesWithConfig = removeFilesWithConfigAndCancel(NO_OP)
 
 /**
  * Remove multiple files, sans configuration
@@ -247,7 +271,7 @@ export const removeFiles = removeFilesWithConfig(DEFAULT_REMOVAL_CONFIG)
 export const mkdir = curry(
   (conf, x) =>
     new Future((bad, good) => {
-      __mkdir(x, conf, err => (err ? bad(err) : good(x)))
+      fs.mkdir(x, conf, err => (err ? bad(err) : good(x)))
       return () => {}
     })
 )
@@ -257,18 +281,19 @@ export const mkdirp = mkdir({ recursive: true })
 export const access = curry(
   (permissions, filePath) =>
     new Future((bad, good) => {
-      __access(filePath, permissions, err => (err ? bad(err) : good(true)))
+      fs.access(filePath, permissions, err => (err ? bad(err) : good(true)))
       return () => {}
     })
 )
 
 export const exists = access(constants.F_OK)
+export const readable = access(constants.R_OK)
 
 export const directoryOnly = filePath =>
   filePath.slice(0, filePath.lastIndexOf('/'))
 
 /**
- * Write a file to a nested folder and automatically create needed folders
+ * Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`
  * @name writeFileWithAutoPath
  * @example
  * ```js
@@ -298,9 +323,37 @@ export const writeFileWithAutoPath = curry((filePath, content) =>
 export const rm = curry(
   (conf, x) =>
     new Future((bad, good) => {
-      __rm(x, conf, err => (err ? bad(err) : good(x)))
+      fs.rm(x, conf, err => (err ? bad(err) : good(x)))
       return () => {}
     })
 )
 
 export const rimraf = rm({ force: true, recursive: true })
+
+export const ioWithCancel = curry(
+  (cancel, fn, fd, buffer, offset, len, position) =>
+    Future((bad, good) => {
+      fn(fd, buffer, offset, len, position, (e, bytes, buff) =>
+        e ? bad(e) : good(bytes, buff)
+      )
+      return cancel
+    })
+)
+
+export const io = ioWithCancel(NO_OP)
+
+export const read = io(fs.read)
+export const write = io(fs.write)
+
+export const findFile = curry((fn, def, x) =>
+  pipe(
+    map(pipe(fn, mapRej(F))),
+    reduce((a, b) => (isFuture(a) ? race(a)(b) : b), def)
+  )(x)
+)
+
+export const readAnyOr = curry((def, format, x) => findFile(readFile, def, x))
+
+export const readAny = readAnyOr(null)
+
+export const requireAnyOr = findFile(readable)

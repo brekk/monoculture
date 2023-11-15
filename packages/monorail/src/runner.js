@@ -40,11 +40,7 @@ export const stepFunction = curry(
 
 const runPluginOnFilesWithContext = curry((context, files, plugin) => {
   if (!plugin.name) return []
-  log.run('plugin', {
-    plugin,
-    name: plugin.name,
-    dependencies: plugin.dependencies,
-  })
+  log.run('plugin', plugin)
   return [
     plugin.name,
     pipe(

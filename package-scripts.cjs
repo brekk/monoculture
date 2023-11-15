@@ -34,6 +34,7 @@ module.exports = {
               'shared/jest-config',
               'shared/monoculture-tsconfig',
               'tools/monodoc',
+              'tools/superorganism',
               'tools/spacework',
             ]
           ),

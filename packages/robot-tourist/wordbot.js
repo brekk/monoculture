@@ -206,6 +206,23 @@ var createEntities = curry2(
   (file, raw) => pipe2(createEntitiesFromRaw, mergeRight({ file }))(raw)
 );
 
+// src/core.js
+import {
+  equals as equals2,
+  mergeRight as mergeRight2,
+  curry as curry5,
+  identity as I2,
+  map as map4,
+  pipe as pipe4,
+  reject as reject3,
+  replace as replace4,
+  split as split2,
+  startsWith as startsWith2,
+  trim
+} from "ramda";
+import { trace as trace2 } from "xtrace";
+import yargsParser from "yargs-parser";
+
 // src/stats.js
 import { curry as curry4 } from "ramda";
 
@@ -400,20 +417,6 @@ var correlateSimilar = curry4(
 );
 
 // src/core.js
-import {
-  mergeRight as mergeRight2,
-  curry as curry5,
-  identity as I2,
-  map as map4,
-  pipe as pipe4,
-  reject as reject3,
-  replace as replace4,
-  split as split2,
-  startsWith as startsWith2,
-  trim
-} from "ramda";
-import { trace as trace2 } from "xtrace";
-import yargsParser from "yargs-parser";
 var parser = curry5((opts, args) => yargsParser(args, opts));
 var classifyEntities = pipe4(
   // convert to object
@@ -439,6 +442,7 @@ var parse = curry5(
     rejectSnd(startsWith2("//")),
     // throw away multi line comments
     dropMultilineComments,
+    rejectSnd(equals2("*/")),
     // we don't care about the imports, that's all stuff upstream from this file
     $dropImports ? dropImports : I2,
     // throw away strings, we don't care about them* - now configurable

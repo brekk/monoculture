@@ -174,9 +174,11 @@ var log = complextrace("monorail", [
 ]);
 
 // src/sort.js
-var without = curry4((name, x) => reject(propEq("name", name), x));
+var without = curry4((name, x) => reject(propEq(name, "name"), x));
 var topologicalDependencySort = (raw) => pipe2(
+  // handle default exports
   map2((rawPlug) => rawPlug?.default ?? rawPlug),
+  // take the value
   (defaulted) => reduce2(
     (agg, plugin) => {
       const { name, dependencies = [] } = plugin;
@@ -188,6 +190,7 @@ var topologicalDependencySort = (raw) => pipe2(
         (ix = -1) => insertAfter(ix, plugin, cleaned)
       )(dependencies);
     },
+    // pass it twice
     defaulted,
     defaulted
   )
@@ -209,11 +212,7 @@ var stepFunction = curry5(
 var runPluginOnFilesWithContext = curry5((context, files, plugin) => {
   if (!plugin.name)
     return [];
-  log.run("plugin", {
-    plugin,
-    name: plugin.name,
-    dependencies: plugin.dependencies
-  });
+  log.run("plugin", plugin);
   return [
     plugin.name,
     pipe3(

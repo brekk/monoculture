@@ -1,24 +1,17 @@
 {
-  "name": "configurate",
+  "name": "consort",
   "version": "0.0.0",
-  "description": "Tooling to configure all-the-things",
+  "description": "An implementation of kahn's sorting algorithm",
   "exports": [
-    "./configurate.js"
+    "./consort.js"
   ],
   "type": "module",
   "repository": "monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "dependencies": {
-    "add": "^2.0.6",
-    "configurate": "^0.1.4",
-    "cosmiconfig": "^8.3.6",
-    "find-up": "^6.3.0",
-    "ramda": "^0.29.1",
-    "workspace": "^0.0.1-preview.1"
-  },
   "devDependencies": {
+    "@hapi/topo": "6.0.2",
     "dotenv-cli": "^7.3.0",
     "eslint": "^8.53.0",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",

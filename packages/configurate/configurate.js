@@ -54,6 +54,8 @@ ${z}`
 
 // src/builder.js
 import {
+  map as map2,
+  identity as I,
   __ as $2,
   ifElse as ifElse2,
   always,
@@ -70,8 +72,11 @@ var parse = curry2((opts, args) => yargsParser(args, opts));
 
 // src/builder.js
 import { Future, reject, resolve } from "fluture";
-import { cosmiconfig } from "cosmiconfig";
+import { readFileWithCancel } from "file-system";
 import { trace as trace2 } from "xtrace";
+import { findUp as __findUp } from "find-up";
+var NO_OP = () => {
+};
 var showHelpWhen = curry3(
   (check, parsed) => parsed.help || check(parsed)
 );
@@ -91,27 +96,44 @@ var configurateWithOptions = curry3(
   }
 );
 var configurate = configurateWithOptions({});
-var spaceconfig = curry3(
-  (config, ns, loadPath) => Future((bad, good) => {
-    const explorer = cosmiconfig(ns, config);
-    const toRun = loadPath ? explorer.load(loadPath) : explorer.search();
-    toRun.catch(bad).then(good);
-    return () => {
-    };
+var findUpWithCancel = curry3(
+  (cancel, opts, x) => Future((bad, good) => {
+    __findUp(x, opts).catch(bad).then(good);
+    return cancel;
   })
 );
-var configFile = spaceconfig({});
-var configSearch = spaceconfig($2, $2, false);
+var findUp = findUpWithCancel(NO_OP);
+var defaultNameTemplate = (ns) => [`.${ns}rc`, `.${ns}rc.json`];
+var configFileWithOptionsAndCancel = curry3((cancel, opts) => {
+  if (typeof opts === "string") {
+    return readFileWithCancel(cancel, opts);
+  }
+  const {
+    ns = "configurate",
+    wrapTransformer = true,
+    json = false,
+    template = defaultNameTemplate,
+    transformer = json ? JSON.parse : I
+  } = opts;
+  const finder = findUpWithCancel(cancel);
+  const searchspace = template(ns);
+  const lookupF = finder(searchspace);
+  const transform = wrapTransformer ? map2(transformer) : transformer;
+  return pipe2(transform)(lookupF);
+});
+var configFile = configFileWithOptionsAndCancel(NO_OP);
 export {
   configFile,
-  configSearch,
+  configFileWithOptionsAndCancel,
   configurate,
   configurateWithOptions,
+  defaultNameTemplate,
   failIfMissingFlag,
+  findUp,
+  findUpWithCancel,
   generateHelp,
   invalidHelpConfig,
   longFlag,
   shortFlag,
-  showHelpWhen,
-  spaceconfig
+  showHelpWhen
 };

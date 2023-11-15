@@ -162,7 +162,6 @@ var HELP_CONFIG = {
 
 // src/cli.js
 var j = (i) => (x) => JSON.stringify(x, null, i);
-var readConfigFile = configFile("monocle");
 pipe2(
   configurate(
     CONFIG,
@@ -172,7 +171,7 @@ pipe2(
   ),
   chain2((config) => {
     const result = config.rulefile ? pipe2(
-      readConfigFile,
+      configFile({ ns: "monocle" }),
       map2((read) => ({ ...config, ...read.config }))
     )(config.rulefile) : (
       // TODO we should eschew chain(Future(x))
