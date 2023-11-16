@@ -1,4 +1,5 @@
 // src/help.js
+import { Chalk } from "chalk";
 import {
   applySpec,
   __ as $,
@@ -24,32 +25,36 @@ var failIfMissingFlag = curry(
   (env, k, raw) => env !== "production" && raw === "???" ? invalidHelpConfig(k) : raw
 );
 var generateHelp = curry(
-  (name, helpConfig, yargsConfig) => pipe(
-    propOr({}, "alias"),
-    toPairs,
-    map(
-      ([k, v]) => pipe(
-        applySpec({
-          flags: pipe(
-            (x) => [x],
-            concat(v),
-            map(ifElse(pipe(length, equals(1)), shortFlag, longFlag)),
-            join(" / ")
-          ),
-          description: pipe(
-            propOr("???", $, helpConfig),
-            failIfMissingFlag("development", k)
-          )
-        }),
-        ({ flags, description }) => `${flags}
-  ${description}`
-      )(k)
-    ),
-    join("\n\n"),
-    (z) => `${name}
+  (showColor, name, helpConfig, yargsConfig) => {
+    const chalk = new Chalk({ level: showColor ? 2 : 0 });
+    return pipe(
+      propOr({}, "alias"),
+      toPairs,
+      map(
+        ([k, v]) => pipe(
+          applySpec({
+            flags: pipe(
+              (x) => [x],
+              concat(v),
+              map(ifElse(pipe(length, equals(1)), shortFlag, longFlag)),
+              map(chalk.green),
+              join(" / ")
+            ),
+            description: pipe(
+              propOr("???", $, helpConfig),
+              failIfMissingFlag("development", k)
+            )
+          }),
+          ({ flags, description }) => `  ${flags}
+  	${description.replace(/\n/g, "\n  	")}`
+        )(k)
+      ),
+      join("\n\n"),
+      (z) => `${name}
 
 ${z}`
-  )(yargsConfig)
+    )(yargsConfig);
+  }
 );
 
 // src/builder.js
@@ -87,11 +92,19 @@ var configurateWithOptions = curry3(
       alias: mergeRight2(yargsConfig.alias, { help: ["h"] }),
       boolean: !yargsConfig.boolean ? help : yargsConfig.boolean.includes("help") ? yargsConfig.boolean : yargsConfig.boolean.concat(help)
     });
-    const HELP = generateHelp(name, helpConfig, updatedConfig);
     return pipe2(
       parse(updatedConfig),
-      mergeRight2(configDefaults),
-      ifElse2(showHelpWhen(check), always(reject(HELP)), resolve)
+      (raw) => {
+        const merged = { ...configDefaults, ...raw };
+        const HELP = generateHelp(
+          merged.color || false,
+          name,
+          helpConfig,
+          updatedConfig
+        );
+        return { ...merged, HELP };
+      },
+      ifElse2(showHelpWhen(check), (x) => reject(x.HELP), resolve)
     )(argv);
   }
 );

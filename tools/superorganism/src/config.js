@@ -3,15 +3,19 @@ import { generateHelp } from 'configurate'
 
 export const YARGS_CONFIG = {
   alias: {
+    // these come from `nps`
     silent: ['s'],
     scripts: [],
     config: ['c'],
     logLevel: ['l'],
     require: ['r'],
     helpStyle: ['y'],
+    // these are things we've added
+    future: ['f'],
+    color: ['k'],
   },
   array: ['require'],
-  boolean: ['silent', 'scripts'],
+  boolean: ['silent', 'scripts', 'future', 'color'],
   configuration: {
     'strip-aliased': true,
   },
@@ -53,12 +57,16 @@ basic will give you only the name and description of the scripts from your packa
 superorganism help "--help-style basic"
 \`\`\`
 `,
+  future: `Use Futures instead of Promises`,
+  color: `Render things with color? (Default: true)`,
 }
 /* eslint-enable max-len */
 
 export const CONFIG_DEFAULTS = {
   scripts: true,
+  future: false,
   helpStyle: 'all',
+  color: true,
 }
 
 export const HELP = generateHelp(pkg.name, HELP_CONFIG, YARGS_CONFIG)

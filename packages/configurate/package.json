@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "add": "^2.0.6",
+    "chalk": "^5.3.0",
     "configurate": "^0.1.4",
     "cosmiconfig": "^8.3.6",
     "find-up": "^6.3.0",
@@ -24,7 +25,8 @@
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     "eslint-plugin-prettier": "^5.0.1",
     "jest": "^29.7.0",
-    "prettier": "^3.0.3"
+    "prettier": "^3.0.3",
+    "strip-ansi": "^7.1.0"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",

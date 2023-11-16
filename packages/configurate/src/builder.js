@@ -1,9 +1,8 @@
 import {
+  chain,
   map,
   identity as I,
-  __ as $,
   ifElse,
-  always,
   pipe,
   mergeRight,
   curry,
@@ -13,10 +12,9 @@ import { parse } from './parser'
 import { generateHelp } from './help'
 import { Future, reject, resolve } from 'fluture'
 import { readFileWithCancel } from 'file-system'
-import { trace } from 'xtrace'
 import { findUp as __findUp } from 'find-up'
 
-const NO_OP = () => {}
+export const NO_OP = () => {}
 
 export const showHelpWhen = curry(
   (check, parsed) => parsed.help || check(parsed)
@@ -40,11 +38,19 @@ export const configurateWithOptions = curry(
         ? yargsConfig.boolean
         : yargsConfig.boolean.concat(help),
     })
-    const HELP = generateHelp(name, helpConfig, updatedConfig)
     return pipe(
       parse(updatedConfig),
-      mergeRight(configDefaults),
-      ifElse(showHelpWhen(check), always(reject(HELP)), resolve)
+      raw => {
+        const merged = { ...configDefaults, ...raw }
+        const HELP = generateHelp(
+          merged.color || false,
+          name,
+          helpConfig,
+          updatedConfig
+        )
+        return { ...merged, HELP }
+      },
+      ifElse(showHelpWhen(check), x => reject(x.HELP), resolve)
     )(argv)
   }
 )
@@ -61,38 +67,28 @@ export const findUp = findUpWithCancel(NO_OP)
 export const defaultNameTemplate = ns => [`.${ns}rc`, `.${ns}rc.json`]
 
 export const configFileWithOptionsAndCancel = curry((cancel, opts) => {
-  if (typeof opts === 'string') {
-    return readFileWithCancel(cancel, opts)
+  let refF
+  const optString = typeof opts === 'string'
+  if (optString || opts.source) {
+    refF = readFileWithCancel(cancel, opts.source || opts)
   }
-
+  const defOpts = !optString ? opts : {}
   const {
+    findUp: findUpOpts,
     ns = 'configurate',
     wrapTransformer = true,
-    json = false,
+    json = true,
     template = defaultNameTemplate,
     transformer = json ? JSON.parse : I,
-  } = opts
-
-  const finder = findUpWithCancel(cancel)
+  } = defOpts
+  const finder = findUpWithCancel(cancel, findUpOpts)
   const searchspace = template(ns)
-  const lookupF = finder(searchspace)
+  if (!refF) {
+    refF = pipe(finder, chain(readFileWithCancel(cancel)))(searchspace)
+  }
   const transform = wrapTransformer ? map(transformer) : transformer
-  return pipe(transform)(lookupF)
+
+  return pipe(transform)(refF)
 })
 
 export const configFile = configFileWithOptionsAndCancel(NO_OP)
-
-/*
-
-export const spaceconfig = curry((config, ns, loadPath) =>
-  Future((bad, good) => {
-    const explorer = cosmiconfig(ns, config)
-    const toRun = loadPath ? explorer.load(loadPath) : explorer.search()
-    toRun.catch(bad).then(good)
-    return () => {}
-  })
-)
-export const configFile = spaceconfig({})
-export const configSearch = spaceconfig($, $, false)
-
-*/

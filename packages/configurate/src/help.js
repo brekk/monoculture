@@ -1,3 +1,4 @@
+import { Chalk } from 'chalk'
 import {
   applySpec,
   __ as $,
@@ -31,28 +32,33 @@ export const failIfMissingFlag = curry((env, k, raw) =>
   env !== 'production' && raw === '???' ? invalidHelpConfig(k) : raw
 )
 
-export const generateHelp = curry((name, helpConfig, yargsConfig) =>
-  pipe(
-    propOr({}, 'alias'),
-    toPairs,
-    map(([k, v]) =>
-      pipe(
-        applySpec({
-          flags: pipe(
-            x => [x],
-            concat(v),
-            map(ifElse(pipe(length, equals(1)), shortFlag, longFlag)),
-            join(' / ')
-          ),
-          description: pipe(
-            propOr('???', $, helpConfig),
-            failIfMissingFlag(process.env.NODE_ENV, k)
-          ),
-        }),
-        ({ flags, description }) => `${flags}\n  ${description}`
-      )(k)
-    ),
-    join('\n\n'),
-    z => `${name}\n\n${z}`
-  )(yargsConfig)
+export const generateHelp = curry(
+  (showColor, name, helpConfig, yargsConfig) => {
+    const chalk = new Chalk({ level: showColor ? 2 : 0 })
+    return pipe(
+      propOr({}, 'alias'),
+      toPairs,
+      map(([k, v]) =>
+        pipe(
+          applySpec({
+            flags: pipe(
+              x => [x],
+              concat(v),
+              map(ifElse(pipe(length, equals(1)), shortFlag, longFlag)),
+              map(chalk.green),
+              join(' / ')
+            ),
+            description: pipe(
+              propOr('???', $, helpConfig),
+              failIfMissingFlag(process.env.NODE_ENV, k)
+            ),
+          }),
+          ({ flags, description }) =>
+            `  ${flags}\n  \t${description.replace(/\n/g, '\n  \t')}`
+        )(k)
+      ),
+      join('\n\n'),
+      z => `${name}\n\n${z}`
+    )(yargsConfig)
+  }
 )

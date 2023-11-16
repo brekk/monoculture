@@ -1,4 +1,5 @@
 import pkg from '../package.json'
+import stripAnsi from 'strip-ansi'
 
 import { map } from 'ramda'
 import Unusual from 'unusual'
@@ -61,17 +62,17 @@ test('generateHelp - good nonsense', () => {
     snorbles: 'borflak neue neue',
     skurpskorps: 'scurr scurr',
   }
-  const GENERATED_HELP = generateHelp('hochopepa', HELP_CONFIG, CONFIG)
-  expect(GENERATED_HELP).toEqual(`hochopepa
+  const GENERATED_HELP = generateHelp(true, 'hochopepa', HELP_CONFIG, CONFIG)
+  expect(stripAnsi(GENERATED_HELP)).toEqual(`hochopepa
 
--g / --grables
-  qualdal smungobal
+  -g / --grables
+  \tqualdal smungobal
 
--s / --snorbles
-  borflak neue neue
+  -s / --snorbles
+  \tborflak neue neue
 
---sk / -k / --skurpskorps
-  scurr scurr`)
+  --sk / -k / --skurpskorps
+  \tscurr scurr`)
 })
 
 test('generateHelp - missing parts', () => {
@@ -87,7 +88,7 @@ test('generateHelp - missing parts', () => {
     grables: 'qualdal smungobal',
     snorbles: 'borflak neue neue',
   }
-  expect(() => generateHelp('hochopepa', HELP_CONFIG, CONFIG)).toThrow(
+  expect(() => generateHelp(false, 'hochopepa', HELP_CONFIG, CONFIG)).toThrow(
     'You must add a "skurpskorps" key to the helpConfig!'
   )
 })

@@ -1,13 +1,17 @@
 import { fork } from 'fluture'
+import { map } from 'ramda'
 import {
+  NO_OP,
   showHelpWhen,
   configurateWithOptions,
-  configurate,
-  spaceconfig,
   configFile,
-  configSearch,
 } from './builder'
+/* eslint-disable max-len */
 
+test('NO_OP', () => {
+  expect(NO_OP).toBeTruthy()
+  expect(NO_OP()).toBeFalsy()
+})
 test('showHelpWhen', () => {
   expect(showHelpWhen).toBeTruthy()
   expect(showHelpWhen(() => true, {})).toBeTruthy()
@@ -25,7 +29,12 @@ test('configurateWithOptions', done => {
     ['-y', 'hey']
   )
   fork(done)(x => {
-    expect(x).toEqual({ _: [], y: 'hey', yo: 'hey' })
+    expect(x).toEqual({
+      _: [],
+      y: 'hey',
+      yo: 'hey',
+      HELP: `barksdale\n\n  -y / --yo\n  \tThis is a yo flag, young hopper\n\n  -h / --help\n  \thelp!`,
+    })
     done()
   })(confF)
 })
@@ -40,7 +49,12 @@ test('configurateWithOptions - with help boolean', done => {
     ['-y', 'hey']
   )
   fork(done)(x => {
-    expect(x).toEqual({ _: [], y: 'hey', yo: 'hey' })
+    expect(x).toEqual({
+      _: [],
+      y: 'hey',
+      yo: 'hey',
+      HELP: `barksdale\n\n  -y / --yo\n  \tThis is a yo flag, young hopper\n\n  -h / --help\n  \thelp!`,
+    })
     done()
   })(confF)
 })
@@ -55,24 +69,57 @@ test('configurateWithOptions - with other booleans', done => {
     ['-y']
   )
   fork(done)(x => {
-    expect(x).toEqual({ _: [], y: true, yo: true })
+    expect(x).toEqual({
+      _: [],
+      y: true,
+      yo: true,
+
+      HELP: `barksdale\n\n  -y / --yo\n  \tyo flag\n\n  -h / --help\n  \thelp!`,
+    })
     done()
   })(confF)
 })
 const TEST_CONF_RAW = { fixture: 'test', info: 'this is a test file' }
-test('spaceconfig - load', done => {
-  expect(spaceconfig).toBeTruthy()
-  const confF = spaceconfig({}, 'testconf', __dirname + '/../.testconfrc')
-  fork(done)(({ config: x }) => {
+test('configFile - load', done => {
+  expect(configFile).toBeTruthy()
+  const confF = configFile({ ns: 'testconf' })
+  fork(done)(x => {
     expect(x).toEqual(TEST_CONF_RAW)
     done()
   })(confF)
 })
-test('spaceconfig - search', done => {
-  expect(spaceconfig).toBeTruthy()
-  const confF = spaceconfig({}, 'testconf', false)
-  fork(done)(({ config: x }) => {
+
+test('configFile - direct file', done => {
+  const confF = configFile(__dirname + '/../.testconfrc')
+  fork(done)(x => {
     expect(x).toEqual(TEST_CONF_RAW)
+    done()
+  })(confF)
+})
+
+test('configFile - direct file as source', done => {
+  const confF = configFile({
+    source: __dirname + '/../.testconfrc',
+    // json: false,
+    json: false,
+    transformer: map(JSON.parse),
+    wrapTransformer: false,
+  })
+  fork(done)(x => {
+    expect(x).toEqual(TEST_CONF_RAW)
+    done()
+  })(confF)
+})
+
+test('configFile - direct file, no transformer', done => {
+  const confF = configFile({
+    source: __dirname + '/../.testconfrc',
+    // json: false,
+    json: false,
+    wrapTransformer: true,
+  })
+  fork(done)(x => {
+    expect(x).toEqual(JSON.stringify(TEST_CONF_RAW, null, 2) + '\n')
     done()
   })(confF)
 })
