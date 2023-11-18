@@ -39,11 +39,13 @@ export const generateHelp = curry(
   (showColor, $details, helpConfig, yargsConfig) => {
     const {
       showName = true,
-      banner: $banner = '',
       name: $name,
       description: $desc = '',
+      banner = '',
     } = $details
     const chalk = new Chalk({ level: showColor ? 2 : 0 })
+    const dynaBanner = banner && typeof banner === 'function'
+    const $banner = dynaBanner ? banner(chalk) : banner
     const nameStyler = when(() => showColor, pipe(pad, chalk.inverse))
     return pipe(
       propOr({}, 'alias'),

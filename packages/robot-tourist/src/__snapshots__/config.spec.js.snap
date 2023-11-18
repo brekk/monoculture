@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`BW_LOGO 1`] = `
+"     /\\/\\
+    /^^^^\\
+  <d______b>
+   |(☉  ☉)|
+   (∏∏∏∏∏∏)
+  ⎛⎝      ⎠⎞"
+`;
+
 exports[`CERTAIN_COMMON_WORDS 1`] = `
 [
   "use",
@@ -109,16 +118,6 @@ exports[`HELP_CONFIG 1`] = `
   "limit": "What top number of words do you want to see? (default: Infinity)",
   "skipWords": "Ignore a given word (this should be merged with --ignore)",
 }
-`;
-
-exports[`LOGO 1`] = `
-"   /\\/\\
- .======.
-<dIIIIIIb>
- |[o><o]|
- (||||||)
- |______|
-"
 `;
 
 exports[`USER_DEFINED_VALUES 1`] = `[]`;

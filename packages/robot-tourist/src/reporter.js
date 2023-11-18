@@ -14,7 +14,7 @@ import {
 } from 'ramda'
 import { RG_JS_KEYWORDS, RG_TS_KEYWORDS } from './constants'
 import { mapSnd } from './tuple'
-import { LOGO } from './config'
+import { BW_LOGO } from './config'
 
 export const getWords = pipe(
   toPairs,
@@ -40,7 +40,7 @@ export const summarize = pipe(
 
 export const robotTouristReporter = curry(
   ($wordlimit, $fun, { file: f, report }) =>
-    `${$fun ? `\n${LOGO}\n\n` : ''}SCANNED: ${f}
+    `${$fun ? `\n${BW_LOGO}\n\n` : ''}SCANNED: ${f}
 The ${
       $wordlimit !== Infinity ? $wordlimit + ' ' : ''
     }most common words in this file are:

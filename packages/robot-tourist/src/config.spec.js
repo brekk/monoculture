@@ -1,5 +1,5 @@
 import {
-  LOGO,
+  BW_LOGO,
   CONFIG,
   CERTAIN_COMMON_WORDS,
   USER_DEFINED_VALUES,
@@ -8,8 +8,8 @@ import {
 } from './config'
 import stripAnsi from 'strip-ansi'
 
-test('LOGO', () => {
-  expect(stripAnsi(LOGO)).toMatchSnapshot()
+test('BW_LOGO', () => {
+  expect(BW_LOGO).toMatchSnapshot()
 })
 test('CONFIG', () => {
   expect(CONFIG).toMatchSnapshot()

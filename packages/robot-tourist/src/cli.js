@@ -7,7 +7,7 @@ import { readFile } from 'file-system'
 import { fork } from 'fluture'
 
 // import { mapSnd, rejectSnd } from './tuple'
-import { BW_LOGO, CONFIG, DEFAULT_CONFIG, HELP_CONFIG } from './config'
+import { DYNAMIC_BANNER, CONFIG, DEFAULT_CONFIG, HELP_CONFIG } from './config'
 import { robotTouristReporter } from './reporter'
 import { robotTourist } from './core'
 // import { replaceNoise } from './source-matcher'
@@ -34,7 +34,7 @@ pipe(
   configurate(CONFIG, DEFAULT_CONFIG, HELP_CONFIG, {
     name: $NAME,
     description: $DESC,
-    banner: BW_LOGO,
+    banner: DYNAMIC_BANNER,
   }),
   map(trace('config')),
   chain(cli),

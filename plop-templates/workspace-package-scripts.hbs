@@ -17,7 +17,7 @@ const build = ([infile, outfile]) =>
 
 const INPUT = `src/index.js`
 const OUTPUT = `{{name}}.js`
-const watchMode = sd(`${build} --watch`, 'build with watch-mode')
+const watchMode = sd(`${build([INPUT, OUTPUT])} --watch`, 'build with watch-mode')
 module.exports = {
   scripts: {
     build: {

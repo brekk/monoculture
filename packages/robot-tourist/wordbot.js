@@ -4,7 +4,7 @@
 var package_default = {
   name: "robot-tourist",
   version: "0.0.1",
-  description: "human-centric code reader",
+  description: "human-centric source code interpreter",
   main: "robot-tourist.js",
   bin: "wordbot.js",
   type: "module",
@@ -53,19 +53,17 @@ import { readFile } from "file-system";
 import { fork } from "fluture";
 
 // src/config.js
-import H from "chalk";
-var LOGO = `   /\\/\\
- .======.
-<dIIIIIIb>
- |[${H.red("o")}><${H.red("o")}]|
- ${H.cyan("(||||||)")}
- |______|
-`;
 var BW_LOGO = `     /\\/\\
     /^^^^\\
   <d______b>
    |(\u2609  \u2609)|
    (\u220F\u220F\u220F\u220F\u220F\u220F)
+  \u239B\u239D      \u23A0\u239E`;
+var DYNAMIC_BANNER = (c) => `     /\\/\\
+    /^^^^\\
+  <d______b>
+   |(${c.red("\u2609")}  ${c.red("\u2609")})|
+   (${c.yellow("\u220F\u220F\u220F\u220F\u220F\u220F")})
   \u239B\u239D      \u23A0\u239E`;
 var CONFIG = {
   alias: {
@@ -127,7 +125,7 @@ var HELP_CONFIG = {
 };
 
 // src/reporter.js
-import H2 from "chalk";
+import H from "chalk";
 import {
   mergeRight,
   addIndex,
@@ -214,7 +212,7 @@ var getWords = pipe2(
   // sortBy(pipe(last, length, z => z * -1)),
   map2(([word, _lines]) => {
     const count = length(_lines);
-    return ` - ${H2.red(word)} (${count} reference${count === 0 || count > 1 ? "s" : ""})`;
+    return ` - ${H.red(word)} (${count} reference${count === 0 || count > 1 ? "s" : ""})`;
   }),
   join("\n")
 );
@@ -222,14 +220,14 @@ var summarize = pipe2(
   toPairs,
   // sortBy(pipe(last, length, z => z * -1)),
   addIndex(map2)(
-    ([word, _lines], i) => `${i + 1}. ${H2.red(word)}
-   on ${H2.blue("lines")}: ${_lines.join(", ")}`
+    ([word, _lines], i) => `${i + 1}. ${H.red(word)}
+   on ${H.blue("lines")}: ${_lines.join(", ")}`
   ),
   join("\n")
 );
 var robotTouristReporter = curry2(
   ($wordlimit, $fun, { file: f, report }) => `${$fun ? `
-${LOGO}
+${BW_LOGO}
 
 ` : ""}SCANNED: ${f}
 The ${$wordlimit !== Infinity ? $wordlimit + " " : ""}most common words in this file are:
@@ -552,7 +550,7 @@ pipe5(
   configurate(CONFIG, DEFAULT_CONFIG, HELP_CONFIG, {
     name: $NAME,
     description: $DESC,
-    banner: BW_LOGO
+    banner: DYNAMIC_BANNER
   }),
   map5(trace3("config")),
   chain2(cli),

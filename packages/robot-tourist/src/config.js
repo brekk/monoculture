@@ -1,18 +1,15 @@
-import H from 'chalk'
-
-export const LOGO = `   /\\/\\
- .======.
-<dIIIIIIb>
- |[${H.red('o')}><${H.red('o')}]|
- ${H.cyan('(||||||)')}
- |______|
-`
-
 export const BW_LOGO = `     /\\/\\
     /^^^^\\
   <d______b>
    |(☉  ☉)|
    (∏∏∏∏∏∏)
+  ⎛⎝      ⎠⎞`
+
+export const DYNAMIC_BANNER = c => `     /\\/\\
+    /^^^^\\
+  <d______b>
+   |(${c.red('☉')}  ${c.red('☉')})|
+   (${c.yellow('∏∏∏∏∏∏')})
   ⎛⎝      ⎠⎞`
 
 export const CONFIG = {

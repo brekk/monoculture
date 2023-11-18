@@ -9,6 +9,7 @@ import {
   createEntitiesFromRaw,
   createEntities,
 } from './reporter'
+import { BW_LOGO } from './config'
 
 const RAW_IN = {
   similar: [1, 101, 121, 123],
@@ -323,13 +324,7 @@ These words were found in this pattern:
     ).split('\n')
   ).toEqual(
     `
-   /\\/\\
- .======.
-<dIIIIIIb>
- |[o><o]|
- (||||||)
- |______|
-
+${BW_LOGO}
 
 ${deets}
 `.split('\n')

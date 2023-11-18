@@ -277,7 +277,7 @@ var correlateSimilar = curry3(
 );
 
 // src/reporter.js
-import H2 from "chalk";
+import H from "chalk";
 import {
   mergeRight,
   addIndex,
@@ -293,14 +293,12 @@ import {
 } from "ramda";
 
 // src/config.js
-import H from "chalk";
-var LOGO = `   /\\/\\
- .======.
-<dIIIIIIb>
- |[${H.red("o")}><${H.red("o")}]|
- ${H.cyan("(||||||)")}
- |______|
-`;
+var BW_LOGO = `     /\\/\\
+    /^^^^\\
+  <d______b>
+   |(\u2609  \u2609)|
+   (\u220F\u220F\u220F\u220F\u220F\u220F)
+  \u239B\u239D      \u23A0\u239E`;
 
 // src/reporter.js
 var getWords = pipe3(
@@ -308,7 +306,7 @@ var getWords = pipe3(
   // sortBy(pipe(last, length, z => z * -1)),
   map3(([word, _lines]) => {
     const count = length(_lines);
-    return ` - ${H2.red(word)} (${count} reference${count === 0 || count > 1 ? "s" : ""})`;
+    return ` - ${H.red(word)} (${count} reference${count === 0 || count > 1 ? "s" : ""})`;
   }),
   join("\n")
 );
@@ -316,14 +314,14 @@ var summarize = pipe3(
   toPairs2,
   // sortBy(pipe(last, length, z => z * -1)),
   addIndex(map3)(
-    ([word, _lines], i) => `${i + 1}. ${H2.red(word)}
-   on ${H2.blue("lines")}: ${_lines.join(", ")}`
+    ([word, _lines], i) => `${i + 1}. ${H.red(word)}
+   on ${H.blue("lines")}: ${_lines.join(", ")}`
   ),
   join("\n")
 );
 var robotTouristReporter = curry4(
   ($wordlimit, $fun, { file: f, report }) => `${$fun ? `
-${LOGO}
+${BW_LOGO}
 
 ` : ""}SCANNED: ${f}
 The ${$wordlimit !== Infinity ? $wordlimit + " " : ""}most common words in this file are:
