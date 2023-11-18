@@ -11996,6 +11996,7 @@ __metadata:
     jest-environment-jsdom: "npm:^29.7.0"
     madge: "npm:^6.1.0"
     ramda: "npm:^0.29.1"
+    strip-ansi: "npm:^7.1.0"
     xtrace: "npm:^0.3.0"
   bin:
     monodoc: ./monodoc-cli.js

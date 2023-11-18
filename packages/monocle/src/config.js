@@ -11,9 +11,10 @@ export const CONFIG = {
     trim: ['t'],
     output: ['o'],
     jsonIndent: ['j'],
+    color: ['k'],
   },
   number: ['jsonIndent'],
-  boolean: ['help', 'trim', 'showMatchesOnly'],
+  boolean: ['help', 'trim', 'showMatchesOnly', 'color'],
   array: ['plugin', 'rule', 'ignore'],
   configuration: {
     'strip-aliased': true,
@@ -25,11 +26,13 @@ export const CONFIG_DEFAULTS = {
   showMatchesOnly: false,
   showTotalMatchesOnly: false,
   jsonIndent: 2,
+  color: true,
 }
 
 /* eslint-disable max-len */
 export const HELP_CONFIG = {
   help: `This text you're reading now!`,
+  color: `Do stuff with glorious color`,
   ignore: `Pass ignore values to glob. Array type`,
   trim: 'Trim the lines on read',
   plugin: `Specify a plugin to add to the run.

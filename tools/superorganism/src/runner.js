@@ -120,6 +120,27 @@ export const executeWithCancel = curry((cancel, { tasks, scripts, config }) => {
       `\n\n${chalk.inverse('Available commands:')}\n\n${commands.join('\n')}`
   )
 })
+const { name: $NAME, description: $DESC } = PKG
+/*
+const $BANNER = `,-. . . ,-. ,-. ,-. ,-. ,-. ,-. ,-. ,-. . ,-. ,-,-.
+\`-. | | | | |-' |   | | |   | | ,-| | | | \`-. | | |
+\`-' \`-^ |-' \`-' '   \`-' '   \`-| \`-^ ' ' ' \`-' ' ' '
+        |                    ,|
+        '                    \`'`
+
+const $BANNER = ` (q\\_/p)
+  /❤ ❤\\.-""""-.     __
+ =\\_y_/=    /  \`\\  (( \`
+   )) ))____\\    )☐☐)
+  'mm-mm\`  \`mm---'
+`
+*/
+const $BANNER = `.--,       .--,
+{{  \\.^^^./  }}
+'\\__/ ✖︎ ✖︎ \\__/'
+   }=  ❤︎  ={
+    >  ▼  <
+.mm'-------'mm.`
 
 export const runnerWithCancel = curry((cancel, argv) =>
   pipe(
@@ -127,12 +148,12 @@ export const runnerWithCancel = curry((cancel, argv) =>
       YARGS_CONFIG,
       { ...CONFIG_DEFAULTS, basePath: process.cwd() },
       HELP_CONFIG,
-      PKG.name
+      { name: $NAME, description: $DESC, banner: $BANNER }
     ),
     chain(
       ({
         basePath,
-        config: source = `${basePath}/package-scripts.mjs`,
+        config: source = `${basePath}/package-scripts.js`,
         ...parsedConfig
       }) => {
         return pipe(
@@ -146,8 +167,8 @@ export const runnerWithCancel = curry((cancel, argv) =>
                 scripts: loadedScripts,
                 tasks: getNestedTasks(loadedScripts),
                 source,
-              }),
-              tap(pipe(propOr([], 'tasks'), log.config('tasks')))
+              })
+              // tap(pipe(propOr([], 'tasks'), log.config('tasks')))
             )
           ),
           chain(executeWithCancel(cancel))

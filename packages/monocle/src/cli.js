@@ -17,7 +17,7 @@ pipe(
     CONFIG,
     { ...CONFIG_DEFAULTS, basePath: process.cwd() },
     HELP_CONFIG,
-    PKG.name
+    { name: PKG.name, description: PKG.description }
   ),
   chain(config => {
     const result = config.rulefile

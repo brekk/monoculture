@@ -31,7 +31,7 @@ import { complextrace } from "envtrace";
 var package_default = {
   name: "superorganism",
   version: "0.0.0",
-  description: "execa + nps-utils",
+  description: "no-nonsense script runner",
   type: "module",
   main: "superorganism.js",
   bin: "cli.mjs",
@@ -131,7 +131,6 @@ import { $, execa } from "execa";
 import { bimap, Future, resolve } from "fluture";
 
 // src/config.js
-import { generateHelp } from "configurate";
 var YARGS_CONFIG = {
   alias: {
     // these come from `nps`
@@ -153,39 +152,14 @@ var YARGS_CONFIG = {
 };
 var HELP_CONFIG = {
   help: "This text!",
-  silent: "By default, superorganism will log out to the console before running the command. You can add -s to your command to silence this.",
-  scripts: "By default, the script's command text will log out to the console before running the command. You can add --no-scripts to prevent this.",
-  config: `Use a different config
-
-\`\`\`
-superorganism -c ./other/package-scripts.js lint
-\`\`\`
-
-Normally, superorganism will look for a package-scripts.js file and load that to get the scripts. Generally you'll want to have this at the root of your project (next to the package.json). But by specifying -c or --config, superorganism will use that file instead.`,
-  logLevel: `Specify the log level to use`,
-  require: `You can specify a module which will be loaded before the config file is loaded. This allows you to preload for example babel-register so you can use all babel presets you like.`,
-  helpStyle: `By default, superorganism will dump a very long help documentation to the screen based on your package-scripts.js file. You can modify this output with one of three help-style options:
-
-all gives you the normal default output:
-
-\`\`\`
-superorganism help "--help-style all"
-\`\`\`
-
-scripts will give you only the help information built from your package-scripts.js file
-
-\`\`\`
-superorganism help "--help-style scripts"
-\`\`\`
-
-basic will give you only the name and description of the scripts from your package-scripts.js file
-
-\`\`\`
-superorganism help "--help-style basic"
-\`\`\`
-`,
+  silent: "Silence superorganism output",
+  scripts: "Log command text for script",
+  config: `Config file to use (defaults to nearest package-scripts.js)`,
+  logLevel: `The log level to use (error | warn | info | debug)`,
+  require: `Module to preload`,
+  helpStyle: `Choose the level of detail displayed by the help command`,
   future: `Use Futures instead of Promises`,
-  color: `Render things with color? (Default: true)`
+  color: `Render things with color`
 };
 var CONFIG_DEFAULTS = {
   scripts: true,
@@ -193,7 +167,6 @@ var CONFIG_DEFAULTS = {
   helpStyle: "all",
   color: true
 };
-var HELP = generateHelp(package_default.name, HELP_CONFIG, YARGS_CONFIG);
 
 // src/runner.js
 var $f = curry2(
@@ -292,18 +265,25 @@ ${chalk.inverse("Available commands:")}
 ${commands.join("\n")}`
   );
 });
+var { name: $NAME, description: $DESC } = package_default;
+var $BANNER = `.--,       .--,
+{{  \\.^^^./  }}
+'\\__/ \u2716\uFE0E \u2716\uFE0E \\__/'
+   }=  \u2764\uFE0E  ={
+    >  \u25BC  <
+.mm'-------'mm.`;
 var runnerWithCancel = curry2(
   (cancel, argv) => pipe2(
     configurate(
       YARGS_CONFIG,
       { ...CONFIG_DEFAULTS, basePath: process.cwd() },
       HELP_CONFIG,
-      package_default.name
+      { name: $NAME, description: $DESC, banner: $BANNER }
     ),
     chain(
       ({
         basePath,
-        config: source = `${basePath}/package-scripts.mjs`,
+        config: source = `${basePath}/package-scripts.js`,
         ...parsedConfig
       }) => {
         return pipe2(
@@ -317,8 +297,8 @@ var runnerWithCancel = curry2(
                 scripts: loadedScripts,
                 tasks: getNestedTasks(loadedScripts),
                 source
-              }),
-              tap2(pipe2(propOr([], "tasks"), log.config("tasks")))
+              })
+              // tap(pipe(propOr([], 'tasks'), log.config('tasks')))
             )
           ),
           chain(executeWithCancel(cancel))

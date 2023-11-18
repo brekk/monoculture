@@ -126,10 +126,11 @@ var CONFIG = {
     error: ["e"],
     trim: ["t"],
     output: ["o"],
-    jsonIndent: ["j"]
+    jsonIndent: ["j"],
+    color: ["k"]
   },
   number: ["jsonIndent"],
-  boolean: ["help", "trim", "showMatchesOnly"],
+  boolean: ["help", "trim", "showMatchesOnly", "color"],
   array: ["plugin", "rule", "ignore"],
   configuration: {
     "strip-aliased": true
@@ -139,10 +140,12 @@ var CONFIG_DEFAULTS = {
   output: "monocle-findings.json",
   showMatchesOnly: false,
   showTotalMatchesOnly: false,
-  jsonIndent: 2
+  jsonIndent: 2,
+  color: true
 };
 var HELP_CONFIG = {
   help: `This text you're reading now!`,
+  color: `Do stuff with glorious color`,
   ignore: `Pass ignore values to glob. Array type`,
   trim: "Trim the lines on read",
   plugin: `Specify a plugin to add to the run.
@@ -167,7 +170,7 @@ pipe2(
     CONFIG,
     { ...CONFIG_DEFAULTS, basePath: process.cwd() },
     HELP_CONFIG,
-    package_default.name
+    { name: package_default.name, description: package_default.description }
   ),
   chain2((config) => {
     const result = config.rulefile ? pipe2(

@@ -1,20 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`monodoc fixture.ts 1`] = `
-"monodoc
+" monodoc 
 
--i / --input
-  A file to read!
+Magical documentation for monorepos
 
--o / --output
-  The file to output!
+  -i / --input
+  	A file to read!
 
--s / --search
-  The glob to use for searching (default: '**//*.{js,jsx,ts,tsx}')
+  -o / --output
+  	The file to output!
 
--a / --artifact
-  Would you like to create an artifact file? (Useful for downstream transformation)
+  -s / --search
+  	The glob to use for searching (default: '**//*.{js,jsx,ts,tsx}')
 
--g / --ignore
-  Files to ignore when searching, can be specified multiple times"
+  -a / --artifact
+  	Would you like to create an artifact file?
+  	(Useful for downstream transformation)
+
+  -g / --ignore
+  	Files to ignore when searching, can be specified multiple times
+
+  -k / --color
+  	Render stuff in color
+
+  -h / --help
+  	This text!"
 `;

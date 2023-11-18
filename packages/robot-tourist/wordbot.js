@@ -1,5 +1,49 @@
 #!/usr/bin/env node
 
+// package.json
+var package_default = {
+  name: "robot-tourist",
+  version: "0.0.1",
+  description: "human-centric code reader",
+  main: "robot-tourist.js",
+  bin: "wordbot.js",
+  type: "module",
+  repository: "brekk/monoculture",
+  author: "brekk",
+  license: "ISC",
+  private: true,
+  dependencies: {
+    "change-case": "5.0.0",
+    configurate: "workspace:packages/configurate",
+    "file-system": "workspace:packages/file-system",
+    ramda: "^0.29.1",
+    stemmer: "^2.0.1"
+  },
+  devDependencies: {
+    "dotenv-cli": "^7.3.0",
+    esbuild: "^0.19.5",
+    eslint: "^8.53.0",
+    "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
+    jest: "^29.7.0",
+    prettier: "^3.0.3",
+    "strip-ansi": "^7.1.0"
+  },
+  scripts: {
+    nps: "dotenv -- nps -c ./package-scripts.cjs",
+    build: "dotenv -- nps -c ./package-scripts.cjs build",
+    "build:bin": "dotenv -- nps -c ./package-scripts.cjs build.bin",
+    "build:module": "dotenv -- nps -c ./package-scripts.cjs build.module",
+    "build:plugin": "dotenv -- nps -c ./package-scripts.cjs build.plugin",
+    "build:pluginSimple": "dotenv -- nps -c ./package-scripts.cjs build.pluginSimple",
+    lint: "dotenv -- nps -c ./package-scripts.cjs lint",
+    meta: "dotenv -- nps -c ./package-scripts.cjs meta",
+    "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
+    test: "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:snapshot": "dotenv -- nps -c ./package-scripts.cjs test.snapshot",
+    "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
+  }
+};
+
 // src/cli.js
 import { configurate } from "configurate";
 import { trace as trace3 } from "xtrace";
@@ -17,9 +61,16 @@ var LOGO = `   /\\/\\
  ${H.cyan("(||||||)")}
  |______|
 `;
+var BW_LOGO = `     /\\/\\
+    /^^^^\\
+  <d______b>
+   |(\u2609  \u2609)|
+   (\u220F\u220F\u220F\u220F\u220F\u220F)
+  \u239B\u239D      \u23A0\u239E`;
 var CONFIG = {
   alias: {
     help: ["h"],
+    color: ["k"],
     fun: ["f"],
     limit: ["l"],
     ignore: ["i"],
@@ -37,7 +88,8 @@ var CONFIG = {
     "assumeSimilarWords",
     "dropJSKeywords",
     "dropTSKeywords",
-    "fun"
+    "fun",
+    "color"
   ],
   number: ["histogramMinimum"],
   configuration: { "strip-aliased": true }
@@ -45,6 +97,7 @@ var CONFIG = {
 var CERTAIN_COMMON_WORDS = ["use", "get", "id"];
 var USER_DEFINED_VALUES = [];
 var DEFAULT_CONFIG = {
+  color: true,
   assumeSimilarWords: true,
   dropJSKeywords: true,
   dropImports: true,
@@ -60,6 +113,7 @@ var DEFAULT_CONFIG = {
 };
 var HELP_CONFIG = {
   help: "This text!",
+  color: `Render things in glorious color!`,
   fun: "Show the robot",
   limit: "What top number of words do you want to see? (default: Infinity)",
   skipWords: "Ignore a given word (this should be merged with --ignore)",
@@ -493,9 +547,14 @@ var cli = ({ fun: $fun, _: [$file], limit: $wordlimit, ...$config }) => pipe5(
     )
   )
 )($file);
+var { name: $NAME, description: $DESC } = package_default;
 pipe5(
-  configurate(CONFIG, DEFAULT_CONFIG, HELP_CONFIG, "robot-tourist"),
-  map5(trace3("raw config")),
+  configurate(CONFIG, DEFAULT_CONFIG, HELP_CONFIG, {
+    name: $NAME,
+    description: $DESC,
+    banner: BW_LOGO
+  }),
+  map5(trace3("config")),
   chain2(cli),
   // eslint-disable-next-line no-console
   fork(console.error)(console.log)

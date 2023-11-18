@@ -28,7 +28,10 @@ const OUTPUT = `superorganism.mjs`
 const CLI_INPUT = `src/cli.js`
 const CLI_OUTPUT = `cli.mjs`
 
-const watchMode = sd(`${build} --watch`, 'build with watch-mode')
+const watchMode = sd(
+  `${build({ script: false, format: 'esm' })([INPUT, OUTPUT])} --watch`,
+  'build with watch-mode'
+)
 module.exports = {
   scripts: {
     build: {

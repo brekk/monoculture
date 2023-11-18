@@ -1,5 +1,52 @@
 // src/cli.js
 import { cwd } from "node:process";
+
+// package.json
+var package_default = {
+  name: "monodoc",
+  version: "0.0.1",
+  description: "Magical documentation for monorepos",
+  main: "monodoc.js",
+  type: "module",
+  repository: "brekk/monoculture",
+  author: "brekk",
+  license: "ISC",
+  private: true,
+  bin: "./monodoc-cli.js",
+  dependencies: {
+    configurate: "workspace:packages/configurate",
+    "file-system": "workspace:packages/file-system",
+    fluture: "^14.0.0",
+    ramda: "^0.29.1"
+  },
+  devDependencies: {
+    dotenv: "^16.3.1",
+    "dotenv-cli": "^7.3.0",
+    envtrace: "^0.0.2",
+    esbuild: "^0.19.5",
+    "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
+    "jest-environment-jsdom": "^29.7.0",
+    madge: "^6.1.0",
+    "strip-ansi": "^7.1.0",
+    xtrace: "^0.3.0"
+  },
+  scripts: {
+    nps: "dotenv -- nps -c ./package-scripts.cjs",
+    build: "dotenv -- nps -c ./package-scripts.cjs build",
+    "build:cli": "dotenv -- nps -c ./package-scripts.cjs build.cli",
+    "build:module": "dotenv -- nps -c ./package-scripts.cjs build.module",
+    "build:watch": "dotenv -- nps -c ./package-scripts.cjs build.watch",
+    dev: "dotenv -- nps -c ./package-scripts.cjs dev",
+    lint: "dotenv -- nps -c ./package-scripts.cjs lint",
+    meta: "dotenv -- nps -c ./package-scripts.cjs meta",
+    "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
+    test: "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
+  }
+};
+
+// src/cli.js
+import { configurate } from "configurate";
 import { basename as basename2, join as pathJoin, dirname } from "node:path";
 import {
   fromPairs as fromPairs2,
@@ -385,52 +432,8 @@ ${liveExample(example)}` : ""
   )
 );
 
-// package.json
-var package_default = {
-  name: "monodoc",
-  version: "0.0.1",
-  description: "Magical documentation for monorepos",
-  main: "monodoc.js",
-  type: "module",
-  repository: "brekk/monoculture",
-  author: "brekk",
-  license: "ISC",
-  private: true,
-  bin: "./monodoc-cli.js",
-  dependencies: {
-    configurate: "workspace:packages/configurate",
-    "file-system": "workspace:packages/file-system",
-    fluture: "^14.0.0",
-    ramda: "^0.29.1"
-  },
-  devDependencies: {
-    dotenv: "^16.3.1",
-    "dotenv-cli": "^7.3.0",
-    envtrace: "^0.0.2",
-    esbuild: "^0.19.5",
-    "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
-    "jest-environment-jsdom": "^29.7.0",
-    madge: "^6.1.0",
-    xtrace: "^0.3.0"
-  },
-  scripts: {
-    nps: "dotenv -- nps -c ./package-scripts.cjs",
-    build: "dotenv -- nps -c ./package-scripts.cjs build",
-    "build:cli": "dotenv -- nps -c ./package-scripts.cjs build.cli",
-    "build:module": "dotenv -- nps -c ./package-scripts.cjs build.module",
-    "build:watch": "dotenv -- nps -c ./package-scripts.cjs build.watch",
-    dev: "dotenv -- nps -c ./package-scripts.cjs dev",
-    lint: "dotenv -- nps -c ./package-scripts.cjs lint",
-    meta: "dotenv -- nps -c ./package-scripts.cjs meta",
-    "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
-    test: "dotenv -- nps -c ./package-scripts.cjs test",
-    "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
-  }
-};
-
 // src/config.js
 import { curry as curry3 } from "ramda";
-import { generateHelp } from "configurate";
 import yargsParser from "yargs-parser";
 var parser = curry3((opts, args) => yargsParser(args, opts));
 var YARGS_CONFIG = {
@@ -439,21 +442,26 @@ var YARGS_CONFIG = {
     output: ["o"],
     search: ["s"],
     artifact: ["a"],
-    ignore: ["g"]
+    ignore: ["g"],
+    color: ["k"]
   },
+  boolean: ["color"],
   configuration: {
     "strip-aliased": true
   }
 };
 var HELP_CONFIG = {
   help: "This text!",
+  color: "Render stuff in color",
   input: "A file to read!",
   output: "The file to output!",
   search: "The glob to use for searching (default: '**//*.{js,jsx,ts,tsx}')",
-  artifact: "Would you like to create an artifact file? (Useful for downstream transformation)",
+  artifact: `Would you like to create an artifact file?
+(Useful for downstream transformation)`,
   ignore: "Files to ignore when searching, can be specified multiple times"
 };
 var CONFIG_DEFAULTS = {
+  color: true,
   ignore: [
     "**/node_modules/**",
     "**/coverage/**",
@@ -463,7 +471,6 @@ var CONFIG_DEFAULTS = {
   ],
   search: "**/*.{js,jsx,ts,tsx}"
 };
-var HELP = generateHelp(package_default.name, HELP_CONFIG, YARGS_CONFIG);
 
 // src/cli.js
 var parsePackageName = (y) => {
@@ -564,7 +571,9 @@ var prepareMetaFiles = curry4(
     )
   )(commentedFiles)
 );
-var processHelpOrRun = (x) => x.help || !x.input || !x.output ? resolve(HELP) : runner(x);
+var processHelpOrRun = (config) => {
+  return config.help || !config.input || !config.output ? resolve(config.HELP) : runner(config);
+};
 var runner = ({
   input,
   output,
@@ -706,12 +715,21 @@ var runner = ({
     map6(K3(`Wrote to ${outputDir}/monodoc-generated.json`))
   )(pkgJson);
 };
-var monodoc = pipe6(
-  slice4(2, Infinity),
-  parser(YARGS_CONFIG),
-  processHelpOrRun
+var { name: $NAME, description: $DESC } = package_default;
+var monodoc = curry4(
+  (cancel, argv) => pipe6(
+    slice4(2, Infinity),
+    configurate(
+      YARGS_CONFIG,
+      CONFIG_DEFAULTS,
+      HELP_CONFIG,
+      { name: $NAME, description: $DESC }
+    ),
+    chain2(processHelpOrRun)
+  )(argv)
 );
 
 // src/executable.js
 import { fork } from "fluture";
-fork(console.error)(console.log)(monodoc(process.argv));
+fork(console.error)(console.log)(monodoc(() => {
+}, process.argv));

@@ -1,5 +1,6 @@
 // import { cwd } from 'node:process'
 import { join, identity as I, pipe, map, propOr } from 'ramda'
+import stripAnsi from 'strip-ansi'
 import { fork } from 'fluture'
 import { flexeca } from 'file-system'
 
@@ -12,7 +13,7 @@ const goodrun = (args, expectation = I) =>
       fork(done)(z => {
         expectation(z)
         expect(z).toBeTruthy()
-        expect(z).toMatchSnapshot()
+        expect(stripAnsi(z)).toMatchSnapshot()
         done()
       })
     )(args)

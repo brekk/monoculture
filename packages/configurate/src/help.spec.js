@@ -62,8 +62,13 @@ test('generateHelp - good nonsense', () => {
     snorbles: 'borflak neue neue',
     skurpskorps: 'scurr scurr',
   }
-  const GENERATED_HELP = generateHelp(true, 'hochopepa', HELP_CONFIG, CONFIG)
-  expect(stripAnsi(GENERATED_HELP)).toEqual(`hochopepa
+  const GENERATED_HELP = generateHelp(
+    true,
+    { name: 'hochopepa' },
+    HELP_CONFIG,
+    CONFIG
+  )
+  expect(stripAnsi(GENERATED_HELP)).toEqual(` hochopepa 
 
   -g / --grables
   \tqualdal smungobal

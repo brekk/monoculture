@@ -21,31 +21,25 @@ export const showHelpWhen = curry(
 )
 
 export const configurateWithOptions = curry(
-  (
-    { check = alwaysFalse },
-    yargsConfig,
-    configDefaults,
-    helpConfig,
-    name,
-    argv
-  ) => {
-    const help = ['help']
-    const updatedConfig = mergeRight(yargsConfig, {
-      alias: mergeRight(yargsConfig.alias, { help: ['h'] }),
-      boolean: !yargsConfig.boolean
-        ? help
-        : yargsConfig.boolean.includes('help')
-        ? yargsConfig.boolean
-        : yargsConfig.boolean.concat(help),
+  ({ check = alwaysFalse }, yargsConf, defaults, help, details, argv) => {
+    const $help = ['help']
+    const { boolean: $yaBool } = yargsConf
+    const updatedConfig = mergeRight(yargsConf, {
+      alias: mergeRight(yargsConf.alias, { help: ['h'] }),
+      boolean: !$yaBool
+        ? $help
+        : $yaBool.includes('help')
+        ? $yaBool
+        : $yaBool.concat(help),
     })
     return pipe(
       parse(updatedConfig),
       raw => {
-        const merged = { ...configDefaults, ...raw }
+        const merged = { ...defaults, ...raw }
         const HELP = generateHelp(
           merged.color || false,
-          name,
-          helpConfig,
+          details,
+          help,
           updatedConfig
         )
         return { ...merged, HELP }
@@ -87,7 +81,6 @@ export const configFileWithOptionsAndCancel = curry((cancel, opts) => {
     refF = pipe(finder, chain(readFileWithCancel(cancel)))(searchspace)
   }
   const transform = wrapTransformer ? map(transformer) : transformer
-
   return pipe(transform)(refF)
 })
 

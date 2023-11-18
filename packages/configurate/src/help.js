@@ -1,5 +1,6 @@
 import { Chalk } from 'chalk'
 import {
+  when,
   applySpec,
   __ as $,
   concat,
@@ -32,9 +33,18 @@ export const failIfMissingFlag = curry((env, k, raw) =>
   env !== 'production' && raw === '???' ? invalidHelpConfig(k) : raw
 )
 
+const pad = z => ` ${z} `
+
 export const generateHelp = curry(
-  (showColor, name, helpConfig, yargsConfig) => {
+  (showColor, $details, helpConfig, yargsConfig) => {
+    const {
+      showName = true,
+      banner: $banner = '',
+      name: $name,
+      description: $desc = '',
+    } = $details
     const chalk = new Chalk({ level: showColor ? 2 : 0 })
+    const nameStyler = when(() => showColor, pipe(pad, chalk.inverse))
     return pipe(
       propOr({}, 'alias'),
       toPairs,
@@ -58,7 +68,10 @@ export const generateHelp = curry(
         )(k)
       ),
       join('\n\n'),
-      z => `${name}\n\n${z}`
+      z =>
+        `${$banner ? $banner + '\n' : ''}${showName ? nameStyler($name) : ''}${
+          $desc ? '\n\n' + $desc : ''
+        }\n\n${z}`
     )(yargsConfig)
   }
 )

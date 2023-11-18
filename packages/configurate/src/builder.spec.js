@@ -25,7 +25,7 @@ test('configurateWithOptions', done => {
     { alias: { yo: ['y'] } },
     { yo: 'yes' },
     { yo: 'This is a yo flag, young hopper', help: 'help!' },
-    'barksdale',
+    { name: 'barksdale' },
     ['-y', 'hey']
   )
   fork(done)(x => {
@@ -45,7 +45,7 @@ test('configurateWithOptions - with help boolean', done => {
     { alias: { yo: ['y'] }, boolean: ['help'] },
     { yo: 'yes' },
     { yo: 'This is a yo flag, young hopper', help: 'help!' },
-    'barksdale',
+    { name: 'barksdale' },
     ['-y', 'hey']
   )
   fork(done)(x => {
@@ -65,7 +65,7 @@ test('configurateWithOptions - with other booleans', done => {
     { alias: { yo: ['y'] }, boolean: ['yo'] },
     { yo: true },
     { yo: 'yo flag', help: 'help!' },
-    'barksdale',
+    { name: 'barksdale' },
     ['-y']
   )
   fork(done)(x => {

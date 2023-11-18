@@ -15,6 +15,9 @@ exports[`CONFIG 1`] = `
       "similar",
       "a",
     ],
+    "color": [
+      "k",
+    ],
     "dropJSKeywords": [
       "j",
     ],
@@ -58,6 +61,7 @@ exports[`CONFIG 1`] = `
     "dropJSKeywords",
     "dropTSKeywords",
     "fun",
+    "color",
   ],
   "configuration": {
     "strip-aliased": true,
@@ -71,6 +75,7 @@ exports[`CONFIG 1`] = `
 exports[`DEFAULT_CONFIG 1`] = `
 {
   "assumeSimilarWords": true,
+  "color": true,
   "dropImports": true,
   "dropJSKeywords": true,
   "dropStrings": true,
@@ -92,6 +97,7 @@ exports[`DEFAULT_CONFIG 1`] = `
 exports[`HELP_CONFIG 1`] = `
 {
   "assumeSimilarWords": "Should we attempt to infer whether words are similar?",
+  "color": "Render things in glorious color!",
   "dropJSKeywords": "Should JS keywords be dropped? (default: true)",
   "dropStrings": "Should strings be retained or removed?",
   "dropTSKeywords": "Should TS keywords be dropped? (default: true)",

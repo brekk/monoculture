@@ -1,4 +1,6 @@
 import { cwd } from 'node:process'
+import PKG from '../package.json'
+import { configurate } from 'configurate'
 import { basename, join as pathJoin, dirname } from 'node:path'
 import {
   fromPairs,
@@ -41,7 +43,7 @@ import {
 import { parseFile } from './parse'
 import { stripRelative, j2 } from './text'
 import { commentToMarkdown } from './renderer'
-import { HELP, YARGS_CONFIG, parser, CONFIG_DEFAULTS } from './config'
+import { HELP_CONFIG, YARGS_CONFIG, CONFIG_DEFAULTS } from './config'
 import { slug, stripLeadingHyphen } from './comment'
 
 const parsePackageName = y => {
@@ -157,8 +159,11 @@ const prepareMetaFiles = curry((outputDir, workspace, commentedFiles) =>
   )(commentedFiles)
 )
 
-const processHelpOrRun = x =>
-  x.help || !x.input || !x.output ? resolve(HELP) : runner(x)
+const processHelpOrRun = config => {
+  return config.help || !config.input || !config.output
+    ? resolve(config.HELP)
+    : runner(config)
+}
 
 const runner = ({
   input,
@@ -304,8 +309,17 @@ const runner = ({
   )(pkgJson)
 }
 
-export const monodoc = pipe(
-  slice(2, Infinity),
-  parser(YARGS_CONFIG),
-  processHelpOrRun
+const { name: $NAME, description: $DESC } = PKG
+export const monodoc = curry((cancel, argv) =>
+  pipe(
+    slice(2, Infinity),
+    configurate(
+      YARGS_CONFIG,
+      CONFIG_DEFAULTS,
+      HELP_CONFIG,
+
+      { name: $NAME, description: $DESC }
+    ),
+    chain(processHelpOrRun)
+  )(argv)
 )

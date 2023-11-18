@@ -1,6 +1,4 @@
-import pkg from '../package.json'
 import { curry } from 'ramda'
-import { generateHelp } from 'configurate'
 import yargsParser from 'yargs-parser'
 
 // parser :: YargsConfig -> List String -> Object
@@ -13,7 +11,9 @@ export const YARGS_CONFIG = {
     search: ['s'],
     artifact: ['a'],
     ignore: ['g'],
+    color: ['k'],
   },
+  boolean: ['color'],
   configuration: {
     'strip-aliased': true,
   },
@@ -21,15 +21,17 @@ export const YARGS_CONFIG = {
 
 export const HELP_CONFIG = {
   help: 'This text!',
+  color: 'Render stuff in color',
   input: 'A file to read!',
   output: 'The file to output!',
   search: "The glob to use for searching (default: '**//*.{js,jsx,ts,tsx}')",
-  artifact:
-    'Would you like to create an artifact file? (Useful for downstream transformation)',
+  artifact: `Would you like to create an artifact file?
+(Useful for downstream transformation)`,
   ignore: 'Files to ignore when searching, can be specified multiple times',
 }
 
 export const CONFIG_DEFAULTS = {
+  color: true,
   ignore: [
     '**/node_modules/**',
     '**/coverage/**',
@@ -39,5 +41,3 @@ export const CONFIG_DEFAULTS = {
   ],
   search: '**/*.{js,jsx,ts,tsx}',
 }
-
-export const HELP = generateHelp(pkg.name, HELP_CONFIG, YARGS_CONFIG)

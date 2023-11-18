@@ -1,3 +1,4 @@
+import PKG from '../package.json'
 import { configurate } from 'configurate'
 import { trace } from 'xtrace'
 import { chain, addIndex, curry, map, pipe, split, trim } from 'ramda'
@@ -6,7 +7,7 @@ import { readFile } from 'file-system'
 import { fork } from 'fluture'
 
 // import { mapSnd, rejectSnd } from './tuple'
-import { CONFIG, DEFAULT_CONFIG, HELP_CONFIG } from './config'
+import { BW_LOGO, CONFIG, DEFAULT_CONFIG, HELP_CONFIG } from './config'
 import { robotTouristReporter } from './reporter'
 import { robotTourist } from './core'
 // import { replaceNoise } from './source-matcher'
@@ -28,9 +29,14 @@ const cli = ({ fun: $fun, _: [$file], limit: $wordlimit, ...$config }) =>
     )
   )($file)
 
+const { name: $NAME, description: $DESC } = PKG
 pipe(
-  configurate(CONFIG, DEFAULT_CONFIG, HELP_CONFIG, 'robot-tourist'),
-  map(trace('raw config')),
+  configurate(CONFIG, DEFAULT_CONFIG, HELP_CONFIG, {
+    name: $NAME,
+    description: $DESC,
+    banner: BW_LOGO,
+  }),
+  map(trace('config')),
   chain(cli),
   // eslint-disable-next-line no-console
   fork(console.error)(console.log)
