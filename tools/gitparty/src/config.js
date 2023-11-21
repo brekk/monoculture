@@ -56,41 +56,39 @@ export const HELP_CONFIG = {
   collapseAuthors:
     'Merge commits if the authors are the same and commit dates are the same',
   excludeMergeCommits: 'Exclude merge commits from the results',
-  filter: `Filter commits based on a simple 'key:value' / 'key:value#key2:value2' base syntax:
-\`-f "hash:80ca7f7" / -f "date:20-05-2018"\`
+  filter: c => {
+    const { yellow: y, bold: d, cyan: n } = c
+    return `Filter commits based on a simple '${y('key')}:${n('value')}' / '${y(
+      'key'
+    )}:${n('value')}#${y('key2')}:${n('value2')}' base syntax:
+\`-f "${y('hash')}:${n('80ca7f7')}" / -f "${y('date')}:${n('20-05-2018')}"\`
 \tLookup by exact string matching (default)
-\`-f "subject:fix~"\`
+\`-f "${y('subject')}:${n('fix~')}"\`
 \tLookup by looser indexOf matching when there is a tilde "~" character at the end of the value
-\`-f "subject:fix~#date:20-05-2018"\`
+\`-f "${y('subject')}:${n('fix~')}#${y('date')}:${n('20-05-2018')}"\`
 \tLookup with multiple facets, separated by a hash "#" symbol
-\`-f "author:brekk"\`
+\`-f "${y('author')}:${n('brekk')}"\`
 \tWhen filtering by author, the alias lookup (if aliases have been defined) is used
-\`-f "files:**/src/*.spec.js"\`
+\`-f "${y('files')}:${n('**/src/*.spec.js')}"\`
 \tWhen there are asterisks present in the value side (after the ":") and the key is an array, glob-style matching is performed
-\`-f "analysis.config:true"\`
-\tWhen there is a period "." in the key, nested-key lookups will be performed
-\`-f "x:true" / -f "x:false"\`
-\tWhen the value is either the literal string "true" or "false", it will be coerced into a boolean`,
+\`-f "${y('x')}:${n('true')}" / -f "${y('x')}:${n('false')}"\`
+\tWhen the value is either the literal string "true" or "false", it will be coerced into a boolean
+\`-f "${y('analysis.config')}:${n('true')}"\`
+\tWhen there is a period "." in the key, nested-key lookups will be performed`
+  },
   timezone: 'Set the timezone you want to see results in. Defaults to UTC',
   aliases:
     'Define author aliases (useful if authors do not merge under consistent git `user.name`s / `user.email`s)',
 }
 
 export const DEFAULT_CONFIG_FILE = {
-  gitpartyrc: {
-    key: 'G',
-    color: 'bgRed',
-    matches: ['**/.gitpartyrc*', '**/.gitpartyrc'],
+  patterns: {
+    gitpartyrc: {
+      key: 'G',
+      color: 'bgRed',
+      matches: ['**/.gitpartyrc*', '**/.gitpartyrc'],
+    },
   },
   collapseAuthors: false,
   timezone: 'UTC',
 }
-export const MAKE_A_GITPARTYRC_FILE = c =>
-  `Unable to find a .gitpartyrc file! You can create one with \`${c.yellow(
-    'gitparty --init'
-  )}\``
-
-export const THIS_IS_NOT_A_GIT_REPO = c =>
-  `gitparty only works in git repositories! Did you mean to \`${c.yellow(
-    'git init'
-  )}\` first?`

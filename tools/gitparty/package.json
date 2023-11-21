@@ -10,6 +10,8 @@
   "private": true,
   "dependencies": {
     "climate": "workspace:packages/climate",
+    "date-fns": "^2.30.0",
+    "date-fns-tz": "^2.0.0",
     "file-system": "workspace:packages/file-system",
     "fluture": "^14.0.0",
     "gitlog": "^4.0.8",

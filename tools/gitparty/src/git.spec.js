@@ -1,11 +1,11 @@
-import { log } from './git'
+import { gitlog } from './git'
 import { fork } from 'fluture'
 
-test('git', done => {
-  expect(log).toBeTruthy()
+test('gitlog', done => {
+  expect(gitlog).toBeTruthy()
   fork(done)(x => {
     expect(x).toBeTruthy()
     console.log('XX', x)
     done()
-  })(log({ repo: __dirname }))
+  })(gitlog({ repo: __dirname }))
 })

@@ -1,0 +1,24 @@
+config:
+  key: C
+  color: bgCyan
+  matches:
+  - \**/package-scripts*
+  - \**/package.json
+  - \**/yarn.lock
+packages:
+  key: P
+  color: bgGreen
+  matches:
+  - packages/**
+tools:
+  key: T
+  color: bgYellow
+  matches:
+  - tools/**
+shared:
+  key: S
+  color: bgRed
+  matches:
+  - shared/**
+collapseAuthors: false
+timezone: utc

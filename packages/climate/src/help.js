@@ -1,5 +1,7 @@
 import { Chalk } from 'chalk'
 import {
+  is,
+  always as K,
   when,
   applySpec,
   __ as $,
@@ -44,9 +46,10 @@ export const generateHelp = curry(
       banner = '',
     } = $details
     const chalk = new Chalk({ level: showColor ? 2 : 0 })
+    const doShowColor = K(showColor)
     const dynaBanner = banner && typeof banner === 'function'
     const $banner = dynaBanner ? banner(chalk) : banner
-    const nameStyler = when(() => showColor, pipe(pad, chalk.inverse))
+    const nameStyler = when(doShowColor, pipe(pad, chalk.inverse))
     return pipe(
       propOr({}, 'alias'),
       toPairs,
@@ -56,13 +59,18 @@ export const generateHelp = curry(
             flags: pipe(
               x => [x],
               concat(v),
-              map(ifElse(pipe(length, equals(1)), shortFlag, longFlag)),
-              map(chalk.green),
+              map(
+                pipe(
+                  ifElse(pipe(length, equals(1)), shortFlag, longFlag),
+                  chalk.green
+                )
+              ),
               join(' / ')
             ),
             description: pipe(
               propOr('???', $, helpConfig),
-              failIfMissingFlag(process.env.NODE_ENV, k)
+              failIfMissingFlag(process.env.NODE_ENV, k),
+              when(is(Function), fn => fn(chalk))
             ),
           }),
           ({ flags, description }) =>

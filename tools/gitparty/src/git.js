@@ -1,14 +1,15 @@
 import { curry } from 'ramda'
-import gitlog from 'gitlog'
+import GLOG from 'gitlog'
 import { Future } from 'fluture'
+const { default: glog } = GLOG
 
 export const NO_OP = () => {}
 
-export const logWithCancel = curry((cancel, opts) =>
+export const gitlogWithCancel = curry((cancel, opts) =>
   Future((bad, good) => {
-    gitlog(opts, (e, data) => (e ? bad(e) : good(data)))
+    glog(opts, (e, data) => (e ? bad(e) : good(data)))
     return cancel
   })
 )
 
-export const log = logWithCancel(NO_OP)
+export const gitlog = gitlogWithCancel(NO_OP)
