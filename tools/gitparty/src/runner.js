@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { configFileWithCancel, configurate } from 'configurate'
+import { configFileWithCancel, configurate } from 'climate'
 import { Chalk } from 'chalk'
 import { mapRej, resolve } from 'fluture'
 import { writeFileWithConfigAndCancel } from 'file-system'

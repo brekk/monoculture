@@ -10,7 +10,7 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "configurate": "workspace:packages/configurate",
+    "climate": "workspace:packages/climate",
     "envtrace": "^0.0.2",
     "fluture": "^14.0.0",
     "monorail": "workspace:packages/monorail",

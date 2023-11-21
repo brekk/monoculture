@@ -24,8 +24,9 @@ module.exports = {
             // use :read !./tools/spacework/list-workspaces.cjs
             [
               '.',
+
               'apps/docs',
-              'packages/configurate',
+              'packages/climate',
               'packages/file-system',
               'packages/monocle',
               'packages/monorail',
@@ -33,10 +34,10 @@ module.exports = {
               'shared/eslint-config-monoculture',
               'shared/jest-config',
               'shared/monoculture-tsconfig',
+              'tools/gitparty',
               'tools/monodoc',
-              'tools/enscribe',
-              'tools/superorganism',
               'tools/spacework',
+              'tools/superorganism',
             ]
           ),
           'sync scripts for all the files'

@@ -21,7 +21,7 @@ import {
   uniq,
   tap as tap2
 } from "ramda";
-import { configurate } from "configurate";
+import { configurate } from "climate";
 import { interpret } from "file-system";
 
 // src/trace.js
@@ -41,7 +41,7 @@ var package_default = {
   private: true,
   dependencies: {
     chalk: "^5.3.0",
-    configurate: "workspace:packages/configurate",
+    climate: "workspace:packages/climate",
     "dotenv-cli": "^7.3.0",
     envtrace: "^0.0.2",
     "file-system": "workspace:packages/file-system",

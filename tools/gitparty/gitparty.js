@@ -2,7 +2,7 @@
 
 // src/runner.js
 import path from "node:path";
-import { configFileWithCancel, configurate } from "configurate";
+import { configFileWithCancel, configurate } from "climate";
 import { Chalk } from "chalk";
 import { mapRej, resolve } from "fluture";
 import { writeFileWithConfigAndCancel } from "file-system";
@@ -106,7 +106,7 @@ var package_default = {
   license: "ISC",
   private: true,
   dependencies: {
-    configurate: "workspace:packages/configurate",
+    climate: "workspace:packages/climate",
     "file-system": "workspace:packages/file-system",
     fluture: "^14.0.0",
     gitlog: "^4.0.8",

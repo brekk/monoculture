@@ -1,5 +1,5 @@
 import PKG from '../package.json'
-import { configurate } from 'configurate'
+import { configurate } from 'climate'
 import { trace } from 'xtrace'
 import { chain, addIndex, curry, map, pipe, split, trim } from 'ramda'
 import yargsParser from 'yargs-parser'

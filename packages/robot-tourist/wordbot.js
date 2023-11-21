@@ -14,7 +14,7 @@ var package_default = {
   private: true,
   dependencies: {
     "change-case": "5.0.0",
-    configurate: "workspace:packages/configurate",
+    climate: "workspace:packages/climate",
     "file-system": "workspace:packages/file-system",
     ramda: "^0.29.1",
     stemmer: "^2.0.1"
@@ -45,7 +45,7 @@ var package_default = {
 };
 
 // src/cli.js
-import { configurate } from "configurate";
+import { configurate } from "climate";
 import { trace as trace3 } from "xtrace";
 import { chain as chain2, addIndex as addIndex2, curry as curry6, map as map5, pipe as pipe5, split as split3, trim as trim2 } from "ramda";
 import yargsParser2 from "yargs-parser";

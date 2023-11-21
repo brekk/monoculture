@@ -1,6 +1,6 @@
 import { cwd } from 'node:process'
 import PKG from '../package.json'
-import { configurate } from 'configurate'
+import { configurate } from 'climate'
 import { basename, join as pathJoin, dirname } from 'node:path'
 import {
   fromPairs,

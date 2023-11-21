@@ -11,7 +11,7 @@
   "private": true,
   "dependencies": {
     "change-case": "5.0.0",
-    "configurate": "workspace:packages/configurate",
+    "climate": "workspace:packages/climate",
     "file-system": "workspace:packages/file-system",
     "ramda": "^0.29.1",
     "stemmer": "^2.0.1"

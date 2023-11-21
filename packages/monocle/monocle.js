@@ -74,7 +74,7 @@ var monoprocessor = curry(
 );
 
 // src/cli.js
-import { configurate, configFile } from "configurate";
+import { configurate, configFile } from "climate";
 
 // package.json
 var package_default = {
@@ -89,7 +89,7 @@ var package_default = {
   license: "ISC",
   private: true,
   dependencies: {
-    configurate: "workspace:packages/configurate",
+    climate: "workspace:packages/climate",
     envtrace: "^0.0.2",
     fluture: "^14.0.0",
     monorail: "workspace:packages/monorail",

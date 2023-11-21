@@ -82,7 +82,7 @@ import {
 
 // src/log.js
 import { complextrace } from "envtrace";
-var log = complextrace("configurate", ["help", "builder", "info"]);
+var log = complextrace("climate", ["help", "builder", "info"]);
 
 // src/parser.js
 import { curry as curry2 } from "ramda";
@@ -132,7 +132,7 @@ var configFileWithCancel = curry3((cancel, opts) => {
   const defOpts = !optString ? opts : {};
   const {
     findUp: findUpOpts = {},
-    ns = "configurate",
+    ns = "climate",
     wrapTransformer = true,
     json = true,
     template = defaultNameTemplate,

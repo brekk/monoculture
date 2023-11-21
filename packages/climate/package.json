@@ -1,7 +1,7 @@
 {
-  "name": "configurate",
+  "name": "climate",
   "version": "0.0.0",
-  "description": "Tooling to configure all-the-things",
+  "description": "CLI utilities, friend",
   "exports": [
     "./configurate.js"
   ],

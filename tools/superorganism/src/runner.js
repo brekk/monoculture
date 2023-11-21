@@ -16,7 +16,7 @@ import {
   uniq,
   tap,
 } from 'ramda'
-import { configurate } from 'configurate'
+import { configurate } from 'climate'
 import { interpret } from 'file-system'
 import { log } from './trace'
 import { recurse } from './recursive'

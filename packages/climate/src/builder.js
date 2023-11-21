@@ -61,7 +61,7 @@ export const configFileWithCancel = curry((cancel, opts) => {
   const defOpts = !optString ? opts : {}
   const {
     findUp: findUpOpts = {},
-    ns = 'configurate',
+    ns = 'climate',
     wrapTransformer = true,
     json = true,
     template = defaultNameTemplate,

@@ -4880,6 +4880,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"climate@workspace:packages/climate":
+  version: 0.0.0-use.local
+  resolution: "climate@workspace:packages/climate"
+  dependencies:
+    add: "npm:^2.0.6"
+    chalk: "npm:^5.3.0"
+    configurate: "npm:^0.1.4"
+    cosmiconfig: "npm:^8.3.6"
+    dotenv-cli: "npm:^7.3.0"
+    envtrace: "npm:^0.0.2"
+    eslint: "npm:^8.53.0"
+    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
+    eslint-plugin-prettier: "npm:^5.0.1"
+    find-up: "npm:^6.3.0"
+    jest: "npm:^29.7.0"
+    prettier: "npm:^3.0.3"
+    ramda: "npm:^0.29.1"
+    strip-ansi: "npm:^7.1.0"
+    workspace: "npm:^0.0.1-preview.1"
+  languageName: unknown
+  linkType: soft
+
 "clipboardy@npm:1.2.2":
   version: 1.2.2
   resolution: "clipboardy@npm:1.2.2"
@@ -5131,28 +5153,6 @@ __metadata:
   checksum: 6b79f9f0cfbb5e3ecc3321f68cba541f0ad67510deca0dfbcb2d380cf6a61d477cf064835a29f2d5b87a6d1ddf5ef0b305c035f8cfadf45088008573d704e296
   languageName: node
   linkType: hard
-
-"configurate@workspace:packages/configurate":
-  version: 0.0.0-use.local
-  resolution: "configurate@workspace:packages/configurate"
-  dependencies:
-    add: "npm:^2.0.6"
-    chalk: "npm:^5.3.0"
-    configurate: "npm:^0.1.4"
-    cosmiconfig: "npm:^8.3.6"
-    dotenv-cli: "npm:^7.3.0"
-    envtrace: "npm:^0.0.2"
-    eslint: "npm:^8.53.0"
-    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
-    eslint-plugin-prettier: "npm:^5.0.1"
-    find-up: "npm:^6.3.0"
-    jest: "npm:^29.7.0"
-    prettier: "npm:^3.0.3"
-    ramda: "npm:^0.29.1"
-    strip-ansi: "npm:^7.1.0"
-    workspace: "npm:^0.0.1-preview.1"
-  languageName: unknown
-  linkType: soft
 
 "constant-case@npm:^3.0.4":
   version: 3.0.4
@@ -8130,7 +8130,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "gitparty@workspace:tools/gitparty"
   dependencies:
-    configurate: "workspace:packages/configurate"
+    climate: "workspace:packages/climate"
     dotenv-cli: "npm:^7.3.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     file-system: "workspace:packages/file-system"
@@ -11974,7 +11974,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monocle@workspace:packages/monocle"
   dependencies:
-    configurate: "workspace:packages/configurate"
+    climate: "workspace:packages/climate"
     dotenv-cli: "npm:^7.3.0"
     envtrace: "npm:^0.0.2"
     esbuild: "npm:^0.19.5"
@@ -12024,7 +12024,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monodoc@workspace:tools/monodoc"
   dependencies:
-    configurate: "workspace:packages/configurate"
+    climate: "workspace:packages/climate"
     dotenv: "npm:^16.3.1"
     dotenv-cli: "npm:^7.3.0"
     envtrace: "npm:^0.0.2"
@@ -14222,7 +14222,7 @@ __metadata:
   resolution: "robot-tourist@workspace:packages/robot-tourist"
   dependencies:
     change-case: "npm:5.0.0"
-    configurate: "workspace:packages/configurate"
+    climate: "workspace:packages/climate"
     dotenv-cli: "npm:^7.3.0"
     esbuild: "npm:^0.19.5"
     eslint: "npm:^8.53.0"
@@ -15188,7 +15188,7 @@ __metadata:
   resolution: "superorganism@workspace:tools/superorganism"
   dependencies:
     chalk: "npm:^5.3.0"
-    configurate: "workspace:packages/configurate"
+    climate: "workspace:packages/climate"
     dotenv-cli: "npm:^7.3.0"
     envtrace: "npm:^0.0.2"
     esbuild: "npm:^0.19.5"

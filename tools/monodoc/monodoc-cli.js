@@ -16,7 +16,7 @@ var package_default = {
   private: true,
   bin: "./monodoc-cli.js",
   dependencies: {
-    configurate: "workspace:packages/configurate",
+    climate: "workspace:packages/climate",
     "file-system": "workspace:packages/file-system",
     fluture: "^14.0.0",
     ramda: "^0.29.1"
@@ -48,7 +48,7 @@ var package_default = {
 };
 
 // src/cli.js
-import { configurate } from "configurate";
+import { configurate } from "climate";
 import { basename as basename2, join as pathJoin, dirname } from "node:path";
 import {
   fromPairs as fromPairs2,
