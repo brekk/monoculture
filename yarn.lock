@@ -5141,6 +5141,7 @@ __metadata:
     configurate: "npm:^0.1.4"
     cosmiconfig: "npm:^8.3.6"
     dotenv-cli: "npm:^7.3.0"
+    envtrace: "npm:^0.0.2"
     eslint: "npm:^8.53.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     eslint-plugin-prettier: "npm:^5.0.1"
@@ -7555,8 +7556,10 @@ __metadata:
     dotenv-cli: "npm:^7.3.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     execa: "npm:^8.0.1"
+    find-up: "npm:^7.0.0"
     fluture: "npm:^14.0.0"
     jest: "npm:^29.7.0"
+    jest-config: "workspace:shared/jest-config"
     ramda: "npm:^0.29.1"
   languageName: unknown
   linkType: soft
@@ -7673,6 +7676,17 @@ __metadata:
     locate-path: "npm:^7.1.0"
     path-exists: "npm:^5.0.0"
   checksum: 07e0314362d316b2b13f7f11ea4692d5191e718ca3f7264110127520f3347996349bf9e16805abae3e196805814bc66ef4bff2b8904dc4a6476085fc9b0eba07
+  languageName: node
+  linkType: hard
+
+"find-up@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "find-up@npm:7.0.0"
+  dependencies:
+    locate-path: "npm:^7.2.0"
+    path-exists: "npm:^5.0.0"
+    unicorn-magic: "npm:^0.1.0"
+  checksum: e6ee3e6154560bc0ab3bc3b7d1348b31513f9bdf49a5dd2e952495427d559fa48cdf33953e85a309a323898b43fa1bfbc8b80c880dfc16068384783034030008
   languageName: node
   linkType: hard
 
@@ -8101,6 +8115,31 @@ __metadata:
   checksum: 21b912b6b1e48f1e5a50b2292b48df0ff6abeeb0691b161b3d93d84f4ae6b1acd6ae23702e914af7ea5d441c096453cf0f621b72d57893946618d21dd1a1c486
   languageName: node
   linkType: hard
+
+"gitlog@npm:^4.0.8":
+  version: 4.0.8
+  resolution: "gitlog@npm:4.0.8"
+  dependencies:
+    debug: "npm:^4.1.1"
+    tslib: "npm:^2.5.0"
+  checksum: 70b8e0b2f285a34a224699240809c1a0fe33a6ad805f6d1a64053e37ba14e3e5d01ef2951286b883f9c56920e15972c40a506b305706603fb8d046a8279139c0
+  languageName: node
+  linkType: hard
+
+"gitparty@workspace:tools/gitparty":
+  version: 0.0.0-use.local
+  resolution: "gitparty@workspace:tools/gitparty"
+  dependencies:
+    configurate: "workspace:packages/configurate"
+    dotenv-cli: "npm:^7.3.0"
+    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
+    file-system: "workspace:packages/file-system"
+    fluture: "npm:^14.0.0"
+    gitlog: "npm:^4.0.8"
+    jest-config: "workspace:shared/jest-config"
+    ramda: "npm:^0.29.1"
+  languageName: unknown
+  linkType: soft
 
 "glob-parent@npm:^5.1.2":
   version: 5.1.2
@@ -10579,7 +10618,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"locate-path@npm:^7.1.0":
+"locate-path@npm:^7.1.0, locate-path@npm:^7.2.0":
   version: 7.2.0
   resolution: "locate-path@npm:7.2.0"
   dependencies:
@@ -15744,6 +15783,13 @@ __metadata:
   version: 0.1.2
   resolution: "unc-path-regex@npm:0.1.2"
   checksum: bf9c781c4e2f38e6613ea17a51072e4b416840fbe6eeb244597ce9b028fac2fb6cfd3dde1f14111b02c245e665dc461aab8168ecc30b14364d02caa37f812996
+  languageName: node
+  linkType: hard
+
+"unicorn-magic@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "unicorn-magic@npm:0.1.0"
+  checksum: e4ed0de05b0a05e735c7d8a2930881e5efcfc3ec897204d5d33e7e6247f4c31eac92e383a15d9a6bccb7319b4271ee4bea946e211bf14951fec6ff2cbbb66a92
   languageName: node
   linkType: hard
 

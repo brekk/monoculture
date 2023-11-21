@@ -8,7 +8,6 @@ import {
   equals,
   ifElse,
   join,
-  mergeRight,
   length,
   map,
   pipe,
@@ -39,6 +38,7 @@ export const generateHelp = curry(
   (showColor, $details, helpConfig, yargsConfig) => {
     const {
       showName = true,
+      postscript: $postscript = '',
       name: $name,
       description: $desc = '',
       banner = '',
@@ -73,7 +73,7 @@ export const generateHelp = curry(
       z =>
         `${$banner ? $banner + '\n' : ''}${showName ? nameStyler($name) : ''}${
           $desc ? '\n\n' + $desc : ''
-        }\n\n${z}`
+        }\n\n${z}${$postscript ? '\n' + $postscript : ''}`
     )(yargsConfig)
   }
 )

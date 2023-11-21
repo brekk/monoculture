@@ -9,7 +9,6 @@ import {
   equals,
   ifElse,
   join,
-  mergeRight,
   length,
   map,
   pipe,
@@ -30,6 +29,7 @@ var generateHelp = curry(
   (showColor, $details, helpConfig, yargsConfig) => {
     const {
       showName = true,
+      postscript: $postscript = "",
       name: $name,
       description: $desc = "",
       banner = ""
@@ -63,7 +63,7 @@ var generateHelp = curry(
       join("\n\n"),
       (z) => `${$banner ? $banner + "\n" : ""}${showName ? nameStyler($name) : ""}${$desc ? "\n\n" + $desc : ""}
 
-${z}`
+${z}${$postscript ? "\n" + $postscript : ""}`
     )(yargsConfig);
   }
 );
@@ -75,10 +75,14 @@ import {
   identity as I,
   ifElse as ifElse2,
   pipe as pipe2,
-  mergeRight as mergeRight2,
+  mergeRight,
   curry as curry3,
   F as alwaysFalse
 } from "ramda";
+
+// src/log.js
+import { complextrace } from "envtrace";
+var log = complextrace("configurate", ["help", "builder", "info"]);
 
 // src/parser.js
 import { curry as curry2 } from "ramda";
@@ -86,81 +90,79 @@ import yargsParser from "yargs-parser";
 var parse = curry2((opts, args) => yargsParser(args, opts));
 
 // src/builder.js
-import { Future, reject, resolve } from "fluture";
-import { readFileWithCancel } from "file-system";
-import { findUp as __findUp } from "find-up";
+import { reject, resolve, coalesce } from "fluture";
+import { findUpWithCancel, readFileWithCancel } from "file-system";
 var NO_OP = () => {
 };
 var showHelpWhen = curry3(
   (check, parsed) => parsed.help || check(parsed)
 );
-var configurateWithOptions = curry3(
-  ({ check = alwaysFalse }, yargsConf, defaults, help, details, argv) => {
-    const $help = ["help"];
-    const { boolean: $yaBool } = yargsConf;
-    const updatedConfig = mergeRight2(yargsConf, {
-      alias: mergeRight2(yargsConf.alias, { help: ["h"] }),
-      boolean: !$yaBool ? $help : $yaBool.includes("help") ? $yaBool : $yaBool.concat(help)
-    });
-    return pipe2(
-      parse(updatedConfig),
-      (raw) => {
-        const merged = { ...defaults, ...raw };
-        const HELP = generateHelp(
-          merged.color || false,
-          details,
-          help,
-          updatedConfig
-        );
-        return { ...merged, HELP };
-      },
-      ifElse2(showHelpWhen(check), (x) => reject(x.HELP), resolve)
-    )(argv);
-  }
-);
-var configurate = configurateWithOptions({});
-var findUpWithCancel = curry3(
-  (cancel, opts, x) => Future((bad, good) => {
-    __findUp(x, opts).catch(bad).then(good);
-    return cancel;
-  })
-);
-var findUp = findUpWithCancel(NO_OP);
+var configurate = curry3((yargsConf, defaults, help, details, argv) => {
+  const $help = ["help"];
+  const { boolean: $yaBool } = yargsConf;
+  const updatedConfig = mergeRight(yargsConf, {
+    alias: mergeRight(yargsConf.alias, { help: ["h"] }),
+    boolean: !$yaBool ? $help : $yaBool.includes("help") ? $yaBool : $yaBool.concat(help)
+  });
+  const { check = alwaysFalse } = details;
+  return pipe2(
+    parse(updatedConfig),
+    (raw) => {
+      const merged = { ...defaults, ...raw };
+      const HELP = generateHelp(
+        merged.color || false,
+        details,
+        help,
+        updatedConfig
+      );
+      return { ...merged, HELP };
+    },
+    ifElse2(showHelpWhen(check), (x) => reject(x.HELP), resolve)
+  )(argv);
+});
 var defaultNameTemplate = (ns) => [`.${ns}rc`, `.${ns}rc.json`];
-var configFileWithOptionsAndCancel = curry3((cancel, opts) => {
+var configFileWithCancel = curry3((cancel, opts) => {
   let refF;
   const optString = typeof opts === "string";
   if (optString || opts.source) {
-    refF = readFileWithCancel(cancel, opts.source || opts);
+    const source = opts.source || opts;
+    log.builder(`loading directly!`, source);
+    refF = readFileWithCancel(cancel, source);
   }
   const defOpts = !optString ? opts : {};
   const {
-    findUp: findUpOpts,
+    findUp: findUpOpts = {},
     ns = "configurate",
     wrapTransformer = true,
     json = true,
     template = defaultNameTemplate,
-    transformer = json ? JSON.parse : I
+    transformer = json ? JSON.parse : I,
+    optional = false
   } = defOpts;
-  const finder = findUpWithCancel(cancel, findUpOpts);
   const searchspace = template(ns);
   if (!refF) {
-    refF = pipe2(finder, chain(readFileWithCancel(cancel)))(searchspace);
+    log.builder(`looking in...`, searchspace);
+    refF = pipe2(
+      findUpWithCancel(cancel, findUpOpts),
+      chain(readFileWithCancel(cancel)),
+      optional && json ? pipe2(
+        coalesce(() => ({ source: "No config found!" }))(I),
+        map2(JSON.stringify),
+        map2(log.builder("...hey how?"))
+      ) : I
+    )(searchspace);
   }
   const transform = wrapTransformer ? map2(transformer) : transformer;
   return pipe2(transform)(refF);
 });
-var configFile = configFileWithOptionsAndCancel(NO_OP);
+var configFile = configFileWithCancel(NO_OP);
 export {
   NO_OP,
   configFile,
-  configFileWithOptionsAndCancel,
+  configFileWithCancel,
   configurate,
-  configurateWithOptions,
   defaultNameTemplate,
   failIfMissingFlag,
-  findUp,
-  findUpWithCancel,
   generateHelp,
   invalidHelpConfig,
   longFlag,

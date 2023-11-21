@@ -1,13 +1,26 @@
 #!/usr/bin/env node
 
-// src/flexeca.js
-import { pipe, curry, ifElse, propOr } from "ramda";
-import { execa } from "execa";
+// src/find-up.js
 import { Future } from "fluture";
+import { curry } from "ramda";
+import { findUp as __findUp } from "find-up";
+var findUpWithCancel = curry(
+  (cancel, opts, x) => Future((bad, good) => {
+    __findUp(x, opts).catch(bad).then((raw) => raw ? good(raw) : bad(new Error("No config file found!")));
+    return cancel;
+  })
+);
+var findUp = findUpWithCancel(() => {
+});
+
+// src/flexeca.js
+import { pipe, curry as curry2, ifElse, propOr } from "ramda";
+import { execa } from "execa";
+import { Future as Future2 } from "fluture";
 var didFail = propOr(true, "failed");
 var fail = propOr("Something broke", "stderr");
-var flexecaWithCanceller = curry(
-  (cancellation, cmd, args) => new Future((bad, good) => {
+var flexecaWithCanceller = curry2(
+  (cancellation, cmd, args) => new Future2((bad, good) => {
     execa(cmd, args).catch(pipe(fail, (z) => `FAILED: "${z}"`, bad)).then(ifElse(didFail, pipe(fail, bad), good));
     return cancellation;
   })
@@ -17,9 +30,9 @@ var flexeca = flexecaWithCanceller(() => {
 
 // src/fs.js
 import fs from "node:fs";
-import { reduce, F, propOr as propOr2, without, curry as curry2, pipe as pipe2, map, __ as $ } from "ramda";
+import { reduce, F, propOr as propOr2, without, curry as curry3, pipe as pipe2, map, __ as $ } from "ramda";
 import {
-  Future as Future2,
+  Future as Future3,
   chain,
   chainRej,
   isFuture,
@@ -32,20 +45,20 @@ var { constants } = fs;
 var NO_OP = () => {
 };
 var localize = (z) => `./${z}`;
-var readFileWithFormatAndCancel = curry2(
-  (cancel, format, x) => Future2((bad, good) => {
+var readFileWithFormatAndCancel = curry3(
+  (cancel, format, x) => Future3((bad, good) => {
     fs.readFile(x, format, (err, data) => err ? bad(err) : good(data));
     return cancel;
   })
 );
 var readFileWithCancel = readFileWithFormatAndCancel($, "utf8");
 var readFile = readFileWithCancel(NO_OP);
-var readJSONFileWithCancel = curry2(
+var readJSONFileWithCancel = curry3(
   (cancel, x) => pipe2(readFileWithCancel(cancel), map(JSON.parse))(x)
 );
 var readJSONFile = readJSONFileWithCancel(NO_OP);
-var readDirWithConfigAndCancel = curry2(
-  (cancel, conf, g) => Future2((bad, good) => {
+var readDirWithConfigAndCancel = curry3(
+  (cancel, conf, g) => Future3((bad, good) => {
     try {
       glob(
         g,
@@ -63,8 +76,8 @@ var readDirWithConfigAndCancel = curry2(
 );
 var readDirWithConfig = readDirWithConfigAndCancel(NO_OP);
 var readDir = readDirWithConfig({});
-var writeFileWithConfigAndCancel = curry2(
-  (cancel, conf, file, content) => new Future2((bad, good) => {
+var writeFileWithConfigAndCancel = curry3(
+  (cancel, conf, file, content) => new Future3((bad, good) => {
     fs.writeFile(file, content, conf, (e) => {
       if (e) {
         bad(e);
@@ -77,8 +90,8 @@ var writeFileWithConfigAndCancel = curry2(
 );
 var writeFileWithConfig = writeFileWithConfigAndCancel(NO_OP);
 var writeFile = writeFileWithConfig({ encoding: "utf8" });
-var removeFileWithConfigAndCancel = curry2(
-  (cancel, options, fd) => new Future2((bad, good) => {
+var removeFileWithConfigAndCancel = curry3(
+  (cancel, options, fd) => new Future3((bad, good) => {
     fs.rm(fd, options, (err) => err ? bad(err) : good(fd));
     return cancel;
   })
@@ -92,7 +105,7 @@ var DEFAULT_REMOVAL_CONFIG = {
   parallel: 10
 };
 var removeFile = removeFileWithConfig(DEFAULT_REMOVAL_CONFIG);
-var removeFilesWithConfigAndCancel = curry2(
+var removeFilesWithConfigAndCancel = curry3(
   (cancel, conf, list) => pipe2(
     map(removeFileWithConfigAndCancel(cancel, without(["parallel"], conf))),
     parallel(propOr2(10, "parallel", conf))
@@ -100,16 +113,16 @@ var removeFilesWithConfigAndCancel = curry2(
 );
 var removeFilesWithConfig = removeFilesWithConfigAndCancel(NO_OP);
 var removeFiles = removeFilesWithConfig(DEFAULT_REMOVAL_CONFIG);
-var mkdir = curry2(
-  (conf, x) => new Future2((bad, good) => {
+var mkdir = curry3(
+  (conf, x) => new Future3((bad, good) => {
     fs.mkdir(x, conf, (err) => err ? bad(err) : good(x));
     return () => {
     };
   })
 );
 var mkdirp = mkdir({ recursive: true });
-var access = curry2(
-  (permissions, filePath) => new Future2((bad, good) => {
+var access = curry3(
+  (permissions, filePath) => new Future3((bad, good) => {
     fs.access(filePath, permissions, (err) => err ? bad(err) : good(true));
     return () => {
     };
@@ -118,7 +131,7 @@ var access = curry2(
 var exists = access(constants.F_OK);
 var readable = access(constants.R_OK);
 var directoryOnly = (filePath) => filePath.slice(0, filePath.lastIndexOf("/"));
-var writeFileWithAutoPath = curry2(
+var writeFileWithAutoPath = curry3(
   (filePath, content) => pipe2(
     directoryOnly,
     (dir) => pipe2(
@@ -128,16 +141,16 @@ var writeFileWithAutoPath = curry2(
     chain(() => writeFile(filePath, content))
   )(filePath)
 );
-var rm = curry2(
-  (conf, x) => new Future2((bad, good) => {
+var rm = curry3(
+  (conf, x) => new Future3((bad, good) => {
     fs.rm(x, conf, (err) => err ? bad(err) : good(x));
     return () => {
     };
   })
 );
 var rimraf = rm({ force: true, recursive: true });
-var ioWithCancel = curry2(
-  (cancel, fn, fd, buffer, offset, len, position) => Future2((bad, good) => {
+var ioWithCancel = curry3(
+  (cancel, fn, fd, buffer, offset, len, position) => Future3((bad, good) => {
     fn(
       fd,
       buffer,
@@ -152,32 +165,32 @@ var ioWithCancel = curry2(
 var io = ioWithCancel(NO_OP);
 var read = io(fs.read);
 var write = io(fs.write);
-var findFile = curry2(
+var findFile = curry3(
   (fn, def, x) => pipe2(
     map(pipe2(fn, mapRej(F))),
     reduce((a, b) => isFuture(a) ? race(a)(b) : b, def)
   )(x)
 );
-var readAnyOr = curry2((def, format, x) => findFile(readFile, def, x));
+var readAnyOr = curry3((def, format, x) => findFile(readFile, def, x));
 var readAny = readAnyOr(null);
 var requireAnyOr = findFile(readable);
 
+// src/interpret.js
+import { Future as Future4 } from "fluture";
+var interpret = (filepath) => Future4((bad, good) => {
+  import(filepath).catch(bad).then(good);
+  return () => {
+  };
+});
+
 // src/path.js
 import { join, normalize } from "node:path";
-import { curry as curry3 } from "ramda";
-var pathRelativeTo = curry3((pwd, x) => {
+import { curry as curry4 } from "ramda";
+var pathRelativeTo = curry4((pwd, x) => {
   if (typeof pwd !== "string" || typeof x !== "string") {
     throw new Error("Cannot normalize bad paths.");
   }
   return join(pwd, normalize(x));
-});
-
-// src/interpret.js
-import { Future as Future3 } from "fluture";
-var interpret = (filepath) => Future3((bad, good) => {
-  import(filepath).catch(bad).then(good);
-  return () => {
-  };
 });
 export {
   DEFAULT_REMOVAL_CONFIG,
@@ -186,6 +199,8 @@ export {
   directoryOnly,
   exists,
   findFile,
+  findUp,
+  findUpWithCancel,
   flexeca,
   flexecaWithCanceller,
   interpret,

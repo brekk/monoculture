@@ -1,0 +1,12 @@
+{
+  "gitpartyrc": {
+    "key": "G",
+    "color": "bgRed",
+    "matches": [
+      "**/.gitpartyrc*",
+      "**/.gitpartyrc"
+    ]
+  },
+  "collapseAuthors": false,
+  "timezone": "UTC"
+}

@@ -1,11 +1,6 @@
 import { fork } from 'fluture'
 import { map } from 'ramda'
-import {
-  NO_OP,
-  showHelpWhen,
-  configurateWithOptions,
-  configFile,
-} from './builder'
+import { NO_OP, showHelpWhen, configurate, configFile } from './builder'
 /* eslint-disable max-len */
 
 test('NO_OP', () => {
@@ -18,10 +13,9 @@ test('showHelpWhen', () => {
   expect(showHelpWhen(() => false, { help: true })).toBeTruthy()
   expect(showHelpWhen(() => false, {})).toBeFalsy()
 })
-test('configurateWithOptions', done => {
-  expect(configurateWithOptions).toBeTruthy()
-  const confF = configurateWithOptions(
-    {},
+test('configurate', done => {
+  expect(configurate).toBeTruthy()
+  const confF = configurate(
     { alias: { yo: ['y'] } },
     { yo: 'yes' },
     { yo: 'This is a yo flag, young hopper', help: 'help!' },
@@ -38,10 +32,9 @@ test('configurateWithOptions', done => {
     done()
   })(confF)
 })
-test('configurateWithOptions - with help boolean', done => {
-  expect(configurateWithOptions).toBeTruthy()
-  const confF = configurateWithOptions(
-    {},
+test('configurate - with help boolean', done => {
+  expect(configurate).toBeTruthy()
+  const confF = configurate(
     { alias: { yo: ['y'] }, boolean: ['help'] },
     { yo: 'yes' },
     { yo: 'This is a yo flag, young hopper', help: 'help!' },
@@ -58,10 +51,9 @@ test('configurateWithOptions - with help boolean', done => {
     done()
   })(confF)
 })
-test('configurateWithOptions - with other booleans', done => {
-  expect(configurateWithOptions).toBeTruthy()
-  const confF = configurateWithOptions(
-    {},
+test('configurate - with other booleans', done => {
+  expect(configurate).toBeTruthy()
+  const confF = configurate(
     { alias: { yo: ['y'] }, boolean: ['yo'] },
     { yo: true },
     { yo: 'yo flag', help: 'help!' },
@@ -122,4 +114,44 @@ test('configFile - direct file, no transformer', done => {
     expect(x).toEqual(JSON.stringify(TEST_CONF_RAW, null, 2) + '\n')
     done()
   })(confF)
+})
+
+test('configFile - optional', done => {
+  fork(done)(raw => {
+    const { source } = raw
+    expect(source).toEqual('No config found!')
+    done()
+  })(
+    configFile({
+      ns: 'zipzop',
+      optional: true,
+      json: true,
+    })
+  )
+})
+
+test('configFile - optional, barf', done => {
+  fork(done)(raw => {
+    const { source } = raw
+    expect(source).toEqual('No config found!')
+    done()
+  })(
+    configFile({
+      ns: 'zipzop',
+      optional: true,
+      json: true,
+    })
+  )
+})
+
+test('configFile - optional, no barf', done => {
+  fork(raw => {
+    expect(raw.message).toEqual('No config file found!')
+    done()
+  })(done)(
+    configFile({
+      ns: 'zipzop',
+      optional: false,
+    })
+  )
 })
