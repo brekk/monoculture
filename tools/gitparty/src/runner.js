@@ -1,5 +1,11 @@
 import path from 'node:path'
-import { zonedTimeToUtc, utcToZonedTime } from 'date-fns-tz'
+import { parse as parseTime } from 'date-fns'
+import {
+  zonedTimeToUtc,
+  utcToZonedTime,
+  format as formatDate,
+} from 'date-fns-tz'
+import { applyPatternsWithChalk } from './per-commit'
 import { printLegend } from './legend'
 import { trace } from 'xtrace'
 import { configFileWithCancel, configurate } from 'climate'
@@ -15,29 +21,32 @@ import {
 } from 'fluture'
 import { writeFileWithConfigAndCancel, findUpWithCancel } from 'file-system'
 import {
-  zip,
+  F,
+  T,
+  __ as $,
+  always as K,
+  ap,
+  join,
+  chain,
+  cond,
+  curry,
   fromPairs,
   groupBy,
   head,
   identity as I,
   includes,
+  map,
   mergeRight,
   objOf,
+  pipe,
+  prop,
   propOr,
   reject,
+  split,
   startsWith,
   toPairs,
   uniq,
-  __ as $,
-  ap,
-  cond,
-  curry,
-  always as K,
-  map,
-  chain,
-  F,
-  T,
-  pipe,
+  zip,
 } from 'ramda'
 import { canonicalize } from './alias'
 import {
@@ -127,14 +136,17 @@ export const loadGitData = curry((cancel, chalk, data) =>
   )(['.git/index'])
 )
 
-const adjustRelativeTimezone = curry((tz, commit) => {
+const adjustRelativeTimezone = curry((timeZone, preferredFormat, commit) => {
   const { authorDate } = commit
-  const newDate = (
-    tz.toLowerCase() === 'utc'
+  const newDate = pipe(
+    // 2023-11-21 15:58:44 -0800
+    d => parseTime(d, 'yyyy-MM-dd HH:mm:ss XX', new Date()),
+    timeZone.toLowerCase() === 'utc'
       ? zonedTimeToUtc
-      : pipe(zonedTimeToUtc, x => utcToZonedTime(x, tz))
+      : pipe(zonedTimeToUtc, x => utcToZonedTime(x, timeZone)),
+    x => formatDate(x, preferredFormat, { timeZone })
   )(authorDate)
-  commit.authorDate = newDate
+  commit.formattedDate = newDate
   return commit
 })
 const deriveAuthor = curry((lookup, commit) => {})
@@ -152,24 +164,62 @@ const getFiletypes = commit =>
 
 export const processData = curry((chalk, config, data) => {
   return pipe(
-    map(adjustRelativeTimezone(config.timezone)),
     config.excludeMergeCommits
       ? reject(pipe(propOr('', 'subject'), startsWith('Merge')))
       : I,
-    map(getFiletypes),
-    map(raw =>
+    map(
       pipe(
-        x => [x],
-        ap([propOr([], 'status'), propOr([], 'files')]),
-        ([a, z]) => zip(a, z),
-        groupBy(head),
-        objOf('changes'),
-        mergeRight(raw),
-        z => mergeRight(z, { statuses: uniq(z.status) })
-      )(raw)
+        adjustRelativeTimezone(config.timezone, config.dateFormat),
+        getFiletypes,
+        commit =>
+          pipe(
+            x => [x],
+            ap([propOr([], 'status'), propOr([], 'files')]),
+            ([a, z]) => zip(a, z),
+            groupBy(head),
+            objOf('changes'),
+            mergeRight(commit),
+            z => mergeRight(z, { statuses: uniq(z.status) })
+          )(commit)
+        // applyPatternsWithChalk(chalk, config.patterns.matches
+      )
     )
   )(data)
 })
+
+export const printData = curry((chalk, partyFile, config, data) =>
+  pipe(
+    groupBy(pipe(prop('authorDate'), split(' '), head)),
+    map(
+      pipe(
+        map(commit => {
+          const {
+            statuses,
+            filetypes,
+            subject,
+            authorName,
+            abbrevHash,
+            formattedDate,
+          } = commit
+          const matches = applyPatternsWithChalk(
+            chalk,
+            partyFile.patterns,
+            commit
+          )
+          return `\n├─┬────────────────────────────┐\n│ │   ${chalk.red(
+            authorName
+          )} @ ${formattedDate} [${chalk.yellow(
+            abbrevHash
+          )}]  │\n│ │   ${subject}        │  \n│ ╰──${matches}───────────╯\n│`
+        }),
+        join('\n│')
+      )
+    ),
+    toPairs,
+    map(([k, v]) => chalk.inverse(' ' + k + ' ') + '\n│' + v),
+    join('\n')
+  )(data)
+)
 
 export const runner = curry((cancel, argv) => {
   let canon
@@ -204,13 +254,27 @@ export const runner = curry((cancel, argv) => {
         propOr({}, 'patterns'),
         map(v =>
           v?.matches
-            ? mergeRight(v, { fn: chalk[v.color], matches: v.matches })
+            ? mergeRight(v, {
+                fn: Array.isArray(v.color)
+                  ? pipe(
+                      map(c => chalk[c]),
+                      x => raw => pipe.apply(null, x)(raw)
+                    )(v.color)
+                  : chalk[v.color],
+                matches: v.matches,
+              })
             : v
         ),
         // z => [z],
-        printLegend(chalk),
+        patterns =>
+          pipe(printLegend(chalk), legend =>
+            pipe(
+              processData(chalk, config),
+              printData(chalk, { ...partyFile, patterns }, config),
+              z => legend + '\n' + z
+            )(gitlog)
+          )(patterns)
         // ap([printLegend(chalk), processData(chalk, config)])
-        legend => processData(chalk, config, gitlog)
       )(partyFile)
     })
   )(argv)

@@ -1,19 +1,55 @@
 {
-"patterns": {
-  "gitpartyrc": {
-    "key": "G",
-    "color": "bgRed",
-    "matches": [
-      "**/.gitpartyrc*",
-      "**/.gitpartyrc"
-    ]
-  }
+  "patterns": {
+    "apps": {
+      "key": "A",
+      "color": [
+        "black",
+        "bgYellow"
+      ],
+      "matches": [
+        "**/apps/**"
+      ]
+    },
+    "packages": {
+      "key": "P",
+      "color": [
+        "black",
+        "bgGreen"
+      ],
+      "matches": [
+        "**/packages/**"
+      ]
+    },
+    "shared": {
+      "key": "S",
+      "color": "cyan",
+      "matches": [
+        "**/shared/**"
+      ]
+    },
+    "tools": {
+      "key": "T",
+      "color": "red",
+      "matches": [
+        "**/tools/**"
+      ]
+    },
+    "config": {
+      "key": "C",
+      "color": [
+        "black",
+        "bgRed"
+      ],
+      "matches": [
+        "**/package.json",
+        "**/package-scripts.*"
+      ]
+    }
   },
   "collapseAuthors": false,
   "timezone": "UTC",
   "aliases": {
-    "🔥 brekk":
-    [
+    "🔥 brekk": [
       "brekk",
       "Brekk"
     ]

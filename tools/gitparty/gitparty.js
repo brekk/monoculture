@@ -2,19 +2,53 @@
 
 // src/runner.js
 import path from "node:path";
-import { zonedTimeToUtc, utcToZonedTime } from "date-fns-tz";
+import { parse as parseTime } from "date-fns";
+import {
+  zonedTimeToUtc,
+  utcToZonedTime,
+  format as formatDate
+} from "date-fns-tz";
+
+// src/per-commit.js
+import {
+  values,
+  join,
+  curry,
+  pipe,
+  reduce,
+  map,
+  ifElse,
+  always as K
+} from "ramda";
+import mm from "micromatch";
+var checkPatternAgainstCommit = curry(
+  (commit, pattern) => mm.some(commit.files, pattern.matches)
+);
+var applyPatternsWithChalk = curry(
+  (chalk, patterns, commit) => pipe(
+    values,
+    map(
+      ifElse(
+        checkPatternAgainstCommit(commit),
+        (pattern) => pattern.fn(` ${pattern.key} `),
+        K("\u2500\u2534\u2500")
+      )
+    ),
+    join("")
+  )(patterns)
+);
 
 // src/legend.js
-import { pipe, map, toPairs, curry, join } from "ramda";
-var legendBlocks = curry(
-  (chalk, x) => pipe(
+import { pipe as pipe2, map as map2, toPairs, curry as curry2, join as join2 } from "ramda";
+var legendBlocks = curry2(
+  (chalk, x) => pipe2(
     toPairs,
-    map(([k, v]) => chalk.black(`${v.fn(` ${v.key} `)} = ${k}`)),
-    join(" ")
+    map2(([k, v]) => `${v.fn(` ${v.key} `)} = ${k}`),
+    join2(" ")
   )(x)
 );
-var printLegend = curry(
-  (chalk, x) => pipe(legendBlocks(chalk), (y) => `LEGEND: ${y}
+var printLegend = curry2(
+  (chalk, x) => pipe2(legendBlocks(chalk), (y) => `LEGEND: ${y}
 `)(x)
 );
 
@@ -33,34 +67,37 @@ import {
 } from "fluture";
 import { writeFileWithConfigAndCancel, findUpWithCancel } from "file-system";
 import {
-  zip,
+  F,
+  T,
+  __ as $,
+  always as K2,
+  ap,
+  join as join3,
+  chain,
+  cond,
+  curry as curry5,
   fromPairs,
   groupBy,
   head,
   identity as I,
   includes,
+  map as map3,
   mergeRight as mergeRight2,
   objOf,
+  pipe as pipe3,
+  prop,
   propOr,
   reject,
+  split,
   startsWith,
   toPairs as toPairs2,
   uniq,
-  __ as $,
-  ap,
-  cond,
-  curry as curry4,
-  always as K,
-  map as map2,
-  chain,
-  F,
-  T,
-  pipe as pipe2
+  zip
 } from "ramda";
 
 // src/alias.js
-import { curry as curry2, mergeRight } from "ramda";
-var alias = curry2((object, from, to) => {
+import { curry as curry3, mergeRight } from "ramda";
+var alias = curry3((object, from, to) => {
   if (!object[to]) {
     object[to] = from;
   }
@@ -68,12 +105,12 @@ var alias = curry2((object, from, to) => {
     object[from] = object[to];
   }
 });
-var pureAliasedListeners = curry2((subscriber, original, alt, seed) => {
+var pureAliasedListeners = curry3((subscriber, original, alt, seed) => {
   const emitted = mergeRight(seed, { [alt]: original, [original]: original });
   subscriber(emitted);
   return emitted;
 });
-var getAliasFrom = curry2(
+var getAliasFrom = curry3(
   (object, key) => object && object[key] || key
 );
 var canonicalize = (object) => ({
@@ -108,7 +145,8 @@ var YARGS_CONFIG = {
     excludeMergeCommits: ["m"],
     output: ["o"],
     totalCommits: ["n"],
-    aliases: ["a", "alias"]
+    aliases: ["a", "alias"],
+    dateFormat: ["d"]
   },
   boolean: ["excludeMergeCommits", "collapseAuthors", "init"],
   array: ["aliases"]
@@ -132,7 +170,8 @@ var CONFIG_DEFAULTS = {
   ],
   timezone: `UTC`,
   execOptions: { maxBuffer: 1e3 * 1024 },
-  color: true
+  color: true,
+  dateFormat: "HH:mm"
 };
 var HELP_CONFIG = {
   help: "This text!",
@@ -166,7 +205,8 @@ var HELP_CONFIG = {
 	When there is a period "." in the key, nested-key lookups will be performed`;
   },
   timezone: "Set the timezone you want to see results in. Defaults to UTC",
-  aliases: "Define author aliases (useful if authors do not merge under consistent git `user.name`s / `user.email`s)"
+  aliases: "Define author aliases (useful if authors do not merge under consistent git `user.name`s / `user.email`s)",
+  dateFormat: "Express how you want date-fns to format your dates. (default: 'yyyy-MM-dd HH:kk OOOO')"
 };
 var DEFAULT_CONFIG_FILE = {
   patterns: {
@@ -181,13 +221,13 @@ var DEFAULT_CONFIG_FILE = {
 };
 
 // src/git.js
-import { curry as curry3 } from "ramda";
+import { curry as curry4 } from "ramda";
 import GLOG from "gitlog";
 import { Future } from "fluture";
 var { default: glog } = GLOG;
 var NO_OP = () => {
 };
-var gitlogWithCancel = curry3(
+var gitlogWithCancel = curry4(
   (cancel, opts) => Future((bad, good) => {
     glog(opts, (e, data) => e ? bad(e) : good(data));
     return cancel;
@@ -217,6 +257,7 @@ var package_default = {
     "file-system": "workspace:packages/file-system",
     fluture: "^14.0.0",
     gitlog: "^4.0.8",
+    micromatch: "^4.0.5",
     ramda: "^0.29.1"
   },
   devDependencies: {
@@ -240,42 +281,42 @@ var package_default = {
 // src/runner.js
 var j2 = (x) => JSON.stringify(x, null, 2);
 var { name: $NAME, description: $DESC } = package_default;
-var writeInitConfigFileWithCancel = curry4(
-  (cancel, filepath) => pipe2(
+var writeInitConfigFileWithCancel = curry5(
+  (cancel, filepath) => pipe3(
     j2,
     writeFileWithConfigAndCancel(cancel, { encoding: "utf8" }, filepath),
-    map2(K(`Wrote file to "${filepath}"!`))
+    map3(K2(`Wrote file to "${filepath}"!`))
   )(DEFAULT_CONFIG_FILE)
 );
-var loadPartyFile = curry4(
+var loadPartyFile = curry5(
   (cancel, { cwd, color: useColor, config, help, HELP, init }) => {
     const chalk = new Chalk({ level: useColor ? 2 : 0 });
-    return pipe2(
+    return pipe3(
       cond([
         [
-          K(init),
-          () => pipe2(
+          K2(init),
+          () => pipe3(
             writeInitConfigFileWithCancel(cancel),
             swap
           )(path.resolve(cwd, ".gitpartyrc"))
         ],
-        [K(help), K(resolve(HELP))],
+        [K2(help), K2(resolve(HELP))],
         [
           T,
-          pipe2(
+          pipe3(
             log.configFile("trying to load config..."),
             configFileWithCancel(cancel),
-            map2(log.configFile("loaded...")),
+            map3(log.configFile("loaded...")),
             mapRej(
-              pipe2(
+              pipe3(
                 log.configFile("error..."),
                 propOr("", "message"),
                 cond([
                   [
                     includes("No config file found"),
-                    K(GITPARTY_CONFIG_NEEDED(chalk))
+                    K2(GITPARTY_CONFIG_NEEDED(chalk))
                   ],
-                  [startsWith("SyntaxError"), K(CONFIG_NOT_VALID)],
+                  [startsWith("SyntaxError"), K2(CONFIG_NOT_VALID)],
                   [T, I]
                 ])
               )
@@ -290,55 +331,101 @@ var loadPartyFile = curry4(
     );
   }
 );
-var loadGitData = curry4(
-  (cancel, chalk, data) => pipe2(
+var loadGitData = curry5(
+  (cancel, chalk, data) => pipe3(
     log.config("searching for .git/index"),
     findUpWithCancel(cancel, {}),
-    map2(log.config("git found, path...")),
-    map2(path.dirname),
+    map3(log.config("git found, path...")),
+    map3(path.dirname),
     chain(
       (repo) => repo ? gitlogWithCancel(cancel, { repo }) : rejectF(THIS_IS_NOT_A_GIT_REPO(chalk))
     ),
-    map2(pipe2(objOf("gitlog"), mergeRight2(data)))
+    map3(pipe3(objOf("gitlog"), mergeRight2(data)))
   )([".git/index"])
 );
-var adjustRelativeTimezone = curry4((tz, commit) => {
+var adjustRelativeTimezone = curry5((timeZone, preferredFormat, commit) => {
   const { authorDate } = commit;
-  const newDate = (tz.toLowerCase() === "utc" ? zonedTimeToUtc : pipe2(zonedTimeToUtc, (x) => utcToZonedTime(x, tz)))(authorDate);
-  commit.authorDate = newDate;
+  const newDate = pipe3(
+    // 2023-11-21 15:58:44 -0800
+    (d) => parseTime(d, "yyyy-MM-dd HH:mm:ss XX", /* @__PURE__ */ new Date()),
+    timeZone.toLowerCase() === "utc" ? zonedTimeToUtc : pipe3(zonedTimeToUtc, (x) => utcToZonedTime(x, timeZone)),
+    (x) => formatDate(x, preferredFormat, { timeZone })
+  )(authorDate);
+  commit.formattedDate = newDate;
   return commit;
 });
-var deriveAuthor = curry4((lookup, commit) => {
+var deriveAuthor = curry5((lookup, commit) => {
 });
 var getFiletype = (z) => z.slice(z.indexOf("."), Infinity);
-var getFiletypes = (commit) => pipe2(
+var getFiletypes = (commit) => pipe3(
   propOr([], "files"),
-  map2(getFiletype),
+  map3(getFiletype),
   uniq,
   objOf("filetypes"),
   mergeRight2(commit)
 )(commit);
-var processData = curry4((chalk, config, data) => {
-  return pipe2(
-    map2(adjustRelativeTimezone(config.timezone)),
-    config.excludeMergeCommits ? reject(pipe2(propOr("", "subject"), startsWith("Merge"))) : I,
-    map2(getFiletypes),
-    map2(
-      (raw) => pipe2(
-        (x) => [x],
-        ap([propOr([], "status"), propOr([], "files")]),
-        ([a, z]) => zip(a, z),
-        groupBy(head),
-        objOf("changes"),
-        mergeRight2(raw),
-        (z) => mergeRight2(z, { statuses: uniq(z.status) })
-      )(raw)
+var processData = curry5((chalk, config, data) => {
+  return pipe3(
+    config.excludeMergeCommits ? reject(pipe3(propOr("", "subject"), startsWith("Merge"))) : I,
+    map3(
+      pipe3(
+        adjustRelativeTimezone(config.timezone, config.dateFormat),
+        getFiletypes,
+        (commit) => pipe3(
+          (x) => [x],
+          ap([propOr([], "status"), propOr([], "files")]),
+          ([a, z]) => zip(a, z),
+          groupBy(head),
+          objOf("changes"),
+          mergeRight2(commit),
+          (z) => mergeRight2(z, { statuses: uniq(z.status) })
+        )(commit)
+        // applyPatternsWithChalk(chalk, config.patterns.matches
+      )
     )
   )(data);
 });
-var runner = curry4((cancel, argv) => {
+var printData = curry5(
+  (chalk, partyFile, config, data) => pipe3(
+    groupBy(pipe3(prop("authorDate"), split(" "), head)),
+    map3(
+      pipe3(
+        map3((commit) => {
+          const {
+            statuses,
+            filetypes,
+            subject,
+            authorName,
+            abbrevHash,
+            formattedDate
+          } = commit;
+          const matches = applyPatternsWithChalk(
+            chalk,
+            partyFile.patterns,
+            commit
+          );
+          return `
+\u251C\u2500\u252C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510
+\u2502 \u2502   ${chalk.red(
+            authorName
+          )} @ ${formattedDate} [${chalk.yellow(
+            abbrevHash
+          )}]  \u2502
+\u2502 \u2502   ${subject}        \u2502  
+\u2502 \u2570\u2500\u2500${matches}\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256F
+\u2502`;
+        }),
+        join3("\n\u2502")
+      )
+    ),
+    toPairs2,
+    map3(([k, v]) => chalk.inverse(" " + k + " ") + "\n\u2502" + v),
+    join3("\n")
+  )(data)
+);
+var runner = curry5((cancel, argv) => {
   let canon;
-  return pipe2(
+  return pipe3(
     (v) => {
       const cwd = process.cwd();
       return configurate(
@@ -352,27 +439,39 @@ var runner = curry4((cancel, argv) => {
         v
       );
     },
-    map2(log.config("parsed args...")),
+    map3(log.config("parsed args...")),
     chain((config) => {
       const chalk = new Chalk({ level: config.color ? 2 : 0 });
-      return pipe2(
+      return pipe3(
         loadPartyFile(cancel),
         // mash the data together
-        map2((partyFile) => ({ config, partyFile, chalk })),
+        map3((partyFile) => ({ config, partyFile, chalk })),
         chain(loadGitData(cancel, chalk))
       )(config);
     }),
-    map2(({ config, partyFile, gitlog: gitlog2, chalk }) => {
+    map3(({ config, partyFile, gitlog: gitlog2, chalk }) => {
       canon = canonicalize({});
-      return pipe2(
+      return pipe3(
         propOr({}, "patterns"),
-        map2(
-          (v) => v?.matches ? mergeRight2(v, { fn: chalk[v.color], matches: v.matches }) : v
+        map3(
+          (v) => v?.matches ? mergeRight2(v, {
+            fn: Array.isArray(v.color) ? pipe3(
+              map3((c) => chalk[c]),
+              (x) => (raw) => pipe3.apply(null, x)(raw)
+            )(v.color) : chalk[v.color],
+            matches: v.matches
+          }) : v
         ),
         // z => [z],
-        printLegend(chalk),
+        (patterns) => pipe3(
+          printLegend(chalk),
+          (legend) => pipe3(
+            processData(chalk, config),
+            printData(chalk, { ...partyFile, patterns }, config),
+            (z) => legend + "\n" + z
+          )(gitlog2)
+        )(patterns)
         // ap([printLegend(chalk), processData(chalk, config)])
-        (legend) => processData(chalk, config, gitlog2)
       )(partyFile);
     })
   )(argv);

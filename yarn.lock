@@ -8166,6 +8166,7 @@ __metadata:
     fluture: "npm:^14.0.0"
     gitlog: "npm:^4.0.8"
     jest-config: "workspace:shared/jest-config"
+    micromatch: "npm:^4.0.5"
     ramda: "npm:^0.29.1"
   languageName: unknown
   linkType: soft
@@ -11768,7 +11769,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromatch@npm:4.0.5, micromatch@npm:^4.0.4":
+"micromatch@npm:4.0.5, micromatch@npm:^4.0.4, micromatch@npm:^4.0.5":
   version: 4.0.5
   resolution: "micromatch@npm:4.0.5"
   dependencies:
