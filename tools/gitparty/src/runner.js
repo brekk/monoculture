@@ -10,6 +10,7 @@ import { printLegend } from './legend'
 import { trace } from 'xtrace'
 import { configFileWithCancel, configurate } from 'climate'
 import { Chalk } from 'chalk'
+import { box } from './box'
 import {
   swap,
   mapRej,
@@ -27,8 +28,10 @@ import {
   always as K,
   ap,
   join,
+  replace,
   chain,
   cond,
+  length,
   curry,
   fromPairs,
   groupBy,
@@ -63,6 +66,11 @@ import {
 import { gitlogWithCancel } from './git'
 import { log } from './log'
 import PKG from '../package.json'
+
+const unlines = join('\n')
+
+const BAR = `│`
+const NEWBAR = `\n${BAR}`
 
 const j2 = x => JSON.stringify(x, null, 2)
 
@@ -121,7 +129,7 @@ const loadPartyFile = curry(
   }
 )
 
-export const loadGitData = curry((cancel, chalk, data) =>
+export const loadGitData = curry((cancel, config, chalk, data) =>
   pipe(
     log.config('searching for .git/index'),
     findUpWithCancel(cancel, {}),
@@ -129,7 +137,7 @@ export const loadGitData = curry((cancel, chalk, data) =>
     map(path.dirname),
     chain(repo =>
       repo
-        ? gitlogWithCancel(cancel, { repo })
+        ? gitlogWithCancel(cancel, { repo, number: config.totalCommits })
         : rejectF(THIS_IS_NOT_A_GIT_REPO(chalk))
     ),
     map(pipe(objOf('gitlog'), mergeRight(data)))
@@ -151,13 +159,18 @@ const adjustRelativeTimezone = curry((timeZone, preferredFormat, commit) => {
 })
 const deriveAuthor = curry((lookup, commit) => {})
 
-const getFiletype = z => z.slice(z.indexOf('.'), Infinity)
+const getFiletype = z => {
+  const y = z.slice(z.indexOf('.') + 1)
+  const dot = y.lastIndexOf('.')
+  return dot > -1 ? y.slice(dot + 1) : y
+}
 
 const getFiletypes = commit =>
   pipe(
     propOr([], 'files'),
     map(getFiletype),
     uniq,
+    z => z.sort(),
     objOf('filetypes'),
     mergeRight(commit)
   )(commit)
@@ -206,18 +219,35 @@ export const printData = curry((chalk, partyFile, config, data) =>
             partyFile.patterns,
             commit
           )
-          return `\n├─┬────────────────────────────┐\n│ │   ${chalk.red(
-            authorName
-          )} @ ${formattedDate} [${chalk.yellow(
-            abbrevHash
-          )}]  │\n│ │   ${subject}        │  \n│ ╰──${matches}───────────╯\n│`
+          return box(
+            {
+              subtitleAlign: 'right',
+              width: partyFile.longestSubject,
+              padding: 1,
+              subtitle: matches,
+              title: `▶ ${chalk.red(
+                authorName
+              )} @ ${formattedDate} [${chalk.yellow(abbrevHash)}] ⏹`,
+            },
+            subject + '\n\n' + chalk.blue(filetypes.join(' '))
+          )
         }),
-        join('\n│')
+        join(`\n\n`)
+        // join(NEWBAR)
       )
     ),
     toPairs,
-    map(([k, v]) => chalk.inverse(' ' + k + ' ') + '\n│' + v),
-    join('\n')
+    map(
+      ([date, v]) => {
+        const xxx = ` ${date} `
+        return chalk.inverse(xxx + (Math.abs(partyFile.longestSubject - xxx.length) +
+        `${NEWBAR} ${NEWBAR} ` +
+        v.replace(/\n/g, `${NEWBAR} `) +
+        `${NEWBAR} `
+      }
+    ),
+    join('\n'),
+    replace(/│ ╭/g, '├─┬')
   )(data)
 )
 
@@ -245,7 +275,7 @@ export const runner = curry((cancel, argv) => {
         loadPartyFile(cancel),
         // mash the data together
         map(partyFile => ({ config, partyFile, chalk })),
-        chain(loadGitData(cancel, chalk))
+        chain(loadGitData(cancel, config, chalk))
       )(config)
     }),
     map(({ config, partyFile, gitlog, chalk }) => {
@@ -265,16 +295,24 @@ export const runner = curry((cancel, argv) => {
               })
             : v
         ),
-        // z => [z],
         patterns =>
-          pipe(printLegend(chalk), legend =>
-            pipe(
+          pipe(printLegend(chalk), legend => {
+            const longestSubject =
+              config.width ||
+              partyFile.width ||
+              pipe(map(pipe(propOr('', 'subject'), length)), z =>
+                Math.max(...z)
+              )(gitlog)
+            return pipe(
               processData(chalk, config),
-              printData(chalk, { ...partyFile, patterns }, config),
+              printData(
+                chalk,
+                { ...partyFile, longestSubject, patterns },
+                config
+              ),
               z => legend + '\n' + z
             )(gitlog)
-          )(patterns)
-        // ap([printLegend(chalk), processData(chalk, config)])
+          })(patterns)
       )(partyFile)
     })
   )(argv)

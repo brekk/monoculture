@@ -10,16 +10,7 @@ import {
 } from "date-fns-tz";
 
 // src/per-commit.js
-import {
-  values,
-  join,
-  curry,
-  pipe,
-  reduce,
-  map,
-  ifElse,
-  always as K
-} from "ramda";
+import { values, join, curry, pipe, map, ifElse, always as K } from "ramda";
 import mm from "micromatch";
 var checkPatternAgainstCommit = curry(
   (commit, pattern) => mm.some(commit.files, pattern.matches)
@@ -31,7 +22,8 @@ var applyPatternsWithChalk = curry(
       ifElse(
         checkPatternAgainstCommit(commit),
         (pattern) => pattern.fn(` ${pattern.key} `),
-        K("\u2500\u2534\u2500")
+        // p => p.fn(' ⏺ ')
+        K("\u2500\u23FA\u2500")
       )
     ),
     join("")
@@ -53,9 +45,425 @@ var printLegend = curry2(
 );
 
 // src/runner.js
-import { trace } from "xtrace";
+import { trace as trace2 } from "xtrace";
 import { configFileWithCancel, configurate } from "climate";
+import { Chalk as Chalk2 } from "chalk";
+
+// src/box.js
+import __wrapAnsi from "wrap-ansi";
 import { Chalk } from "chalk";
+import __ansiAlign from "ansi-align";
+import widestLine from "widest-line";
+import strlen from "string-length";
+import { camelCase } from "camel-case";
+import { trace } from "xtrace";
+import {
+  without,
+  __ as $,
+  identity as I,
+  memoizeWith,
+  repeat,
+  unless,
+  split,
+  join as join3,
+  reduce,
+  always as K2,
+  both,
+  when,
+  propOr,
+  map as map3,
+  cond,
+  curryN,
+  equals,
+  T,
+  curry as curry3,
+  pipe as pipe3,
+  mergeRight,
+  ifElse as ifElse2
+} from "ramda";
+var ansiWrap = curryN(3, __wrapAnsi);
+var ansiAlign = curryN(2, __ansiAlign);
+var NEWLINE = "\n";
+var lines = split(NEWLINE);
+var unlines = join3(NEWLINE);
+var PAD = " ";
+var NONE = "none";
+var terminalColumns = () => {
+  const { env, stdout, stderr } = process;
+  return env.COLUMNS ? Number.parseInt(env.COLUMNS, 10) : stdout?.columns ? stdout.columns : stderr?.columns ? stderr.columns : 80;
+};
+var isType = curry3((y, x) => typeof x === y);
+var objectify = ifElse2(
+  isType("number"),
+  (top) => ({
+    top,
+    right: top * 3,
+    bottom: top,
+    left: top * 3
+  }),
+  mergeRight({
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  })
+);
+var getBorderWidth = (s) => s === NONE ? 0 : 2;
+var isOdd = (x) => x % 2 === 1;
+var makeTitle = (text, horizontal, alignment) => {
+  const textWidth = strlen(text);
+  return pipe3(
+    cond([
+      [equals("left"), () => text + horizontal.slice(textWidth)],
+      [equals("right"), () => horizontal.slice(textWidth) + text],
+      [
+        T,
+        () => {
+          horizontal = horizontal.slice(textWidth);
+          if (isOdd(horizontal.length)) {
+            horizontal = horizontal.slice(Math.floor(horizontal.length / 2));
+            return horizontal.slice(1) + text + horizontal;
+          } else {
+            horizontal = horizontal.slice(horizontal.length / 2);
+            return horizontal + text + horizontal;
+          }
+        }
+      ]
+    ])
+  )(alignment);
+};
+var enpad = curry3(
+  ({ align, max, longest }, i) => align === "center" ? repad((max - longest) / 2) + i : align === "right" ? repad(max - longest) + i : i
+);
+var addNewLines = curry3(
+  (max, align, lx) => reduce(
+    (newLines, line) => {
+      const paddedLines = pipe3(
+        ansiWrap($, max, { hard: true }),
+        ansiAlign($, { align }),
+        lines,
+        (processedLines) => pipe3(
+          map3(strlen),
+          (x) => Math.max(...x),
+          (longest) => map3(enpad({ align, max, longest }))(processedLines)
+        )(processedLines)
+      )(line);
+      return newLines.concat(paddedLines);
+    },
+    [],
+    lx
+  )
+);
+var realign = curry3(
+  ({ max, textWidth }, align, linex) => map3(
+    (line) => align === "center" ? repad((max - textWidth) / 2) + line : align === "right" ? repad(max - textWidth) + line : line
+  )(linex)
+);
+var makeContentText = (text, { padding, width, align, height }) => {
+  text = ansiAlign(text, { align });
+  let linex = text.split(NEWLINE);
+  const textWidth = widestLine(text);
+  const max = width - padding.left - padding.right;
+  linex = textWidth > max ? addNewLines(max, align, linex) : textWidth < max ? realign({ max, textWidth }, align, linex) : linex;
+  const [pl, pr] = map3(repad)([padding.left, padding.right]);
+  linex = linex.map((line) => {
+    const l2 = pl + line + pr;
+    return l2 + repad(width - strlen(l2));
+  });
+  if (padding.top > 0) {
+    linex = [
+      ...Array.from({ length: padding.top }).fill(repad(width)),
+      ...linex
+    ];
+  }
+  if (padding.bottom > 0) {
+    linex = [
+      ...linex,
+      ...Array.from({ length: padding.bottom }).fill(repad(width))
+    ];
+  }
+  if (height) {
+    if (linex.length > height) {
+      linex = linex.slice(0, height);
+    } else if (linex.length < height) {
+      linex = [
+        ...linex,
+        ...Array.from({ length: height - linex.length }).fill(repad(width))
+      ];
+    }
+  }
+  return linex.join(NEWLINE);
+};
+var colorizeBorder = curry3((options, border) => {
+  const { chalk } = options;
+  const newBorder = options.borderColor ? getColorFn(options.borderColor)(border) : border;
+  return options.dimBorder ? chalk.dim(newBorder) : newBorder;
+});
+var colorizeContent = curry3(
+  (options, content) => options.backgroundColor ? getBGColorFn(options.chalk, options.backgroundColor)(content) : content
+);
+var minimumEdge = curry3(
+  (field, ox) => when(propOr(false, field), (o) => {
+    o[field] = Math.max(1, o[field] - getBorderWidth(o.borderStyle));
+    return o;
+  })(ox)
+);
+var sanitizeOptions = pipe3(
+  when(
+    both(propOr(false, "fullscreen"), () => process?.stdout),
+    (o) => {
+      const sto = process.stdout;
+      const rawDimensions = [sto.columns, sto.rows];
+      const newDimensions = isType("function", o.fullscreen) ? o.fullscreen(rawDimensions) : rawDimensions;
+      const [cols, rows] = newDimensions;
+      if (!o.width) {
+        o.width = cols;
+      }
+      if (!o.height) {
+        o.height = rows;
+      }
+      return o;
+    }
+  ),
+  minimumEdge("width"),
+  minimumEdge("height")
+);
+var formatWithPointer = curry3(
+  (char, selector, { [selector]: title, borderStyle, padTitle, chars }) => borderStyle === NONE ? title : padTitle ? ` ${title} ` : `${chars[char]}${title}${chars[char]}`
+);
+var formatTitle = formatWithPointer("top", "title");
+var formatSubTitle = formatWithPointer("bottom", "subtitle");
+var ensurePositive = (z) => z < 0 ? 0 : z;
+var strepeat = (toRepeat) => memoizeWith(I, (n) => pipe3(ensurePositive, repeat(toRepeat), join3(""))(n));
+var repad = strepeat(PAD);
+var getLeftMarginByAlignment = curry3(
+  (columns, contentWidth, { borderStyle, margin, float }) => float === "center" ? repad(
+    Math.max(
+      (columns - contentWidth - getBorderWidth(borderStyle)) / 2,
+      0
+    )
+  ) : float === "right" ? repad(
+    Math.max(
+      columns - contentWidth - margin.right - getBorderWidth(borderStyle),
+      0
+    )
+  ) : repad(margin.left)
+);
+var reline = strepeat(NEWLINE);
+var processContent = (raw) => reduce(
+  (agg, [pred, run]) => ifElse2(
+    pred,
+    pipe3(run, (y) => agg + y),
+    K2(agg)
+  )(raw),
+  "",
+  [
+    [({ margin }) => margin.top, ({ margin }) => reline(margin.top)],
+    [
+      ({ borderStyle, title }) => borderStyle !== NONE || title,
+      (opts) => {
+        const { marginLeft, contentWidth, title, chars, align, titleAlign } = opts;
+        const retop = strepeat(chars.top);
+        return colorizeBorder(
+          opts,
+          marginLeft + chars.topLeft + (title ? makeTitle(title, retop(contentWidth), titleAlign) : retop(contentWidth)) + chars.topRight
+        ) + NEWLINE;
+      }
+    ],
+    [
+      ({ content }) => lines(content).length > 0,
+      (opts) => {
+        const { marginLeft, chars, content } = opts;
+        return pipe3(
+          lines,
+          map3(
+            (line) => marginLeft + colorizeBorder(opts, chars.left) + colorizeContent(opts, line) + colorizeBorder(opts, chars.right)
+          ),
+          unlines,
+          (z) => z + NEWLINE
+        )(content);
+      }
+    ],
+    [
+      ({ subtitle, borderStyle }) => subtitle || borderStyle !== NONE,
+      (opts) => {
+        const {
+          marginLeft,
+          contentWidth,
+          subtitle,
+          chars,
+          align,
+          subtitleAlign
+        } = opts;
+        const rebottom = strepeat(chars.bottom);
+        return colorizeBorder(
+          opts,
+          marginLeft + chars.bottomLeft + (subtitle ? makeTitle(subtitle, rebottom(contentWidth), subtitleAlign) : rebottom(contentWidth)) + chars.bottomRight
+        );
+      }
+    ],
+    [({ margin }) => margin.bottom, ({ margin }) => reline(margin.bottom)]
+  ]
+);
+var boxContent = (content, contentWidth, opts) => {
+  const columns = terminalColumns();
+  const marginLeft = getLeftMarginByAlignment(columns, contentWidth, opts);
+  return processContent({ marginLeft, contentWidth, content, ...opts });
+};
+var noverflow = curry3(
+  (what, dim, edges, opts) => pipe3(
+    when(
+      (o) => {
+        const pads = reduce((agg, x) => agg + opts[what][x], 0, edges);
+        return o[dim] - pads <= 0;
+      },
+      (o) => reduce(
+        (agg, edge) => {
+          agg[what][edge] = 0;
+          return agg;
+        },
+        o,
+        edges
+      )
+    )
+  )(opts)
+);
+var noPaddingOverflow = noverflow("padding");
+var handlePadding = pipe3(
+  noPaddingOverflow("width", ["left", "right"]),
+  noPaddingOverflow("height", ["top", "bottom"])
+);
+var retitle = curry3((w, title, formatter, opts) => {
+  const cut = Math.max(0, w - 2);
+  return cut ? formatter(opts) : opts;
+});
+var handleKeyedTitle = curry3(
+  (key, formatter, { maxWidth, widest }, adjustTitle, opts) => {
+    const { [key]: title } = opts;
+    if (title) {
+      if (adjustTitle) {
+        opts[key] = retitle(opts.width, title, formatter, opts);
+      } else {
+        opts[key] = retitle(maxWidth, title, formatter, opts);
+        if (strlen(opts[key]) > widest) {
+          opts.width = strlen(opts[key]);
+        }
+      }
+    }
+    return opts;
+  }
+);
+var handleTitle = handleKeyedTitle("title", formatTitle);
+var handleSubTitle = handleKeyedTitle("subtitle", formatSubTitle);
+var boundMargin = curry3(
+  (m, x) => pipe3(Math.floor, (z) => Math.max(0, z))(x * m)
+);
+var handleMargin = curry3(
+  ({ maxWidth, borderWidth, columns }, rewire, opts) => unless(
+    () => rewire,
+    pipe3(
+      when(
+        ({ margin, width }) => margin.left && margin.right && width > maxWidth,
+        (o) => {
+          const { width, margin } = o;
+          const spaceForMargins = columns - width - borderWidth;
+          const m = spaceForMargins / (margin.left + margin.right);
+          const enmargin = boundMargin(m);
+          o.margin.left = enmargin(margin.left);
+          o.margin.right = enmargin(margin.right);
+          return o;
+        }
+      ),
+      ({ width, margin, ...o }) => ({
+        ...o,
+        margin,
+        width: Math.min(
+          width,
+          columns - borderWidth - margin.left - margin.right
+        )
+      })
+    )
+  )(opts)
+);
+var size = curry3((p, t) => widestLine(t) + p);
+var determineDimensions = (text, opts) => {
+  opts = sanitizeOptions(opts);
+  const explicitWidth = !!opts.width;
+  const { margin, padding, title = "", subtitle = "" } = opts;
+  const columns = terminalColumns();
+  const borderWidth = getBorderWidth(opts.borderStyle);
+  const maxWidth = columns - margin.left - margin.right - borderWidth;
+  const sidepadding = padding.left + padding.right;
+  const wrapped = ansiWrap(text, columns - borderWidth, {
+    hard: true,
+    trim: false
+  });
+  const sizes = map3(size(sidepadding), [wrapped, title, subtitle]);
+  const _widest = Math.max(...sizes);
+  const secondWidest = Math.max(...without([_widest], sizes));
+  const widest = !opts.__autoSize__ ? _widest : _widest - secondWidest <= borderWidth + 2 ? secondWidest : _widest;
+  const dimensionalData = { maxWidth, borderWidth, columns, widest };
+  return pipe3(
+    handleTitle(dimensionalData, explicitWidth),
+    handleSubTitle(dimensionalData, explicitWidth),
+    (o) => {
+      o.width = o.width ? o.width : widest;
+      return o;
+    },
+    handleMargin(dimensionalData, !explicitWidth),
+    handlePadding
+  )(opts);
+};
+var isHex = (color) => color.match(/^#(?:[0-f]{3}){1,2}$/i);
+var isChalkColorValid = curry3(
+  (chalk, color) => typeof color === "string" && (chalk[color] ?? isHex(color))
+);
+var getColorFn = curry3(
+  (chalk, color) => isHex(color) ? chalk.hex(color) : chalk[color]
+);
+var getBGColorFn = curry3(
+  (chalk, color) => isHex(color) ? chalk.bgHex(color) : chalk[camelCase(["bg", color])]
+);
+var ensureValidColor = curry3((chalk, key, color) => {
+  if (color && !isChalkColorValid(chalk, color)) {
+    throw new Error(`${color} is not a valid ${key}`);
+  }
+});
+var DEFAULT_OPTIONS = {
+  color: true,
+  padding: 0,
+  borderStyle: "single",
+  dimBorder: false,
+  float: "left",
+  align: "left",
+  titleAlign: "left",
+  subtitleAlign: "left",
+  chars: {
+    top: "\u2500",
+    left: "\u2502",
+    right: "\u2502",
+    bottom: "\u2500",
+    topLeft: "\u256D",
+    topRight: "\u256E",
+    bottomLeft: "\u2570",
+    bottomRight: "\u256F"
+  },
+  padTitle: false
+};
+var box = curry3((opts, text) => {
+  opts = mergeRight(DEFAULT_OPTIONS)(opts);
+  const chalk = new Chalk({ level: opts.color ? 2 : 0 });
+  opts.chalk = chalk;
+  ensureValidColor(chalk, "borderColor", opts.borderColor);
+  ensureValidColor(chalk, "backgroundColor", opts.backgroundColor);
+  opts.padding = objectify(opts.padding);
+  opts.margin = objectify(opts.margin);
+  opts = determineDimensions(text, opts);
+  text = makeContentText(text, opts);
+  return boxContent(text, opts.width, opts);
+});
+
+// src/runner.js
 import {
   swap,
   mapRej,
@@ -68,27 +476,29 @@ import {
 import { writeFileWithConfigAndCancel, findUpWithCancel } from "file-system";
 import {
   F,
-  T,
-  __ as $,
-  always as K2,
+  T as T2,
+  __ as $2,
+  always as K3,
   ap,
-  join as join3,
+  join as join4,
+  replace,
   chain,
-  cond,
-  curry as curry5,
+  cond as cond2,
+  length,
+  curry as curry6,
   fromPairs,
   groupBy,
   head,
-  identity as I,
+  identity as I2,
   includes,
-  map as map3,
-  mergeRight as mergeRight2,
+  map as map4,
+  mergeRight as mergeRight3,
   objOf,
-  pipe as pipe3,
+  pipe as pipe4,
   prop,
-  propOr,
+  propOr as propOr2,
   reject,
-  split,
+  split as split2,
   startsWith,
   toPairs as toPairs2,
   uniq,
@@ -96,8 +506,8 @@ import {
 } from "ramda";
 
 // src/alias.js
-import { curry as curry3, mergeRight } from "ramda";
-var alias = curry3((object, from, to) => {
+import { curry as curry4, mergeRight as mergeRight2 } from "ramda";
+var alias = curry4((object, from, to) => {
   if (!object[to]) {
     object[to] = from;
   }
@@ -105,12 +515,12 @@ var alias = curry3((object, from, to) => {
     object[from] = object[to];
   }
 });
-var pureAliasedListeners = curry3((subscriber, original, alt, seed) => {
-  const emitted = mergeRight(seed, { [alt]: original, [original]: original });
+var pureAliasedListeners = curry4((subscriber, original, alt, seed) => {
+  const emitted = mergeRight2(seed, { [alt]: original, [original]: original });
   subscriber(emitted);
   return emitted;
 });
-var getAliasFrom = curry3(
+var getAliasFrom = curry4(
   (object, key) => object && object[key] || key
 );
 var canonicalize = (object) => ({
@@ -146,10 +556,12 @@ var YARGS_CONFIG = {
     output: ["o"],
     totalCommits: ["n"],
     aliases: ["a", "alias"],
-    dateFormat: ["d"]
+    dateFormat: ["d"],
+    width: ["w"]
   },
   boolean: ["excludeMergeCommits", "collapseAuthors", "init"],
-  array: ["aliases"]
+  array: ["aliases"],
+  number: ["width"]
 };
 var CONFIG_DEFAULTS = {
   // this is our config
@@ -171,7 +583,7 @@ var CONFIG_DEFAULTS = {
   timezone: `UTC`,
   execOptions: { maxBuffer: 1e3 * 1024 },
   color: true,
-  dateFormat: "HH:mm"
+  dateFormat: "p"
 };
 var HELP_CONFIG = {
   help: "This text!",
@@ -206,7 +618,8 @@ var HELP_CONFIG = {
   },
   timezone: "Set the timezone you want to see results in. Defaults to UTC",
   aliases: "Define author aliases (useful if authors do not merge under consistent git `user.name`s / `user.email`s)",
-  dateFormat: "Express how you want date-fns to format your dates. (default: 'yyyy-MM-dd HH:kk OOOO')"
+  dateFormat: "Express how you want date-fns to format your dates. (default: 'yyyy-MM-dd HH:kk OOOO')",
+  width: "Set an explicit width"
 };
 var DEFAULT_CONFIG_FILE = {
   patterns: {
@@ -221,13 +634,13 @@ var DEFAULT_CONFIG_FILE = {
 };
 
 // src/git.js
-import { curry as curry4 } from "ramda";
+import { curry as curry5 } from "ramda";
 import GLOG from "gitlog";
 import { Future } from "fluture";
 var { default: glog } = GLOG;
 var NO_OP = () => {
 };
-var gitlogWithCancel = curry4(
+var gitlogWithCancel = curry5(
   (cancel, opts) => Future((bad, good) => {
     glog(opts, (e, data) => e ? bad(e) : good(data));
     return cancel;
@@ -251,6 +664,8 @@ var package_default = {
   license: "ISC",
   private: true,
   dependencies: {
+    "ansi-align": "^3.0.1",
+    "camel-case": "^5.0.0",
     climate: "workspace:packages/climate",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
@@ -258,7 +673,10 @@ var package_default = {
     fluture: "^14.0.0",
     gitlog: "^4.0.8",
     micromatch: "^4.0.5",
-    ramda: "^0.29.1"
+    ramda: "^0.29.1",
+    "string-length": "^6.0.0",
+    "widest-line": "^5.0.0",
+    "wrap-ansi": "^9.0.0"
   },
   devDependencies: {
     "dotenv-cli": "^7.3.0",
@@ -279,45 +697,49 @@ var package_default = {
 };
 
 // src/runner.js
+var unlines2 = join4("\n");
+var BAR = `\u2502`;
+var NEWBAR = `
+${BAR}`;
 var j2 = (x) => JSON.stringify(x, null, 2);
 var { name: $NAME, description: $DESC } = package_default;
-var writeInitConfigFileWithCancel = curry5(
-  (cancel, filepath) => pipe3(
+var writeInitConfigFileWithCancel = curry6(
+  (cancel, filepath) => pipe4(
     j2,
     writeFileWithConfigAndCancel(cancel, { encoding: "utf8" }, filepath),
-    map3(K2(`Wrote file to "${filepath}"!`))
+    map4(K3(`Wrote file to "${filepath}"!`))
   )(DEFAULT_CONFIG_FILE)
 );
-var loadPartyFile = curry5(
+var loadPartyFile = curry6(
   (cancel, { cwd, color: useColor, config, help, HELP, init }) => {
-    const chalk = new Chalk({ level: useColor ? 2 : 0 });
-    return pipe3(
-      cond([
+    const chalk = new Chalk2({ level: useColor ? 2 : 0 });
+    return pipe4(
+      cond2([
         [
-          K2(init),
-          () => pipe3(
+          K3(init),
+          () => pipe4(
             writeInitConfigFileWithCancel(cancel),
             swap
           )(path.resolve(cwd, ".gitpartyrc"))
         ],
-        [K2(help), K2(resolve(HELP))],
+        [K3(help), K3(resolve(HELP))],
         [
-          T,
-          pipe3(
+          T2,
+          pipe4(
             log.configFile("trying to load config..."),
             configFileWithCancel(cancel),
-            map3(log.configFile("loaded...")),
+            map4(log.configFile("loaded...")),
             mapRej(
-              pipe3(
+              pipe4(
                 log.configFile("error..."),
-                propOr("", "message"),
-                cond([
+                propOr2("", "message"),
+                cond2([
                   [
                     includes("No config file found"),
-                    K2(GITPARTY_CONFIG_NEEDED(chalk))
+                    K3(GITPARTY_CONFIG_NEEDED(chalk))
                   ],
-                  [startsWith("SyntaxError"), K2(CONFIG_NOT_VALID)],
-                  [T, I]
+                  [startsWith("SyntaxError"), K3(CONFIG_NOT_VALID)],
+                  [T2, I2]
                 ])
               )
             )
@@ -331,66 +753,71 @@ var loadPartyFile = curry5(
     );
   }
 );
-var loadGitData = curry5(
-  (cancel, chalk, data) => pipe3(
+var loadGitData = curry6(
+  (cancel, config, chalk, data) => pipe4(
     log.config("searching for .git/index"),
     findUpWithCancel(cancel, {}),
-    map3(log.config("git found, path...")),
-    map3(path.dirname),
+    map4(log.config("git found, path...")),
+    map4(path.dirname),
     chain(
-      (repo) => repo ? gitlogWithCancel(cancel, { repo }) : rejectF(THIS_IS_NOT_A_GIT_REPO(chalk))
+      (repo) => repo ? gitlogWithCancel(cancel, { repo, number: config.totalCommits }) : rejectF(THIS_IS_NOT_A_GIT_REPO(chalk))
     ),
-    map3(pipe3(objOf("gitlog"), mergeRight2(data)))
+    map4(pipe4(objOf("gitlog"), mergeRight3(data)))
   )([".git/index"])
 );
-var adjustRelativeTimezone = curry5((timeZone, preferredFormat, commit) => {
+var adjustRelativeTimezone = curry6((timeZone, preferredFormat, commit) => {
   const { authorDate } = commit;
-  const newDate = pipe3(
+  const newDate = pipe4(
     // 2023-11-21 15:58:44 -0800
     (d) => parseTime(d, "yyyy-MM-dd HH:mm:ss XX", /* @__PURE__ */ new Date()),
-    timeZone.toLowerCase() === "utc" ? zonedTimeToUtc : pipe3(zonedTimeToUtc, (x) => utcToZonedTime(x, timeZone)),
+    timeZone.toLowerCase() === "utc" ? zonedTimeToUtc : pipe4(zonedTimeToUtc, (x) => utcToZonedTime(x, timeZone)),
     (x) => formatDate(x, preferredFormat, { timeZone })
   )(authorDate);
   commit.formattedDate = newDate;
   return commit;
 });
-var deriveAuthor = curry5((lookup, commit) => {
+var deriveAuthor = curry6((lookup, commit) => {
 });
-var getFiletype = (z) => z.slice(z.indexOf("."), Infinity);
-var getFiletypes = (commit) => pipe3(
-  propOr([], "files"),
-  map3(getFiletype),
+var getFiletype = (z) => {
+  const y = z.slice(z.indexOf(".") + 1);
+  const dot = y.lastIndexOf(".");
+  return dot > -1 ? y.slice(dot + 1) : y;
+};
+var getFiletypes = (commit) => pipe4(
+  propOr2([], "files"),
+  map4(getFiletype),
   uniq,
+  (z) => z.sort(),
   objOf("filetypes"),
-  mergeRight2(commit)
+  mergeRight3(commit)
 )(commit);
-var processData = curry5((chalk, config, data) => {
-  return pipe3(
-    config.excludeMergeCommits ? reject(pipe3(propOr("", "subject"), startsWith("Merge"))) : I,
-    map3(
-      pipe3(
+var processData = curry6((chalk, config, data) => {
+  return pipe4(
+    config.excludeMergeCommits ? reject(pipe4(propOr2("", "subject"), startsWith("Merge"))) : I2,
+    map4(
+      pipe4(
         adjustRelativeTimezone(config.timezone, config.dateFormat),
         getFiletypes,
-        (commit) => pipe3(
+        (commit) => pipe4(
           (x) => [x],
-          ap([propOr([], "status"), propOr([], "files")]),
+          ap([propOr2([], "status"), propOr2([], "files")]),
           ([a, z]) => zip(a, z),
           groupBy(head),
           objOf("changes"),
-          mergeRight2(commit),
-          (z) => mergeRight2(z, { statuses: uniq(z.status) })
+          mergeRight3(commit),
+          (z) => mergeRight3(z, { statuses: uniq(z.status) })
         )(commit)
         // applyPatternsWithChalk(chalk, config.patterns.matches
       )
     )
   )(data);
 });
-var printData = curry5(
-  (chalk, partyFile, config, data) => pipe3(
-    groupBy(pipe3(prop("authorDate"), split(" "), head)),
-    map3(
-      pipe3(
-        map3((commit) => {
+var printData = curry6(
+  (chalk, partyFile, config, data) => pipe4(
+    groupBy(pipe4(prop("authorDate"), split2(" "), head)),
+    map4(
+      pipe4(
+        map4((commit) => {
           const {
             statuses,
             filetypes,
@@ -404,28 +831,36 @@ var printData = curry5(
             partyFile.patterns,
             commit
           );
-          return `
-\u251C\u2500\u252C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510
-\u2502 \u2502   ${chalk.red(
-            authorName
-          )} @ ${formattedDate} [${chalk.yellow(
-            abbrevHash
-          )}]  \u2502
-\u2502 \u2502   ${subject}        \u2502  
-\u2502 \u2570\u2500\u2500${matches}\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256F
-\u2502`;
+          return box(
+            {
+              subtitleAlign: "right",
+              width: partyFile.longestSubject,
+              padding: 1,
+              subtitle: matches,
+              title: `\u25B6 ${chalk.red(
+                authorName
+              )} @ ${formattedDate} [${chalk.yellow(abbrevHash)}] \u23F9`
+            },
+            subject + "\n\n" + chalk.blue(filetypes.join(" "))
+          );
         }),
-        join3("\n\u2502")
+        join4(`
+
+`)
+        // join(NEWBAR)
       )
     ),
     toPairs2,
-    map3(([k, v]) => chalk.inverse(" " + k + " ") + "\n\u2502" + v),
-    join3("\n")
+    map4(
+      ([k, v]) => chalk.inverse(" " + k + " ") + `${NEWBAR} ${NEWBAR} ` + v.replace(/\n/g, `${NEWBAR} `) + `${NEWBAR} `
+    ),
+    join4("\n"),
+    replace(/│ ╭/g, "\u251C\u2500\u252C")
   )(data)
 );
-var runner = curry5((cancel, argv) => {
+var runner = curry6((cancel, argv) => {
   let canon;
-  return pipe3(
+  return pipe4(
     (v) => {
       const cwd = process.cwd();
       return configurate(
@@ -439,39 +874,44 @@ var runner = curry5((cancel, argv) => {
         v
       );
     },
-    map3(log.config("parsed args...")),
+    map4(log.config("parsed args...")),
     chain((config) => {
-      const chalk = new Chalk({ level: config.color ? 2 : 0 });
-      return pipe3(
+      const chalk = new Chalk2({ level: config.color ? 2 : 0 });
+      return pipe4(
         loadPartyFile(cancel),
         // mash the data together
-        map3((partyFile) => ({ config, partyFile, chalk })),
-        chain(loadGitData(cancel, chalk))
+        map4((partyFile) => ({ config, partyFile, chalk })),
+        chain(loadGitData(cancel, config, chalk))
       )(config);
     }),
-    map3(({ config, partyFile, gitlog: gitlog2, chalk }) => {
+    map4(({ config, partyFile, gitlog: gitlog2, chalk }) => {
       canon = canonicalize({});
-      return pipe3(
-        propOr({}, "patterns"),
-        map3(
-          (v) => v?.matches ? mergeRight2(v, {
-            fn: Array.isArray(v.color) ? pipe3(
-              map3((c) => chalk[c]),
-              (x) => (raw) => pipe3.apply(null, x)(raw)
+      return pipe4(
+        propOr2({}, "patterns"),
+        map4(
+          (v) => v?.matches ? mergeRight3(v, {
+            fn: Array.isArray(v.color) ? pipe4(
+              map4((c) => chalk[c]),
+              (x) => (raw) => pipe4.apply(null, x)(raw)
             )(v.color) : chalk[v.color],
             matches: v.matches
           }) : v
         ),
-        // z => [z],
-        (patterns) => pipe3(
-          printLegend(chalk),
-          (legend) => pipe3(
+        (patterns) => pipe4(printLegend(chalk), (legend) => {
+          const longestSubject = config.width || partyFile.width || pipe4(
+            map4(pipe4(propOr2("", "subject"), length)),
+            (z) => Math.max(...z)
+          )(gitlog2);
+          return pipe4(
             processData(chalk, config),
-            printData(chalk, { ...partyFile, patterns }, config),
+            printData(
+              chalk,
+              { ...partyFile, longestSubject, patterns },
+              config
+            ),
             (z) => legend + "\n" + z
-          )(gitlog2)
-        )(patterns)
-        // ap([printLegend(chalk), processData(chalk, config)])
+          )(gitlog2);
+        })(patterns)
       )(partyFile);
     })
   )(argv);

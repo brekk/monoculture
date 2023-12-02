@@ -19,9 +19,11 @@ export const YARGS_CONFIG = {
     totalCommits: ['n'],
     aliases: ['a', 'alias'],
     dateFormat: ['d'],
+    width: ['w'],
   },
   boolean: ['excludeMergeCommits', 'collapseAuthors', 'init'],
   array: ['aliases'],
+  number: ['width'],
 }
 export const CONFIG_DEFAULTS = {
   // this is our config
@@ -43,7 +45,7 @@ export const CONFIG_DEFAULTS = {
   timezone: `UTC`,
   execOptions: { maxBuffer: 1000 * 1024 },
   color: true,
-  dateFormat: 'HH:mm',
+  dateFormat: 'p',
 }
 export const HELP_CONFIG = {
   help: 'This text!',
@@ -83,6 +85,7 @@ export const HELP_CONFIG = {
     'Define author aliases (useful if authors do not merge under consistent git `user.name`s / `user.email`s)',
   dateFormat:
     "Express how you want date-fns to format your dates. (default: 'yyyy-MM-dd HH:kk OOOO')",
+  width: 'Set an explicit width',
 }
 export const DEFAULT_CONFIG_FILE = {
   patterns: {

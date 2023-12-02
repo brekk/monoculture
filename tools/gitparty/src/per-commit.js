@@ -1,13 +1,4 @@
-import {
-  values,
-  join,
-  curry,
-  pipe,
-  reduce,
-  map,
-  ifElse,
-  always as K,
-} from 'ramda'
+import { values, join, curry, pipe, map, ifElse, always as K } from 'ramda'
 import mm from 'micromatch'
 
 // TODO: make a thingie that cycles on colors in case someone didn't provide them ?
@@ -23,7 +14,8 @@ export const applyPatternsWithChalk = curry((chalk, patterns, commit) =>
       ifElse(
         checkPatternAgainstCommit(commit),
         pattern => pattern.fn(` ${pattern.key} `),
-        K('─┴─')
+        // p => p.fn(' ⏺ ')
+        K('─⏺─')
       )
     ),
     join('')
