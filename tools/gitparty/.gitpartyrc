@@ -28,7 +28,7 @@
       ]
     },
     "tools": {
-      "key": "T",
+      "key": "L",
       "color": "red",
       "matches": [
         "**/tools/**"
@@ -42,7 +42,19 @@
       ],
       "matches": [
         "**/package.json",
-        "**/package-scripts.*"
+        "**/package-scripts.*",
+        "**/config.*",
+        "**/.*rc"
+      ]
+    },
+    "tests": {
+      "key": "T",
+      "color": [
+        "bgCyan",
+        "red"
+      ],
+      "matches": [
+        "**/*.spec.*"
       ]
     }
   },

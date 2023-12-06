@@ -5,12 +5,18 @@ import {
   utcToZonedTime,
   format as formatDate,
 } from 'date-fns-tz'
-import { applyPatternsWithChalk } from './per-commit'
+import {
+  renderPatterns,
+  renderPatternsWithAlt,
+  subrender,
+  renderPattern,
+  applyPatterns,
+} from './per-commit'
 import { printLegend } from './legend'
 import { trace } from 'xtrace'
 import { configFileWithCancel, configurate } from 'climate'
 import { Chalk } from 'chalk'
-import { box } from './box'
+import { strepeat, box, getBorderWidth } from './box'
 import {
   swap,
   mapRej,
@@ -21,7 +27,10 @@ import {
   and as andF,
 } from 'fluture'
 import { writeFileWithConfigAndCancel, findUpWithCancel } from 'file-system'
+import strlen from 'string-length'
 import {
+  reduce,
+  applySpec,
   F,
   T,
   __ as $,
@@ -31,7 +40,6 @@ import {
   replace,
   chain,
   cond,
-  length,
   curry,
   fromPairs,
   groupBy,
@@ -83,6 +91,23 @@ const writeInitConfigFileWithCancel = curry((cancel, filepath) =>
     map(K(`Wrote file to "${filepath}"!`))
   )(DEFAULT_CONFIG_FILE)
 )
+
+const getAggregatePatterns = curry((chalk, partyFile, data) => {
+  const aggCommit = reduce(
+    (agg, y) =>
+      mergeRight(
+        agg,
+        mergeRight(y, { files: uniq((y.files || []).concat(agg.files || [])) })
+      ),
+    {},
+    data
+  )
+  return renderPatternsWithAlt(
+    chalk.inverse('   '),
+    partyFile.patterns,
+    aggCommit
+  )
+})
 
 const loadPartyFile = curry(
   (cancel, { cwd, color: useColor, config, help, HELP, init }) => {
@@ -204,51 +229,78 @@ export const printData = curry((chalk, partyFile, config, data) =>
   pipe(
     groupBy(pipe(prop('authorDate'), split(' '), head)),
     map(
-      pipe(
-        map(commit => {
-          const {
-            statuses,
-            filetypes,
-            subject,
-            authorName,
-            abbrevHash,
-            formattedDate,
-          } = commit
-          const matches = applyPatternsWithChalk(
-            chalk,
-            partyFile.patterns,
-            commit
-          )
-          return box(
-            {
-              subtitleAlign: 'right',
-              width: partyFile.longestSubject,
-              padding: 1,
-              subtitle: matches,
-              title: `▶ ${chalk.red(
-                authorName
-              )} @ ${formattedDate} [${chalk.yellow(abbrevHash)}] ⏹`,
-            },
-            subject + '\n\n' + chalk.blue(filetypes.join(' '))
-          )
-        }),
-        join(`\n\n`)
-        // join(NEWBAR)
-      )
+      applySpec({
+        render: pipe(
+          map(commit => {
+            const {
+              statuses,
+              filetypes,
+              subject,
+              authorName,
+              abbrevHash,
+              formattedDate,
+            } = commit
+            const matches = renderPatterns(partyFile.patterns, commit)
+            return box(
+              {
+                subtitleAlign: 'right',
+                width: partyFile.longestSubject,
+                padding: {
+                  left: 1,
+                  right: 1,
+                  bottom: 0,
+                  top: 0,
+                },
+                subtitle: matches,
+                title: `▶ ${chalk.red(
+                  authorName
+                )} @ ${formattedDate} [${chalk.yellow(abbrevHash)}] ⏹`,
+              },
+              subject + ' | ' + chalk.blue(filetypes.join(' '))
+            )
+          }),
+          join(`\n\n`)
+        ),
+        pattern: getAggregatePatterns(chalk, partyFile),
+      })
     ),
     toPairs,
-    map(
-      ([date, v]) => {
-        const xxx = ` ${date} `
-        return chalk.inverse(xxx + (Math.abs(partyFile.longestSubject - xxx.length) +
+    map(([date, { render: v, pattern: patternSummary }]) => {
+      const xxx = strlen(date) + strlen(patternSummary)
+      return (
+        chalk.inverse(
+          ' ' +
+            date +
+            ' ' +
+            strepeat(' ')(
+              Math.abs(partyFile.longestSubject - xxx) -
+                getBorderWidth(config.borderStyle)
+            )
+        ) +
+        patternSummary +
+        chalk.inverse('  ') +
         `${NEWBAR} ${NEWBAR} ` +
         v.replace(/\n/g, `${NEWBAR} `) +
         `${NEWBAR} `
-      }
-    ),
+      )
+    }),
     join('\n'),
     replace(/│ ╭/g, '├─┬')
   )(data)
+)
+
+export const processPatterns = curry((chalk, v) =>
+  v?.matches
+    ? mergeRight(v, {
+        fn: Array.isArray(v.color)
+          ? pipe(
+              map(c => chalk[c]),
+              x => raw => pipe.apply(null, x)(raw)
+            )(v.color)
+          : chalk[v.color],
+        matches: v.matches,
+      })
+    : v
 )
 
 export const runner = curry((cancel, argv) => {
@@ -282,25 +334,13 @@ export const runner = curry((cancel, argv) => {
       canon = canonicalize({})
       return pipe(
         propOr({}, 'patterns'),
-        map(v =>
-          v?.matches
-            ? mergeRight(v, {
-                fn: Array.isArray(v.color)
-                  ? pipe(
-                      map(c => chalk[c]),
-                      x => raw => pipe.apply(null, x)(raw)
-                    )(v.color)
-                  : chalk[v.color],
-                matches: v.matches,
-              })
-            : v
-        ),
+        map(processPatterns(chalk)),
         patterns =>
           pipe(printLegend(chalk), legend => {
             const longestSubject =
               config.width ||
               partyFile.width ||
-              pipe(map(pipe(propOr('', 'subject'), length)), z =>
+              pipe(map(pipe(propOr('', 'subject'), strlen)), z =>
                 Math.max(...z)
               )(gitlog)
             return pipe(

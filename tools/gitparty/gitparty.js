@@ -15,20 +15,24 @@ import mm from "micromatch";
 var checkPatternAgainstCommit = curry(
   (commit, pattern) => mm.some(commit.files, pattern.matches)
 );
-var applyPatternsWithChalk = curry(
-  (chalk, patterns, commit) => pipe(
-    values,
-    map(
-      ifElse(
-        checkPatternAgainstCommit(commit),
-        (pattern) => pattern.fn(` ${pattern.key} `),
-        // p => p.fn(' ⏺ ')
-        K("\u2500\u23FA\u2500")
-      )
-    ),
-    join("")
-  )(patterns)
+var DASH_DOT = "\u2500\u23FA\u2500";
+var applyPatterns = curry(
+  (patterns, commit) => pipe(map(checkPatternAgainstCommit(commit)))(patterns)
 );
+var subrender = curry(
+  (yes, or, pattern) => yes ? pattern.fn(` ${pattern.key} `) : or
+);
+var renderPattern = curry(
+  (or, commit, pattern) => ifElse(
+    checkPatternAgainstCommit(commit),
+    (p) => subrender(true, DASH_DOT, p),
+    K(or)
+  )(pattern)
+);
+var renderPatternsWithAlt = curry(
+  (alt, patterns, commit) => pipe(values, map(renderPattern(alt, commit)), join(""))(patterns)
+);
+var renderPatterns = renderPatternsWithAlt(DASH_DOT);
 
 // src/legend.js
 import { pipe as pipe2, map as map2, toPairs, curry as curry2, join as join2 } from "ramda";
@@ -120,11 +124,11 @@ var makeTitle = (text, horizontal, alignment) => {
         T,
         () => {
           horizontal = horizontal.slice(textWidth);
-          if (isOdd(horizontal.length)) {
-            horizontal = horizontal.slice(Math.floor(horizontal.length / 2));
+          if (isOdd(strlen(horizontal))) {
+            horizontal = horizontal.slice(Math.floor(strlen(horizontal) / 2));
             return horizontal.slice(1) + text + horizontal;
           } else {
-            horizontal = horizontal.slice(horizontal.length / 2);
+            horizontal = horizontal.slice(strlen(horizontal) / 2);
             return horizontal + text + horizontal;
           }
         }
@@ -474,7 +478,10 @@ import {
   and as andF
 } from "fluture";
 import { writeFileWithConfigAndCancel, findUpWithCancel } from "file-system";
+import strlen2 from "string-length";
 import {
+  reduce as reduce2,
+  applySpec,
   F,
   T as T2,
   __ as $2,
@@ -484,7 +491,6 @@ import {
   replace,
   chain,
   cond as cond2,
-  length,
   curry as curry6,
   fromPairs,
   groupBy,
@@ -710,6 +716,21 @@ var writeInitConfigFileWithCancel = curry6(
     map4(K3(`Wrote file to "${filepath}"!`))
   )(DEFAULT_CONFIG_FILE)
 );
+var getAggregatePatterns = curry6((chalk, partyFile, data) => {
+  const aggCommit = reduce2(
+    (agg, y) => mergeRight3(
+      agg,
+      mergeRight3(y, { files: uniq((y.files || []).concat(agg.files || [])) })
+    ),
+    {},
+    data
+  );
+  return renderPatternsWithAlt(
+    chalk.inverse("   "),
+    partyFile.patterns,
+    aggCommit
+  );
+});
 var loadPartyFile = curry6(
   (cancel, { cwd, color: useColor, config, help, HELP, init }) => {
     const chalk = new Chalk2({ level: useColor ? 2 : 0 });
@@ -816,47 +837,64 @@ var printData = curry6(
   (chalk, partyFile, config, data) => pipe4(
     groupBy(pipe4(prop("authorDate"), split2(" "), head)),
     map4(
-      pipe4(
-        map4((commit) => {
-          const {
-            statuses,
-            filetypes,
-            subject,
-            authorName,
-            abbrevHash,
-            formattedDate
-          } = commit;
-          const matches = applyPatternsWithChalk(
-            chalk,
-            partyFile.patterns,
-            commit
-          );
-          return box(
-            {
-              subtitleAlign: "right",
-              width: partyFile.longestSubject,
-              padding: 1,
-              subtitle: matches,
-              title: `\u25B6 ${chalk.red(
-                authorName
-              )} @ ${formattedDate} [${chalk.yellow(abbrevHash)}] \u23F9`
-            },
-            subject + "\n\n" + chalk.blue(filetypes.join(" "))
-          );
-        }),
-        join4(`
+      applySpec({
+        render: pipe4(
+          map4((commit) => {
+            const {
+              statuses,
+              filetypes,
+              subject,
+              authorName,
+              abbrevHash,
+              formattedDate
+            } = commit;
+            const matches = renderPatterns(partyFile.patterns, commit);
+            return box(
+              {
+                subtitleAlign: "right",
+                width: partyFile.longestSubject,
+                padding: {
+                  left: 1,
+                  right: 1,
+                  bottom: 0,
+                  top: 0
+                },
+                subtitle: matches,
+                title: `\u25B6 ${chalk.red(
+                  authorName
+                )} @ ${formattedDate} [${chalk.yellow(abbrevHash)}] \u23F9`
+              },
+              subject + " | " + chalk.blue(filetypes.join(" "))
+            );
+          }),
+          join4(`
 
 `)
-        // join(NEWBAR)
-      )
+        ),
+        pattern: getAggregatePatterns(chalk, partyFile)
+      })
     ),
     toPairs2,
-    map4(
-      ([k, v]) => chalk.inverse(" " + k + " ") + `${NEWBAR} ${NEWBAR} ` + v.replace(/\n/g, `${NEWBAR} `) + `${NEWBAR} `
-    ),
+    map4(([date, { render: v, pattern: patternSummary }]) => {
+      const xxx = strlen2(date) + strlen2(patternSummary);
+      return chalk.inverse(
+        " " + date + " " + strepeat(" ")(
+          Math.abs(partyFile.longestSubject - xxx) - getBorderWidth(config.borderStyle)
+        )
+      ) + patternSummary + chalk.inverse("  ") + `${NEWBAR} ${NEWBAR} ` + v.replace(/\n/g, `${NEWBAR} `) + `${NEWBAR} `;
+    }),
     join4("\n"),
     replace(/│ ╭/g, "\u251C\u2500\u252C")
   )(data)
+);
+var processPatterns = curry6(
+  (chalk, v) => v?.matches ? mergeRight3(v, {
+    fn: Array.isArray(v.color) ? pipe4(
+      map4((c) => chalk[c]),
+      (x) => (raw) => pipe4.apply(null, x)(raw)
+    )(v.color) : chalk[v.color],
+    matches: v.matches
+  }) : v
 );
 var runner = curry6((cancel, argv) => {
   let canon;
@@ -888,18 +926,10 @@ var runner = curry6((cancel, argv) => {
       canon = canonicalize({});
       return pipe4(
         propOr2({}, "patterns"),
-        map4(
-          (v) => v?.matches ? mergeRight3(v, {
-            fn: Array.isArray(v.color) ? pipe4(
-              map4((c) => chalk[c]),
-              (x) => (raw) => pipe4.apply(null, x)(raw)
-            )(v.color) : chalk[v.color],
-            matches: v.matches
-          }) : v
-        ),
+        map4(processPatterns(chalk)),
         (patterns) => pipe4(printLegend(chalk), (legend) => {
           const longestSubject = config.width || partyFile.width || pipe4(
-            map4(pipe4(propOr2("", "subject"), length)),
+            map4(pipe4(propOr2("", "subject"), strlen2)),
             (z) => Math.max(...z)
           )(gitlog2);
           return pipe4(

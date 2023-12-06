@@ -69,7 +69,7 @@ const objectify = ifElse(
   })
 )
 
-const getBorderWidth = s => (s === NONE ? 0 : 2)
+export const getBorderWidth = s => (s === NONE ? 0 : 2)
 
 const SIDES = [
   'topLeft',
@@ -94,12 +94,12 @@ const makeTitle = (text, horizontal, alignment) => {
         () => {
           horizontal = horizontal.slice(textWidth)
 
-          if (isOdd(horizontal.length)) {
+          if (isOdd(strlen(horizontal))) {
             // when length is odd
-            horizontal = horizontal.slice(Math.floor(horizontal.length / 2))
+            horizontal = horizontal.slice(Math.floor(strlen(horizontal) / 2))
             return horizontal.slice(1) + text + horizontal
           } else {
-            horizontal = horizontal.slice(horizontal.length / 2)
+            horizontal = horizontal.slice(strlen(horizontal) / 2)
             return horizontal + text + horizontal
           }
         },
@@ -255,7 +255,7 @@ const formatSubTitle = formatWithPointer('bottom', 'subtitle')
 
 const ensurePositive = z => (z < 0 ? 0 : z)
 
-const strepeat = toRepeat =>
+export const strepeat = toRepeat =>
   memoizeWith(I, n => pipe(ensurePositive, repeat(toRepeat), join(''))(n))
 
 const repad = strepeat(PAD)
