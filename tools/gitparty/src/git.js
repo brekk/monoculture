@@ -1,7 +1,7 @@
 import { curry } from 'ramda'
 import GLOG from 'gitlog'
 import { Future } from 'fluture'
-const { default: glog } = GLOG
+const glog = GLOG.default || GLOG
 
 export const NO_OP = () => {}
 

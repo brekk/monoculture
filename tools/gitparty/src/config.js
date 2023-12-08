@@ -20,9 +20,10 @@ export const YARGS_CONFIG = {
     aliases: ['a', 'alias'],
     dateFormat: ['d'],
     width: ['w'],
+    fields: ['e'],
   },
   boolean: ['excludeMergeCommits', 'collapseAuthors', 'init'],
-  array: ['aliases'],
+  array: ['aliases', 'fields'],
   number: ['width'],
 }
 export const CONFIG_DEFAULTS = {
@@ -45,7 +46,7 @@ export const CONFIG_DEFAULTS = {
   timezone: `UTC`,
   execOptions: { maxBuffer: 1000 * 1024 },
   color: true,
-  dateFormat: 'p',
+  dateFormat: 'HH:mm',
 }
 export const HELP_CONFIG = {
   help: 'This text!',
@@ -86,6 +87,7 @@ export const HELP_CONFIG = {
   dateFormat:
     "Express how you want date-fns to format your dates. (default: 'yyyy-MM-dd HH:kk OOOO')",
   width: 'Set an explicit width',
+  fields: 'Specify the fields you want to pull from `gitlog`',
 }
 export const DEFAULT_CONFIG_FILE = {
   patterns: {

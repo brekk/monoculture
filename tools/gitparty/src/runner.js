@@ -154,20 +154,29 @@ const loadPartyFile = curry(
   }
 )
 
-export const loadGitData = curry((cancel, config, chalk, data) =>
-  pipe(
+export const loadGitData = curry((cancel, config, chalk, data) => {
+  const { fields: _fields = [] } = config
+  const fields = [
+    ...CONFIG_DEFAULTS.fields,
+    ...(!Array.isArray(_fields) ? [_fields] : _fields),
+  ]
+  return pipe(
     log.config('searching for .git/index'),
     findUpWithCancel(cancel, {}),
     map(log.config('git found, path...')),
     map(path.dirname),
     chain(repo =>
       repo
-        ? gitlogWithCancel(cancel, { repo, number: config.totalCommits })
+        ? gitlogWithCancel(cancel, {
+            repo,
+            number: config.totalCommits,
+            fields,
+          })
         : rejectF(THIS_IS_NOT_A_GIT_REPO(chalk))
     ),
     map(pipe(objOf('gitlog'), mergeRight(data)))
   )(['.git/index'])
-)
+})
 
 const adjustRelativeTimezone = curry((timeZone, preferredFormat, commit) => {
   const { authorDate } = commit
@@ -233,7 +242,6 @@ export const printData = curry((chalk, partyFile, config, data) =>
         render: pipe(
           map(commit => {
             const {
-              statuses,
               filetypes,
               subject,
               authorName,

@@ -4990,6 +4990,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clox@workspace:packages/clox":
+  version: 0.0.0-use.local
+  resolution: "clox@workspace:packages/clox"
+  dependencies:
+    ansi-align: "npm:^3.0.1"
+    camel-case: "npm:^5.0.0"
+    chalk: "npm:^5.3.0"
+    dotenv-cli: "npm:^7.3.0"
+    eslint-config-monoculture: "npm:eslint-config-monoculture@*"
+    jest-config: "npm:jest-config@*"
+    ramda: "npm:^0.29.1"
+    string-length: "npm:^6.0.0"
+    widest-line: "npm:^5.0.0"
+    wrap-ansi: "npm:^9.0.0"
+  languageName: unknown
+  linkType: soft
+
 "clsx@npm:^2.0.0":
   version: 2.0.0
   resolution: "clsx@npm:2.0.0"
@@ -6847,7 +6864,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-monoculture@workspace:shared/eslint-config-monoculture":
+"eslint-config-monoculture@npm:eslint-config-monoculture@*, eslint-config-monoculture@workspace:shared/eslint-config-monoculture":
   version: 0.0.0-use.local
   resolution: "eslint-config-monoculture@workspace:shared/eslint-config-monoculture"
   dependencies:
@@ -9874,7 +9891,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-config@workspace:shared/jest-config":
+"jest-config@npm:jest-config@*, jest-config@workspace:shared/jest-config":
   version: 0.0.0-use.local
   resolution: "jest-config@workspace:shared/jest-config"
   dependencies:
@@ -15530,6 +15547,20 @@ __metadata:
   checksum: cdc47cad3a9d0b6cb293e39ccb1066695ae6fdd39b9e4f351b010835a1f8b4f3a6dc3a55e896b421371187f22b48d7dac1b693de4f6551bdef7b6ab6735dfe3b
   languageName: node
   linkType: hard
+
+"treacle@workspace:tools/treacle":
+  version: 0.0.0-use.local
+  resolution: "treacle@workspace:tools/treacle"
+  dependencies:
+    dotenv-cli: "npm:^7.3.0"
+    eslint-config-monoculture: "npm:eslint-config-monoculture@*"
+    execa: "npm:^8.0.1"
+    fluture: "npm:^14.0.0"
+    gitlog: "npm:^4.0.8"
+    jest-config: "npm:jest-config@*"
+    ramda: "npm:^0.29.1"
+  languageName: unknown
+  linkType: soft
 
 "tree-kill@npm:^1.1.0":
   version: 1.2.2

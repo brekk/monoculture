@@ -563,10 +563,11 @@ var YARGS_CONFIG = {
     totalCommits: ["n"],
     aliases: ["a", "alias"],
     dateFormat: ["d"],
-    width: ["w"]
+    width: ["w"],
+    fields: ["e"]
   },
   boolean: ["excludeMergeCommits", "collapseAuthors", "init"],
-  array: ["aliases"],
+  array: ["aliases", "fields"],
   number: ["width"]
 };
 var CONFIG_DEFAULTS = {
@@ -589,7 +590,7 @@ var CONFIG_DEFAULTS = {
   timezone: `UTC`,
   execOptions: { maxBuffer: 1e3 * 1024 },
   color: true,
-  dateFormat: "p"
+  dateFormat: "HH:mm"
 };
 var HELP_CONFIG = {
   help: "This text!",
@@ -625,7 +626,8 @@ var HELP_CONFIG = {
   timezone: "Set the timezone you want to see results in. Defaults to UTC",
   aliases: "Define author aliases (useful if authors do not merge under consistent git `user.name`s / `user.email`s)",
   dateFormat: "Express how you want date-fns to format your dates. (default: 'yyyy-MM-dd HH:kk OOOO')",
-  width: "Set an explicit width"
+  width: "Set an explicit width",
+  fields: "Specify the fields you want to pull from `gitlog`"
 };
 var DEFAULT_CONFIG_FILE = {
   patterns: {
@@ -643,7 +645,7 @@ var DEFAULT_CONFIG_FILE = {
 import { curry as curry5 } from "ramda";
 import GLOG from "gitlog";
 import { Future } from "fluture";
-var { default: glog } = GLOG;
+var glog = GLOG.default || GLOG;
 var NO_OP = () => {
 };
 var gitlogWithCancel = curry5(
@@ -656,7 +658,12 @@ var gitlog = gitlogWithCancel(NO_OP);
 
 // src/log.js
 import { complextrace } from "envtrace";
-var log = complextrace("gitparty", ["config", "configFile", "info"]);
+var log = complextrace("gitparty", [
+  "config",
+  "configFile",
+  "info",
+  "datetime"
+]);
 
 // package.json
 var package_default = {
@@ -774,18 +781,27 @@ var loadPartyFile = curry6(
     );
   }
 );
-var loadGitData = curry6(
-  (cancel, config, chalk, data) => pipe4(
+var loadGitData = curry6((cancel, config, chalk, data) => {
+  const { fields: _fields = [] } = config;
+  const fields = [
+    ...CONFIG_DEFAULTS.fields,
+    ...!Array.isArray(_fields) ? [_fields] : _fields
+  ];
+  return pipe4(
     log.config("searching for .git/index"),
     findUpWithCancel(cancel, {}),
     map4(log.config("git found, path...")),
     map4(path.dirname),
     chain(
-      (repo) => repo ? gitlogWithCancel(cancel, { repo, number: config.totalCommits }) : rejectF(THIS_IS_NOT_A_GIT_REPO(chalk))
+      (repo) => repo ? gitlogWithCancel(cancel, {
+        repo,
+        number: config.totalCommits,
+        fields
+      }) : rejectF(THIS_IS_NOT_A_GIT_REPO(chalk))
     ),
     map4(pipe4(objOf("gitlog"), mergeRight3(data)))
-  )([".git/index"])
-);
+  )([".git/index"]);
+});
 var adjustRelativeTimezone = curry6((timeZone, preferredFormat, commit) => {
   const { authorDate } = commit;
   const newDate = pipe4(
@@ -841,7 +857,6 @@ var printData = curry6(
         render: pipe4(
           map4((commit) => {
             const {
-              statuses,
               filetypes,
               subject,
               authorName,

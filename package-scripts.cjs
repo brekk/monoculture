@@ -27,6 +27,7 @@ module.exports = {
 
               'apps/docs',
               'packages/climate',
+              'packages/clox',
               'packages/file-system',
               'packages/monocle',
               'packages/monorail',
@@ -35,6 +36,7 @@ module.exports = {
               'shared/jest-config',
               'shared/monoculture-tsconfig',
               'tools/gitparty',
+              'tools/treacle',
               'tools/monodoc',
               'tools/spacework',
               'tools/superorganism',

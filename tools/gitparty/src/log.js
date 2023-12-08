@@ -1,3 +1,8 @@
 import { complextrace } from 'envtrace'
 
-export const log = complextrace('gitparty', ['config', 'configFile', 'info'])
+export const log = complextrace('gitparty', [
+  'config',
+  'configFile',
+  'info',
+  'datetime',
+])

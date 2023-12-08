@@ -1,0 +1,22 @@
+{
+  "name": "treacle",
+  "version": "0.0.0",
+  "description": "visualize the tree for the CLI",
+  "main": "treacle.js",
+  "type": "module",
+  "repository": "monoculture",
+  "author": "brekk",
+  "license": "ISC",
+  "private": true,
+  "dependencies": {
+    "file-system": "workspace:packages/file-system",
+    "execa": "^8.0.1",
+    "fluture": "^14.0.0",
+    "gitlog": "^4.0.8",
+    "ramda": "^0.29.1"
+  },
+  "devDependencies": {
+    "eslint-config-monoculture": "npm:eslint-config-monoculture@*",
+    "jest-config": "npm:jest-config@*"
+  }
+}
