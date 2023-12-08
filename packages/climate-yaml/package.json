@@ -1,16 +1,16 @@
 {
-  "name": "climate-toml",
+  "name": "climate-yaml",
   "version": "0.0.0",
   "description": "TOML parser for climate",
-  "main": "climate-toml.js",
+  "main": "climate-yaml.js",
   "type": "module",
   "repository": "monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "ramda": "^0.29.1",
-    "smol-toml": "^1.1.3"
+    "yaml": "^2.3.4",
+    "ramda": "^0.29.1"
   },
   "devDependencies": {
     "climate": "workspace:packages/climate",
