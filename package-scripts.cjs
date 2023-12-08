@@ -27,7 +27,9 @@ module.exports = {
 
               'apps/docs',
               'packages/climate',
+              'packages/climate-json',
               'packages/climate-toml',
+              'packages/climate-yaml',
               'packages/clox',
               'packages/file-system',
               'packages/monocle',
@@ -37,10 +39,10 @@ module.exports = {
               'shared/jest-config',
               'shared/monoculture-tsconfig',
               'tools/gitparty',
-              'tools/treacle',
               'tools/monodoc',
               'tools/spacework',
               'tools/superorganism',
+              'tools/treacle',
             ]
           ),
           'sync scripts for all the files'

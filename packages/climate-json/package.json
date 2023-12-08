@@ -1,16 +1,15 @@
 {
-  "name": "climate-yaml",
+  "name": "climate-json",
   "version": "0.0.0",
-  "description": "YAML parser for climate",
-  "main": "climate-yaml.js",
+  "description": "json parser for climate",
+  "main": "climate-json.js",
   "type": "module",
   "repository": "monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "ramda": "^0.29.1",
-    "yaml": "^2.3.4"
+    "ramda": "^0.29.1"
   },
   "devDependencies": {
     "climate": "workspace:packages/climate",
