@@ -28,7 +28,7 @@ const buildModule = ([infile, outfile]) =>
 module.exports = {
   scripts: {
     build: sd(
-      buildModule(['src/index.js', 'climate-toml.js']),
+      buildModule(['src/index.js', 'climate-yaml.js']),
       'build this climate plugin, please!'
     ),
     lint: sd('eslint --fix .', 'lint!'),
