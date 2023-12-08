@@ -58,8 +58,18 @@ var objectify = ifElse(
   })
 );
 var getBorderWidth = (s) => s === NONE ? 0 : 2;
+var SIDES = [
+  "topLeft",
+  "topRight",
+  "bottomRight",
+  "bottomLeft",
+  "left",
+  "right",
+  "top",
+  "bottom"
+];
 var isOdd = (x) => x % 2 === 1;
-var makeTitle = (text, horizontal, alignment) => {
+var makeTitle = curry((text, horizontal, alignment) => {
   const textWidth = strlen(text);
   return pipe(
     cond([
@@ -80,9 +90,9 @@ var makeTitle = (text, horizontal, alignment) => {
       ]
     ])
   )(alignment);
-};
+});
 var enpad = curry(
-  ({ align, max, longest }, i) => align === "center" ? repad((max - longest) / 2) + i : align === "right" ? repad(max - longest) + i : i
+  ({ align, max, longest }, i) => align === "center" ? repad((max - longest) / 2) + i : align === "right" ? repad(max - longest) + i : "" + i
 );
 var addNewLines = curry(
   (max, align, lx) => reduce(
@@ -375,7 +385,7 @@ var getBGColorFn = curry(
 );
 var ensureValidColor = curry((chalk, key, color) => {
   if (color && !isChalkColorValid(chalk, color)) {
-    throw new Error(`${color} is not a valid ${key}`);
+    throw new Error(`${color} is not a valid color (key: ${key})`);
   }
 });
 var DEFAULT_OPTIONS = {
@@ -412,7 +422,17 @@ var box = curry((opts, text) => {
   return boxContent(text, opts.width, opts);
 });
 export {
+  DEFAULT_OPTIONS,
+  SIDES,
   box,
+  enpad,
+  ensureValidColor,
+  getBGColorFn,
   getBorderWidth,
+  getColorFn,
+  isChalkColorValid,
+  isHex,
+  isOdd,
+  makeTitle,
   strepeat
 };

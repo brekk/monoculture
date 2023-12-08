@@ -18,7 +18,7 @@ const plugin = {
     split('\n'),
     map(trim),
     filter(I),
-    all(anyPass([startsWith('#'), startsWith('['), test('(.*) = (.*)')]))
+    all(anyPass([startsWith('#'), startsWith('['), test(/(.*) = (.*)/)]))
   ),
   parse,
 }

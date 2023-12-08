@@ -50,7 +50,6 @@ const terminalColumns = () => {
     : 80
 }
 
-const ofType = x => typeof x
 const isType = curry((y, x) => typeof x === y)
 
 const objectify = ifElse(
@@ -71,7 +70,7 @@ const objectify = ifElse(
 
 export const getBorderWidth = s => (s === NONE ? 0 : 2)
 
-const SIDES = [
+export const SIDES = [
   'topLeft',
   'topRight',
   'bottomRight',
@@ -81,9 +80,9 @@ const SIDES = [
   'top',
   'bottom',
 ]
-const isOdd = x => x % 2 === 1
+export const isOdd = x => x % 2 === 1
 
-const makeTitle = (text, horizontal, alignment) => {
+export const makeTitle = curry((text, horizontal, alignment) => {
   const textWidth = strlen(text)
   return pipe(
     cond([
@@ -106,14 +105,14 @@ const makeTitle = (text, horizontal, alignment) => {
       ],
     ])
   )(alignment)
-}
+})
 
-const enpad = curry(({ align, max, longest }, i) =>
+export const enpad = curry(({ align, max, longest }, i) =>
   align === 'center'
     ? repad((max - longest) / 2) + i
     : align === 'right'
     ? repad(max - longest) + i
-    : i
+    : '' + i
 )
 
 const addNewLines = curry((max, align, lx) =>
@@ -482,23 +481,23 @@ const determineDimensions = (text, opts) => {
   )(opts)
 }
 
-const isHex = color => color.match(/^#(?:[0-f]{3}){1,2}$/i)
-const isChalkColorValid = curry(
+export const isHex = color => color.match(/^#(?:[0-f]{3}){1,2}$/i)
+export const isChalkColorValid = curry(
   (chalk, color) => typeof color === 'string' && (chalk[color] ?? isHex(color))
 )
-const getColorFn = curry((chalk, color) =>
+export const getColorFn = curry((chalk, color) =>
   isHex(color) ? chalk.hex(color) : chalk[color]
 )
-const getBGColorFn = curry((chalk, color) =>
+export const getBGColorFn = curry((chalk, color) =>
   isHex(color) ? chalk.bgHex(color) : chalk[camelCase(['bg', color])]
 )
 
-const ensureValidColor = curry((chalk, key, color) => {
+export const ensureValidColor = curry((chalk, key, color) => {
   if (color && !isChalkColorValid(chalk, color)) {
-    throw new Error(`${color} is not a valid ${key}`)
+    throw new Error(`${color} is not a valid color (key: ${key})`)
   }
 })
-const DEFAULT_OPTIONS = {
+export const DEFAULT_OPTIONS = {
   color: true,
   padding: 0,
   borderStyle: 'single',

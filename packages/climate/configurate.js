@@ -78,6 +78,7 @@ ${z}${$postscript ? "\n" + $postscript : ""}`
 
 // src/builder.js
 import {
+  cond,
   chain,
   map as map2,
   identity as I,
@@ -90,7 +91,12 @@ import {
 
 // src/log.js
 import { complextrace } from "envtrace";
-var log = complextrace("climate", ["help", "builder", "info"]);
+var log = complextrace("climate", [
+  "help",
+  "builder",
+  "info",
+  "plugin"
+]);
 
 // src/parser.js
 import { curry as curry2 } from "ramda";
@@ -128,6 +134,17 @@ var configurate = curry3((yargsConf, defaults, help, details, argv) => {
     ifElse2(showHelpWhen(check), (x) => reject(x.HELP), resolve)
   )(argv);
 });
+var pluginToCondMap = ({ name, test, parse: parse2 }) => {
+  if (!name || !test || !parse2) {
+    throw new Error(
+      `This plugin (${name || "unknown"}) is not valid ({ test: ${test}, parse: ${parse2} }).`
+    );
+  }
+  return [
+    pipe2(test, log.plugin(name + ":test")),
+    pipe2(parse2, log.plugin(name + ":read"))
+  ];
+};
 var defaultNameTemplate = (ns) => [`.${ns}rc`, `.${ns}rc.json`];
 var configFileWithCancel = curry3((cancel, opts) => {
   let refF;
@@ -142,7 +159,7 @@ var configFileWithCancel = curry3((cancel, opts) => {
     findUp: findUpOpts = {},
     ns = "climate",
     wrapTransformer = true,
-    json = true,
+    json = false,
     template = defaultNameTemplate,
     transformer = json ? JSON.parse : I,
     optional = false
@@ -160,7 +177,8 @@ var configFileWithCancel = curry3((cancel, opts) => {
       ) : I
     )(searchspace);
   }
-  const transform = wrapTransformer ? map2(transformer) : transformer;
+  const chrysalis = Array.isArray(transformer) ? cond(map2(pluginToCondMap)(transformer)) : transformer;
+  const transform = wrapTransformer ? map2(chrysalis) : chrysalis;
   return pipe2(transform)(refF);
 });
 var configFile = configFileWithCancel(NO_OP);
@@ -174,6 +192,7 @@ export {
   generateHelp,
   invalidHelpConfig,
   longFlag,
+  pluginToCondMap,
   shortFlag,
   showHelpWhen
 };

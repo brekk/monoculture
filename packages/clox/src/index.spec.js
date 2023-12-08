@@ -1,4 +1,80 @@
-import { box } from './box'
+import { Chalk } from 'chalk'
+
+import {
+  enpad,
+  makeTitle,
+  isOdd,
+  getBorderWidth,
+  strepeat,
+  isHex,
+  isChalkColorValid,
+  getColorFn,
+  getBGColorFn,
+  ensureValidColor,
+  DEFAULT_OPTIONS,
+  box,
+} from './index'
+const chalk = new Chalk({ level: 0 })
+test('enpad', () => {
+  expect(enpad).toBeTruthy()
+  expect(enpad({ align: 'center', max: 10, longest: 6 }, 7)).toEqual('  7')
+  expect(enpad({ align: 'right', max: 10, longest: 6 }, 7)).toEqual('    7')
+  expect(enpad({ align: 'left', max: 10, longest: 6 }, 7)).toEqual('7')
+})
+test('getBorderWidth', () => {
+  expect(getBorderWidth).toBeTruthy()
+  expect(getBorderWidth('none')).toEqual(0)
+  expect(getBorderWidth('not none')).toEqual(2)
+})
+test('strepeat', () => {
+  expect(strepeat).toBeTruthy()
+})
+
+test('makeTitle', () => {
+  expect(makeTitle).toBeTruthy()
+  const entitle = makeTitle('shit', '@'.repeat(20))
+  expect(entitle('left')).toEqual('shit@@@@@@@@@@@@@@@@')
+  expect(entitle('right')).toEqual('@@@@@@@@@@@@@@@@shit')
+  expect(entitle('center')).toEqual('@@@@@@@@shit@@@@@@@@')
+  expect(makeTitle('cool!', '@'.repeat(20), 'center')).toEqual(
+    '@@@@@@@cool!@@@@@@@@'
+  )
+})
+test('isHex', () => {
+  expect(isHex).toBeTruthy()
+})
+test('isOdd', () => {
+  expect(isOdd).toBeTruthy()
+  expect(isOdd(5)).toBeTruthy()
+  expect(isOdd(4)).toBeFalsy()
+})
+test('isChalkColorValid', () => {
+  expect(isChalkColorValid).toBeTruthy()
+  expect(isChalkColorValid(chalk, 'red')).toBeTruthy()
+  expect(isChalkColorValid(chalk, 'ice-blue')).toBeFalsy()
+})
+test('getColorFn', () => {
+  expect(getColorFn).toBeTruthy()
+})
+test('getBGColorFn', () => {
+  expect(getBGColorFn).toBeTruthy()
+})
+test('ensureValidColor', () => {
+  expect(ensureValidColor).toBeTruthy()
+  const key = 'nice'
+  const color = 'aubergine'
+  expect(() => ensureValidColor(chalk, key, color)).toThrow(
+    'aubergine is not a valid color (key: nice)'
+  )
+})
+test('DEFAULT_OPTIONS', () => {
+  expect(DEFAULT_OPTIONS).toBeTruthy()
+})
+test('box', () => {
+  expect(box).toBeTruthy()
+})
+
+/* eslint-disable max-len */
 
 test('box', () => {
   expect(box).toBeTruthy()

@@ -9,8 +9,10 @@
   "license": "ISC",
   "private": true,
   "devDependencies": {
+    "climate": "workspace:packages/climate",
     "dotenv-cli": "^7.3.0",
     "eslint-config-monoculture": "npm:eslint-config-monoculture@*",
+    "fluture": "^14.0.0",
     "jest-config": "npm:jest-config@*"
   },
   "scripts": {

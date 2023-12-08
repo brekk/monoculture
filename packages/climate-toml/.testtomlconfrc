@@ -1,0 +1,12 @@
+# this is a toml document
+
+fixture = "test"
+info = "this is a test file"
+
+[cool]
+
+data = ["yes"]
+
+[cool.nice]
+
+oh = 111111

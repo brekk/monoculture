@@ -4911,8 +4911,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "climate-toml@workspace:packages/climate-toml"
   dependencies:
+    climate: "workspace:packages/climate"
     dotenv-cli: "npm:^7.3.0"
     eslint-config-monoculture: "npm:eslint-config-monoculture@*"
+    fluture: "npm:^14.0.0"
     jest-config: "npm:jest-config@*"
   languageName: unknown
   linkType: soft
@@ -8217,9 +8219,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "gitparty@workspace:tools/gitparty"
   dependencies:
-    ansi-align: "npm:^3.0.1"
-    camel-case: "npm:^5.0.0"
     climate: "workspace:packages/climate"
+    clox: "workspace:packages/clox"
     date-fns: "npm:^2.30.0"
     date-fns-tz: "npm:^2.0.0"
     dotenv-cli: "npm:^7.3.0"
@@ -8230,9 +8231,6 @@ __metadata:
     jest-config: "workspace:shared/jest-config"
     micromatch: "npm:^4.0.5"
     ramda: "npm:^0.29.1"
-    string-length: "npm:^6.0.0"
-    widest-line: "npm:^5.0.0"
-    wrap-ansi: "npm:^9.0.0"
   languageName: unknown
   linkType: soft
 
@@ -15570,6 +15568,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "treacle@workspace:tools/treacle"
   dependencies:
+    dotenv-cli: "npm:^7.3.0"
     eslint-config-monoculture: "npm:eslint-config-monoculture@*"
     execa: "npm:^8.0.1"
     file-system: "workspace:packages/file-system"

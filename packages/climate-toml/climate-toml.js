@@ -1,9 +1,26 @@
 // src/index.js
-import { parse, stringify } from "smol-toml";
+import {
+  pipe,
+  map,
+  trim,
+  filter,
+  identity as I,
+  all,
+  anyPass,
+  startsWith,
+  test,
+  split
+} from "ramda";
+import { parse } from "smol-toml";
 var plugin = {
   name: "toml",
-  read: parse,
-  write: stringify
+  test: pipe(
+    split("\n"),
+    map(trim),
+    filter(I),
+    all(anyPass([startsWith("#"), startsWith("["), test(/(.*) = (.*)/)]))
+  ),
+  parse
 };
 var src_default = plugin;
 export {

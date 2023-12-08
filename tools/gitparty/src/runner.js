@@ -16,7 +16,7 @@ import { printLegend } from './legend'
 import { trace } from 'xtrace'
 import { configFileWithCancel, configurate } from 'climate'
 import { Chalk } from 'chalk'
-import { strepeat, box, getBorderWidth } from './box'
+import { strepeat, box, getBorderWidth } from 'clox'
 import {
   swap,
   mapRej,

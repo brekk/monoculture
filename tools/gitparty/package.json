@@ -9,19 +9,15 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "ansi-align": "^3.0.1",
-    "camel-case": "^5.0.0",
     "climate": "workspace:packages/climate",
+    "clox": "workspace:packages/clox",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
     "file-system": "workspace:packages/file-system",
     "fluture": "^14.0.0",
     "gitlog": "^4.0.8",
     "micromatch": "^4.0.5",
-    "ramda": "^0.29.1",
-    "string-length": "^6.0.0",
-    "widest-line": "^5.0.0",
-    "wrap-ansi": "^9.0.0"
+    "ramda": "^0.29.1"
   },
   "devDependencies": {
     "dotenv-cli": "^7.3.0",
