@@ -27,6 +27,7 @@ module.exports = {
 
               'apps/docs',
               'packages/climate',
+              'packages/climate-toml',
               'packages/clox',
               'packages/file-system',
               'packages/monocle',

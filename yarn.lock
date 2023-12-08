@@ -4907,6 +4907,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"climate-toml@workspace:packages/climate-toml":
+  version: 0.0.0-use.local
+  resolution: "climate-toml@workspace:packages/climate-toml"
+  dependencies:
+    dotenv-cli: "npm:^7.3.0"
+    eslint-config-monoculture: "npm:eslint-config-monoculture@*"
+    jest-config: "npm:jest-config@*"
+  languageName: unknown
+  linkType: soft
+
 "climate@workspace:packages/climate":
   version: 0.0.0-use.local
   resolution: "climate@workspace:packages/climate"
@@ -4924,6 +4934,7 @@ __metadata:
     jest: "npm:^29.7.0"
     prettier: "npm:^3.0.3"
     ramda: "npm:^0.29.1"
+    smol-toml: "npm:^1.1.3"
     strip-ansi: "npm:^7.1.0"
     workspace: "npm:^0.0.1-preview.1"
   languageName: unknown
@@ -14696,6 +14707,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"smol-toml@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "smol-toml@npm:1.1.3"
+  checksum: 42571ef1b1b1fc1f4cbc10fd0b294915b53ba7ed93010363737f7e1fd3fd6d8ce175011fdc24dafcbed3cdc83cdd744edfaef48c8d5959b61f54c3e40b15eb79
+  languageName: node
+  linkType: hard
+
 "snake-case@npm:^3.0.4":
   version: 3.0.4
   resolution: "snake-case@npm:3.0.4"
@@ -15552,9 +15570,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "treacle@workspace:tools/treacle"
   dependencies:
-    dotenv-cli: "npm:^7.3.0"
     eslint-config-monoculture: "npm:eslint-config-monoculture@*"
     execa: "npm:^8.0.1"
+    file-system: "workspace:packages/file-system"
     fluture: "npm:^14.0.0"
     gitlog: "npm:^4.0.8"
     jest-config: "npm:jest-config@*"

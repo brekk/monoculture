@@ -1,4 +1,5 @@
 import {
+  cond,
   chain,
   map,
   identity as I,
@@ -9,7 +10,7 @@ import {
   F as alwaysFalse,
 } from 'ramda'
 import { log } from './log'
-import { parse } from './parser'
+import { parse as parseArgs } from './parser'
 import { generateHelp } from './help'
 import { reject, resolve, coalesce } from 'fluture'
 import { findUpWithCancel, readFileWithCancel } from 'file-system'
@@ -33,7 +34,7 @@ export const configurate = curry((yargsConf, defaults, help, details, argv) => {
   })
   const { check = alwaysFalse } = details
   return pipe(
-    parse(updatedConfig),
+    parseArgs(updatedConfig),
     raw => {
       const merged = { ...defaults, ...raw }
       const HELP = generateHelp(
@@ -47,6 +48,20 @@ export const configurate = curry((yargsConf, defaults, help, details, argv) => {
     ifElse(showHelpWhen(check), x => reject(x.HELP), resolve)
   )(argv)
 })
+
+export const pluginToCondMap = ({ name, test, parse }) => {
+  if (!name || !test || !parse) {
+    throw new Error(
+      `This plugin (${
+        name || 'unknown'
+      }) is not valid ({ test: ${test}, parse: ${parse} }).`
+    )
+  }
+  return [
+    pipe(test, log.plugin(name + ':test')),
+    pipe(parse, log.plugin(name + ':read')),
+  ]
+}
 
 export const defaultNameTemplate = ns => [`.${ns}rc`, `.${ns}rc.json`]
 
@@ -63,7 +78,7 @@ export const configFileWithCancel = curry((cancel, opts) => {
     findUp: findUpOpts = {},
     ns = 'climate',
     wrapTransformer = true,
-    json = true,
+    json = false,
     template = defaultNameTemplate,
     transformer = json ? JSON.parse : I,
     optional = false,
@@ -83,7 +98,10 @@ export const configFileWithCancel = curry((cancel, opts) => {
         : I
     )(searchspace)
   }
-  const transform = wrapTransformer ? map(transformer) : transformer
+  const chrysalis = Array.isArray(transformer)
+    ? cond(map(pluginToCondMap)(transformer))
+    : transformer
+  const transform = wrapTransformer ? map(chrysalis) : chrysalis
   return pipe(transform)(refF)
 })
 

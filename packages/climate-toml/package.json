@@ -1,32 +1,22 @@
 {
-  "name": "treacle",
+  "name": "climate-toml",
   "version": "0.0.0",
-  "description": "visualize the tree for the CLI",
-  "main": "treacle.js",
+  "description": "TOML parser for climate",
+  "main": "climate-toml.js",
   "type": "module",
   "repository": "monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "dependencies": {
-    "execa": "^8.0.1",
-    "file-system": "workspace:packages/file-system",
-    "fluture": "^14.0.0",
-    "gitlog": "^4.0.8",
-    "ramda": "^0.29.1"
-  },
   "devDependencies": {
+    "dotenv-cli": "^7.3.0",
     "eslint-config-monoculture": "npm:eslint-config-monoculture@*",
     "jest-config": "npm:jest-config@*"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "build": "dotenv -- nps -c ./package-scripts.cjs build",
-    "build:watch": "dotenv -- nps -c ./package-scripts.cjs build.watch",
-    "dev": "dotenv -- nps -c ./package-scripts.cjs dev",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
-    "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
-    "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }
