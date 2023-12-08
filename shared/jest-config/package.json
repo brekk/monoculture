@@ -1,5 +1,6 @@
 {
   "name": "jest-config",
+  "description": "shared jest configuration for monoculture packages",
   "version": "0.0.0",
   "main": "index.js",
   "author": "brekk",

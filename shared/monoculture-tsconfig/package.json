@@ -1,5 +1,6 @@
 {
   "name": "monoculture-tsconfig",
+  "description": "shared tsconfig for monoculture packages",
   "version": "0.0.0",
   "private": true,
   "files": [

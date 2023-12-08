@@ -1,5 +1,6 @@
 {
   "name": "eslint-config-monoculture",
+  "description": "shared eslint configuration for monoculture packages",
   "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
