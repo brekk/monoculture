@@ -1,7 +1,7 @@
 {
   "name": "monocle",
   "version": "0.0.0",
-  "description": "inspect code and apply rules, magically 🪄",
+  "description": "inspect code and apply rules, magically 🧐",
   "bin": "monocle.js",
   "main": "monocle.js",
   "type": "module",
