@@ -33,6 +33,7 @@ export const anyFilesMatchFromObject = curry((wildcards, changes) =>
 export const isMergeCommit = pipe(propOr('', 'subject'), startsWith('Merge'))
 
 export const stringMatcherWithCanon = curry((canon, commit, [k, v]) => {
+  const getCanon = c => c
   // TODO: What is this coercion for?
   if (v === 'true' || v === 'false') {
     v = !!v

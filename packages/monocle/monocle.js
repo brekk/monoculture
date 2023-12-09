@@ -80,7 +80,7 @@ import { configurate, configFile } from "climate";
 var package_default = {
   name: "monocle",
   version: "0.0.0",
-  description: "inspect code and apply rules, magically \u{1FA84}",
+  description: "inspect code and apply rules, magically \u{1F9D0}",
   bin: "monocle.js",
   main: "monocle.js",
   type: "module",

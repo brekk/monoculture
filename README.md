@@ -10,7 +10,7 @@ introspection and organization tools for monorepos
    * [climate-yaml](https://github.com/brekk/monoculture/tree/main/packages/climate-yaml) - YAML parser for climate 🍠
    * [clox](https://github.com/brekk/monoculture/tree/main/packages/clox) - boxes for the terminal ⏰
    * [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) - fs, but in the future 🔮
-   * [monocle](https://github.com/brekk/monoculture/tree/main/packages/monocle) - inspect code and apply rules, magically 🪄
+   * [monocle](https://github.com/brekk/monoculture/tree/main/packages/monocle) - inspect code and apply rules, magically 🧐
    * [monorail](https://github.com/brekk/monoculture/tree/main/packages/monorail) - plugins for smug grins 🚂
    * [robot-tourist](https://github.com/brekk/monoculture/tree/main/packages/robot-tourist) - human-centric source code interpreter 🤖
 ## shared

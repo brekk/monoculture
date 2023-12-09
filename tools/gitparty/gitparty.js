@@ -49,27 +49,16 @@ var printLegend = curry2(
 );
 
 // src/runner.js
-import { trace } from "xtrace";
 import { configFileWithCancel, configurate } from "climate";
 import { Chalk } from "chalk";
 import { strepeat, box, getBorderWidth } from "clox";
-import {
-  swap,
-  mapRej,
-  resolve,
-  coalesce,
-  reject as rejectF,
-  ap as apF,
-  and as andF
-} from "fluture";
+import { swap, mapRej, resolve, reject as rejectF } from "fluture";
 import { writeFileWithConfigAndCancel, findUpWithCancel } from "file-system";
 import strlen from "string-length";
 import {
   reduce,
   applySpec,
-  F,
   T,
-  __ as $,
   always as K2,
   ap,
   join as join3,
@@ -77,7 +66,6 @@ import {
   chain,
   cond,
   curry as curry5,
-  fromPairs,
   groupBy,
   head,
   identity as I,
@@ -254,7 +242,7 @@ var log = complextrace("gitparty", [
 var package_default = {
   name: "gitparty",
   version: "0.0.0",
-  description: "visualize git logs with magical context \u{1F469}\u{1F3FF}\u200D\u{1F3A8}",
+  description: "visualize git logs with magical context \u{1F3A8}",
   main: "enscribe.js",
   type: "module",
   repository: "monoculture",

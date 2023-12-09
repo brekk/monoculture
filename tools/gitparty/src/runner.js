@@ -5,35 +5,18 @@ import {
   utcToZonedTime,
   format as formatDate,
 } from 'date-fns-tz'
-import {
-  renderPatterns,
-  renderPatternsWithAlt,
-  subrender,
-  renderPattern,
-  applyPatterns,
-} from './per-commit'
+import { renderPatterns, renderPatternsWithAlt } from './per-commit'
 import { printLegend } from './legend'
-import { trace } from 'xtrace'
 import { configFileWithCancel, configurate } from 'climate'
 import { Chalk } from 'chalk'
 import { strepeat, box, getBorderWidth } from 'clox'
-import {
-  swap,
-  mapRej,
-  resolve,
-  coalesce,
-  reject as rejectF,
-  ap as apF,
-  and as andF,
-} from 'fluture'
+import { swap, mapRej, resolve, reject as rejectF } from 'fluture'
 import { writeFileWithConfigAndCancel, findUpWithCancel } from 'file-system'
 import strlen from 'string-length'
 import {
   reduce,
   applySpec,
-  F,
   T,
-  __ as $,
   always as K,
   ap,
   join,
@@ -41,7 +24,6 @@ import {
   chain,
   cond,
   curry,
-  fromPairs,
   groupBy,
   head,
   identity as I,
