@@ -40,6 +40,7 @@
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:docs": "dotenv -- nps -c ./package-scripts.cjs meta.docs",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
+    "meta:readme": "dotenv -- nps -c ./package-scripts.cjs meta.readme",
     "prepare": "dotenv -- nps -c ./package-scripts.cjs prepare",
     "readme": "dotenv -- nps -c ./package-scripts.cjs readme",
     "sync": "dotenv -- nps -c ./package-scripts.cjs sync",

@@ -7,7 +7,7 @@ import { cwd } from "node:process";
 var package_default = {
   name: "monodoc",
   version: "0.0.1",
-  description: "Magical documentation for monorepos",
+  description: "magical documentation tooling \u2728",
   main: "monodoc.js",
   type: "module",
   repository: "brekk/monoculture",

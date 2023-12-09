@@ -1,7 +1,7 @@
 {
   "name": "climate-json",
   "version": "0.0.0",
-  "description": "json parser for climate",
+  "description": "JSON parser for climate 🐐",
   "main": "climate-json.js",
   "type": "module",
   "repository": "monoculture",

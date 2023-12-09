@@ -31,7 +31,7 @@ import { complextrace } from "envtrace";
 var package_default = {
   name: "superorganism",
   version: "0.0.0",
-  description: "no-nonsense script runner",
+  description: "script runner from beyond the moon \u{1F9A0}",
   type: "module",
   main: "superorganism.js",
   bin: "cli.mjs",

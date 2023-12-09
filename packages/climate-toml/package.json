@@ -1,7 +1,7 @@
 {
   "name": "climate-toml",
   "version": "0.0.0",
-  "description": "TOML parser for climate",
+  "description": "TOML parser for climate 🍅",
   "main": "climate-toml.js",
   "type": "module",
   "repository": "monoculture",

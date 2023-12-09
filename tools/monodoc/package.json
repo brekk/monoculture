@@ -1,7 +1,7 @@
 {
   "name": "monodoc",
   "version": "0.0.1",
-  "description": "Magical documentation for monorepos",
+  "description": "magical documentation tooling ✨",
   "main": "monodoc.js",
   "type": "module",
   "repository": "brekk/monoculture",

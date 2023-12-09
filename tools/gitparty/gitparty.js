@@ -254,7 +254,7 @@ var log = complextrace("gitparty", [
 var package_default = {
   name: "gitparty",
   version: "0.0.0",
-  description: "A party for your git log",
+  description: "visualize git logs with magical context \u{1F469}\u{1F3FF}\u200D\u{1F3A8}",
   main: "enscribe.js",
   type: "module",
   repository: "monoculture",

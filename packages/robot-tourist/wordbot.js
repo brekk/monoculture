@@ -4,7 +4,7 @@
 var package_default = {
   name: "robot-tourist",
   version: "0.0.1",
-  description: "human-centric source code interpreter",
+  description: "human-centric source code interpreter \u{1F916}",
   main: "robot-tourist.js",
   bin: "wordbot.js",
   type: "module",

@@ -104,7 +104,7 @@ test('readFile', done => {
 "{
   "name": "file-system",
   "version": "0.0.1",
-  "description": "fs + futures",
+  "description": "fs, but in the future 🔮",
   "main": "file-system.js",
   "type": "module",
   "repository": "brekk/monoculture",

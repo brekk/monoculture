@@ -1,7 +1,7 @@
 {
   "name": "superorganism",
   "version": "0.0.0",
-  "description": "no-nonsense script runner",
+  "description": "script runner from beyond the moon 🦠",
   "type": "module",
   "main": "superorganism.js",
   "bin": "cli.mjs",

@@ -1,7 +1,7 @@
 {
   "name": "monorail",
   "version": "0.0.0",
-  "description": "plugin architecture for monoculture tools",
+  "description": "plugins for smug grins 🚂",
   "main": "monorail.js",
   "type": "module",
   "repository": "monoculture",

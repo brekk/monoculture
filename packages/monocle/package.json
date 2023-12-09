@@ -1,7 +1,7 @@
 {
   "name": "monocle",
   "version": "0.0.0",
-  "description": "Apply plugins to a future-based file-system",
+  "description": "inspect code and apply rules, magically 🪄",
   "bin": "monocle.js",
   "main": "monocle.js",
   "type": "module",

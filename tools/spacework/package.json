@@ -1,7 +1,7 @@
 {
   "name": "spacework",
   "version": "0.0.1",
-  "description": "meta tools for monoculture packages",
+  "description": "meta tools for monoculture ☄️",
   "main": "pkg.js",
   "type": "module",
   "repository": "brekk/monoculture",

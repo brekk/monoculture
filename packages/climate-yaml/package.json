@@ -1,7 +1,7 @@
 {
   "name": "climate-yaml",
   "version": "0.0.0",
-  "description": "YAML parser for climate",
+  "description": "YAML parser for climate 🍠",
   "main": "climate-yaml.js",
   "type": "module",
   "repository": "monoculture",

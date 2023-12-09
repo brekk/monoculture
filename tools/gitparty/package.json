@@ -1,7 +1,7 @@
 {
   "name": "gitparty",
   "version": "0.0.0",
-  "description": "A party for your git log",
+  "description": "visualize git logs with magical context 🎨",
   "main": "enscribe.js",
   "type": "module",
   "repository": "monoculture",

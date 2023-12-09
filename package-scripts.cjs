@@ -8,6 +8,10 @@ const syncScripts = pkg =>
 
 const sequence = join(' && ')
 
+const SUMMARY = `# monoculture
+
+introspection and organization tools for monorepos`
+
 module.exports = {
   scripts: {
     readme: sd(
@@ -59,6 +63,11 @@ module.exports = {
     deploy: sd('turbo run deploy', 'deploy and export builds'),
     prepare: sd('husky install', 'add git pre-commit hook'),
     meta: {
+      readme: sd(
+        // eslint-disable-next-line max-len
+        `echo '${SUMMARY}' > README.md && ./tools/spacework/summarize-workspaces.cjs --readme >> README.md`,
+        'regenerate the README!'
+      ),
       docs: sd(
         `yarn workspace docs run autodoc build`,
         'generate a monodoc-based JSON document'

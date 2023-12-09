@@ -1,7 +1,7 @@
 {
   "name": "treacle",
   "version": "0.0.0",
-  "description": "visualize the tree for the CLI",
+  "description": "command line interface tree visualization pun 🫠",
   "main": "treacle.js",
   "type": "module",
   "repository": "monoculture",

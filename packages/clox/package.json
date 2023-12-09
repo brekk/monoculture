@@ -1,7 +1,7 @@
 {
   "name": "clox",
   "version": "0.0.0",
-  "description": "boxes for the terminal",
+  "description": "boxes for the terminal ⏰",
   "main": "clox.js",
   "type": "module",
   "repository": "monoculture",

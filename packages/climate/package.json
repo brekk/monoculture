@@ -1,7 +1,7 @@
 {
   "name": "climate",
   "version": "0.0.0",
-  "description": "CLI utilities, friend",
+  "description": "CLI utilities, friend 👯",
   "exports": [
     "./configurate.js"
   ],
