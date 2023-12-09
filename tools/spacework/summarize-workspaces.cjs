@@ -4,6 +4,7 @@ const pkg = require(path.resolve(__dirname, '../../package.json'))
 const { argv } = require('node:process')
 const { parallel } = require('fluture')
 const {
+  when,
   join,
   ifElse,
   toPairs,
@@ -30,6 +31,8 @@ const {
   readFile,
   F,
 } = require('snang/script')
+const unwords = join(' ')
+const unlines = join('\n')
 
 const FOR_README = (process.argv || []).slice(2)[0] === '--readme'
 
@@ -66,29 +69,23 @@ pipe(
       )
     )
   ),
-  ifElse(
-    K(FOR_README),
-    raw =>
-      pipe(
-        map(toPairs),
-        map(
-          map(([group, list]) =>
-            pipe(
-              map(
-                ([project, summary]) =>
-                  `[${project}](https://github.com/brekk/monoculture/tree/main/${group}/${project}) - ${summary}`
-              ),
-              line => [group, line.map(z => '   * ' + z)]
-            )(list)
-          )
-        )
-      )(raw),
+  when(K(FOR_README), raw =>
     pipe(
-      map(([group, list]) => `# ${group}\n\n${list.join('\n')}`),
-      map(j2)
-    ),
-    // map(join('\n')),
-    map(j2)
+      map(toPairs),
+      map(
+        map(([group, list]) =>
+          pipe(
+            map(
+              ([project, summary]) =>
+                `[${project}](https://github.com/brekk/monoculture/tree/main/${group}/${project}) - ${summary}`
+            ),
+            line => `## ${group}\n${line.map(z => '   * ' + z).join('\n')}`
+          )(list)
+        )
+      )
+    )(raw)
   ),
+  // map(map(unlines)),
+  map(unlines),
   fork(console.warn)(console.log)
 )(pkg)
