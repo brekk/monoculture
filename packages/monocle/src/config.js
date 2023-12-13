@@ -5,7 +5,7 @@ export const CONFIG = {
     showTotalMatchesOnly: ['n', 'showTotalMatches'],
     rulefile: ['c'],
     ignore: ['i'],
-    plugin: ['p', 'plugins'],
+    plugins: ['p', 'plugin'],
     rule: ['r', 'rules'],
     error: ['e'],
     trim: ['t'],
@@ -15,7 +15,7 @@ export const CONFIG = {
   },
   number: ['jsonIndent'],
   boolean: ['help', 'trim', 'showMatchesOnly', 'color'],
-  array: ['plugin', 'rule', 'ignore'],
+  array: ['plugins', 'rule', 'ignore'],
   configuration: {
     'strip-aliased': true,
   },
@@ -35,7 +35,7 @@ export const HELP_CONFIG = {
   color: `Do stuff with glorious color`,
   ignore: `Pass ignore values to glob. Array type`,
   trim: 'Trim the lines on read',
-  plugin: `Specify a plugin to add to the run.
+  plugins: `Specify plugin(s) to add to the run.
   Multiple plugins can be specified by invoking monocle with multiple flags, e.g.
     monocle --plugin x --plugin y`,
   rule: `Specify a rule to add to the run.

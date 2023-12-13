@@ -2,8 +2,9 @@
 
 // src/cli.js
 import { resolve as pathResolve } from "node:path";
-import { always as K, pipe as pipe2, chain as chain2, map as map2, length } from "ramda";
-import { fork, parallel as parallel2, resolve as resolve2 } from "fluture";
+import { Chalk } from "chalk";
+import { curry as curry2, mergeRight, always as K, pipe as pipe2, chain as chain2, map as map2, length } from "ramda";
+import { reject, fork, parallel as parallel2, resolve as resolve2 } from "fluture";
 import { interpret, writeFile } from "file-system";
 
 // src/reader.js
@@ -74,7 +75,7 @@ var monoprocessor = curry(
 );
 
 // src/cli.js
-import { configurate, configFile } from "climate";
+import { configurate, configFileWithCancel } from "climate";
 
 // package.json
 var package_default = {
@@ -113,6 +114,9 @@ var package_default = {
   }
 };
 
+// src/cli.js
+import { trace } from "xtrace";
+
 // src/config.js
 var CONFIG = {
   alias: {
@@ -121,7 +125,7 @@ var CONFIG = {
     showTotalMatchesOnly: ["n", "showTotalMatches"],
     rulefile: ["c"],
     ignore: ["i"],
-    plugin: ["p", "plugins"],
+    plugins: ["p", "plugin"],
     rule: ["r", "rules"],
     error: ["e"],
     trim: ["t"],
@@ -131,7 +135,7 @@ var CONFIG = {
   },
   number: ["jsonIndent"],
   boolean: ["help", "trim", "showMatchesOnly", "color"],
-  array: ["plugin", "rule", "ignore"],
+  array: ["plugins", "rule", "ignore"],
   configuration: {
     "strip-aliased": true
   }
@@ -148,7 +152,7 @@ var HELP_CONFIG = {
   color: `Do stuff with glorious color`,
   ignore: `Pass ignore values to glob. Array type`,
   trim: "Trim the lines on read",
-  plugin: `Specify a plugin to add to the run.
+  plugins: `Specify plugin(s) to add to the run.
   Multiple plugins can be specified by invoking monocle with multiple flags, e.g.
     monocle --plugin x --plugin y`,
   rule: `Specify a rule to add to the run.
@@ -165,53 +169,76 @@ var HELP_CONFIG = {
 
 // src/cli.js
 var j = (i) => (x) => JSON.stringify(x, null, i);
-pipe2(
-  configurate(
-    CONFIG,
-    { ...CONFIG_DEFAULTS, basePath: process.cwd() },
-    HELP_CONFIG,
-    { name: package_default.name, description: package_default.description }
-  ),
-  chain2((config) => {
-    const result = config.rulefile ? pipe2(
-      configFile({ ns: "monocle" }),
-      map2((read) => ({ ...config, ...read.config }))
-    )(config.rulefile) : (
-      // TODO we should eschew chain(Future(x))
-      resolve2(config)
-    );
-    return result;
-  }),
-  map2(log.config("parsed")),
-  chain2((config) => {
-    const plugins = config.plugin || config.plugins || [];
-    const { basePath, _: dirGlob = [] } = config;
-    log.plugin("plugins...", plugins);
-    if (config.showTotalMatchesOnly)
-      config.showMatchesOnly = true;
-    const pluginsF = pipe2(
-      map2(
-        pipe2(log.plugin("loading"), (x) => pathResolve(basePath, x), interpret)
-      ),
-      parallel2(10)
-    )(plugins);
-    return pipe2(
-      monoprocessor(config, pluginsF),
-      map2((z) => [config, z])
-    )(dirGlob[0]);
-  }),
-  chain2(
-    ([{ showMatchesOnly, showTotalMatchesOnly, jsonIndent, output }, body]) => pipe2(
-      showMatchesOnly ? (
-        // later we should make this less clunky (re-wrapping futures)
-        pipe2(showTotalMatchesOnly ? length : j(jsonIndent), resolve2)
-      ) : pipe2(
-        j(jsonIndent),
-        writeFile(output),
-        map2(K(`Wrote file to ${output}`))
-      )
-    )(body)
-  ),
-  // eslint-disable-next-line no-console
-  fork(console.warn)(console.log)
-)(process.argv.slice(2));
+var cli = curry2(
+  (cancel, args) => pipe2(
+    configurate(
+      CONFIG,
+      { ...CONFIG_DEFAULTS, basePath: process.cwd() },
+      HELP_CONFIG,
+      { name: package_default.name, description: package_default.description }
+    ),
+    map2(log.config("raw config")),
+    chain2((config) => {
+      const result = config.rulefile ? pipe2(
+        configFileWithCancel(cancel),
+        map2(log.config("loaded rulefile")),
+        map2((z) => {
+          console.log(typeof z, Object.keys(z));
+          return z;
+        }),
+        map2(mergeRight(config))
+      )({
+        json: true,
+        source: config.rulefile,
+        ns: "monocle"
+      }) : (
+        // TODO we should eschew chain(Future(x))
+        resolve2(config)
+      );
+      return result;
+    }),
+    map2(log.config("parsed")),
+    chain2((config) => {
+      const chalk = new Chalk({ level: config.color ? 2 : 0 });
+      const plugins = config.plugin?.length ? config.plugin : config.plugins?.length ? config.plugins : [];
+      const { basePath, _: dirGlob = [] } = config;
+      if (!dirGlob[0]) {
+        const argv = args.join(" ");
+        return reject(
+          `Please specify a searchspace (e.g. ${chalk.green(
+            `\`monocle ${argv} "src/**/*"\``
+          )})`
+        );
+      }
+      log.plugin("plugins...", plugins);
+      if (config.showTotalMatchesOnly)
+        config.showMatchesOnly = true;
+      const pluginsF = pipe2(
+        map2(
+          pipe2(log.plugin("loading"), (x) => pathResolve(basePath, x), interpret)
+        ),
+        parallel2(10)
+      )(plugins);
+      return pipe2(
+        monoprocessor(config, pluginsF),
+        map2((z) => [config, z])
+      )(dirGlob[0]);
+    }),
+    chain2(
+      ([{ showMatchesOnly, showTotalMatchesOnly, jsonIndent, output }, body]) => pipe2(
+        showMatchesOnly ? (
+          // later we should make this less clunky (re-wrapping futures)
+          pipe2(showTotalMatchesOnly ? length : j(jsonIndent), resolve2)
+        ) : pipe2(
+          j(jsonIndent),
+          writeFile(output),
+          map2(K(`Wrote file to ${output}`))
+        )
+      )(body)
+    ),
+    // eslint-disable-next-line no-console
+    fork(console.warn)(console.log)
+  )(args)
+);
+cli(() => {
+}, process.argv.slice(2));

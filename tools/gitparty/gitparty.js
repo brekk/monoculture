@@ -258,6 +258,7 @@ var package_default = {
     fluture: "^14.0.0",
     gitlog: "^4.0.8",
     micromatch: "^4.0.5",
+    treacle: "workspace:packages/treacle",
     ramda: "^0.29.1"
   },
   devDependencies: {

@@ -67,6 +67,7 @@ export const futureApplicator = curry((context, plugins, files) =>
         fromPairs
       )(plugins),
       files: f,
+      filenames: map(prop('file'), f),
       hashes: pipe(
         map(z => [prop('hash', z), prop('file', z)]),
         fromPairs

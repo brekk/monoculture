@@ -238,6 +238,7 @@ var futureApplicator = curry5(
         fromPairs
       )(plugins),
       files: f,
+      filenames: map3(prop("file"), f),
       hashes: pipe3(
         map3((z) => [prop("hash", z), prop("file", z)]),
         fromPairs

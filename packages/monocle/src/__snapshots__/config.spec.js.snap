@@ -21,9 +21,9 @@ exports[`CONFIG 1`] = `
     "output": [
       "o",
     ],
-    "plugin": [
+    "plugins": [
       "p",
-      "plugins",
+      "plugin",
     ],
     "rule": [
       "r",
@@ -45,7 +45,7 @@ exports[`CONFIG 1`] = `
     ],
   },
   "array": [
-    "plugin",
+    "plugins",
     "rule",
     "ignore",
   ],
@@ -82,7 +82,7 @@ exports[`HELP_CONFIG 1`] = `
   "ignore": "Pass ignore values to glob. Array type",
   "jsonIndent": "How much should we indent JSON output? (default: 2)",
   "output": "Where should the findings be written?",
-  "plugin": "Specify a plugin to add to the run.
+  "plugins": "Specify plugin(s) to add to the run.
   Multiple plugins can be specified by invoking monocle with multiple flags, e.g.
     monocle --plugin x --plugin y",
   "rule": "Specify a rule to add to the run.
