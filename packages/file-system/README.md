@@ -4,4 +4,4 @@ Futures are great alternatives to Promises as lazy, composable and well-modeled 
 
 `file-system` contains some common utility wrappers for tools like `fs` and `execa`, but with a nicer interface.
 
-
+This package is used by several other tools / packages within this monorepo.
