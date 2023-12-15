@@ -50,8 +50,10 @@ const cli = curry((cancel, args) =>
         : config.plugins?.length
         ? config.plugins
         : []
+      const ignore = config.ignore?.length ? config.ignore : []
       const { basePath, _: dirGlob = [] } = config
-      if (!dirGlob[0]) {
+      const [startGlob = false] = dirGlob
+      if (!startGlob) {
         const argv = args.join(' ')
         return reject(
           `Please specify a searchspace (e.g. ${chalk.green(
