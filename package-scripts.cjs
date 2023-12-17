@@ -39,6 +39,7 @@ module.exports = {
               'packages/monocle',
               'packages/monorail',
               'packages/robot-tourist',
+              'packages/tophat',
               'shared/eslint-config-monoculture',
               'shared/jest-config',
               'shared/monoculture-tsconfig',

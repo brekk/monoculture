@@ -8260,6 +8260,7 @@ __metadata:
     jest-config: "workspace:shared/jest-config"
     micromatch: "npm:^4.0.5"
     ramda: "npm:^0.29.1"
+    treacle: "workspace:tools/treacle"
   languageName: unknown
   linkType: soft
 
@@ -13365,19 +13366,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pkg@workspace:tools/spacework":
-  version: 0.0.0-use.local
-  resolution: "pkg@workspace:tools/spacework"
-  dependencies:
-    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
-    execa: "npm:^8.0.1"
-    fluture: "npm:^14.0.0"
-    nps-utils: "npm:^1.7.0"
-    ramda: "npm:^0.29.1"
-    snang: "npm:^0.2.7"
-  languageName: unknown
-  linkType: soft
-
 "plop@npm:^4.0.0":
   version: 4.0.0
   resolution: "plop@npm:4.0.0"
@@ -14862,6 +14850,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"spacework@workspace:tools/spacework":
+  version: 0.0.0-use.local
+  resolution: "spacework@workspace:tools/spacework"
+  dependencies:
+    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
+    execa: "npm:^8.0.1"
+    fluture: "npm:^14.0.0"
+    nps-utils: "npm:^1.7.0"
+    ramda: "npm:^0.29.1"
+    snang: "npm:^0.2.7"
+  languageName: unknown
+  linkType: soft
+
 "spawn-command-with-kill@npm:^1.0.0":
   version: 1.0.2
   resolution: "spawn-command-with-kill@npm:1.0.2"
@@ -15571,6 +15572,17 @@ __metadata:
   checksum: f2cf1f2c70f374fd87b0cdc8007453ba9e981c4305a8bf4eac10a30e62ecdfd28bca7d18f8f15b15a506bf8a7bfb20dbe3539f0fcf2a2c8396c1a78d53e1f179
   languageName: node
   linkType: hard
+
+"tophat@workspace:packages/tophat":
+  version: 0.0.0-use.local
+  resolution: "tophat@workspace:packages/tophat"
+  dependencies:
+    dotenv-cli: "npm:^7.3.0"
+    eslint-config-monoculture: "npm:eslint-config-monoculture@*"
+    jest-config: "npm:jest-config@*"
+    ramda: "npm:^0.29.1"
+  languageName: unknown
+  linkType: soft
 
 "tough-cookie@npm:^4.1.2":
   version: 4.1.3
