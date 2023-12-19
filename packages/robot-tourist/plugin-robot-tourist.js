@@ -418,17 +418,17 @@ var robotTourist = curry5(
 var plugin = {
   name: "robot-tourist",
   dependencies: [],
-  fn: (c, file) => robotTourist(
-    {
-      file: file.file,
+  fn: (c, file) => {
+    const { file: _f, ...x } = robotTourist({
+      file: file.name,
       dropStrings: true,
       dropJSKeywords: true,
       dropTSKeywords: true,
       dropImports: true,
       assumeSimilarWords: true
-    },
-    file.body
-  )
+    })(file.body);
+    return x;
+  }
 };
 var plugin_robot_tourist_default = plugin;
 export {

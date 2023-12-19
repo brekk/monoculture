@@ -39,6 +39,8 @@ var insertAfter = curry2((idx, x, arr) => [
 
 // src/runner.js
 import {
+  of,
+  ap as ap2,
   objOf,
   reject as reject2,
   propOr as propOr2,
@@ -173,11 +175,11 @@ var handleDefault = (rawPlug) => rawPlug?.default ?? rawPlug;
 var toposort = (raw) => {
   const list = raw.slice().map(handleDefault);
   const t = new Sorter();
-  list.forEach(({ name, dependencies: after }) => {
+  list.forEach(({ group, name, dependencies: after }) => {
     t.add(name, {
       after,
       manual: true,
-      group: name
+      group: group || name
     });
   });
   t.sort();
@@ -209,38 +211,40 @@ var runPluginOnFilesWithContext = curry5((context, files, plugin) => {
     )(files)
   ];
 });
+var applyState = curry5(
+  (context, files, plugins) => pipe2(
+    // assume all plugins are at 0, and reject any which aren't
+    reject2(pipe2(propOr2(0, "level"), complement(equals)(0))),
+    trace2("yoho"),
+    // this doesn't yet work because we need chain and this is the same synchronous tick
+    reduce2(
+      (agg, plugin) => agg.concat([runPluginOnFilesWithContext(context, files, plugin)]),
+      []
+    ),
+    (z) => {
+      log.run(
+        "state updated...",
+        map2(([k]) => k, z)
+      );
+      return z;
+    },
+    fromPairs
+  )(plugins)
+);
+var getNames = map2(prop("name"));
+var getHashes = pipe2(
+  map2((z) => [prop("hash", z), prop("name", z)]),
+  fromPairs
+);
 var futureApplicator = curry5((context, plugins, files) => {
-  return pipe2(
-    (f) => ({
-      state: pipe2(
-        // assume all plugins are at 0, and reject any which aren't
-        reject2(pipe2(propOr2(0, "level"), complement(equals)(0))),
-        map2(runPluginOnFilesWithContext(context, files)),
-        (z) => {
-          log.run(
-            "state updated...",
-            map2(([k]) => k, z)
-          );
-          return z;
-        },
-        fromPairs
-      )(plugins),
-      files: f,
-      filenames: map2(prop("name"), f),
-      hashes: pipe2(
-        map2((z) => [prop("hash", z), prop("name", z)]),
-        fromPairs
-      )(f),
-      plugins: map2(prop("name"), plugins)
-    }),
-    // eventually we should do a pre-lookup on all levels and then make this dynamically repeat
-    (firstPass) => pipe2(
-      filter2(pipe2(propOr2(0, "level"), equals(1))),
-      map2(runPluginOnFilesWithContext({ ...context, ...firstPass }, files)),
-      fromPairs,
-      (state2) => ({ ...firstPass, state: { ...firstPass.state, ...state2 } })
-    )(plugins)
-  )(files);
+  const firstPass = {
+    state: applyState(context, files, plugins),
+    // files,
+    filenames: getNames(files),
+    hashes: getHashes(files),
+    plugins: getNames(plugins)
+  };
+  return firstPass;
 });
 var futureFileProcessor = curry5(
   (context, pluginsF, filesF) => pipe2(
@@ -251,8 +255,8 @@ var futureFileProcessor = curry5(
 
 // src/validate.js
 import {
-  of,
-  ap as ap2,
+  of as of2,
+  ap as ap3,
   without,
   all,
   applySpec as applySpec2,
@@ -303,8 +307,8 @@ var noExtraKeys = (x) => pipe3(
   (y) => y.length ? `Found additional or misspelled keys: [${y.join(", ")}]` : ``
 )(x);
 var testPlugin = pipe3(
-  of,
-  ap2([applySpec2(PLUGIN_SHAPE), noExtraKeys]),
+  of2,
+  ap3([applySpec2(PLUGIN_SHAPE), noExtraKeys]),
   ([x, error]) => error ? { ...x, error } : x
 );
 var checkPlugin = pipe3(testPlugin, values, all(equals2(true)));
@@ -334,6 +338,8 @@ export {
   coerce,
   futureApplicator,
   futureFileProcessor,
+  getHashes,
+  getNames,
   insertAfter,
   kindIs,
   noExtraKeys,
