@@ -18,7 +18,7 @@ import {
 } from 'ramda'
 import { pap, resolve } from 'fluture'
 import { makeHelpers } from './helpers'
-import { topologicalDependencySort } from './sort'
+import { toposort } from './sort'
 import { log } from './trace'
 import { trace } from 'xtrace'
 
@@ -50,8 +50,9 @@ const runPluginOnFilesWithContext = curry((context, files, plugin) => {
   ]
 })
 
-export const futureApplicator = curry((context, plugins, files) =>
-  pipe(
+export const futureApplicator = curry((context, plugins, files) => {
+  console.log('applying the future', context, plugins, files)
+  return pipe(
     f => ({
       state: pipe(
         // assume all plugins are at 0, and reject any which aren't
@@ -83,11 +84,11 @@ export const futureApplicator = curry((context, plugins, files) =>
         state2 => ({ ...firstPass, state: { ...firstPass.state, ...state2 } })
       )(plugins)
   )(files)
-)
+})
 
 export const futureFileProcessor = curry((context, pluginsF, filesF) =>
   pipe(
-    pap(map(topologicalDependencySort, pluginsF)),
+    pap(map(toposort, pluginsF)),
     pap(filesF)
   )(resolve(futureApplicator(context)))
 )

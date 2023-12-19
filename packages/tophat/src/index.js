@@ -249,8 +249,16 @@ export const makeSortable = () => {
 const isArray = Array.isArray
 const autobox = unless(isArray, x => [x])
 
-export const _add = (context, nodes, options = {}) => {
-  const { items: _items, nodes: _nodes } = context
+const pushInto = curry((arr, x) => {
+  arr.push(x)
+  return arr
+})
+const pushManyInto = curry((arr, x) => {
+  arr.push(...x)
+  return arr
+})
+
+export const _add = ({ items: _items, nodes: _nodes }, nodes, options = {}) => {
   nodes = autobox(nodes)
   const {
     before: _before = [],
@@ -259,11 +267,12 @@ export const _add = (context, nodes, options = {}) => {
     sort = 0,
   } = options
   const [before, after] = map(autobox)([_before, _after])
+
   assert(!before.includes(group), `Item cannot come before itself: ${group}`)
   assert(!after.includes(group), `Item cannot come after itself: ${group}`)
   assert(!before.includes('?'), 'Item cannot come before unassociated items')
   assert(!after.includes('?'), 'Item cannot come after unassociated items')
-  const itemsToAdd = map(
+  forEach(
     pipe(
       objOf('node'),
       mergeRight({
@@ -272,16 +281,16 @@ export const _add = (context, nodes, options = {}) => {
         before,
         after,
         group,
-      })
+      }),
+      pushInto(_items)
     ),
     nodes
   )
-  // this mutation should be eschewed
-  context.items = concat(_items, itemsToAdd)
+
   return _nodes
 }
 
-const generateGroups = curry((context, _items) =>
+export const generateGroups = curry((context, _items) =>
   reduce(
     (agg, { seq, group, before, after }) => {
       const { graph, groups, graphAfters } = context
@@ -298,41 +307,44 @@ const generateGroups = curry((context, _items) =>
     _items
   )
 )
-
 const unit = () => Object.create(null)
+
+const expandGroups = context => {
+  const { groups, graph } = context
+  const expanded = []
+  const addToExpanded = pushManyInto(expanded)
+  const out = pipe(
+    toPairs,
+    map(([node, list]) =>
+      pipe(
+        map(group => {
+          groups[group] = groups[group] ?? []
+          addToExpanded(groups[group])
+          return [group, groups[group]]
+        })
+      )(list)
+    )
+  )(graph)
+  console.log(JSON.stringify(out, null, 2))
+  // return { ...context, groups, graph }
+}
 
 export const _sort = _items => {
   console.log('...', _items)
 
-  const graph = {}
-  const graphAfters = unit()
-  const groups = unit()
-  // const { graph, graphAfters, groups } = context
+  const context = {
+    graph: {},
+    graphAfters: unit(),
+    groups: unit(),
+  }
+  const groupedContext = generateGroups(context, _items)
+  const { graph, graphAfters, groups } = groupedContext
 
-  // const { graph, graphAfters, groups } = generateGroups(context, _items)
-
-  forEach(({ seq, group, before, after }) => {
-    // Determine Groups
-
-    groups[group] = groups[group] ?? []
-    groups[group].push(seq)
-
-    // Build intermediary graph using 'before'
-
-    graph[seq] = before
-
-    // Build second intermediary graph with 'after'
-
-    forEach(a => {
-      graphAfters[a] = graphAfters[a] ?? []
-      graphAfters[a].push(seq)
-    }, after)
-  }, _items)
+  const update = expandGroups(groupedContext)
   console.log('GRAPH', graph)
 
   // Expand intermediary graph
 
-  /*
   for (const node in graph) {
     console.log('NODE', node)
     const expandedGroups = []
@@ -347,21 +359,7 @@ export const _sort = _items => {
 
     graph[node] = expandedGroups
   }
-  */
-  for (const node in graph) {
-    console.log('NODE', node)
-    const expandedGroups = []
 
-    for (const graphNodeItem in graph[node]) {
-      console.log('graphNodeItem', graphNodeItem)
-      const group = graph[node][graphNodeItem]
-      console.log({ group })
-      groups[group] = groups[group] ?? []
-      expandedGroups.push(...groups[group])
-    }
-
-    graph[node] = expandedGroups
-  }
   console.log(222, { groups, graph, graphAfters })
 
   // Merge intermediary graph using graphAfters into final graph

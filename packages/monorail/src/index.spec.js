@@ -174,14 +174,16 @@ const PLUGINS = [
       )(f.body),
   },
   {
-    name: 't-words',
-    dependencies: [],
-    preserveLine: true,
-    fn: (c, line) => {
-      const out = line.split(' ').filter(z => z.startsWith('t')).length
-      // eslint-disable-next-line no-console
-      // console.log('....', c, line, out)
-      return out
+    default: {
+      name: 't-words',
+      dependencies: [],
+      preserveLine: true,
+      fn: (c, line) => {
+        const out = line.split(' ').filter(z => z.startsWith('t')).length
+        // eslint-disable-next-line no-console
+        // console.log('....', c, line, out)
+        return out
+      },
     },
   },
 ]
@@ -256,11 +258,7 @@ const EXPECTED_PROCESSING_OUTCOME = {
 
 test('futureFileProcessor', done => {
   const ctx = {}
-  const outF = futureFileProcessor(
-    ctx,
-    resolve(PLUGINS.map(z => ({ default: z }))),
-    resolve(FILES)
-  )
+  const outF = futureFileProcessor(ctx, resolve(PLUGINS), resolve(FILES))
   fork(done)(out => {
     expect(out.state).toMatchSnapshot()
     done()

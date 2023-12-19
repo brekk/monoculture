@@ -9,6 +9,7 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
+    "@hapi/topo": "^6.0.2",
     "envtrace": "^0.0.2",
     "file-system": "workspace:packages/file-system"
   },
