@@ -172,16 +172,12 @@ var withoutProp = curry4(
 var handleDefault = (rawPlug) => rawPlug?.default ?? rawPlug;
 var toposort = (raw) => {
   const list = raw.slice().map(handleDefault);
-  log.sort(
-    "unsorted",
-    list.map((z) => z.name)
-  );
   const t = new Sorter();
-  list.forEach((y) => {
-    t.add(y.name, {
-      after: y.dependencies,
+  list.forEach(({ name, dependencies: after }) => {
+    t.add(name, {
+      after,
       manual: true,
-      group: y.level ? y.level : y.name
+      group: name
     });
   });
   t.sort();
@@ -208,13 +204,12 @@ var runPluginOnFilesWithContext = curry5((context, files, plugin) => {
   return [
     plugin.name,
     pipe2(
-      map2((file) => [file.file, stepFunction(context, plugin, file)]),
+      map2((file) => [file.name, stepFunction(context, plugin, file)]),
       fromPairs
     )(files)
   ];
 });
 var futureApplicator = curry5((context, plugins, files) => {
-  console.log("applying the future", context, plugins, files);
   return pipe2(
     (f) => ({
       state: pipe2(
@@ -231,9 +226,9 @@ var futureApplicator = curry5((context, plugins, files) => {
         fromPairs
       )(plugins),
       files: f,
-      filenames: map2(prop("file"), f),
+      filenames: map2(prop("name"), f),
       hashes: pipe2(
-        map2((z) => [prop("hash", z), prop("file", z)]),
+        map2((z) => [prop("hash", z), prop("name", z)]),
         fromPairs
       )(f),
       plugins: map2(prop("name"), plugins)

@@ -5,7 +5,7 @@ test('readMonoFile', done => {
   expect(readMonoFile).toBeTruthy()
   const readF = readMonoFile('zip/zap/zop', true, './src/cli.js')
   fork(done)(x => {
-    expect(x.file).toEqual('../../../src/cli.js')
+    expect(x.name).toEqual('../../../src/cli.js')
     expect(x.hash).toMatchSnapshot()
     done()
   })(readF)

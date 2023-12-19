@@ -11,16 +11,12 @@ const handleDefault = rawPlug => rawPlug?.default ?? rawPlug
 
 export const toposort = raw => {
   const list = raw.slice().map(handleDefault)
-  log.sort(
-    'unsorted',
-    list.map(z => z.name)
-  )
   const t = new Sorter()
-  list.forEach(y => {
-    t.add(y.name, {
-      after: y.dependencies,
+  list.forEach(({ name, dependencies: after }) => {
+    t.add(name, {
+      after,
       manual: true,
-      group: y.level ? y.level : y.name,
+      group: name,
     })
   })
   t.sort()

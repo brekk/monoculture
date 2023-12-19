@@ -215,11 +215,11 @@ exports[`monoprocessor 1`] = `
         ],
         [
           53,
-          2,
+          3,
         ],
         [
           54,
-          0,
+          2,
         ],
         [
           55,
@@ -231,7 +231,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           57,
-          0,
+          1,
         ],
         [
           58,
@@ -255,19 +255,19 @@ exports[`monoprocessor 1`] = `
         ],
         [
           63,
-          1,
+          0,
         ],
         [
           64,
-          1,
+          0,
         ],
         [
           65,
-          0,
+          1,
         ],
         [
           66,
-          0,
+          1,
         ],
         [
           67,
@@ -303,7 +303,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           75,
-          1,
+          0,
         ],
         [
           76,
@@ -311,7 +311,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           77,
-          0,
+          1,
         ],
         [
           78,
@@ -319,7 +319,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           79,
-          1,
+          0,
         ],
         [
           80,
@@ -327,7 +327,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           81,
-          0,
+          1,
         ],
         [
           82,
@@ -375,7 +375,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           93,
-          1,
+          0,
         ],
         [
           94,
@@ -383,15 +383,23 @@ exports[`monoprocessor 1`] = `
         ],
         [
           95,
-          0,
+          1,
         ],
         [
           96,
           0,
         ],
+        [
+          97,
+          0,
+        ],
+        [
+          98,
+          0,
+        ],
       ],
-      "file": "cli.js",
-      "hash": "508a7b113f537f8f55033e28cb3e804952ff056ae90dc2c27586074f6912d7df",
+      "hash": "e4453854770bd080612c20050800ab41916617769819ad898ede81c99e60e707",
+      "name": "cli.js",
     },
     "config.js": {
       "body": [
@@ -608,8 +616,8 @@ exports[`monoprocessor 1`] = `
           0,
         ],
       ],
-      "file": "config.js",
       "hash": "8d8164b8400b0d41daf95e4bc7904de22a7b4fdef1440a00a0fe61e4640d5474",
+      "name": "config.js",
     },
     "hash.js": {
       "body": [
@@ -646,8 +654,8 @@ exports[`monoprocessor 1`] = `
           0,
         ],
       ],
-      "file": "hash.js",
       "hash": "5cd99d9df3d8e4c2fcc83cf248314a4836c71d88f8d6e4fdc0d84c4e8c7b029d",
+      "name": "hash.js",
     },
     "index.js": {
       "body": [
@@ -664,8 +672,8 @@ exports[`monoprocessor 1`] = `
           0,
         ],
       ],
-      "file": "index.js",
       "hash": "f5ca9070a68f19933e3cd35a10e18013655b9b9a9c1b78ec2c7262a98c2fee17",
+      "name": "index.js",
     },
     "reader.js": {
       "body": [
@@ -918,8 +926,8 @@ exports[`monoprocessor 1`] = `
           0,
         ],
       ],
-      "file": "reader.js",
-      "hash": "5e304afc64f9c62179d48dcfb2fdd4acd67dac239912f1ce1f584f5b2b5f1e28",
+      "hash": "5c88696b0327dc6827d65af8d7024fca8d99ed8cb75d3b85dcc44e9e1b5f265e",
+      "name": "reader.js",
     },
     "trace.js": {
       "body": [
@@ -940,12 +948,12 @@ exports[`monoprocessor 1`] = `
           0,
         ],
       ],
-      "file": "trace.js",
       "hash": "97c92175e3d025641201b1fdb1fbb7c7852f980f1b73890b4b8e07a7184ef2ba",
+      "name": "trace.js",
     },
   },
   "wordcount": {
-    "cli.js": 906,
+    "cli.js": 932,
     "config.js": 351,
     "hash.js": 27,
     "index.js": 9,
@@ -957,11 +965,11 @@ exports[`monoprocessor 1`] = `
 
 exports[`readAll 1`] = `
 [
-  "508a7b113f537f8f55033e28cb3e804952ff056ae90dc2c27586074f6912d7df",
+  "e4453854770bd080612c20050800ab41916617769819ad898ede81c99e60e707",
   "8d8164b8400b0d41daf95e4bc7904de22a7b4fdef1440a00a0fe61e4640d5474",
   "5cd99d9df3d8e4c2fcc83cf248314a4836c71d88f8d6e4fdc0d84c4e8c7b029d",
   "f5ca9070a68f19933e3cd35a10e18013655b9b9a9c1b78ec2c7262a98c2fee17",
-  "5e304afc64f9c62179d48dcfb2fdd4acd67dac239912f1ce1f584f5b2b5f1e28",
+  "5c88696b0327dc6827d65af8d7024fca8d99ed8cb75d3b85dcc44e9e1b5f265e",
   "97c92175e3d025641201b1fdb1fbb7c7852f980f1b73890b4b8e07a7184ef2ba",
 ]
 `;

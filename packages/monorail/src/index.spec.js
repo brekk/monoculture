@@ -189,7 +189,7 @@ const PLUGINS = [
 ]
 const FILES = [
   {
-    file: '/a/b/c/cool.txt',
+    name: '/a/b/c/cool.txt',
     hash: '/a/b/c/cool.txt',
     body: `oh yeah
 this is pretty
@@ -199,7 +199,7 @@ great`
       .map((x, i) => [i, x]),
   },
   {
-    file: '/a/b/c/really-cool.txt',
+    name: '/a/b/c/really-cool.txt',
     hash: '/a/b/c/really-cool.txt',
     body: `hey there,
 this is a cool and tricky tool which can process files and answer introspection questions

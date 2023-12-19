@@ -32,8 +32,6 @@ export const stepFunction = curry(
           body: map(([k, v]) => [k, fn(selected, v, helpers)])(file.body),
         }
       : fn(selected, file, helpers)
-    // log.run('transforming...', file.file)
-    // log.run('transformed...', output)
     return output
   }
 )
@@ -44,14 +42,13 @@ const runPluginOnFilesWithContext = curry((context, files, plugin) => {
   return [
     plugin.name,
     pipe(
-      map(file => [file.file, stepFunction(context, plugin, file)]),
+      map(file => [file.name, stepFunction(context, plugin, file)]),
       fromPairs
     )(files),
   ]
 })
 
 export const futureApplicator = curry((context, plugins, files) => {
-  console.log('applying the future', context, plugins, files)
   return pipe(
     f => ({
       state: pipe(
@@ -68,9 +65,9 @@ export const futureApplicator = curry((context, plugins, files) => {
         fromPairs
       )(plugins),
       files: f,
-      filenames: map(prop('file'), f),
+      filenames: map(prop('name'), f),
       hashes: pipe(
-        map(z => [prop('hash', z), prop('file', z)]),
+        map(z => [prop('hash', z), prop('name', z)]),
         fromPairs
       )(f),
       plugins: map(prop('name'), plugins),

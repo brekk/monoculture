@@ -47,7 +47,7 @@ var readMonoFile = curry(
         // ostensibly files have content that starts at a 1 index
         addIndex(map)((y, i) => [i + 1, trimContent ? trim(y) : y]),
         (body) => ({
-          file: path.relative(basePath, file),
+          name: path.relative(basePath, file),
           hash: hash(buf),
           body
         })

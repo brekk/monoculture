@@ -22,8 +22,8 @@ exports[`futureFileProcessor 1`] = `
           0,
         ],
       ],
-      "file": "/a/b/c/cool.txt",
       "hash": "/a/b/c/cool.txt",
+      "name": "/a/b/c/cool.txt",
     },
     "/a/b/c/really-cool.txt": {
       "body": [
@@ -52,8 +52,8 @@ exports[`futureFileProcessor 1`] = `
           0,
         ],
       ],
-      "file": "/a/b/c/really-cool.txt",
       "hash": "/a/b/c/really-cool.txt",
+      "name": "/a/b/c/really-cool.txt",
     },
   },
   "wordcount": {
