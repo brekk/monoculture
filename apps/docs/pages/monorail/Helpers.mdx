@@ -1,0 +1,66 @@
+# helpers
+
+Built-in helpers for making custom plugins more robust
+
+
+
+## any
+Use this helper to test a regex that matches against any single incidence on any line
+### Usage
+```js
+const plugin = {
+  name: 'get-const',
+  fn: (state, file, { any }) => any(/const/)
+}
+export default plugin
+```
+
+## lines
+Use this helper to test a regex that matches and filters against every line
+### Usage
+```js
+export default {
+  name: 'unexported-consts',
+  fn: (state, file, { lines }) => lines(/^const/)
+}
+```
+
+## line
+Use this helper to test a regex that matches and finds the first matching line
+### Usage
+```js
+export default {
+  name: 'exported-default',
+  fn: (state, file, { line }) => line(/export default/g)
+}
+```
+
+## lastLine
+Use this helper to test a regex that matches and finds the last matching line
+### Usage
+```js
+export default {
+  name: 'exported-last',
+  fn: (state, file, { lastLine }) => lastLine(/export/g)
+}
+```
+
+## between
+Use this helper to select content between two repeating regular expressions
+### Usage
+```js
+export default {
+  name: 'expanded-imports',
+  fn: (state, file, { between }) => between(/^import/, /from (.*)/)
+}
+```
+
+## selectAll
+Use this helper to select all content between two repeating regular expressions
+### Usage
+```js
+export default {
+  name: 'expanded-imports',
+  fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)
+}
+```

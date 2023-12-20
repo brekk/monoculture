@@ -128,6 +128,7 @@ var makeFileHelpers = (file) => ({
   any: _any(file),
   onLines: onLines(file),
   onLine: onLine(file),
+  onLastLine: onLastLine(file),
   filter: _filter(file),
   between: selectBetween(file),
   selectAll: selectAll(file),

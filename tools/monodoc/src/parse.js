@@ -1,5 +1,7 @@
 import { basename, extname } from 'node:path'
 import {
+  defaultTo,
+  join,
   curry,
   filter,
   flatten,
@@ -47,6 +49,11 @@ export const parse = curry((root, filename, content) => {
         // List CommentBlock
         comments => ({
           slugName: basename(newName, extname(newName)),
+          pageSummary: pipe(
+            getAny('', ['structure', 'pageSummary']),
+            defaultTo([]),
+            join(' ')
+          )(comments),
           filename: newName,
           comments,
           order: pipe(getAny('0', ['structure', 'order']), x =>

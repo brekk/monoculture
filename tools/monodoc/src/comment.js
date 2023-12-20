@@ -146,6 +146,10 @@ export const objectifyComments = curry((filename, file, comments) =>
           // pass two
           gen => {
             const structure = structureKeywords(file, block, gen.end)
+            if (structure.page && !structure.name) {
+              structure.name = structure.page
+              structure.detail = gen.start
+            }
             return {
               ...gen,
               summary: summarize(gen.lines),

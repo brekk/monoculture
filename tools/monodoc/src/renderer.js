@@ -26,6 +26,7 @@ export const commentToMarkdown = ifElse(
   pipe(
     applySpec({
       title: pathOr('Unknown', ['structure', 'name']),
+      // pageSummary: propOr('', 'pageSummary'),
       summary: propOr('?', 'summary'),
       links: propOr([], 'links'),
       example: pathOr('', ['structure', 'example']),

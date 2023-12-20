@@ -1,6 +1,7 @@
 [
   {
     "slugName": "fs",
+    "pageSummary": "",
     "filename": "packages/file-system/src/fs.js",
     "comments": [
       {
@@ -410,5 +411,216 @@
     "order": 0,
     "links": [],
     "workspace": "file-system"
+  },
+  {
+    "slugName": "helpers",
+    "pageSummary": "Built-in helpers for making custom plugins more robust",
+    "filename": "packages/monorail/src/helpers.js",
+    "comments": [
+      {
+        "start": 22,
+        "end": 25,
+        "lines": [
+          "@pageSummary Built-in helpers for making custom plugins more robust",
+          "@page helpers"
+        ],
+        "summary": "@pageSummary Built-in helpers for making custom plugins more robust",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "pageSummary": [
+            "Built-in",
+            "helpers",
+            "for",
+            "making",
+            "custom",
+            "plugins",
+            "more",
+            "robust"
+          ],
+          "page": "helpers",
+          "name": "helpers",
+          "detail": 22
+        },
+        "keywords": [
+          "@page",
+          "@pageSummary"
+        ],
+        "filename": "packages/monorail/src/helpers.js"
+      },
+      {
+        "start": 36,
+        "end": 47,
+        "lines": [
+          "Use this helper to test a regex that matches against any single incidence on any line",
+          "@name any",
+          "@example",
+          "```js",
+          "const plugin = {",
+          "  name: 'get-const',",
+          "  fn: (state, file, { any }) => any(/const/)",
+          "}",
+          "export default plugin",
+          "```"
+        ],
+        "summary": "Use this helper to test a regex that matches against any single incidence on any line",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "any",
+          "example": "```js\nconst plugin = {\n  name: 'get-const',\n  fn: (state, file, { any }) => any(/const/)\n}\nexport default plugin\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/monorail/src/helpers.js"
+      },
+      {
+        "start": 50,
+        "end": 60,
+        "lines": [
+          "Use this helper to test a regex that matches and filters against every line",
+          "@name lines",
+          "@example",
+          "```js",
+          "export default {",
+          "  name: 'unexported-consts',",
+          "  fn: (state, file, { lines }) => lines(/^const/)",
+          "}",
+          "```"
+        ],
+        "summary": "Use this helper to test a regex that matches and filters against every line",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "lines",
+          "example": "```js\nexport default {\n  name: 'unexported-consts',\n  fn: (state, file, { lines }) => lines(/^const/)\n}\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/monorail/src/helpers.js"
+      },
+      {
+        "start": 65,
+        "end": 75,
+        "lines": [
+          "Use this helper to test a regex that matches and finds the first matching line",
+          "@name line",
+          "@example",
+          "```js",
+          "export default {",
+          "  name: 'exported-default',",
+          "  fn: (state, file, { line }) => line(/export default/g)",
+          "}",
+          "```"
+        ],
+        "summary": "Use this helper to test a regex that matches and finds the first matching line",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "line",
+          "example": "```js\nexport default {\n  name: 'exported-default',\n  fn: (state, file, { line }) => line(/export default/g)\n}\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/monorail/src/helpers.js"
+      },
+      {
+        "start": 80,
+        "end": 90,
+        "lines": [
+          "Use this helper to test a regex that matches and finds the last matching line",
+          "@name lastLine",
+          "@example",
+          "```js",
+          "export default {",
+          "  name: 'exported-last',",
+          "  fn: (state, file, { lastLine }) => lastLine(/export/g)",
+          "}",
+          "```"
+        ],
+        "summary": "Use this helper to test a regex that matches and finds the last matching line",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "lastLine",
+          "example": "```js\nexport default {\n  name: 'exported-last',\n  fn: (state, file, { lastLine }) => lastLine(/export/g)\n}\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/monorail/src/helpers.js"
+      },
+      {
+        "start": 95,
+        "end": 105,
+        "lines": [
+          "Use this helper to select content between two repeating regular expressions",
+          "@name between",
+          "@example",
+          "```js",
+          "export default {",
+          "  name: 'expanded-imports',",
+          "  fn: (state, file, { between }) => between(/^import/, /from (.*)/)",
+          "}",
+          "```"
+        ],
+        "summary": "Use this helper to select content between two repeating regular expressions",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "between",
+          "example": "```js\nexport default {\n  name: 'expanded-imports',\n  fn: (state, file, { between }) => between(/^import/, /from (.*)/)\n}\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/monorail/src/helpers.js"
+      },
+      {
+        "start": 118,
+        "end": 128,
+        "lines": [
+          "Use this helper to select all content between two repeating regular expressions",
+          "@name selectAll",
+          "@example",
+          "```js",
+          "export default {",
+          "  name: 'expanded-imports',",
+          "  fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)",
+          "}",
+          "```"
+        ],
+        "summary": "Use this helper to select all content between two repeating regular expressions",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "selectAll",
+          "example": "```js\nexport default {\n  name: 'expanded-imports',\n  fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)\n}\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/monorail/src/helpers.js"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "monorail"
   }
 ]

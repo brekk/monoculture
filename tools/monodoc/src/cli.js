@@ -288,7 +288,7 @@ const runner = ({
               ),
               pipe(
                 map(commentToMarkdown),
-                z => ['# ' + file.slugName, ...z],
+                z => ['# ' + file.slugName, file.pageSummary, ...z],
                 join('\n\n')
               )(file.comments)
             )

@@ -59,13 +59,13 @@ import {
   always as K3,
   chain as chain2,
   curry as curry4,
-  defaultTo as defaultTo2,
+  defaultTo as defaultTo3,
   filter as filter3,
   flatten as flatten2,
   groupBy,
   head as head3,
   identity as I2,
-  join as join3,
+  join as join4,
   length as length4,
   lt,
   map as map6,
@@ -91,6 +91,8 @@ import {
 // src/parse.js
 import { basename, extname } from "node:path";
 import {
+  defaultTo as defaultTo2,
+  join as join3,
   curry as curry2,
   filter as filter2,
   flatten,
@@ -297,6 +299,10 @@ var objectifyComments = curry(
         // pass two
         (gen) => {
           const structure = structureKeywords(file, block, gen.end);
+          if (structure.page && !structure.name) {
+            structure.name = structure.page;
+            structure.detail = gen.start;
+          }
           return {
             ...gen,
             summary: summarize(gen.lines),
@@ -356,6 +362,11 @@ var parse = curry2((root, filename, content) => {
       // List CommentBlock
       (comments) => ({
         slugName: basename(newName, extname(newName)),
+        pageSummary: pipe4(
+          getAny("", ["structure", "pageSummary"]),
+          defaultTo2([]),
+          join3(" ")
+        )(comments),
         filename: newName,
         comments,
         order: pipe4(
@@ -418,6 +429,7 @@ var commentToMarkdown = ifElse2(
   pipe5(
     applySpec2({
       title: pathOr2("Unknown", ["structure", "name"]),
+      // pageSummary: propOr('', 'pageSummary'),
       summary: propOr3("?", "summary"),
       links: propOr3([], "links"),
       example: pathOr2("", ["structure", "example"])
@@ -516,9 +528,9 @@ var pullPageTitleFromAnyComment = pipe6(
   filter3(pathOr3(false, ["structure", "page"])),
   map6(path(["structure", "page"])),
   head3,
-  defaultTo2(""),
+  defaultTo3(""),
   replace4(/\s/g, "-"),
-  defaultTo2(false)
+  defaultTo3(false)
 );
 var capitalize = (raw) => `${toUpper(raw[0])}${slice4(1, Infinity)(raw)}`;
 var cleanFilename = ({ workspace, fileGroup, filename, comments }) => {
@@ -639,7 +651,7 @@ var runner = ({
         );
         const someFile = anyFile.length > 0 ? anyFile[0] : false;
         const asFilePath = pipe6(
-          defaultTo2({}),
+          defaultTo3({}),
           pathOr3("???", ["structure", "asFile"])
         )(someFile);
         const withOrder = pipe6(
@@ -697,8 +709,8 @@ var runner = ({
               ),
               pipe6(
                 map6(commentToMarkdown),
-                (z) => ["# " + file.slugName, ...z],
-                join3("\n\n")
+                (z) => ["# " + file.slugName, file.pageSummary, ...z],
+                join4("\n\n")
               )(file.comments)
             );
           })(commentedFiles);
