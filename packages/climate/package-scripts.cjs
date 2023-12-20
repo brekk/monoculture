@@ -12,13 +12,18 @@ const build = ([infile, outfile]) =>
     `--packages=external`,
   ].join(' ')
 
+const INPUT = 'src/index.js'
+
 module.exports = {
   scripts: {
-    build: build(['src/index.js', PKG.exports[0]]),
+    build: build([INPUT, PKG.exports[0]]),
     lint: sd('eslint --fix .', 'lint!'),
     test: {
       ...sd('jest', 'test!'),
       watch: sd('jest --watch', 'test with watch-mode!'),
+    },
+    meta: {
+      graph: `madge ${INPUT} --image graph.svg`,
     },
   },
 }

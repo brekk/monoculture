@@ -117,6 +117,8 @@ var package_default = {
     nps: "dotenv -- nps -c ./package-scripts.cjs",
     build: "dotenv -- nps -c ./package-scripts.cjs build",
     lint: "dotenv -- nps -c ./package-scripts.cjs lint",
+    meta: "dotenv -- nps -c ./package-scripts.cjs meta",
+    "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
     test: "dotenv -- nps -c ./package-scripts.cjs test",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }

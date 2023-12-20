@@ -9,12 +9,17 @@ const buildModule = ([infile, outfile]) =>
     `--packages=external`,
   ].join(' ')
 
+const INPUT = 'src/index.js'
+
 const sd = (script, description = '') =>
   !!description ? { script, description } : { script }
 module.exports = {
   scripts: {
-    build: sd(buildModule(['src/index.js', 'clox.js']), 'build it'),
+    build: sd(buildModule([INPUT, 'clox.js']), 'build it'),
     lint: sd('eslint --fix .', 'lint!'),
+    meta: {
+      graph: `madge ${INPUT} --image graph.svg`,
+    },
     test: {
       ...sd('jest', 'test!'),
       watch: sd('jest --watch', 'test with watch-mode!'),

@@ -51,7 +51,7 @@ module.exports = {
     },
     dev: watchMode,
     meta: {
-      graph: `madge ${INPUT} --image graph.svg`,
+      graph: `madge ${CLI_INPUT} --image graph.svg`,
     },
     lint: sd('eslint --fix .', 'lint!'),
     test: {

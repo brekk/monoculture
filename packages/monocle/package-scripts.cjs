@@ -26,5 +26,8 @@ module.exports = {
       ...sd('jest', 'test!'),
       watch: sd('jest --watch', 'test with watch-mode!'),
     },
+    meta: {
+      graph: `madge ${INPUT} --image graph.svg`,
+    },
   },
 }
