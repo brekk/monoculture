@@ -11,6 +11,8 @@
   "private": true,
   "dependencies": {
     "climate": "workspace:packages/climate",
+    "climate-json": "workspace:packages/climate-json",
+    "climate-toml": "workspace:packages/climate-toml",
     "envtrace": "^0.0.2",
     "fluture": "^14.0.0",
     "monorail": "workspace:packages/monorail",

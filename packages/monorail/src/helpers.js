@@ -92,7 +92,7 @@ export const selectAll = curry((file, start, end) =>
 
 export const _filter = bodyTest(filter)
 
-export const makeHelpers = file => ({
+export const makeFileHelpers = file => ({
   any: _any(file),
   onLines: onLines(file),
   onLine: onLine(file),
@@ -101,3 +101,8 @@ export const makeHelpers = file => ({
   selectAll: selectAll(file),
   reduce: _reduce(file),
 })
+export const _getConfigFrom = curry((name, c) => c?.config?.[name])
+
+export const makePluginHelpers = curry((state, plugin) => ({
+  config: _getConfigFrom(plugin.name, state),
+}))

@@ -1,4 +1,4 @@
-import { makeHelpers } from './helpers'
+import { makeFileHelpers } from './helpers'
 
 const FILE = {
   body: `import {
@@ -35,8 +35,8 @@ export const _reduce = curry((file, fn, initial) =>
     .split('\n')
     .map((v, k) => [k + 1, v]),
 }
-describe('makeHelpers', () => {
-  const helpers = makeHelpers(FILE)
+describe('makeFileHelpers', () => {
+  const helpers = makeFileHelpers(FILE)
   it('any', () => {
     const some = helpers.any(/^import/)
     expect(some).toMatchSnapshot()

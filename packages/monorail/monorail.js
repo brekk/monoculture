@@ -124,7 +124,7 @@ var selectAll = curry3(
   )(file)
 );
 var _filter = bodyTest(filter);
-var makeHelpers = (file) => ({
+var makeFileHelpers = (file) => ({
   any: _any(file),
   onLines: onLines(file),
   onLine: onLine(file),
@@ -133,6 +133,10 @@ var makeHelpers = (file) => ({
   selectAll: selectAll(file),
   reduce: _reduce(file)
 });
+var _getConfigFrom = curry3((name, c) => c?.config?.[name]);
+var makePluginHelpers = curry3((state, plugin) => ({
+  config: _getConfigFrom(plugin.name, state)
+}));
 
 // src/sort.js
 import { curry as curry4, reject, propEq } from "ramda";
@@ -171,7 +175,9 @@ var toposort = (raw) => {
 var stepFunction = curry5((state, plugin, file) => {
   const { selector = I, preserveLine = false, fn } = plugin;
   const selected = selector(state);
-  const helpers = makeHelpers(file);
+  const base = makeFileHelpers(file);
+  const plugged = makePluginHelpers(state, plugin);
+  const helpers = { ...base, ...plugged };
   const output = preserveLine ? {
     ...file,
     body: map2(([k, v]) => [k, fn(selected, v, helpers)])(file.body)
@@ -193,7 +199,7 @@ var getHashes = pipe2(
   fromPairs
 );
 var statefulApplicator = curry5((context, plugins, files) => {
-  const { HELP: _h, basePath: _b, ...config } = context;
+  const { HELP: _h, basePath: _b, cwd: _c, ...config } = context;
   return reduce2(
     (agg, plugin) => ({
       ...agg,

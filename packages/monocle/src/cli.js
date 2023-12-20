@@ -21,6 +21,8 @@ import PKG from '../package.json'
 import { log } from './trace'
 import { trace } from 'xtrace'
 import { CONFIG, HELP_CONFIG, CONFIG_DEFAULTS } from './config'
+import pluginTOML from 'climate-toml'
+import pluginJSON from 'climate-json'
 
 const j = i => x => JSON.stringify(x, null, i)
 // const readConfigFile = configFile('monocle')
@@ -52,7 +54,8 @@ const cli = curry((cancel, args) =>
               })
             )
           )({
-            json: true,
+            // json: true,
+            transformer: [pluginTOML, pluginJSON],
             source: config.rulefile,
             ns: 'monocle',
           })

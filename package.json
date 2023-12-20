@@ -30,7 +30,7 @@
   "engines": {
     "node": ">=18.15.0"
   },
-  "packageManager": "yarn@4.0.1",
+  "packageManager": "yarn@4.0.2",
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "build": "dotenv -- nps -c ./package-scripts.cjs build",

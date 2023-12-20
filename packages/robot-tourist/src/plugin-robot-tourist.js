@@ -4,8 +4,7 @@ const NAME = 'robot-tourist'
 const plugin = {
   name: NAME,
   dependencies: [],
-  fn: (c, file) => {
-    const config = c?.config?.[NAME] ?? {}
+  fn: (state, file, { config }) => {
     const { file: _f, ...x } = robotTourist({
       dropStrings: true,
       dropJSKeywords: true,

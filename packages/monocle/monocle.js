@@ -100,6 +100,8 @@ var package_default = {
   private: true,
   dependencies: {
     climate: "workspace:packages/climate",
+    "climate-json": "workspace:packages/climate-json",
+    "climate-toml": "workspace:packages/climate-toml",
     envtrace: "^0.0.2",
     fluture: "^14.0.0",
     monorail: "workspace:packages/monorail",
@@ -177,6 +179,8 @@ var HELP_CONFIG = {
 };
 
 // src/cli.js
+import pluginTOML from "climate-toml";
+import pluginJSON from "climate-json";
 var j = (i) => (x) => JSON.stringify(x, null, i);
 var cli = curry2(
   (cancel, args) => pipe2(
@@ -203,7 +207,8 @@ var cli = curry2(
           })
         )
       )({
-        json: true,
+        // json: true,
+        transformer: [pluginTOML, pluginJSON],
         source: config.rulefile,
         ns: "monocle"
       }) : (

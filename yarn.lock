@@ -12114,6 +12114,8 @@ __metadata:
   resolution: "monocle@workspace:packages/monocle"
   dependencies:
     climate: "workspace:packages/climate"
+    climate-json: "workspace:packages/climate-json"
+    climate-toml: "workspace:packages/climate-toml"
     dotenv-cli: "npm:^7.3.0"
     envtrace: "npm:^0.0.2"
     esbuild: "npm:^0.19.5"

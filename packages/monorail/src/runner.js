@@ -1,13 +1,15 @@
 import { curry, fromPairs, identity as I, map, pipe, prop, reduce } from 'ramda'
 import { pap, resolve } from 'fluture'
-import { makeHelpers } from './helpers'
+import { makeFileHelpers, makePluginHelpers } from './helpers'
 import { toposort } from './sort'
 import { log } from './trace'
 
 export const stepFunction = curry((state, plugin, file) => {
   const { selector = I, preserveLine = false, fn } = plugin
   const selected = selector(state)
-  const helpers = makeHelpers(file)
+  const base = makeFileHelpers(file)
+  const plugged = makePluginHelpers(state, plugin)
+  const helpers = { ...base, ...plugged }
   const output = preserveLine
     ? {
         ...file,
@@ -34,7 +36,7 @@ export const getHashes = pipe(
 
 export const statefulApplicator = curry((context, plugins, files) => {
   // drop info we don't want to retain downstream
-  const { HELP: _h, basePath: _b, ...config } = context
+  const { HELP: _h, basePath: _b, cwd: _c, ...config } = context
   return reduce(
     (agg, plugin) => ({
       ...agg,

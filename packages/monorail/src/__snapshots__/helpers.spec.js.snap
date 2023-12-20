@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`makeHelpers any 1`] = `true`;
+exports[`makeFileHelpers any 1`] = `true`;
 
-exports[`makeHelpers between 1`] = `
+exports[`makeFileHelpers between 1`] = `
 [
   [
     1,
@@ -91,9 +91,9 @@ exports[`makeHelpers between 1`] = `
 ]
 `;
 
-exports[`makeHelpers between 2`] = `[]`;
+exports[`makeFileHelpers between 2`] = `[]`;
 
-exports[`makeHelpers filter 1`] = `
+exports[`makeFileHelpers filter 1`] = `
 [
   [
     23,
@@ -110,16 +110,16 @@ exports[`makeHelpers filter 1`] = `
 ]
 `;
 
-exports[`makeHelpers line 1`] = `20`;
+exports[`makeFileHelpers line 1`] = `20`;
 
-exports[`makeHelpers lines 1`] = `
+exports[`makeFileHelpers lines 1`] = `
 [
   1,
   21,
 ]
 `;
 
-exports[`makeHelpers reduce 1`] = `
+exports[`makeFileHelpers reduce 1`] = `
 [
   "import {",
   "  __ as $,",
@@ -155,7 +155,7 @@ exports[`makeHelpers reduce 1`] = `
 ]
 `;
 
-exports[`makeHelpers selectAll 1`] = `
+exports[`makeFileHelpers selectAll 1`] = `
 [
   [
     1,
