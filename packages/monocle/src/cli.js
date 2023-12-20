@@ -1,6 +1,15 @@
-import { resolve as pathResolve } from 'node:path'
+import { resolve as pathResolve, dirname } from 'node:path'
 import { Chalk } from 'chalk'
-import { curry, mergeRight, always as K, pipe, chain, map, length } from 'ramda'
+import {
+  __ as $,
+  curry,
+  mergeRight,
+  always as K,
+  pipe,
+  chain,
+  map,
+  length,
+} from 'ramda'
 import { reject, fork, parallel, resolve } from 'fluture'
 import { interpret, writeFile } from 'file-system'
 import { monoprocessor } from './reader'
@@ -27,12 +36,16 @@ const cli = curry((cancel, args) =>
       const result = config.rulefile
         ? pipe(
             configFileWithCancel(cancel),
-            map(log.config('loaded rulefile')),
-            map(z => {
-              console.log(typeof z, Object.keys(z))
-              return z
-            }),
-            map(mergeRight(config))
+            map(
+              pipe(
+                log.config('loaded rulefile'),
+                mergeRight($, config),
+                raw => ({
+                  ...raw,
+                  basePath: pathResolve(raw.basePath, dirname(config.rulefile)),
+                })
+              )
+            )
           )({
             json: true,
             source: config.rulefile,

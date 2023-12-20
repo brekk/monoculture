@@ -38,26 +38,8 @@ var insertAfter = curry2((idx, x, arr) => [
 ]);
 
 // src/runner.js
-import {
-  of,
-  objOf,
-  reject as reject2,
-  propOr as propOr2,
-  complement,
-  equals,
-  filter as filter2,
-  propEq as propEq2,
-  curry as curry5,
-  applySpec,
-  fromPairs,
-  identity as I,
-  map as map2,
-  mergeRight,
-  pipe as pipe2,
-  prop,
-  reduce as reduce2
-} from "ramda";
-import { ap as ap2, pap, resolve } from "fluture";
+import { curry as curry5, fromPairs, identity as I, map as map2, pipe as pipe2, prop, reduce as reduce2 } from "ramda";
+import { pap, resolve } from "fluture";
 
 // src/helpers.js
 import {
@@ -186,7 +168,6 @@ var toposort = (raw) => {
 };
 
 // src/runner.js
-import { trace as trace2 } from "xtrace";
 var stepFunction = curry5((state, plugin, file) => {
   const { selector = I, preserveLine = false, fn } = plugin;
   const selected = selector(state);
@@ -200,7 +181,7 @@ var stepFunction = curry5((state, plugin, file) => {
 var runPluginOnFilesWithContext = curry5((context, files, plugin) => {
   if (!plugin.name)
     return [];
-  log.run("plugin", plugin);
+  log.run("applying plugin", plugin.name);
   return pipe2(
     map2((file) => [file.name, stepFunction(context, plugin, file)]),
     fromPairs
@@ -212,15 +193,15 @@ var getHashes = pipe2(
   fromPairs
 );
 var statefulApplicator = curry5((context, plugins, files) => {
-  const { HELP: _HELP, ...configuration } = context;
+  const { HELP: _h, basePath: _b, ...configuration } = context;
   return reduce2(
-    (agg, plugin) => {
-      const run = pipe2(runPluginOnFilesWithContext(agg, files))(plugin);
-      return log.run(`applying ${plugin.name}...`, {
-        ...agg,
-        state: { ...agg.state, [plugin.name]: run }
-      });
-    },
+    (agg, plugin) => ({
+      ...agg,
+      state: {
+        ...agg.state,
+        [plugin.name]: pipe2(runPluginOnFilesWithContext(agg, files))(plugin)
+      }
+    }),
     {
       state: {},
       filenames: getNames(files),
@@ -231,41 +212,41 @@ var statefulApplicator = curry5((context, plugins, files) => {
     plugins
   );
 });
-var futureFileProcessor = curry5((context, pluginsF, filesF) => {
-  const sortedPluginsF = map2(toposort, pluginsF);
-  return pipe2(
-    ap2(sortedPluginsF),
-    ap2(filesF)
-  )(resolve(statefulApplicator(context)));
-});
+var futureFileProcessor = curry5(
+  (context, pluginsF, filesF) => pipe2(
+    resolve,
+    pap(map2(toposort, pluginsF)),
+    pap(filesF)
+  )(statefulApplicator(context))
+);
 
 // src/validate.js
 import {
-  of as of2,
-  ap as ap3,
+  of,
+  ap as ap2,
   without,
   all,
-  applySpec as applySpec2,
+  applySpec,
   curry as curry6,
-  equals as equals2,
+  equals,
   keys,
   pipe as pipe3,
-  propOr as propOr3,
+  propOr as propOr2,
   reduce as reduce3,
-  reject as reject3,
+  reject as reject2,
   values
 } from "ramda";
-var kindIs = curry6((expected, x) => equals2(expected, typeof x));
+var kindIs = curry6((expected, x) => equals(expected, typeof x));
 var coerce = (x) => !!x;
 var PLUGIN_SHAPE = {
   // unique identifier for the plugin
-  name: pipe3(propOr3(false, "name"), coerce),
+  name: pipe3(propOr2(false, "name"), coerce),
   // the "fn" property actually produces a value given
   // (selectedContext, config, file) => and stores it keyed by "name"
-  fn: pipe3(propOr3(false, "fn"), kindIs("function")),
+  fn: pipe3(propOr2(false, "fn"), kindIs("function")),
   // the selector function accesses part of context to pass it to the "fn" transformer
   selector: pipe3(
-    propOr3(() => {
+    propOr2(() => {
     }, "selector"),
     kindIs("function")
   ),
@@ -279,12 +260,12 @@ var PLUGIN_SHAPE = {
   },
   // store
   store: pipe3(
-    propOr3(() => {
+    propOr2(() => {
     }, "store"),
     kindIs("function")
   ),
   // does this plugin depend on anything specific to have happened before this?
-  dependencies: pipe3(propOr3([], "dependencies"), Array.isArray)
+  dependencies: pipe3(propOr2([], "dependencies"), Array.isArray)
 };
 var EXPECTED_KEYS = keys(PLUGIN_SHAPE);
 var noExtraKeys = (x) => pipe3(
@@ -293,16 +274,16 @@ var noExtraKeys = (x) => pipe3(
   (y) => y.length ? `Found additional or misspelled keys: [${y.join(", ")}]` : ``
 )(x);
 var testPlugin = pipe3(
-  of2,
-  ap3([applySpec2(PLUGIN_SHAPE), noExtraKeys]),
+  of,
+  ap2([applySpec(PLUGIN_SHAPE), noExtraKeys]),
   ([x, error]) => error ? { ...x, error } : x
 );
-var checkPlugin = pipe3(testPlugin, values, all(equals2(true)));
+var checkPlugin = pipe3(testPlugin, values, all(equals(true)));
 var validatePlugins = reduce3((agg, plugin) => {
   const check = checkPlugin(plugin);
-  const name = propOr3("unnamed", "name", plugin);
+  const name = propOr2("unnamed", "name", plugin);
   if (!check) {
-    const err = [name, pipe3(testPlugin, reject3(equals2(true)), keys)(plugin)];
+    const err = [name, pipe3(testPlugin, reject2(equals(true)), keys)(plugin)];
     return {
       ...agg,
       incorrect: agg.incorrect ? [...agg.incorrect, err] : [err]

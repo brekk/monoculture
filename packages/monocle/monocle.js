@@ -1,9 +1,18 @@
 #!/usr/bin/env node
 
 // src/cli.js
-import { resolve as pathResolve } from "node:path";
+import { resolve as pathResolve, dirname } from "node:path";
 import { Chalk } from "chalk";
-import { curry as curry2, mergeRight, always as K, pipe as pipe2, chain as chain2, map as map2, length } from "ramda";
+import {
+  __ as $,
+  curry as curry2,
+  mergeRight,
+  always as K,
+  pipe as pipe2,
+  chain as chain2,
+  map as map2,
+  length
+} from "ramda";
 import { reject, fork, parallel as parallel2, resolve as resolve2 } from "fluture";
 import { interpret, writeFile } from "file-system";
 
@@ -181,12 +190,16 @@ var cli = curry2(
     chain2((config) => {
       const result = config.rulefile ? pipe2(
         configFileWithCancel(cancel),
-        map2(log.config("loaded rulefile")),
-        map2((z) => {
-          console.log(typeof z, Object.keys(z));
-          return z;
-        }),
-        map2(mergeRight(config))
+        map2(
+          pipe2(
+            log.config("loaded rulefile"),
+            mergeRight($, config),
+            (raw) => ({
+              ...raw,
+              basePath: pathResolve(raw.basePath, dirname(config.rulefile))
+            })
+          )
+        )
       )({
         json: true,
         source: config.rulefile,

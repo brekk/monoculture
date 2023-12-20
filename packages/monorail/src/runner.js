@@ -1,27 +1,8 @@
-import {
-  of,
-  objOf,
-  reject,
-  propOr,
-  complement,
-  equals,
-  filter,
-  propEq,
-  curry,
-  applySpec,
-  fromPairs,
-  identity as I,
-  map,
-  mergeRight,
-  pipe,
-  prop,
-  reduce,
-} from 'ramda'
-import { ap, pap, resolve } from 'fluture'
+import { curry, fromPairs, identity as I, map, pipe, prop, reduce } from 'ramda'
+import { pap, resolve } from 'fluture'
 import { makeHelpers } from './helpers'
 import { toposort } from './sort'
 import { log } from './trace'
-import { trace } from 'xtrace'
 
 export const stepFunction = curry((state, plugin, file) => {
   const { selector = I, preserveLine = false, fn } = plugin
@@ -38,7 +19,7 @@ export const stepFunction = curry((state, plugin, file) => {
 
 const runPluginOnFilesWithContext = curry((context, files, plugin) => {
   if (!plugin.name) return []
-  log.run('plugin', plugin)
+  log.run('applying plugin', plugin.name)
   return pipe(
     map(file => [file.name, stepFunction(context, plugin, file)]),
     fromPairs
@@ -52,15 +33,16 @@ export const getHashes = pipe(
 )
 
 export const statefulApplicator = curry((context, plugins, files) => {
-  const { HELP: _HELP, ...configuration } = context
+  // drop info we don't want to retain downstream
+  const { HELP: _h, basePath: _b, ...configuration } = context
   return reduce(
-    (agg, plugin) => {
-      const run = pipe(runPluginOnFilesWithContext(agg, files))(plugin)
-      return log.run(`applying ${plugin.name}...`, {
-        ...agg,
-        state: { ...agg.state, [plugin.name]: run },
-      })
-    },
+    (agg, plugin) => ({
+      ...agg,
+      state: {
+        ...agg.state,
+        [plugin.name]: pipe(runPluginOnFilesWithContext(agg, files))(plugin),
+      },
+    }),
     {
       state: {},
       filenames: getNames(files),
@@ -72,10 +54,10 @@ export const statefulApplicator = curry((context, plugins, files) => {
   )
 })
 
-export const futureFileProcessor = curry((context, pluginsF, filesF) => {
-  const sortedPluginsF = map(toposort, pluginsF)
-  return pipe(
-    ap(sortedPluginsF),
-    ap(filesF)
-  )(resolve(statefulApplicator(context)))
-})
+export const futureFileProcessor = curry((context, pluginsF, filesF) =>
+  pipe(
+    resolve,
+    pap(map(toposort, pluginsF)),
+    pap(filesF)
+  )(statefulApplicator(context))
+)
