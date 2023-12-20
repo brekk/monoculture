@@ -4,6 +4,9 @@
 import { resolve as pathResolve, dirname } from "node:path";
 import { Chalk } from "chalk";
 import {
+  propOr,
+  uniqBy,
+  identity as I2,
   __ as $,
   curry as curry2,
   mergeRight,
@@ -188,14 +191,16 @@ var cli = curry2(
       const result = config.rulefile ? pipe2(
         configFileWithCancel(cancel),
         map2(
-          pipe2(
-            log.config("loaded rulefile"),
-            mergeRight($, config),
-            (raw) => ({
+          pipe2(log.config("loaded rulefile"), mergeRight(config), (raw) => {
+            return {
               ...raw,
+              ignore: uniqBy(I2, [
+                ...raw?.ignore ?? [],
+                ...config.ignore ?? []
+              ]),
               basePath: pathResolve(raw.basePath, dirname(config.rulefile))
-            })
-          )
+            };
+          })
         )
       )({
         json: true,
@@ -211,7 +216,6 @@ var cli = curry2(
     chain2((config) => {
       const chalk = new Chalk({ level: config.color ? 2 : 0 });
       const plugins = config.plugin?.length ? config.plugin : config.plugins?.length ? config.plugins : [];
-      const ignore = config.ignore?.length ? config.ignore : [];
       const { basePath, _: dirGlob = [] } = config;
       const [startGlob = false] = dirGlob;
       if (!startGlob) {

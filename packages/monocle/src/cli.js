@@ -1,6 +1,9 @@
 import { resolve as pathResolve, dirname } from 'node:path'
 import { Chalk } from 'chalk'
 import {
+  propOr,
+  uniqBy,
+  identity as I,
   __ as $,
   curry,
   mergeRight,
@@ -37,14 +40,16 @@ const cli = curry((cancel, args) =>
         ? pipe(
             configFileWithCancel(cancel),
             map(
-              pipe(
-                log.config('loaded rulefile'),
-                mergeRight($, config),
-                raw => ({
+              pipe(log.config('loaded rulefile'), mergeRight(config), raw => {
+                return {
                   ...raw,
+                  ignore: uniqBy(I, [
+                    ...(raw?.ignore ?? []),
+                    ...(config.ignore ?? []),
+                  ]),
                   basePath: pathResolve(raw.basePath, dirname(config.rulefile)),
-                })
-              )
+                }
+              })
             )
           )({
             json: true,
@@ -63,7 +68,6 @@ const cli = curry((cancel, args) =>
         : config.plugins?.length
         ? config.plugins
         : []
-      const ignore = config.ignore?.length ? config.ignore : []
       const { basePath, _: dirGlob = [] } = config
       const [startGlob = false] = dirGlob
       if (!startGlob) {
