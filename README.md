@@ -245,11 +245,6 @@ introspection and organization tools for monorepos
      </details>
    * [monoculture-tsconfig](https://github.com/brekk/monoculture/tree/main/shared/monoculture-tsconfig) - shared tsconfig for monoculture packages 😵
 
-     <details><summary>Dependencies</summary>
-
-      - 
-
-     </details>
 
 ## tools
 

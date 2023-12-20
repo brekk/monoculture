@@ -99,7 +99,8 @@ const summarize = curry((repo, package, args) =>
                 map(
                   ([project, summary, deps, devDeps]) =>
                     `[${project}](${repo}/${group}/${project}) - ${summary}${
-                      argv.includes('--show-deps')
+                      argv.includes('--show-deps') &&
+                      keys({ ...deps, ...devDeps }).length > 0
                         ? `\n\n     <details><summary>Dependencies</summary>\n\n      - ${depUsage(
                             { repo, project },
                             deps,
