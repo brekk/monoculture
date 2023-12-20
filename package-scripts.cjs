@@ -10,7 +10,14 @@ const sequence = join(' && ')
 
 const SUMMARY = `# monoculture
 
-introspection and organization tools for monorepos`
+introspection and organization tools for monorepos
+
+*Dependency legend*:
+
+ - 🦴 package from within this monorepo
+ - 🧪 package used as a devDependency
+
+`
 
 module.exports = {
   scripts: {
@@ -66,7 +73,7 @@ module.exports = {
     meta: {
       readme: sd(
         // eslint-disable-next-line max-len
-        `echo '${SUMMARY}' > README.md && ./tools/spacework/summarize-workspaces.cjs --readme >> README.md`,
+        `echo '${SUMMARY}' > README.md && ./tools/spacework/summarize-workspaces.cjs --readme --show-deps >> README.md`,
         'regenerate the README!'
       ),
       docs: sd(
