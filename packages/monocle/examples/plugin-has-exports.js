@@ -1,4 +1,4 @@
-import { startsWith, propOr, pathOr } from 'ramda'
+import { pathOr } from 'ramda'
 const plugin = {
   name: 'has-exports',
   selector: pathOr({}, ['state', 'get-exports']),

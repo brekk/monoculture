@@ -46,7 +46,7 @@ var package_default = {
 
 // src/cli.js
 import { configurate } from "climate";
-import { trace as trace3 } from "xtrace";
+import { trace } from "xtrace";
 import { chain as chain2, addIndex as addIndex2, curry as curry6, map as map5, pipe as pipe5, split as split3, trim as trim2 } from "ramda";
 import yargsParser2 from "yargs-parser";
 import { readFile } from "file-system";
@@ -272,14 +272,12 @@ import {
   startsWith as startsWith2,
   trim
 } from "ramda";
-import { trace as trace2 } from "xtrace";
 import yargsParser from "yargs-parser";
 
 // src/stats.js
 import { curry as curry4 } from "ramda";
 
 // src/string.js
-import { trace } from "xtrace";
 import {
   prop,
   __ as $,
@@ -552,7 +550,7 @@ pipe5(
     description: $DESC,
     banner: DYNAMIC_BANNER
   }),
-  map5(trace3("config")),
+  map5(trace("config")),
   chain2(cli),
   // eslint-disable-next-line no-console
   fork(console.error)(console.log)

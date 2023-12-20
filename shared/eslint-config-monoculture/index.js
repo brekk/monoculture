@@ -37,7 +37,7 @@ module.exports = {
     'max-len': [2, 100, 2],
     'new-cap': [2, { capIsNew: false }],
     'no-trailing-spaces': [2, { skipBlankLines: true }],
-    'no-unused-vars': 'off',
+    'no-unused-vars': 0,
     '@typescript-eslint/no-unused-vars': [
       1,
       { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },

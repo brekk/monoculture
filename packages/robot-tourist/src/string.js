@@ -1,4 +1,3 @@
-import { trace } from 'xtrace'
 import {
   prop,
   __ as $,

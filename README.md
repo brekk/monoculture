@@ -197,16 +197,6 @@ introspection and organization tools for monorepos
       - [strip-ansi](https://www.npmjs.com/package/strip-ansi)🧪
 
      </details>
-   * [tophat](https://github.com/brekk/monoculture/tree/main/packages/tophat) - topological sorting for magicians 🎩
-
-     <details><summary>Dependencies</summary>
-
-      - [ramda](https://www.npmjs.com/package/ramda)
-      - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
-      - [eslint-config-monoculture](https://www.npmjs.com/package/eslint-config-monoculture)🧪
-      - [jest-config](https://www.npmjs.com/package/jest-config)🧪
-
-     </details>
 
 ## shared
 

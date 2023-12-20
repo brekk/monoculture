@@ -2,6 +2,7 @@
   "globalEnv": ["NODE_ENV"],
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
+    "lint": {},
     "build": {
       "outputs": ["dist/**", ".next/**", "*.artifact.js"]
     },

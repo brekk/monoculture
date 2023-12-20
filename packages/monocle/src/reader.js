@@ -8,10 +8,9 @@ import {
   trim,
   split,
   addIndex,
-  fromPairs,
   chain,
 } from 'ramda'
-import { parallel, resolve } from 'fluture'
+import { parallel } from 'fluture'
 
 import { readDirWithConfig, readFile } from 'file-system'
 import { futureFileProcessor } from 'monorail'

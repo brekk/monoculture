@@ -46,7 +46,6 @@ module.exports = {
               'packages/monocle',
               'packages/monorail',
               'packages/robot-tourist',
-              'packages/tophat',
               'shared/eslint-config-monoculture',
               'shared/jest-config',
               'shared/monoculture-tsconfig',
@@ -61,7 +60,7 @@ module.exports = {
         ),
       },
     },
-    care: sd('turbo run test', 'build and test with turbo'),
+    care: sd('turbo run lint test build', 'build and test with turbo'),
     build: sd('turbo run build', 'build with turbo'),
     lint: sd('turbo run lint', 'lint with turbo'),
     test: {

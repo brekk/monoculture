@@ -1,10 +1,8 @@
 import { resolve as pathResolve, dirname } from 'node:path'
 import { Chalk } from 'chalk'
 import {
-  propOr,
   uniqBy,
   identity as I,
-  __ as $,
   curry,
   mergeRight,
   always as K,
@@ -19,7 +17,6 @@ import { monoprocessor } from './reader'
 import { configurate, configFileWithCancel } from 'climate'
 import PKG from '../package.json'
 import { log } from './trace'
-import { trace } from 'xtrace'
 import { CONFIG, HELP_CONFIG, CONFIG_DEFAULTS } from './config'
 import pluginTOML from 'climate-toml'
 import pluginJSON from 'climate-json'

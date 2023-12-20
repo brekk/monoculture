@@ -17,7 +17,6 @@ import {
   propOr,
   toPairs
 } from "ramda";
-import { trace } from "xtrace";
 var shortFlag = (z) => `-${z}`;
 var longFlag = (z) => `--${z}`;
 var invalidHelpConfig = (key) => {

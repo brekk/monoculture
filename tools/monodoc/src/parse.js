@@ -9,15 +9,14 @@ import {
   identity,
   last,
   map,
-  mergeRight,
   pathOr,
   pipe,
   propOr,
   uniq,
 } from 'ramda'
-import { readFile, pathRelativeTo } from 'file-system'
+import { readFile } from 'file-system'
 import { addLineNumbers, groupContiguousBlocks } from './file'
-import { lines, j2, stripRelative } from './text'
+import { lines, stripRelative } from './text'
 import { isJSDocComment, objectifyComments } from './comment'
 
 const getAny = curry((def, keyPath, comments) =>

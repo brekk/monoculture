@@ -1,4 +1,4 @@
-import { last, nth, split, propOr, pathOr } from 'ramda'
+import { last, nth, split } from 'ramda'
 const words = split(' ')
 const BASE = { exports: [], reExports: [] }
 const plugin = {

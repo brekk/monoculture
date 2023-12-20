@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/extensions
 import { sd } from './superorganism.mjs'
 
 const build = ([infile, outfile], addendum = '') =>

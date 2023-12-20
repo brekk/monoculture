@@ -1,4 +1,4 @@
-import { map, curry, pipe, chain, __ as $ } from 'ramda'
+import { curry, pipe, chain, __ as $ } from 'ramda'
 import {
   cancellableTask,
   cancelSilently,
@@ -6,7 +6,7 @@ import {
   binaryWithCancel,
   tertiaryWithCancel,
 } from './async'
-import { Future, after, fork, swap } from 'fluture'
+import { after, fork } from 'fluture'
 import Unusual from 'unusual'
 import PKG from '../package.json'
 

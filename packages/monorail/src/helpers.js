@@ -15,11 +15,10 @@ import {
   pipe,
   propOr,
   reduce,
-  slice,
   test,
 } from 'ramda'
-import { trace } from 'xtrace'
 
+/* eslint-disable max-len */
 /**
  * @pageSummary Built-in helpers for making custom plugins more robust. The "helpers" are the third parameter passed to a custom plugin's function.
  * @page helpers

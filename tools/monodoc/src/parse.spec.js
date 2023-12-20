@@ -1,5 +1,3 @@
-import { cwd } from 'node:process'
-
 import { fork } from 'fluture'
 import { pathRelativeTo } from 'file-system'
 
@@ -87,7 +85,7 @@ import { nice } from './parse'
     filename: 'i-yam-what-i.yaml',
     links: ['emoji.sunglasses'],
     order: 0,
-    pageSummary: "",
+    pageSummary: '',
     slugName: 'i-yam-what-i',
   })
 })

@@ -148,7 +148,6 @@ test('configFile - multiple transformer', done => {
 // TODO - move the plugin validation upstream rather than this
 test.skip('configFile - bad plugin', done => {
   fork(e => {
-    console.log('EEEEE', e)
     expect(e.message).toEqual(
       'This plugin (zipzop) is not valid ({test: undefined, parse: undefined}).'
     )

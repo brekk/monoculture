@@ -11,7 +11,6 @@ import {
   startsWith,
   trim,
 } from 'ramda'
-import { trace } from 'xtrace'
 import yargsParser from 'yargs-parser'
 
 import { histograph, correlateSimilar } from './stats'

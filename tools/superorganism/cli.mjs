@@ -9,7 +9,6 @@ import {
   __,
   split,
   filter,
-  identity as I,
   propOr,
   chain,
   last,
@@ -18,8 +17,7 @@ import {
   map as map2,
   keys,
   pathOr,
-  uniq,
-  tap as tap2
+  uniq
 } from "ramda";
 import { configurate } from "climate";
 import { interpret } from "file-system";
@@ -206,7 +204,7 @@ var getNestedTasks = (scripts) => {
   );
   return pipe2(
     filter((taskName) => {
-      let task = getScript(taskName);
+      const task = getScript(taskName);
       if (typeof task === "object")
         return false;
       return true;

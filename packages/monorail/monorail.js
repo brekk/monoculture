@@ -59,10 +59,8 @@ import {
   pipe,
   propOr,
   reduce,
-  slice,
   test
 } from "ramda";
-import { trace } from "xtrace";
 var getBody = propOr([], "body");
 var bodyTest = curry3(
   (fn, file, needle) => pipe(getBody, fn(pipe(last, test(needle))))(file)

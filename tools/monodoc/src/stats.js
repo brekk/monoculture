@@ -5,7 +5,6 @@ import {
   groupBy,
   map,
   toPairs,
-  sortBy,
   when,
   equals,
   always,

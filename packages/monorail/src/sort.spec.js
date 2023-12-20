@@ -1,4 +1,4 @@
-import { map, prop, curry, indexOf } from 'ramda'
+import { map, curry, indexOf } from 'ramda'
 import { Sorter } from '@hapi/topo'
 import { withoutProp, toposort } from './sort'
 

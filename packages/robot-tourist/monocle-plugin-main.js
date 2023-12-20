@@ -2,7 +2,6 @@
 import { curry as curry3 } from "ramda";
 
 // src/string.js
-import { trace } from "xtrace";
 import {
   prop,
   __ as $,

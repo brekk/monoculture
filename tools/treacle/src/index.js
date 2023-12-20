@@ -10,7 +10,6 @@ import {
   split,
 } from 'ramda'
 import { flexecaWithCanceller } from 'file-system'
-import { trace } from 'xtrace'
 
 const words = split(' ')
 const lines = split('\n')

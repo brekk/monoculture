@@ -4,7 +4,6 @@ import {
   __,
   split,
   filter,
-  identity as I,
   propOr,
   chain,
   last,
@@ -14,7 +13,6 @@ import {
   keys,
   pathOr,
   uniq,
-  tap,
 } from 'ramda'
 import { configurate } from 'climate'
 import { interpret } from 'file-system'
@@ -64,7 +62,7 @@ export const getNestedTasks = scripts => {
   )
   return pipe(
     filter(taskName => {
-      let task = getScript(taskName)
+      const task = getScript(taskName)
       if (typeof task === 'object') return false
       return true
     })
@@ -83,6 +81,7 @@ export const EXECA_FORCE_COLOR = {
 }
 const getStdOut = propOr('', 'stdout')
 
+/* eslint-disable no-console */
 export const executeWithCancel = curry((cancel, { tasks, scripts, config }) => {
   const chalk = new Chalk({ level: config.color ? 2 : 0 })
   if (config.help) return config.HELP

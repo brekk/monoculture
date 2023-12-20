@@ -418,8 +418,8 @@
     "filename": "packages/monorail/src/helpers.js",
     "comments": [
       {
-        "start": 22,
-        "end": 25,
+        "start": 21,
+        "end": 24,
         "lines": [
           "@pageSummary Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
           "@page helpers"
@@ -453,7 +453,7 @@
           ],
           "page": "helpers",
           "name": "helpers",
-          "detail": 22
+          "detail": 21
         },
         "keywords": [
           "@page",
@@ -462,8 +462,8 @@
         "filename": "packages/monorail/src/helpers.js"
       },
       {
-        "start": 33,
-        "end": 44,
+        "start": 32,
+        "end": 43,
         "lines": [
           "Use this helper to test a regex that matches against any single incidence on any line",
           "@name any",
@@ -491,8 +491,8 @@
         "filename": "packages/monorail/src/helpers.js"
       },
       {
-        "start": 47,
-        "end": 57,
+        "start": 46,
+        "end": 56,
         "lines": [
           "Use this helper to test a regex that matches and filters against every line",
           "@name lines",
@@ -519,8 +519,8 @@
         "filename": "packages/monorail/src/helpers.js"
       },
       {
-        "start": 62,
-        "end": 72,
+        "start": 61,
+        "end": 71,
         "lines": [
           "Use this helper to test a regex that matches and finds the first matching line",
           "@name line",
@@ -547,8 +547,8 @@
         "filename": "packages/monorail/src/helpers.js"
       },
       {
-        "start": 77,
-        "end": 87,
+        "start": 76,
+        "end": 86,
         "lines": [
           "Use this helper to test a regex that matches and finds the last matching line",
           "@name lastLine",
@@ -575,8 +575,8 @@
         "filename": "packages/monorail/src/helpers.js"
       },
       {
-        "start": 92,
-        "end": 102,
+        "start": 91,
+        "end": 101,
         "lines": [
           "Use this helper to select content between two repeating regular expressions",
           "@name between",
@@ -603,8 +603,8 @@
         "filename": "packages/monorail/src/helpers.js"
       },
       {
-        "start": 115,
-        "end": 125,
+        "start": 114,
+        "end": 124,
         "lines": [
           "Use this helper to select all content between two repeating regular expressions",
           "@name selectAll",
@@ -631,8 +631,8 @@
         "filename": "packages/monorail/src/helpers.js"
       },
       {
-        "start": 163,
-        "end": 174,
+        "start": 162,
+        "end": 173,
         "lines": [
           "Use this helper to easily reduce over all lines and aggregate a value",
           "@name reduce",
@@ -660,8 +660,8 @@
         "filename": "packages/monorail/src/helpers.js"
       },
       {
-        "start": 179,
-        "end": 192,
+        "start": 178,
+        "end": 191,
         "lines": [
           "Use this helper to easily filter all lines related to a given regular expression",
           "@name filter",
@@ -691,8 +691,8 @@
         "filename": "packages/monorail/src/helpers.js"
       },
       {
-        "start": 206,
-        "end": 219,
+        "start": 205,
+        "end": 218,
         "lines": [
           "The `config` value is patched in so that it is easier to pass values from the rulefile configuration to the plugins themselves, scoped to the plugin name.",
           "@name config",

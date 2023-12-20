@@ -16,7 +16,6 @@ import {
   propOr,
   toPairs,
 } from 'ramda'
-import { trace } from 'xtrace'
 
 // shortFlag :: String -> String
 export const shortFlag = z => `-${z}`

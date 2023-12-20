@@ -52,7 +52,7 @@ import {
   fromPairs as fromPairs2,
   last as last4,
   applySpec as applySpec3,
-  prop as prop2,
+  prop,
   reduce as reduce3,
   always as K3,
   chain as chain2,
@@ -63,7 +63,7 @@ import {
   groupBy,
   head as head3,
   identity as I2,
-  join as join4,
+  join as join3,
   length as length4,
   lt,
   map as map6,
@@ -79,7 +79,7 @@ import {
 } from "ramda";
 import { resolve, parallel } from "fluture";
 import {
-  pathRelativeTo as pathRelativeTo2,
+  pathRelativeTo,
   readJSONFile,
   readDirWithConfig,
   writeFile,
@@ -90,7 +90,7 @@ import {
 import { basename, extname } from "node:path";
 import {
   defaultTo as defaultTo2,
-  join as join3,
+  join as join2,
   curry as curry2,
   filter as filter2,
   flatten,
@@ -98,13 +98,12 @@ import {
   identity,
   last as last3,
   map as map4,
-  mergeRight as mergeRight2,
   pathOr,
   pipe as pipe4,
   propOr as propOr2,
   uniq as uniq2
 } from "ramda";
-import { readFile, pathRelativeTo } from "file-system";
+import { readFile } from "file-system";
 
 // src/file.js
 import {
@@ -176,11 +175,7 @@ var stripRelative = replace2(/\.\.\//g, "");
 
 // src/comment.js
 import {
-  toLower,
-  split as split3,
-  join as join2,
   propOr,
-  prop,
   __ as $,
   addIndex as addIndex2,
   always as K,
@@ -197,13 +192,10 @@ import {
   head,
   identity as I,
   ifElse,
-  includes as includes2,
   last as last2,
   length as length2,
   map as map3,
   match as match2,
-  mergeRight,
-  objOf,
   pipe as pipe3,
   reduce as reduce2,
   reject as reject2,
@@ -212,8 +204,7 @@ import {
   startsWith as startsWith2,
   toPairs,
   trim as trim2,
-  uniq,
-  when as when2
+  uniq
 } from "ramda";
 var linkRegex = /\{@link (.*)+\}/g;
 var matchLinks = pipe3(
@@ -363,7 +354,7 @@ var parse = curry2((root, filename, content) => {
         pageSummary: pipe4(
           getAny("", ["structure", "pageSummary"]),
           defaultTo2([]),
-          join3(" ")
+          join2(" ")
         )(comments),
         filename: newName,
         comments,
@@ -410,14 +401,14 @@ import {
   applySpec as applySpec2,
   pathOr as pathOr2,
   propOr as propOr3,
-  when as when3,
+  when as when2,
   startsWith as startsWith3,
   length as length3,
   always as K2,
   map as map5,
   slice as slice3
 } from "ramda";
-var stripFence = when3(startsWith3("```"), K2(""));
+var stripFence = when2(startsWith3("```"), K2(""));
 var liveExample = (ex) => pipe5(lines, map5(stripFence), slice3(1, length3(ex)), unlines)(ex);
 var commentToMarkdown = ifElse2(
   // this is a special case where we want to be able to dynamically rename the page
@@ -594,7 +585,7 @@ var runner = ({
   artifact = false
 }) => {
   const current = cwd();
-  const rel = pathRelativeTo2(current);
+  const rel = pathRelativeTo(current);
   const [pkgJson, outputDir, relativeArtifact] = map6(rel, [
     input,
     output,
@@ -642,7 +633,7 @@ var runner = ({
     ),
     map6(
       reduce3((agg, file) => {
-        const filenames = map6(prop2("filename"), agg);
+        const filenames = map6(prop("filename"), agg);
         const alreadyInList = filenames.includes(file.filename);
         const anyFile = file.comments.filter(
           ({ structure }) => structure.asFile
@@ -708,7 +699,7 @@ var runner = ({
               pipe6(
                 map6(commentToMarkdown),
                 (z) => ["# " + file.slugName, file.pageSummary, ...z],
-                join4("\n\n")
+                join3("\n\n")
               )(file.comments)
             );
           })(commentedFiles);

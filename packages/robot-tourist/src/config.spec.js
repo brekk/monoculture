@@ -6,7 +6,6 @@ import {
   DEFAULT_CONFIG,
   HELP_CONFIG,
 } from './config'
-import stripAnsi from 'strip-ansi'
 
 test('BW_LOGO', () => {
   expect(BW_LOGO).toMatchSnapshot()

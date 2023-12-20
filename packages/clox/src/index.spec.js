@@ -131,7 +131,7 @@ test('box w/ loooooooong subtitle ', () => {
 ╰─hey now, remember to be kind─────╯`)
 })
 
-/* eslint-disable max-length */
+/* eslint-disable max-len */
 test('box w/ lots of content', () => {
   expect(
     box(

@@ -4,10 +4,8 @@
 import { resolve as pathResolve, dirname } from "node:path";
 import { Chalk } from "chalk";
 import {
-  propOr,
   uniqBy,
   identity as I2,
-  __ as $,
   curry as curry2,
   mergeRight,
   always as K,
@@ -16,7 +14,7 @@ import {
   map as map2,
   length
 } from "ramda";
-import { reject, fork, parallel as parallel2, resolve as resolve2 } from "fluture";
+import { reject, fork, parallel as parallel2, resolve } from "fluture";
 import { interpret, writeFile } from "file-system";
 
 // src/reader.js
@@ -29,10 +27,9 @@ import {
   trim,
   split,
   addIndex,
-  fromPairs,
   chain
 } from "ramda";
-import { parallel, resolve } from "fluture";
+import { parallel } from "fluture";
 import { readDirWithConfig, readFile } from "file-system";
 import { futureFileProcessor } from "monorail";
 
@@ -125,9 +122,6 @@ var package_default = {
   }
 };
 
-// src/cli.js
-import { trace } from "xtrace";
-
 // src/config.js
 var CONFIG = {
   alias: {
@@ -210,7 +204,7 @@ var cli = curry2(
         transformer: [pluginTOML, pluginJSON],
         source: config.rulefile,
         ns: "monocle"
-      }) : resolve2(config);
+      }) : resolve(config);
       return result;
     }),
     map2(log.config("parsed")),
@@ -245,7 +239,7 @@ var cli = curry2(
       ([{ showMatchesOnly, showTotalMatchesOnly, jsonIndent, output }, body]) => pipe2(
         showMatchesOnly ? (
           // later we should make this less clunky (re-wrapping futures)
-          pipe2(showTotalMatchesOnly ? length : j(jsonIndent), resolve2)
+          pipe2(showTotalMatchesOnly ? length : j(jsonIndent), resolve)
         ) : pipe2(
           j(jsonIndent),
           writeFile(output),

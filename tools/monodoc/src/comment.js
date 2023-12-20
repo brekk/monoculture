@@ -1,9 +1,5 @@
 import {
-  toLower,
-  split,
-  join,
   propOr,
-  prop,
   __ as $,
   addIndex,
   always as K,
@@ -20,13 +16,10 @@ import {
   head,
   identity as I,
   ifElse,
-  includes,
   last,
   length,
   map,
   match,
-  mergeRight,
-  objOf,
   pipe,
   reduce,
   reject,
@@ -36,16 +29,9 @@ import {
   toPairs,
   trim,
   uniq,
-  when,
 } from 'ramda'
 import { findJSDocKeywords, cleanupKeywords } from './file'
-import {
-  unlines,
-  formatComment,
-  trimSummary,
-  trimComment,
-  wipeComment,
-} from './text'
+import { unlines, formatComment, trimComment, wipeComment } from './text'
 
 const linkRegex = /\{@link (.*)+\}/g
 export const matchLinks = pipe(

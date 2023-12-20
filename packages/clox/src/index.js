@@ -4,7 +4,6 @@ import __ansiAlign from 'ansi-align'
 import widestLine from 'widest-line'
 import strlen from 'string-length'
 import { camelCase } from 'camel-case'
-import { trace } from 'xtrace'
 import {
   without,
   __ as $,
