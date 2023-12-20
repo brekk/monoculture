@@ -123,7 +123,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           30,
-          0,
+          1,
         ],
         [
           31,
@@ -450,7 +450,7 @@ exports[`monoprocessor 1`] = `
           0,
         ],
       ],
-      "hash": "986b19ee6389eb2e1fe63aeb7953f1a1d3dd5968a89b4a314584925aa1ae5aa2",
+      "hash": "8a4450a4a7fe726175b87da8bde77b11a781bdedd44f8512ce6a4e65fc820f55",
       "name": "cli.js",
     },
     "config.js": {
@@ -919,11 +919,11 @@ exports[`monoprocessor 1`] = `
         ],
         [
           48,
-          0,
+          1,
         ],
         [
           49,
-          1,
+          0,
         ],
         [
           50,
@@ -939,7 +939,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           53,
-          0,
+          2,
         ],
         [
           54,
@@ -951,7 +951,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           56,
-          2,
+          1,
         ],
         [
           57,
@@ -963,22 +963,10 @@ exports[`monoprocessor 1`] = `
         ],
         [
           59,
-          1,
-        ],
-        [
-          60,
-          0,
-        ],
-        [
-          61,
-          0,
-        ],
-        [
-          62,
           0,
         ],
       ],
-      "hash": "5c88696b0327dc6827d65af8d7024fca8d99ed8cb75d3b85dcc44e9e1b5f265e",
+      "hash": "dc5a0a7ccc790fad6c6aabd4f3c3ffdc02eed85adbb75a43e1f7d48395e1fff2",
       "name": "reader.js",
     },
     "trace.js": {
@@ -1005,11 +993,11 @@ exports[`monoprocessor 1`] = `
     },
   },
   "wordcount": {
-    "cli.js": 1032,
+    "cli.js": 1034,
     "config.js": 351,
     "hash.js": 27,
     "index.js": 9,
-    "reader.js": 371,
+    "reader.js": 335,
     "trace.js": 16,
   },
 }
@@ -1017,11 +1005,15 @@ exports[`monoprocessor 1`] = `
 
 exports[`readAll 1`] = `
 [
-  "986b19ee6389eb2e1fe63aeb7953f1a1d3dd5968a89b4a314584925aa1ae5aa2",
+  "8a4450a4a7fe726175b87da8bde77b11a781bdedd44f8512ce6a4e65fc820f55",
   "8d8164b8400b0d41daf95e4bc7904de22a7b4fdef1440a00a0fe61e4640d5474",
+  "e4c9056599ced79cdce50e1279b0b50414c6595d006d712bacd0bd9917816627",
   "5cd99d9df3d8e4c2fcc83cf248314a4836c71d88f8d6e4fdc0d84c4e8c7b029d",
+  "e11eb23c68cc9d6156c3d40962e07c83e426503650d8a185fafaf35ff59b9651",
   "f5ca9070a68f19933e3cd35a10e18013655b9b9a9c1b78ec2c7262a98c2fee17",
-  "5c88696b0327dc6827d65af8d7024fca8d99ed8cb75d3b85dcc44e9e1b5f265e",
+  "355c1e8cbe7d7b641c06c6e06d864dbde82d2beaae62eac1b0a6c00be01d093d",
+  "dc5a0a7ccc790fad6c6aabd4f3c3ffdc02eed85adbb75a43e1f7d48395e1fff2",
+  "73c40961a10b96228867cf19ce5eca86fc858d2d70ecd4cfe8fd3c663ca750fe",
   "97c92175e3d025641201b1fdb1fbb7c7852f980f1b73890b4b8e07a7184ef2ba",
 ]
 `;

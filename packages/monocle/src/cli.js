@@ -27,7 +27,7 @@ const cli = curry((cancel, args) =>
   pipe(
     configurate(
       CONFIG,
-      { ...CONFIG_DEFAULTS, basePath: process.cwd() },
+      { ...CONFIG_DEFAULTS, basePath: process.cwd(), cwd: process.cwd() },
       HELP_CONFIG,
       { name: PKG.name, description: PKG.description }
     ),

@@ -12,14 +12,16 @@ test('default export', () => {
     'readMonoFile',
   ])
 })
+const DDD = process.cwd()
 
 test('readAll', done => {
   const files = readAll(
     {
       // if we don't ignore this file and snapshots,
       // we have an asymptotically infinite amount of effort
-      ignore: [path.join(__dirname, '*.spec.js'), '**/__snapshots__/**'],
-      basePath: __dirname,
+      ignore: [path.join(DDD, '*.spec.js'), '**/__snapshots__/**'],
+      basePath: DDD,
+      cwd: DDD,
     },
     path.join(__dirname, '/*')
   )
@@ -62,6 +64,7 @@ test('monoprocessor', done => {
     monoprocessor(
       {
         basePath: __dirname,
+        cwd: __dirname,
         nodir: true,
         // don't read test files, don't read snapshots
         ignore: [path.join(__dirname, '*.spec.js'), '**/__snapshots__/*.snap'],

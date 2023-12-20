@@ -7,8 +7,8 @@
     "../../robot-tourist/plugin-robot-tourist.js"
   ],
   "ignore": [
-    "./**/__snapshots__/*",
-    "./**/coverage/**/*",
-    "./**/monocle-findings.json"
+    "**/__snapshots__/*",
+    "**/coverage/**/*",
+    "**/monocle-findings.json"
   ]
 }

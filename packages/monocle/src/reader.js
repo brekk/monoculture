@@ -45,10 +45,7 @@ export const readAll = curry((config, dirglob) => {
     config.showMatchesOnly
       ? I
       : chain(files =>
-          pipe(
-            map(readMonoFile(config.basePath, config.trim)),
-            parallel(10)
-          )(files)
+          pipe(map(readMonoFile(config.cwd, config.trim)), parallel(10))(files)
         )
   )(dirglob)
 })

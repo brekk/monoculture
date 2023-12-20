@@ -69,10 +69,7 @@ var readAll = curry((config, dirglob) => {
     log.file("reading glob"),
     readDirWithConfig({ ...config, nodir: true }),
     config.showMatchesOnly ? I : chain(
-      (files) => pipe(
-        map(readMonoFile(config.basePath, config.trim)),
-        parallel(10)
-      )(files)
+      (files) => pipe(map(readMonoFile(config.cwd, config.trim)), parallel(10))(files)
     )
   )(dirglob);
 });
@@ -182,7 +179,7 @@ var cli = curry2(
   (cancel, args) => pipe2(
     configurate(
       CONFIG,
-      { ...CONFIG_DEFAULTS, basePath: process.cwd() },
+      { ...CONFIG_DEFAULTS, basePath: process.cwd(), cwd: process.cwd() },
       HELP_CONFIG,
       { name: package_default.name, description: package_default.description }
     ),
