@@ -9,6 +9,9 @@
     "test": {
       "dependsOn": ["build"],
       "outputs": ["coverage/lcov-info"]
+    },
+    "meta:graph": {
+      "outputs": ["graph.svg"]
     }
   }
 }

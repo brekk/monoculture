@@ -1,5 +1,7 @@
 # climate
 
+![dependencies via madge](./graph.svg)
+
 This package has some bootstrapping for CLI tools.
 
 Primarily these APIs are:

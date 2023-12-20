@@ -1,5 +1,7 @@
 # monocle
 
+![dependencies via madge](./graph.svg)
+
 `monocle` is a tool for providing a means of introspection of files (especially code). You may already be familiar with Abstract Syntax Tree tools such as `eslint`, `jscodeshift`, `tscodeshift` or similar. These are very powerful means of traversing code syntactically. They allow you to fully engage with JS at a very fundamental and powerful level.
 
 `monocle` is not this. It is designed instead to cater to file traversal and introspection using regular JavaScript. It leverages a plugin system that is built atop [monorail](https://github.com/brekk/monoculture/tree/main/packages/monorail).
