@@ -414,17 +414,17 @@
   },
   {
     "slugName": "helpers",
-    "pageSummary": "Built-in helpers for making custom plugins more robust",
+    "pageSummary": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
     "filename": "packages/monorail/src/helpers.js",
     "comments": [
       {
         "start": 22,
         "end": 25,
         "lines": [
-          "@pageSummary Built-in helpers for making custom plugins more robust",
+          "@pageSummary Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
           "@page helpers"
         ],
-        "summary": "@pageSummary Built-in helpers for making custom plugins more robust",
+        "summary": "@pageSummary Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
@@ -437,7 +437,19 @@
             "custom",
             "plugins",
             "more",
-            "robust"
+            "robust.",
+            "The",
+            "\"helpers\"",
+            "are",
+            "the",
+            "third",
+            "parameter",
+            "passed",
+            "to",
+            "a",
+            "custom",
+            "plugin's",
+            "function."
           ],
           "page": "helpers",
           "name": "helpers",
@@ -450,8 +462,8 @@
         "filename": "packages/monorail/src/helpers.js"
       },
       {
-        "start": 36,
-        "end": 47,
+        "start": 33,
+        "end": 44,
         "lines": [
           "Use this helper to test a regex that matches against any single incidence on any line",
           "@name any",
@@ -479,8 +491,8 @@
         "filename": "packages/monorail/src/helpers.js"
       },
       {
-        "start": 50,
-        "end": 60,
+        "start": 47,
+        "end": 57,
         "lines": [
           "Use this helper to test a regex that matches and filters against every line",
           "@name lines",
@@ -507,8 +519,8 @@
         "filename": "packages/monorail/src/helpers.js"
       },
       {
-        "start": 65,
-        "end": 75,
+        "start": 62,
+        "end": 72,
         "lines": [
           "Use this helper to test a regex that matches and finds the first matching line",
           "@name line",
@@ -535,8 +547,8 @@
         "filename": "packages/monorail/src/helpers.js"
       },
       {
-        "start": 80,
-        "end": 90,
+        "start": 77,
+        "end": 87,
         "lines": [
           "Use this helper to test a regex that matches and finds the last matching line",
           "@name lastLine",
@@ -563,8 +575,8 @@
         "filename": "packages/monorail/src/helpers.js"
       },
       {
-        "start": 95,
-        "end": 105,
+        "start": 92,
+        "end": 102,
         "lines": [
           "Use this helper to select content between two repeating regular expressions",
           "@name between",
@@ -591,8 +603,8 @@
         "filename": "packages/monorail/src/helpers.js"
       },
       {
-        "start": 118,
-        "end": 128,
+        "start": 115,
+        "end": 125,
         "lines": [
           "Use this helper to select all content between two repeating regular expressions",
           "@name selectAll",
@@ -611,6 +623,97 @@
         "structure": {
           "name": "selectAll",
           "example": "```js\nexport default {\n  name: 'expanded-imports',\n  fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)\n}\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/monorail/src/helpers.js"
+      },
+      {
+        "start": 163,
+        "end": 174,
+        "lines": [
+          "Use this helper to easily reduce over all lines and aggregate a value",
+          "@name reduce",
+          "@example",
+          "```js",
+          "const plugin = {",
+          "  name: 'select-specifics',",
+          "  fn: (state, file, { reduce }) => reduce((agg, [line, content]) => content.length > 10 : agg.concat(content) : agg, [])",
+          "}",
+          "export default plugin",
+          "```"
+        ],
+        "summary": "Use this helper to easily reduce over all lines and aggregate a value",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "reduce",
+          "example": "```js\nconst plugin = {\n  name: 'select-specifics',\n  fn: (state, file, { reduce }) => reduce((agg, [line, content]) => content.length > 10 : agg.concat(content) : agg, [])\n}\nexport default plugin\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/monorail/src/helpers.js"
+      },
+      {
+        "start": 179,
+        "end": 192,
+        "lines": [
+          "Use this helper to easily filter all lines related to a given regular expression",
+          "@name filter",
+          "@example",
+          "```js",
+          "const plugin = {",
+          "  name: 'keyword-match',",
+          "  fn: (state, file, { config, filter }) => filter(",
+          "    config?.keyword ?? /monorail/",
+          "  )",
+          "}",
+          "export default plugin",
+          "```"
+        ],
+        "summary": "Use this helper to easily filter all lines related to a given regular expression",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "filter",
+          "example": "```js\nconst plugin = {\n  name: 'keyword-match',\n  fn: (state, file, { config, filter }) => filter(\n    config?.keyword ?? /monorail/\n  )\n}\nexport default plugin\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/monorail/src/helpers.js"
+      },
+      {
+        "start": 206,
+        "end": 219,
+        "lines": [
+          "The `config` value is patched in so that it is easier to pass values from the rulefile configuration to the plugins themselves, scoped to the plugin name.",
+          "@name config",
+          "@example",
+          "```js",
+          "const plugin = {",
+          "  name: 'keyword-match',",
+          "  fn: (state, file, { filter, config }) => filter(",
+          "    config?.keyword ?? /monorail/",
+          "  )",
+          "}",
+          "export default plugin",
+          "```"
+        ],
+        "summary": "The `config` value is patched in so that it is easier to pass values from the rulefile configuration to the plugins themselves, scoped to the plugin name.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "config",
+          "example": "```js\nconst plugin = {\n  name: 'keyword-match',\n  fn: (state, file, { filter, config }) => filter(\n    config?.keyword ?? /monorail/\n  )\n}\nexport default plugin\n```"
         },
         "keywords": [
           "@example",

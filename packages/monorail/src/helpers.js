@@ -21,7 +21,7 @@ import {
 import { trace } from 'xtrace'
 
 /**
- * @pageSummary Built-in helpers for making custom plugins more robust
+ * @pageSummary Built-in helpers for making custom plugins more robust. The "helpers" are the third parameter passed to a custom plugin's function.
  * @page helpers
  */
 
@@ -29,9 +29,6 @@ export const getBody = propOr([], 'body')
 
 export const bodyTest = curry((fn, file, needle) =>
   pipe(getBody, fn(pipe(last, test(needle))))(file)
-)
-export const _reduce = curry((file, fn, initial) =>
-  pipe(getBody, reduce(fn, initial))(file)
 )
 
 /**
@@ -164,6 +161,36 @@ export const selectAll = curry((file, start, end) =>
   )(file)
 )
 
+/**
+ * Use this helper to easily reduce over all lines and aggregate a value
+ * @name reduce
+ * @example
+ * ```js
+ * const plugin = {
+ *   name: 'select-specifics',
+ *   fn: (state, file, { reduce }) => reduce((agg, [line, content]) => content.length > 10 : agg.concat(content) : agg, [])
+ * }
+ * export default plugin
+ * ```
+ */
+export const _reduce = curry((file, fn, initial) =>
+  pipe(getBody, reduce(fn, initial))(file)
+)
+
+/**
+ * Use this helper to easily filter all lines related to a given regular expression
+ * @name filter
+ * @example
+ * ```js
+ * const plugin = {
+ *   name: 'keyword-match',
+ *   fn: (state, file, { config, filter }) => filter(
+ *     config?.keyword ?? /monorail/
+ *   )
+ * }
+ * export default plugin
+ * ```
+ */
 export const _filter = bodyTest(filter)
 
 export const makeFileHelpers = file => ({
@@ -176,6 +203,21 @@ export const makeFileHelpers = file => ({
   selectAll: selectAll(file),
   reduce: _reduce(file),
 })
+
+/**
+ * The `config` value is patched in so that it is easier to pass values from the rulefile configuration to the plugins themselves, scoped to the plugin name.
+ * @name config
+ * @example
+ * ```js
+ * const plugin = {
+ *   name: 'keyword-match',
+ *   fn: (state, file, { filter, config }) => filter(
+ *     config?.keyword ?? /monorail/
+ *   )
+ * }
+ * export default plugin
+ * ```
+ */
 export const _getConfigFrom = curry((name, c) => c?.config?.[name])
 
 export const makePluginHelpers = curry((state, plugin) => ({

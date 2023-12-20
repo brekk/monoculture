@@ -1,6 +1,6 @@
 # helpers
 
-Built-in helpers for making custom plugins more robust
+Built-in helpers for making custom plugins more robust. The "helpers" are the third parameter passed to a custom plugin's function.
 
 
 
@@ -63,4 +63,41 @@ export default {
   name: 'expanded-imports',
   fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)
 }
+```
+
+## reduce
+Use this helper to easily reduce over all lines and aggregate a value
+### Usage
+```js
+const plugin = {
+  name: 'select-specifics',
+  fn: (state, file, { reduce }) => reduce((agg, [line, content]) => content.length > 10 : agg.concat(content) : agg, [])
+}
+export default plugin
+```
+
+## filter
+Use this helper to easily filter all lines related to a given regular expression
+### Usage
+```js
+const plugin = {
+  name: 'keyword-match',
+  fn: (state, file, { config, filter }) => filter(
+    config?.keyword ?? /monorail/
+  )
+}
+export default plugin
+```
+
+## config
+The `config` value is patched in so that it is easier to pass values from the rulefile configuration to the plugins themselves, scoped to the plugin name.
+### Usage
+```js
+const plugin = {
+  name: 'keyword-match',
+  fn: (state, file, { filter, config }) => filter(
+    config?.keyword ?? /monorail/
+  )
+}
+export default plugin
 ```

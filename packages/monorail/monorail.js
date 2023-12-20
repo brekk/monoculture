@@ -67,9 +67,6 @@ var getBody = propOr([], "body");
 var bodyTest = curry3(
   (fn, file, needle) => pipe(getBody, fn(pipe(last, test(needle))))(file)
 );
-var _reduce = curry3(
-  (file, fn, initial) => pipe(getBody, reduce(fn, initial))(file)
-);
 var _any = bodyTest(any);
 var onLines = curry3(
   (file, needle) => pipe(bodyTest(filter, file), map(head))(needle)
@@ -122,6 +119,9 @@ var selectAll = curry3(
     propOr([], "all"),
     filter(pipe(length, lt(0)))
   )(file)
+);
+var _reduce = curry3(
+  (file, fn, initial) => pipe(getBody, reduce(fn, initial))(file)
 );
 var _filter = bodyTest(filter);
 var makeFileHelpers = (file) => ({
