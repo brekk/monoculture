@@ -1,20 +1,12 @@
-import { robotTourist } from './core'
-const NAME = 'robot-tourist'
+import { correlateSimilar } from './stats'
 
 const plugin = {
-  name: NAME,
-  dependencies: [],
+  name: 'robot-tourist',
+  dependencies: ['robot-tourist-simplifier'],
+  selector: y => y?.state?.['robot-tourist-simplifier'],
   fn: (state, file, { config }) => {
-    const { file: _f, ...x } = robotTourist({
-      dropStrings: true,
-      dropJSKeywords: true,
-      dropTSKeywords: true,
-      dropImports: true,
-      assumeSimilarWords: true,
-      ...config,
-      file: file.name,
-    })(file.body)
-    return x
+    const { [file.name]: lookup } = state
+    return correlateSimilar(config?.assumeSimilarWords ?? true, lookup)
   },
 }
 

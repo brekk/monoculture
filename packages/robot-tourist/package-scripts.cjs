@@ -41,19 +41,29 @@ module.exports = {
   scripts: {
     build: {
       ...sd(
-        'nps -c ./package-scripts.cjs build.module build.bin build.pluginSimple build.plugin',
+        'nps -c ./package-scripts.cjs build.module build.bin build.plugins',
         'build all the shit'
       ),
       module: sd(buildModule([INPUT, OUTPUT]), 'build the module!'),
       bin: sd(build(['src/cli.js', 'wordbot.js']), 'build the executable!'),
-      pluginSimple: sd(
-        buildPlugin(['src/plugin-simple.js', 'plugin-simple.js']),
-        'build the simple plugin!'
-      ),
-      plugin: sd(
-        buildPlugin(['src/plugin-robot-tourist.js', 'plugin-robot-tourist.js']),
-        'build the plugin!'
-      ),
+      plugins: {
+        ...sd(
+          // eslint-disable-next-line max-len
+          'nps -c ./package-scripts.cjs build.plugins.simple build.plugins.main',
+          'build all the plugins!'
+        ),
+        simple: sd(
+          buildPlugin(['src/plugin-simplifier.js', 'monocle-plugin-simple.js']),
+          'build the first plugin!'
+        ),
+        main: sd(
+          buildPlugin([
+            'src/plugin-robot-tourist.js',
+            'monocle-plugin-main.js',
+          ]),
+          'build the main plugin!'
+        ),
+      },
     },
     lint: sd('eslint --fix .', 'lint!'),
     test: {

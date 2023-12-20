@@ -54,13 +54,11 @@ const cli = curry((cancel, args) =>
               })
             )
           )({
-            // json: true,
             transformer: [pluginTOML, pluginJSON],
             source: config.rulefile,
             ns: 'monocle',
           })
-        : // TODO we should eschew chain(Future(x))
-          resolve(config)
+        : resolve(config)
       return result
     }),
     map(log.config('parsed')),

@@ -173,6 +173,8 @@ var toposort = (raw) => {
 
 // src/runner.js
 var stepFunction = curry5((state, plugin, file) => {
+  log.run(`plugin [${plugin.name}]`, plugin);
+  log.run(`file [${file.name}]`, file);
   const { selector = I, preserveLine = false, fn } = plugin;
   const selected = selector(state);
   const base = makeFileHelpers(file);

@@ -207,14 +207,10 @@ var cli = curry2(
           })
         )
       )({
-        // json: true,
         transformer: [pluginTOML, pluginJSON],
         source: config.rulefile,
         ns: "monocle"
-      }) : (
-        // TODO we should eschew chain(Future(x))
-        resolve2(config)
-      );
+      }) : resolve2(config);
       return result;
     }),
     map2(log.config("parsed")),

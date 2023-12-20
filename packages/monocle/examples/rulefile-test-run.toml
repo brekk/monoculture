@@ -1,9 +1,12 @@
 plugins = [
-  "./plugin-get-imports.js",
   "./plugin-c-words.js",
-  "./plugin-has-imports.js",
+  "./plugin-has-exports.js",
+  "./plugin-get-imports.js",
   "./plugin-wordcount.js",
-  "../../robot-tourist/plugin-robot-tourist.js"
+  "./plugin-get-exports.js",
+  "../../robot-tourist/monocle-plugin-simple.js",
+  "../../robot-tourist/monocle-plugin-main.js",
+  "./plugin-has-imports.js",
 ]
 ignore = [
   "**/__snapshots__/*",
@@ -12,5 +15,5 @@ ignore = [
 ]
 
 [robot-tourist]
-dropStrings = false
+dropStrings = true
 

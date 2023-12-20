@@ -5,6 +5,8 @@ import { toposort } from './sort'
 import { log } from './trace'
 
 export const stepFunction = curry((state, plugin, file) => {
+  log.run(`plugin [${plugin.name}]`, plugin)
+  log.run(`file [${file.name}]`, file)
   const { selector = I, preserveLine = false, fn } = plugin
   const selected = selector(state)
   const base = makeFileHelpers(file)

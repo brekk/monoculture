@@ -1,20 +1,3 @@
-// src/core.js
-import {
-  equals as equals2,
-  mergeRight as mergeRight2,
-  curry as curry5,
-  identity as I2,
-  map as map4,
-  pipe as pipe4,
-  reject as reject3,
-  replace as replace4,
-  split as split2,
-  startsWith as startsWith2,
-  trim
-} from "ramda";
-import { trace as trace2 } from "xtrace";
-import yargsParser from "yargs-parser";
-
 // src/stats.js
 import { curry as curry3 } from "ramda";
 
@@ -253,15 +236,6 @@ var dropImports = when(
 var dropStrings = mapSnd(
   pipe2(replace2(/".*"/g, ""), replace2(/'.*'/g, ""), replace2(/`.*`/g, ""))
 );
-var cleanEntities = ({ entities, ...x }) => ({
-  ...x,
-  entities: pipe2(
-    groupBy(head),
-    map2(map2(last)),
-    map2(uniq),
-    map2((z) => z.sort())
-  )(entities)
-});
 
 // src/stats.js
 var histograph = curry3((config, { entities, ...x }) => ({
@@ -276,161 +250,17 @@ var correlateSimilar = curry3(
   }
 );
 
-// src/reporter.js
-import H from "chalk";
-import {
-  mergeRight,
-  addIndex,
-  curry as curry4,
-  join,
-  map as map3,
-  pipe as pipe3,
-  reduce as reduce2,
-  replace as replace3,
-  toPairs as toPairs2,
-  zip,
-  length
-} from "ramda";
-
-// src/config.js
-var BW_LOGO = `     /\\/\\
-    /^^^^\\
-  <d______b>
-   |(\u2609  \u2609)|
-   (\u220F\u220F\u220F\u220F\u220F\u220F)
-  \u239B\u239D      \u23A0\u239E`;
-
-// src/reporter.js
-var getWords = pipe3(
-  toPairs2,
-  // sortBy(pipe(last, length, z => z * -1)),
-  map3(([word, _lines]) => {
-    const count = length(_lines);
-    return ` - ${H.red(word)} (${count} reference${count === 0 || count > 1 ? "s" : ""})`;
-  }),
-  join("\n")
-);
-var summarize = pipe3(
-  toPairs2,
-  // sortBy(pipe(last, length, z => z * -1)),
-  addIndex(map3)(
-    ([word, _lines], i) => `${i + 1}. ${H.red(word)}
-   on ${H.blue("lines")}: ${_lines.join(", ")}`
-  ),
-  join("\n")
-);
-var robotTouristReporter = curry4(
-  ($wordlimit, $fun, { file: f, report }) => `${$fun ? `
-${BW_LOGO}
-
-` : ""}SCANNED: ${f}
-The ${$wordlimit !== Infinity ? $wordlimit + " " : ""}most common words in this file are:
-${getWords(report)}
-These words were found in this pattern:
-${summarize(report)}
-`
-);
-var dropJSKeywords = mapSnd(replace3(RG_JS_KEYWORDS, ""));
-var dropTSKeywords = mapSnd(replace3(RG_TS_KEYWORDS, ""));
-var dropUserDefinedValues = curry4(
-  (skippable, x) => mapSnd(replace3(skippable, ""))(x)
-);
-var createEntitiesFromRaw = pipe3(
-  reduce2(
-    (agg, { line, content, classification }) => ({
-      ...agg,
-      lines: [...agg.lines, { line, content, classification }],
-      entities: pipe3(zip(classification), (merged) => [
-        ...agg.entities,
-        ...merged
-      ])(content)
-    }),
-    { lines: [], entities: [] }
-  )
-);
-var createEntities = curry4(
-  (file, raw) => pipe3(createEntitiesFromRaw, mergeRight({ file }))(raw)
-);
-
-// src/core.js
-var parser = curry5((opts, args) => yargsParser(args, opts));
-var classifyEntities = pipe4(
-  // convert to object
-  map4(([line, content]) => ({
-    line,
-    content,
-    classification: map4(classify)(content)
-  })),
-  // do some secondary logic now that we have classification
-  createEntitiesFromRaw,
-  // clean up entities to be more useful
-  cleanEntities
-);
-var parse = curry5(
-  ({
-    ignore: $ignore,
-    dropImports: $dropImports,
-    dropStrings: $dropStrings,
-    dropJSKeywords: $dropJS,
-    dropTSKeywords: $dropTS
-  }, input) => pipe4(
-    // throw away single line comments
-    rejectSnd(startsWith2("//")),
-    // throw away multi line comments
-    dropMultilineComments,
-    rejectSnd(equals2("*/")),
-    // we don't care about the imports, that's all stuff upstream from this file
-    $dropImports ? dropImports : I2,
-    // throw away strings, we don't care about them* - now configurable
-    $dropStrings ? dropStrings : I2,
-    // apply some radical cleanups to text
-    mapSnd(pipe4(replaceNoise, trim)),
-    // if it's JS we don't care
-    $dropJS ? dropJSKeywords : I2,
-    // if it's TS we don't care
-    $dropTS ? dropTSKeywords : I2,
-    // if it's stuff we said we don't care about, we don't care!
-    dropUserDefinedValues($ignore),
-    // do another round of cleanup, convert to array of words
-    mapSnd(pipe4(trim, replace4(/\s\s+/g, " "), split2(" "), reject3(cleanups))),
-    // no content, u bi rata
-    reject3(([, v]) => v.length === 0)
-  )(input)
-);
-var parseAndClassify = curry5(
-  (conf, x) => pipe4(parse(conf), classifyEntities)(x)
-);
-var parseAndClassifyWithFile = curry5(
-  (file, conf, x) => pipe4(parseAndClassify(conf), mergeRight2({ file }))(x)
-);
-var simplifier = curry5(
-  (conf, x) => parseAndClassifyWithFile(conf.file, conf, x)
-);
-var robotTourist = curry5(
-  (config, x) => pipe4(
-    simplifier(config),
-    histograph(config),
-    correlateSimilar(config.assumeSimilarWords)
-  )(x)
-);
-
-// src/plugin-simple.js
+// src/plugin-robot-tourist.js
 var plugin = {
-  name: "robot-tourist-simple",
-  dependencies: [],
-  fn: (c, file) => simplifier(
-    {
-      file: file.name,
-      ignore: [],
-      dropStrings: true,
-      dropJSKeywords: true,
-      dropTSKeywords: true,
-      dropImports: true
-    },
-    file.body
-  )
+  name: "robot-tourist",
+  dependencies: ["robot-tourist-simplifier"],
+  selector: (y) => y?.state?.["robot-tourist-simplifier"],
+  fn: (state, file, { config }) => {
+    const { [file.name]: lookup } = state;
+    return correlateSimilar(config?.assumeSimilarWords ?? true, lookup);
+  }
 };
-var plugin_simple_default = plugin;
+var plugin_robot_tourist_default = plugin;
 export {
-  plugin_simple_default as default
+  plugin_robot_tourist_default as default
 };

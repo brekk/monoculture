@@ -414,25 +414,25 @@ var robotTourist = curry5(
   )(x)
 );
 
-// src/plugin-robot-tourist.js
-var NAME = "robot-tourist";
+// src/plugin-simplifier.js
+import { pipe as pipe5 } from "ramda";
 var plugin = {
-  name: NAME,
+  name: "robot-tourist-simplifier",
   dependencies: [],
-  fn: (state, file, { config }) => {
-    const { file: _f, ...x } = robotTourist({
+  fn: (c, file, { config }) => {
+    const updatedConfig = {
+      file: file.name,
+      ignore: [],
       dropStrings: true,
       dropJSKeywords: true,
       dropTSKeywords: true,
       dropImports: true,
-      assumeSimilarWords: true,
-      ...config,
-      file: file.name
-    })(file.body);
-    return x;
+      ...config
+    };
+    return pipe5(simplifier(updatedConfig), histograph(updatedConfig))(file.body);
   }
 };
-var plugin_robot_tourist_default = plugin;
+var plugin_simplifier_default = plugin;
 export {
-  plugin_robot_tourist_default as default
+  plugin_simplifier_default as default
 };
