@@ -410,11 +410,13 @@ import {
 } from "ramda";
 var stripFence = when2(startsWith3("```"), K2(""));
 var liveExample = (ex) => pipe5(lines, map5(stripFence), slice3(1, length3(ex)), unlines)(ex);
-var commentToMarkdown = ifElse2(
+var handleSpecialCases = ifElse2(
   // this is a special case where we want to be able to dynamically rename the page
   pathOr2(false, ["structure", "page"]),
   // but since we're cheating we don't want to list it as a comment
-  K2(""),
+  K2("")
+);
+var commentToMarkdown = handleSpecialCases(
   pipe5(
     applySpec2({
       title: pathOr2("Unknown", ["structure", "name"]),

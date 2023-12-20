@@ -1,11 +1,13 @@
- - [ ] we need to deal with topological sorting w/r/t async, I would guess this is not correct / timely, but not certain
- - [ ] we need to have the same automatic segmentation that happens to `state` happen for pulling `config` -- things like `robot-tourist` have a lot of knobs / configuration, that should be easily segmented or made accessible through `monorail`
+ - [x] we need to deal with topological sorting w/r/t async, I would guess this is not correct / timely, but not certain. **Complete!** we're using @hapi/topo for now, it has a nice feature set but it is a little inelegant
+ - [x] we need to have the same automatic segmentation that happens to `state` happen for pulling `config`. Things like `robot-tourist` have a lot of knobs / configuration, that should be easily segmented or made accessible through `monorail` **Complete!** Now the rulefile can contain configuration details which get passed along to plugins and are accessible via the `config` helper
  - [ ] we should have some shit for TS, even though it is a garbage type system of garbage -- `remeda`?
    - [ ] can we automate this magically?
  - [ ] we need to build rules / `manacle`
- - [x] we need to support rulefiles (the combination of configuration for `monocle` so you can have repeatable runs / diarrhea)
+ - [x] we need to support rulefiles (the combination of configuration for `monocle` so you can have repeatable runs / diarrhea) **Complete!** This works pretty well, and leverages `climate` very easily
  - [ ] would it make sense to combine `monocle` + `monorail`? Or, framed differently, what will `monorail` be used for elsewhere?
  - [ ] `clox` could support subdividable space
  - [ ] `robot-tourist` should have more tests because it has some edges which don't fully remove / clean JS/TS syntax
  - [ ] `superorganism` needs more work -- if we're gonna re-imagine how `nps` config files are, we may need a backwards-compatible legacy mode, or we're already pretty coupled with `nps` in most of these packages.
  - [ ] `treacle` should maybe eventually be wired to the new `gitparty`
+ - [ ] `monodoc` has some edges which either aren't well documented or have bad defaults (specifically, `@page` + `@pageSummary` stuff right now), we should clean that up so that we have better automatically generated content
+ - [ ] In the same way we do `/src` we should probably use a pattern like `/dist` for artifacts, it would help disambiguate and signal intent very easily

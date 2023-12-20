@@ -51,18 +51,30 @@ introspection and organization tools for monorepos
 
 ## packages
 
+   * [bloodline](https://github.com/brekk/monoculture/tree/main/packages/bloodline) - determine the relationships between files 🩸
+
+     <details><summary>Dependencies</summary>
+
+      - [chalk](https://www.npmjs.com/package/chalk)
+      - [climate](https://github.com/brekk/monoculture/tree/main/packages/climate) 🦴
+      - [dependency-tree](https://www.npmjs.com/package/dependency-tree)
+      - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)
+      - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
+      - [precinct](https://www.npmjs.com/package/precinct)
+      - [ramda](https://www.npmjs.com/package/ramda)
+      - [ts-graphviz](https://www.npmjs.com/package/ts-graphviz)
+      - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴🧪
+      - [jest-config](https://www.npmjs.com/package/jest-config)🧪
+
+     </details>
    * [climate](https://github.com/brekk/monoculture/tree/main/packages/climate) - CLI utilities, friend 👯
 
      <details><summary>Dependencies</summary>
 
-      - [add](https://www.npmjs.com/package/add)
       - [chalk](https://www.npmjs.com/package/chalk)
-      - [configurate](https://www.npmjs.com/package/configurate)
-      - [cosmiconfig](https://www.npmjs.com/package/cosmiconfig)
       - [envtrace](https://www.npmjs.com/package/envtrace)
-      - [find-up](https://www.npmjs.com/package/find-up)
+      - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
       - [ramda](https://www.npmjs.com/package/ramda)
-      - [workspace](https://www.npmjs.com/package/workspace)
       - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
       - [eslint](https://www.npmjs.com/package/eslint)🧪
       - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴🧪

@@ -18,11 +18,14 @@ const stripFence = when(startsWith('```'), K(''))
 const liveExample = ex =>
   pipe(lines, map(stripFence), slice(1, length(ex)), unlines)(ex)
 
-export const commentToMarkdown = ifElse(
+const handleSpecialCases = ifElse(
   // this is a special case where we want to be able to dynamically rename the page
   pathOr(false, ['structure', 'page']),
   // but since we're cheating we don't want to list it as a comment
-  K(''),
+  K('')
+)
+
+export const commentToMarkdown = handleSpecialCases(
   pipe(
     applySpec({
       title: pathOr('Unknown', ['structure', 'name']),

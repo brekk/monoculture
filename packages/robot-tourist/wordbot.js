@@ -47,8 +47,7 @@ var package_default = {
 // src/cli.js
 import { configurate } from "climate";
 import { trace } from "xtrace";
-import { chain as chain2, addIndex as addIndex2, curry as curry6, map as map5, pipe as pipe5, split as split3, trim as trim2 } from "ramda";
-import yargsParser2 from "yargs-parser";
+import { chain as chain2, addIndex as addIndex2, map as map5, pipe as pipe5, split as split3, trim as trim2 } from "ramda";
 import { readFile } from "file-system";
 import { fork } from "fluture";
 
@@ -529,7 +528,6 @@ var robotTourist = curry5(
 );
 
 // src/cli.js
-var parser2 = curry6((opts, args) => yargsParser2(args, opts));
 var cli = ({ fun: $fun, _: [$file], limit: $wordlimit, ...$config }) => pipe5(
   // TODO: this will be replaced by the behavior of `monocle` eventually
   readFile,
@@ -555,6 +553,3 @@ pipe5(
   // eslint-disable-next-line no-console
   fork(console.error)(console.log)
 )(process.argv.slice(2));
-export {
-  parser2 as parser
-};

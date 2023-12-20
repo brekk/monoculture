@@ -1,10 +1,8 @@
 {
-  "name": "climate",
+  "name": "bloodline",
   "version": "0.0.0",
-  "description": "CLI utilities, friend 👯",
-  "exports": [
-    "./configurate.js"
-  ],
+  "description": "determine the relationships between files 🩸",
+  "main": "bloodline.js",
   "type": "module",
   "repository": "monoculture",
   "author": "brekk",
@@ -12,19 +10,17 @@
   "private": true,
   "dependencies": {
     "chalk": "^5.3.0",
-    "envtrace": "^0.0.2",
+    "climate": "workspace:packages/climate",
+    "dependency-tree": "^10.0.9",
+    "dotenv-cli": "^7.3.0",
     "file-system": "workspace:packages/file-system",
-    "ramda": "^0.29.1"
+    "precinct": "^11.0.5",
+    "ramda": "^0.29.1",
+    "ts-graphviz": "^1.8.1"
   },
   "devDependencies": {
-    "dotenv-cli": "^7.3.0",
-    "eslint": "^8.53.0",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
-    "eslint-plugin-prettier": "^5.0.1",
-    "jest": "^29.7.0",
-    "prettier": "^3.0.3",
-    "smol-toml": "^1.1.3",
-    "strip-ansi": "^7.1.0"
+    "jest-config": "npm:jest-config@*"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
