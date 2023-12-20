@@ -14358,6 +14358,7 @@ __metadata:
     change-case: "npm:5.0.0"
     climate: "workspace:packages/climate"
     dotenv-cli: "npm:^7.3.0"
+    envtrace: "npm:^0.0.2"
     esbuild: "npm:^0.19.5"
     eslint: "npm:^8.53.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"

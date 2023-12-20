@@ -6,7 +6,7 @@ const plugin = {
   fn: (c, file) =>
     simplifier(
       {
-        file: file.file,
+        file: file.name,
         ignore: [],
         dropStrings: true,
         dropJSKeywords: true,

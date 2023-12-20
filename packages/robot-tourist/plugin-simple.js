@@ -134,7 +134,7 @@ var JS_KEYWORDS = [
 ];
 var RG_JS_KEYWORDS = makeRegexFromArray(JS_KEYWORDS);
 var RG_TS_KEYWORDS = makeRegexFromArray(TS_KEYWORDS);
-var SOURCE_CODE_NOISE = /[\$\!\|;:\.%\[\]<>,\=\)\(\}\{&\?\d]/g;
+var SOURCE_CODE_NOISE = /[\+\$\!\|;:\.%\[\]<>,\=\)\(\}\{&\?\d]/gs;
 
 // src/source-matcher.js
 var evidenceOfImports = anyPass([
@@ -420,7 +420,7 @@ var plugin = {
   dependencies: [],
   fn: (c, file) => simplifier(
     {
-      file: file.file,
+      file: file.name,
       ignore: [],
       dropStrings: true,
       dropJSKeywords: true,

@@ -15,6 +15,7 @@ var package_default = {
   dependencies: {
     "change-case": "5.0.0",
     climate: "workspace:packages/climate",
+    envtrace: "^0.0.2",
     "file-system": "workspace:packages/file-system",
     ramda: "^0.29.1",
     stemmer: "^2.0.1"
@@ -190,7 +191,7 @@ var JS_KEYWORDS = [
 ];
 var RG_JS_KEYWORDS = makeRegexFromArray(JS_KEYWORDS);
 var RG_TS_KEYWORDS = makeRegexFromArray(TS_KEYWORDS);
-var SOURCE_CODE_NOISE = /[\$\!\|;:\.%\[\]<>,\=\)\(\}\{&\?\d]/g;
+var SOURCE_CODE_NOISE = /[\+\$\!\|;:\.%\[\]<>,\=\)\(\}\{&\?\d]/gs;
 
 // src/tuple.js
 import { curry, pipe, map, reject, any } from "ramda";

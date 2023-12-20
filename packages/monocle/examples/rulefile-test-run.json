@@ -1,4 +1,7 @@
 {
+  "robot-tourist": {
+    "dropStrings": false
+  },
   "plugins": [
     "./plugin-get-imports.js",
     "./plugin-c-words.js",

@@ -45,4 +45,4 @@ export const JS_KEYWORDS = [
 ]
 export const RG_JS_KEYWORDS = makeRegexFromArray(JS_KEYWORDS)
 export const RG_TS_KEYWORDS = makeRegexFromArray(TS_KEYWORDS)
-export const SOURCE_CODE_NOISE = /[\$\!\|;:\.%\[\]<>,\=\)\(\}\{&\?\d]/g
+export const SOURCE_CODE_NOISE = /[\+\$\!\|;:\.%\[\]<>,\=\)\(\}\{&\?\d]/gs

@@ -12,6 +12,7 @@
   "dependencies": {
     "change-case": "5.0.0",
     "climate": "workspace:packages/climate",
+    "envtrace": "^0.0.2",
     "file-system": "workspace:packages/file-system",
     "ramda": "^0.29.1",
     "stemmer": "^2.0.1"

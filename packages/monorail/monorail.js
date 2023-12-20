@@ -193,7 +193,7 @@ var getHashes = pipe2(
   fromPairs
 );
 var statefulApplicator = curry5((context, plugins, files) => {
-  const { HELP: _h, basePath: _b, ...configuration } = context;
+  const { HELP: _h, basePath: _b, ...config } = context;
   return reduce2(
     (agg, plugin) => ({
       ...agg,
@@ -207,7 +207,7 @@ var statefulApplicator = curry5((context, plugins, files) => {
       filenames: getNames(files),
       hashes: getHashes(files),
       plugins: getNames(plugins),
-      configuration
+      config
     },
     plugins
   );

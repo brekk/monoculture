@@ -134,7 +134,7 @@ var JS_KEYWORDS = [
 ];
 var RG_JS_KEYWORDS = makeRegexFromArray(JS_KEYWORDS);
 var RG_TS_KEYWORDS = makeRegexFromArray(TS_KEYWORDS);
-var SOURCE_CODE_NOISE = /[\$\!\|;:\.%\[\]<>,\=\)\(\}\{&\?\d]/g;
+var SOURCE_CODE_NOISE = /[\+\$\!\|;:\.%\[\]<>,\=\)\(\}\{&\?\d]/gs;
 
 // src/source-matcher.js
 var evidenceOfImports = anyPass([

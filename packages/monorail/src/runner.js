@@ -34,7 +34,7 @@ export const getHashes = pipe(
 
 export const statefulApplicator = curry((context, plugins, files) => {
   // drop info we don't want to retain downstream
-  const { HELP: _h, basePath: _b, ...configuration } = context
+  const { HELP: _h, basePath: _b, ...config } = context
   return reduce(
     (agg, plugin) => ({
       ...agg,
@@ -48,7 +48,7 @@ export const statefulApplicator = curry((context, plugins, files) => {
       filenames: getNames(files),
       hashes: getHashes(files),
       plugins: getNames(plugins),
-      configuration,
+      config,
     },
     plugins
   )

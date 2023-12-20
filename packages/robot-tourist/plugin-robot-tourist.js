@@ -134,7 +134,7 @@ var JS_KEYWORDS = [
 ];
 var RG_JS_KEYWORDS = makeRegexFromArray(JS_KEYWORDS);
 var RG_TS_KEYWORDS = makeRegexFromArray(TS_KEYWORDS);
-var SOURCE_CODE_NOISE = /[\$\!\|;:\.%\[\]<>,\=\)\(\}\{&\?\d]/g;
+var SOURCE_CODE_NOISE = /[\+\$\!\|;:\.%\[\]<>,\=\)\(\}\{&\?\d]/gs;
 
 // src/source-matcher.js
 var evidenceOfImports = anyPass([
@@ -415,17 +415,20 @@ var robotTourist = curry5(
 );
 
 // src/plugin-robot-tourist.js
+var NAME = "robot-tourist";
 var plugin = {
-  name: "robot-tourist",
+  name: NAME,
   dependencies: [],
   fn: (c, file) => {
+    const config = c?.config?.[NAME] ?? {};
     const { file: _f, ...x } = robotTourist({
-      file: file.name,
       dropStrings: true,
       dropJSKeywords: true,
       dropTSKeywords: true,
       dropImports: true,
-      assumeSimilarWords: true
+      assumeSimilarWords: true,
+      ...config,
+      file: file.name
     })(file.body);
     return x;
   }
