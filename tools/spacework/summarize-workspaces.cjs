@@ -112,7 +112,7 @@ const summarize = curry((repo, package, args) =>
                 projects =>
                   `\n## ${group}\n\n${projects
                     .map(z => '   * ' + z)
-                    .join('\n')}`
+                    .join(argv.includes('--show-deps') ? '\n' : '')}`
               )(list)
             )
           ),
