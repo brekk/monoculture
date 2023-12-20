@@ -40,7 +40,6 @@ var insertAfter = curry2((idx, x, arr) => [
 // src/runner.js
 import {
   of,
-  ap as ap2,
   objOf,
   reject as reject2,
   propOr as propOr2,
@@ -58,7 +57,7 @@ import {
   prop,
   reduce as reduce2
 } from "ramda";
-import { pap, resolve } from "fluture";
+import { ap as ap2, pap, resolve } from "fluture";
 
 // src/helpers.js
 import {
@@ -188,70 +187,57 @@ var toposort = (raw) => {
 
 // src/runner.js
 import { trace as trace2 } from "xtrace";
-var stepFunction = curry5(
-  (state, { name, selector = I, preserveLine = false, fn }, file) => {
-    const selected = selector(state);
-    const helpers = makeHelpers(file);
-    const output = preserveLine ? {
-      ...file,
-      body: map2(([k, v]) => [k, fn(selected, v, helpers)])(file.body)
-    } : fn(selected, file, helpers);
-    return output;
-  }
-);
+var stepFunction = curry5((state, plugin, file) => {
+  const { selector = I, preserveLine = false, fn } = plugin;
+  const selected = selector(state);
+  const helpers = makeHelpers(file);
+  const output = preserveLine ? {
+    ...file,
+    body: map2(([k, v]) => [k, fn(selected, v, helpers)])(file.body)
+  } : fn(selected, file, helpers);
+  return output;
+});
 var runPluginOnFilesWithContext = curry5((context, files, plugin) => {
   if (!plugin.name)
     return [];
   log.run("plugin", plugin);
-  return [
-    plugin.name,
-    pipe2(
-      map2((file) => [file.name, stepFunction(context, plugin, file)]),
-      fromPairs
-    )(files)
-  ];
-});
-var applyState = curry5(
-  (context, files, plugins) => pipe2(
-    // assume all plugins are at 0, and reject any which aren't
-    reject2(pipe2(propOr2(0, "level"), complement(equals)(0))),
-    trace2("yoho"),
-    // this doesn't yet work because we need chain and this is the same synchronous tick
-    reduce2(
-      (agg, plugin) => agg.concat([runPluginOnFilesWithContext(context, files, plugin)]),
-      []
-    ),
-    (z) => {
-      log.run(
-        "state updated...",
-        map2(([k]) => k, z)
-      );
-      return z;
-    },
+  return pipe2(
+    map2((file) => [file.name, stepFunction(context, plugin, file)]),
     fromPairs
-  )(plugins)
-);
+  )(files);
+});
 var getNames = map2(prop("name"));
 var getHashes = pipe2(
-  map2((z) => [prop("hash", z), prop("name", z)]),
+  map2((z) => [prop("name", z), prop("hash", z)]),
   fromPairs
 );
-var futureApplicator = curry5((context, plugins, files) => {
-  const firstPass = {
-    state: applyState(context, files, plugins),
-    // files,
-    filenames: getNames(files),
-    hashes: getHashes(files),
-    plugins: getNames(plugins)
-  };
-  return firstPass;
+var statefulApplicator = curry5((context, plugins, files) => {
+  const { HELP: _HELP, ...configuration } = context;
+  return reduce2(
+    (agg, plugin) => {
+      const run = pipe2(runPluginOnFilesWithContext(agg, files))(plugin);
+      return log.run(`applying ${plugin.name}...`, {
+        ...agg,
+        state: { ...agg.state, [plugin.name]: run }
+      });
+    },
+    {
+      state: {},
+      filenames: getNames(files),
+      hashes: getHashes(files),
+      plugins: getNames(plugins),
+      configuration
+    },
+    plugins
+  );
 });
-var futureFileProcessor = curry5(
-  (context, pluginsF, filesF) => pipe2(
-    pap(map2(toposort, pluginsF)),
-    pap(filesF)
-  )(resolve(futureApplicator(context)))
-);
+var futureFileProcessor = curry5((context, pluginsF, filesF) => {
+  const sortedPluginsF = map2(toposort, pluginsF);
+  return pipe2(
+    ap2(sortedPluginsF),
+    ap2(filesF)
+  )(resolve(statefulApplicator(context)));
+});
 
 // src/validate.js
 import {
@@ -336,13 +322,13 @@ export {
   cancellableTask,
   checkPlugin,
   coerce,
-  futureApplicator,
   futureFileProcessor,
   getHashes,
   getNames,
   insertAfter,
   kindIs,
   noExtraKeys,
+  statefulApplicator,
   stepFunction,
   tertiary,
   tertiaryWithCancel,
