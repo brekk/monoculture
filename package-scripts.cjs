@@ -71,6 +71,12 @@ module.exports = {
     },
     deploy: sd('turbo run deploy', 'deploy and export builds'),
     prepare: sd('husky install', 'add git pre-commit hook'),
+    workflow: {
+      validate: sd(
+        'action-validator .github/workflows/main.yml',
+        'validate that the main github action works'
+      ),
+    },
     meta: {
       readme: sd(
         // eslint-disable-next-line max-len

@@ -35,6 +35,7 @@
     "build:cli": "dotenv -- nps -c ./package-scripts.cjs build.cli",
     "build:main": "dotenv -- nps -c ./package-scripts.cjs build.main",
     "build:watch": "dotenv -- nps -c ./package-scripts.cjs build.watch",
+    "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "dev": "dotenv -- nps -c ./package-scripts.cjs dev",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",

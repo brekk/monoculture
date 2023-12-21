@@ -1,0 +1,26 @@
+name: Monoculture Builder 🏭
+run-name: ${{github.actor}} is running a workflow!
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🧾 Checking out code...
+        uses: actions/checkout@v4
+      - name: 🤖 Installing node...
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+          cache: 'yarn'
+      - name: 🧶 Installing dependencies...
+        run: yarn --frozen-lockfile
+      - name: 🏗️ Building artifacts...
+        run: yarn build
+      - name: 🚁 Saving artifacts...
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-blobs
+          path: |
+            **/dist
+      - name: 🔬 Testing build...
+        run: yarn test
