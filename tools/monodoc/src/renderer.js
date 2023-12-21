@@ -1,4 +1,5 @@
 import {
+  either,
   ifElse,
   pipe,
   applySpec,
@@ -20,7 +21,10 @@ const liveExample = ex =>
 
 const handleSpecialCases = ifElse(
   // this is a special case where we want to be able to dynamically rename the page
-  pathOr(false, ['structure', 'page']),
+  either(
+    pathOr(false, ['structure', 'page']),
+    pathOr(false, ['structure', 'pageSummary'])
+  ),
   // but since we're cheating we don't want to list it as a comment
   K('')
 )

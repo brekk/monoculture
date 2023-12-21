@@ -5,8 +5,8 @@
     "filename": "packages/file-system/src/fs.js",
     "comments": [
       {
-        "start": 14,
-        "end": 16,
+        "start": 15,
+        "end": 17,
         "lines": [
           "@pageSummary A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system."
         ],
@@ -42,15 +42,16 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 26,
-        "end": 34,
+        "start": 27,
+        "end": 36,
         "lines": [
           "make a file string relative",
           "@name localize",
           "@example",
           "```js",
           "import { localize } from 'file-system'",
-          "console.log(`support localize('business')`)",
+          "console.log(`support ${localize('business')}`)",
+          "// support ./business",
           "```"
         ],
         "summary": "make a file string relative",
@@ -59,7 +60,7 @@
         "addTo": "",
         "structure": {
           "name": "localize",
-          "example": "```js\nimport { localize } from 'file-system'\nconsole.log(`support localize('business')`)\n```"
+          "example": "```js\nimport { localize } from 'file-system'\nconsole.log(`support ${localize('business')}`)\n// support ./business\n```"
         },
         "keywords": [
           "@example",
@@ -68,10 +69,79 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 37,
-        "end": 46,
+        "start": 39,
+        "end": 53,
         "lines": [
-          "read a file asynchronously and future wrapped",
+          "Read a file asynchronously as a Future-wrapped value,",
+          "given a file encoding and a cancellation function.",
+          "@name readFileWithFormatAndCancel",
+          "@see {@link readFileWithCancel}",
+          "@see {@link readFile}",
+          "@example",
+          "```js",
+          "import { fork } from 'fluture'",
+          "import { readFile } from 'file-system'",
+          "fork(console.warn)(console.log)(",
+          "  readFileWithFormatAndCancel(() => process.exit(), 'utf32', './README.md')",
+          ")",
+          "```"
+        ],
+        "summary": "Read a file asynchronously as a Future-wrapped value,\ngiven a file encoding and a cancellation function.",
+        "links": [
+          "readFileWithCancel",
+          "readFile"
+        ],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "readFileWithFormatAndCancel",
+          "see": [
+            "readFileWithCancel",
+            "readFile"
+          ],
+          "example": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\n  readFileWithFormatAndCancel(() => process.exit(), 'utf32', './README.md')\n)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@link",
+          "@name",
+          "@see"
+        ],
+        "filename": "packages/file-system/src/fs.js"
+      },
+      {
+        "start": 61,
+        "end": 71,
+        "lines": [
+          "Read a file asynchronously as a Future-wrapped value, given a cancellation function.",
+          "Reads `utf8` files only, use `readFileWithFormatAndCancel` if another file encoding is needed.",
+          "@name readFileWithCancel",
+          "@example",
+          "```js",
+          "import { fork } from 'fluture'",
+          "import { readFile } from 'file-system'",
+          "fork(console.warn)(console.log)(readFileWithCancel(() => process.exit(), './README.md'))",
+          "```"
+        ],
+        "summary": "Read a file asynchronously as a Future-wrapped value, given a cancellation function.\nReads `utf8` files only, use `readFileWithFormatAndCancel` if another file encoding is needed.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "readFileWithCancel",
+          "example": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(readFileWithCancel(() => process.exit(), './README.md'))\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/file-system/src/fs.js"
+      },
+      {
+        "start": 74,
+        "end": 83,
+        "lines": [
+          "read a file asynchronously as a Future-wrapped value",
           "@name readFile",
           "@example",
           "```js",
@@ -80,7 +150,7 @@
           "fork(console.warn)(console.log)(readFile('./README.md'))",
           "```"
         ],
-        "summary": "read a file asynchronously and future wrapped",
+        "summary": "read a file asynchronously as a Future-wrapped value",
         "links": [],
         "fileGroup": "",
         "addTo": "",
@@ -95,8 +165,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 58,
-        "end": 67,
+        "start": 86,
+        "end": 95,
         "lines": [
           "read a JSON file asynchronously and future wrapped",
           "@name readJSONFile",
@@ -122,8 +192,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 73,
-        "end": 87,
+        "start": 101,
+        "end": 115,
         "lines": [
           "read a `glob` asynchronously and future wrapped, with configuration",
           "@name readDirWithConfig",
@@ -154,8 +224,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 104,
-        "end": 114,
+        "start": 132,
+        "end": 142,
         "lines": [
           "read a `glob` asynchronously and future wrapped, no config needed",
           "@name readDir",
@@ -182,8 +252,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 117,
-        "end": 133,
+        "start": 145,
+        "end": 161,
         "lines": [
           "Write a file, with configuration",
           "@name writeFileWithConfig",
@@ -216,8 +286,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 150,
-        "end": 165,
+        "start": 178,
+        "end": 193,
         "lines": [
           "Write a file, assuming 'utf8'",
           "@name writeFile",
@@ -249,8 +319,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 168,
-        "end": 183,
+        "start": 196,
+        "end": 211,
         "lines": [
           "Remove a file, configurably",
           "@name removeFileWithConfig",
@@ -282,8 +352,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 200,
-        "end": 214,
+        "start": 228,
+        "end": 242,
         "lines": [
           "Remove a file, default config",
           "@name removeFile",
@@ -314,8 +384,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 217,
-        "end": 232,
+        "start": 245,
+        "end": 260,
         "lines": [
           "Remove multiple files, configurably",
           "@name removeFilesWithConfig",
@@ -347,8 +417,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 241,
-        "end": 255,
+        "start": 269,
+        "end": 283,
         "lines": [
           "Remove multiple files, sans configuration",
           "@name removeFiles",
@@ -379,8 +449,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 258,
-        "end": 273,
+        "start": 286,
+        "end": 301,
         "lines": [
           "Make a directory, but futuristically",
           "@name mkdir",
@@ -412,8 +482,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 296,
-        "end": 311,
+        "start": 324,
+        "end": 339,
         "lines": [
           "Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`",
           "@name writeFileWithAutoPath",
@@ -446,7 +516,10 @@
       }
     ],
     "order": 0,
-    "links": [],
+    "links": [
+      "readFileWithCancel",
+      "readFile"
+    ],
     "workspace": "file-system"
   },
   {

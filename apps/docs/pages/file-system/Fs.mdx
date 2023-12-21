@@ -2,8 +2,6 @@
 
 A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.
 
-## Unknown
-@pageSummary A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.
 
 
 ## localize
@@ -11,11 +9,37 @@ make a file string relative
 ### Usage
 ```js
 import { localize } from 'file-system'
-console.log(`support localize('business')`)
+console.log(`support ${localize('business')}`)
+// support ./business
+```
+
+## readFileWithFormatAndCancel
+Read a file asynchronously as a Future-wrapped value,
+given a file encoding and a cancellation function.
+### See also
+ - readFileWithCancel
+ - readFile
+### Usage
+```js
+import { fork } from 'fluture'
+import { readFile } from 'file-system'
+fork(console.warn)(console.log)(
+  readFileWithFormatAndCancel(() => process.exit(), 'utf32', './README.md')
+)
+```
+
+## readFileWithCancel
+Read a file asynchronously as a Future-wrapped value, given a cancellation function.
+Reads `utf8` files only, use `readFileWithFormatAndCancel` if another file encoding is needed.
+### Usage
+```js
+import { fork } from 'fluture'
+import { readFile } from 'file-system'
+fork(console.warn)(console.log)(readFileWithCancel(() => process.exit(), './README.md'))
 ```
 
 ## readFile
-read a file asynchronously and future wrapped
+read a file asynchronously as a Future-wrapped value
 ### Usage
 ```js
 import { fork } from 'fluture'

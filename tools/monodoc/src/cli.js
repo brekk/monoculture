@@ -1,5 +1,4 @@
 import { cwd } from 'node:process'
-import { trace } from 'xtrace'
 import PKG from '../package.json'
 import { configurate } from 'climate'
 import { basename, join as pathJoin, dirname } from 'node:path'

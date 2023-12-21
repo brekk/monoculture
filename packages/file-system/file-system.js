@@ -30,6 +30,7 @@ var flexeca = flexecaWithCanceller(() => {
 
 // src/fs.js
 import fs from "node:fs";
+import { sep } from "node:path";
 import { reduce, F, propOr as propOr2, without, curry as curry3, pipe as pipe2, map, __ as $ } from "ramda";
 import {
   Future as Future3,
@@ -44,7 +45,7 @@ import glob from "glob";
 var { constants } = fs;
 var NO_OP = () => {
 };
-var localize = (z) => `./${z}`;
+var localize = (z) => `.${sep}${z}`;
 var readFileWithFormatAndCancel = curry3(
   (cancel, format, x) => Future3((bad, good) => {
     fs.readFile(x, format, (err, data) => err ? bad(err) : good(data));

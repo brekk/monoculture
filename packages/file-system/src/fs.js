@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+import { sep } from 'node:path'
 import { reduce, F, propOr, without, curry, pipe, map, __ as $ } from 'ramda'
 import {
   Future,
@@ -30,19 +31,25 @@ export const NO_OP = () => {}
  * @example
  * ```js
  * import { localize } from 'file-system'
- * console.log(`support localize('business')`)
+ * console.log(`support ${localize('business')}`)
+ * // support ./business
  * ```
  */
-export const localize = z => `./${z}`
+export const localize = z => `.${sep}${z}`
 
 /**
- * read a file asynchronously and future wrapped
- * @name readFile
+ * Read a file asynchronously as a Future-wrapped value,
+ * given a file encoding and a cancellation function.
+ * @name readFileWithFormatAndCancel
+ * @see {@link readFileWithCancel}
+ * @see {@link readFile}
  * @example
  * ```js
  * import { fork } from 'fluture'
  * import { readFile } from 'file-system'
- * fork(console.warn)(console.log)(readFile('./README.md'))
+ * fork(console.warn)(console.log)(
+ *   readFileWithFormatAndCancel(() => process.exit(), 'utf32', './README.md')
+ * )
  * ```
  */
 export const readFileWithFormatAndCancel = curry((cancel, format, x) =>
@@ -52,8 +59,29 @@ export const readFileWithFormatAndCancel = curry((cancel, format, x) =>
   })
 )
 
+/**
+ * Read a file asynchronously as a Future-wrapped value, given a cancellation function.
+ * Reads `utf8` files only, use `readFileWithFormatAndCancel` if another file encoding is needed.
+ * @name readFileWithCancel
+ * @example
+ * ```js
+ * import { fork } from 'fluture'
+ * import { readFile } from 'file-system'
+ * fork(console.warn)(console.log)(readFileWithCancel(() => process.exit(), './README.md'))
+ * ```
+ */
 export const readFileWithCancel = readFileWithFormatAndCancel($, 'utf8')
 
+/**
+ * read a file asynchronously as a Future-wrapped value
+ * @name readFile
+ * @example
+ * ```js
+ * import { fork } from 'fluture'
+ * import { readFile } from 'file-system'
+ * fork(console.warn)(console.log)(readFile('./README.md'))
+ * ```
+ */
 export const readFile = readFileWithCancel(NO_OP)
 
 /**
