@@ -14,19 +14,19 @@
     "./dist/cli.mjs"
   ],
   "dependencies": {
-    "chalk": "^5.3.0",
+    "chalk": "5.3.0",
     "climate": "workspace:packages/climate",
-    "dotenv-cli": "^7.3.0",
-    "envtrace": "^0.0.2",
+    "dotenv-cli": "7.3.0",
+    "envtrace": "0.0.2",
     "file-system": "workspace:packages/file-system",
-    "fluture": "^14.0.0",
-    "project-bin-path": "^2.0.0",
-    "ramda": "^0.29.1"
+    "fluture": "14.0.0",
+    "project-bin-path": "2.0.0",
+    "ramda": "0.29.1"
   },
   "devDependencies": {
-    "esbuild": "^0.19.5",
+    "esbuild": "0.19.10",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
-    "fastest-levenshtein": "^1.0.16",
+    "fastest-levenshtein": "1.0.16",
     "jest-config": "workspace:shared/jest-config"
   },
   "scripts": {

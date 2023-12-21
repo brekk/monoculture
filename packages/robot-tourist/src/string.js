@@ -144,8 +144,8 @@ export const dropMultilineCommentsWithSteps = reduce(
     return commenting && !commentEnds
       ? agg
       : !commenting && commentStarts
-      ? { commentMode: true, stack: agg.stack }
-      : { commentMode: false, stack: [...agg.stack, [k, v]] }
+        ? { commentMode: true, stack: agg.stack }
+        : { commentMode: false, stack: [...agg.stack, [k, v]] }
   },
   { stack: [], commentMode: false }
 )

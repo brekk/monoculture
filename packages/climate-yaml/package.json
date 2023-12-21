@@ -12,15 +12,15 @@
     "./dist/climate-yaml.js"
   ],
   "dependencies": {
-    "ramda": "^0.29.1",
-    "yaml": "^2.3.4"
+    "ramda": "0.29.1",
+    "yaml": "2.3.4"
   },
   "devDependencies": {
     "climate": "workspace:packages/climate",
-    "dotenv-cli": "^7.3.0",
-    "eslint-config-monoculture": "npm:eslint-config-monoculture@*",
-    "fluture": "^14.0.0",
-    "jest-config": "npm:jest-config@*"
+    "dotenv-cli": "7.3.0",
+    "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
+    "fluture": "14.0.0",
+    "jest-config": "workspace:shared/jest-config"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",

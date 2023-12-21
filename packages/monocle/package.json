@@ -16,17 +16,17 @@
     "climate": "workspace:packages/climate",
     "climate-json": "workspace:packages/climate-json",
     "climate-toml": "workspace:packages/climate-toml",
-    "envtrace": "^0.0.2",
-    "fluture": "^14.0.0",
+    "envtrace": "0.0.2",
+    "fluture": "14.0.0",
     "monorail": "workspace:packages/monorail",
-    "ramda": "^0.29.1"
+    "ramda": "0.29.1"
   },
   "devDependencies": {
-    "dotenv-cli": "^7.3.0",
-    "esbuild": "^0.19.5",
+    "dotenv-cli": "7.3.0",
+    "esbuild": "0.19.10",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
-    "execa": "^8.0.1",
-    "jest": "^29.7.0",
+    "execa": "8.0.1",
+    "jest": "29.7.0",
     "jest-config": "workspace:shared/jest-config",
     "robot-tourist": "workspace:packages/robot-tourist"
   },

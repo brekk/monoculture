@@ -3,7 +3,7 @@ import { Chalk } from 'chalk'
 import __ansiAlign from 'ansi-align'
 import widestLine from 'widest-line'
 import strlen from 'string-length'
-import { camelCase } from 'camel-case'
+import camelCase from 'camelcase'
 import {
   without,
   __ as $,
@@ -43,10 +43,10 @@ const terminalColumns = () => {
   return env.COLUMNS
     ? Number.parseInt(env.COLUMNS, 10)
     : stdout?.columns
-    ? stdout.columns
-    : stderr?.columns
-    ? stderr.columns
-    : 80
+      ? stdout.columns
+      : stderr?.columns
+        ? stderr.columns
+        : 80
 }
 
 const isType = curry((y, x) => typeof x === y)
@@ -110,8 +110,8 @@ export const enpad = curry(({ align, max, longest }, i) =>
   align === 'center'
     ? repad((max - longest) / 2) + i
     : align === 'right'
-    ? repad(max - longest) + i
-    : '' + i
+      ? repad(max - longest) + i
+      : '' + i
 )
 
 const addNewLines = curry((max, align, lx) =>
@@ -140,8 +140,8 @@ const realign = curry(({ max, textWidth }, align, linex) =>
     align === 'center'
       ? repad((max - textWidth) / 2) + line
       : align === 'right'
-      ? repad(max - textWidth) + line
-      : line
+        ? repad(max - textWidth) + line
+        : line
   )(linex)
 )
 
@@ -156,8 +156,8 @@ const makeContentText = (text, { padding, width, align, height }) => {
     textWidth > max
       ? addNewLines(max, align, linex)
       : textWidth < max
-      ? realign({ max, textWidth }, align, linex)
-      : linex
+        ? realign({ max, textWidth }, align, linex)
+        : linex
 
   const [pl, pr] = map(repad)([padding.left, padding.right])
 
@@ -244,8 +244,8 @@ const formatWithPointer = curry(
     borderStyle === NONE
       ? title
       : padTitle
-      ? ` ${title} `
-      : `${chars[char]}${title}${chars[char]}`
+        ? ` ${title} `
+        : `${chars[char]}${title}${chars[char]}`
 )
 
 const formatTitle = formatWithPointer('top', 'title')
@@ -268,13 +268,16 @@ const getLeftMarginByAlignment = curry(
           )
         )
       : float === 'right'
-      ? repad(
-          Math.max(
-            columns - contentWidth - margin.right - getBorderWidth(borderStyle),
-            0
+        ? repad(
+            Math.max(
+              columns -
+                contentWidth -
+                margin.right -
+                getBorderWidth(borderStyle),
+              0
+            )
           )
-        )
-      : repad(margin.left)
+        : repad(margin.left)
 )
 const reline = strepeat(NEWLINE)
 
@@ -463,8 +466,8 @@ const determineDimensions = (text, opts) => {
   const widest = !opts.__autoSize__
     ? _widest
     : _widest - secondWidest <= borderWidth + 2
-    ? secondWidest
-    : _widest
+      ? secondWidest
+      : _widest
 
   const dimensionalData = { maxWidth, borderWidth, columns, widest }
 

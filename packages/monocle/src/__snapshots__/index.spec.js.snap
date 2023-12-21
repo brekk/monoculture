@@ -458,7 +458,7 @@ exports[`monoprocessor 1`] = `
           0,
         ],
       ],
-      "hash": "a9298b7eeecc9c69b7cc8366afc6278af533d3187932850d18e944d493f91b8a",
+      "hash": "d69ff409ecf7ecfb1431d6013234d40016438cf8d0d79a923462aa00ce241303",
       "name": "cli.js",
     },
     "config.js": {
@@ -997,7 +997,7 @@ exports[`monoprocessor 1`] = `
     },
   },
   "wordcount": {
-    "cli.js": 1064,
+    "cli.js": 1068,
     "config.js": 351,
     "hash.js": 27,
     "index.js": 9,
@@ -1009,7 +1009,7 @@ exports[`monoprocessor 1`] = `
 
 exports[`readAll 1`] = `
 [
-  "a9298b7eeecc9c69b7cc8366afc6278af533d3187932850d18e944d493f91b8a",
+  "d69ff409ecf7ecfb1431d6013234d40016438cf8d0d79a923462aa00ce241303",
   "8d8164b8400b0d41daf95e4bc7904de22a7b4fdef1440a00a0fe61e4640d5474",
   "e4c9056599ced79cdce50e1279b0b50414c6595d006d712bacd0bd9917816627",
   "5cd99d9df3d8e4c2fcc83cf248314a4836c71d88f8d6e4fdc0d84c4e8c7b029d",

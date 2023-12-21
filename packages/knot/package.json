@@ -12,13 +12,13 @@
     "./dist/knot.js"
   ],
   "dependencies": {
-    "chalk": "^5.3.0",
-    "ramda": "^0.29.1"
+    "chalk": "5.3.0",
+    "ramda": "0.29.1"
   },
   "devDependencies": {
-    "dotenv-cli": "^7.3.0",
-    "eslint-config-monoculture": "npm:eslint-config-monoculture@*",
-    "jest-config": "npm:jest-config@*"
+    "dotenv-cli": "7.3.0",
+    "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
+    "jest-config": "workspace:shared/jest-config"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",

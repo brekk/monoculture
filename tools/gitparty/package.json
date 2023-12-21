@@ -14,17 +14,17 @@
   "dependencies": {
     "climate": "workspace:packages/climate",
     "clox": "workspace:packages/clox",
-    "date-fns": "^2.30.0",
-    "date-fns-tz": "^2.0.0",
+    "date-fns": "3.0.5",
+    "date-fns-tz": "2.0.0",
     "file-system": "workspace:packages/file-system",
-    "fluture": "^14.0.0",
-    "gitlog": "^4.0.8",
-    "micromatch": "^4.0.5",
-    "ramda": "^0.29.1",
+    "fluture": "14.0.0",
+    "gitlog": "4.0.8",
+    "micromatch": "4.0.5",
+    "ramda": "0.29.1",
     "treacle": "workspace:tools/treacle"
   },
   "devDependencies": {
-    "dotenv-cli": "^7.3.0",
+    "dotenv-cli": "7.3.0",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     "jest-config": "workspace:shared/jest-config"
   },

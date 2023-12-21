@@ -115,16 +115,16 @@ test('readFile', done => {
     "./dist/file-system.js"
   ],
   "dependencies": {
-    "execa": "^8.0.1",
-    "find-up": "^7.0.0",
-    "fluture": "^14.0.0",
-    "ramda": "^0.29.1"
+    "execa": "8.0.1",
+    "find-up": "7.0.0",
+    "fluture": "14.0.0",
+    "ramda": "0.29.1"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.1.4",
-    "dotenv-cli": "^7.3.0",
+    "@testing-library/jest-dom": "6.1.5",
+    "dotenv-cli": "7.3.0",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
-    "jest": "^29.7.0",
+    "jest": "29.7.0",
     "jest-config": "workspace:shared/jest-config"
   },
   "scripts": {

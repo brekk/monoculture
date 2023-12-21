@@ -9,14 +9,14 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "execa": "^8.0.1",
-    "fluture": "^14.0.0",
-    "ramda": "^0.29.1",
-    "snang": "^0.2.7"
+    "execa": "8.0.1",
+    "fluture": "14.0.0",
+    "ramda": "0.29.1",
+    "snang": "0.2.7"
   },
   "devDependencies": {
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
-    "nps-utils": "^1.7.0"
+    "nps-utils": "1.7.0"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs"
