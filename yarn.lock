@@ -12356,8 +12356,10 @@ __metadata:
     jest: "npm:^29.7.0"
     lint-staged: "npm:^15.0.2"
     nps: "npm:^5.10.0"
+    nps-utils: "npm:^1.7.0"
     plop: "npm:^4.0.0"
     prettier: "npm:^3.0.3"
+    ramda: "npm:^0.29.1"
     turbo: "npm:^1.10.16"
   languageName: unknown
   linkType: soft
