@@ -47,3 +47,6 @@ public
 
 # monocle makes useful but large files
 monocle-findings.json
+
+# skip dist files
+dist

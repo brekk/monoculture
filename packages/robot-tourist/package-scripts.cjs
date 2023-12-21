@@ -36,16 +36,20 @@ const buildPlugin = ([infile, outfile]) =>
   ].join(' ')
 
 const INPUT = `src/index.js`
-const OUTPUT = PKG.main
+const OUTPUT = `dist/${PKG.main}`
 module.exports = {
   scripts: {
+    clean: sd('rm -r dist', 'clean out the build'),
     build: {
       ...sd(
         'nps -c ./package-scripts.cjs build.module build.bin build.plugins',
         'build all the shit'
       ),
       module: sd(buildModule([INPUT, OUTPUT]), 'build the module!'),
-      bin: sd(build(['src/cli.js', 'wordbot.js']), 'build the executable!'),
+      bin: sd(
+        build(['src/cli.js', 'dist/wordbot.js']),
+        'build the executable!'
+      ),
       plugins: {
         ...sd(
           // eslint-disable-next-line max-len

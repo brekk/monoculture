@@ -27,10 +27,12 @@ const buildModule = ([infile, outfile]) =>
 
 module.exports = {
   scripts: {
+    clean: sd('rm -r dist', 'clean the build'),
     build: sd(
-      buildModule(['src/index.js', PKG.main]),
+      'mkdir dist && ' + build(['src/index.js', 'dist/' + PKG.main]),
       'build this climate plugin, please!'
     ),
+
     lint: sd('eslint --fix .', 'lint!'),
     test: {
       ...sd('jest', 'test!'),
