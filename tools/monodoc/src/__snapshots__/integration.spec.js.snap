@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`monodoc -i ./fixture/fake-pkg.json -a ./fixture/generated.json -o ./monodoc/__generated__ 1`] = `"Wrote to /Users/brekk/work/monoculture/tools/monodoc/monodoc/__generated__/monodoc-generated.json"`;
+
+exports[`monodoc -i ./fixture/fake-pkg.json -a ./fixture/generated.json -o ./monodoc/__generated__ 2`] = `
+[
+  {
+    "comments": [
+      {
+        "addTo": "",
+        "end": 11,
+        "fileGroup": "",
+        "filename": "./fixture/pkg/one/main.ts",
+        "keywords": [
+          "@example",
+          "@name",
+        ],
+        "lines": [
+          "A curried binary addition function",
+          "@name add",
+          "@example",
+          "\`\`\`ts live=true",
+          "import { add } from './fixture'",
+          "*",
+          "add(10)(20) === 30",
+          "\`\`\`",
+        ],
+        "links": [],
+        "start": 2,
+        "structure": {
+          "example": "\`\`\`ts live=true
+import { add } from './fixture'
+
+add(10)(20) === 30
+\`\`\`",
+          "name": "add",
+        },
+        "summary": "A curried binary addition function",
+      },
+    ],
+    "filename": "./fixture/pkg/one/main.ts",
+    "links": [],
+    "order": 0,
+    "pageSummary": "",
+    "slugName": "main",
+    "workspace": "fixture",
+  },
+  {
+    "comments": [
+      {
+        "addTo": "",
+        "end": 11,
+        "fileGroup": "",
+        "filename": "./fixture/pkg/three/three.js",
+        "keywords": [
+          "@example",
+          "@name",
+        ],
+        "lines": [
+          "A curried binary addition function",
+          "@name add",
+          "@example",
+          "\`\`\`ts live=true",
+          "import { add } from './fixture'",
+          "*",
+          "add(10)(20) === 30",
+          "\`\`\`",
+        ],
+        "links": [],
+        "start": 2,
+        "structure": {
+          "example": "\`\`\`ts live=true
+import { add } from './fixture'
+
+add(10)(20) === 30
+\`\`\`",
+          "name": "add",
+        },
+        "summary": "A curried binary addition function",
+      },
+    ],
+    "filename": "./fixture/pkg/three/three.js",
+    "links": [],
+    "order": 0,
+    "pageSummary": "",
+    "slugName": "three",
+    "workspace": "fixture",
+  },
+  {
+    "comments": [
+      {
+        "addTo": "",
+        "end": 11,
+        "fileGroup": "",
+        "filename": "./fixture/pkg/two/two.ts",
+        "keywords": [
+          "@example",
+          "@name",
+        ],
+        "lines": [
+          "A curried binary addition function",
+          "@name add",
+          "@example",
+          "\`\`\`ts live=true",
+          "import { add } from './fixture'",
+          "*",
+          "add(10)(20) === 30",
+          "\`\`\`",
+        ],
+        "links": [],
+        "start": 2,
+        "structure": {
+          "example": "\`\`\`ts live=true
+import { add } from './fixture'
+
+add(10)(20) === 30
+\`\`\`",
+          "name": "add",
+        },
+        "summary": "A curried binary addition function",
+      },
+    ],
+    "filename": "./fixture/pkg/two/two.ts",
+    "links": [],
+    "order": 0,
+    "pageSummary": "",
+    "slugName": "two",
+    "workspace": "fixture",
+  },
+]
+`;

@@ -1,0 +1,5 @@
+{
+  "name": "monodoc-fixture",
+  "description": "it's a fixture for monodoc to use in testing!",
+  "workspaces": ["pkg/*", "tools/*"]
+}

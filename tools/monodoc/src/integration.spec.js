@@ -1,40 +1,51 @@
 // import { cwd } from 'node:process'
+import { resolve as pathResolve, sep as SEPARATOR } from 'node:path'
+import stripAnsi from 'strip-ansi'
 import { join, identity as I, pipe, map, propOr } from 'ramda'
-import { fork } from 'fluture'
-import { flexeca } from 'file-system'
-import { trace } from 'xtrace'
+import { fork, both } from 'fluture'
+import { flexeca, removeFile, rimraf, readFile } from 'file-system'
+import { fence } from './string'
 
-const run = pipe(
-  flexeca('./monodoc-cli.js'),
-  map(trace('raw')),
-  map(propOr('', 'stdout'))
-)
+const run = pipe(flexeca('./monodoc-cli.js'), map(propOr('', 'stdout')))
 
 const goodrun = (args, expectation = I) =>
   test(`monodoc ${join(' ')(args)}`, done => {
     pipe(
       run,
-      map(trace('raw')),
       fork(done)(z => {
         expectation(done, z)
       })
     )(args)
   })
 
-const generated = './generated.json'
-/*
+const inFix = x =>
+  '.' +
+  SEPARATOR +
+  fence(SEPARATOR, -2, pathResolve(__dirname, '../fixture', x))
+
+const GENERATED = inFix('generated.json')
+const GENERATED_FILES =
+  '.' +
+  SEPARATOR +
+  fence(SEPARATOR, -2, pathResolve(__dirname, '../__generated__'))
+const FAKE_PACKAGE_JSON = inFix(`fake-pkg.json`)
+
 goodrun(
-  ['-i', `fixture-monorepo-package.json`, '-a', generated],
+  ['-i', FAKE_PACKAGE_JSON, '-a', GENERATED, '-o', GENERATED_FILES],
   (done, raw) => {
     expect(stripAnsi(raw)).toMatchSnapshot()
     fork(done)(z => {
       // expect(z).toBeTruthy()
-      expect(z).toEqual('blabbo')
+      expect(z).toMatchSnapshot()
       done()
-    })(readFile(generated))
+    })(map(JSON.parse, readFile(GENERATED)))
   }
 )
-*/
-test('smoke', () => {
-  expect(true).toBeTruthy()
+
+afterAll(done => {
+  pipe(
+    fork(done)(() => {
+      done()
+    })
+  )(both(removeFile(GENERATED))(rimraf(GENERATED_FILES)))
 })

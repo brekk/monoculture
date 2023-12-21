@@ -35,10 +35,10 @@ add(10)(20) === 30
     },
   ],
   "fileGroup": undefined,
-  "filename": "tools/monodoc/fixture.ts",
+  "filename": "pkg/one/main.ts",
   "links": [],
   "order": 0,
   "pageSummary": "",
-  "slugName": "fixture",
+  "slugName": "main",
 }
 `;

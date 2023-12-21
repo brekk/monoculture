@@ -129,7 +129,7 @@ export const readDir = readDirWithConfig({})
  */
 export const writeFileWithConfigAndCancel = curry(
   (cancel, conf, file, content) =>
-    new Future((bad, good) => {
+    Future((bad, good) => {
       fs.writeFile(file, content, conf, e => {
         if (e) {
           bad(e)
@@ -177,12 +177,11 @@ export const writeFile = writeFileWithConfig({ encoding: 'utf8' })
  * )
  * ```
  */
-export const removeFileWithConfigAndCancel = curry(
-  (cancel, options, fd) =>
-    new Future((bad, good) => {
-      fs.rm(fd, options, err => (err ? bad(err) : good(fd)))
-      return cancel
-    })
+export const removeFileWithConfigAndCancel = curry((cancel, options, fd) =>
+  Future((bad, good) => {
+    fs.rm(fd, options, err => (err ? bad(err) : good(fd)))
+    return cancel
+  })
 )
 
 export const removeFileWithConfig = removeFileWithConfigAndCancel(NO_OP)
@@ -268,22 +267,20 @@ export const removeFiles = removeFilesWithConfig(DEFAULT_REMOVAL_CONFIG)
  * )
  * ```
  */
-export const mkdir = curry(
-  (conf, x) =>
-    new Future((bad, good) => {
-      fs.mkdir(x, conf, err => (err ? bad(err) : good(x)))
-      return () => {}
-    })
+export const mkdir = curry((conf, x) =>
+  Future((bad, good) => {
+    fs.mkdir(x, conf, err => (err ? bad(err) : good(x)))
+    return () => {}
+  })
 )
 
 export const mkdirp = mkdir({ recursive: true })
 
-export const access = curry(
-  (permissions, filePath) =>
-    new Future((bad, good) => {
-      fs.access(filePath, permissions, err => (err ? bad(err) : good(true)))
-      return () => {}
-    })
+export const access = curry((permissions, filePath) =>
+  Future((bad, good) => {
+    fs.access(filePath, permissions, err => (err ? bad(err) : good(true)))
+    return () => {}
+  })
 )
 
 export const exists = access(constants.F_OK)
@@ -320,12 +317,11 @@ export const writeFileWithAutoPath = curry((filePath, content) =>
   )(filePath)
 )
 
-export const rm = curry(
-  (conf, x) =>
-    new Future((bad, good) => {
-      fs.rm(x, conf, err => (err ? bad(err) : good(x)))
-      return () => {}
-    })
+export const rm = curry((conf, x) =>
+  Future((bad, good) => {
+    fs.rm(x, conf, err => (err ? bad(err) : good(x)))
+    return () => {}
+  })
 )
 
 export const rimraf = rm({ force: true, recursive: true })

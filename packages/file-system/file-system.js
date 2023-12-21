@@ -77,7 +77,7 @@ var readDirWithConfigAndCancel = curry3(
 var readDirWithConfig = readDirWithConfigAndCancel(NO_OP);
 var readDir = readDirWithConfig({});
 var writeFileWithConfigAndCancel = curry3(
-  (cancel, conf, file, content) => new Future3((bad, good) => {
+  (cancel, conf, file, content) => Future3((bad, good) => {
     fs.writeFile(file, content, conf, (e) => {
       if (e) {
         bad(e);
@@ -91,7 +91,7 @@ var writeFileWithConfigAndCancel = curry3(
 var writeFileWithConfig = writeFileWithConfigAndCancel(NO_OP);
 var writeFile = writeFileWithConfig({ encoding: "utf8" });
 var removeFileWithConfigAndCancel = curry3(
-  (cancel, options, fd) => new Future3((bad, good) => {
+  (cancel, options, fd) => Future3((bad, good) => {
     fs.rm(fd, options, (err) => err ? bad(err) : good(fd));
     return cancel;
   })
@@ -114,7 +114,7 @@ var removeFilesWithConfigAndCancel = curry3(
 var removeFilesWithConfig = removeFilesWithConfigAndCancel(NO_OP);
 var removeFiles = removeFilesWithConfig(DEFAULT_REMOVAL_CONFIG);
 var mkdir = curry3(
-  (conf, x) => new Future3((bad, good) => {
+  (conf, x) => Future3((bad, good) => {
     fs.mkdir(x, conf, (err) => err ? bad(err) : good(x));
     return () => {
     };
@@ -122,7 +122,7 @@ var mkdir = curry3(
 );
 var mkdirp = mkdir({ recursive: true });
 var access = curry3(
-  (permissions, filePath) => new Future3((bad, good) => {
+  (permissions, filePath) => Future3((bad, good) => {
     fs.access(filePath, permissions, (err) => err ? bad(err) : good(true));
     return () => {
     };
@@ -142,7 +142,7 @@ var writeFileWithAutoPath = curry3(
   )(filePath)
 );
 var rm = curry3(
-  (conf, x) => new Future3((bad, good) => {
+  (conf, x) => Future3((bad, good) => {
     fs.rm(x, conf, (err) => err ? bad(err) : good(x));
     return () => {
     };

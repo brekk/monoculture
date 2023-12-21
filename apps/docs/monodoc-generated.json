@@ -245,8 +245,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 196,
-        "end": 210,
+        "start": 195,
+        "end": 209,
         "lines": [
           "Remove a file, default config",
           "@name removeFile",
@@ -277,8 +277,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 213,
-        "end": 228,
+        "start": 212,
+        "end": 227,
         "lines": [
           "Remove multiple files, configurably",
           "@name removeFilesWithConfig",
@@ -310,8 +310,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 237,
-        "end": 251,
+        "start": 236,
+        "end": 250,
         "lines": [
           "Remove multiple files, sans configuration",
           "@name removeFiles",
@@ -342,8 +342,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 254,
-        "end": 269,
+        "start": 253,
+        "end": 268,
         "lines": [
           "Make a directory, but futuristically",
           "@name mkdir",
@@ -375,8 +375,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 294,
-        "end": 309,
+        "start": 291,
+        "end": 306,
         "lines": [
           "Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`",
           "@name writeFileWithAutoPath",

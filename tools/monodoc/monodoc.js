@@ -471,7 +471,7 @@ var CONFIG_DEFAULTS = {
     "**/node_modules/**",
     "**/coverage/**",
     "**/*.spec.{js,jsx,ts,tsx}",
-    "**/*fixture.*",
+    "**/fixture/**",
     "**/fixture.*"
   ],
   search: "**/*.{js,jsx,ts,tsx}"
