@@ -10702,6 +10702,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"knot@workspace:packages/knot":
+  version: 0.0.0-use.local
+  resolution: "knot@workspace:packages/knot"
+  dependencies:
+    chalk: "npm:^5.3.0"
+    dotenv-cli: "npm:^7.3.0"
+    eslint-config-monoculture: "npm:eslint-config-monoculture@*"
+    jest-config: "npm:jest-config@*"
+    ramda: "npm:^0.29.1"
+  languageName: unknown
+  linkType: soft
+
 "language-subtag-registry@npm:^0.3.20":
   version: 0.3.22
   resolution: "language-subtag-registry@npm:0.3.22"

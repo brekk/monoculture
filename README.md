@@ -154,6 +154,17 @@ introspection and organization tools for monorepos
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴🧪
 
      </details>
+   * [knot](https://github.com/brekk/monoculture/tree/main/packages/knot) - functional utilities for strings 🪢
+
+     <details><summary>Dependencies</summary>
+
+      - [chalk](https://www.npmjs.com/package/chalk)
+      - [ramda](https://www.npmjs.com/package/ramda)
+      - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
+      - [eslint-config-monoculture](https://www.npmjs.com/package/eslint-config-monoculture)🧪
+      - [jest-config](https://www.npmjs.com/package/jest-config)🧪
+
+     </details>
    * [monocle](https://github.com/brekk/monoculture/tree/main/packages/monocle) - inspect code and apply rules, magically 🧐
 
      <details><summary>Dependencies</summary>

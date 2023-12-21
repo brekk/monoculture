@@ -38,6 +38,7 @@ module.exports = {
 
               'apps/docs',
               'packages/bloodline',
+              'packages/knot',
               'packages/climate',
               'packages/climate-json',
               'packages/climate-toml',
