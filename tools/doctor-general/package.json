@@ -8,7 +8,7 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "bin": "./doctor-general.js",
+  "bin": "./dist/doctor-general.js",
   "dependencies": {
     "climate": "workspace:packages/climate",
     "file-system": "workspace:packages/file-system",

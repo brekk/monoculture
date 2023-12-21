@@ -8,6 +8,9 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
+  "exports": [
+    "dist"
+  ],
   "dependencies": {
     "climate": "workspace:packages/climate",
     "clox": "workspace:packages/clox",

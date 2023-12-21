@@ -17,7 +17,7 @@ module.exports = {
   scripts: {
     clean: sd('rm -r dist', 'clean the build'),
     build: sd(
-      'mkdir dist && ' + buildModule([INPUT, 'dist/knot.js']),
+buildModule([INPUT, 'dist/knot.js']),
       'tie the knot!'
     ),
     lint: sd('eslint --fix .', 'lint!'),

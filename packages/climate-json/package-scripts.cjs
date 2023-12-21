@@ -29,7 +29,7 @@ module.exports = {
   scripts: {
     clean: sd('rm -r dist', 'clean the build'),
     build: sd(
-      'mkdir dist && ' + build(['src/index.js', 'dist/' + PKG.main]),
+      build(['src/index.js', 'dist/' + PKG.main]),
       'build this climate plugin, please!'
     ),
     lint: sd('eslint --fix .', 'lint!'),

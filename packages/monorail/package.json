@@ -8,6 +8,9 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
+  "exports": [
+    "dist"
+  ],
   "dependencies": {
     "@hapi/topo": "^6.0.2",
     "envtrace": "^0.0.2",

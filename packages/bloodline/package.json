@@ -8,17 +8,18 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
+  "exports": "dist",
   "dependencies": {
     "chalk": "^5.3.0",
     "climate": "workspace:packages/climate",
     "dependency-tree": "^10.0.9",
-    "dotenv-cli": "^7.3.0",
     "file-system": "workspace:packages/file-system",
     "precinct": "^11.0.5",
     "ramda": "^0.29.1",
     "ts-graphviz": "^1.8.1"
   },
   "devDependencies": {
+    "dotenv-cli": "^7.3.0",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     "jest-config": "npm:jest-config@*"
   },

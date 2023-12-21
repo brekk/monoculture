@@ -17,10 +17,7 @@ const INPUT = 'src/index.js'
 module.exports = {
   scripts: {
     clean: sd('rm -r dist', 'clean the build'),
-    build: sd(
-      'mkdir dist && ' + build([INPUT, 'dist/' + PKG.exports[0]]),
-      'build it'
-    ),
+    build: sd(build([INPUT, 'dist/' + PKG.exports[0]]), 'build it'),
     lint: sd('eslint --fix .', 'lint!'),
     test: {
       ...sd('jest', 'test!'),

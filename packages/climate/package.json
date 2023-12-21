@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "CLI utilities, friend 👯",
   "exports": [
-    "./configurate.js"
+    "dist"
   ],
   "type": "module",
   "repository": "monoculture",

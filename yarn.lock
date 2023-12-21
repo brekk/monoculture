@@ -6554,7 +6554,7 @@ __metadata:
     strip-ansi: "npm:^7.1.0"
     xtrace: "npm:^0.3.0"
   bin:
-    doctor-general: ./doctor-general.js
+    doctor-general: ./dist/doctor-general.js
   languageName: unknown
   linkType: soft
 

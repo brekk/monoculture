@@ -21,7 +21,7 @@ const sd = (script, description = '') =>
 module.exports = {
   scripts: {
     clean: sd('rm -r dist', 'clean the build'),
-    build: sd('mkdir dist && ' + build([INPUT, OUTPUT]), 'build an export!'),
+    build: sd(build([INPUT, OUTPUT]), 'build an export!'),
 
     lint: sd('eslint --fix .', 'lint!'),
     test: {

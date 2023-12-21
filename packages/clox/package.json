@@ -8,6 +8,9 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
+  "exports": [
+    "dist"
+  ],
   "dependencies": {
     "ansi-align": "^3.0.1",
     "camel-case": "^5.0.0",

@@ -9,6 +9,9 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
+  "exports": [
+    "dist"
+  ],
   "dependencies": {
     "climate": "workspace:packages/climate",
     "climate-json": "workspace:packages/climate-json",

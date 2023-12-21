@@ -9,6 +9,9 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
+  "exports": [
+    "dist"
+  ],
   "dependencies": {
     "change-case": "5.0.0",
     "climate": "workspace:packages/climate",

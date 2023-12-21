@@ -8,6 +8,9 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
+  "exports": [
+    "dist"
+  ],
   "dependencies": {
     "execa": "^8.0.1",
     "file-system": "workspace:packages/file-system",
