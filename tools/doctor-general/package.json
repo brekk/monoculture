@@ -1,22 +1,22 @@
 {
-  "name": "monodoc",
+  "name": "doctor-general",
   "version": "0.0.1",
-  "description": "magical documentation tooling ✨",
-  "main": "monodoc.js",
+  "description": "documentation generation 🫡",
+  "main": "doctor-general.js",
   "type": "module",
   "repository": "brekk/monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "bin": "./monodoc-cli.js",
+  "bin": "./doctor-general.js",
   "dependencies": {
     "climate": "workspace:packages/climate",
     "file-system": "workspace:packages/file-system",
     "fluture": "^14.0.0",
+    "knot": "workspace:packages/knot",
     "ramda": "^0.29.1"
   },
   "devDependencies": {
-    "dotenv": "^16.3.1",
     "dotenv-cli": "^7.3.0",
     "envtrace": "^0.0.2",
     "esbuild": "^0.19.5",

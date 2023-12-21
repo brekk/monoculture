@@ -6514,6 +6514,7 @@ __metadata:
     "@testing-library/user-event": "npm:14.4.3"
     "@types/jest": "npm:29.5.5"
     "@types/react": "npm:18.2.8"
+    doctor-general: "workspace:tools/doctor-general"
     dotenv-cli: "npm:^7.3.0"
     eslint: "npm:^8.53.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
@@ -6525,7 +6526,6 @@ __metadata:
     jest: "npm:29.6.4"
     jest-environment-jsdom: "npm:29.6.4"
     monoculture-tsconfig: "workspace:shared/monoculture-tsconfig"
-    monodoc: "workspace:tools/monodoc"
     next: "npm:^14.0.1"
     nextra: "npm:^2.13.2"
     nextra-theme-docs: "npm:^2.13.2"
@@ -6533,6 +6533,28 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     typescript: "npm:^5.2.2"
+  languageName: unknown
+  linkType: soft
+
+"doctor-general@workspace:tools/doctor-general":
+  version: 0.0.0-use.local
+  resolution: "doctor-general@workspace:tools/doctor-general"
+  dependencies:
+    climate: "workspace:packages/climate"
+    dotenv-cli: "npm:^7.3.0"
+    envtrace: "npm:^0.0.2"
+    esbuild: "npm:^0.19.5"
+    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
+    file-system: "workspace:packages/file-system"
+    fluture: "npm:^14.0.0"
+    jest-environment-jsdom: "npm:^29.7.0"
+    knot: "workspace:packages/knot"
+    madge: "npm:^6.1.0"
+    ramda: "npm:^0.29.1"
+    strip-ansi: "npm:^7.1.0"
+    xtrace: "npm:^0.3.0"
+  bin:
+    doctor-general: ./doctor-general.js
   languageName: unknown
   linkType: soft
 
@@ -12308,28 +12330,6 @@ __metadata:
     plop: "npm:^4.0.0"
     prettier: "npm:^3.0.3"
     turbo: "npm:^1.10.16"
-  languageName: unknown
-  linkType: soft
-
-"monodoc@workspace:tools/monodoc":
-  version: 0.0.0-use.local
-  resolution: "monodoc@workspace:tools/monodoc"
-  dependencies:
-    climate: "workspace:packages/climate"
-    dotenv: "npm:^16.3.1"
-    dotenv-cli: "npm:^7.3.0"
-    envtrace: "npm:^0.0.2"
-    esbuild: "npm:^0.19.5"
-    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
-    file-system: "workspace:packages/file-system"
-    fluture: "npm:^14.0.0"
-    jest-environment-jsdom: "npm:^29.7.0"
-    madge: "npm:^6.1.0"
-    ramda: "npm:^0.29.1"
-    strip-ansi: "npm:^7.1.0"
-    xtrace: "npm:^0.3.0"
-  bin:
-    monodoc: ./monodoc-cli.js
   languageName: unknown
   linkType: soft
 

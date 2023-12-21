@@ -52,7 +52,7 @@ module.exports = {
               'shared/jest-config',
               'shared/monoculture-tsconfig',
               'tools/gitparty',
-              'tools/monodoc',
+              'tools/doctor-general',
               'tools/spacework',
               'tools/superorganism',
               'tools/treacle',
@@ -79,7 +79,7 @@ module.exports = {
       ),
       docs: sd(
         `yarn workspace docs run autodoc build`,
-        'generate a monodoc-based JSON document'
+        'generate a doctor-general-based JSON document'
       ),
       script: 'nps meta.graph',
       graph: sd(

@@ -308,12 +308,12 @@ const runner = ({
       )
     ),
     // tell the user about it
-    map(K(`Wrote to ${outputDir}/monodoc-generated.json`))
+    map(K(`Wrote to ${outputDir}/dr-generated.json`))
   )(pkgJson)
 }
 
 const { name: $NAME, description: $DESC } = PKG
-export const monodoc = curry((cancel, argv) =>
+export const drgen = curry((cancel, argv) =>
   pipe(
     slice(2, Infinity),
     configurate(

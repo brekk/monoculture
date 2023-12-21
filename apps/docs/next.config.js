@@ -10,5 +10,5 @@ module.exports = withNextra({
   },
   trailingSlash: true,
   basePath: '/docs',
-  transpilePackages: ['monodoc'],
+  transpilePackages: ['doctor-general'],
 })

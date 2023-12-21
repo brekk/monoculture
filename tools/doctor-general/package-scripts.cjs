@@ -27,20 +27,17 @@ const buildModule = ([infile, outfile]) =>
   ].join(' ')
 
 const INPUT = `src/executable.js`
-const OUTPUT_CLI = `${pkg.name}-cli.js`
-const OUTPUT = `${pkg.name}.js`
+const OUTPUT_CLI = `${pkg.name}.js`
+// const OUTPUT = `${pkg.name}.module.js`
 const watchMode = sd(
-  `${build([INPUT, OUTPUT])} --watch`,
+  `${build([INPUT, OUTPUT_CLI])} --watch`,
   'build with watch-mode'
 )
 module.exports = {
   scripts: {
     build: {
-      ...sd(
-        'nps -c ./package-scripts.cjs build.module build.cli',
-        'build stuff!'
-      ),
-      module: sd(buildModule([INPUT, OUTPUT]), 'build esm modules!'),
+      ...sd('nps -c ./package-scripts.cjs build.cli', 'build stuff!'),
+      // module: sd(buildModule([INPUT, OUTPUT]), 'build esm modules!'),
       cli: sd(build([INPUT, OUTPUT_CLI]), 'build a cli tool!'),
       watch: watchMode,
     },

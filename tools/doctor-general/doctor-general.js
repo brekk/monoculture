@@ -5,24 +5,24 @@ import { cwd } from "node:process";
 
 // package.json
 var package_default = {
-  name: "monodoc",
+  name: "doctor-general",
   version: "0.0.1",
-  description: "magical documentation tooling \u2728",
-  main: "monodoc.js",
+  description: "documentation generation \u{1FAE1}",
+  main: "doctor-general.js",
   type: "module",
   repository: "brekk/monoculture",
   author: "brekk",
   license: "ISC",
   private: true,
-  bin: "./monodoc-cli.js",
+  bin: "./doctor-general.js",
   dependencies: {
     climate: "workspace:packages/climate",
     "file-system": "workspace:packages/file-system",
     fluture: "^14.0.0",
+    knot: "workspace:packages/knot",
     ramda: "^0.29.1"
   },
   devDependencies: {
-    dotenv: "^16.3.1",
     "dotenv-cli": "^7.3.0",
     envtrace: "^0.0.2",
     esbuild: "^0.19.5",
@@ -736,11 +736,11 @@ var runner = ({
       )
     ),
     // tell the user about it
-    map6(K3(`Wrote to ${outputDir}/monodoc-generated.json`))
+    map6(K3(`Wrote to ${outputDir}/dr-generated.json`))
   )(pkgJson);
 };
 var { name: $NAME, description: $DESC } = package_default;
-var monodoc = curry4(
+var drgen = curry4(
   (cancel, argv) => pipe6(
     slice4(2, Infinity),
     configurate(
@@ -755,5 +755,5 @@ var monodoc = curry4(
 
 // src/executable.js
 import { fork } from "fluture";
-fork(console.error)(console.log)(monodoc(() => {
+fork(console.error)(console.log)(drgen(() => {
 }, process.argv));

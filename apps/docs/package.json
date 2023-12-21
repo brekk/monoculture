@@ -25,6 +25,7 @@
     "@testing-library/user-event": "14.4.3",
     "@types/jest": "29.5.5",
     "@types/react": "18.2.8",
+    "doctor-general": "workspace:tools/doctor-general",
     "dotenv-cli": "^7.3.0",
     "eslint": "^8.53.0",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
@@ -35,7 +36,6 @@
     "jest": "29.6.4",
     "jest-environment-jsdom": "29.6.4",
     "monoculture-tsconfig": "workspace:shared/monoculture-tsconfig",
-    "monodoc": "workspace:tools/monodoc",
     "prettier": "^3.0.3",
     "typescript": "^5.2.2"
   },

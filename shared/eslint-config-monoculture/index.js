@@ -73,7 +73,7 @@ module.exports = {
     ],
     'object-shorthand': 2,
     // jsdoc
-    // we are using jsdoc in concert with monodoc and typescript, so we can turn some rules off
+    // we are using jsdoc in concert with doctor-general and typescript, so we can turn some rules off
     'jsdoc/check-tag-names': 0,
     'jsdoc/require-jsdoc': 0,
     'jsdoc/require-returns': 0,

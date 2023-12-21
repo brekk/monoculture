@@ -33,6 +33,7 @@ introspection and organization tools for monorepos
       - [@testing-library/user-event](https://www.npmjs.com/package/@testing-library/user-event)🧪
       - [@types/jest](https://www.npmjs.com/package/@types/jest)🧪
       - [@types/react](https://www.npmjs.com/package/@types/react)🧪
+      - [doctor-general](https://github.com/brekk/monoculture/tree/main/tools/doctor-general) 🦴🧪
       - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
       - [eslint](https://www.npmjs.com/package/eslint)🧪
       - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴🧪
@@ -43,7 +44,6 @@ introspection and organization tools for monorepos
       - [jest](https://www.npmjs.com/package/jest)🧪
       - [jest-environment-jsdom](https://www.npmjs.com/package/jest-environment-jsdom)🧪
       - [monoculture-tsconfig](https://github.com/brekk/monoculture/tree/main/shared/monoculture-tsconfig) 🦴🧪
-      - [monodoc](https://github.com/brekk/monoculture/tree/main/tools/monodoc) 🦴🧪
       - [prettier](https://www.npmjs.com/package/prettier)🧪
       - [typescript](https://www.npmjs.com/package/typescript)🧪
 
@@ -261,6 +261,25 @@ introspection and organization tools for monorepos
 
 ## tools
 
+   * [doctor-general](https://github.com/brekk/monoculture/tree/main/tools/doctor-general) - documentation generation 🫡
+
+     <details><summary>Dependencies</summary>
+
+      - [climate](https://github.com/brekk/monoculture/tree/main/packages/climate) 🦴
+      - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
+      - [fluture](https://www.npmjs.com/package/fluture)
+      - [knot](https://github.com/brekk/monoculture/tree/main/packages/knot) 🦴
+      - [ramda](https://www.npmjs.com/package/ramda)
+      - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
+      - [envtrace](https://www.npmjs.com/package/envtrace)🧪
+      - [esbuild](https://www.npmjs.com/package/esbuild)🧪
+      - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴🧪
+      - [jest-environment-jsdom](https://www.npmjs.com/package/jest-environment-jsdom)🧪
+      - [madge](https://www.npmjs.com/package/madge)🧪
+      - [strip-ansi](https://www.npmjs.com/package/strip-ansi)🧪
+      - [xtrace](https://www.npmjs.com/package/xtrace)🧪
+
+     </details>
    * [gitparty](https://github.com/brekk/monoculture/tree/main/tools/gitparty) - visualize git logs with magical context 🎨
 
      <details><summary>Dependencies</summary>
@@ -278,25 +297,6 @@ introspection and organization tools for monorepos
       - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
       - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴🧪
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴🧪
-
-     </details>
-   * [monodoc](https://github.com/brekk/monoculture/tree/main/tools/monodoc) - magical documentation tooling ✨
-
-     <details><summary>Dependencies</summary>
-
-      - [climate](https://github.com/brekk/monoculture/tree/main/packages/climate) 🦴
-      - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
-      - [fluture](https://www.npmjs.com/package/fluture)
-      - [ramda](https://www.npmjs.com/package/ramda)
-      - [dotenv](https://www.npmjs.com/package/dotenv)🧪
-      - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
-      - [envtrace](https://www.npmjs.com/package/envtrace)🧪
-      - [esbuild](https://www.npmjs.com/package/esbuild)🧪
-      - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴🧪
-      - [jest-environment-jsdom](https://www.npmjs.com/package/jest-environment-jsdom)🧪
-      - [madge](https://www.npmjs.com/package/madge)🧪
-      - [strip-ansi](https://www.npmjs.com/package/strip-ansi)🧪
-      - [xtrace](https://www.npmjs.com/package/xtrace)🧪
 
      </details>
    * [spacework](https://github.com/brekk/monoculture/tree/main/tools/spacework) - meta tools for monoculture ☄️

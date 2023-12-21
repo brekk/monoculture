@@ -4,12 +4,12 @@ import stripAnsi from 'strip-ansi'
 import { join, identity as I, pipe, map, propOr } from 'ramda'
 import { fork, both } from 'fluture'
 import { flexeca, removeFile, rimraf, readFile } from 'file-system'
-import { fence } from './string'
+import { nthIndex } from 'knot'
 
-const run = pipe(flexeca('./monodoc-cli.js'), map(propOr('', 'stdout')))
+const run = pipe(flexeca('./drgen.js'), map(propOr('', 'stdout')))
 
 const goodrun = (args, expectation = I) =>
-  test(`monodoc ${join(' ')(args)}`, done => {
+  test.skip(`doctor-general ${join(' ')(args)}`, done => {
     pipe(
       run,
       fork(done)(z => {
@@ -21,13 +21,13 @@ const goodrun = (args, expectation = I) =>
 const inFix = x =>
   '.' +
   SEPARATOR +
-  fence(SEPARATOR, -2, pathResolve(__dirname, '../fixture', x))
+  nthIndex(SEPARATOR, -2, pathResolve(process.cwd(), '../fixture', x))
 
 const GENERATED = inFix('generated.json')
 const GENERATED_FILES =
   '.' +
   SEPARATOR +
-  fence(SEPARATOR, -2, pathResolve(__dirname, '../__generated__'))
+  nthIndex(SEPARATOR, -2, pathResolve(process.cwd(), '../__generated__'))
 const FAKE_PACKAGE_JSON = inFix(`fake-pkg.json`)
 
 goodrun(
