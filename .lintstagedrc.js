@@ -5,6 +5,7 @@ export default {
     // console.log(raw)
     return ['yarn sync:scripts', 'yarn meta:readme']
   },
+  '.github/workflows/*': 'action-validator',
   'packages/*': `yarn care`,
   'tools/*': `yarn care`,
   'apps/*': `yarn care`,

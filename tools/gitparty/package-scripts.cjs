@@ -15,13 +15,14 @@ const build = ([infile, outfile]) =>
   ].join(' ')
 
 const INPUT = `src/cli.js`
-const OUTPUT = `gitparty.js`
+const OUTPUT = `dist/gitparty.js`
 const watchMode = sd(
   `${build([INPUT, OUTPUT])} --watch`,
   'build with watch-mode'
 )
 module.exports = {
   scripts: {
+    clean: sd('rm -r dist', 'unbuild!'),
     build: {
       ...sd(build([INPUT, OUTPUT]), 'build!'),
       watch: watchMode,

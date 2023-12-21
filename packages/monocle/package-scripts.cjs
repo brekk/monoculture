@@ -13,13 +13,14 @@ const build = ([infile, outfile]) =>
   ].join(' ')
 
 const INPUT = `src/cli.js`
-const OUTPUT = PKG.main
+const OUTPUT = `dist/${PKG.main}`
 
 const sd = (script, description = '') =>
   !!description ? { script, description } : { script }
 
 module.exports = {
   scripts: {
+    clean: sd('rm -r dist', 'clean the build'),
     build: sd(build([INPUT, OUTPUT]), 'build an export!'),
     lint: sd('eslint --fix .', 'lint!'),
     test: {

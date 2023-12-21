@@ -1,3 +1,4 @@
+const PKG = require('./package.json')
 const buildModule = ([infile, outfile]) =>
   [
     `esbuild`,
@@ -15,7 +16,9 @@ const sd = (script, description = '') =>
   !!description ? { script, description } : { script }
 module.exports = {
   scripts: {
-    build: sd(buildModule([INPUT, 'clox.js']), 'build it'),
+    clean: sd('rm -r dist', 'clean the build'),
+    build: sd(buildModule([INPUT, 'dist/' + PKG.main]), 'build it!'),
+
     lint: sd('eslint --fix .', 'lint!'),
     meta: {
       graph: `madge ${INPUT} --image graph.svg`,

@@ -8,20 +8,24 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
+  "exports": [
+    "./dist/climate-yaml.js"
+  ],
   "dependencies": {
-    "ramda": "^0.29.1",
-    "yaml": "^2.3.4"
+    "ramda": "0.29.1",
+    "yaml": "2.3.4"
   },
   "devDependencies": {
     "climate": "workspace:packages/climate",
-    "dotenv-cli": "^7.3.0",
-    "eslint-config-monoculture": "npm:eslint-config-monoculture@*",
-    "fluture": "^14.0.0",
-    "jest-config": "npm:jest-config@*"
+    "dotenv-cli": "7.3.0",
+    "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
+    "fluture": "14.0.0",
+    "jest-config": "workspace:shared/jest-config"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "build": "dotenv -- nps -c ./package-scripts.cjs build",
+    "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"

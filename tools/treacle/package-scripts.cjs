@@ -15,10 +15,14 @@ const build = ([infile, outfile]) =>
   ].join(' ')
 
 const INPUT = `src/index.js`
-const OUTPUT = `treacle.js`
-const watchMode = sd(`${build([INPUT, OUTPUT])} --watch`, 'build with watch-mode')
+const OUTPUT = `dist/treacle.js`
+const watchMode = sd(
+  `${build([INPUT, OUTPUT])} --watch`,
+  'build with watch-mode'
+)
 module.exports = {
   scripts: {
+    clean: sd('rm -r dist', 'unbuild!'),
     build: {
       ...sd(build([INPUT, OUTPUT]), 'build!'),
       watch: watchMode,

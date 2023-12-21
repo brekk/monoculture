@@ -8,23 +8,27 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
+  "exports": [
+    "./dist/monorail"
+  ],
   "dependencies": {
-    "@hapi/topo": "^6.0.2",
-    "envtrace": "^0.0.2",
+    "@hapi/topo": "6.0.2",
+    "envtrace": "0.0.2",
     "file-system": "workspace:packages/file-system"
   },
   "devDependencies": {
-    "dotenv-cli": "^7.3.0",
-    "esbuild": "^0.19.5",
+    "dotenv-cli": "7.3.0",
+    "esbuild": "0.19.10",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
-    "jest": "^29.7.0",
+    "jest": "29.7.0",
     "jest-config": "workspace:shared/jest-config",
-    "nps": "^5.10.0",
-    "unusual": "^0.0.3"
+    "nps": "5.10.0",
+    "unusual": "0.0.3"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "build": "dotenv -- nps -c ./package-scripts.cjs build",
+    "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",

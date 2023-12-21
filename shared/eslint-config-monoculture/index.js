@@ -108,4 +108,5 @@ module.exports = {
     'jsdoc',
     'unused-imports',
   ],
+  ignorePatterns: ['dist'],
 }

@@ -1,0 +1,29 @@
+name: Monoculture Builder 🏭
+on: [push, workflow_dispatch]
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🧾 Checking out code...
+        uses: actions/checkout@v4
+      - name: 🧱 Unpacking corepack...
+        run: corepack enable
+      - name: 🤖 Installing node...
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+          cache: 'yarn'
+      - name: 🧶 Installing dependencies...
+        run: yarn --immutable-cache
+      - name: 🏗️ Building artifacts...
+        run: yarn build
+      - name: 🚁 Saving artifacts...
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifacts
+          path: |
+            packages/**/dist/**
+            tools/**/dist/**
+            !node_modules/**
+      - name: 🔬 Testing build...
+        run: yarn test

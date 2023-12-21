@@ -27,7 +27,7 @@ const buildModule = ([infile, outfile]) =>
   ].join(' ')
 
 const INPUT = `src/executable.js`
-const OUTPUT_CLI = `${pkg.name}.js`
+const OUTPUT_CLI = `dist/${pkg.name}.js`
 // const OUTPUT = `${pkg.name}.module.js`
 const watchMode = sd(
   `${build([INPUT, OUTPUT_CLI])} --watch`,
@@ -35,6 +35,7 @@ const watchMode = sd(
 )
 module.exports = {
   scripts: {
+    clean: sd('rm -r dist', 'clean the stuff you built!'),
     build: {
       ...sd('nps -c ./package-scripts.cjs build.cli', 'build stuff!'),
       // module: sd(buildModule([INPUT, OUTPUT]), 'build esm modules!'),

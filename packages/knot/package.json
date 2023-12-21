@@ -8,18 +8,22 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
+  "exports": [
+    "./dist/knot.js"
+  ],
   "dependencies": {
-    "chalk": "^5.3.0",
-    "ramda": "^0.29.1"
+    "chalk": "5.3.0",
+    "ramda": "0.29.1"
   },
   "devDependencies": {
-    "dotenv-cli": "^7.3.0",
-    "eslint-config-monoculture": "npm:eslint-config-monoculture@*",
-    "jest-config": "npm:jest-config@*"
+    "dotenv-cli": "7.3.0",
+    "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
+    "jest-config": "workspace:shared/jest-config"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "build": "dotenv -- nps -c ./package-scripts.cjs build",
+    "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",

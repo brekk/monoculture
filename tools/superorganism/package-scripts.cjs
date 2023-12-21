@@ -24,9 +24,9 @@ const build =
 // const cjs = build({ script: true, format: 'cjs' })
 
 const INPUT = `src/index.js`
-const OUTPUT = `superorganism.mjs`
+const OUTPUT = `dist/superorganism.mjs`
 const CLI_INPUT = `src/cli.js`
-const CLI_OUTPUT = `cli.mjs`
+const CLI_OUTPUT = `dist/cli.mjs`
 
 const watchMode = sd(
   `${build({ script: false, format: 'esm' })([INPUT, OUTPUT])} --watch`,
@@ -34,6 +34,7 @@ const watchMode = sd(
 )
 module.exports = {
   scripts: {
+    clean: sd('rm -r dist', 'unbuild!'),
     build: {
       ...sd(
         'nps -c ./package-scripts.cjs build.main build.cli',

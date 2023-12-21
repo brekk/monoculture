@@ -16,7 +16,8 @@ const INPUT = 'src/index.js'
 
 module.exports = {
   scripts: {
-    build: build([INPUT, PKG.exports[0]]),
+    clean: sd('rm -r dist', 'clean the build'),
+    build: sd(build([INPUT, 'dist/climate.js']), 'build it'),
     lint: sd('eslint --fix .', 'lint!'),
     test: {
       ...sd('jest', 'test!'),

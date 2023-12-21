@@ -9,22 +9,28 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
+  "exports": [
+    "./dist/robot-tourist.js",
+    "./dist/wordbot.js",
+    "./dist/monocle-plugin-simple.js",
+    "./dist/monocle-plugin-main.js"
+  ],
   "dependencies": {
     "change-case": "5.0.0",
     "climate": "workspace:packages/climate",
-    "envtrace": "^0.0.2",
+    "envtrace": "0.0.2",
     "file-system": "workspace:packages/file-system",
-    "ramda": "^0.29.1",
-    "stemmer": "^2.0.1"
+    "ramda": "0.29.1",
+    "stemmer": "2.0.1"
   },
   "devDependencies": {
-    "dotenv-cli": "^7.3.0",
-    "esbuild": "^0.19.5",
-    "eslint": "^8.53.0",
+    "dotenv-cli": "7.3.0",
+    "esbuild": "0.19.10",
+    "eslint": "8.56.0",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
-    "jest": "^29.7.0",
-    "prettier": "^3.0.3",
-    "strip-ansi": "^7.1.0"
+    "jest": "29.7.0",
+    "prettier": "3.1.1",
+    "strip-ansi": "7.1.0"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
@@ -32,6 +38,7 @@
     "build:bin": "dotenv -- nps -c ./package-scripts.cjs build.bin",
     "build:module": "dotenv -- nps -c ./package-scripts.cjs build.module",
     "build:plugins": "dotenv -- nps -c ./package-scripts.cjs build.plugins",
+    "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",

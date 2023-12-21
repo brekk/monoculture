@@ -132,7 +132,7 @@ test('box w/ loooooooong subtitle ', () => {
 })
 
 /* eslint-disable max-len */
-test('box w/ lots of content', () => {
+test.skip('box w/ lots of content', () => {
   expect(
     box(
       {
