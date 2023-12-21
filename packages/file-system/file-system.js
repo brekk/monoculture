@@ -114,13 +114,13 @@ var removeFilesWithConfigAndCancel = curry3(
 );
 var removeFilesWithConfig = removeFilesWithConfigAndCancel(NO_OP);
 var removeFiles = removeFilesWithConfig(DEFAULT_REMOVAL_CONFIG);
-var mkdir = curry3(
-  (conf, x) => Future3((bad, good) => {
+var mkdirWithCancel = curry3(
+  (cancel, conf, x) => Future3((bad, good) => {
     fs.mkdir(x, conf, (err) => err ? bad(err) : good(x));
-    return () => {
-    };
+    return cancel;
   })
 );
+var mkdir = mkdirWithCancel(NO_OP);
 var mkdirp = mkdir({ recursive: true });
 var access = curry3(
   (permissions, filePath) => Future3((bad, good) => {
@@ -209,6 +209,7 @@ export {
   ioWithCancel,
   localize,
   mkdir,
+  mkdirWithCancel,
   mkdirp,
   pathRelativeTo,
   read,

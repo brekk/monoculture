@@ -10,4 +10,7 @@
  - [ ] `superorganism` needs more work -- if we're gonna re-imagine how `nps` config files are, we may need a backwards-compatible legacy mode, or we're already pretty coupled with `nps` in most of these packages.
  - [ ] `treacle` should maybe eventually be wired to the new `gitparty`
  - [ ] `monodoc` has some edges which either aren't well documented or have bad defaults (specifically, `@page` + `@pageSummary` stuff right now), we should clean that up so that we have better automatically generated content
+ - [ ] `monodoc` needs to have `@group` and `@addTo` documented (and tests updated)
+ - [ ] `monodoc` hangs indefinitely on inline `{@link hookInfo}` stuff
  - [ ] In the same way we do `/src` we should probably use a pattern like `/dist` for artifacts, it would help disambiguate and signal intent very easily
+ - [ ] Add a utility library for some basics, like strings, arrays, Sets + Maps

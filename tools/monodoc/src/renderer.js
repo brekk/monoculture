@@ -1,4 +1,7 @@
 import {
+  filter,
+  join,
+  identity as I,
   either,
   ifElse,
   pipe,
@@ -39,12 +42,15 @@ export const commentToMarkdown = handleSpecialCases(
       example: pathOr('', ['structure', 'example']),
     }),
     ({ title, summary, links, example }) =>
-      [
-        title ? '## ' + title + '\n' : '',
-        summary ? summary + '\n' : '',
-        links.length ? '### See also\n - ' + links.join('\n - ') + '\n' : '',
-        example ? '### Usage\n' + example : '',
+      pipe(
+        filter(I),
+        join('\n')
+      )([
+        title ? '## ' + title : '',
+        summary ? summary : '',
+        example ? `### Usage\n${example}` : '',
         example.includes('live=true') ? `\n\n${liveExample(example)}` : '',
-      ].join('')
+        links.length ? `\n#### See also\n - ${links.join('\n - ')}` : '',
+      ])
   )
 )

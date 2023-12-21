@@ -58,11 +58,13 @@ export const readFileWithFormatAndCancel = curry((cancel, format, x) =>
     return cancel
   })
 )
-
+/* eslint-disable max-len */
 /**
  * Read a file asynchronously as a Future-wrapped value, given a cancellation function.
  * Reads `utf8` files only, use `readFileWithFormatAndCancel` if another file encoding is needed.
  * @name readFileWithCancel
+ * @see {@link readFileWithFormatAndCancel}
+ * @see {@link readFile}
  * @example
  * ```js
  * import { fork } from 'fluture'
@@ -70,11 +72,14 @@ export const readFileWithFormatAndCancel = curry((cancel, format, x) =>
  * fork(console.warn)(console.log)(readFileWithCancel(() => process.exit(), './README.md'))
  * ```
  */
+/* eslint-enable max-len */
 export const readFileWithCancel = readFileWithFormatAndCancel($, 'utf8')
 
 /**
- * read a file asynchronously as a Future-wrapped value
+ * Read a file asynchronously as a Future-wrapped value
  * @name readFile
+ * @see {@link readFileWithFormatAndCancel}
+ * @see {@link readFile}
  * @example
  * ```js
  * import { fork } from 'fluture'
@@ -85,8 +90,10 @@ export const readFileWithCancel = readFileWithFormatAndCancel($, 'utf8')
 export const readFile = readFileWithCancel(NO_OP)
 
 /**
- * read a JSON file asynchronously and future wrapped
- * @name readJSONFile
+ * Read a JSON file asynchronously as a Future-wrapped value, given a cancellation function
+ * @name readJSONFileWithCancel
+ * @see {@link readFile}
+ * @see {@link readJSONFile}
  * @example
  * ```js
  * import { fork } from 'fluture'
@@ -97,21 +104,36 @@ export const readFile = readFileWithCancel(NO_OP)
 export const readJSONFileWithCancel = curry((cancel, x) =>
   pipe(readFileWithCancel(cancel), map(JSON.parse))(x)
 )
-export const readJSONFile = readJSONFileWithCancel(NO_OP)
 
 /**
- * read a `glob` asynchronously and future wrapped, with configuration
- * @name readDirWithConfig
+ * Read a JSON file asynchronously as a Future-wrapped value
+ * @name readJSONFile
+ * @see {@link readFile}
+ * @see {@link readJSONFileWithCancel}
  * @example
  * ```js
  * import { fork } from 'fluture'
- * import { readDirWithConfig } from 'file-system'
- * // [...]
- * fork(console.warn)(console.log)(readDirWithConfig({}, 'src/*'))
+ * import { readJSONFile } from 'file-system'
+ * fork(console.warn)(console.log)(readJSONFile('./package.json'))
+ * ```
+ */
+export const readJSONFile = readJSONFileWithCancel(NO_OP)
+
+/**
+ * Read a glob asynchronously as a Future-wrapped value,
+ * with configuration and a cancellation function.
+ * Configuration is passed to [glob](https://www.npmjs.com/package/glob)
+ * @name readDirWithConfigAndCancel
+ * @see {@link @readDirWithConfig}
+ * @see {@link @readDir}
+ * @example
+ * ```js
+ * import { fork } from 'fluture'
+ * import { readDirWithConfigAndCancel } from 'file-system'
  * // [...]
  * pipe(
  *   fork(console.warn)(console.log)
- * )(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))
+ * )(readDirWithConfigAndCancel(cancellationFn, { ignore: ['node_modules/**'] }, 'src/*'))
  * ```
  */
 export const readDirWithConfigAndCancel = curry((cancel, conf, g) =>
@@ -128,15 +150,35 @@ export const readDirWithConfigAndCancel = curry((cancel, conf, g) =>
   })
 )
 
-export const readDirWithConfig = readDirWithConfigAndCancel(NO_OP)
-
 /**
- * read a `glob` asynchronously and future wrapped, no config needed
- * @name readDir
+ * Read a glob asynchronously as a Future-wrapped value, with configuration.
+ * Configuration is passed to [glob](https://www.npmjs.com/package/glob)
+ * @name readDirWithConfig
+ * @see {@link @readDirWithConfigAndCancel}
+ * @see {@link @readDir}
  * @example
  * ```js
  * import { fork } from 'fluture'
  * import { readDirWithConfig } from 'file-system'
+ * // [...]
+ * pipe(
+ *   fork(console.warn)(console.log)
+ * )(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))
+ * ```
+ */
+export const readDirWithConfig = readDirWithConfigAndCancel(NO_OP)
+
+/**
+ * Read a glob asynchronously as a Future-wrapped value, default config assumed.
+ * Configuration is passed to [glob](https://www.npmjs.com/package/glob)
+ * @name readDir
+ * @see {@link @readDirWithConfigAndCancel}
+ * @see {@link @readDirWithConfig}
+ * @name readDir
+ * @example
+ * ```js
+ * import { fork } from 'fluture'
+ * import { readDir } from 'file-system'
  * // [...]
  * fork(console.warn)(console.log)(readDir('src/*'))
  * ```
@@ -144,15 +186,19 @@ export const readDirWithConfig = readDirWithConfigAndCancel(NO_OP)
 export const readDir = readDirWithConfig({})
 
 /**
- * Write a file, with configuration
- * @name writeFileWithConfig
+ * Write to a file, with configuration and a cancellation function.
+ * Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.
+ * @name writeFileWithConfigAndCancel
+ * @see {@link @writeFileWithConfig}
+ * @see {@link @writeFile}
  * @example
  * ```js
  * import { fork } from 'fluture'
  * import { writeFileWithConfig } from 'file-system'
  * // [...]
  * fork(console.warn)(console.log)(
- *   writeFileWithConfig(
+ *   writeFileWithConfigAndCancel(
+ *     cancellationFunction,
  *     { ...fs.writeFileConfig },
  *     'my-file.txt',
  *     'hey I am a file'
@@ -174,18 +220,41 @@ export const writeFileWithConfigAndCancel = curry(
     })
 )
 
-export const writeFileWithConfig = writeFileWithConfigAndCancel(NO_OP)
-
 /**
- * Write a file, assuming 'utf8'
- * @name writeFile
+ * Write to a file, with configuration.
+ * Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.
+ * @name writeFileWithConfig
+ * @see {@link @writeFileWithConfigAndCancel}
+ * @see {@link @writeFile}
  * @example
  * ```js
  * import { fork } from 'fluture'
- * import { writeFile } from 'file-system'
+ * import { writeFileWithConfig } from 'file-system'
  * // [...]
  * fork(console.warn)(console.log)(
- *   writeFile(
+ *   writeFileWithConfig(
+ *     { encoding: 'utf8' },
+ *     'my-file.txt',
+ *     'hey I am a file'
+ *   )
+ * )
+ * ```
+ */
+export const writeFileWithConfig = writeFileWithConfigAndCancel(NO_OP)
+
+/**
+ * Write to a file, assuming `'utf8'`.
+ * Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.
+ * @name writeFile
+ * @see {@link @writeFileWithConfigAndCancel}
+ * @see {@link @writeFileWithConfig}
+ * @example
+ * ```js
+ * import { fork } from 'fluture'
+ * import { writeFileWithConfig } from 'file-system'
+ * // [...]
+ * fork(console.warn)(console.log)(
+ *   writeFileWithConfig(
  *     'my-file.txt',
  *     'hey I am a file'
  *   )
@@ -195,15 +264,19 @@ export const writeFileWithConfig = writeFileWithConfigAndCancel(NO_OP)
 export const writeFile = writeFileWithConfig({ encoding: 'utf8' })
 
 /**
- * Remove a file, configurably
- * @name removeFileWithConfig
+ * Remove a file, configurably, with cancellation.
+ * Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
+ * @name removeFileWithConfigAndCancel
+ * @see {@link removeFileWithConfig}
+ * @see {@link removeFile}
  * @example
  * ```js
  * import { fork } from 'fluture'
- * import { removeFileWithConfig } from 'file-system'
+ * import { removeFileWithConfigAndCancel } from 'file-system'
  * // [...]
  * fork(console.warn)(console.log)(
- *   removeFileWithConfig(
+ *   removeFileWithConfigAndCancel(
+ *     cancellationFn,
  *     { ...fs.removeFileConfig },
  *     'my-file.txt'
  *   )
@@ -217,7 +290,27 @@ export const removeFileWithConfigAndCancel = curry((cancel, options, fd) =>
   })
 )
 
+/**
+ * Remove a file, configurably.
+ * Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
+ * @name removeFileWithConfig
+ * @see {@link removeFileWithConfigAndCancel}
+ * @see {@link removeFile}
+ * @example
+ * ```js
+ * import { fork } from 'fluture'
+ * import { removeFileWithConfig } from 'file-system'
+ * // [...]
+ * fork(console.warn)(console.log)(
+ *   removeFileWithConfig(
+ *     { ...fs.removeFileConfig },
+ *     'my-file.txt'
+ *   )
+ * )
+ * ```
+ */
 export const removeFileWithConfig = removeFileWithConfigAndCancel(NO_OP)
+
 export const DEFAULT_REMOVAL_CONFIG = {
   force: false,
   maxRetries: 0,
@@ -227,8 +320,11 @@ export const DEFAULT_REMOVAL_CONFIG = {
 }
 
 /**
- * Remove a file, default config
+ * Remove a file.
+ * Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
  * @name removeFile
+ * @see {@link removeFileWithConfigAndCancel}
+ * @see {@link removeFileWithConfig}
  * @example
  * ```js
  * import { fork } from 'fluture'
@@ -244,15 +340,18 @@ export const DEFAULT_REMOVAL_CONFIG = {
 export const removeFile = removeFileWithConfig(DEFAULT_REMOVAL_CONFIG)
 
 /**
- * Remove multiple files, configurably
- * @name removeFilesWithConfig
+ * Remove multiple files, configurably, with a cancellation function.
+ * @name removeFilesWithConfigAndCancel
+ * @see {@link removeFilesWithConfig}
+ * @see {@link removeFiles}
  * @example
  * ```js
  * import { fork } from 'fluture'
  * import { removeFilesWithConfig } from 'file-system'
  * // [...]
  * fork(console.warn)(console.log)(
- *   removeFilesWithConfig(
+ *   removeFilesWithConfigAndCancel(
+ *     cancellationFn,
  *     { parallel: 30 },
  *     [...list, ...of, ...thirty, ...files]
  *   )
@@ -265,19 +364,40 @@ export const removeFilesWithConfigAndCancel = curry((cancel, conf, list) =>
     parallel(propOr(10, 'parallel', conf))
   )(list)
 )
-export const removeFilesWithConfig = removeFilesWithConfigAndCancel(NO_OP)
 
 /**
- * Remove multiple files, sans configuration
- * @name removeFiles
+ * Remove multiple files, configurably.
+ * @name removeFilesWithConfig
+ * @see {@link removeFilesWithConfigAndCancel}
+ * @see {@link removeFiles}
  * @example
  * ```js
  * import { fork } from 'fluture'
- * import { removeFiles } from 'file-system'
+ * import { DEFAULT_REMOVAL_CONFIG, removeFilesWithConfig } from 'file-system'
  * // [...]
  * fork(console.warn)(console.log)(
- *   removeFiles(
- *     [...list, ...of, ...files]
+ *   removeFilesWithConfig(
+ *     DEFAULT_REMOVAL_CONFIG,
+ *     [...list, ...of, ...thirty, ...files]
+ *   )
+ * )
+ * ```
+ */
+export const removeFilesWithConfig = removeFilesWithConfigAndCancel(NO_OP)
+
+/**
+ * Remove multiple files, configurably.
+ * @name removeFilesWithConfig
+ * @see {@link removeFilesWithConfigAndCancel}
+ * @see {@link removeFiles}
+ * @example
+ * ```js
+ * import { fork } from 'fluture'
+ * import { removeFilesWithConfig } from 'file-system'
+ * // [...]
+ * fork(console.warn)(console.log)(
+ *   removeFilesWithConfig(
+ *     [...list, ...of, ...thirty, ...files]
  *   )
  * )
  * ```
@@ -285,8 +405,38 @@ export const removeFilesWithConfig = removeFilesWithConfigAndCancel(NO_OP)
 export const removeFiles = removeFilesWithConfig(DEFAULT_REMOVAL_CONFIG)
 
 /**
- * Make a directory, but futuristically
+ * Make a directory, given a cancellation function.
+ * Returns a Future-wrapped file path as a discrete value upon success.
+ * @name mkdirWithCancel
+ * @see {@link mkdir}
+ * @see {@link mkdirp}
+ * @example
+ * ```js
+ * import { fork } from 'fluture'
+ * import { mkdirWithCancel } from 'file-system'
+ * // [...]
+ * fork(console.warn)(console.log)(
+ *   mkdirWithCancel(
+ *     () => {},
+ *     {},
+ *     'my-dir'
+ *   )
+ * )
+ * ```
+ */
+export const mkdirWithCancel = curry((cancel, conf, x) =>
+  Future((bad, good) => {
+    fs.mkdir(x, conf, err => (err ? bad(err) : good(x)))
+    return cancel
+  })
+)
+
+/**
+ * Make a directory
+ * Returns a Future-wrapped file path as a discrete value upon success.
  * @name mkdir
+ * @see {@link mkdirWithCancel}
+ * @see {@link mkdirp}
  * @example
  * ```js
  * import { fork } from 'fluture'
@@ -300,13 +450,27 @@ export const removeFiles = removeFilesWithConfig(DEFAULT_REMOVAL_CONFIG)
  * )
  * ```
  */
-export const mkdir = curry((conf, x) =>
-  Future((bad, good) => {
-    fs.mkdir(x, conf, err => (err ? bad(err) : good(x)))
-    return () => {}
-  })
-)
+export const mkdir = mkdirWithCancel(NO_OP)
 
+/**
+ * Make a directory, recursively.
+ * Returns a Future-wrapped file path as a discrete value upon success.
+ * @name mkdirp
+ * @see {@link mkdirWithCancel}
+ * @see {@link mkdir}
+ * @example
+ * ```js
+ * import { fork } from 'fluture'
+ * import { mkdir } from 'file-system'
+ * // [...]
+ * fork(console.warn)(console.log)(
+ *   mkdir(
+ *     {},
+ *     'my-dir'
+ *   )
+ * )
+ * ```
+ */
 export const mkdirp = mkdir({ recursive: true })
 
 export const access = curry((permissions, filePath) =>

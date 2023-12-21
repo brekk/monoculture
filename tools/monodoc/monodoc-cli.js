@@ -60,12 +60,12 @@ import {
   chain as chain2,
   curry as curry4,
   defaultTo as defaultTo3,
-  filter as filter3,
+  filter as filter4,
   flatten as flatten2,
   groupBy,
   head as head3,
-  identity as I2,
-  join as join3,
+  identity as I3,
+  join as join4,
   length as length4,
   lt,
   map as map6,
@@ -401,6 +401,9 @@ var parseFile = curry2(
 
 // src/renderer.js
 import {
+  filter as filter3,
+  join as join3,
+  identity as I2,
   either as either2,
   ifElse as ifElse2,
   pipe as pipe5,
@@ -434,15 +437,21 @@ var commentToMarkdown = handleSpecialCases(
       links: propOr3([], "links"),
       example: pathOr2("", ["structure", "example"])
     }),
-    ({ title, summary, links, example }) => [
-      title ? "## " + title + "\n" : "",
-      summary ? summary + "\n" : "",
-      links.length ? "### See also\n - " + links.join("\n - ") + "\n" : "",
-      example ? "### Usage\n" + example : "",
+    ({ title, summary, links, example }) => pipe5(
+      filter3(I2),
+      join3("\n")
+    )([
+      title ? "## " + title : "",
+      summary ? summary : "",
+      example ? `### Usage
+${example}` : "",
       example.includes("live=true") ? `
 
-${liveExample(example)}` : ""
-    ].join("")
+${liveExample(example)}` : "",
+      links.length ? `
+#### See also
+ - ${links.join("\n - ")}` : ""
+    ])
   )
 );
 
@@ -526,7 +535,7 @@ var iterateOverWorkspacesAndReadFiles = curry4(
   )(x)
 );
 var pullPageTitleFromAnyComment = pipe6(
-  filter3(pathOr3(false, ["structure", "page"])),
+  filter4(pathOr3(false, ["structure", "page"])),
   map6(path(["structure", "page"])),
   head3,
   defaultTo3(""),
@@ -553,7 +562,7 @@ var prepareMetaFiles = curry4(
       pipe6(cleanFilename, (x) => basename2(x, ".mdx"))(raw),
       pipe6(
         propOr4([], "comments"),
-        filter3(pathOr3(false, ["structure", "name"])),
+        filter4(pathOr3(false, ["structure", "name"])),
         head3,
         applySpec3({
           order: pipe6(
@@ -631,7 +640,7 @@ var runner = ({
     chain2(parallel(10)),
     // Future<error, CommentBlock[]>
     // exclude any files which don't have any comments
-    map6(filter3(pipe6(propOr4([], "comments"), length4, lt(0)))),
+    map6(filter4(pipe6(propOr4([], "comments"), length4, lt(0)))),
     map6(
       map6((raw) => {
         const filename = stripRelative(raw.filename);
@@ -690,7 +699,7 @@ var runner = ({
       )
     ) : (
       // otherwise do nothing (identity)
-      I2
+      I3
     ),
     // x => x
     // underlying structure here is { [filename]: CommentBlock[] }
@@ -711,7 +720,7 @@ var runner = ({
               pipe6(
                 map6(commentToMarkdown),
                 (z) => ["# " + file.slugName, file.pageSummary, ...z],
-                join3("\n\n")
+                join4("\n\n")
               )(file.comments)
             );
           })(commentedFiles);
