@@ -1,5 +1,4 @@
 name: Monoculture Builder 🏭
-run-name: ${{github.actor}} is running a workflow!
 on: [push]
 jobs:
   build:
@@ -21,8 +20,10 @@ jobs:
       - name: 🚁 Saving artifacts...
         uses: actions/upload-artifact@v3
         with:
-          name: dist-blobs
+          name: artifacts
           path: |
-            **/dist
+            packages/**/dist/**
+            tools/**/dist/**
+            !node_modules/**
       - name: 🔬 Testing build...
         run: yarn test
