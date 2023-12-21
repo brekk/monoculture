@@ -10,6 +10,7 @@ test('gitgraph', done => {
     pipe(data => {
       if (data.length === 1) {
         expect('This is a CI run!').toBeTruthy()
+        done()
         return
       }
       const a = findIndex(commitIs(START))(data)
@@ -37,6 +38,7 @@ test('renderTree', done => {
   fork(done)(data => {
     if (data.length === 1) {
       expect('This is a CI run!').toBeTruthy()
+      done()
       return
     }
     const a = findIndex(commitIs(START))(data)
