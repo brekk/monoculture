@@ -1,6 +1,10 @@
 import { pipe, curry } from 'ramda'
 
 /**
+ * @page minus
+ */
+
+/**
  * A curried binary addition function
  * @name add
  * @example
@@ -10,4 +14,4 @@ import { pipe, curry } from 'ramda'
  * add(10)(20) === 30
  * ```
  */
-export const add = curry((a, b) => a + b)
+export const subtract = curry((a, b) => a + b)

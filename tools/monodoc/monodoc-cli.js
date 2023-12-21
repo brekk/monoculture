@@ -2,6 +2,7 @@
 
 // src/cli.js
 import { cwd } from "node:process";
+import { trace } from "xtrace";
 
 // package.json
 var package_default = {
@@ -335,9 +336,18 @@ var getAny = curry2(
     head2
   )(comments)
 );
+var getPageSummary = (comments) => {
+  const explicitSummary = pipe4(
+    getAny("", ["structure", "pageSummary"]),
+    defaultTo2([]),
+    join2(" ")
+  )(comments);
+  return explicitSummary;
+};
+var getPageTitle = getAny("", ["structure", "page"]);
 var parse = curry2((root, filename, content) => {
   const newName = stripRelative(filename);
-  const newNameFolder = newName.slice(0, newName.lastIndexOf("/"));
+  const slugName = basename(newName, extname(newName));
   return pipe4(
     // String
     lines,
@@ -352,12 +362,9 @@ var parse = curry2((root, filename, content) => {
       objectifyComments(newName, raw),
       // List CommentBlock
       (comments) => ({
-        slugName: basename(newName, extname(newName)),
-        pageSummary: pipe4(
-          getAny("", ["structure", "pageSummary"]),
-          defaultTo2([]),
-          join2(" ")
-        )(comments),
+        slugName,
+        pageTitle: getPageTitle(comments),
+        pageSummary: getPageSummary(comments),
         filename: newName,
         comments,
         order: pipe4(
@@ -372,28 +379,25 @@ var parse = curry2((root, filename, content) => {
   )(content);
 });
 var parseFile = curry2(
-  (root, x) => pipe4(
+  (root, filename) => pipe4(
     // String
-    (filename) => pipe4(
-      // String
-      readFile,
-      // Future<Error, String>
-      map4(parse(root, filename)),
-      // remove orphan comments (parser found it but its not well-formed)
-      map4((p) => ({
-        ...p,
-        comments: pipe4(
-          filter2(
-            ({ lines: l, start, end, summary }) => start !== end && !!summary && l.length > 0
-          )
-        )(
-          // && pipe(keys, length, lt(0))(structure)
-          p.comments
+    readFile,
+    // Future<Error, String>
+    map4(parse(root, filename)),
+    // remove orphan comments (parser found it but its not well-formed)
+    map4((p) => ({
+      ...p,
+      comments: pipe4(
+        filter2(
+          ({ lines: l, start, end, summary }) => start !== end && !!summary && l.length > 0
         )
-      }))
-    )(filename)
+      )(
+        // && pipe(keys, length, lt(0))(structure)
+        p.comments
+      )
+    }))
     // CommentedFile
-  )(x)
+  )(filename)
 );
 
 // src/renderer.js
@@ -489,6 +493,7 @@ var parsePackageName = (y) => {
 var capitalToKebab = (s) => pipe6(
   replace4(/\//g, "-"),
   replace4(/--/g, "-")
+  // lowercaseFirst
 )(s.replace(/[A-Z]/g, (match3) => `-` + match3));
 var readPackageJsonWorkspaces = curry4(
   (root, x) => map6(
@@ -525,12 +530,11 @@ var pullPageTitleFromAnyComment = pipe6(
   replace4(/\s/g, "-"),
   defaultTo3(false)
 );
-var capitalize = (raw) => `${toUpper(raw[0])}${slice4(1, Infinity)(raw)}`;
 var cleanFilename = ({ workspace, fileGroup, filename, comments }) => {
   const title = pullPageTitleFromAnyComment(comments);
   const sliced = title || slug(filename);
   const result = capitalToKebab(sliced) + ".mdx";
-  return (fileGroup ? fileGroup + "/" : "") + stripLeadingHyphen(sliced !== title ? capitalize(result) : result);
+  return (fileGroup ? fileGroup + "/" : "") + result;
 };
 var combineFiles = curry4(
   (leftToRight, a, b) => !leftToRight ? combineFiles(true, b, a) : {
@@ -554,7 +558,8 @@ var prepareMetaFiles = curry4(
             (x) => parseInt(x, 10)
           ),
           group: pathOr3("", ["structure", "group"]),
-          name: pipe6(pathOr3("???", ["structure", "name"]))
+          name: pipe6(pathOr3("???", ["structure", "name"])),
+          metaName: K3(prop("slugName", raw))
         })
       )(raw)
     ]),
@@ -562,9 +567,9 @@ var prepareMetaFiles = curry4(
     map6(
       pipe6(
         sortBy(pathOr3(0, ["order"])),
-        map6(([title, { name }]) => [
+        map6(([title, { metaName }]) => [
           pipe6(capitalToKebab, stripLeadingHyphen)(title),
-          name
+          metaName
         ]),
         fromPairs2
       )

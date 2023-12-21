@@ -1,4 +1,5 @@
 import { cwd } from 'node:process'
+import { trace } from 'xtrace'
 import PKG from '../package.json'
 import { configurate } from 'climate'
 import { basename, join as pathJoin, dirname } from 'node:path'
@@ -52,11 +53,13 @@ const parsePackageName = y => {
   const end = y.indexOf('/', start)
   return y.slice(start, end)
 }
+// const lowercaseFirst = z => z[0].toLowerCase() + z.slice(1)
 
 const capitalToKebab = s =>
   pipe(
     replace(/\//g, '-'),
     replace(/--/g, '-')
+    // lowercaseFirst
   )(s.replace(/[A-Z]/g, match => `-` + match))
 
 const readPackageJsonWorkspaces = curry((root, x) =>
@@ -105,8 +108,8 @@ const cleanFilename = ({ workspace, fileGroup, filename, comments }) => {
   const sliced = title || slug(filename)
   const result = capitalToKebab(sliced) + '.mdx'
   return (
-    (fileGroup ? fileGroup + '/' : '') +
-    stripLeadingHyphen(sliced !== title ? capitalize(result) : result)
+    (fileGroup ? fileGroup + '/' : '') + result
+    // stripLeadingHyphen(sliced !== title ? capitalize(result) : result)
   )
 }
 
@@ -135,6 +138,7 @@ const prepareMetaFiles = curry((outputDir, workspace, commentedFiles) =>
           ),
           group: pathOr('', ['structure', 'group']),
           name: pipe(pathOr('???', ['structure', 'name'])),
+          metaName: K(prop('slugName', raw)),
         })
       )(raw),
     ]),
@@ -142,9 +146,9 @@ const prepareMetaFiles = curry((outputDir, workspace, commentedFiles) =>
     map(
       pipe(
         sortBy(pathOr(0, ['order'])),
-        map(([title, { name }]) => [
+        map(([title, { metaName }]) => [
           pipe(capitalToKebab, stripLeadingHyphen)(title),
-          name,
+          metaName,
         ]),
         fromPairs
       )

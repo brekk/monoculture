@@ -29,9 +29,26 @@ const getAny = curry((def, keyPath, comments) =>
   )(comments)
 )
 
+const getPageSummary = comments => {
+  const explicitSummary = pipe(
+    getAny('', ['structure', 'pageSummary']),
+    defaultTo([]),
+    join(' ')
+  )(comments)
+  // const summary =
+  //   explicitSummary === ''
+  //     ? pipe(head, propOr('', 'summary'))(comments)
+  //     : explicitSummary
+  // console.log('summary', explicitSummary, '...', summary)
+  // return summary
+  return explicitSummary
+}
+
+const getPageTitle = getAny('', ['structure', 'page'])
+
 export const parse = curry((root, filename, content) => {
   const newName = stripRelative(filename)
-  const newNameFolder = newName.slice(0, newName.lastIndexOf('/'))
+  const slugName = basename(newName, extname(newName))
   return pipe(
     // String
     lines,
@@ -47,12 +64,9 @@ export const parse = curry((root, filename, content) => {
         objectifyComments(newName, raw),
         // List CommentBlock
         comments => ({
-          slugName: basename(newName, extname(newName)),
-          pageSummary: pipe(
-            getAny('', ['structure', 'pageSummary']),
-            defaultTo([]),
-            join(' ')
-          )(comments),
+          slugName,
+          pageTitle: getPageTitle(comments),
+          pageSummary: getPageSummary(comments),
           filename: newName,
           comments,
           order: pipe(getAny('0', ['structure', 'order']), x =>
@@ -67,29 +81,25 @@ export const parse = curry((root, filename, content) => {
 })
 
 // comments in pipe show current shape per step
-export const parseFile = curry((root, x) =>
+export const parseFile = curry((root, filename) =>
   pipe(
     // String
-    filename =>
-      pipe(
-        // String
-        readFile,
-        // Future<Error, String>
-        map(parse(root, filename)),
-        // remove orphan comments (parser found it but its not well-formed)
-        map(p => ({
-          ...p,
-          comments: pipe(
-            filter(
-              ({ lines: l, start, end, summary }) =>
-                start !== end && !!summary && l.length > 0
-            )
-          )(
-            // && pipe(keys, length, lt(0))(structure)
-            p.comments
-          ),
-        }))
-      )(filename)
+    readFile,
+    // Future<Error, String>
+    map(parse(root, filename)),
+    // remove orphan comments (parser found it but its not well-formed)
+    map(p => ({
+      ...p,
+      comments: pipe(
+        filter(
+          ({ lines: l, start, end, summary }) =>
+            start !== end && !!summary && l.length > 0
+        )
+      )(
+        // && pipe(keys, length, lt(0))(structure)
+        p.comments
+      ),
+    }))
     // CommentedFile
-  )(x)
+  )(filename)
 )

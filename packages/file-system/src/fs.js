@@ -10,7 +10,12 @@ import {
   race,
 } from 'fluture'
 import glob from 'glob'
-// import { passFailCallbackWithArity } from './future'
+
+/* eslint-disable max-len */
+/**
+ * @pageSummary A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.
+ */
+/* eslint-enable max-len */
 
 const { constants } = fs
 

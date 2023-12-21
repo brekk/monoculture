@@ -1,12 +1,49 @@
 [
   {
     "slugName": "fs",
-    "pageSummary": "",
+    "pageSummary": "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.",
     "filename": "packages/file-system/src/fs.js",
     "comments": [
       {
-        "start": 21,
-        "end": 29,
+        "start": 14,
+        "end": 16,
+        "lines": [
+          "@pageSummary A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system."
+        ],
+        "summary": "@pageSummary A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "pageSummary": [
+            "A",
+            "Future-wrapped",
+            "`fs`",
+            "API,",
+            "for",
+            "future-based,",
+            "lazy,",
+            "easy-to-model",
+            "asynchrony",
+            "that",
+            "makes",
+            "it",
+            "easy",
+            "to",
+            "manipulate",
+            "the",
+            "file",
+            "system."
+          ]
+        },
+        "keywords": [
+          "@pageSummary"
+        ],
+        "filename": "packages/file-system/src/fs.js"
+      },
+      {
+        "start": 26,
+        "end": 34,
         "lines": [
           "make a file string relative",
           "@name localize",
@@ -31,8 +68,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 32,
-        "end": 41,
+        "start": 37,
+        "end": 46,
         "lines": [
           "read a file asynchronously and future wrapped",
           "@name readFile",
@@ -58,8 +95,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 53,
-        "end": 62,
+        "start": 58,
+        "end": 67,
         "lines": [
           "read a JSON file asynchronously and future wrapped",
           "@name readJSONFile",
@@ -85,8 +122,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 68,
-        "end": 82,
+        "start": 73,
+        "end": 87,
         "lines": [
           "read a `glob` asynchronously and future wrapped, with configuration",
           "@name readDirWithConfig",
@@ -117,8 +154,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 99,
-        "end": 109,
+        "start": 104,
+        "end": 114,
         "lines": [
           "read a `glob` asynchronously and future wrapped, no config needed",
           "@name readDir",
@@ -145,8 +182,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 112,
-        "end": 128,
+        "start": 117,
+        "end": 133,
         "lines": [
           "Write a file, with configuration",
           "@name writeFileWithConfig",
@@ -179,8 +216,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 145,
-        "end": 160,
+        "start": 150,
+        "end": 165,
         "lines": [
           "Write a file, assuming 'utf8'",
           "@name writeFile",
@@ -212,8 +249,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 163,
-        "end": 178,
+        "start": 168,
+        "end": 183,
         "lines": [
           "Remove a file, configurably",
           "@name removeFileWithConfig",
@@ -245,8 +282,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 195,
-        "end": 209,
+        "start": 200,
+        "end": 214,
         "lines": [
           "Remove a file, default config",
           "@name removeFile",
@@ -277,8 +314,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 212,
-        "end": 227,
+        "start": 217,
+        "end": 232,
         "lines": [
           "Remove multiple files, configurably",
           "@name removeFilesWithConfig",
@@ -310,8 +347,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 236,
-        "end": 250,
+        "start": 241,
+        "end": 255,
         "lines": [
           "Remove multiple files, sans configuration",
           "@name removeFiles",
@@ -342,8 +379,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 253,
-        "end": 268,
+        "start": 258,
+        "end": 273,
         "lines": [
           "Make a directory, but futuristically",
           "@name mkdir",
@@ -375,8 +412,8 @@
         "filename": "packages/file-system/src/fs.js"
       },
       {
-        "start": 291,
-        "end": 306,
+        "start": 296,
+        "end": 311,
         "lines": [
           "Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`",
           "@name writeFileWithAutoPath",
@@ -414,6 +451,7 @@
   },
   {
     "slugName": "helpers",
+    "pageTitle": "helpers",
     "pageSummary": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
     "filename": "packages/monorail/src/helpers.js",
     "comments": [
