@@ -29,7 +29,7 @@ module.exports = {
   scripts: {
     clean: sd('rm -r dist', 'clean the build'),
     build: sd(
-      build(['src/index.js', 'dist/' + PKG.main]),
+      buildModule(['src/index.js', 'dist/' + PKG.main]),
       'build this climate plugin, please!'
     ),
 
