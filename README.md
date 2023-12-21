@@ -58,11 +58,11 @@ introspection and organization tools for monorepos
       - [chalk](https://www.npmjs.com/package/chalk)
       - [climate](https://github.com/brekk/monoculture/tree/main/packages/climate) 🦴
       - [dependency-tree](https://www.npmjs.com/package/dependency-tree)
-      - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)
       - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
       - [precinct](https://www.npmjs.com/package/precinct)
       - [ramda](https://www.npmjs.com/package/ramda)
       - [ts-graphviz](https://www.npmjs.com/package/ts-graphviz)
+      - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
       - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴🧪
       - [jest-config](https://www.npmjs.com/package/jest-config)🧪
 

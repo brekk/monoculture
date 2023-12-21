@@ -9,7 +9,7 @@
   "license": "ISC",
   "private": true,
   "exports": [
-    "dist"
+    "./dist/climate-toml.js"
   ],
   "dependencies": {
     "ramda": "^0.29.1",

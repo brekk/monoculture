@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "CLI utilities, friend 👯",
   "exports": [
-    "dist"
+    "./dist/climate.js"
   ],
   "type": "module",
   "repository": "monoculture",

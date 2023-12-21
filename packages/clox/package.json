@@ -9,7 +9,7 @@
   "license": "ISC",
   "private": true,
   "exports": [
-    "dist"
+    "./dist/clox.js"
   ],
   "dependencies": {
     "ansi-align": "^3.0.1",

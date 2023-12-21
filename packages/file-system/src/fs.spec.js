@@ -111,6 +111,9 @@ test('readFile', done => {
   "author": "brekk",
   "license": "ISC",
   "private": true,
+  "exports": [
+    "./dist/file-system.js"
+  ],
   "dependencies": {
     "execa": "^8.0.1",
     "find-up": "^7.0.0",

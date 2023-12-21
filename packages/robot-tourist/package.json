@@ -10,7 +10,10 @@
   "license": "ISC",
   "private": true,
   "exports": [
-    "dist"
+    "./dist/robot-tourist.js",
+    "./dist/wordbot.js",
+    "./dist/monocle-plugin-simple.js",
+    "./dist/monocle-plugin-main.js"
   ],
   "dependencies": {
     "change-case": "5.0.0",

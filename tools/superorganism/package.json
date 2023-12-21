@@ -10,7 +10,8 @@
   "license": "ISC",
   "private": true,
   "exports": [
-    "dist"
+    "./dist/superorganism.mjs",
+    "./dist/cli.mjs"
   ],
   "dependencies": {
     "chalk": "^5.3.0",

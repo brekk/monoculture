@@ -10,7 +10,7 @@
   "license": "ISC",
   "private": true,
   "exports": [
-    "dist"
+    "./dist/monocle.js"
   ],
   "dependencies": {
     "climate": "workspace:packages/climate",
