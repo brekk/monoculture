@@ -1,7 +1,7 @@
 name: Monoculture Builder 🏭
-on: [push]
+on: [push, workflow_dispatch]
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
     steps:
       - name: 🧾 Checking out code...
