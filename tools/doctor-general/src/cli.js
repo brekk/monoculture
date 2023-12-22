@@ -268,7 +268,7 @@ const runner = ({
           pipe(
             // (as JSON)
             j2,
-            writeFile(relativeArtifact),
+            writeFileWithAutoPath(relativeArtifact),
             // but persist our original content for downstream consumption
             map(K(content))
           )(content)
