@@ -86,7 +86,7 @@ test('configFile - load', done => {
 })
 
 test('configFile - direct file', done => {
-  const confF = configFile(__dirname + '/../.testconfrc')
+  const confF = configFile(__dirname + '/.testconfrc')
   fork(done)(x => {
     expect(x).toEqual(j2n(TEST_CONF_RAW))
     done()
@@ -95,7 +95,7 @@ test('configFile - direct file', done => {
 
 test('configFile - direct file as source', done => {
   const confF = configFile({
-    source: __dirname + '/../.testconfrc',
+    source: __dirname + '/.testconfrc',
     transformer: map(JSON.parse),
     wrapTransformer: false,
   })
@@ -107,7 +107,7 @@ test('configFile - direct file as source', done => {
 
 test('configFile - direct file, no transformer', done => {
   const confF = configFile({
-    source: __dirname + '/../.testconfrc',
+    source: __dirname + '/.testconfrc',
     wrapTransformer: true,
   })
   fork(done)(x => {
@@ -117,7 +117,7 @@ test('configFile - direct file, no transformer', done => {
 })
 test('configFile - toml transformer', done => {
   const confF = configFile({
-    source: __dirname + '/../.testtomlconfrc',
+    source: __dirname + '/.testtomlconfrc',
     transformer: tomlparse,
     wrapTransformer: true,
   })

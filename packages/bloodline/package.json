@@ -2,20 +2,23 @@
   "name": "bloodline",
   "version": "0.0.0",
   "description": "determine the relationships between files 🩸",
-  "main": "bloodline.js",
   "type": "module",
   "repository": "monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "exports": [
-    "./dist/bloodline.js"
-  ],
+  "bin": "./cli.js",
+  "exports": {
+    ".": "./index.js",
+    "./cli.js": "./cli.js"
+  },
   "dependencies": {
     "chalk": "5.3.0",
     "climate": "workspace:packages/climate",
     "dependency-tree": "10.0.9",
     "file-system": "workspace:packages/file-system",
+    "fluture": "14.0.0",
+    "inherent": "workspace:packages/inherent",
     "precinct": "11.0.5",
     "ramda": "0.29.1",
     "ts-graphviz": "1.8.1"
@@ -27,7 +30,6 @@
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
-    "build": "dotenv -- nps -c ./package-scripts.cjs build",
     "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",

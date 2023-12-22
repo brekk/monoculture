@@ -1,7 +1,7 @@
 import { configFile } from 'climate'
 import { fork } from 'fluture'
-import { plugin } from './index'
-import PKG from '../package.json'
+import { plugin } from './climate-json'
+import PKG from './package.json'
 
 test('configFile - json plugin integration', done => {
   fork(done)(raw => {
@@ -9,7 +9,7 @@ test('configFile - json plugin integration', done => {
     done()
   })(
     configFile({
-      source: __dirname + '/../package.json',
+      source: __dirname + '/package.json',
       transformer: [
         plugin,
         { name: 'nothing', test: () => true, parse: z => z.reverse() },

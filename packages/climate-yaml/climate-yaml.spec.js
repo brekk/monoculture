@@ -1,6 +1,6 @@
 import { configFile } from 'climate'
 import { fork } from 'fluture'
-import { plugin, many } from './index'
+import { plugin, many } from './climate-yaml'
 
 const TEST_CONF_MANY_RAW = [
   { front: 'matter, back, chatter', yaml: 'ham scramble' },

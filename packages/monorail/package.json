@@ -2,15 +2,14 @@
   "name": "monorail",
   "version": "0.0.0",
   "description": "plugins for smug grins 🚂",
-  "main": "monorail.js",
   "type": "module",
   "repository": "monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "exports": [
-    "./dist/monorail"
-  ],
+  "exports": {
+    ".": "./monorail.js"
+  },
   "dependencies": {
     "@hapi/topo": "6.0.2",
     "envtrace": "0.0.2",

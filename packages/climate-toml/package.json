@@ -8,9 +8,9 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "exports": [
-    "./dist/climate-toml.js"
-  ],
+  "exports": {
+    ".": "./climate-toml.js"
+  },
   "dependencies": {
     "ramda": "0.29.1",
     "smol-toml": "1.1.3"
@@ -24,7 +24,6 @@
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
-    "build": "dotenv -- nps -c ./package-scripts.cjs build",
     "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",

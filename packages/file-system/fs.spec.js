@@ -15,7 +15,7 @@ import {
   writeFileWithAutoPath,
 } from './fs'
 import { localsOnly } from './test-helpers'
-import PKG from '../package.json'
+import PKG from './package.json'
 
 const u = U(PKG.name + '@' + PKG.version)
 test('localize', () => {
@@ -111,9 +111,9 @@ test('readFile', done => {
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "exports": [
-    "./dist/file-system.js"
-  ],
+  "exports": {
+    ".": "./index.js"
+  },
   "dependencies": {
     "execa": "8.0.1",
     "find-up": "7.0.0",
@@ -129,7 +129,6 @@ test('readFile', done => {
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
-    "build": "dotenv -- nps -c ./package-scripts.cjs build",
     "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
@@ -182,7 +181,7 @@ test('readFile', done => {
 export default raw
 `)
     done()
-  })(readFile(__dirname + '/../fixture/raw.js'))
+  })(readFile(__dirname + '/fixture/raw.js'))
 })
 
 afterAll(done => {

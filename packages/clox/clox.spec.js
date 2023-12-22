@@ -13,7 +13,7 @@ import {
   ensureValidColor,
   DEFAULT_OPTIONS,
   box,
-} from './index'
+} from './clox'
 const chalk = new Chalk({ level: 0 })
 test('enpad', () => {
   expect(enpad).toBeTruthy()

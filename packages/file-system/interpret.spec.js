@@ -6,5 +6,5 @@ test('interpret', done => {
   fork(done)(x => {
     expect(x.default).toEqual({ input: 'this is a fixture' })
     done()
-  })(interpret('../fixture/raw.js'))
+  })(interpret('./fixture/raw.js'))
 })

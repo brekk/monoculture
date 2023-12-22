@@ -4,15 +4,15 @@
   "description": "script runner from beyond the moon 🦠",
   "type": "module",
   "main": "superorganism.js",
-  "bin": "cli.mjs",
+  "bin": "./dist/cli.js",
   "repository": "monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "exports": [
-    "./dist/superorganism.mjs",
-    "./dist/cli.mjs"
-  ],
+  "exports": {
+    ".": "./superorganism.js",
+    "./cli.js": "./dist/cli.js"
+  },
   "dependencies": {
     "chalk": "5.3.0",
     "climate": "workspace:packages/climate",

@@ -6,7 +6,7 @@ import {
   nthIndexOf,
   nthLastIndexOf,
   nthIndex,
-} from './index'
+} from './knot'
 
 test('prepend', () => {
   expect(prepend).toBeTruthy()

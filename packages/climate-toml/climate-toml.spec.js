@@ -1,6 +1,6 @@
 import { configFile } from 'climate'
 import { fork } from 'fluture'
-import tomlPlugin from './index'
+import tomlPlugin from './climate-toml'
 
 const TEST_CONF_RAW = {
   fixture: 'test',

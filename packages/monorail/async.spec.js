@@ -8,7 +8,7 @@ import {
 } from './async'
 import { after, fork } from 'fluture'
 import Unusual from 'unusual'
-import PKG from '../package.json'
+import PKG from './package.json'
 
 const u = Unusual(PKG.name + '@' + PKG.version)
 

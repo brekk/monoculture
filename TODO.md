@@ -12,5 +12,8 @@
  - [ ] `doctor-general` has some edges which either aren't well documented or have bad defaults (specifically, `@page` + `@pageSummary` stuff right now), we should clean that up so that we have better automatically generated content
  - [ ] `doctor-general` needs to have `@group` and `@addTo` documented (and tests updated)
  - [ ] `doctor-general` hangs indefinitely on inline `{@link hookInfo}` stuff
- - [ ] In the same way we do `/src` we should probably use a pattern like `/dist` for artifacts, it would help disambiguate and signal intent very easily
- - [ ] Add a utility library for some basics, like strings, arrays, Sets + Maps
+ - [x] In the same way we do `/src` we should probably use a pattern like `/dist` for artifacts, it would help disambiguate and signal intent very easily. **Complete!** We have migrated everything to use a `/dist` pattern
+ - [ ] We can likely save more on repeated configuration by consolidating things (either on `nps` or `superorganism`)
+ - [-] Add a utility library for some basics, like strings, arrays, Sets + Maps - **Updated!** We have `knot` for strings.
+ - [ ] Let's do some stuff with `transduce`!
+ - [ ] Right now we're using a build step on everything, but we should move to pure ESM for anything in `packages` (or similar)

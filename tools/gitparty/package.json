@@ -2,15 +2,15 @@
   "name": "gitparty",
   "version": "0.0.0",
   "description": "visualize git logs with magical context 🎨",
-  "main": "enscribe.js",
   "type": "module",
   "repository": "monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "exports": [
-    "./dist/gitparty.js"
-  ],
+  "exports": {
+    ".": "./gitparty.js",
+    "./cli.js": "./dist/cli.js"
+  },
   "dependencies": {
     "climate": "workspace:packages/climate",
     "clox": "workspace:packages/clox",
