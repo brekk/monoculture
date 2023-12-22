@@ -147,7 +147,7 @@ const prepareMetaFiles = curry((outputDir, workspace, commentedFiles) =>
       pipe(
         sortBy(pathOr(0, ['order'])),
         map(([title, { metaName }]) => [
-          pipe(capitalToKebab, stripLeadingHyphen)(title),
+          pipe(capitalToKebab, stripLeadingHyphen, toLower)(title),
           metaName,
         ]),
         fromPairs
