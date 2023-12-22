@@ -1030,21 +1030,22 @@
     "comments": [
       {
         "start": 2,
-        "end": 17,
+        "end": 18,
         "lines": [
           "Generic comparison function.",
           "This can be used to create a number of other more complex functions.",
           "@name equalishBy",
           "@example",
-          "```",
+          "```js",
           "const productIdSelector = z => {",
           "  const d = z.indexOf('-')",
           "  return d > -1 ? z.slice(0, d) : 'NO_MATCH'",
           "}",
           "const isProduct = equalishBy(productIdSelector, 'coolco')",
-          "console.log(`1. ${isProduct('coolco-10020')}`)",
-          "console.log(`2. ${isProduct('otherco-xkswn')}`)",
-          "console.log(`3. ${isProduct('coolco-39292')}`)",
+          "*",
+          "console.log(`1. ${isProduct('coolco-10020')}`) // true",
+          "console.log(`2. ${isProduct('otherco-xkswn')}`) // false",
+          "console.log(`3. ${isProduct('blabbo')}`) // false",
           "```"
         ],
         "summary": "Generic comparison function.\nThis can be used to create a number of other more complex functions.",
@@ -1053,7 +1054,7 @@
         "addTo": "",
         "structure": {
           "name": "equalishBy",
-          "example": "```\nconst productIdSelector = z => {\n  const d = z.indexOf('-')\n  return d > -1 ? z.slice(0, d) : 'NO_MATCH'\n}\nconst isProduct = equalishBy(productIdSelector, 'coolco')\nconsole.log(`1. ${isProduct('coolco-10020')}`)\nconsole.log(`2. ${isProduct('otherco-xkswn')}`)\nconsole.log(`3. ${isProduct('coolco-39292')}`)\n```"
+          "example": "```js\nconst productIdSelector = z => {\n  const d = z.indexOf('-')\n  return d > -1 ? z.slice(0, d) : 'NO_MATCH'\n}\nconst isProduct = equalishBy(productIdSelector, 'coolco')\n\nconsole.log(`1. ${isProduct('coolco-10020')}`) // true\nconsole.log(`2. ${isProduct('otherco-xkswn')}`) // false\nconsole.log(`3. ${isProduct('blabbo')}`) // false\n```"
         },
         "keywords": [
           "@example",

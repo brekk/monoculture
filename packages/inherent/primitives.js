@@ -5,15 +5,16 @@ import { map, curry } from 'ramda'
  * This can be used to create a number of other more complex functions.
  * @name equalishBy
  * @example
- * ```
+ * ```js
  * const productIdSelector = z => {
  *   const d = z.indexOf('-')
  *   return d > -1 ? z.slice(0, d) : 'NO_MATCH'
  * }
  * const isProduct = equalishBy(productIdSelector, 'coolco')
- * console.log(`1. ${isProduct('coolco-10020')}`)
- * console.log(`2. ${isProduct('otherco-xkswn')}`)
- * console.log(`3. ${isProduct('coolco-39292')}`)
+ *
+ * console.log(`1. ${isProduct('coolco-10020')}`) // true
+ * console.log(`2. ${isProduct('otherco-xkswn')}`) // false
+ * console.log(`3. ${isProduct('blabbo')}`) // false
  * ```
  */
 export const equalishBy = curry(
