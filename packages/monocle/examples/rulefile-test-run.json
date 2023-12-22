@@ -15,6 +15,7 @@
   "ignore": [
     "**/__snapshots__/*",
     "**/coverage/**/*",
-    "**/monocle-findings.json"
+    "**/monocle-findings.json",
+    "*.svg"
   ]
 }

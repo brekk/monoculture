@@ -18,6 +18,7 @@ const IGNORE = [
   '**/__snapshots__/**',
   '**/coverage/**',
   '**/dist/**',
+  '**/monocle-findings.json',
 ]
 
 test('readAll', done => {
