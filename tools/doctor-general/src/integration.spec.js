@@ -1,13 +1,34 @@
 // import { cwd } from 'node:process'
+import { pipe, map, join, identity as I, propOr, both } from 'ramda'
+import {
+  join as pathJoin,
+  relative,
+  resolve as pathResolve,
+  sep as SEPARATOR,
+} from 'node:path'
+import { fork } from 'fluture'
+import stripAnsi from 'strip-ansi'
+import {
+  readFile,
+  flexecaWithOptionsAndCancel,
+  removeFile,
+  rimraf,
+} from 'file-system'
+import { nthIndex } from 'knot'
+
 test('smoke', () => {
   expect(true).toBeTruthy()
 })
 
-/*
-const run = pipe(flexeca('./drgen.js'), map(propOr('', 'stdout')))
+const run = pipe(
+  flexecaWithOptionsAndCancel(() => {}, '../dist/doctor-general.cjs', {
+    cwd: __dirname,
+  }),
+  map(propOr('', 'stdout'))
+)
 
 const goodrun = (args, expectation = I) =>
-  test.skip(`doctor-general ${join(' ')(args)}`, done => {
+  test(`doctor-general ${join(' ')(args)}`, done => {
     pipe(
       run,
       fork(done)(z => {
@@ -17,15 +38,10 @@ const goodrun = (args, expectation = I) =>
   })
 
 const inFix = x =>
-  '.' +
-  SEPARATOR +
-  nthIndex(SEPARATOR, -2, pathResolve(__dirname, '../fixture', x))
+  nthIndex(SEPARATOR, -2, pathResolve(__dirname, '../fixture/' + x))
 
 const GENERATED = inFix('generated.json')
-const GENERATED_FILES =
-  '.' +
-  SEPARATOR +
-  nthIndex(SEPARATOR, -2, pathResolve(__dirname, '../__generated__'))
+const GENERATED_FILES = inFix('__generated__')
 const FAKE_PACKAGE_JSON = inFix(`fake-pkg.json`)
 
 goodrun(
@@ -46,4 +62,3 @@ afterAll(done => {
     })
   )(both(removeFile(GENERATED))(rimraf(GENERATED_FILES)))
 })
-*/

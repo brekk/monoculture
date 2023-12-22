@@ -29,20 +29,11 @@ const getAny = curry((def, keyPath, comments) =>
   )(comments)
 )
 
-const getPageSummary = comments => {
-  const explicitSummary = pipe(
-    getAny('', ['structure', 'pageSummary']),
-    defaultTo([]),
-    join(' ')
-  )(comments)
-  // const summary =
-  //   explicitSummary === ''
-  //     ? pipe(head, propOr('', 'summary'))(comments)
-  //     : explicitSummary
-  // console.log('summary', explicitSummary, '...', summary)
-  // return summary
-  return explicitSummary
-}
+const getPageSummary = pipe(
+  getAny('', ['structure', 'pageSummary']),
+  defaultTo([]),
+  join(' ')
+)
 
 const getPageTitle = getAny('', ['structure', 'page'])
 
