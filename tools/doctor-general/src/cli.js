@@ -106,7 +106,7 @@ const cleanFilename = ({ workspace, fileGroup, filename, comments }) => {
   const title = pullPageTitleFromAnyComment(comments)
   // const sliced = title || slug(filename)
   const sliced = title || slug(filename)
-  const result = capitalToKebab(sliced) + '.mdx'
+  const result = toLower(capitalToKebab(sliced)) + '.mdx'
   return (
     (fileGroup ? fileGroup + '/' : '') + result
     // stripLeadingHyphen(sliced !== title ? capitalize(result) : result)
