@@ -48,3 +48,71 @@
  - [ ] `doctor-general` has some edges which either aren't well documented or have bad defaults (specifically, `@page` + `@pageSummary` stuff right now), we should clean that up so that we have better automatically generated content
  - [ ] `doctor-general` needs to have `@group` and `@addTo` documented (and tests updated)
  - [ ] `doctor-general` hangs indefinitely on inline `{@link hookInfo}` stuff
+ - [ ] We should support a means of expressing curried morphisms succinctly
+
+```js
+ /**
+ * Read a glob asynchronously as a Future-wrapped value,
+ * with configuration and a cancellation function.
+ * Configuration is passed to [glob](https://www.npmjs.com/package/glob)
+ * @name readDirWithConfigAndCancel
+ * @see {@link readDirWithConfig}
+ * @see {@link readDir}
+ * @example
+ * ```js
+ * import { fork } from 'fluture'
+ * import { readDirWithConfigAndCancel } from 'file-system'
+ * // [...]
+ * pipe(
+ *   fork(console.warn)(console.log)
+ * )(readDirWithConfigAndCancel(cancellationFn, { ignore: ['node_modules/**'] }, 'src/*'))
+ * ```
+ */
+export const readDirWithConfigAndCancel = curry((cancel, conf, g) =>
+  Future((bad, good) => {
+    try {
+      glob(g, conf, (e, x) =>
+        // thus far I cannot seem to ever call `bad` from within here
+        e ? bad(e) : good(x)
+      )
+    } catch (e) {
+      bad(e)
+    }
+    return cancel
+  })
+)
+
+/**
+ * Read a glob asynchronously as a Future-wrapped value, with configuration.
+ * Configuration is passed to [glob](https://www.npmjs.com/package/glob)
+ * @name readDirWithConfig
+ * @see {@link readDirWithConfigAndCancel}
+ * @see {@link readDir}
+ * @example
+ * ```js
+ * import { fork } from 'fluture'
+ * import { readDirWithConfig } from 'file-system'
+ * // [...]
+ * pipe(
+ *   fork(console.warn)(console.log)
+ * )(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))
+ * ```
+ */
+export const readDirWithConfig = readDirWithConfigAndCancel(NO_OP)
+
+/**
+ * Read a glob asynchronously as a Future-wrapped value, default config assumed.
+ * Configuration is passed to [glob](https://www.npmjs.com/package/glob)
+ * @name readDir
+ * @see {@link readDirWithConfigAndCancel}
+ * @see {@link readDirWithConfig}
+ * @example
+ * ```js
+ * import { fork } from 'fluture'
+ * import { readDir } from 'file-system'
+ * // [...]
+ * fork(console.warn)(console.log)(readDir('src/*'))
+ * ```
+ */
+export const readDir = readDirWithConfig({})
+```
