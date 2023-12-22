@@ -1,6 +1,7 @@
 import { cwd } from 'node:process'
 import PKG from '../package.json'
 import { configurate } from 'climate'
+import { trace } from 'xtrace'
 import { basename, join as pathJoin, dirname } from 'node:path'
 import {
   toLower,
@@ -127,7 +128,13 @@ const combineFiles = curry((leftToRight, a, b) =>
 const prepareMetaFiles = curry((outputDir, workspace, commentedFiles) =>
   pipe(
     map(raw => [
-      pipe(cleanFilename, x => basename(x, '.mdx'), toLower)(raw),
+      pipe(
+        cleanFilename,
+        trace('one'),
+        x => basename(x, '.mdx'),
+        trace('two'),
+        toLower
+      )(raw),
       pipe(
         propOr([], 'comments'),
         filter(pathOr(false, ['structure', 'name'])),
@@ -154,11 +161,13 @@ const prepareMetaFiles = curry((outputDir, workspace, commentedFiles) =>
       )
     ),
     toPairs,
-    map(([folder, data]) =>
-      writeFileWithAutoPath(
-        pathJoin(outputDir, workspace, folder, '_meta.json'),
-        JSON.stringify(data, null, 2)
-      )
+    map(
+      ([folder, data]) =>
+        console.log('toLower', toLower(folder)) ||
+        writeFileWithAutoPath(
+          pathJoin(outputDir, workspace, toLower(folder), '_meta.json'),
+          JSON.stringify(data, null, 2)
+        )
     )
   )(commentedFiles)
 )
