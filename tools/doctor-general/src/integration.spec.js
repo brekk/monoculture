@@ -1,10 +1,4 @@
 // import { cwd } from 'node:process'
-import { resolve as pathResolve, sep as SEPARATOR } from 'node:path'
-import stripAnsi from 'strip-ansi'
-import { join, identity as I, pipe, map, propOr } from 'ramda'
-import { fork, both } from 'fluture'
-import { flexeca, removeFile, rimraf, readFile } from 'file-system'
-import { nthIndex } from 'knot'
 test('smoke', () => {
   expect(true).toBeTruthy()
 })

@@ -1,7 +1,7 @@
 const sd = (script, description = '') =>
   !!description ? { script, description } : { script }
 
-const pkg = require('./package.json')
+const PKG = require('./package.json')
 
 const build = ([infile, outfile]) =>
   [
@@ -9,9 +9,9 @@ const build = ([infile, outfile]) =>
     `${infile}`,
     `--outfile=${outfile}`,
     `--bundle`,
-    `--format=esm`,
+    `--format=cjs`,
     `--platform=node`,
-    `--packages=external`,
+    // `--packages=external`,
     `--banner:js="#!/usr/bin/env node"`,
   ].join(' ')
 
@@ -27,7 +27,7 @@ const buildModule = ([infile, outfile]) =>
   ].join(' ')
 
 const INPUT = `src/executable.js`
-const OUTPUT_CLI = `dist/${pkg.name}.js`
+const OUTPUT_CLI = PKG.bin
 // const OUTPUT = `${pkg.name}.module.js`
 const watchMode = sd(
   `${build([INPUT, OUTPUT_CLI])} --watch`,

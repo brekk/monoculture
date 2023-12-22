@@ -1,4 +1,4 @@
-import PKG from '../package.json'
+import PKG from './package.json'
 import { configurate } from 'climate'
 import { trace } from 'xtrace'
 import { chain, addIndex, map, pipe, split, trim } from 'ramda'

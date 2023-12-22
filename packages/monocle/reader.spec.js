@@ -1,4 +1,5 @@
 import { readMonoFile, readAll, monoprocessor } from './reader'
+import { reject, includes } from 'ramda'
 import { resolve, fork } from 'fluture'
 
 test('readMonoFile', done => {
@@ -14,19 +15,25 @@ const DIRFILES = [
   './cli.js',
   './config.js',
   './config.spec.js',
+  './graph.svg',
   './hash.js',
   './hash.spec.js',
   './index.js',
   './index.spec.js',
+  './jest.config.cjs',
+  './package-scripts.cjs',
+  './package.json',
   './reader.js',
   './reader.spec.js',
+  './README.md',
   './trace.js',
 ]
+const noSelfRef = reject(includes('monocle'))
 test('readAll', done => {
   expect(readAll).toBeTruthy()
   const readDF = readAll({ showMatchesOnly: true }, './*')
   fork(done)(x => {
-    expect(x).toEqual(DIRFILES)
+    expect(noSelfRef(x)).toEqual(DIRFILES)
     done()
   })(readDF)
 })
@@ -37,8 +44,8 @@ test('monoprocessor', done => {
     resolve([]),
     './*'
   )
-  fork(done)(z => {
-    expect(z).toEqual(DIRFILES)
+  fork(done)(x => {
+    expect(noSelfRef(x)).toEqual(DIRFILES)
     done()
   })(monoF)
 })

@@ -12,16 +12,12 @@ const build = ([infile, outfile]) =>
     `--banner:js="#!/usr/bin/env node"`,
   ].join(' ')
 
-const INPUT = `src/index.js`
-const OUTPUT = `dist/${PKG.main}`
-
 const sd = (script, description = '') =>
   !!description ? { script, description } : { script }
 
 module.exports = {
   scripts: {
     clean: sd('rm -r dist', 'clean the build'),
-    build: sd(build([INPUT, OUTPUT]), 'build an export!'),
 
     lint: sd('eslint --fix .', 'lint!'),
     test: {
@@ -29,7 +25,7 @@ module.exports = {
       watch: sd('jest --watch --coverage', 'test with watch-mode!'),
     },
     meta: {
-      graph: `madge ${INPUT} --image graph.svg`,
+      graph: `madge ./monorail.js --image graph.svg`,
     },
   },
 }

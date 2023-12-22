@@ -13,13 +13,19 @@ test('default export', () => {
   ])
 })
 const DDD = process.cwd()
+const IGNORE = [
+  path.join(DDD, '*.spec.js'),
+  '**/__snapshots__/**',
+  '**/coverage/**',
+  '**/dist/**',
+]
 
 test('readAll', done => {
   const files = readAll(
     {
       // if we don't ignore this file and snapshots,
       // we have an asymptotically infinite amount of effort
-      ignore: [path.join(DDD, '*.spec.js'), '**/__snapshots__/**'],
+      ignore: IGNORE,
       basePath: DDD,
       cwd: DDD,
     },
@@ -67,7 +73,7 @@ test('monoprocessor', done => {
         cwd: __dirname,
         nodir: true,
         // don't read test files, don't read snapshots
-        ignore: [path.join(__dirname, '*.spec.js'), '**/__snapshots__/*.snap'],
+        ignore: IGNORE,
       },
       resolve(PLUGINS),
       path.join(__dirname, '/**')

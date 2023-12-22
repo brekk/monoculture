@@ -2,13 +2,15 @@
   "name": "doctor-general",
   "version": "0.0.1",
   "description": "documentation generation 🫡",
-  "main": "doctor-general.js",
   "type": "module",
   "repository": "brekk/monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "bin": "./dist/doctor-general.js",
+  "bin": "./dist/doctor-general.cjs",
+  "exports": {
+    ".": "./dist/doctor-general.cjs"
+  },
   "dependencies": {
     "climate": "workspace:packages/climate",
     "file-system": "workspace:packages/file-system",

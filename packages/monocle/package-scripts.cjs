@@ -12,8 +12,8 @@ const build = ([infile, outfile]) =>
     `--banner:js="#!/usr/bin/env node"`,
   ].join(' ')
 
-const INPUT = `src/cli.js`
-const OUTPUT = `dist/${PKG.main}`
+const INPUT = `./cli.js`
+const OUTPUT = PKG.bin
 
 const sd = (script, description = '') =>
   !!description ? { script, description } : { script }

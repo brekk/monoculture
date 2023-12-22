@@ -1,4 +1,4 @@
-import { pipe, curry, unless, when, identity as I } from 'ramda'
+import { pipe, curry, when, identity as I } from 'ramda'
 import { mapRej, Future } from 'fluture'
 import { treeWithCancel } from './tree'
 import { checkCyclicWithCancel } from './cyclic'

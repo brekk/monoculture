@@ -4,8 +4,10 @@
   "description": "CLI utilities, friend 👯",
   "exports": {
     ".": "./climate.js",
+    "./help.js": "./help.js",
     "./builder.js": "./builder.js",
-    "./help.js": "./help.js"
+    "./log.js": "./log.js",
+    "./parser.js": "./parser.js"
   },
   "type": "module",
   "repository": "monoculture",

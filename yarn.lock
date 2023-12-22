@@ -7034,7 +7034,7 @@ __metadata:
     strip-ansi: "npm:7.1.0"
     xtrace: "npm:0.3.0"
   bin:
-    doctor-general: ./dist/doctor-general.js
+    doctor-general: ./dist/doctor-general.cjs
   languageName: unknown
   linkType: soft
 
@@ -13104,7 +13104,7 @@ __metadata:
     ramda: "npm:0.29.1"
     robot-tourist: "workspace:packages/robot-tourist"
   bin:
-    monocle: ./cli.js
+    monocle: ./dist/cli.js
   languageName: unknown
   linkType: soft
 
