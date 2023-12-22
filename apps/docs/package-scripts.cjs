@@ -1,6 +1,7 @@
 module.exports = {
   scripts: {
     dev: 'next dev --port 3001',
+    clean: 'rm -r .next && rm -r out',
     build: 'next build',
     start: 'next start',
     lint: 'next lint --fix',
