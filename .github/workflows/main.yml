@@ -48,7 +48,7 @@ jobs:
         run: |
           mkdir public
           touch public/.nojekyll
-          ls ./apps/docs/pages
+          ls -Algp ./apps/docs/pages/file-system
           echo "HEY LOOK"
       - name: 🚁 Saving artifacts...
         uses: actions/upload-artifact@v3
