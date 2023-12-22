@@ -124,8 +124,8 @@ export const readJSONFile = readJSONFileWithCancel(NO_OP)
  * with configuration and a cancellation function.
  * Configuration is passed to [glob](https://www.npmjs.com/package/glob)
  * @name readDirWithConfigAndCancel
- * @see {@link @readDirWithConfig}
- * @see {@link @readDir}
+ * @see {@link readDirWithConfig}
+ * @see {@link readDir}
  * @example
  * ```js
  * import { fork } from 'fluture'
@@ -154,8 +154,8 @@ export const readDirWithConfigAndCancel = curry((cancel, conf, g) =>
  * Read a glob asynchronously as a Future-wrapped value, with configuration.
  * Configuration is passed to [glob](https://www.npmjs.com/package/glob)
  * @name readDirWithConfig
- * @see {@link @readDirWithConfigAndCancel}
- * @see {@link @readDir}
+ * @see {@link readDirWithConfigAndCancel}
+ * @see {@link readDir}
  * @example
  * ```js
  * import { fork } from 'fluture'
@@ -172,9 +172,8 @@ export const readDirWithConfig = readDirWithConfigAndCancel(NO_OP)
  * Read a glob asynchronously as a Future-wrapped value, default config assumed.
  * Configuration is passed to [glob](https://www.npmjs.com/package/glob)
  * @name readDir
- * @see {@link @readDirWithConfigAndCancel}
- * @see {@link @readDirWithConfig}
- * @name readDir
+ * @see {@link readDirWithConfigAndCancel}
+ * @see {@link readDirWithConfig}
  * @example
  * ```js
  * import { fork } from 'fluture'
@@ -189,8 +188,8 @@ export const readDir = readDirWithConfig({})
  * Write to a file, with configuration and a cancellation function.
  * Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.
  * @name writeFileWithConfigAndCancel
- * @see {@link @writeFileWithConfig}
- * @see {@link @writeFile}
+ * @see {@link writeFileWithConfig}
+ * @see {@link writeFile}
  * @example
  * ```js
  * import { fork } from 'fluture'
@@ -224,8 +223,8 @@ export const writeFileWithConfigAndCancel = curry(
  * Write to a file, with configuration.
  * Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.
  * @name writeFileWithConfig
- * @see {@link @writeFileWithConfigAndCancel}
- * @see {@link @writeFile}
+ * @see {@link writeFileWithConfigAndCancel}
+ * @see {@link writeFile}
  * @example
  * ```js
  * import { fork } from 'fluture'
@@ -246,8 +245,8 @@ export const writeFileWithConfig = writeFileWithConfigAndCancel(NO_OP)
  * Write to a file, assuming `'utf8'`.
  * Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.
  * @name writeFile
- * @see {@link @writeFileWithConfigAndCancel}
- * @see {@link @writeFileWithConfig}
+ * @see {@link writeFileWithConfigAndCancel}
+ * @see {@link writeFileWithConfig}
  * @example
  * ```js
  * import { fork } from 'fluture'
