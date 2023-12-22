@@ -43,7 +43,11 @@ jobs:
       - name: 📟 Update pages...
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./apps/docs/.next
+          path: ./apps/docs/out
+      - name: 👨 Scare away jekyll with a formula! 
+        run: |
+          mkdir public
+          touch public/.nojekyll
       - name: 🚁 Saving artifacts...
         uses: actions/upload-artifact@v3
         with:
