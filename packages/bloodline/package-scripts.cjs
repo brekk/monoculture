@@ -15,11 +15,7 @@ const sd = (script, description = '') =>
   !!description ? { script, description } : { script }
 module.exports = {
   scripts: {
-    clean: sd('rm -r dist', 'clean the build'),
-    build: sd(
-      buildModule([INPUT, 'dist/bloodline.js']),
-      'build it'
-    ),
+    clean: sd('rm -r coverage', 'clean the build'),
     lint: sd('eslint --fix .', 'lint!'),
     meta: {
       graph: `madge ${INPUT} --image graph.svg`,

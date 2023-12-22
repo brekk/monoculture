@@ -2,7 +2,7 @@
   {
     "slugName": "fs",
     "pageSummary": "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.",
-    "filename": "packages/file-system/src/fs.js",
+    "filename": "packages/file-system/fs.js",
     "comments": [
       {
         "start": 15,
@@ -39,7 +39,7 @@
         "keywords": [
           "@pageSummary"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 27,
@@ -66,7 +66,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 39,
@@ -107,7 +107,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 61,
@@ -146,7 +146,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 77,
@@ -184,7 +184,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 91,
@@ -222,7 +222,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 107,
@@ -260,7 +260,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 121,
@@ -270,8 +270,8 @@
           "with configuration and a cancellation function.",
           "Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
           "@name readDirWithConfigAndCancel",
-          "@see {@link @readDirWithConfig}",
-          "@see {@link @readDir}",
+          "@see {@link readDirWithConfig}",
+          "@see {@link readDir}",
           "@example",
           "```js",
           "import { fork } from 'fluture'",
@@ -284,8 +284,8 @@
         ],
         "summary": "Read a glob asynchronously as a Future-wrapped value,\nwith configuration and a cancellation function.\nConfiguration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
-          "@readDirWithConfig",
-          "@readDir"
+          "readDirWithConfig",
+          "readDir"
         ],
         "fileGroup": "",
         "addTo": "",
@@ -301,11 +301,9 @@
           "@example",
           "@link",
           "@name",
-          "@readDir",
-          "@readDirWithConfig",
           "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 152,
@@ -314,8 +312,8 @@
           "Read a glob asynchronously as a Future-wrapped value, with configuration.",
           "Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
           "@name readDirWithConfig",
-          "@see {@link @readDirWithConfigAndCancel}",
-          "@see {@link @readDir}",
+          "@see {@link readDirWithConfigAndCancel}",
+          "@see {@link readDir}",
           "@example",
           "```js",
           "import { fork } from 'fluture'",
@@ -328,8 +326,8 @@
         ],
         "summary": "Read a glob asynchronously as a Future-wrapped value, with configuration.\nConfiguration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
-          "@readDirWithConfigAndCancel",
-          "@readDir"
+          "readDirWithConfigAndCancel",
+          "readDir"
         ],
         "fileGroup": "",
         "addTo": "",
@@ -345,22 +343,19 @@
           "@example",
           "@link",
           "@name",
-          "@readDir",
-          "@readDirWithConfigAndCancel",
           "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 170,
-        "end": 184,
+        "end": 183,
         "lines": [
           "Read a glob asynchronously as a Future-wrapped value, default config assumed.",
           "Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
           "@name readDir",
-          "@see {@link @readDirWithConfigAndCancel}",
-          "@see {@link @readDirWithConfig}",
-          "@name readDir",
+          "@see {@link readDirWithConfigAndCancel}",
+          "@see {@link readDirWithConfig}",
           "@example",
           "```js",
           "import { fork } from 'fluture'",
@@ -371,16 +366,13 @@
         ],
         "summary": "Read a glob asynchronously as a Future-wrapped value, default config assumed.\nConfiguration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
-          "@readDirWithConfigAndCancel",
-          "@readDirWithConfig"
+          "readDirWithConfigAndCancel",
+          "readDirWithConfig"
         ],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "name": [
-            "readDir",
-            "readDir"
-          ],
+          "name": "readDir",
           "see": [
             "readDirWithConfigAndCancel",
             "readDirWithConfig"
@@ -391,21 +383,19 @@
           "@example",
           "@link",
           "@name",
-          "@readDirWithConfig",
-          "@readDirWithConfigAndCancel",
           "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 187,
-        "end": 207,
+        "start": 186,
+        "end": 206,
         "lines": [
           "Write to a file, with configuration and a cancellation function.",
           "Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
           "@name writeFileWithConfigAndCancel",
-          "@see {@link @writeFileWithConfig}",
-          "@see {@link @writeFile}",
+          "@see {@link writeFileWithConfig}",
+          "@see {@link writeFile}",
           "@example",
           "```js",
           "import { fork } from 'fluture'",
@@ -423,8 +413,8 @@
         ],
         "summary": "Write to a file, with configuration and a cancellation function.\nUnlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
-          "@writeFileWithConfig",
-          "@writeFile"
+          "writeFileWithConfig",
+          "writeFile"
         ],
         "fileGroup": "",
         "addTo": "",
@@ -440,21 +430,19 @@
           "@example",
           "@link",
           "@name",
-          "@see",
-          "@writeFile",
-          "@writeFileWithConfig"
+          "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 222,
-        "end": 241,
+        "start": 221,
+        "end": 240,
         "lines": [
           "Write to a file, with configuration.",
           "Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
           "@name writeFileWithConfig",
-          "@see {@link @writeFileWithConfigAndCancel}",
-          "@see {@link @writeFile}",
+          "@see {@link writeFileWithConfigAndCancel}",
+          "@see {@link writeFile}",
           "@example",
           "```js",
           "import { fork } from 'fluture'",
@@ -471,8 +459,8 @@
         ],
         "summary": "Write to a file, with configuration.\nUnlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
-          "@writeFileWithConfigAndCancel",
-          "@writeFile"
+          "writeFileWithConfigAndCancel",
+          "writeFile"
         ],
         "fileGroup": "",
         "addTo": "",
@@ -488,21 +476,19 @@
           "@example",
           "@link",
           "@name",
-          "@see",
-          "@writeFile",
-          "@writeFileWithConfigAndCancel"
+          "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 244,
-        "end": 262,
+        "start": 243,
+        "end": 261,
         "lines": [
           "Write to a file, assuming `'utf8'`.",
           "Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
           "@name writeFile",
-          "@see {@link @writeFileWithConfigAndCancel}",
-          "@see {@link @writeFileWithConfig}",
+          "@see {@link writeFileWithConfigAndCancel}",
+          "@see {@link writeFileWithConfig}",
           "@example",
           "```js",
           "import { fork } from 'fluture'",
@@ -518,8 +504,8 @@
         ],
         "summary": "Write to a file, assuming `'utf8'`.\nUnlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
-          "@writeFileWithConfigAndCancel",
-          "@writeFileWithConfig"
+          "writeFileWithConfigAndCancel",
+          "writeFileWithConfig"
         ],
         "fileGroup": "",
         "addTo": "",
@@ -535,15 +521,13 @@
           "@example",
           "@link",
           "@name",
-          "@see",
-          "@writeFileWithConfig",
-          "@writeFileWithConfigAndCancel"
+          "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 265,
-        "end": 284,
+        "start": 264,
+        "end": 283,
         "lines": [
           "Remove a file, configurably, with cancellation.",
           "Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
@@ -585,11 +569,11 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 292,
-        "end": 310,
+        "start": 291,
+        "end": 309,
         "lines": [
           "Remove a file, configurably.",
           "Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
@@ -630,11 +614,11 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 321,
-        "end": 338,
+        "start": 320,
+        "end": 337,
         "lines": [
           "Remove a file.",
           "Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
@@ -674,11 +658,11 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 341,
-        "end": 359,
+        "start": 340,
+        "end": 358,
         "lines": [
           "Remove multiple files, configurably, with a cancellation function.",
           "@name removeFilesWithConfigAndCancel",
@@ -719,11 +703,11 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 367,
-        "end": 384,
+        "start": 366,
+        "end": 383,
         "lines": [
           "Remove multiple files, configurably.",
           "@name removeFilesWithConfig",
@@ -763,11 +747,11 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 387,
-        "end": 403,
+        "start": 386,
+        "end": 402,
         "lines": [
           "Remove multiple files, configurably.",
           "@name removeFilesWithConfig",
@@ -806,11 +790,11 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 406,
-        "end": 425,
+        "start": 405,
+        "end": 424,
         "lines": [
           "Make a directory, given a cancellation function.",
           "Returns a Future-wrapped file path as a discrete value upon success.",
@@ -852,11 +836,11 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 433,
-        "end": 451,
+        "start": 432,
+        "end": 450,
         "lines": [
           "Make a directory",
           "Returns a Future-wrapped file path as a discrete value upon success.",
@@ -897,11 +881,11 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 454,
-        "end": 472,
+        "start": 453,
+        "end": 471,
         "lines": [
           "Make a directory, recursively.",
           "Returns a Future-wrapped file path as a discrete value upon success.",
@@ -942,11 +926,11 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 488,
-        "end": 503,
+        "start": 487,
+        "end": 502,
         "lines": [
           "Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`",
           "@name writeFileWithAutoPath",
@@ -975,7 +959,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/file-system/src/fs.js"
+        "filename": "packages/file-system/fs.js"
       }
     ],
     "order": 0,
@@ -990,18 +974,18 @@
       "readJSONFile",
       "readFile",
       "readJSONFileWithCancel",
-      "@readDirWithConfig",
-      "@readDir",
-      "@readDirWithConfigAndCancel",
-      "@readDir",
-      "@readDirWithConfigAndCancel",
-      "@readDirWithConfig",
-      "@writeFileWithConfig",
-      "@writeFile",
-      "@writeFileWithConfigAndCancel",
-      "@writeFile",
-      "@writeFileWithConfigAndCancel",
-      "@writeFileWithConfig",
+      "readDirWithConfig",
+      "readDir",
+      "readDirWithConfigAndCancel",
+      "readDir",
+      "readDirWithConfigAndCancel",
+      "readDirWithConfig",
+      "writeFileWithConfig",
+      "writeFile",
+      "writeFileWithConfigAndCancel",
+      "writeFile",
+      "writeFileWithConfigAndCancel",
+      "writeFileWithConfig",
       "removeFileWithConfig",
       "removeFile",
       "removeFileWithConfigAndCancel",
@@ -1024,10 +1008,54 @@
     "workspace": "file-system"
   },
   {
+    "slugName": "primitives",
+    "pageSummary": "",
+    "filename": "packages/inherent/primitives.js",
+    "comments": [
+      {
+        "start": 2,
+        "end": 18,
+        "lines": [
+          "Generic comparison function.",
+          "This can be used to create a number of other more complex functions.",
+          "@name equalishBy",
+          "@example",
+          "```js",
+          "const productIdSelector = z => {",
+          "  const d = z.indexOf('-')",
+          "  return d > -1 ? z.slice(0, d) : 'NO_MATCH'",
+          "}",
+          "const isProduct = equalishBy(productIdSelector, 'coolco')",
+          "*",
+          "console.log(`1. ${isProduct('coolco-10020')}`) // true",
+          "console.log(`2. ${isProduct('otherco-xkswn')}`) // false",
+          "console.log(`3. ${isProduct('blabbo')}`) // false",
+          "```"
+        ],
+        "summary": "Generic comparison function.\nThis can be used to create a number of other more complex functions.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "equalishBy",
+          "example": "```js\nconst productIdSelector = z => {\n  const d = z.indexOf('-')\n  return d > -1 ? z.slice(0, d) : 'NO_MATCH'\n}\nconst isProduct = equalishBy(productIdSelector, 'coolco')\n\nconsole.log(`1. ${isProduct('coolco-10020')}`) // true\nconsole.log(`2. ${isProduct('otherco-xkswn')}`) // false\nconsole.log(`3. ${isProduct('blabbo')}`) // false\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/inherent/primitives.js"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "inherent"
+  },
+  {
     "slugName": "helpers",
     "pageTitle": "helpers",
     "pageSummary": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
-    "filename": "packages/monorail/src/helpers.js",
+    "filename": "packages/monorail/helpers.js",
     "comments": [
       {
         "start": 21,
@@ -1071,7 +1099,7 @@
           "@page",
           "@pageSummary"
         ],
-        "filename": "packages/monorail/src/helpers.js"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 32,
@@ -1100,7 +1128,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/src/helpers.js"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 46,
@@ -1128,7 +1156,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/src/helpers.js"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 61,
@@ -1156,7 +1184,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/src/helpers.js"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 76,
@@ -1184,7 +1212,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/src/helpers.js"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 91,
@@ -1212,7 +1240,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/src/helpers.js"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 114,
@@ -1240,7 +1268,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/src/helpers.js"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 162,
@@ -1269,7 +1297,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/src/helpers.js"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 178,
@@ -1300,7 +1328,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/src/helpers.js"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 205,
@@ -1331,7 +1359,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/src/helpers.js"
+        "filename": "packages/monorail/helpers.js"
       }
     ],
     "order": 0,

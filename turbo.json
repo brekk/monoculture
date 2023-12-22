@@ -7,6 +7,9 @@
       "outputs": ["dist/**", ".next/**", "*.artifact.js"]
     },
     "test": {
+      "outputs": ["coverage/lcov-info"]
+    },
+    "test:integration": {
       "dependsOn": ["build"],
       "outputs": ["coverage/lcov-info"]
     },

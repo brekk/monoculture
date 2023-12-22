@@ -41,33 +41,8 @@ module.exports = {
   scripts: {
     clean: sd('rm -r dist', 'clean out the build'),
     build: {
-      ...sd(
-        'nps -c ./package-scripts.cjs build.module build.bin build.plugins',
-        'build all the shit'
-      ),
-      module: sd(buildModule([INPUT, OUTPUT]), 'build the module!'),
-      bin: sd(
-        build(['src/cli.js', 'dist/wordbot.js']),
-        'build the executable!'
-      ),
-      plugins: {
-        ...sd(
-          // eslint-disable-next-line max-len
-          'nps -c ./package-scripts.cjs build.plugins.simple build.plugins.main',
-          'build all the plugins!'
-        ),
-        simple: sd(
-          buildPlugin(['src/plugin-simplifier.js', 'monocle-plugin-simple.js']),
-          'build the first plugin!'
-        ),
-        main: sd(
-          buildPlugin([
-            'src/plugin-robot-tourist.js',
-            'monocle-plugin-main.js',
-          ]),
-          'build the main plugin!'
-        ),
-      },
+      ...sd('nps -c ./package-scripts.cjs build.bin', 'build all the shit'),
+      bin: sd(build(['cli.js', 'dist/wordbot.js']), 'build the executable!'),
     },
     lint: sd('eslint --fix .', 'lint!'),
     test: {

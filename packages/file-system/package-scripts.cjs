@@ -18,9 +18,6 @@ const OUTPUT = `dist/` + PKG.main
 module.exports = {
   scripts: {
     clean: sd('rm -r dist', 'clean the build!'),
-    build: {
-      ...sd(build([INPUT, OUTPUT]), 'build!'),
-    },
     lint: sd('eslint --fix .', 'lint!'),
     test: {
       ...sd('jest', 'test'),

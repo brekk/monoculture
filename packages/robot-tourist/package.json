@@ -2,19 +2,18 @@
   "name": "robot-tourist",
   "version": "0.0.1",
   "description": "human-centric source code interpreter 🤖",
-  "main": "robot-tourist.js",
   "bin": "wordbot.js",
   "type": "module",
   "repository": "brekk/monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "exports": [
-    "./dist/robot-tourist.js",
-    "./dist/wordbot.js",
-    "./dist/monocle-plugin-simple.js",
-    "./dist/monocle-plugin-main.js"
-  ],
+  "exports": {
+    "./robot-tourist.js": "./robot-tourist.js",
+    "./wordbot.js": "./wordbot.js",
+    "./monocle-plugin-simple.js": "./monocle-plugin-simple.js",
+    "./monocle-plugin-main.js": "./monocle-plugin-main.js"
+  },
   "dependencies": {
     "change-case": "5.0.0",
     "climate": "workspace:packages/climate",
@@ -36,8 +35,6 @@
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "build": "dotenv -- nps -c ./package-scripts.cjs build",
     "build:bin": "dotenv -- nps -c ./package-scripts.cjs build.bin",
-    "build:module": "dotenv -- nps -c ./package-scripts.cjs build.module",
-    "build:plugins": "dotenv -- nps -c ./package-scripts.cjs build.plugins",
     "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",

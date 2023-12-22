@@ -8,9 +8,9 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "exports": [
-    "./dist/clox.js"
-  ],
+  "exports": {
+    ".": "./clox.js"
+  },
   "dependencies": {
     "ansi-align": "3.0.1",
     "camelcase": "8.0.0",
@@ -27,7 +27,6 @@
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
-    "build": "dotenv -- nps -c ./package-scripts.cjs build",
     "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",

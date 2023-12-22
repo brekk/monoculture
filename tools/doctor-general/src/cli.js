@@ -3,6 +3,7 @@ import PKG from '../package.json'
 import { configurate } from 'climate'
 import { basename, join as pathJoin, dirname } from 'node:path'
 import {
+  toLower,
   fromPairs,
   last,
   applySpec,
@@ -105,7 +106,7 @@ const cleanFilename = ({ workspace, fileGroup, filename, comments }) => {
   const title = pullPageTitleFromAnyComment(comments)
   // const sliced = title || slug(filename)
   const sliced = title || slug(filename)
-  const result = capitalToKebab(sliced) + '.mdx'
+  const result = toLower(capitalToKebab(sliced)) + '.mdx'
   return (
     (fileGroup ? fileGroup + '/' : '') + result
     // stripLeadingHyphen(sliced !== title ? capitalize(result) : result)
@@ -126,7 +127,7 @@ const combineFiles = curry((leftToRight, a, b) =>
 const prepareMetaFiles = curry((outputDir, workspace, commentedFiles) =>
   pipe(
     map(raw => [
-      pipe(cleanFilename, x => basename(x, '.mdx'))(raw),
+      pipe(cleanFilename, x => basename(x, '.mdx'), toLower)(raw),
       pipe(
         propOr([], 'comments'),
         filter(pathOr(false, ['structure', 'name'])),
@@ -146,7 +147,7 @@ const prepareMetaFiles = curry((outputDir, workspace, commentedFiles) =>
       pipe(
         sortBy(pathOr(0, ['order'])),
         map(([title, { metaName }]) => [
-          pipe(capitalToKebab, stripLeadingHyphen)(title),
+          pipe(capitalToKebab, stripLeadingHyphen, toLower)(title),
           metaName,
         ]),
         fromPairs
@@ -155,7 +156,7 @@ const prepareMetaFiles = curry((outputDir, workspace, commentedFiles) =>
     toPairs,
     map(([folder, data]) =>
       writeFileWithAutoPath(
-        pathJoin(outputDir, workspace, folder, '_meta.json'),
+        pathJoin(outputDir, workspace, toLower(folder), '_meta.json'),
         JSON.stringify(data, null, 2)
       )
     )

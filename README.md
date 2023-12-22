@@ -59,6 +59,8 @@ introspection and organization tools for monorepos
       - [climate](https://github.com/brekk/monoculture/tree/main/packages/climate) 🦴
       - [dependency-tree](https://www.npmjs.com/package/dependency-tree)
       - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
+      - [fluture](https://www.npmjs.com/package/fluture)
+      - [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) 🦴
       - [precinct](https://www.npmjs.com/package/precinct)
       - [ramda](https://www.npmjs.com/package/ramda)
       - [ts-graphviz](https://www.npmjs.com/package/ts-graphviz)
@@ -151,6 +153,16 @@ introspection and organization tools for monorepos
       - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
       - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴🧪
       - [jest](https://www.npmjs.com/package/jest)🧪
+      - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴🧪
+
+     </details>
+   * [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) - functional utilities for primitives ⛺️
+
+     <details><summary>Dependencies</summary>
+
+      - [ramda](https://www.npmjs.com/package/ramda)
+      - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
+      - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴🧪
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴🧪
 
      </details>

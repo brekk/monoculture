@@ -16,10 +16,6 @@ const sd = (script, description = '') =>
 module.exports = {
   scripts: {
     clean: sd('rm -r dist', 'clean the build'),
-    build: sd(
-buildModule([INPUT, 'dist/knot.js']),
-      'tie the knot!'
-    ),
     lint: sd('eslint --fix .', 'lint!'),
     meta: {
       graph: `madge ${INPUT} --image graph.svg`,

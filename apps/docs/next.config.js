@@ -5,10 +5,11 @@ const withNextra = require('nextra')({
 })
 
 module.exports = withNextra({
+  output: 'export',
   images: {
     unoptimized: true,
   },
   trailingSlash: true,
-  basePath: '/docs',
+  basePath: process.env.NODE_ENV === 'production' ? '/monoculture' : '/docs',
   transpilePackages: ['doctor-general'],
 })

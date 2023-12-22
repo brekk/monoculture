@@ -2,9 +2,13 @@
   "name": "climate",
   "version": "0.0.0",
   "description": "CLI utilities, friend 👯",
-  "exports": [
-    "./dist/climate.js"
-  ],
+  "exports": {
+    ".": "./climate.js",
+    "./help.js": "./help.js",
+    "./builder.js": "./builder.js",
+    "./log.js": "./log.js",
+    "./parser.js": "./parser.js"
+  },
   "type": "module",
   "repository": "monoculture",
   "author": "brekk",
@@ -28,8 +32,6 @@
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
-    "build": "dotenv -- nps -c ./package-scripts.cjs build",
-    "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",

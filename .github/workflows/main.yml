@@ -1,6 +1,20 @@
 name: Monoculture Builder 🏭
 on: [push, workflow_dispatch]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: ci
+    steps:
+      - name: 🚀 Deploy new build to pages...
+        id: deployment
+        uses: actions/deploy-pages@v2
   ci:
     runs-on: ubuntu-latest
     steps:
@@ -13,10 +27,29 @@ jobs:
         with:
           node-version: '20.x'
           cache: 'yarn'
+      - name: ✍️  Preparing to journal...
+        uses: actions/configure-pages@v3
       - name: 🧶 Installing dependencies...
         run: yarn --immutable
+      - name: 📩 Save documentation...
+        uses: actions/cache@v3
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-nextra-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**..[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextra-${{ hashFiles('**/yarn.lock') }}-
       - name: 🏗️ Building artifacts...
         run: yarn build
+      - name: 📟 Update pages...
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./apps/docs/out
+      - name: 👨 Scare away jekyll with a formula! 
+        run: |
+          mkdir public
+          touch public/.nojekyll
+          ls -Algp ./apps/docs/pages/file-system
+          echo "HEY LOOK"
       - name: 🚁 Saving artifacts...
         uses: actions/upload-artifact@v3
         with:

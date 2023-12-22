@@ -8,9 +8,9 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "exports": [
-    "./dist/file-system.js"
-  ],
+  "exports": {
+    ".": "./index.js"
+  },
   "dependencies": {
     "execa": "8.0.1",
     "find-up": "7.0.0",
@@ -26,7 +26,6 @@
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
-    "build": "dotenv -- nps -c ./package-scripts.cjs build",
     "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
