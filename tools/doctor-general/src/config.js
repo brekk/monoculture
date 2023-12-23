@@ -12,8 +12,9 @@ export const YARGS_CONFIG = {
     artifact: ['a'],
     ignore: ['g'],
     color: ['k'],
+    debug: ['d'],
   },
-  boolean: ['color'],
+  boolean: ['color', 'debug'],
   configuration: {
     'strip-aliased': true,
   },
@@ -28,6 +29,7 @@ export const HELP_CONFIG = {
   artifact: `Would you like to create an artifact file?
 (Useful for downstream transformation)`,
   ignore: 'Files to ignore when searching, can be specified multiple times',
+  debug: 'Generate additional information when processing content.',
 }
 
 export const CONFIG_DEFAULTS = {
@@ -40,4 +42,5 @@ export const CONFIG_DEFAULTS = {
     '**/fixture.*',
   ],
   search: '**/*.{js,jsx,ts,tsx}',
+  debug: false,
 }

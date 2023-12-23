@@ -70,125 +70,96 @@
       },
       {
         "start": 39,
-        "end": 53,
-        "lines": [
-          "Read a file asynchronously as a Future-wrapped value,",
-          "given a file encoding and a cancellation function.",
-          "@name readFileWithFormatAndCancel",
-          "@see {@link readFileWithCancel}",
-          "@see {@link readFile}",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { readFile } from 'file-system'",
-          "fork(console.warn)(console.log)(",
-          "  readFileWithFormatAndCancel(() => process.exit(), 'utf32', './README.md')",
-          ")",
-          "```"
-        ],
-        "summary": "Read a file asynchronously as a Future-wrapped value,\ngiven a file encoding and a cancellation function.",
-        "links": [
-          "readFileWithCancel",
-          "readFile"
-        ],
-        "fileGroup": "",
-        "addTo": "",
-        "structure": {
-          "name": "readFileWithFormatAndCancel",
-          "see": [
-            "readFileWithCancel",
-            "readFile"
-          ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\n  readFileWithFormatAndCancel(() => process.exit(), 'utf32', './README.md')\n)\n```"
-        },
-        "keywords": [
-          "@example",
-          "@link",
-          "@name",
-          "@see"
-        ],
-        "filename": "packages/file-system/fs.js"
-      },
-      {
-        "start": 61,
         "end": 73,
         "lines": [
-          "Read a file asynchronously as a Future-wrapped value, given a cancellation function.",
-          "Reads `utf8` files only, use `readFileWithFormatAndCancel` if another file encoding is needed.",
-          "@name readFileWithCancel",
-          "@see {@link readFileWithFormatAndCancel}",
-          "@see {@link readFile}",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { readFile } from 'file-system'",
-          "fork(console.warn)(console.log)(readFileWithCancel(() => process.exit(), './README.md'))",
-          "```"
+          "Read a file asynchronously as a Future-wrapped value.",
+          "@curried",
+          "*",
+          " 1. readFileWithFormatAndCancel - Can be given a file encoding and a cancellation function.",
+          "*",
+          "    @example",
+          "    ```js",
+          "    import { fork } from 'fluture'",
+          "    import { readFile } from 'file-system'",
+          "    fork(console.warn)(console.log)(",
+          "      readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')",
+          "    )",
+          "    ```",
+          "*",
+          " 2. readFileWithCancel - Reads `utf8` files only.",
+          "*",
+          "    @example",
+          "    ```js",
+          "    import { fork } from 'fluture'",
+          "    import { readFile } from 'file-system'",
+          "    fork(console.warn)(console.log)(",
+          "      readFileWithCancel(() => process.exit(), './README.md')",
+          "    )",
+          "    ```",
+          "*",
+          " 3. readFile - Eschews any custom cancellation.",
+          "*",
+          "    @example",
+          "    ```js",
+          "    import { fork } from 'fluture'",
+          "    import { readFile } from 'file-system'",
+          "    fork(console.warn)(console.log)(readFile('./README.md'))",
+          "    ```"
         ],
-        "summary": "Read a file asynchronously as a Future-wrapped value, given a cancellation function.\nReads `utf8` files only, use `readFileWithFormatAndCancel` if another file encoding is needed.",
-        "links": [
-          "readFileWithFormatAndCancel",
-          "readFile"
-        ],
+        "summary": "Read a file asynchronously as a Future-wrapped value.",
+        "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "name": "readFileWithCancel",
-          "see": [
-            "readFileWithFormatAndCancel",
-            "readFile"
-          ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(readFileWithCancel(() => process.exit(), './README.md'))\n```"
+          "curried": [
+            {
+              "name": "readFileWithFormatAndCancel",
+              "summary": "Can be given a file encoding and a cancellation function.",
+              "lines": [
+                "```js",
+                "import { fork } from 'fluture'",
+                "import { readFile } from 'file-system'",
+                "fork(console.warn)(console.log)(",
+                "readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')",
+                ")",
+                "```"
+              ]
+            },
+            {
+              "name": "readFileWithCancel",
+              "summary": "Reads `utf8` files only.",
+              "lines": [
+                "```js",
+                "import { fork } from 'fluture'",
+                "import { readFile } from 'file-system'",
+                "fork(console.warn)(console.log)(",
+                "readFileWithCancel(() => process.exit(), './README.md')",
+                ")",
+                "```"
+              ]
+            },
+            {
+              "name": "readFile",
+              "summary": "Eschews any custom cancellation.",
+              "lines": [
+                "```js",
+                "import { fork } from 'fluture'",
+                "import { readFile } from 'file-system'",
+                "fork(console.warn)(console.log)(readFile('./README.md'))",
+                "```"
+              ]
+            }
+          ]
         },
         "keywords": [
-          "@example",
-          "@link",
-          "@name",
-          "@see"
+          "@curried",
+          "@example"
         ],
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 77,
-        "end": 88,
-        "lines": [
-          "Read a file asynchronously as a Future-wrapped value",
-          "@name readFile",
-          "@see {@link readFileWithFormatAndCancel}",
-          "@see {@link readFile}",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { readFile } from 'file-system'",
-          "fork(console.warn)(console.log)(readFile('./README.md'))",
-          "```"
-        ],
-        "summary": "Read a file asynchronously as a Future-wrapped value",
-        "links": [
-          "readFileWithFormatAndCancel",
-          "readFile"
-        ],
-        "fileGroup": "",
-        "addTo": "",
-        "structure": {
-          "name": "readFile",
-          "see": [
-            "readFileWithFormatAndCancel",
-            "readFile"
-          ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(readFile('./README.md'))\n```"
-        },
-        "keywords": [
-          "@example",
-          "@link",
-          "@name",
-          "@see"
-        ],
-        "filename": "packages/file-system/fs.js"
-      },
-      {
-        "start": 91,
-        "end": 102,
+        "start": 83,
+        "end": 94,
         "lines": [
           "Read a JSON file asynchronously as a Future-wrapped value, given a cancellation function",
           "@name readJSONFileWithCancel",
@@ -225,8 +196,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 107,
-        "end": 118,
+        "start": 99,
+        "end": 110,
         "lines": [
           "Read a JSON file asynchronously as a Future-wrapped value",
           "@name readJSONFile",
@@ -263,8 +234,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 121,
-        "end": 137,
+        "start": 113,
+        "end": 129,
         "lines": [
           "Read a glob asynchronously as a Future-wrapped value,",
           "with configuration and a cancellation function.",
@@ -306,8 +277,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 152,
-        "end": 167,
+        "start": 144,
+        "end": 159,
         "lines": [
           "Read a glob asynchronously as a Future-wrapped value, with configuration.",
           "Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
@@ -348,8 +319,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 170,
-        "end": 183,
+        "start": 162,
+        "end": 175,
         "lines": [
           "Read a glob asynchronously as a Future-wrapped value, default config assumed.",
           "Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
@@ -388,8 +359,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 186,
-        "end": 206,
+        "start": 178,
+        "end": 198,
         "lines": [
           "Write to a file, with configuration and a cancellation function.",
           "Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
@@ -435,8 +406,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 221,
-        "end": 240,
+        "start": 213,
+        "end": 232,
         "lines": [
           "Write to a file, with configuration.",
           "Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
@@ -481,8 +452,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 243,
-        "end": 261,
+        "start": 235,
+        "end": 253,
         "lines": [
           "Write to a file, assuming `'utf8'`.",
           "Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
@@ -526,8 +497,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 264,
-        "end": 283,
+        "start": 256,
+        "end": 275,
         "lines": [
           "Remove a file, configurably, with cancellation.",
           "Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
@@ -572,8 +543,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 291,
-        "end": 309,
+        "start": 283,
+        "end": 301,
         "lines": [
           "Remove a file, configurably.",
           "Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
@@ -617,8 +588,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 320,
-        "end": 337,
+        "start": 312,
+        "end": 329,
         "lines": [
           "Remove a file.",
           "Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
@@ -661,8 +632,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 340,
-        "end": 358,
+        "start": 332,
+        "end": 350,
         "lines": [
           "Remove multiple files, configurably, with a cancellation function.",
           "@name removeFilesWithConfigAndCancel",
@@ -706,8 +677,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 366,
-        "end": 383,
+        "start": 358,
+        "end": 375,
         "lines": [
           "Remove multiple files, configurably.",
           "@name removeFilesWithConfig",
@@ -750,8 +721,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 386,
-        "end": 402,
+        "start": 378,
+        "end": 394,
         "lines": [
           "Remove multiple files, configurably.",
           "@name removeFilesWithConfig",
@@ -793,8 +764,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 405,
-        "end": 424,
+        "start": 397,
+        "end": 416,
         "lines": [
           "Make a directory, given a cancellation function.",
           "Returns a Future-wrapped file path as a discrete value upon success.",
@@ -839,8 +810,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 432,
-        "end": 450,
+        "start": 424,
+        "end": 442,
         "lines": [
           "Make a directory",
           "Returns a Future-wrapped file path as a discrete value upon success.",
@@ -884,8 +855,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 453,
-        "end": 471,
+        "start": 445,
+        "end": 463,
         "lines": [
           "Make a directory, recursively.",
           "Returns a Future-wrapped file path as a discrete value upon success.",
@@ -929,8 +900,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 487,
-        "end": 502,
+        "start": 479,
+        "end": 494,
         "lines": [
           "Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`",
           "@name writeFileWithAutoPath",
@@ -964,12 +935,6 @@
     ],
     "order": 0,
     "links": [
-      "readFileWithCancel",
-      "readFile",
-      "readFileWithFormatAndCancel",
-      "readFile",
-      "readFileWithFormatAndCancel",
-      "readFile",
       "readFile",
       "readJSONFile",
       "readFile",

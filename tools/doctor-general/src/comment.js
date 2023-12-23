@@ -1,4 +1,8 @@
+import { log } from './log'
 import {
+  isEmpty,
+  split,
+  prop,
   propOr,
   __ as $,
   addIndex,
@@ -29,6 +33,7 @@ import {
   toPairs,
   trim,
   uniq,
+  test as testRegExp,
 } from 'ramda'
 import { findJSDocKeywords, cleanupKeywords } from './file'
 import { unlines, formatComment, trimComment, wipeComment } from './text'
@@ -38,10 +43,53 @@ export const matchLinks = pipe(
   chain(match(linkRegex)),
   map(z => slice('{@link '.length, z.length - 1, z))
 )
+const ORDERED_LIST_ITEM = /^\s\d*\.\s/g
+const CURRIED_LIST_ITEM = /^\d+\.\s(\w+)\s-\s(.*)/g
+const isListItem = testRegExp(ORDERED_LIST_ITEM)
+
+export const getCurriedDefinition = curry((file, end, i) => {
+  return pipe(
+    slice(i + 1, end),
+    map(trimComment),
+    map(replace(/^\*$/g, '')),
+    filter(trim),
+    map(line => [isListItem(line), line]),
+    reduce(
+      ({ subject, lines, defs }, [isDefinition, content]) => {
+        if (isDefinition) {
+          if (lines.length) {
+            return {
+              defs: [...defs, { lines, subject }],
+              lines: [],
+              subject: content,
+            }
+          }
+          return {
+            defs,
+            lines: [],
+            subject: content,
+          }
+        }
+        return { subject, defs, lines: [...lines, trim(content)] }
+      },
+      { subject: null, lines: [], defs: [] }
+    ),
+    ({ subject, defs, lines }) => [...defs, { lines, subject }],
+    map(({ lines, subject }) => {
+      const matched = trim(subject).replace(CURRIED_LIST_ITEM, '$1⩇$2')
+      const [name, summary] = split('⩇', matched)
+      return { name, summary, lines: reject(equals('@example'), lines) }
+    }),
+    log.parse('@curried')
+  )(file)
+})
 
 export const handleSpecificKeywords = curry(
   (keyword, value, rest, file, end, i) =>
     cond([
+      // curried function definitions afford named variants of the same function
+      // see file-system/fs.js for an example
+      [equals('curried'), () => getCurriedDefinition(file, end, i)],
       // if example found, pull from raw file
       [equals('example'), () => getExample(file, end, i)],
       // if see found, do some light cleanup
@@ -70,6 +118,7 @@ export const structureKeywords = curry((file, block, end) =>
       )(line),
     ]),
     filter(last),
+    reject(pipe(last, head, isEmpty)),
     map(([i, [keyword, value = true, ...rest]]) => [
       i,
       [keyword, handleSpecificKeywords(keyword, value, rest, file, end, i)],
@@ -117,8 +166,8 @@ export const stripLeadingHyphen = replace(/^-/g, '')
 const getFileGroup = propOr('', 'group')
 const addTo = propOr('', 'addTo')
 
-// objectifyComments :: String -> List Comment -> List CommentBlock
-export const objectifyComments = curry((filename, file, comments) =>
+// objectifyComments :: Boolean -> String -> List Comment -> List CommentBlock
+export const objectifyComments = curry((debugMode, filename, file, comments) =>
   reduce(
     (agg, block) =>
       agg.concat(
@@ -136,8 +185,10 @@ export const objectifyComments = curry((filename, file, comments) =>
               structure.name = structure.page
               structure.detail = gen.start
             }
+            const { lines: debugLines, ...genRest } = gen
+            const toAdd = { lines: debugLines, ...genRest }
             return {
-              ...gen,
+              ...toAdd,
               summary: summarize(gen.lines),
               links: matchLinks(gen.lines),
               fileGroup: getFileGroup(structure),

@@ -283,19 +283,19 @@ const runner = ({
         toPairs,
         map(([workspace, commentedFiles]) => {
           const filesToWrite = map(file => {
-            return writeFileWithAutoPath(
-              pathJoin(
-                outputDir,
-                workspace,
-                // this part is the structure of the file we wanna write
-                cleanFilename(file)
-              ),
-              pipe(
-                map(commentToMarkdown),
-                z => ['# ' + file.slugName, file.pageSummary, ...z],
-                join('\n\n')
-              )(file.comments)
+            console.log('file...', file)
+            const filePathToWrite = pathJoin(
+              outputDir,
+              workspace,
+              // this part is the structure of the file we wanna write
+              cleanFilename(file)
             )
+            const renderedComments = pipe(
+              map(commentToMarkdown),
+              z => ['# ' + file.slugName, file.pageSummary, ...z],
+              join('\n\n')
+            )(file.comments)
+            return writeFileWithAutoPath(filePathToWrite, renderedComments)
           })(commentedFiles)
           const metaFiles = prepareMetaFiles(
             outputDir,

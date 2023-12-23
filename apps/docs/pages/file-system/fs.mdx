@@ -13,48 +13,8 @@ console.log(`support ${localize('business')}`)
 // support ./business
 ```
 
-## readFileWithFormatAndCancel
-Read a file asynchronously as a Future-wrapped value,
-given a file encoding and a cancellation function.
-### Usage
-```js
-import { fork } from 'fluture'
-import { readFile } from 'file-system'
-fork(console.warn)(console.log)(
-  readFileWithFormatAndCancel(() => process.exit(), 'utf32', './README.md')
-)
-```
-
-#### See also
- - readFileWithCancel
- - readFile
-
-## readFileWithCancel
-Read a file asynchronously as a Future-wrapped value, given a cancellation function.
-Reads `utf8` files only, use `readFileWithFormatAndCancel` if another file encoding is needed.
-### Usage
-```js
-import { fork } from 'fluture'
-import { readFile } from 'file-system'
-fork(console.warn)(console.log)(readFileWithCancel(() => process.exit(), './README.md'))
-```
-
-#### See also
- - readFileWithFormatAndCancel
- - readFile
-
-## readFile
-Read a file asynchronously as a Future-wrapped value
-### Usage
-```js
-import { fork } from 'fluture'
-import { readFile } from 'file-system'
-fork(console.warn)(console.log)(readFile('./README.md'))
-```
-
-#### See also
- - readFileWithFormatAndCancel
- - readFile
+## Unknown
+Read a file asynchronously as a Future-wrapped value.
 
 ## readJSONFileWithCancel
 Read a JSON file asynchronously as a Future-wrapped value, given a cancellation function

@@ -7027,6 +7027,7 @@ __metadata:
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     file-system: "workspace:packages/file-system"
     fluture: "npm:14.0.0"
+    inherent: "workspace:packages/inherent"
     jest-environment-jsdom: "npm:29.7.0"
     knot: "workspace:packages/knot"
     madge: "npm:6.1.0"
