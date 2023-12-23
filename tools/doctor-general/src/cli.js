@@ -1,5 +1,6 @@
 import { cwd } from 'node:process'
 import PKG from '../package.json'
+import { log } from './log'
 import { configurate } from 'climate'
 import { basename, join as pathJoin, dirname } from 'node:path'
 import {
@@ -37,7 +38,6 @@ import {
   pathRelativeTo,
   readJSONFile,
   readDirWithConfig,
-  writeFile,
   writeFileWithAutoPath,
 } from 'file-system'
 
@@ -170,6 +170,7 @@ const processHelpOrRun = config => {
 }
 
 const runner = ({
+  debug,
   input,
   output,
   search: searchGlob = CONFIG_DEFAULTS.search,
@@ -187,12 +188,14 @@ const runner = ({
   const toLocal = input.slice(0, input.lastIndexOf('/'))
   const relativize = r => toLocal + '/' + r
   return pipe(
+    log.cli('reading root package.json'),
     // read the package.json file
     readJSONFile,
     // reach into the Future
     readPackageJsonWorkspaces(root),
     // take the Future of an array of Futures, make it a single Future
     chain(parallel(10)),
+    map(log.cli('reading all the workspaces')),
     // take [[apps/workspace, apps/workspace2], [scripts/workspace]]
     // and make them [apps/workspace, apps/workspace2, scripts/workspace]
     map(flatten),
@@ -200,13 +203,14 @@ const runner = ({
     iterateOverWorkspacesAndReadFiles(searchGlob, ignore, root),
     // Future<error, Future<error, string>[]>
     chain(parallel(10)),
+    map(log.cli('reading all files in all the workspaces')),
     // Future<error, string[]>
     // take [[files, in], [workspaces]] and make them [files, in, workspaces]
     map(flatten),
     map(map(relativize)),
     // check each file for comments
     // Future<error, Future<error, CommentBlock>[]>
-    map(chain(parseFile(root))),
+    map(chain(parseFile(debug, root))),
     // Future<error, CommentBlock[]>
     chain(parallel(10)),
     // Future<error, CommentBlock[]>
@@ -283,7 +287,6 @@ const runner = ({
         toPairs,
         map(([workspace, commentedFiles]) => {
           const filesToWrite = map(file => {
-            console.log('file...', file)
             const filePathToWrite = pathJoin(
               outputDir,
               workspace,

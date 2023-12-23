@@ -1,5 +1,4 @@
 import { wrap } from 'inherent'
-import { log } from './log'
 import {
   ap,
   lt,
@@ -67,20 +66,16 @@ const handleCurriedExample = raw =>
 export const commentToMarkdown = handleSpecialCases(
   pipe(
     ifElse(
-      // pipe(getCurried, length, lt(0)),
-      K(false),
+      pipe(getCurried, length, lt(0)),
       handleCurriedExample,
-      pipe(
-        flattenCommentData,
-        log.renderer('flattened'),
-        ({ title, summary, links, example }) =>
-          cleanlines([
-            title ? '## ' + title + '\n' : '',
-            summary ? summary + '\n' : '',
-            example ? `### Usage\n${example}` : '',
-            example.includes('live=true') ? `\n\n${liveExample(example)}` : '',
-            links.length ? `\n#### See also\n - ${links.join('\n - ')}` : '',
-          ])
+      pipe(flattenCommentData, ({ title, summary, links, example }) =>
+        cleanlines([
+          title ? '## ' + title + '\n' : '',
+          summary ? summary + '\n' : '',
+          example ? `### Usage\n${example}` : '',
+          example.includes('live=true') ? `\n\n${liveExample(example)}` : '',
+          links.length ? `\n#### See also\n - ${links.join('\n - ')}` : '',
+        ])
       )
     )
   )

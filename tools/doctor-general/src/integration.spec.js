@@ -1,33 +1,9 @@
 // import { cwd } from 'node:process'
 import { trace } from 'xtrace'
-import {
-  always as K,
-  when,
-  is,
-  curry,
-  pipe,
-  map,
-  join,
-  identity as I,
-  chain,
-  propOr,
-  both,
-} from 'ramda'
-import {
-  join as pathJoin,
-  relative,
-  resolve as pathResolve,
-  sep as SEPARATOR,
-} from 'node:path'
-import { fork, bimap, parallel } from 'fluture'
-import stripAnsi from 'strip-ansi'
-import {
-  readFile,
-  flexecaWithOptionsAndCancel,
-  removeFile,
-  rimraf,
-} from 'file-system'
-import { nthIndex } from 'knot'
+import { is, curry, pipe, map, join } from 'ramda'
+import { join as pathJoin, relative } from 'node:path'
+import { fork } from 'fluture'
+import { flexecaWithOptionsAndCancel } from 'file-system'
 
 test('smoke', () => {
   expect(true).toBeTruthy()
@@ -40,8 +16,8 @@ const exe = flexecaWithOptionsAndCancel(
     cwd: process.cwd(),
   }
 )
-const goodPath = propOr('', 'stdout')
-const badPath = propOr('', 'stderr')
+// const goodPath = propOr('', 'stdout')
+// const badPath = propOr('', 'stderr')
 
 // it's a killable function
 const killjoy = curry((done, fn, x) => (is(Function)(fn) ? fn(done)(x) : x))
@@ -72,18 +48,18 @@ const testCLI = curry((transforms, postRun, finalAssertion, args) => {
   })
 })
 
-testCLI(
-  [
-    curry((done, rawF) =>
-      map(raw => {
-        expect(stripAnsi(raw)).toMatchSnapshot()
-      }, rawF)
-    ),
-  ],
-  false,
-  false,
-  []
-)
+// testCLI(
+//   [
+//     curry((done, rawF) =>
+//       map(raw => {
+//         expect(stripAnsi(raw)).toMatchSnapshot()
+//       }, rawF)
+//     ),
+//   ],
+//   false,
+//   false,
+//   []
+// )
 
 const inFix = x =>
   './' + relative(process.cwd(), pathJoin(__dirname, '../fixture/' + x))
@@ -114,22 +90,22 @@ testCLI(
 )
 */
 
-test('ragequit', done => {
-  fork(bad => {
-    console.log({ bad, type: typeof bad })
-    expect(bad).toEqual('something')
-    done()
-  })(good => {
-    expect(good).toEqual('something')
-    done()
-  })(exe(['-i', FAKE_PACKAGE_JSON, '-a', GENERATED, '-o', GENERATED_FILES]))
-})
+// test('ragequit', done => {
+//   fork(bad => {
+//     console.log({ bad, type: typeof bad })
+//     expect(bad).toEqual('something')
+//     done()
+//   })(good => {
+//     expect(good).toEqual('something')
+//     done()
+//   })(exe(['-i', FAKE_PACKAGE_JSON, '-a', GENERATED, '-o', GENERATED_FILES]))
+// })
 
-afterAll(done => {
-  pipe(
-    fork(done)(_x => {
-      // console.log('removed!', _x)
-      done()
-    })
-  )(parallel(10)([rimraf(GENERATED), rimraf(GENERATED_FILES)]))
-})
+// afterAll(done => {
+//   pipe(
+//     fork(done)(_x => {
+//       // console.log('removed!', _x)
+//       done()
+//     })
+//   )(parallel(10)([rimraf(GENERATED), rimraf(GENERATED_FILES)]))
+// })

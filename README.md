@@ -281,6 +281,7 @@ introspection and organization tools for monorepos
       - [climate](https://github.com/brekk/monoculture/tree/main/packages/climate) 🦴
       - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
       - [fluture](https://www.npmjs.com/package/fluture)
+      - [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) 🦴
       - [knot](https://github.com/brekk/monoculture/tree/main/packages/knot) 🦴
       - [ramda](https://www.npmjs.com/package/ramda)
       - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪

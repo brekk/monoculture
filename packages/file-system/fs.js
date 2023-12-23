@@ -42,7 +42,6 @@ export const localize = z => `.${sep}${z}`
  * @curried
  *
  *  1. readFileWithFormatAndCancel - Can be given a file encoding and a cancellation function.
- *
  *     @example
  *     ```js
  *     import { fork } from 'fluture'
@@ -53,7 +52,6 @@ export const localize = z => `.${sep}${z}`
  *     ```
  *
  *  2. readFileWithCancel - Reads `utf8` files only.
- *
  *     @example
  *     ```js
  *     import { fork } from 'fluture'
@@ -64,7 +62,6 @@ export const localize = z => `.${sep}${z}`
  *     ```
  *
  *  3. readFile - Eschews any custom cancellation.
- *
  *     @example
  *     ```js
  *     import { fork } from 'fluture'

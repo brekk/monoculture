@@ -6,6 +6,7 @@ exports[`default export 1`] = `
   "cleanupKeywords": [Function],
   "findJSDocKeywords": [Function],
   "formatComment": [Function],
+  "getCurriedDefinition": [Function],
   "getExample": [Function],
   "groupContiguousBlocks": [Function],
   "handleSpecificKeywords": [Function],

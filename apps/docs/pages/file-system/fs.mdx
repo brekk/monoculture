@@ -5,7 +5,9 @@ A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that
 
 
 ## localize
+
 make a file string relative
+
 ### Usage
 ```js
 import { localize } from 'file-system'
@@ -13,11 +15,51 @@ console.log(`support ${localize('business')}`)
 // support ./business
 ```
 
-## Unknown
+## readFileWithFormatAndCancel
+
 Read a file asynchronously as a Future-wrapped value.
 
+Can be given a file encoding and a cancellation function.
+
+### Usage
+```js
+import { fork } from 'fluture'
+import { readFile } from 'file-system'
+fork(console.warn)(console.log)(
+  readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')
+)
+```
+## readFileWithCancel
+
+Read a file asynchronously as a Future-wrapped value.
+
+Reads `utf8` files only.
+
+### Usage
+```js
+import { fork } from 'fluture'
+import { readFile } from 'file-system'
+fork(console.warn)(console.log)(
+  readFileWithCancel(() => process.exit(), './README.md')
+)
+```
+## readFile
+
+Read a file asynchronously as a Future-wrapped value.
+
+Eschews any custom cancellation.
+
+### Usage
+```js
+import { fork } from 'fluture'
+import { readFile } from 'file-system'
+fork(console.warn)(console.log)(readFile('./README.md'))
+```
+
 ## readJSONFileWithCancel
+
 Read a JSON file asynchronously as a Future-wrapped value, given a cancellation function
+
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -30,7 +72,9 @@ fork(console.warn)(console.log)(readJSONFile('./package.json'))
  - readJSONFile
 
 ## readJSONFile
+
 Read a JSON file asynchronously as a Future-wrapped value
+
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -43,9 +87,11 @@ fork(console.warn)(console.log)(readJSONFile('./package.json'))
  - readJSONFileWithCancel
 
 ## readDirWithConfigAndCancel
+
 Read a glob asynchronously as a Future-wrapped value,
 with configuration and a cancellation function.
 Configuration is passed to [glob](https://www.npmjs.com/package/glob)
+
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -61,8 +107,10 @@ pipe(
  - readDir
 
 ## readDirWithConfig
+
 Read a glob asynchronously as a Future-wrapped value, with configuration.
 Configuration is passed to [glob](https://www.npmjs.com/package/glob)
+
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -78,8 +126,10 @@ pipe(
  - readDir
 
 ## readDir
+
 Read a glob asynchronously as a Future-wrapped value, default config assumed.
 Configuration is passed to [glob](https://www.npmjs.com/package/glob)
+
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -93,8 +143,10 @@ fork(console.warn)(console.log)(readDir('src/*'))
  - readDirWithConfig
 
 ## writeFileWithConfigAndCancel
+
 Write to a file, with configuration and a cancellation function.
 Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.
+
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -115,8 +167,10 @@ fork(console.warn)(console.log)(
  - writeFile
 
 ## writeFileWithConfig
+
 Write to a file, with configuration.
 Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.
+
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -136,8 +190,10 @@ fork(console.warn)(console.log)(
  - writeFile
 
 ## writeFile
+
 Write to a file, assuming `'utf8'`.
 Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.
+
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -156,8 +212,10 @@ fork(console.warn)(console.log)(
  - writeFileWithConfig
 
 ## removeFileWithConfigAndCancel
+
 Remove a file, configurably, with cancellation.
 Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
+
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -177,8 +235,10 @@ fork(console.warn)(console.log)(
  - removeFile
 
 ## removeFileWithConfig
+
 Remove a file, configurably.
 Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
+
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -197,8 +257,10 @@ fork(console.warn)(console.log)(
  - removeFile
 
 ## removeFile
+
 Remove a file.
 Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
+
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -216,7 +278,9 @@ fork(console.warn)(console.log)(
  - removeFileWithConfig
 
 ## removeFilesWithConfigAndCancel
+
 Remove multiple files, configurably, with a cancellation function.
+
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -236,7 +300,9 @@ fork(console.warn)(console.log)(
  - removeFiles
 
 ## removeFilesWithConfig
+
 Remove multiple files, configurably.
+
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -255,7 +321,9 @@ fork(console.warn)(console.log)(
  - removeFiles
 
 ## removeFilesWithConfig
+
 Remove multiple files, configurably.
+
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -273,8 +341,10 @@ fork(console.warn)(console.log)(
  - removeFiles
 
 ## mkdirWithCancel
+
 Make a directory, given a cancellation function.
 Returns a Future-wrapped file path as a discrete value upon success.
+
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -294,8 +364,10 @@ fork(console.warn)(console.log)(
  - mkdirp
 
 ## mkdir
+
 Make a directory
 Returns a Future-wrapped file path as a discrete value upon success.
+
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -314,8 +386,10 @@ fork(console.warn)(console.log)(
  - mkdirp
 
 ## mkdirp
+
 Make a directory, recursively.
 Returns a Future-wrapped file path as a discrete value upon success.
+
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -334,7 +408,9 @@ fork(console.warn)(console.log)(
  - mkdir
 
 ## writeFileWithAutoPath
+
 Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`
+
 ### Usage
 ```js
 import { fork } from 'fluture'

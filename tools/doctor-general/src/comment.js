@@ -1,8 +1,6 @@
-import { log } from './log'
 import {
   isEmpty,
   split,
-  prop,
   propOr,
   __ as $,
   addIndex,
@@ -70,7 +68,14 @@ export const getCurriedDefinition = curry((file, end, i) => {
             subject: content,
           }
         }
-        return { subject, defs, lines: [...lines, trim(content)] }
+        return {
+          subject,
+          defs,
+          lines: [
+            ...lines,
+            content.startsWith('    ') ? content.slice(4) : content,
+          ],
+        }
       },
       { subject: null, lines: [], defs: [] }
     ),
@@ -78,9 +83,12 @@ export const getCurriedDefinition = curry((file, end, i) => {
     map(({ lines, subject }) => {
       const matched = trim(subject).replace(CURRIED_LIST_ITEM, '$1⩇$2')
       const [name, summary] = split('⩇', matched)
-      return { name, summary, lines: reject(equals('@example'), lines) }
-    }),
-    log.parse('@curried')
+      return {
+        name,
+        summary,
+        lines: pipe(reject(equals('@example')), unlines)(lines),
+      }
+    })
   )(file)
 })
 
@@ -167,7 +175,7 @@ const getFileGroup = propOr('', 'group')
 const addTo = propOr('', 'addTo')
 
 // objectifyComments :: Boolean -> String -> List Comment -> List CommentBlock
-export const objectifyComments = curry((debugMode, filename, file, comments) =>
+export const objectifyComments = curry((filename, file, comments) =>
   reduce(
     (agg, block) =>
       agg.concat(
@@ -185,10 +193,8 @@ export const objectifyComments = curry((debugMode, filename, file, comments) =>
               structure.name = structure.page
               structure.detail = gen.start
             }
-            const { lines: debugLines, ...genRest } = gen
-            const toAdd = { lines: debugLines, ...genRest }
             return {
-              ...toAdd,
+              ...gen,
               summary: summarize(gen.lines),
               links: matchLinks(gen.lines),
               fileGroup: getFileGroup(structure),

@@ -1,5 +1,7 @@
 import { basename, extname } from 'node:path'
 import {
+  unless,
+  always as K,
   defaultTo,
   join,
   curry,
@@ -18,7 +20,6 @@ import { readFile } from 'file-system'
 import { addLineNumbers, groupContiguousBlocks } from './file'
 import { lines, stripRelative } from './text'
 import { isJSDocComment, objectifyComments } from './comment'
-import { log } from './log'
 
 const getAny = curry((def, keyPath, comments) =>
   pipe(
@@ -38,7 +39,7 @@ const getPageSummary = pipe(
 
 const getPageTitle = getAny('', ['structure', 'page'])
 
-export const parse = curry((debugMode, root, filename, content) => {
+export const parse = curry((root, filename, content) => {
   const newName = stripRelative(filename)
   const slugName = basename(newName, extname(newName))
   return pipe(
@@ -53,7 +54,7 @@ export const parse = curry((debugMode, root, filename, content) => {
         // List #[Integer, String]
         groupContiguousBlocks,
         // List #[Integer, String]
-        objectifyComments(debugMode, newName, raw),
+        objectifyComments(newName, raw),
         // List CommentBlock
         comments => ({
           slugName,
@@ -78,7 +79,7 @@ export const parseFile = curry((debugMode, root, filename) =>
     // String
     readFile,
     // Future<Error, String>
-    map(parse(debugMode, root, filename)),
+    map(parse(root, filename)),
     // remove orphan comments (parser found it but its not well-formed)
     map(p => ({
       ...p,
@@ -86,6 +87,10 @@ export const parseFile = curry((debugMode, root, filename) =>
         filter(
           ({ lines: l, start, end, summary }) =>
             start !== end && !!summary && l.length > 0
+        ),
+        unless(
+          K(debugMode),
+          map(({ lines: _lines, ...rest }) => rest)
         )
       )(p.comments),
     }))
