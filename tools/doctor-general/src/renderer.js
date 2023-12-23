@@ -1,4 +1,8 @@
+import { wrap } from 'inherent'
 import {
+  concat,
+  ap,
+  lt,
   filter,
   join,
   identity as I,
@@ -32,25 +36,55 @@ const handleSpecialCases = ifElse(
   K('')
 )
 
+const flattenCommentData = applySpec({
+  title: pathOr('Unknown', ['structure', 'name']),
+  summary: propOr('?', 'summary'),
+  links: propOr([], 'links'),
+  example: pathOr('', ['structure', 'example']),
+})
+
+const getCurried = pathOr([], ['structure', 'curried'])
+
+const cleanlines = pipe(filter(I), join('\n'))
+
+const handleCurriedExample = raw =>
+  pipe(
+    wrap,
+    ap([getCurried, flattenCommentData]),
+    ([curried, { summary: sharedSummary, links }]) =>
+      map(({ name, summary, lines: example }) => {
+        const allLinks = pipe(
+          map(({ name: n }) => n),
+          filter(y => y !== name),
+          concat(links)
+        )(curried)
+        return cleanlines([
+          name ? '## ' + name + '\n' : '',
+          sharedSummary ? sharedSummary + '\n' : '',
+          summary ? summary + '\n' : '',
+          example ? `### Usage\n${example}` : '',
+          example.includes('live=true') ? `\n\n${liveExample(example)}` : '',
+          allLinks.length
+            ? `\n#### See also\n - ${allLinks.join('\n - ')}`
+            : '',
+        ])
+      })(curried),
+    join('\n')
+  )(raw)
 export const commentToMarkdown = handleSpecialCases(
   pipe(
-    applySpec({
-      title: pathOr('Unknown', ['structure', 'name']),
-      // pageSummary: propOr('', 'pageSummary'),
-      summary: propOr('?', 'summary'),
-      links: propOr([], 'links'),
-      example: pathOr('', ['structure', 'example']),
-    }),
-    ({ title, summary, links, example }) =>
-      pipe(
-        filter(I),
-        join('\n')
-      )([
-        title ? '## ' + title : '',
-        summary ? summary : '',
-        example ? `### Usage\n${example}` : '',
-        example.includes('live=true') ? `\n\n${liveExample(example)}` : '',
-        links.length ? `\n#### See also\n - ${links.join('\n - ')}` : '',
-      ])
+    ifElse(
+      pipe(getCurried, length, lt(0)),
+      handleCurriedExample,
+      pipe(flattenCommentData, ({ title, summary, links, example }) =>
+        cleanlines([
+          title ? '## ' + title + '\n' : '',
+          summary ? summary + '\n' : '',
+          example ? `### Usage\n${example}` : '',
+          example.includes('live=true') ? `\n\n${liveExample(example)}` : '',
+          links.length ? `\n#### See also\n - ${links.join('\n - ')}` : '',
+        ])
+      )
+    )
   )
 )

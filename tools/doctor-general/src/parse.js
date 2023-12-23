@@ -1,5 +1,7 @@
 import { basename, extname } from 'node:path'
 import {
+  unless,
+  always as K,
   defaultTo,
   join,
   curry,
@@ -29,20 +31,11 @@ const getAny = curry((def, keyPath, comments) =>
   )(comments)
 )
 
-const getPageSummary = comments => {
-  const explicitSummary = pipe(
-    getAny('', ['structure', 'pageSummary']),
-    defaultTo([]),
-    join(' ')
-  )(comments)
-  // const summary =
-  //   explicitSummary === ''
-  //     ? pipe(head, propOr('', 'summary'))(comments)
-  //     : explicitSummary
-  // console.log('summary', explicitSummary, '...', summary)
-  // return summary
-  return explicitSummary
-}
+const getPageSummary = pipe(
+  getAny('', ['structure', 'pageSummary']),
+  defaultTo([]),
+  join(' ')
+)
 
 const getPageTitle = getAny('', ['structure', 'page'])
 
@@ -81,7 +74,7 @@ export const parse = curry((root, filename, content) => {
 })
 
 // comments in pipe show current shape per step
-export const parseFile = curry((root, filename) =>
+export const parseFile = curry((debugMode, root, filename) =>
   pipe(
     // String
     readFile,
@@ -94,11 +87,12 @@ export const parseFile = curry((root, filename) =>
         filter(
           ({ lines: l, start, end, summary }) =>
             start !== end && !!summary && l.length > 0
+        ),
+        unless(
+          K(debugMode),
+          map(({ lines: _lines, ...rest }) => rest)
         )
-      )(
-        // && pipe(keys, length, lt(0))(structure)
-        p.comments
-      ),
+      )(p.comments),
     }))
     // CommentedFile
   )(filename)

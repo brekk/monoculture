@@ -95,5 +95,5 @@ test('parseFile', done => {
     const cleanFilename = raw.filename.split('/').slice(-3).join('/')
     expect({ ...raw, filename: cleanFilename }).toMatchSnapshot()
     done()
-  })(parseFile('root', input))
+  })(parseFile(false, 'root', input))
 })

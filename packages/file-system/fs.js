@@ -38,19 +38,36 @@ export const NO_OP = () => {}
 export const localize = z => `.${sep}${z}`
 
 /**
- * Read a file asynchronously as a Future-wrapped value,
- * given a file encoding and a cancellation function.
- * @name readFileWithFormatAndCancel
- * @see {@link readFileWithCancel}
- * @see {@link readFile}
- * @example
- * ```js
- * import { fork } from 'fluture'
- * import { readFile } from 'file-system'
- * fork(console.warn)(console.log)(
- *   readFileWithFormatAndCancel(() => process.exit(), 'utf32', './README.md')
- * )
- * ```
+ * Read a file asynchronously as a Future-wrapped value.
+ * @curried
+ *
+ *  1. readFileWithFormatAndCancel - Can be given a file encoding and a cancellation function.
+ *     @example
+ *     ```js
+ *     import { fork } from 'fluture'
+ *     import { readFile } from 'file-system'
+ *     fork(console.warn)(console.log)(
+ *       readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')
+ *     )
+ *     ```
+ *
+ *  2. readFileWithCancel - Reads `utf8` files only.
+ *     @example
+ *     ```js
+ *     import { fork } from 'fluture'
+ *     import { readFile } from 'file-system'
+ *     fork(console.warn)(console.log)(
+ *       readFileWithCancel(() => process.exit(), './README.md')
+ *     )
+ *     ```
+ *
+ *  3. readFile - Eschews any custom cancellation.
+ *     @example
+ *     ```js
+ *     import { fork } from 'fluture'
+ *     import { readFile } from 'file-system'
+ *     fork(console.warn)(console.log)(readFile('./README.md'))
+ *     ```
  */
 export const readFileWithFormatAndCancel = curry((cancel, format, x) =>
   Future((bad, good) => {
@@ -58,35 +75,7 @@ export const readFileWithFormatAndCancel = curry((cancel, format, x) =>
     return cancel
   })
 )
-/* eslint-disable max-len */
-/**
- * Read a file asynchronously as a Future-wrapped value, given a cancellation function.
- * Reads `utf8` files only, use `readFileWithFormatAndCancel` if another file encoding is needed.
- * @name readFileWithCancel
- * @see {@link readFileWithFormatAndCancel}
- * @see {@link readFile}
- * @example
- * ```js
- * import { fork } from 'fluture'
- * import { readFile } from 'file-system'
- * fork(console.warn)(console.log)(readFileWithCancel(() => process.exit(), './README.md'))
- * ```
- */
-/* eslint-enable max-len */
 export const readFileWithCancel = readFileWithFormatAndCancel($, 'utf8')
-
-/**
- * Read a file asynchronously as a Future-wrapped value
- * @name readFile
- * @see {@link readFileWithFormatAndCancel}
- * @see {@link readFile}
- * @example
- * ```js
- * import { fork } from 'fluture'
- * import { readFile } from 'file-system'
- * fork(console.warn)(console.log)(readFile('./README.md'))
- * ```
- */
 export const readFile = readFileWithCancel(NO_OP)
 
 /**

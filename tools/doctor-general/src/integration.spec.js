@@ -1,49 +1,111 @@
 // import { cwd } from 'node:process'
+import { trace } from 'xtrace'
+import { is, curry, pipe, map, join } from 'ramda'
+import { join as pathJoin, relative } from 'node:path'
+import { fork } from 'fluture'
+import { flexecaWithOptionsAndCancel } from 'file-system'
+
 test('smoke', () => {
   expect(true).toBeTruthy()
 })
 
-/*
-const run = pipe(flexeca('./drgen.js'), map(propOr('', 'stdout')))
+const exe = flexecaWithOptionsAndCancel(
+  () => {},
+  relative(__dirname, '../dist/doctor-general.cjs'),
+  {
+    cwd: process.cwd(),
+  }
+)
+// const goodPath = propOr('', 'stdout')
+// const badPath = propOr('', 'stderr')
 
-const goodrun = (args, expectation = I) =>
-  test.skip(`doctor-general ${join(' ')(args)}`, done => {
+// it's a killable function
+const killjoy = curry((done, fn, x) => (is(Function)(fn) ? fn(done)(x) : x))
+
+// transforms need to provide their own `map` / `mapRej` / `chain` wrapping
+const runner = curry((transforms, done, args) => {
+  const fun = map(tr => killjoy(done, tr), transforms)
+  return pipe(exe, ...fun)(args)
+})
+
+const testCLI = curry((transforms, postRun, finalAssertion, args) => {
+  test(`doctor-general ${join(' ')(args)}`, done => {
     pipe(
-      run,
-      fork(done)(z => {
-        expectation(done, z)
+      runner(transforms, done),
+      map(trace('run')),
+      killjoy(done, postRun),
+      map(trace('postrun')),
+      fork(e => {
+        done(e)
+      })(raw => {
+        if (is(Function)(finalAssertion)) {
+          finalAssertion(done)(raw)
+        } else {
+          done()
+        }
       })
     )(args)
   })
+})
+
+// testCLI(
+//   [
+//     curry((done, rawF) =>
+//       map(raw => {
+//         expect(stripAnsi(raw)).toMatchSnapshot()
+//       }, rawF)
+//     ),
+//   ],
+//   false,
+//   false,
+//   []
+// )
 
 const inFix = x =>
-  '.' +
-  SEPARATOR +
-  nthIndex(SEPARATOR, -2, pathResolve(__dirname, '../fixture', x))
+  './' + relative(process.cwd(), pathJoin(__dirname, '../fixture/' + x))
+const generated = x =>
+  './' + relative(process.cwd(), pathJoin(__dirname, '../' + x))
 
-const GENERATED = inFix('generated.json')
-const GENERATED_FILES =
-  '.' +
-  SEPARATOR +
-  nthIndex(SEPARATOR, -2, pathResolve(__dirname, '../__generated__'))
+const GENERATED = generated('generated.json')
+const GENERATED_FILES = generated('__generated__')
 const FAKE_PACKAGE_JSON = inFix(`fake-pkg.json`)
-
-goodrun(
-  ['-i', FAKE_PACKAGE_JSON, '-a', GENERATED, '-o', GENERATED_FILES],
-  (done, raw) => {
-    expect(stripAnsi(raw)).toMatchSnapshot()
-    fork(done)(z => {
-      // expect(z).toBeTruthy()
-      expect(z).toMatchSnapshot()
-      done()
-    })(map(JSON.parse, readFile(GENERATED)))
-  }
+/*
+testCLI(
+  [],
+  false,
+  curry((done, raw) => {
+    console.log({ done, raw })
+    return pipe(
+      trace('preparing to read'),
+      readFile,
+      map('raw'),
+      map(JSON.parse),
+      fork(done)(z => {
+        expect(z).toEqual('>>>>')
+        done()
+      })
+    )(GENERATED)
+  }),
+  ['-i', FAKE_PACKAGE_JSON, '-a', GENERATED, '-o', GENERATED_FILES]
 )
-afterAll(done => {
-  pipe(
-    fork(done)(() => {
-      done()
-    })
-  )(both(removeFile(GENERATED))(rimraf(GENERATED_FILES)))
-})
 */
+
+// test('ragequit', done => {
+//   fork(bad => {
+//     console.log({ bad, type: typeof bad })
+//     expect(bad).toEqual('something')
+//     done()
+//   })(good => {
+//     expect(good).toEqual('something')
+//     done()
+//   })(exe(['-i', FAKE_PACKAGE_JSON, '-a', GENERATED, '-o', GENERATED_FILES]))
+// })
+
+// afterAll(done => {
+//   pipe(
+//     fork(done)(_x => {
+//       // console.log('removed!', _x)
+//       done()
+//     })
+//   )(parallel(10)([rimraf(GENERATED), rimraf(GENERATED_FILES)]))
+// })

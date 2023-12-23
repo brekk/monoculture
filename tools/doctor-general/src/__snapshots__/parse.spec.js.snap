@@ -11,16 +11,6 @@ exports[`parseFile 1`] = `
         "@example",
         "@name",
       ],
-      "lines": [
-        "A curried binary addition function",
-        "@name add",
-        "@example",
-        "\`\`\`ts live=true",
-        "import { add } from './fixture'",
-        "*",
-        "add(10)(20) === 30",
-        "\`\`\`",
-      ],
       "links": [],
       "start": 2,
       "structure": {

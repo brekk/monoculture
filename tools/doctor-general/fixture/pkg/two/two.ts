@@ -5,7 +5,7 @@ import { pipe, curry } from 'ramda'
  */
 
 /**
- * A curried binary addition function
+ * A curried binary addition function. {@link inlineDetail} Hey there!
  * @name add
  * @example
  * ```ts live=true
