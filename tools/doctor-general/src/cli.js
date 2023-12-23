@@ -243,7 +243,7 @@ const runner = ({
           parseInt(x, 10)
         )(someFile)
         const dir = dirname(file.filename)
-        const newFile = someFile ? pathJoinRelative(dir, asFilePath) : '???'
+        const newFile = someFile ? pathJoin(dir, asFilePath) : '???'
         return alreadyInList
           ? map(raw => {
               const check = raw.filename === file.filename
