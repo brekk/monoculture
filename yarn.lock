@@ -4900,6 +4900,7 @@ __metadata:
     fluture: "npm:14.0.0"
     inherent: "workspace:packages/inherent"
     jest-config: "workspace:shared/jest-config"
+    knot: "workspace:packages/knot"
     precinct: "npm:11.0.5"
     ramda: "npm:0.29.1"
     ts-graphviz: "npm:1.8.1"

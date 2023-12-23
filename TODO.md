@@ -48,7 +48,13 @@
  - [ ] `doctor-general` has some edges which either aren't well documented or have bad defaults (specifically, `@page` + `@pageSummary` stuff right now), we should clean that up so that we have better automatically generated content
  - [ ] `doctor-general` needs to have `@group` and `@addTo` documented (and tests updated)
  - [ ] `doctor-general` hangs indefinitely on inline `{@link hookInfo}` stuff
- - [ ] We should support a means of expressing curried morphisms succinctly
+ - [x] We should support a means of expressing curried morphisms succinctly. **Completed!** See `file-system/fs.js` for an example, but now we can support this via a special `@curried` tag.
+ - [ ] Apply [diátaxis](https://diataxis.fr/) framework
+   - [ ] Tutorials - Step the user through a concrete problem, with a modicum of explanation. Focus on the user's education. Work on basic competence. Apply a clear and managed path and work towards a conclusion.
+   - [ ] How-To - Step through a concrete real-world problem, focusing on the user's work. Help improve the already competent user. Aim for a clear result but expect the path to be less linear.
+   - [x] Reference - Describe the product / software clearly, authoritatively and unambiguously. **Complete!** Arguably we do this today, that's what `doctor-general` was originally designed for.
+   - [ ] Explanation - Provide context for broader understanding of things. Help provide a rationale for choices. Admit opinion and perspective.
+
 
 ```js
  /**

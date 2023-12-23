@@ -19,6 +19,7 @@
     "file-system": "workspace:packages/file-system",
     "fluture": "14.0.0",
     "inherent": "workspace:packages/inherent",
+    "knot": "workspace:packages/knot",
     "precinct": "11.0.5",
     "ramda": "0.29.1",
     "ts-graphviz": "1.8.1"

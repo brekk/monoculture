@@ -35,7 +35,7 @@ import {
 } from 'ramda'
 import { resolve, parallel } from 'fluture'
 import {
-  pathRelativeTo,
+  pathJoin as pathJoinRelative,
   readJSONFile,
   readDirWithConfig,
   writeFileWithAutoPath,
@@ -178,7 +178,7 @@ const runner = ({
   artifact = false,
 }) => {
   const current = cwd()
-  const rel = pathRelativeTo(current)
+  const rel = pathJoinRelative(current)
   const [pkgJson, outputDir, relativeArtifact] = map(rel, [
     input,
     output,
@@ -243,7 +243,7 @@ const runner = ({
           parseInt(x, 10)
         )(someFile)
         const dir = dirname(file.filename)
-        const newFile = someFile ? pathJoin(dir, asFilePath) : '???'
+        const newFile = someFile ? pathJoinRelative(dir, asFilePath) : '???'
         return alreadyInList
           ? map(raw => {
               const check = raw.filename === file.filename

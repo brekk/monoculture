@@ -61,6 +61,7 @@ introspection and organization tools for monorepos
       - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
       - [fluture](https://www.npmjs.com/package/fluture)
       - [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) 🦴
+      - [knot](https://github.com/brekk/monoculture/tree/main/packages/knot) 🦴
       - [precinct](https://www.npmjs.com/package/precinct)
       - [ramda](https://www.npmjs.com/package/ramda)
       - [ts-graphviz](https://www.npmjs.com/package/ts-graphviz)

@@ -1,5 +1,5 @@
 import { fork } from 'fluture'
-import { pathRelativeTo } from 'file-system'
+import { pathJoin } from 'file-system'
 
 import { parse, parseFile } from './parse'
 
@@ -90,7 +90,7 @@ import { nice } from './parse'
   })
 })
 test('parseFile', done => {
-  const input = pathRelativeTo(__dirname, '../fixture/pkg/one/main.ts')
+  const input = pathJoin(__dirname, '../fixture/pkg/one/main.ts')
   fork(done)(raw => {
     const cleanFilename = raw.filename.split('/').slice(-3).join('/')
     expect({ ...raw, filename: cleanFilename }).toMatchSnapshot()
