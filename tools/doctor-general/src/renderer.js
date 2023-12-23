@@ -1,5 +1,6 @@
 import { wrap } from 'inherent'
 import {
+  concat,
   ap,
   lt,
   filter,
@@ -51,16 +52,23 @@ const handleCurriedExample = raw =>
     wrap,
     ap([getCurried, flattenCommentData]),
     ([curried, { summary: sharedSummary, links }]) =>
-      map(({ name, summary, lines: example }) =>
-        cleanlines([
+      map(({ name, summary, lines: example }) => {
+        const allLinks = pipe(
+          map(({ name: n }) => n),
+          filter(y => y !== name),
+          concat(links)
+        )(curried)
+        return cleanlines([
           name ? '## ' + name + '\n' : '',
           sharedSummary ? sharedSummary + '\n' : '',
           summary ? summary + '\n' : '',
           example ? `### Usage\n${example}` : '',
           example.includes('live=true') ? `\n\n${liveExample(example)}` : '',
-          links.length ? `\n#### See also\n - ${links.join('\n - ')}` : '',
+          allLinks.length
+            ? `\n#### See also\n - ${allLinks.join('\n - ')}`
+            : '',
         ])
-      )(curried),
+      })(curried),
     join('\n')
   )(raw)
 export const commentToMarkdown = handleSpecialCases(
