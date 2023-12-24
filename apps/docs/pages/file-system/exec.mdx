@@ -1,11 +1,12 @@
 # exec
 
+Call external processes and consume them as a Future-wrapped value. This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.
+
 
 
 ## execWithConfig
 
 Consume external commands as a Future-wrapped value.
-This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.
 
 Passes all possible configuration values plus a cancellation function.
 
@@ -29,7 +30,6 @@ fork(console.warn)(console.log)(
 ## execWithCancel
 
 Consume external commands as a Future-wrapped value.
-This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.
 
 Eschews any configuration and instead only expects a cancellation function, command and arguments.
 
@@ -52,7 +52,6 @@ fork(console.warn)(console.log)(
 ## exec
 
 Consume external commands as a Future-wrapped value.
-This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.
 
 Eschews any configuration or cancellation function. Needs only command and arguments.
 

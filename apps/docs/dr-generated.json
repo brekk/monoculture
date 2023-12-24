@@ -1,13 +1,31 @@
 [
   {
     "slugName": "exec",
-    "pageSummary": "",
+    "pageSummary": "Call external processes and consume them as a Future-wrapped value. This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
     "filename": "packages/file-system/exec.js",
     "comments": [
       {
-        "start": 8,
-        "end": 52,
-        "summary": "Consume external commands as a Future-wrapped value.\nThis is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
+        "start": 7,
+        "end": 10,
+        "summary": "@pageSummary Call external processes and consume them as a Future-wrapped value.\nThis is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "pageSummary": [
+            "Call external processes and consume them as a Future-wrapped value.",
+            "This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info."
+          ]
+        },
+        "keywords": [
+          "@pageSummary"
+        ],
+        "filename": "packages/file-system/exec.js"
+      },
+      {
+        "start": 13,
+        "end": 59,
+        "summary": "Consume external commands as a Future-wrapped value.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
@@ -55,24 +73,7 @@
         "addTo": "",
         "structure": {
           "pageSummary": [
-            "A",
-            "Future-wrapped",
-            "`fs`",
-            "API,",
-            "for",
-            "future-based,",
-            "lazy,",
-            "easy-to-model",
-            "asynchrony",
-            "that",
-            "makes",
-            "it",
-            "easy",
-            "to",
-            "manipulate",
-            "the",
-            "file",
-            "system."
+            "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system."
           ]
         },
         "keywords": [
@@ -658,7 +659,7 @@
   {
     "slugName": "helpers",
     "pageTitle": "helpers",
-    "pageSummary": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
+    "pageSummary": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function. @page helpers",
     "filename": "packages/monorail/helpers.js",
     "comments": [
       {
@@ -670,26 +671,8 @@
         "addTo": "",
         "structure": {
           "pageSummary": [
-            "Built-in",
-            "helpers",
-            "for",
-            "making",
-            "custom",
-            "plugins",
-            "more",
-            "robust.",
-            "The",
-            "\"helpers\"",
-            "are",
-            "the",
-            "third",
-            "parameter",
-            "passed",
-            "to",
-            "a",
-            "custom",
-            "plugin's",
-            "function."
+            "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
+            "@page helpers"
           ],
           "page": "helpers",
           "name": "helpers",

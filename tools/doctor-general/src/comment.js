@@ -92,9 +92,19 @@ export const getCurriedDefinition = curry((file, end, i) => {
   )(file)
 })
 
+const getPageSummary = (file, end, i) =>
+  pipe(
+    slice(i, end),
+    map(trimComment),
+    map(replace(/^\*$/g, '')),
+    filter(trim),
+    map(replace(/@pageSummary\s/g, ''))
+  )(file)
+
 export const handleSpecificKeywords = curry(
   (keyword, value, rest, file, end, i) =>
     cond([
+      [equals('pageSummary'), () => getPageSummary(file, end, i)],
       // curried function definitions afford named variants of the same function
       // see file-system/fs.js for an example
       [equals('curried'), () => getCurriedDefinition(file, end, i)],
