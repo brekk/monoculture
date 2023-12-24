@@ -1,0 +1,4 @@
+{
+  "extends": "../../shared/monoculture-tsconfig/base.json",
+  "include": ["./microplastic.ts"]
+}
