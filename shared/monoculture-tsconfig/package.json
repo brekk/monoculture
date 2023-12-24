@@ -3,9 +3,10 @@
   "description": "shared tsconfig for monoculture packages 😵",
   "version": "0.0.0",
   "private": true,
-  "files": [
-    "base.json"
-  ],
+  "exports": {
+    ".": "./base.json",
+    "./nextjs.json": "./nextjs.json"
+  },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",

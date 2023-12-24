@@ -49,6 +49,22 @@ introspection and organization tools for monorepos
 
      </details>
 
+## typed-packages
+
+   * [microplastic](https://github.com/brekk/monoculture/tree/main/typed-packages/microplastic) - weak types seemed good at the time 🥽
+
+     <details><summary>Dependencies</summary>
+
+      - [ramda](https://www.npmjs.com/package/ramda)
+      - [remeda](https://www.npmjs.com/package/remeda)
+      - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
+      - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴🧪
+      - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴🧪
+      - [monoculture-tsconfig](https://github.com/brekk/monoculture/tree/main/shared/monoculture-tsconfig) 🦴🧪
+      - [typescript](https://www.npmjs.com/package/typescript)🧪
+
+     </details>
+
 ## packages
 
    * [bloodline](https://github.com/brekk/monoculture/tree/main/packages/bloodline) - determine the relationships between files 🩸
