@@ -46,13 +46,9 @@ const flattenCommentData = applySpec({
 const getCurried = pathOr([], ['structure', 'curried'])
 
 const cleanlines = pipe(filter(I), join('\n'))
-const nameAndSummary = ({ name, summary }) => [
-  name ? '## ' + name + '\n' : '',
-  summary ? summary + '\n' : '',
-]
 
 const commonFields = ({ name, summary, links, example }) => [
-  name ? name + '\n' : '',
+  name ? '## ' + name + '\n' : '',
   summary ? summary + '\n' : '',
   example ? `### Usage\n${example}` : '',
   example.includes('live=true') ? `\n\n${liveExample(example)}` : '',

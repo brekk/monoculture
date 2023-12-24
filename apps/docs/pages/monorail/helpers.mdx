@@ -4,7 +4,7 @@ Built-in helpers for making custom plugins more robust. The "helpers" are the th
 
 
 
-any
+## any
 
 Use this helper to test a regex that matches against any single incidence on any line
 
@@ -17,7 +17,7 @@ const plugin = {
 export default plugin
 ```
 
-lines
+## lines
 
 Use this helper to test a regex that matches and filters against every line
 
@@ -29,7 +29,7 @@ export default {
 }
 ```
 
-line
+## line
 
 Use this helper to test a regex that matches and finds the first matching line
 
@@ -41,7 +41,7 @@ export default {
 }
 ```
 
-lastLine
+## lastLine
 
 Use this helper to test a regex that matches and finds the last matching line
 
@@ -53,7 +53,7 @@ export default {
 }
 ```
 
-between
+## between
 
 Use this helper to select content between two repeating regular expressions
 
@@ -65,7 +65,7 @@ export default {
 }
 ```
 
-selectAll
+## selectAll
 
 Use this helper to select all content between two repeating regular expressions
 
@@ -77,7 +77,7 @@ export default {
 }
 ```
 
-reduce
+## reduce
 
 Use this helper to easily reduce over all lines and aggregate a value
 
@@ -90,7 +90,7 @@ const plugin = {
 export default plugin
 ```
 
-filter
+## filter
 
 Use this helper to easily filter all lines related to a given regular expression
 
@@ -105,7 +105,7 @@ const plugin = {
 export default plugin
 ```
 
-config
+## config
 
 The `config` value is patched in so that it is easier to pass values from the rulefile configuration to the plugins themselves, scoped to the plugin name.
 
