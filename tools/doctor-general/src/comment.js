@@ -1,4 +1,6 @@
 import {
+  any,
+  findIndex,
   isEmpty,
   split,
   propOr,
@@ -98,7 +100,12 @@ const getPageSummary = (file, end, i) =>
     map(trimComment),
     map(replace(/^\*$/g, '')),
     filter(trim),
-    map(replace(/@pageSummary\s/g, ''))
+    map(replace(/@pageSummary\s/g, '')),
+    lines => {
+      // handle @page being thrown into @pageSummary
+      const ex = findIndex(any(startsWith('@')), lines)
+      return ex > -1 ? slice(0, ex, lines) : lines
+    }
   )(file)
 
 export const handleSpecificKeywords = curry(

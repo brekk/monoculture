@@ -659,7 +659,7 @@
   {
     "slugName": "helpers",
     "pageTitle": "helpers",
-    "pageSummary": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function. @page helpers",
+    "pageSummary": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
     "filename": "packages/monorail/helpers.js",
     "comments": [
       {
@@ -671,8 +671,7 @@
         "addTo": "",
         "structure": {
           "pageSummary": [
-            "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
-            "@page helpers"
+            "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function."
           ],
           "page": "helpers",
           "name": "helpers",
