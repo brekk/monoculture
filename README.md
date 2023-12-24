@@ -57,10 +57,12 @@ introspection and organization tools for monorepos
 
       - [ramda](https://www.npmjs.com/package/ramda)
       - [remeda](https://www.npmjs.com/package/remeda)
+      - [@types/ramda](https://www.npmjs.com/package/@types/ramda)🧪
       - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
       - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴🧪
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴🧪
       - [monoculture-tsconfig](https://github.com/brekk/monoculture/tree/main/shared/monoculture-tsconfig) 🦴🧪
+      - [types-ramda](https://www.npmjs.com/package/types-ramda)🧪
       - [typescript](https://www.npmjs.com/package/typescript)🧪
 
      </details>

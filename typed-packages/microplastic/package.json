@@ -15,10 +15,12 @@
     "remeda": "1.33.0"
   },
   "devDependencies": {
+    "@types/ramda": "^0.29.9",
     "dotenv-cli": "7.3.0",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     "jest-config": "workspace:shared/jest-config",
     "monoculture-tsconfig": "workspace:shared/monoculture-tsconfig",
+    "types-ramda": "^0.29.6",
     "typescript": "5.3.3"
   },
   "scripts": {

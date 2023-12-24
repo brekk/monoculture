@@ -1,11 +1,31 @@
 // import * as Q from 'remeda'
-import { curry } from 'ramda'
+import { purry } from 'remeda'
 
-interface Transformer {
-  <F, T>(arg: F): T
+interface Transformer<F, T> {
+  (arg: F): T
 }
 
-export const equalishBy = curry(
-  <F, T>(transform: Transformer, expected: T, x: F): boolean =>
-    transform(x) === expected
-)
+export const $equalishBy = (x, transform, expected) => {
+  console.log({ x, transform, expected })
+  const t = transform(x)
+  return t === expected
+}
+
+export function equalishBy<F, T>(
+  transform: Transformer<F, T>
+): (expected: T, x: F) => boolean
+
+export function equalishBy<F, T>(
+  transform: Transformer<F, T>,
+  expected: T
+): (x: F) => boolean
+
+export function equalishBy<F, T>(
+  transform: Transformer<F, T>,
+  expected: T,
+  x: F
+): boolean
+
+export function equalishBy() {
+  return purry($equalishBy, arguments)
+}
