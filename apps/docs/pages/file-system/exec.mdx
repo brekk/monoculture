@@ -4,11 +4,9 @@ Call external processes and consume them as a Future-wrapped value. This is a li
 
 
 
-## execWithConfig
+execWithConfig
 
 Consume external commands as a Future-wrapped value.
-
-Passes all possible configuration values plus a cancellation function.
 
 ### Usage
 ```js
@@ -27,11 +25,9 @@ fork(console.warn)(console.log)(
 #### See also
  - execWithCancel
  - exec
-## execWithCancel
+execWithCancel
 
 Consume external commands as a Future-wrapped value.
-
-Eschews any configuration and instead only expects a cancellation function, command and arguments.
 
 ### Usage
 ```js
@@ -49,11 +45,9 @@ fork(console.warn)(console.log)(
 #### See also
  - execWithConfig
  - exec
-## exec
+exec
 
 Consume external commands as a Future-wrapped value.
-
-Eschews any configuration or cancellation function. Needs only command and arguments.
 
 ### Usage
 ```js
