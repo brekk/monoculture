@@ -46,44 +46,47 @@ const flattenCommentData = applySpec({
 const getCurried = pathOr([], ['structure', 'curried'])
 
 const cleanlines = pipe(filter(I), join('\n'))
+const nameAndSummary = ({ name, summary }) => [
+  name ? '## ' + name + '\n' : '',
+  summary ? summary + '\n' : '',
+]
 
-const handleCurriedExample = raw =>
-  pipe(
-    wrap,
-    ap([getCurried, flattenCommentData]),
-    ([curried, { summary: sharedSummary, links }]) =>
-      map(({ name, summary, lines: example }) => {
-        const allLinks = pipe(
-          map(({ name: n }) => n),
-          filter(y => y !== name),
-          concat(links)
-        )(curried)
-        return cleanlines([
-          name ? '## ' + name + '\n' : '',
-          sharedSummary ? sharedSummary + '\n' : '',
-          summary ? summary + '\n' : '',
-          example ? `### Usage\n${example}` : '',
-          example.includes('live=true') ? `\n\n${liveExample(example)}` : '',
-          allLinks.length
-            ? `\n#### See also\n - ${allLinks.join('\n - ')}`
-            : '',
-        ])
-      })(curried),
-    join('\n')
-  )(raw)
+const commonFields = ({ name, summary, links, example }) => [
+  name ? name + '\n' : '',
+  summary ? summary + '\n' : '',
+  example ? `### Usage\n${example}` : '',
+  example.includes('live=true') ? `\n\n${liveExample(example)}` : '',
+  links.length ? `\n#### See also\n - ${links.join('\n - ')}` : '',
+]
+
+const handleCurriedExample = pipe(
+  wrap,
+  ap([getCurried, flattenCommentData]),
+  ([curried, { summary, links }]) =>
+    map(({ name, lines: example }) =>
+      cleanlines(
+        commonFields({
+          name,
+          summary,
+          example,
+          links: pipe(
+            map(({ name: n }) => n),
+            filter(y => y !== name),
+            concat(links)
+          )(curried),
+        })
+      )
+    )(curried),
+  join('\n')
+)
+
 export const commentToMarkdown = handleSpecialCases(
   pipe(
     ifElse(
       pipe(getCurried, length, lt(0)),
       handleCurriedExample,
       pipe(flattenCommentData, ({ title, summary, links, example }) =>
-        cleanlines([
-          title ? '## ' + title + '\n' : '',
-          summary ? summary + '\n' : '',
-          example ? `### Usage\n${example}` : '',
-          example.includes('live=true') ? `\n\n${liveExample(example)}` : '',
-          links.length ? `\n#### See also\n - ${links.join('\n - ')}` : '',
-        ])
+        cleanlines(commonFields({ name: title, summary, example, links }))
       )
     )
   )
