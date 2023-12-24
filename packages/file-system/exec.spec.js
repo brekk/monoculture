@@ -1,10 +1,10 @@
 import { fork } from 'fluture'
-import { flexeca } from './flexeca'
+import { exec } from './exec'
 
-test('flexeca', done => {
+test('exec', done => {
   const blah = Math.round(Math.random() * 100000)
   fork(done)(z => {
     expect(z.stdout).toEqual('' + blah)
     done()
-  })(flexeca('echo', [blah]))
+  })(exec('echo', [blah]))
 })

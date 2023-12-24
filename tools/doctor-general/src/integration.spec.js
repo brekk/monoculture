@@ -3,13 +3,13 @@ import { trace } from 'xtrace'
 import { is, curry, pipe, map, join } from 'ramda'
 import { join as pathJoin, relative } from 'node:path'
 import { fork } from 'fluture'
-import { flexecaWithOptionsAndCancel } from 'file-system'
+import { execWithConfig } from 'file-system'
 
 test('smoke', () => {
   expect(true).toBeTruthy()
 })
 
-const exe = flexecaWithOptionsAndCancel(
+const exe = execWithConfig(
   () => {},
   relative(__dirname, '../dist/doctor-general.cjs'),
   {

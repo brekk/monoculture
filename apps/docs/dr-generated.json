@@ -1,5 +1,47 @@
 [
   {
+    "slugName": "exec",
+    "pageSummary": "",
+    "filename": "packages/file-system/exec.js",
+    "comments": [
+      {
+        "start": 8,
+        "end": 52,
+        "summary": "Consume external commands as a Future-wrapped value.\nThis is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "curried": [
+            {
+              "name": "execWithConfig",
+              "summary": "Passes all possible configuration values plus a cancellation function.",
+              "lines": "```js\nimport { execWithConfig } from 'file-system'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithConfig(\n    function customCancellationFunction() {},\n    'echo',\n    { cleanup: true },\n    ['ahoy']\n  )\n)\n```"
+            },
+            {
+              "name": "execWithCancel",
+              "summary": "Eschews any configuration and instead only expects a cancellation function, command and arguments.",
+              "lines": "```js\nimport { execWithCancel } from 'file-system'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithCancel(\n    function customCancellationFunction() {},\n    'echo',\n    ['ahoy']\n  )\n)\n```"
+            },
+            {
+              "name": "exec",
+              "summary": "Eschews any configuration or cancellation function. Needs only command and arguments.",
+              "lines": "```js\nimport { exec } from 'file-system'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  exec(\n    'echo',\n    ['ahoy']\n  )\n)\n```"
+            }
+          ]
+        },
+        "keywords": [
+          "@curried",
+          "@example"
+        ],
+        "filename": "packages/file-system/exec.js"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "file-system"
+  },
+  {
     "slugName": "fs",
     "pageSummary": "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.",
     "filename": "packages/file-system/fs.js",

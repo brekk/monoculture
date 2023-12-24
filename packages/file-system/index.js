@@ -1,5 +1,5 @@
 export * from './find-up'
-export * from './flexeca'
+export * from './exec'
 export * from './fs'
 export * from './interpret'
 export * from './path'

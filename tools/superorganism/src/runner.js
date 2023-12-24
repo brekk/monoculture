@@ -15,10 +15,10 @@ import {
   uniq,
 } from 'ramda'
 import { configurate } from 'climate'
-import { interpret } from 'file-system'
+import { interpret, execWithConfig } from 'file-system'
 import { log } from './trace'
 import { recurse } from './recursive'
-import { $, execa } from 'execa'
+import { $ as script } from 'execa'
 import { bimap, Future, resolve } from 'fluture'
 
 import PKG from '../package.json'
@@ -27,7 +27,7 @@ import { YARGS_CONFIG, HELP_CONFIG, CONFIG_DEFAULTS } from './config'
 const j2 = x => JSON.stringify(x, null, 2)
 const $f = curry((cancel, raw) =>
   Future((bad, good) => {
-    $(raw).catch(bad).then(good)
+    script(raw).catch(bad).then(good)
     return cancel
   })
 )
@@ -69,13 +69,6 @@ export const getNestedTasks = scripts => {
   )(tasks)
 }
 
-export const flexecaWithCancel = curry((cancel, a, b, c) =>
-  Future((bad, good) => {
-    execa(a, b, c).catch(bad).then(good)
-    return cancel
-  })
-)
-
 export const EXECA_FORCE_COLOR = {
   env: { FORCE_COLOR: 'true' },
 }
@@ -90,14 +83,14 @@ export const executeWithCancel = curry((cancel, { tasks, scripts, config }) => {
     const [task] = config._
     if (tasks.includes(task)) {
       const get = getScript(task)
-      const script = typeof get === 'string' ? get : get.script
+      const scriptLookup = typeof get === 'string' ? get : get.scriptLookup
       console.log(
-        `Running...\n${chalk.inverse(task)}: \`${chalk.green(script)}\``
+        `Running...\n${chalk.inverse(task)}: \`${chalk.green(scriptLookup)}\``
       )
-      const [cmd, ...args] = script.split(' ')
-      if (script) {
+      const [cmd, ...args] = scriptLookup.split(' ')
+      if (scriptLookup) {
         return pipe(bimap(getStdOut)(getStdOut))(
-          flexecaWithCancel(cancel, cmd, args, {
+          execWithConfig(cancel, cmd, args, {
             cwd: process.cwd(),
             ...(config.color ? EXECA_FORCE_COLOR : {}),
           })

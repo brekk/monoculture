@@ -1,17 +1,31 @@
-import { plant, flattenTree } from './tree'
+import { groupTree, plant, flattenTree, rootedPlant } from './tree'
 // import { sep as SEP } from 'node:path'
 // import { nthIndex } from 'knot'
 
-const CWD = process.cwd()
+const tree = plant({}, '../..', '../monocle/cli.js')
+const sharedConfig = { basePath: '../../../', includeNpm: true }
+const rooted = rootedPlant(
+  { ...sharedConfig, includeNpm: false },
+  '../..',
+  '../monocle/cli.js'
+)
+const rootedWithNpm = rootedPlant(sharedConfig, '../..', '../monocle/cli.js')
 
-const MONO = 'monoculture'
-// TODO: this is kinda hacky but it works for now
-const enclean = x =>
-  x.indexOf(MONO) > -1 ? x.slice(x.indexOf(MONO) + MONO.length + 1) : x
+test('groupTree', () => {
+  const pFlatTree = groupTree(sharedConfig, {}, {}, tree)
+  expect(pFlatTree).toMatchSnapshot()
+})
+
+test('groupTree - rooted', () => {
+  const pFlatTree = groupTree(sharedConfig, {}, {}, rooted)
+  expect(pFlatTree).toMatchSnapshot()
+})
+test('groupTree - rooted with npm', () => {
+  const pFlatTree = groupTree(sharedConfig, {}, {}, rootedWithNpm)
+  expect(pFlatTree).toMatchSnapshot()
+})
 
 test('flattenTree', () => {
-  expect(plant).toBeTruthy()
-  const tree = plant({}, '../..', '../monocle/cli.js')
-  const flatTree = flattenTree({ basePath: '../../../' }, {}, {}, tree)
+  const flatTree = flattenTree(sharedConfig, {}, {}, tree)
   expect(flatTree).toMatchSnapshot()
 })

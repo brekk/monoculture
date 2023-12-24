@@ -10,7 +10,7 @@ import {
   split,
 } from 'ramda'
 import { bimap } from 'fluture'
-import { flexecaWithCanceller } from 'file-system'
+import { execWithCancel } from 'file-system'
 
 const words = split(' ')
 const lines = split('\n')
@@ -29,7 +29,7 @@ export const parser = pipe(
 
 export const gitgraph = curry((cancel, argv) =>
   pipe(
-    flexecaWithCanceller(cancel, 'git'),
+    execWithCancel(cancel, 'git'),
     bimap(propOr('', 'stderr'))(propOr('', 'stdout')),
     map(parser)
   )(['log', '--decorate', '--graph', '--oneline', ...argv])
