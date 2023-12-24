@@ -1,19 +1,11 @@
-import * as Q from 'remeda'
+// import * as Q from 'remeda'
+import { curry } from 'ramda'
 
 interface Transformer {
   <F, T>(arg: F): T
 }
 
-function _equalishBy<F, T>(transform: Transformer, expected: T, x: F) {
-  return transform(x) === expected
-}
-
-export function equalishBy() {
-  return Q.purry(_equalishBy, arguments)
-}
-
-// console.log('>>>', Q.keys(Q))
-
-const MICROPLASTIC = { equalishBy }
-
-export default MICROPLASTIC
+export const equalishBy = curry(
+  <F, T>(transform: Transformer, expected: T, x: F): boolean =>
+    transform(x) === expected
+)

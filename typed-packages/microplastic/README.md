@@ -1,5 +1,5 @@
-# remora
+# microplastic
 
 ![dependencies via madge](./graph.svg)
 
-Types for suckers
+A sandbox for dealing with the crypt of types
