@@ -9,7 +9,7 @@ import {
   generateOptions,
   createSVG,
 } from './visualization'
-import { checkForGraphviz } from './graph'
+import { checkForBinaries } from './executables'
 import { DEFAULT_GRAPHVIZ_CONFIG } from './constants'
 
 test('dotStreamAdapterWithCancel', () => {
@@ -35,6 +35,7 @@ test('generateOptions', () => {
   expect(generateOptions({})).toMatchSnapshot()
 })
 test('createSVG', done => {
+  const cancel = () => {}
   expect(createSVG).toBeTruthy()
   fork(() => {
     // eslint-disable-next-line no-console
@@ -42,8 +43,9 @@ test('createSVG', done => {
     expect('skipping tests which rely upon `gvpr`').toBeTruthy()
     done()
   })(() => {
+    // eslint-disable-next-line no-console
+    console.log('RUNNING GVPR TESTS')
     const modules = { 'a.js': ['b.js', 'c.js'], 'b.js': ['c.js'], 'c.js': [] }
-    const cancel = () => {}
     fork(done)(z => {
       /* eslint-disable max-len */
       expect(z.toString()).toMatchInlineSnapshot(`
@@ -101,5 +103,10 @@ test('createSVG', done => {
       /* eslint-enable max-len */
       done()
     })(createSVG(cancel, DEFAULT_GRAPHVIZ_CONFIG, [], modules))
-  })(checkForGraphviz())
+  })(
+    checkForBinaries(cancel, '', {
+      gvpr: { args: ['-v'] },
+      dot: { args: ['-h'] },
+    })
+  )
 })

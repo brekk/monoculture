@@ -1,5 +1,5 @@
 import { fork } from 'fluture'
-import { checkForGraphviz } from './graph'
+import { checkForGraphviz } from './executables'
 
 // we can test this but it will fail on CI, so skip for now
 test.skip('checkForGraphviz', done => {

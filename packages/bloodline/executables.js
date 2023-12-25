@@ -1,6 +1,16 @@
-import { always as K, pipe, curry } from 'ramda'
+import {
+  always as K,
+  pipe,
+  filter,
+  identity as I,
+  isEmpty,
+  map,
+  toPairs,
+  complement,
+  curry,
+} from 'ramda'
 import { execWithCancel } from 'kiddo'
-import { coalesce } from 'fluture'
+import { coalesce, parallel } from 'fluture'
 import { join as sysPathJoin } from 'node:path'
 
 /* eslint-disable max-len */
@@ -48,14 +58,27 @@ import { join as sysPathJoin } from 'node:path'
  *    ```
  */
 /* eslint-enable max-len */
-export const checkForGraphvizWithCancel = curry((cancel, pathToLook) =>
-  pipe(
-    execWithCancel(
-      cancel,
-      pathToLook ? sysPathJoin(pathToLook, 'gvpr') : 'gvpr'
-    ),
-    coalesce(K(false))(K(true))
-  )(['-V'])
+export const checkForBinaryWithCancel = curry(
+  (cancel, binary, args, pathToLook) =>
+    pipe(
+      execWithCancel(
+        cancel,
+        pathToLook ? sysPathJoin(pathToLook, binary) : binary
+      ),
+      coalesce(K(false))(K(true))
+    )(args)
 )
-export const checkForGraphvizAtPath = checkForGraphvizWithCancel(() => {})
-export const checkForGraphviz = () => checkForGraphvizAtPath('')
+export const checkForGraphvizWithCancel = checkForBinaryWithCancel('gvpr')
+export const checkForDot = checkForBinaryWithCancel('dot')
+export const checkForBinaries = curry((cancel, basePath, keyed) =>
+  pipe(
+    toPairs,
+    map(([cmd, { binPath = basePath, args = [] }]) =>
+      checkForBinaryWithCancel(cancel, cmd, args, binPath)
+    ),
+    parallel(10),
+    map(pipe(filter(I), complement(isEmpty)))
+  )(keyed)
+)
+// export const checkForGraphvizAtPath = checkForGraphvizWithCancel(() => {})
+// export const checkForGraphviz = () => checkForGraphvizAtPath('')
