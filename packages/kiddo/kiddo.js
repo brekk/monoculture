@@ -18,7 +18,7 @@ export const fail = prop('stderr')
  *
  *     @example
  *     ```js
- *     import { execWithConfig } from 'file-system'
+ *     import { execWithConfig } from 'kiddo'
  *     import { fork } from 'fluture'
  *     fork(console.warn)(console.log)(
  *       execWithConfig(
@@ -34,7 +34,7 @@ export const fail = prop('stderr')
  *
  *     @example
  *     ```js
- *     import { execWithCancel } from 'file-system'
+ *     import { execWithCancel } from 'kiddo'
  *     import { fork } from 'fluture'
  *     fork(console.warn)(console.log)(
  *       execWithCancel(
@@ -48,7 +48,7 @@ export const fail = prop('stderr')
  *
  *     @example
  *     ```js
- *     import { exec } from 'file-system'
+ *     import { exec } from 'kiddo'
  *     import { fork } from 'fluture'
  *     fork(console.warn)(console.log)(
  *       exec(

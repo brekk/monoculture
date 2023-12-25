@@ -15,7 +15,8 @@ import {
   uniq,
 } from 'ramda'
 import { configurate } from 'climate'
-import { interpret, execWithConfig } from 'file-system'
+import { interpret } from 'file-system'
+import { execWithConfig } from 'kiddo'
 import { log } from './trace'
 import { recurse } from './recursive'
 import { $ as script } from 'execa'

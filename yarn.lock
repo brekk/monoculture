@@ -4900,6 +4900,7 @@ __metadata:
     fluture: "npm:14.0.0"
     inherent: "workspace:packages/inherent"
     jest-config: "workspace:shared/jest-config"
+    kiddo: "workspace:packages/kiddo"
     knot: "workspace:packages/knot"
     precinct: "npm:11.0.5"
     ramda: "npm:0.29.1"
@@ -7030,6 +7031,7 @@ __metadata:
     fluture: "npm:14.0.0"
     inherent: "workspace:packages/inherent"
     jest-environment-jsdom: "npm:29.7.0"
+    kiddo: "workspace:packages/kiddo"
     knot: "workspace:packages/knot"
     madge: "npm:6.1.0"
     ramda: "npm:0.29.1"
@@ -8374,7 +8376,6 @@ __metadata:
     "@testing-library/jest-dom": "npm:6.1.5"
     dotenv-cli: "npm:7.3.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
-    execa: "npm:8.0.1"
     find-up: "npm:7.0.0"
     fluture: "npm:14.0.0"
     jest: "npm:29.7.0"
@@ -11397,6 +11398,22 @@ __metadata:
   checksum: 34989b3fcd60eb9287f15dae2e913edf23a94d48c4144bd0306cc24d256ece7c1196ebc02c8b2ea48fa454a77475da54060340c7059df1d0cc3f4eb2d2a1a89c
   languageName: node
   linkType: hard
+
+"kiddo@workspace:packages/kiddo":
+  version: 0.0.0-use.local
+  resolution: "kiddo@workspace:packages/kiddo"
+  dependencies:
+    "@testing-library/jest-dom": "npm:6.1.5"
+    dotenv-cli: "npm:7.3.0"
+    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
+    execa: "npm:8.0.1"
+    find-up: "npm:7.0.0"
+    fluture: "npm:14.0.0"
+    jest: "npm:29.7.0"
+    jest-config: "workspace:shared/jest-config"
+    ramda: "npm:0.29.1"
+  languageName: unknown
+  linkType: soft
 
 "kind-of@npm:^6.0.0, kind-of@npm:^6.0.2":
   version: 6.0.3
@@ -16655,6 +16672,7 @@ __metadata:
     file-system: "workspace:packages/file-system"
     fluture: "npm:14.0.0"
     jest-config: "workspace:shared/jest-config"
+    kiddo: "workspace:packages/kiddo"
     project-bin-path: "npm:2.0.0"
     ramda: "npm:0.29.1"
   bin:
@@ -16935,11 +16953,11 @@ __metadata:
   dependencies:
     dotenv-cli: "npm:7.3.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
-    execa: "npm:8.0.1"
     file-system: "workspace:packages/file-system"
     fluture: "npm:14.0.0"
     gitlog: "npm:4.0.8"
     jest-config: "workspace:shared/jest-config"
+    kiddo: "workspace:packages/kiddo"
     ramda: "npm:0.29.1"
   languageName: unknown
   linkType: soft
@@ -17914,6 +17932,17 @@ __metadata:
   checksum: c5e35f9fb9338d31d2141d9835643c0f49b5f9c521440bb648181059e5940d93dd8ed856aa8a33fbcdd4e121dad63c7e8c15c063cf485429cd9d427be197fe62
   languageName: node
   linkType: hard
+
+"water-wheel@workspace:packages/water-wheel":
+  version: 0.0.0-use.local
+  resolution: "water-wheel@workspace:packages/water-wheel"
+  dependencies:
+    dotenv-cli: "npm:7.3.0"
+    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
+    jest-config: "workspace:shared/jest-config"
+    ramda: "npm:0.29.1"
+  languageName: unknown
+  linkType: soft
 
 "wcwidth@npm:^1.0.1":
   version: 1.0.1

@@ -115,7 +115,6 @@ test('readFile', done => {
     ".": "./index.js"
   },
   "dependencies": {
-    "execa": "8.0.1",
     "find-up": "7.0.0",
     "fluture": "14.0.0",
     "ramda": "0.29.1"

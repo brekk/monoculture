@@ -1,17 +1,18 @@
 {
-  "name": "file-system",
+  "name": "kiddo",
   "version": "0.0.1",
-  "description": "fs, but in the future 🔮",
-  "main": "file-system.js",
+  "description": "child processes in the future 👶",
+  "main": "kiddo.js",
   "type": "module",
   "repository": "brekk/monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
   "exports": {
-    ".": "./index.js"
+    ".": "./kiddo.js"
   },
   "dependencies": {
+    "execa": "8.0.1",
     "find-up": "7.0.0",
     "fluture": "14.0.0",
     "ramda": "0.29.1"

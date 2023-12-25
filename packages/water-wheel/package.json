@@ -1,26 +1,21 @@
 {
-  "name": "file-system",
-  "version": "0.0.1",
-  "description": "fs, but in the future 🔮",
-  "main": "file-system.js",
+  "name": "water-wheel",
+  "version": "0.0.0",
+  "description": "future-wrapping for streaming interfaces 🌊",
   "type": "module",
-  "repository": "brekk/monoculture",
+  "repository": "monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
   "exports": {
-    ".": "./index.js"
+    ".": "./water-wheel.js"
   },
   "dependencies": {
-    "find-up": "7.0.0",
-    "fluture": "14.0.0",
     "ramda": "0.29.1"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "6.1.5",
     "dotenv-cli": "7.3.0",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
-    "jest": "29.7.0",
     "jest-config": "workspace:shared/jest-config"
   },
   "scripts": {

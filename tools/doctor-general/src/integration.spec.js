@@ -3,7 +3,7 @@ import { trace } from 'xtrace'
 import { is, curry, pipe, map, join } from 'ramda'
 import { join as pathJoin, relative } from 'node:path'
 import { fork } from 'fluture'
-import { execWithConfig } from 'file-system'
+import { execWithConfig } from 'kiddo'
 
 test('smoke', () => {
   expect(true).toBeTruthy()

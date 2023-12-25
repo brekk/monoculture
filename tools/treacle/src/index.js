@@ -10,7 +10,7 @@ import {
   split,
 } from 'ramda'
 import { bimap } from 'fluture'
-import { execWithCancel } from 'file-system'
+import { execWithCancel } from 'kiddo'
 
 const words = split(' ')
 const lines = split('\n')
