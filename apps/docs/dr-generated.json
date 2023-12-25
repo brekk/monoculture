@@ -5,29 +5,135 @@
     "filename": "packages/bloodline/executables.js",
     "comments": [
       {
-        "start": 19,
-        "end": 60,
-        "summary": "Check for the existence of `gvpr`.",
+        "start": 17,
+        "end": 33,
+        "summary": "Check for the existence of a binary",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "curried": [
-            {
-              "name": "",
-              "lines": "1. checkForGraphvizWithCancel - Provide a cancellation function and a path to look for `gvpr` within.\n   @example\n   ```js\n   import { checkForGraphvizWithCancel } from 'bloodline'\n   import { fork } from 'fluture'\n   fork(console.warn)(console.log)(\n checkForGraphvizWithCancel(\n   cancellationFn,\n   '/opt/homebrew/bin'\n )\n   )\n2. checkForGraphvizAtPath - Provide a path to look for `gvpr` in.\n   @example\n   ```js\n   import { checkForGraphvizAtPath } from 'bloodline'\n   import { fork } from 'fluture'\n   fork(console.warn)(console.log)(\n checkForGraphvizAtPath(\n   '/opt/homebrew/bin'\n )\n   )\n   ```\n3. checkForGraphviz - Check for graphviz, assuming it is already within your path.\n   @example\n   ```js\n   import { checkForGraphviz } from 'bloodline'\n   import { fork } from 'fluture'\n   fork(console.warn)(console.log)(\n checkForGraphvizWithCancel(\n )\n   )\n   ```"
-            }
-          ]
+          "name": "checkForBinaryWithCancel",
+          "example": "```js\nimport { checkForBinaryWithCancel } from 'bloodline'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  checkForBinaryWithCancel(\n    cancellationFn,\n    'gvpr',\n    ['-V'],\n    ''\n  )\n)\n```"
         },
         "keywords": [
-          "@curried",
-          "@example"
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/bloodline/executables.js"
+      },
+      {
+        "start": 45,
+        "end": 60,
+        "summary": "Check for multiple binaries in a single call",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "checkForBinaries",
+          "example": "```js\nimport { checkForBinaries } from 'bloodline'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  checkForBinaries(\n    cancellationFn,\n    '/usr/bin',\n    { gvpr: ['-V'], dot: ['-V'] }\n  )\n)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
         ],
         "filename": "packages/bloodline/executables.js"
       }
     ],
     "order": 0,
     "links": [],
+    "workspace": "bloodline"
+  },
+  {
+    "slugName": "tree",
+    "pageSummary": "",
+    "filename": "packages/bloodline/tree.js",
+    "comments": [
+      {
+        "start": 17,
+        "end": 24,
+        "summary": "Generate a dependency tree, given a config, a directory, and a filename",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "plant"
+        },
+        "keywords": [
+          "@name"
+        ],
+        "filename": "packages/bloodline/tree.js"
+      },
+      {
+        "start": 64,
+        "end": 75,
+        "summary": "Grab an id from a cache if possible",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "getId",
+          "example": "```js\nimport { getId } from 'bloodline/tree'\nconst basePath = '..'\nconst cache = {}\nconst key = 'a'\nconsole.log(getId(basePath, cache, key)) // 'bloodline/a'\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/bloodline/tree.js"
+      },
+      {
+        "start": 85,
+        "end": 96,
+        "summary": "Take a dependency tree and recursively walk it, returning a grouped set of dependencies.",
+        "links": [
+          "flattenTree"
+        ],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "groupTree",
+          "see": [
+            "flattenTree"
+          ],
+          "example": "```js\nimport { groupTree, plant } from 'bloodline/tree'\nconst config = { basePath: '../..' }\nconst tree = plant(config, '..', '../monocle/cli.js')\nconst grouped = groupTree(config, {}, {}, tree)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@link",
+          "@name",
+          "@see"
+        ],
+        "filename": "packages/bloodline/tree.js"
+      },
+      {
+        "start": 126,
+        "end": 137,
+        "summary": "Take a dependency tree and recursively walk it, returning flattened set of dependencies.",
+        "links": [
+          "groupTree"
+        ],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "flattenTree",
+          "see": [
+            "groupTree"
+          ],
+          "example": "```js\nimport { flattenTree, plant } from 'bloodline/tree'\nconst config = { basePath: '../..' }\nconst tree = plant(config, '..', '../monocle/cli.js')\nconst flattened = flattenTree(config, {}, {}, tree)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@link",
+          "@name",
+          "@see"
+        ],
+        "filename": "packages/bloodline/tree.js"
+      }
+    ],
+    "order": 0,
+    "links": [
+      "flattenTree",
+      "groupTree"
+    ],
     "workspace": "bloodline"
   },
   {

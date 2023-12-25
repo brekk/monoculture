@@ -1,4 +1,4 @@
-import { groupTree, plant, flattenTree, rootedPlant } from './tree'
+import { getId, groupTree, plant, flattenTree, rootedPlant } from './tree'
 // import { sep as SEP } from 'node:path'
 // import { nthIndex } from 'knot'
 
@@ -10,6 +10,10 @@ const rooted = rootedPlant(
   '../monocle/cli.js'
 )
 const rootedWithNpm = rootedPlant(sharedConfig, '../..', '../monocle/cli.js')
+
+test('getId', () => {
+  expect(getId('..', {}, 'a')).toEqual('bloodline/a')
+})
 
 test('groupTree', () => {
   const pFlatTree = groupTree(sharedConfig, {}, {}, tree)

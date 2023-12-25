@@ -15,6 +15,14 @@ import { fresh } from 'inherent'
 import { relative as relativePath } from 'node:path'
 import deptree from 'dependency-tree'
 
+/**
+ * Generate a dependency tree, given a config, a directory, and a filename
+ * @name plant
+ * ```js
+ * import { plant } from 'bloodline'
+ * const tree = plant({}, '../..', '../monocle/cli.js')
+ * ```
+ */
 export const plant = curry((config, directory, filename) =>
   deptree({ ...config, filename, directory })
 )
@@ -54,6 +62,18 @@ export const rootedPlant = curry((config, directory, filename) => {
   return { npmPaths, tree: planted }
 })
 
+/**
+ * Grab an id from a cache if possible
+ * @name getId
+ * @example
+ * ```js
+ * import { getId } from 'bloodline/tree'
+ * const basePath = '..'
+ * const cache = {}
+ * const key = 'a'
+ * console.log(getId(basePath, cache, key)) // 'bloodline/a'
+ * ```
+ */
 export const getId = curry((basePath, cache, key) => {
   if (cache[key]) {
     return cache[key]
@@ -63,6 +83,18 @@ export const getId = curry((basePath, cache, key) => {
   return lookup
 })
 
+/**
+ * Take a dependency tree and recursively walk it, returning a grouped set of dependencies.
+ * @name groupTree
+ * @see {@link flattenTree}
+ * @example
+ * ```js
+ * import { groupTree, plant } from 'bloodline/tree'
+ * const config = { basePath: '../..' }
+ * const tree = plant(config, '..', '../monocle/cli.js')
+ * const grouped = groupTree(config, {}, {}, tree)
+ * ```
+ */
 export const groupTree = curry(({ basePath }, tree, cache, searchSpace) => {
   // we need things to run this tick, so we'll do our recursion within this curried function
   const walker = (_tree, _cache, _searchSpace) => {
@@ -92,6 +124,18 @@ export const groupTree = curry(({ basePath }, tree, cache, searchSpace) => {
   return tree
 })
 
+/**
+ * Take a dependency tree and recursively walk it, returning flattened set of dependencies.
+ * @name flattenTree
+ * @see {@link groupTree}
+ * @example
+ * ```js
+ * import { flattenTree, plant } from 'bloodline/tree'
+ * const config = { basePath: '../..' }
+ * const tree = plant(config, '..', '../monocle/cli.js')
+ * const flattened = flattenTree(config, {}, {}, tree)
+ * ```
+ */
 export const flattenTree = curry((config, tree, cache, searchSpace) =>
   pipe(
     groupTree(config, $, cache, searchSpace),
