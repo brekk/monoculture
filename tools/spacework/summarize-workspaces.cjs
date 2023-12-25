@@ -44,8 +44,11 @@ const REPO = 'https://github.com/brekk/monoculture/tree/main'
 
 const COM = 'github.com'
 const TREE = 'tree/main'
-const pagesForGithub = z =>
-  `https://` + z.slice(z.indexOf(COM), z.indexOf(TREE) - 1)
+const pagesForGithub = z => {
+  const parts = z.slice(z.indexOf(COM) + COM.length + 1, z.indexOf(TREE) - 1)
+  const [org, repo] = parts.split('/')
+  return `https://${org}.github.io/${repo}`
+}
 
 const depUsage = curry(({ repo, project }, deps, devDeps) =>
   pipe(
@@ -141,7 +144,7 @@ const summarize = curry((repo, package, docWorkspace, argv) => {
                             docs.length
                               ? `\n     [Documentation](${pagesForGithub(
                                   repo
-                                )}/${group}/${project})\n`
+                                )}/${project})\n`
                               : ''
                           }\n     <details><summary>Dependencies</summary>\n\n      - ${depUsage(
                             { repo, project },

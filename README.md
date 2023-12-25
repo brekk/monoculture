@@ -53,7 +53,7 @@ introspection and organization tools for monorepos
 
    * [bloodline](https://github.com/brekk/monoculture/tree/main/packages/bloodline) - determine the relationships between files 🩸
 
-     [Documentation](https://github.com/brekk/monoculture/packages/bloodline)
+     [Documentation](https://brekk.github.io/monoculture/bloodline)
 
      <details><summary>Dependencies</summary>
 
@@ -147,7 +147,7 @@ introspection and organization tools for monorepos
      </details>
    * [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) - fs, but in the future 🔮
 
-     [Documentation](https://github.com/brekk/monoculture/packages/file-system)
+     [Documentation](https://brekk.github.io/monoculture/file-system)
 
      <details><summary>Dependencies</summary>
 
@@ -163,7 +163,7 @@ introspection and organization tools for monorepos
      </details>
    * [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) - functional utilities for primitives ⛺️
 
-     [Documentation](https://github.com/brekk/monoculture/packages/inherent)
+     [Documentation](https://brekk.github.io/monoculture/inherent)
 
      <details><summary>Dependencies</summary>
 
@@ -175,7 +175,7 @@ introspection and organization tools for monorepos
      </details>
    * [kiddo](https://github.com/brekk/monoculture/tree/main/packages/kiddo) - child processes in the future 👶
 
-     [Documentation](https://github.com/brekk/monoculture/packages/kiddo)
+     [Documentation](https://brekk.github.io/monoculture/kiddo)
 
      <details><summary>Dependencies</summary>
 
@@ -222,7 +222,7 @@ introspection and organization tools for monorepos
      </details>
    * [monorail](https://github.com/brekk/monoculture/tree/main/packages/monorail) - plugins for smug grins 🚂
 
-     [Documentation](https://github.com/brekk/monoculture/packages/monorail)
+     [Documentation](https://brekk.github.io/monoculture/monorail)
 
      <details><summary>Dependencies</summary>
 
