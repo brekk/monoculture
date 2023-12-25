@@ -11407,7 +11407,6 @@ __metadata:
     dotenv-cli: "npm:7.3.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     execa: "npm:8.0.1"
-    find-up: "npm:7.0.0"
     fluture: "npm:14.0.0"
     jest: "npm:29.7.0"
     jest-config: "workspace:shared/jest-config"
