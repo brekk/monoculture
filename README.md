@@ -172,7 +172,6 @@ introspection and organization tools for monorepos
      <details><summary>Dependencies</summary>
 
       - [execa](https://www.npmjs.com/package/execa)
-      - [find-up](https://www.npmjs.com/package/find-up)
       - [fluture](https://www.npmjs.com/package/fluture)
       - [ramda](https://www.npmjs.com/package/ramda)
       - [@testing-library/jest-dom](https://www.npmjs.com/package/@testing-library/jest-dom)🧪
@@ -252,6 +251,8 @@ introspection and organization tools for monorepos
 
      <details><summary>Dependencies</summary>
 
+      - [envtrace](https://www.npmjs.com/package/envtrace)
+      - [fluture](https://www.npmjs.com/package/fluture)
       - [ramda](https://www.npmjs.com/package/ramda)
       - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
       - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴🧪

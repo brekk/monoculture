@@ -11,6 +11,8 @@
     ".": "./water-wheel.js"
   },
   "dependencies": {
+    "envtrace": "0.0.2",
+    "fluture": "14.0.0",
     "ramda": "0.29.1"
   },
   "devDependencies": {

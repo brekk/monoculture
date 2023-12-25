@@ -17938,7 +17938,9 @@ __metadata:
   resolution: "water-wheel@workspace:packages/water-wheel"
   dependencies:
     dotenv-cli: "npm:7.3.0"
+    envtrace: "npm:0.0.2"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
+    fluture: "npm:14.0.0"
     jest-config: "workspace:shared/jest-config"
     ramda: "npm:0.29.1"
   languageName: unknown
