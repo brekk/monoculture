@@ -8,7 +8,6 @@ introspection and organization tools for monorepos
  - 🧪 package used as a devDependency
 
 
-
 ## apps
 
    * [docs](https://github.com/brekk/monoculture/tree/main/apps/docs) - documentation site for monoculture
@@ -49,11 +48,17 @@ introspection and organization tools for monorepos
 
      </details>
 
+
 ## packages
 
    * [bloodline](https://github.com/brekk/monoculture/tree/main/packages/bloodline) - determine the relationships between files 🩸
 
-     [Documentation](https://brekk.github.io/monoculture/bloodline)
+     <details><summary>API</summary>
+
+      - [executables](https://brekk.github.io/monoculture/bloodline/executables)
+ - [tree](https://brekk.github.io/monoculture/bloodline/tree)
+
+     </details>
 
      <details><summary>Dependencies</summary>
 
@@ -73,6 +78,7 @@ introspection and organization tools for monorepos
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
 
      </details>
+
    * [climate](https://github.com/brekk/monoculture/tree/main/packages/climate) - CLI utilities, friend 👯
 
      <details><summary>Dependencies</summary>
@@ -91,6 +97,7 @@ introspection and organization tools for monorepos
       - [strip-ansi](https://www.npmjs.com/package/strip-ansi) 🧪
 
      </details>
+
    * [climate-json](https://github.com/brekk/monoculture/tree/main/packages/climate-json) - JSON parser for climate 🐐
 
      <details><summary>Dependencies</summary>
@@ -103,6 +110,7 @@ introspection and organization tools for monorepos
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
 
      </details>
+
    * [climate-toml](https://github.com/brekk/monoculture/tree/main/packages/climate-toml) - TOML parser for climate 🍅
 
      <details><summary>Dependencies</summary>
@@ -116,6 +124,7 @@ introspection and organization tools for monorepos
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
 
      </details>
+
    * [climate-yaml](https://github.com/brekk/monoculture/tree/main/packages/climate-yaml) - YAML parser for climate 🍠
 
      <details><summary>Dependencies</summary>
@@ -129,6 +138,7 @@ introspection and organization tools for monorepos
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
 
      </details>
+
    * [clox](https://github.com/brekk/monoculture/tree/main/packages/clox) - boxes for the terminal ⏰
 
      <details><summary>Dependencies</summary>
@@ -145,9 +155,14 @@ introspection and organization tools for monorepos
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
 
      </details>
+
    * [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) - fs, but in the future 🔮
 
-     [Documentation](https://brekk.github.io/monoculture/file-system)
+     <details><summary>API</summary>
+
+      - [fs](https://brekk.github.io/monoculture/file-system/fs)
+
+     </details>
 
      <details><summary>Dependencies</summary>
 
@@ -161,9 +176,14 @@ introspection and organization tools for monorepos
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
 
      </details>
+
    * [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) - functional utilities for primitives ⛺️
 
-     [Documentation](https://brekk.github.io/monoculture/inherent)
+     <details><summary>API</summary>
+
+      - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
+
+     </details>
 
      <details><summary>Dependencies</summary>
 
@@ -173,9 +193,14 @@ introspection and organization tools for monorepos
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
 
      </details>
+
    * [kiddo](https://github.com/brekk/monoculture/tree/main/packages/kiddo) - child processes in the future 👶
 
-     [Documentation](https://brekk.github.io/monoculture/kiddo)
+     <details><summary>API</summary>
+
+      - [kiddo](https://brekk.github.io/monoculture/kiddo/kiddo)
+
+     </details>
 
      <details><summary>Dependencies</summary>
 
@@ -189,6 +214,7 @@ introspection and organization tools for monorepos
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
 
      </details>
+
    * [knot](https://github.com/brekk/monoculture/tree/main/packages/knot) - functional utilities for strings 🪢
 
      <details><summary>Dependencies</summary>
@@ -200,6 +226,7 @@ introspection and organization tools for monorepos
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
 
      </details>
+
    * [monocle](https://github.com/brekk/monoculture/tree/main/packages/monocle) - inspect code and apply rules, magically 🧐
 
      <details><summary>Dependencies</summary>
@@ -220,9 +247,14 @@ introspection and organization tools for monorepos
       - [robot-tourist](https://github.com/brekk/monoculture/tree/main/packages/robot-tourist) 🦴 🧪
 
      </details>
+
    * [monorail](https://github.com/brekk/monoculture/tree/main/packages/monorail) - plugins for smug grins 🚂
 
-     [Documentation](https://brekk.github.io/monoculture/monorail)
+     <details><summary>API</summary>
+
+      - [helpers](https://brekk.github.io/monoculture/monorail/helpers)
+
+     </details>
 
      <details><summary>Dependencies</summary>
 
@@ -238,6 +270,7 @@ introspection and organization tools for monorepos
       - [unusual](https://www.npmjs.com/package/unusual) 🧪
 
      </details>
+
    * [robot-tourist](https://github.com/brekk/monoculture/tree/main/packages/robot-tourist) - human-centric source code interpreter 🤖
 
      <details><summary>Dependencies</summary>
@@ -257,6 +290,7 @@ introspection and organization tools for monorepos
       - [strip-ansi](https://www.npmjs.com/package/strip-ansi) 🧪
 
      </details>
+
    * [water-wheel](https://github.com/brekk/monoculture/tree/main/packages/water-wheel) - future-wrapping for streaming interfaces 🌊
 
      <details><summary>Dependencies</summary>
@@ -269,6 +303,7 @@ introspection and organization tools for monorepos
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
 
      </details>
+
 
 ## shared
 
@@ -294,6 +329,7 @@ introspection and organization tools for monorepos
       - [typescript](https://www.npmjs.com/package/typescript) 🧪
 
      </details>
+
    * [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) - shared jest configuration for monoculture packages 🎪
 
      <details><summary>Dependencies</summary>
@@ -306,6 +342,7 @@ introspection and organization tools for monorepos
       - [typescript](https://www.npmjs.com/package/typescript)
 
      </details>
+
    * [monoculture-tsconfig](https://github.com/brekk/monoculture/tree/main/shared/monoculture-tsconfig) - shared tsconfig for monoculture packages 😵
 
 
@@ -332,6 +369,7 @@ introspection and organization tools for monorepos
       - [xtrace](https://www.npmjs.com/package/xtrace) 🧪
 
      </details>
+
    * [gitparty](https://github.com/brekk/monoculture/tree/main/tools/gitparty) - visualize git logs with magical context 🎨
 
      <details><summary>Dependencies</summary>
@@ -351,6 +389,7 @@ introspection and organization tools for monorepos
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
 
      </details>
+
    * [spacework](https://github.com/brekk/monoculture/tree/main/tools/spacework) - meta tools for monoculture ☄️
 
      <details><summary>Dependencies</summary>
@@ -363,6 +402,7 @@ introspection and organization tools for monorepos
       - [nps-utils](https://www.npmjs.com/package/nps-utils) 🧪
 
      </details>
+
    * [superorganism](https://github.com/brekk/monoculture/tree/main/tools/superorganism) - script runner from beyond the moon 🦠
 
      <details><summary>Dependencies</summary>
@@ -382,6 +422,7 @@ introspection and organization tools for monorepos
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
 
      </details>
+
    * [treacle](https://github.com/brekk/monoculture/tree/main/tools/treacle) - command line interface tree visualization pun 🫠
 
      <details><summary>Dependencies</summary>
@@ -396,3 +437,4 @@ introspection and organization tools for monorepos
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
 
      </details>
+

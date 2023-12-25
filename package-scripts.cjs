@@ -16,7 +16,6 @@ introspection and organization tools for monorepos
 
  - 🦴 package from within this monorepo
  - 🧪 package used as a devDependency
-
 `
 
 module.exports = {

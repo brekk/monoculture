@@ -1,4 +1,14 @@
-import { curry, join, pipe, range, reduce, split } from 'ramda'
+import {
+  curry,
+  join,
+  pipe,
+  range,
+  reduce,
+  memoizeWith,
+  identity as I,
+  repeat,
+  split,
+} from 'ramda'
 import { NEWLINE, SPACE, EMPTY, TAB } from './constants'
 
 const makeSplitJoinPair = z => [split(z), join(z)]
@@ -40,3 +50,10 @@ export const nthLastIndexOf = curry((delim, n, input) =>
 export const nthIndex = curry((delim, n, input) =>
   (n > 0 ? nthIndexOf : nthLastIndexOf)(delim, n, input)
 )
+
+export const strepeat = curry((toRepeat, x) => {
+  const gen = memoizeWith(I, n =>
+    pipe(z => (z < 0 ? 0 : z), repeat(toRepeat), join(''))(n)
+  )
+  return gen(x)
+})
