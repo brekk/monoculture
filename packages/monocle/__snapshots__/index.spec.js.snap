@@ -1369,7 +1369,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           12,
-          0,
+          1,
         ],
         [
           13,
@@ -1441,7 +1441,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           30,
-          1,
+          0,
         ],
         [
           31,
@@ -1668,7 +1668,7 @@ exports[`monoprocessor 1`] = `
           0,
         ],
       ],
-      "hash": "9589a3dec273e952e9f64464f6d27d828da4855ba5592d13cccc9570b416779d",
+      "hash": "fa3c73824fe4e8bbdedcb0b6349190cf87a061232f53c86e5ee1c3011606f469",
       "name": "graph.svg",
     },
     "hash.js": {
@@ -2374,7 +2374,7 @@ exports[`monoprocessor 1`] = `
     "examples/plugin-wordcount.js": 68,
     "examples/rulefile-test-run.json": 90,
     "examples/rulefile-test-run.toml": 51,
-    "graph.svg": 441,
+    "graph.svg": 438,
     "hash.js": 27,
     "index.js": 9,
     "jest.config.cjs": 38,
@@ -2390,7 +2390,7 @@ exports[`readAll 1`] = `
 [
   "ca0faff22329571b6e2be76b40ed14f8c931bf8f3c4807d1ceea90cce1c5a126",
   "8d8164b8400b0d41daf95e4bc7904de22a7b4fdef1440a00a0fe61e4640d5474",
-  "9589a3dec273e952e9f64464f6d27d828da4855ba5592d13cccc9570b416779d",
+  "fa3c73824fe4e8bbdedcb0b6349190cf87a061232f53c86e5ee1c3011606f469",
   "5cd99d9df3d8e4c2fcc83cf248314a4836c71d88f8d6e4fdc0d84c4e8c7b029d",
   "f5ca9070a68f19933e3cd35a10e18013655b9b9a9c1b78ec2c7262a98c2fee17",
   "33131c37bef2ce4ae423d2f478e29edcedd92fc3c56784ce4523adc3f20bd44c",

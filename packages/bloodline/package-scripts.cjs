@@ -9,7 +9,7 @@ const buildModule = ([infile, outfile]) =>
     `--packages=external`,
   ].join(' ')
 
-const INPUT = 'src/index.js'
+const INPUT = './index.js'
 
 const sd = (script, description = '') =>
   !!description ? { script, description } : { script }

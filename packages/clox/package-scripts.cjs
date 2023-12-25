@@ -18,9 +18,9 @@ module.exports = {
   scripts: {
     clean: sd('rm -r dist', 'clean the build'),
     lint: sd('eslint --fix .', 'lint!'),
-    meta: {
-      graph: `madge ${INPUT} --image graph.svg`,
-    },
+    // meta: {
+    //   graph: `madge ${INPUT} --image graph.svg`,
+    // },
     test: {
       ...sd('jest', 'test!'),
       watch: sd('jest --watch', 'test with watch-mode!'),

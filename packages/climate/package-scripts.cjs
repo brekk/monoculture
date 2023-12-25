@@ -1,7 +1,7 @@
 const sd = (script, description = '') =>
   !!description ? { script, description } : { script }
 
-const INPUT = 'index.js'
+const INPUT = 'climate.js'
 
 module.exports = {
   scripts: {

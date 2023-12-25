@@ -35,7 +35,7 @@ const buildPlugin = ([infile, outfile]) =>
     `--platform=node`,
   ].join(' ')
 
-const INPUT = `src/index.js`
+const INPUT = `index.js`
 const OUTPUT = `dist/${PKG.main}`
 module.exports = {
   scripts: {
