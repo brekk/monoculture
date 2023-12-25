@@ -36,11 +36,12 @@ test('generateOptions', () => {
 })
 test('createSVG', done => {
   expect(createSVG).toBeTruthy()
-  const tree = plant({}, '../..', '../monocle/cli.js')
+  // const tree = plant({}, '../..', '../monocle/cli.js')
   // console.log('TREE', tree)
+  const modules = { 'a.js': ['b.js', 'c.js'], 'b.js': ['c.js'], 'c.js': [] }
   const cancel = () => {}
   fork(done)(z => {
-    expect(z).toEqual('....')
+    expect(z.toString()).toMatchSnapshot()
     done()
-  })(createSVG(cancel, DEFAULT_GRAPHVIZ_CONFIG, [], tree))
+  })(createSVG(cancel, DEFAULT_GRAPHVIZ_CONFIG, [], modules))
 })

@@ -1,6 +1,8 @@
 import { Buffer } from 'node:buffer'
 import { log } from './log'
 import {
+  any,
+  chain,
   map,
   mergeLeft,
   mergeRight,
@@ -40,18 +42,25 @@ export const setColor = setAttribute('color')
 export const getCyclic = reduce((a, b) => concat(a, b), [])
 export const createGraph = curry(
   (cancel, config, circular, options, modules) => {
-    const $g = gv.digraph('G')
+    const { fontname } = config
+    const $g = gv.digraph('G', { fontname })
     const cyclic = getCyclic(circular)
-    const { colors = DEFAULT_GRAPHVIZ_CONFIG.colors } = config
+    const { nodeColor, colors = DEFAULT_GRAPHVIZ_CONFIG.colors } = config
     const { noDependency: colorNoDependency, cyclical: colorCyclical } = colors
     const nodes = {}
     pipe(
       keys,
       forEach(id => {
-        const $node = nodes?.[id] ?? $g.createNode(id)
+        const hasChildren = isNotEmpty(modules[id])
+        nodes[id] =
+          nodes?.[id] ??
+          $g.createNode(id, {
+            fontname,
+            color: nodeColor,
+          })
         log.viz('processing...', id)
-        const colorize = setColor($node)
-        if (isNotEmpty(modules[id])) {
+        const colorize = setColor(nodes[id])
+        if (!hasChildren) {
           colorize(colorNoDependency)
         } else if (cyclic.indexOf(id) >= 0) {
           colorize(colorCyclical)
@@ -59,23 +68,27 @@ export const createGraph = curry(
 
         forEach(depId => {
           log.viz('children...', depId)
-          const $dep = nodes?.[depId] ?? $g.createNode(depId)
-          nodes[depId] = $dep
-          const colorizeSub = setColor($dep)
-          if (!modules[depId]) {
-            colorizeSub(colorNoDependency)
+          const hasSubChildren = isNotEmpty(modules[depId])
+          nodes[depId] =
+            nodes?.[depId] ??
+            $g.createNode(depId, {
+              fontname,
+              color: nodeColor,
+            })
+
+          const colorizeSub = setColor(nodes[depId])
+          if (!hasSubChildren) {
+            colorizeSub('#ffcc00')
           }
-          nodes[depId] = $dep
-          $g.createEdge([$node, $dep])
+          $g.createEdge([nodes[id], nodes[depId]])
         }, modules[id])
-        nodes[id] = $node
       })
     )(modules)
     return pipe(
       gv.toDot,
+      log.viz('dotted'),
       dotStreamAdapterWithCancel(cancel, options),
-      waterWheel(cancel),
-      map(Buffer.concat)
+      chain(pipe(waterWheel(cancel), map(pipe(Buffer.concat))))
     )($g)
   }
 )
