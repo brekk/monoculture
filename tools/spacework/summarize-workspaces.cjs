@@ -161,17 +161,19 @@ const summarize = curry((repo, package, docWorkspace, argv) => {
               pipe(
                 map(([project, summary, deps, devDeps, docs]) => {
                   const iDisclose = makeDisclosable(5)
-                  const dependencyMap = iDisclose(
-                    'Dependencies',
-                    ` - ${depUsage({ repo, project }, deps, devDeps)}`
-                  )
+                  const dependencyMap =
+                    '\n' +
+                    iDisclose(
+                      'Dependencies',
+                      ` - ${depUsage({ repo, project }, deps, devDeps)}`
+                    )
                   const pagesURL = pagesForGithub(repo)
                   const docMap = docs.length
                     ? iDisclose('API', docLinks(5, pagesURL, project, docs))
                     : ''
                   return `[${project}](${repo}/${group}/${project}) - ${summary}${
                     showDependencies && keys({ ...deps, ...devDeps }).length > 0
-                      ? `\n${docMap ? docMap + '\n' : ''}${dependencyMap}\n`
+                      ? `${docMap ? docMap + '\n' : ''}${dependencyMap}\n`
                       : '\n'
                   }`
                 }),

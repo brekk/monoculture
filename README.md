@@ -52,13 +52,13 @@ introspection and organization tools for monorepos
 ## packages
 
    * [bloodline](https://github.com/brekk/monoculture/tree/main/packages/bloodline) - determine the relationships between files 🩸
-
      <details><summary>API</summary>
 
       - [executables](https://brekk.github.io/monoculture/bloodline/executables)
- - [tree](https://brekk.github.io/monoculture/bloodline/tree)
+      - [tree](https://brekk.github.io/monoculture/bloodline/tree)
 
      </details>
+
 
      <details><summary>Dependencies</summary>
 
@@ -157,12 +157,12 @@ introspection and organization tools for monorepos
      </details>
 
    * [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) - fs, but in the future 🔮
-
      <details><summary>API</summary>
 
       - [fs](https://brekk.github.io/monoculture/file-system/fs)
 
      </details>
+
 
      <details><summary>Dependencies</summary>
 
@@ -178,12 +178,12 @@ introspection and organization tools for monorepos
      </details>
 
    * [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) - functional utilities for primitives ⛺️
-
      <details><summary>API</summary>
 
       - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
 
      </details>
+
 
      <details><summary>Dependencies</summary>
 
@@ -195,12 +195,12 @@ introspection and organization tools for monorepos
      </details>
 
    * [kiddo](https://github.com/brekk/monoculture/tree/main/packages/kiddo) - child processes in the future 👶
-
      <details><summary>API</summary>
 
       - [kiddo](https://brekk.github.io/monoculture/kiddo/kiddo)
 
      </details>
+
 
      <details><summary>Dependencies</summary>
 
@@ -249,12 +249,12 @@ introspection and organization tools for monorepos
      </details>
 
    * [monorail](https://github.com/brekk/monoculture/tree/main/packages/monorail) - plugins for smug grins 🚂
-
      <details><summary>API</summary>
 
       - [helpers](https://brekk.github.io/monoculture/monorail/helpers)
 
      </details>
+
 
      <details><summary>Dependencies</summary>
 
