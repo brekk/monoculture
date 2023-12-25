@@ -1,15 +1,14 @@
 {
-  "name": "dogen",
+  "name": "doctor-general",
   "version": "0.0.1",
-  "description": "documentation generation 🫡",
+  "description": "documentation generation 🩻",
   "type": "module",
   "repository": "brekk/monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "bin": "./dist/doctor-general.cjs",
   "exports": {
-    ".": "./dist/doctor-general.cjs"
+    ".": "./doctor-general.js"
   },
   "dependencies": {
     "climate": "workspace:packages/climate",
@@ -32,11 +31,6 @@
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
-    "build": "dotenv -- nps -c ./package-scripts.cjs build",
-    "build:cli": "dotenv -- nps -c ./package-scripts.cjs build.cli",
-    "build:watch": "dotenv -- nps -c ./package-scripts.cjs build.watch",
-    "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
-    "dev": "dotenv -- nps -c ./package-scripts.cjs dev",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",

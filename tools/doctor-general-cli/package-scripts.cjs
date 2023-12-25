@@ -26,8 +26,8 @@ const buildModule = ([infile, outfile]) =>
     `--packages=external`,
   ].join(' ')
 
-const INPUT = `src/executable.js`
-const OUTPUT_CLI = PKG.bin
+const INPUT = `./executable.js`
+const OUTPUT_CLI = './dist/doctor-general.cjs'
 // const OUTPUT = `${pkg.name}.module.js`
 const watchMode = sd(
   `${build([INPUT, OUTPUT_CLI])} --watch`,

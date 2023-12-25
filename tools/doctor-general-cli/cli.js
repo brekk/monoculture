@@ -1,7 +1,8 @@
 import { cwd } from 'node:process'
-import PKG from '../package.json'
+import PKG from './package.json'
 import { log } from './log'
 import { configurate } from 'climate'
+import { j2 } from 'inherent'
 import { basename, join as pathJoin, dirname } from 'node:path'
 import {
   toLower,
@@ -41,11 +42,14 @@ import {
   writeFileWithAutoPath,
 } from 'file-system'
 
-import { parseFile } from './parse'
-import { stripRelative, j2 } from './text'
-import { commentToMarkdown } from './renderer'
+import {
+  slug,
+  stripLeadingHyphen,
+  commentToMarkdown,
+  parseFile,
+  stripRelative,
+} from 'doctor-general'
 import { HELP_CONFIG, YARGS_CONFIG, CONFIG_DEFAULTS } from './config'
-import { slug, stripLeadingHyphen } from './comment'
 
 const parsePackageName = y => {
   const slash = y.indexOf('/')
@@ -67,6 +71,7 @@ const readPackageJsonWorkspaces = curry((root, x) =>
     pipe(
       // grab the workspaces field
       propOr([], 'workspaces'),
+      log.parse('workspaces'),
       // we want directories only
       map(z => `${z}/`),
       // read all the directories
@@ -107,10 +112,7 @@ const cleanFilename = ({ workspace, fileGroup, filename, comments }) => {
   // const sliced = title || slug(filename)
   const sliced = title || slug(filename)
   const result = toLower(capitalToKebab(sliced)) + '.mdx'
-  return (
-    (fileGroup ? fileGroup + '/' : '') + result
-    // stripLeadingHyphen(sliced !== title ? capitalize(result) : result)
-  )
+  return stripLeadingHyphen((fileGroup ? fileGroup + '/' : '') + result)
 }
 
 const combineFiles = curry((leftToRight, a, b) =>

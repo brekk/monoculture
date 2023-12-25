@@ -4,7 +4,7 @@ const sd = (script, description = '') =>
 module.exports = {
   scripts: {
     meta: {
-      graph: `madge ${INPUT} --image graph.svg`,
+      graph: `madge ./doctor-general.js --image graph.svg`,
     },
     lint: sd('eslint --fix .', 'lint!'),
     test: {

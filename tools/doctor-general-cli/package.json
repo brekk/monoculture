@@ -1,19 +1,22 @@
 {
-  "name": "doctor-general",
+  "name": "doctor-general-cli",
   "version": "0.0.1",
-  "description": "documentation generation in a nice command line interface",
+  "description": "documentation generation in a nice CLI 🫡",
   "type": "module",
   "repository": "brekk/monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "bin": "./dist/doctor-general.cjs",
+  "bin": {
+    "doctor-general": "./dist/doctor-general.cjs",
+    "drgen": "./dist/doctor-general.cjs"
+  },
   "exports": {
     ".": "./dist/doctor-general.cjs"
   },
   "dependencies": {
     "climate": "workspace:packages/climate",
-    "dogen": "workspace:packages/dogen",
+    "doctor-general": "workspace:packages/doctor-general",
     "inherent": "workspace:packages/inherent",
     "ramda": "0.29.1"
   },
