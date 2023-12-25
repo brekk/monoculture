@@ -18,6 +18,7 @@ import deptree from 'dependency-tree'
 /**
  * Generate a dependency tree, given a config, a directory, and a filename
  * @name plant
+ * @example
  * ```js
  * import { plant } from 'bloodline'
  * const tree = plant({}, '../..', '../monocle/cli.js')
@@ -26,7 +27,27 @@ import deptree from 'dependency-tree'
 export const plant = curry((config, directory, filename) =>
   deptree({ ...config, filename, directory })
 )
+
+/**
+ * Test whether a path includes `'node_modules'` within it.
+ * @name isNodeModule
+ * @example
+ * ```js
+ * import { isNodeModule } from 'bloodline/tree'
+ * isNodeModule('./node_modules/ramda') // true
+ * ```
+ */
 const isNodeModule = includes('node_modules')
+
+/**
+ * Test whether a path includes `'.git'` within it.
+ * @name isGitPath
+ * @example
+ * ```js
+ * import { isGitPath } from 'bloodline/tree'
+ * isGitPath('.git/config') // true
+ * ```
+ */
 const isGitPath = includes('.git')
 
 export const rootedPlant = curry((config, directory, filename) => {

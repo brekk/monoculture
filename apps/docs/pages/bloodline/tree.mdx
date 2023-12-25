@@ -6,6 +6,31 @@
 
 Generate a dependency tree, given a config, a directory, and a filename
 
+### Usage
+```js
+import { plant } from 'bloodline'
+const tree = plant({}, '../..', '../monocle/cli.js')
+```
+
+## isNodeModule
+
+Test whether a path includes `'node_modules'` within it.
+
+### Usage
+```js
+import { isNodeModule } from 'bloodline/tree'
+isNodeModule('./node_modules/ramda') // true
+```
+
+## isGitPath
+
+Test whether a path includes `'.git'` within it.
+
+### Usage
+```js
+import { isGitPath } from 'bloodline/tree'
+isGitPath('.git/config') // true
+```
 
 ## getId
 
@@ -32,7 +57,7 @@ const tree = plant(config, '..', '../monocle/cli.js')
 const grouped = groupTree(config, {}, {}, tree)
 ```
 
-#### See also
+### See also
  - flattenTree
 
 ## flattenTree
@@ -47,5 +72,5 @@ const tree = plant(config, '..', '../monocle/cli.js')
 const flattened = flattenTree(config, {}, {}, tree)
 ```
 
-#### See also
+### See also
  - groupTree

@@ -52,7 +52,7 @@ const commonFields = ({ name, summary, links, example }) => [
   summary ? summary + '\n' : '',
   example ? `### Usage\n${example}` : '',
   example.includes('live=true') ? `\n\n${liveExample(example)}` : '',
-  links.length ? `\n#### See also\n - ${links.join('\n - ')}` : '',
+  links.length ? `\n### See also\n - ${links.join('\n - ')}` : '',
 ]
 
 const handleCurriedExample = pipe(
