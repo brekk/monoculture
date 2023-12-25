@@ -57,7 +57,7 @@ export const createGraph = curry(
             fontname,
             color: nodeColor,
           })
-        log.viz('processing...', id)
+        log.viz('|>', id)
         const colorize = setColor(nodes[id])
         if (!hasChildren) {
           colorize(colorNoDependency)
@@ -66,7 +66,7 @@ export const createGraph = curry(
         }
 
         forEach(depId => {
-          log.viz('children...', depId)
+          log.viz('>--->', depId)
           const hasSubChildren = isNotEmpty(modules[depId])
           nodes[depId] =
             nodes?.[depId] ??

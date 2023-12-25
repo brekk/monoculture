@@ -42,9 +42,9 @@ test('createSVG', done => {
     console.log('SKIPPING GVPR TESTS')
     expect('skipping tests which rely upon `gvpr`').toBeTruthy()
     done()
-  })(() => {
+  })(raw => {
     // eslint-disable-next-line no-console
-    console.log('RUNNING GVPR TESTS')
+    console.log('RUNNING GVPR TESTS', raw)
     const modules = { 'a.js': ['b.js', 'c.js'], 'b.js': ['c.js'], 'c.js': [] }
     fork(done)(z => {
       /* eslint-disable max-len */
@@ -105,8 +105,8 @@ test('createSVG', done => {
     })(createSVG(cancel, DEFAULT_GRAPHVIZ_CONFIG, [], modules))
   })(
     checkForBinaries(cancel, '', {
-      gvpr: { args: ['-v'] },
-      dot: { args: ['-h'] },
+      gvpr: { args: ['-V'] },
+      dot: { args: ['-V'] },
     })
   )
 })

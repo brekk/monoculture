@@ -1,4 +1,7 @@
 import {
+  keys,
+  length,
+  equals,
   always as K,
   pipe,
   filter,
@@ -10,8 +13,9 @@ import {
   curry,
 } from 'ramda'
 import { execWithCancel } from 'kiddo'
-import { coalesce, parallel } from 'fluture'
+import { bimap, parallel } from 'fluture'
 import { join as sysPathJoin } from 'node:path'
+import { log } from './log'
 
 /* eslint-disable max-len */
 
@@ -65,20 +69,22 @@ export const checkForBinaryWithCancel = curry(
         cancel,
         pathToLook ? sysPathJoin(pathToLook, binary) : binary
       ),
-      coalesce(K(false))(K(true))
+      bimap(K(false))(K(true))
     )(args)
 )
 export const checkForGraphvizWithCancel = checkForBinaryWithCancel('gvpr')
 export const checkForDot = checkForBinaryWithCancel('dot')
-export const checkForBinaries = curry((cancel, basePath, keyed) =>
-  pipe(
+export const checkForBinaries = curry((cancel, basePath, keyed) => {
+  const keycount = pipe(keys, length)(keyed)
+  return pipe(
     toPairs,
     map(([cmd, { binPath = basePath, args = [] }]) =>
       checkForBinaryWithCancel(cancel, cmd, args, binPath)
     ),
     parallel(10),
-    map(pipe(filter(I), complement(isEmpty)))
+    map(pipe(filter(I), length, equals(keycount))),
+    map(log.exe(`binaries`))
   )(keyed)
-)
+})
 // export const checkForGraphvizAtPath = checkForGraphvizWithCancel(() => {})
 // export const checkForGraphviz = () => checkForGraphvizAtPath('')

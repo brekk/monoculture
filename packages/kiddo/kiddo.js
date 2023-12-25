@@ -1,6 +1,9 @@
 import { pipe, curry, prop, ifElse, propOr, __ as $ } from 'ramda'
 import { execa } from 'execa'
 import { Future } from 'fluture'
+import { envtrace } from 'envtrace'
+
+const log = envtrace('kiddo')
 
 export const didFail = propOr(true, 'failed')
 export const fail = prop('stderr')
@@ -63,6 +66,7 @@ export const fail = prop('stderr')
 export const execWithConfig = curry(
   (cancellation, cmd, opts, args) =>
     new Future((bad, good) => {
+      log('Running', `"${cmd} ${args.join(' ')}"`)
       execa(cmd, args, opts)
         .catch(pipe(fail, bad))
         .then(ifElse(didFail, pipe(fail, bad), good))
