@@ -5,8 +5,8 @@
     "filename": "packages/bloodline/executables.js",
     "comments": [
       {
-        "start": 17,
-        "end": 58,
+        "start": 19,
+        "end": 60,
         "summary": "Check for the existence of `gvpr`.",
         "links": [],
         "fileGroup": "",
@@ -633,8 +633,8 @@
     "filename": "packages/kiddo/kiddo.js",
     "comments": [
       {
-        "start": 7,
-        "end": 10,
+        "start": 10,
+        "end": 13,
         "summary": "@pageSummary Call external processes and consume them as a Future-wrapped value.\nThis is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
         "links": [],
         "fileGroup": "",
@@ -651,8 +651,8 @@
         "filename": "packages/kiddo/kiddo.js"
       },
       {
-        "start": 13,
-        "end": 60,
+        "start": 16,
+        "end": 63,
         "summary": "Consume external commands as a Future-wrapped value.",
         "links": [],
         "fileGroup": "",

@@ -6,10 +6,8 @@ import {
   pipe,
   filter,
   identity as I,
-  isEmpty,
   map,
   toPairs,
-  complement,
   curry,
 } from 'ramda'
 import { execWithCancel } from 'kiddo'
