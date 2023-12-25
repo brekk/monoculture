@@ -6996,7 +6996,7 @@ __metadata:
     "@testing-library/user-event": "npm:14.5.1"
     "@types/jest": "npm:29.5.11"
     "@types/react": "npm:18.2.45"
-    doctor-general: "workspace:tools/doctor-general"
+    doctor-general-cli: "workspace:tools/doctor-general-cli"
     dotenv-cli: "npm:7.3.0"
     eslint: "npm:8.56.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
@@ -7018,21 +7018,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"doctor-general@workspace:tools/doctor-general":
+"doctor-general-cli@workspace:tools/doctor-general-cli, doctor-general@workspace:tools/doctor-general-cli":
   version: 0.0.0-use.local
-  resolution: "doctor-general@workspace:tools/doctor-general"
+  resolution: "doctor-general@workspace:tools/doctor-general-cli"
   dependencies:
     climate: "workspace:packages/climate"
+    dogen: "workspace:packages/dogen"
     dotenv-cli: "npm:7.3.0"
     envtrace: "npm:0.0.2"
     esbuild: "npm:0.19.10"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
-    file-system: "workspace:packages/file-system"
-    fluture: "npm:14.0.0"
     inherent: "workspace:packages/inherent"
     jest-environment-jsdom: "npm:29.7.0"
-    kiddo: "workspace:packages/kiddo"
-    knot: "workspace:packages/knot"
     madge: "npm:6.1.0"
     ramda: "npm:0.29.1"
     strip-ansi: "npm:7.1.0"
@@ -7059,6 +7056,30 @@ __metadata:
   checksum: c96bdccabe9d62ab6fea9399fdff04a66e6563c1d6fb3a3a063e8d53c3bb136ba63e84250bbf63d00086a769ad53aef92d2bd483f03f837fc97b71cbee6b2520
   languageName: node
   linkType: hard
+
+"dogen@workspace:packages/dogen":
+  version: 0.0.0-use.local
+  resolution: "dogen@workspace:packages/dogen"
+  dependencies:
+    climate: "workspace:packages/climate"
+    dotenv-cli: "npm:7.3.0"
+    envtrace: "npm:0.0.2"
+    esbuild: "npm:0.19.10"
+    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
+    file-system: "workspace:packages/file-system"
+    fluture: "npm:14.0.0"
+    inherent: "workspace:packages/inherent"
+    jest-environment-jsdom: "npm:29.7.0"
+    kiddo: "workspace:packages/kiddo"
+    knot: "workspace:packages/knot"
+    madge: "npm:6.1.0"
+    ramda: "npm:0.29.1"
+    strip-ansi: "npm:7.1.0"
+    xtrace: "npm:0.3.0"
+  bin:
+    dogen: ./dist/doctor-general.cjs
+  languageName: unknown
+  linkType: soft
 
 "dom-accessibility-api@npm:^0.5.6, dom-accessibility-api@npm:^0.5.9":
   version: 0.5.16
