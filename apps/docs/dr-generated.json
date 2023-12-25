@@ -1,12 +1,12 @@
 [
   {
-    "slugName": "graph",
+    "slugName": "executables",
     "pageSummary": "",
-    "filename": "packages/bloodline/graph.js",
+    "filename": "packages/bloodline/executables.js",
     "comments": [
       {
-        "start": 7,
-        "end": 48,
+        "start": 17,
+        "end": 58,
         "summary": "Check for the existence of `gvpr`.",
         "links": [],
         "fileGroup": "",
@@ -23,7 +23,7 @@
           "@curried",
           "@example"
         ],
-        "filename": "packages/bloodline/graph.js"
+        "filename": "packages/bloodline/executables.js"
       }
     ],
     "order": 0,
