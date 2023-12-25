@@ -3,20 +3,22 @@ const PREFERRED_PORT = '3001'
 const PORT = process.env.PORT
 const CHOSEN_PORT = !isNaN(parseInt(PORT)) ? PORT : PREFERRED_PORT
 const PROD = process.env.NODE_ENV === 'production'
-const CONFIG = require('./next.config.js')
-const PANIC =
-  'Something might be wrong. Unable to find a basePath in `next.config.js`.'
-const PATH = CONFIG?.basePath ?? PANIC
+
+// if we try to load this we run into nextra trying to access extra crap out of sync
+
+// const CONFIG = require('./next.config.js')
+// const PANIC =
+// 'Something might be wrong. Unable to find a basePath in `next.config.js`.'
+// const PATH = CONFIG?.basePath ?? PANIC
+
+const PATH = '/docs'
 const deleteDir = x => `if [ -d ${x} ]; then rm -r ${x}; fi`
 
 module.exports = {
   scripts: {
-    dev:
-      PATH !== PANIC
-        ? `echo "Visit sunny Documentation Island! 😎\n${
-            PROD ? 'https://brekk.github.io' : `http://localhost:${CHOSEN_PORT}`
-          }${PATH}" && next dev --port ${CHOSEN_PORT}`
-        : `echo "${PANIC}"`,
+    dev: `echo "Visit sunny Documentation Island! 😎\n${
+      PROD ? 'https://brekk.github.io' : `http://localhost:${CHOSEN_PORT}`
+    }${PATH}" && next dev --port ${CHOSEN_PORT}`,
     clean: {
       script: 'nps -c ./package-scripts.cjs clean.build',
 
