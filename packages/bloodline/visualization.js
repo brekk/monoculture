@@ -1,7 +1,6 @@
 import { Buffer } from 'node:buffer'
 import { log } from './log'
 import {
-  any,
   chain,
   map,
   mergeLeft,

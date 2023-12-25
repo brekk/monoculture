@@ -1,50 +1,21 @@
 [
   {
-    "slugName": "exec",
-    "pageSummary": "Call external processes and consume them as a Future-wrapped value. This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
-    "filename": "packages/file-system/exec.js",
+    "slugName": "graph",
+    "pageSummary": "",
+    "filename": "packages/bloodline/graph.js",
     "comments": [
       {
         "start": 7,
-        "end": 10,
-        "summary": "@pageSummary Call external processes and consume them as a Future-wrapped value.\nThis is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
-        "links": [],
-        "fileGroup": "",
-        "addTo": "",
-        "structure": {
-          "pageSummary": [
-            "Call external processes and consume them as a Future-wrapped value.",
-            "This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info."
-          ]
-        },
-        "keywords": [
-          "@pageSummary"
-        ],
-        "filename": "packages/file-system/exec.js"
-      },
-      {
-        "start": 13,
-        "end": 59,
-        "summary": "Consume external commands as a Future-wrapped value.",
+        "end": 48,
+        "summary": "Check for the existence of `gvpr`.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
           "curried": [
             {
-              "name": "execWithConfig",
-              "summary": "Passes all possible configuration values plus a cancellation function.",
-              "lines": "```js\nimport { execWithConfig } from 'file-system'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithConfig(\n    function customCancellationFunction() {},\n    'echo',\n    { cleanup: true },\n    ['ahoy']\n  )\n)\n```"
-            },
-            {
-              "name": "execWithCancel",
-              "summary": "Eschews any configuration and instead only expects a cancellation function, command and arguments.",
-              "lines": "```js\nimport { execWithCancel } from 'file-system'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithCancel(\n    function customCancellationFunction() {},\n    'echo',\n    ['ahoy']\n  )\n)\n```"
-            },
-            {
-              "name": "exec",
-              "summary": "Eschews any configuration or cancellation function. Needs only command and arguments.",
-              "lines": "```js\nimport { exec } from 'file-system'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  exec(\n    'echo',\n    ['ahoy']\n  )\n)\n```"
+              "name": "",
+              "lines": "1. checkForGraphvizWithCancel - Provide a cancellation function and a path to look for `gvpr` within.\n   @example\n   ```js\n   import { checkForGraphvizWithCancel } from 'bloodline'\n   import { fork } from 'fluture'\n   fork(console.warn)(console.log)(\n checkForGraphvizWithCancel(\n   cancellationFn,\n   '/opt/homebrew/bin'\n )\n   )\n2. checkForGraphvizAtPath - Provide a path to look for `gvpr` in.\n   @example\n   ```js\n   import { checkForGraphvizAtPath } from 'bloodline'\n   import { fork } from 'fluture'\n   fork(console.warn)(console.log)(\n checkForGraphvizAtPath(\n   '/opt/homebrew/bin'\n )\n   )\n   ```\n3. checkForGraphviz - Check for graphviz, assuming it is already within your path.\n   @example\n   ```js\n   import { checkForGraphviz } from 'bloodline'\n   import { fork } from 'fluture'\n   fork(console.warn)(console.log)(\n checkForGraphvizWithCancel(\n )\n   )\n   ```"
             }
           ]
         },
@@ -52,12 +23,12 @@
           "@curried",
           "@example"
         ],
-        "filename": "packages/file-system/exec.js"
+        "filename": "packages/bloodline/graph.js"
       }
     ],
     "order": 0,
     "links": [],
-    "workspace": "file-system"
+    "workspace": "bloodline"
   },
   {
     "slugName": "fs",
@@ -655,6 +626,66 @@
     "order": 0,
     "links": [],
     "workspace": "inherent"
+  },
+  {
+    "slugName": "kiddo",
+    "pageSummary": "Call external processes and consume them as a Future-wrapped value. This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
+    "filename": "packages/kiddo/kiddo.js",
+    "comments": [
+      {
+        "start": 7,
+        "end": 10,
+        "summary": "@pageSummary Call external processes and consume them as a Future-wrapped value.\nThis is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "pageSummary": [
+            "Call external processes and consume them as a Future-wrapped value.",
+            "This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info."
+          ]
+        },
+        "keywords": [
+          "@pageSummary"
+        ],
+        "filename": "packages/kiddo/kiddo.js"
+      },
+      {
+        "start": 13,
+        "end": 60,
+        "summary": "Consume external commands as a Future-wrapped value.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "curried": [
+            {
+              "name": "execWithConfig",
+              "summary": "Passes all possible configuration values plus a cancellation function.",
+              "lines": "```js\nimport { execWithConfig } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithConfig(\n    function customCancellationFunction() {},\n    'echo',\n    { cleanup: true },\n    ['ahoy']\n  )\n)\n```"
+            },
+            {
+              "name": "execWithCancel",
+              "summary": "Eschews any configuration and instead only expects a cancellation function, command and arguments.",
+              "lines": "```js\nimport { execWithCancel } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithCancel(\n    function customCancellationFunction() {},\n    'echo',\n    ['ahoy']\n  )\n)\n```"
+            },
+            {
+              "name": "exec",
+              "summary": "Eschews any configuration or cancellation function. Needs only command and arguments.",
+              "lines": "```js\nimport { exec } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  exec(\n    'echo',\n    ['ahoy']\n  )\n)\n```"
+            }
+          ]
+        },
+        "keywords": [
+          "@curried",
+          "@example"
+        ],
+        "filename": "packages/kiddo/kiddo.js"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "kiddo"
   },
   {
     "slugName": "helpers",

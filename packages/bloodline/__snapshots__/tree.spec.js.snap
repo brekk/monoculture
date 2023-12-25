@@ -47,7 +47,6 @@ exports[`flattenTree 1`] = `
     "monoculture/node_modules/fluture/index.cjs",
     "monoculture/node_modules/file-system/index.js",
     "monoculture/node_modules/file-system/find-up.js",
-    "monoculture/node_modules/file-system/exec.js",
     "monoculture/node_modules/file-system/fs.js",
     "monoculture/node_modules/file-system/interpret.js",
     "monoculture/node_modules/file-system/path.js",
@@ -179,7 +178,6 @@ exports[`groupTree 1`] = `
     [
       "monoculture/node_modules/file-system/index.js",
       "monoculture/node_modules/file-system/find-up.js",
-      "monoculture/node_modules/file-system/exec.js",
       "monoculture/node_modules/file-system/fs.js",
       "monoculture/node_modules/file-system/interpret.js",
       "monoculture/node_modules/file-system/path.js",

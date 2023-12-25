@@ -4,6 +4,7 @@ import { coalesce } from 'fluture'
 import { join as sysPathJoin } from 'node:path'
 
 /* eslint-disable max-len */
+
 /**
  * Check for the existence of `gvpr`.
  * @curried

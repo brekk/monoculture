@@ -83,7 +83,9 @@ export const getCurriedDefinition = curry((file, end, i) => {
     ),
     ({ subject, defs, lines }) => [...defs, { lines, subject }],
     map(({ lines, subject }) => {
-      const matched = trim(subject).replace(CURRIED_LIST_ITEM, '$1⩇$2')
+      const matched = subject
+        ? trim(subject).replace(CURRIED_LIST_ITEM, '$1⩇$2')
+        : ''
       const [name, summary] = split('⩇', matched)
       return {
         name,

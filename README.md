@@ -61,6 +61,7 @@ introspection and organization tools for monorepos
       - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
       - [fluture](https://www.npmjs.com/package/fluture)
       - [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) 🦴
+      - [kiddo](https://github.com/brekk/monoculture/tree/main/packages/kiddo) 🦴
       - [knot](https://github.com/brekk/monoculture/tree/main/packages/knot) 🦴
       - [precinct](https://www.npmjs.com/package/precinct)
       - [ramda](https://www.npmjs.com/package/ramda)
@@ -146,7 +147,6 @@ introspection and organization tools for monorepos
 
      <details><summary>Dependencies</summary>
 
-      - [execa](https://www.npmjs.com/package/execa)
       - [find-up](https://www.npmjs.com/package/find-up)
       - [fluture](https://www.npmjs.com/package/fluture)
       - [ramda](https://www.npmjs.com/package/ramda)
@@ -164,6 +164,21 @@ introspection and organization tools for monorepos
       - [ramda](https://www.npmjs.com/package/ramda)
       - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
       - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴🧪
+      - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴🧪
+
+     </details>
+   * [kiddo](https://github.com/brekk/monoculture/tree/main/packages/kiddo) - child processes in the future 👶
+
+     <details><summary>Dependencies</summary>
+
+      - [execa](https://www.npmjs.com/package/execa)
+      - [find-up](https://www.npmjs.com/package/find-up)
+      - [fluture](https://www.npmjs.com/package/fluture)
+      - [ramda](https://www.npmjs.com/package/ramda)
+      - [@testing-library/jest-dom](https://www.npmjs.com/package/@testing-library/jest-dom)🧪
+      - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
+      - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴🧪
+      - [jest](https://www.npmjs.com/package/jest)🧪
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴🧪
 
      </details>
@@ -233,6 +248,16 @@ introspection and organization tools for monorepos
       - [strip-ansi](https://www.npmjs.com/package/strip-ansi)🧪
 
      </details>
+   * [water-wheel](https://github.com/brekk/monoculture/tree/main/packages/water-wheel) - future-wrapping for streaming interfaces 🌊
+
+     <details><summary>Dependencies</summary>
+
+      - [ramda](https://www.npmjs.com/package/ramda)
+      - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
+      - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴🧪
+      - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴🧪
+
+     </details>
 
 ## shared
 
@@ -283,6 +308,7 @@ introspection and organization tools for monorepos
       - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
       - [fluture](https://www.npmjs.com/package/fluture)
       - [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) 🦴
+      - [kiddo](https://github.com/brekk/monoculture/tree/main/packages/kiddo) 🦴
       - [knot](https://github.com/brekk/monoculture/tree/main/packages/knot) 🦴
       - [ramda](https://www.npmjs.com/package/ramda)
       - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
@@ -336,6 +362,7 @@ introspection and organization tools for monorepos
       - [envtrace](https://www.npmjs.com/package/envtrace)
       - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
       - [fluture](https://www.npmjs.com/package/fluture)
+      - [kiddo](https://github.com/brekk/monoculture/tree/main/packages/kiddo) 🦴
       - [project-bin-path](https://www.npmjs.com/package/project-bin-path)
       - [ramda](https://www.npmjs.com/package/ramda)
       - [esbuild](https://www.npmjs.com/package/esbuild)🧪
@@ -348,10 +375,10 @@ introspection and organization tools for monorepos
 
      <details><summary>Dependencies</summary>
 
-      - [execa](https://www.npmjs.com/package/execa)
       - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
       - [fluture](https://www.npmjs.com/package/fluture)
       - [gitlog](https://www.npmjs.com/package/gitlog)
+      - [kiddo](https://github.com/brekk/monoculture/tree/main/packages/kiddo) 🦴
       - [ramda](https://www.npmjs.com/package/ramda)
       - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli)🧪
       - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴🧪

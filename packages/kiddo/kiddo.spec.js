@@ -1,5 +1,5 @@
 import { fork } from 'fluture'
-import { exec } from './exec'
+import { exec } from './kiddo'
 
 test('exec', done => {
   const blah = Math.round(Math.random() * 100000)

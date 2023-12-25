@@ -10,7 +10,6 @@ import {
   createSVG,
 } from './visualization'
 import { DEFAULT_GRAPHVIZ_CONFIG } from './constants'
-import { plant } from './tree'
 
 test('dotStreamAdapterWithCancel', () => {
   expect(dotStreamAdapterWithCancel).toBeTruthy()

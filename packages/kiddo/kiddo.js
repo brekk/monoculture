@@ -44,6 +44,7 @@ export const fail = prop('stderr')
  *       )
  *     )
  *     ```
+ *
  *  3. exec - Eschews any configuration or cancellation function. Needs only command and arguments.
  *
  *     @example
