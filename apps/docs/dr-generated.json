@@ -835,8 +835,25 @@
     "filename": "packages/knot/knot.js",
     "comments": [
       {
-        "start": 53,
-        "end": 62,
+        "start": 48,
+        "end": 55,
+        "summary": "Slice a string by counted delimiters",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "nthIndex",
+          "example": "```js\nnthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j') // \"f/g/h/i/j\"\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/knot/knot.js"
+      },
+      {
+        "start": 60,
+        "end": 69,
         "summary": "A simple memoized utility for repeating a string and joining the array.",
         "links": [],
         "fileGroup": "",

@@ -46,7 +46,14 @@ export const nthLastIndexOf = curry((delim, n, input) =>
     z => input.slice(z + 1)
   )(Math.abs(n))
 )
-
+/**
+ * Slice a string by counted delimiters
+ * @name nthIndex
+ * @example
+ * ```js
+ * nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j') // "f/g/h/i/j"
+ * ```
+ */
 export const nthIndex = curry((delim, n, input) =>
   (n > 0 ? nthIndexOf : nthLastIndexOf)(delim, n, input)
 )

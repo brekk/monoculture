@@ -1,5 +1,6 @@
 import { wrap, isNotEmpty } from 'inherent'
 import {
+  filter,
   any,
   includes,
   findIndex,
@@ -10,7 +11,6 @@ import {
   pipe,
   applySpec,
   pathOr,
-  propOr,
   always as K,
   map,
 } from 'ramda'
@@ -25,7 +25,6 @@ const handleSpecialCases = ifElse(
 
 const grabCommentData = applySpec({
   title: pathOr('Unknown', ['structure', 'name']),
-  summary: propOr('?', 'summary'),
   example: pathOr('', ['structure', 'example']),
 })
 
@@ -34,15 +33,16 @@ const getCurried = pathOr([], ['structure', 'curried'])
 const MAGIC_IMPORT_KEY = 'drgen-import-above'
 
 const renderTest = ({ title, example, asyncCallback }) => {
+  if (!includes('test=true', example)) return ''
   const exlines = example.split('\n').filter(l => !l.startsWith('```'))
   const hasImports = any(includes(MAGIC_IMPORT_KEY), exlines)
   const importIndex = findIndex(includes(MAGIC_IMPORT_KEY), exlines)
   const [imps, content] = hasImports
     ? [exlines.slice(0, importIndex), exlines.slice(importIndex + 1)]
-    : ['', exlines]
-  return `
-${imps.join('\n')}
-test('${title}', (${asyncCallback ? 'done' : ''}) => {
+    : [[], exlines]
+  return `${imps.length ? imps.join('\n') + '\n' : ''}test('${title}', (${
+    asyncCallback ? 'done' : ''
+  }) => {
   ${content.join('\n  ')}
 })
 `
@@ -59,6 +59,7 @@ const handleCurriedExample = pipe(
         example,
       })
     )(curried),
+  filter(isNotEmpty),
   join('\n')
 )
 
