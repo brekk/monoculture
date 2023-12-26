@@ -9,11 +9,11 @@ module.exports = {
     clean: sd('rm -r dist', 'clean the build'),
     lint: sd('eslint --fix .', 'lint!'),
     test: {
-      ...sd(
+      ...sd('jest', 'test!'),
+      integration: sd(
         'nps -c ./package-scripts.cjs autotest test.run',
         'autogenerate our tests and run all tests'
       ),
-      run: sd('jest', 'test!'),
       watch: sd('jest --watch', 'test with watch-mode!'),
     },
   },
