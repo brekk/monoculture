@@ -6,9 +6,7 @@ import {
   mergeLeft,
   mergeRight,
   __ as $,
-  isEmpty,
   forEach,
-  complement,
   keys,
   concat,
   pipe,
@@ -18,6 +16,7 @@ import {
 import { Future } from 'fluture'
 import gv from 'ts-graphviz'
 import adapter from 'ts-graphviz/adapter'
+import { isNotEmpty } from 'inherent'
 
 import { waterWheel } from 'water-wheel'
 
@@ -29,8 +28,6 @@ export const dotStreamAdapterWithCancel = curry((cancel, options, dot) =>
     return cancel
   })
 )
-
-export const isNotEmpty = complement(isEmpty)
 
 export const setAttribute = curry((key, node, x) => {
   node.attributes.set(key, x)

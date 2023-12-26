@@ -1,7 +1,6 @@
 import { fork } from 'fluture'
 import {
   dotStreamAdapterWithCancel,
-  isNotEmpty,
   setAttribute,
   setColor,
   getCyclic,
@@ -14,9 +13,6 @@ import { DEFAULT_GRAPHVIZ_CONFIG } from './constants'
 
 test('dotStreamAdapterWithCancel', () => {
   expect(dotStreamAdapterWithCancel).toBeTruthy()
-})
-test('isNotEmpty', () => {
-  expect(isNotEmpty).toBeTruthy()
 })
 test('setAttribute', () => {
   expect(setAttribute).toBeTruthy()

@@ -5,7 +5,7 @@ import { curry } from 'ramda'
 export const pathJoin = curry((pwd, x) => {
   // TODO: this should ostensibly be the province of a type system to ensure this safety
   if (typeof pwd !== 'string' || typeof x !== 'string') {
-    throw new Error('Cannot normalize bad paths.')
+    throw new Error(`Cannot normalize bad paths, given (${pwd}, ${x}).`)
   }
   return join(pwd, normalize(x))
 })

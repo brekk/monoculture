@@ -1,4 +1,4 @@
-import { wrap } from 'inherent'
+import { wrap, isNotEmpty } from 'inherent'
 import {
   ap,
   join,
@@ -10,11 +10,7 @@ import {
   propOr,
   always as K,
   map,
-  complement,
-  isEmpty,
 } from 'ramda'
-
-const isNotEmpty = complement(isEmpty)
 
 const handleSpecialCases = ifElse(
   either(

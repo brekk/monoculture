@@ -15,6 +15,7 @@ export const YARGS_CONFIG = {
     debug: ['d'],
     monorepo: ['m'],
   },
+  array: ['input'],
   boolean: ['color', 'debug', 'monorepo'],
   configuration: {
     'strip-aliased': true,
@@ -24,14 +25,16 @@ export const YARGS_CONFIG = {
 export const HELP_CONFIG = {
   help: 'This text!',
   color: 'Render stuff in color',
-  input: 'A file to read!',
+  input:
+    // eslint-disable-next-line max-len
+    'A file to read! (Can be specified multiple times.) If running in monorepo mode, this should be your root `package.json`.',
   output: 'The file to output!',
-  search: "The glob to use for searching (default: '**//*.{js,jsx,ts,tsx}')",
+  search: "The glob to use for searching (default: '**/*.{js,jsx,ts,tsx}')",
   artifact: `Would you like to create an artifact file?
 (Useful for downstream transformation)`,
   ignore: 'Files to ignore when searching, can be specified multiple times',
   debug: 'Generate additional information when processing content.',
-  monorepo: 'process content for everything in a monorepo',
+  monorepo: 'Process content for a monorepo (walking all "workspaces")',
 }
 
 export const CONFIG_DEFAULTS = {
