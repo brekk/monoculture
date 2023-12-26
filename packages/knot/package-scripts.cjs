@@ -5,7 +5,7 @@ module.exports = {
     autotest: sd(
       `drgen -i ${['./knot.js'].join(
         ' '
-      )} -o autotests -a dr-generated-test.json --test-mode`,
+      )} -o autotests --test-mode`,
       'use doctor-general to create tests for us!'
     ),
     clean: sd('rm -r dist', 'clean the build'),
