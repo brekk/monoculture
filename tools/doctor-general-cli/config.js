@@ -13,6 +13,7 @@ export const YARGS_CONFIG = {
     ignore: ['g'],
     color: ['k'],
     debug: ['d'],
+    testMode: ['t'],
     monorepo: ['m'],
   },
   array: ['input'],
@@ -35,6 +36,7 @@ export const HELP_CONFIG = {
   ignore: 'Files to ignore when searching, can be specified multiple times',
   debug: 'Generate additional information when processing content.',
   monorepo: 'Process content for a monorepo (walking all "workspaces")',
+  testMode: 'Instead of generating documentation files, generate test files.',
 }
 
 export const CONFIG_DEFAULTS = {
@@ -48,4 +50,5 @@ export const CONFIG_DEFAULTS = {
   ],
   search: '**/*.{js,jsx,ts,tsx}',
   debug: false,
+  testMode: false,
 }

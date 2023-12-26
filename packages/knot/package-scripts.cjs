@@ -2,16 +2,12 @@ const sd = (script, description = '') =>
   !!description ? { script, description } : { script }
 module.exports = {
   scripts: {
-    autogen: {
-      ...sd(
-        'nps -c ./package-scripts.cjs autogen.tests',
-        'automatically regenerate stuff!'
-      ),
-      tests: sd(
-        `drgen -i ./package.json -o .`,
-        'automatically generate tests!'
-      ),
-    },
+    autotest: sd(
+      `drgen -i ${['./knot.js'].join(
+        ' '
+      )} -o autotests -a dr-generated-test.json --test-mode`,
+      'use doctor-general to create tests for us!'
+    ),
     clean: sd('rm -r dist', 'clean the build'),
     lint: sd('eslint --fix .', 'lint!'),
     test: {

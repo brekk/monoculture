@@ -8,5 +8,7 @@ test('pathJoin', () => {
 })
 
 test('pathJoin - fails', () => {
-  expect(() => pathJoin(2, 2)).toThrow('Cannot normalize bad paths.')
+  expect(() => pathJoin(2, 2)).toThrow(
+    'Cannot normalize bad paths, given (2, 2).'
+  )
 })

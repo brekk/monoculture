@@ -56,7 +56,8 @@ export const nthIndex = curry((delim, n, input) =>
  * @name strepeat
  * @example
  * ```js test=true
- * import { strepeat } from './knot'
+ * import { strepeat } from '../knot'
+ * // drgen-import-above
  * expect(strepeat('=', 5)).toEqual('=====')
  * ```
  */

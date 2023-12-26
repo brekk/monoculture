@@ -21,8 +21,7 @@
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
-    "autogen": "dotenv -- nps -c ./package-scripts.cjs autogen",
-    "autogen:tests": "dotenv -- nps -c ./package-scripts.cjs autogen.tests",
+    "autotest": "dotenv -- nps -c ./package-scripts.cjs autotest",
     "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",

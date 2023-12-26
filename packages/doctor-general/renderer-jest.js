@@ -1,5 +1,8 @@
 import { wrap, isNotEmpty } from 'inherent'
 import {
+  any,
+  includes,
+  findIndex,
   ap,
   join,
   either,
@@ -28,11 +31,22 @@ const grabCommentData = applySpec({
 
 const getCurried = pathOr([], ['structure', 'curried'])
 
-const renderTest = ({ title, example, asyncCallback }) => `
+const MAGIC_IMPORT_KEY = 'drgen-import-above'
+
+const renderTest = ({ title, example, asyncCallback }) => {
+  const exlines = example.split('\n').filter(l => !l.startsWith('```'))
+  const hasImports = any(includes(MAGIC_IMPORT_KEY), exlines)
+  const importIndex = findIndex(includes(MAGIC_IMPORT_KEY), exlines)
+  const [imps, content] = hasImports
+    ? [exlines.slice(0, importIndex), exlines.slice(importIndex + 1)]
+    : ['', exlines]
+  return `
+${imps.join('\n')}
 test('${title}', (${asyncCallback ? 'done' : ''}) => {
-  ${example.split('\n').join('\n  ')}
+  ${content.join('\n  ')}
 })
 `
+}
 
 const handleCurriedExample = pipe(
   wrap,

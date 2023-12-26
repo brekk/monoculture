@@ -45,4 +45,4 @@ export const formatComment = block =>
   )(block)
 
 export const j2 = x => JSON.stringify(x, null, 2)
-export const stripRelative = replace(/\.\.\//g, '')
+export const stripRelative = replace(/\.\.\/|\.\//g, '')

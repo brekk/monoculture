@@ -33,8 +33,7 @@
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
-    "autogen": "dotenv -- nps -c ./package-scripts.cjs autogen",
-    "autogen:test": "dotenv -- nps -c ./package-scripts.cjs autogen.test",
+    "autotest": "dotenv -- nps -c ./package-scripts.cjs autotest",
     "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
