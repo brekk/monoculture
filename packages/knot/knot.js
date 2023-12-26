@@ -51,6 +51,15 @@ export const nthIndex = curry((delim, n, input) =>
   (n > 0 ? nthIndexOf : nthLastIndexOf)(delim, n, input)
 )
 
+/**
+ * A simple memoized utility for repeating a string and joining the array.
+ * @name strepeat
+ * @example
+ * ```js test=true
+ * import { strepeat } from './knot'
+ * expect(strepeat('=', 5)).toEqual('=====')
+ * ```
+ */
 export const strepeat = curry((toRepeat, x) => {
   const gen = memoizeWith(I, n =>
     pipe(z => (z < 0 ? 0 : z), repeat(toRepeat), join(''))(n)

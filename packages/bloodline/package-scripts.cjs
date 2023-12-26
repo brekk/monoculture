@@ -15,6 +15,10 @@ const sd = (script, description = '') =>
   !!description ? { script, description } : { script }
 module.exports = {
   scripts: {
+    autogen: {
+      ...sd('nps -c ./package-scripts.cjs autogen.test', 'automatically generate stuff'),
+      // test: sd('drgen -i 
+    },
     clean: sd('rm -r coverage', 'clean the build'),
     lint: sd('eslint --fix .', 'lint!'),
     meta: {

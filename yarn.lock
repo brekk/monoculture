@@ -4894,6 +4894,7 @@ __metadata:
     chalk: "npm:5.3.0"
     climate: "workspace:packages/climate"
     dependency-tree: "npm:10.0.9"
+    doctor-general-cli: "workspace:tools/doctor-general-cli"
     dotenv-cli: "npm:7.3.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     file-system: "workspace:packages/file-system"

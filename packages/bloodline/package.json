@@ -26,12 +26,14 @@
     "ts-graphviz": "1.8.1"
   },
   "devDependencies": {
+    "doctor-general-cli": "workspace:tools/doctor-general-cli",
     "dotenv-cli": "7.3.0",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     "jest-config": "workspace:shared/jest-config"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
+    "autogen": "dotenv -- nps -c ./package-scripts.cjs autogen",
     "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",

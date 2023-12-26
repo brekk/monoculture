@@ -5,32 +5,32 @@ import { configurate } from 'climate'
 import { j2 } from 'inherent'
 import { basename, join as pathJoin, dirname } from 'node:path'
 import {
-  toLower,
-  fromPairs,
-  last,
-  applySpec,
-  prop,
-  reduce,
   always as K,
+  applySpec,
   chain,
   curry,
   defaultTo,
   filter,
   flatten,
+  fromPairs,
   groupBy,
   head,
   identity as I,
   join,
+  last,
   length,
   lt,
   map,
   path,
   pathOr,
   pipe,
+  prop,
   propOr,
+  reduce,
   replace,
   slice,
   sortBy,
+  toLower,
   toPairs,
   toUpper,
 } from 'ramda'
@@ -46,6 +46,7 @@ import {
   slug,
   stripLeadingHyphen,
   commentToMarkdown,
+  commentToJestTest,
   parseFile,
   stripRelative,
 } from 'doctor-general'
@@ -171,6 +172,19 @@ const processHelpOrRun = config => {
     : runner(config)
 }
 
+const monorunner = curry((ignore, root, searchGlob, x) =>
+  pipe(
+    log.cli('reading root package.json'),
+    readJSONFile,
+    readPackageJsonWorkspaces(root),
+    chain(parallel(10)),
+    map(log.cli('reading all the workspaces')),
+    map(flatten),
+    iterateOverWorkspacesAndReadFiles(searchGlob, ignore, root),
+    chain(parallel(10))
+  )(x)
+)
+
 const runner = ({
   debug,
   input,
@@ -178,6 +192,8 @@ const runner = ({
   search: searchGlob = CONFIG_DEFAULTS.search,
   ignore = CONFIG_DEFAULTS.ignore,
   artifact = false,
+  testMode,
+  monorepoMode,
 }) => {
   const current = cwd()
   const rel = pathJoinRelative(current)
@@ -190,33 +206,13 @@ const runner = ({
   const toLocal = input.slice(0, input.lastIndexOf('/'))
   const relativize = r => toLocal + '/' + r
   return pipe(
-    log.cli('reading root package.json'),
-    // read the package.json file
-    readJSONFile,
-    // reach into the Future
-    readPackageJsonWorkspaces(root),
-    // take the Future of an array of Futures, make it a single Future
-    chain(parallel(10)),
-    map(log.cli('reading all the workspaces')),
-    // take [[apps/workspace, apps/workspace2], [scripts/workspace]]
-    // and make them [apps/workspace, apps/workspace2, scripts/workspace]
-    map(flatten),
-    // let's add globs
-    iterateOverWorkspacesAndReadFiles(searchGlob, ignore, root),
-    // Future<error, Future<error, string>[]>
-    chain(parallel(10)),
+    // ifElse(K(monorepoMode), monorunner(ignore, root, searchGlob), I),
+    monorunner(ignore, root, searchGlob),
     map(log.cli('reading all files in all the workspaces')),
-    // Future<error, string[]>
-    // take [[files, in], [workspaces]] and make them [files, in, workspaces]
     map(flatten),
     map(map(relativize)),
-    // check each file for comments
-    // Future<error, Future<error, CommentBlock>[]>
     map(chain(parseFile(debug, root))),
-    // Future<error, CommentBlock[]>
     chain(parallel(10)),
-    // Future<error, CommentBlock[]>
-    // exclude any files which don't have any comments
     map(filter(pipe(propOr([], 'comments'), length, lt(0)))),
     map(
       map(raw => {
@@ -266,7 +262,6 @@ const runner = ({
             ]
       }, [])
     ),
-    // map(scopedBinaryEffect(console.log, j2, 'pre write')),
     // if you gave an artifact
     artifact
       ? // write to a file
@@ -296,8 +291,10 @@ const runner = ({
               cleanFilename(file)
             )
             const renderedComments = pipe(
-              map(commentToMarkdown),
-              z => ['# ' + file.slugName, file.pageSummary, ...z],
+              map(testMode ? commentToJestTest : commentToMarkdown),
+              testMode
+                ? z => ['# ' + file.slugName, file.pageSummary, ...z]
+                : I,
               join('\n\n')
             )(file.comments)
             return writeFileWithAutoPath(filePathToWrite, renderedComments)

@@ -37,7 +37,7 @@ module.exports = {
     autodoc: {
       script: 'nps -c ./package-scripts.cjs clean.build autodoc.regen',
       regen:
-        'doctor-general -i ../../package.json -o pages -a dr-generated.json',
+        'doctor-general --monorepo -i ../../package.json -o pages -a dr-generated.json',
     },
   },
 }

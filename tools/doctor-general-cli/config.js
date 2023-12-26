@@ -13,8 +13,9 @@ export const YARGS_CONFIG = {
     ignore: ['g'],
     color: ['k'],
     debug: ['d'],
+    monorepo: ['m'],
   },
-  boolean: ['color', 'debug'],
+  boolean: ['color', 'debug', 'monorepo'],
   configuration: {
     'strip-aliased': true,
   },
@@ -30,6 +31,7 @@ export const HELP_CONFIG = {
 (Useful for downstream transformation)`,
   ignore: 'Files to ignore when searching, can be specified multiple times',
   debug: 'Generate additional information when processing content.',
+  monorepo: 'process content for everything in a monorepo',
 }
 
 export const CONFIG_DEFAULTS = {

@@ -830,6 +830,33 @@
     "workspace": "kiddo"
   },
   {
+    "slugName": "knot",
+    "pageSummary": "",
+    "filename": "packages/knot/knot.js",
+    "comments": [
+      {
+        "start": 53,
+        "end": 61,
+        "summary": "A simple memoized utility for repeating a string and joining the array.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "strepeat",
+          "example": "```js test=true\nimport { strepeat } from './knot'\nexpect(strepeat('=', 5)).toEqual('=====')\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/knot/knot.js"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "knot"
+  },
+  {
     "slugName": "helpers",
     "pageTitle": "helpers",
     "pageSummary": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",

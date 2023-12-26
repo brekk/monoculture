@@ -73,6 +73,7 @@ introspection and organization tools for monorepos
       - [precinct](https://www.npmjs.com/package/precinct)
       - [ramda](https://www.npmjs.com/package/ramda)
       - [ts-graphviz](https://www.npmjs.com/package/ts-graphviz)
+      - [doctor-general-cli](https://github.com/brekk/monoculture/tree/main/tools/doctor-general-cli) 🦴 🧪
       - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
       - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
       - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
@@ -238,6 +239,12 @@ introspection and organization tools for monorepos
      </details>
 
    * [knot](https://github.com/brekk/monoculture/tree/main/packages/knot) - functional utilities for strings 🪢
+     <details><summary>API</summary>
+
+      - [knot](https://brekk.github.io/monoculture/knot/knot)
+
+     </details>
+
 
      <details><summary>Dependencies</summary>
 
