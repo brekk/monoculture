@@ -54,6 +54,8 @@
    - [ ] How-To - Step through a concrete real-world problem, focusing on the user's work. Help improve the already competent user. Aim for a clear result but expect the path to be less linear.
    - [x] Reference - Describe the product / software clearly, authoritatively and unambiguously. **Complete!** Arguably we do this today, that's what `doctor-general` was originally designed for.
    - [ ] Explanation - Provide context for broader understanding of things. Help provide a rationale for choices. Admit opinion and perspective.
+ - [x] AUTOMATICALLY GENERATE TESTS FROM COMMENTS! **Completed!** This is a little brittle currently, but really awesome.
+   - [ ] We need to have a more robust means of handling imports, right now it's likely to break
 
 
 ```js

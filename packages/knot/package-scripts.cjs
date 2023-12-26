@@ -3,7 +3,7 @@ const sd = (script, description = '') =>
 module.exports = {
   scripts: {
     autotest: sd(
-      `drgen -i ${['./knot.js'].join(' ')} -o autotests --test-mode`,
+      `drgen -i ${['./knot.js'].join(' ')} -o autotests --test-mode -a dr-generated.tests.json`,
       'use doctor-general to create tests for us!'
     ),
     clean: sd('rm -r dist', 'clean the build'),

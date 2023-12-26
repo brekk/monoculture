@@ -836,14 +836,14 @@
     "comments": [
       {
         "start": 48,
-        "end": 55,
+        "end": 57,
         "summary": "Slice a string by counted delimiters",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
           "name": "nthIndex",
-          "example": "```js\nnthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j') // \"f/g/h/i/j\"\n```"
+          "example": "```js test=true\nexpect(\n  nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j')\n).toEqual(\"f/g/h/i/j\")\n```"
         },
         "keywords": [
           "@example",
@@ -852,7 +852,7 @@
         "filename": "packages/knot/knot.js"
       },
       {
-        "start": 60,
+        "start": 62,
         "end": 69,
         "summary": "A simple memoized utility for repeating a string and joining the array.",
         "links": [],
@@ -860,7 +860,7 @@
         "addTo": "",
         "structure": {
           "name": "strepeat",
-          "example": "```js test=true\nimport { strepeat } from '../knot'\n// drgen-import-above\nexpect(strepeat('=', 5)).toEqual('=====')\n```"
+          "example": "```js test=true\nexpect(strepeat('=', 5)).toEqual('=====')\n```"
         },
         "keywords": [
           "@example",

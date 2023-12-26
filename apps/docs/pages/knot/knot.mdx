@@ -7,8 +7,10 @@
 Slice a string by counted delimiters
 
 ### Usage
-```js
-nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j') // "f/g/h/i/j"
+```js test=true
+expect(
+  nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j')
+).toEqual("f/g/h/i/j")
 ```
 
 ## strepeat
@@ -17,7 +19,5 @@ A simple memoized utility for repeating a string and joining the array.
 
 ### Usage
 ```js test=true
-import { strepeat } from '../knot'
-// drgen-import-above
 expect(strepeat('=', 5)).toEqual('=====')
 ```

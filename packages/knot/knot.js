@@ -50,8 +50,10 @@ export const nthLastIndexOf = curry((delim, n, input) =>
  * Slice a string by counted delimiters
  * @name nthIndex
  * @example
- * ```js
- * nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j') // "f/g/h/i/j"
+ * ```js test=true
+ * expect(
+ *   nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j')
+ * ).toEqual("f/g/h/i/j")
  * ```
  */
 export const nthIndex = curry((delim, n, input) =>
@@ -63,8 +65,6 @@ export const nthIndex = curry((delim, n, input) =>
  * @name strepeat
  * @example
  * ```js test=true
- * import { strepeat } from '../knot'
- * // drgen-import-above
  * expect(strepeat('=', 5)).toEqual('=====')
  * ```
  */
