@@ -1,5 +1,7 @@
 import { dirname, join as pathJoin } from 'node:path'
+import { j2 } from 'inherent'
 import {
+  startsWith,
   always as K,
   curry,
   find,
@@ -35,39 +37,45 @@ const processWorkspace = curry((drGenPath, workspaces) => {
     : resolve({ drGen: [], workspaces })
 })
 
-const processPackage = curry(
-  (drGen, workspaces) =>
-    console.log(workspaces, '<<<') ||
-    pipe(
-      log.summary('uhhh'),
-      map(
-        pathName =>
-          console.log('PATH NAME', pathName) ||
-          pipe(
-            log.summary('pathName'),
-            z => pathJoin(z, 'package.json'),
-            readFile,
-            map(JSON.parse),
-            map(raw => ({
-              ...raw,
-              group: pathName.slice(0, pathName.indexOf('/')),
-              documentation: filter(
-                doc => doc.filename.startsWith(pathName),
-                drGen ?? []
-              ),
-            })),
-            log.summary('mapped')
-          )(pathName)
-      ),
-      parallel(10),
-      map(
-        pipe(
-          map(pipe(({ group, ...z }) => [group, z])),
-          groupBy(head),
-          map(map(([_k, g]) => [g]))
-        )
+const getWorkspaceGroupFromPath = pathName => {
+  let y = pathName
+  const isLocal = startsWith('./')
+  const isParent = startsWith('..')
+  while (isLocal(y)) {
+    y = y.slice(2)
+  }
+  while (isParent(y)) {
+    y = y.slice(3)
+  }
+  return y.slice(0, y.indexOf('/'))
+}
+
+const processPackage = curry((drGenPath, { drGen, workspaces }) =>
+  pipe(
+    map(pathName =>
+      pipe(
+        z => pathJoin(z, 'package.json'),
+        readFile,
+        map(JSON.parse),
+        map(raw => ({
+          ...raw,
+          group: getWorkspaceGroupFromPath(pathName),
+          documentation: filter(
+            doc => doc.filename.startsWith(pathName),
+            drGen ?? []
+          ),
+        }))
+      )(pathName)
+    ),
+    parallel(10),
+    map(
+      pipe(
+        map(pipe(({ group, ...z }) => [group, z])),
+        groupBy(head),
+        map(map(([_k, g]) => g))
       )
-    )(workspaces)
+    )
+  )(workspaces)
 )
 
 export const summarize = config => {
@@ -89,7 +97,6 @@ export const summarize = config => {
         readFile,
         map(pipe(JSON.parse, propOr([], 'workspaces'))),
         map(map(normalPathJoin(dirPath))),
-        map(log.summary('Oh yeah')),
         map(
           map(
             readDirWithConfig({
@@ -100,9 +107,7 @@ export const summarize = config => {
         chain(parallel(10)),
         map(reduce(concat, [])),
         chain(processWorkspace(drGenPath)),
-        map(log.summary('processed?')),
         chain(processPackage(drGenPath)),
-        map(log.summary('processed package?'))
-        // map(when(K(readme), renderReadme(repoUrl, deps, pagesUrl)))
+        map(when(K(readme), renderReadme(repoUrl, deps, pagesUrl)))
       )(pkgPath)
 }

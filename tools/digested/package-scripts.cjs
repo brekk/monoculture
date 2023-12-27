@@ -35,6 +35,8 @@ module.exports = {
     test: {
       ...sd('jest', 'test!'),
       watch: sd('jest --watch', 'test with watch-mode!'),
+      // eslint-disable-next-line max-len
+      integration: `./dist/digested.cjs -m -u 'https://brekk.github.io/monoculture' -d ../../apps/docs/dr-generated.json -r 'https://github.com/brekk/monoculture/tree/main' -i ../../package.json`,
     },
   },
 }

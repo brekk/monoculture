@@ -16,6 +16,7 @@ export const depUsage = curry(({ repo }, deps, devDeps) =>
 )
 
 export const docLinks = curry((indent, docURL, project, docs) => {
+  console.log({ indent, docURL, project, docs })
   const i = strepeat(' ', indent)
   return docs.length
     ? pipe(
