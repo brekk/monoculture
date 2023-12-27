@@ -64,8 +64,8 @@ const cli = curry((cancel, args) =>
       const plugins = config.plugin?.length
         ? config.plugin
         : config.plugins?.length
-        ? config.plugins
-        : []
+          ? config.plugins
+          : []
       const { basePath, _: dirGlob = [] } = config
       const [startGlob = false] = dirGlob
       if (!startGlob) {

@@ -1,11 +1,9 @@
 import { dirname, join as pathJoin } from 'node:path'
-import { j2 } from 'inherent'
 import {
+  mergeRight,
   startsWith,
   always as K,
   curry,
-  find,
-  equals,
   map,
   filter,
   pipe,
@@ -16,9 +14,9 @@ import {
   head,
   chain,
   when,
+  objOf,
 } from 'ramda'
 import { log } from './log'
-import { isNotEmpty } from 'inherent'
 import { parallel, resolve } from 'fluture'
 import {
   readDirWithConfig,
@@ -27,14 +25,24 @@ import {
 } from 'file-system'
 import { renderReadme } from './markdown'
 
-const processWorkspace = curry((drGenPath, workspaces) => {
-  return drGenPath
+const processWorkspace = curry((banner, bannerPath, drGenPath, workspaces) => {
+  const readables = []
+  if (drGenPath) {
+    log.summary('reading doctor-general path', drGenPath)
+    readables.push(
+      pipe(readFile, map(JSON.parse), map(objOf('drGen')))(drGenPath)
+    )
+  }
+  if (!banner && bannerPath) {
+    log.summary('reading banner path', bannerPath)
+    readables.push(pipe(readFile, map(objOf('banner')))(bannerPath))
+  }
+  return readables.length
     ? pipe(
-        readFile,
-        map(JSON.parse),
-        map(drGen => ({ drGen, workspaces }))
-      )(drGenPath)
-    : resolve({ drGen: [], workspaces })
+        parallel(10),
+        map(reduce((agg, x) => mergeRight(agg, x), { workspaces, banner }))
+      )(readables)
+    : resolve({ banner: banner || '', drGen: [], workspaces })
 })
 
 const getWorkspaceGroupFromPath = pathName => {
@@ -50,7 +58,7 @@ const getWorkspaceGroupFromPath = pathName => {
   return y.slice(0, y.indexOf('/'))
 }
 
-const processPackage = curry((drGenPath, { drGen, workspaces }) =>
+const processPackage = ({ drGen, workspaces, banner }) =>
   pipe(
     map(pathName => {
       const group = getWorkspaceGroupFromPath(pathName)
@@ -75,9 +83,9 @@ const processPackage = curry((drGenPath, { drGen, workspaces }) =>
         groupBy(head),
         map(map(([_k, g]) => g))
       )
-    )
+    ),
+    map(grouped => ({ banner, grouped }))
   )(workspaces)
-)
 
 export const summarize = config => {
   const {
@@ -89,6 +97,8 @@ export const summarize = config => {
     docUrl,
     help = false,
     cwd,
+    banner,
+    bannerPath,
     HELP,
   } = config
   const dirPath = dirname(pkgPath)
@@ -107,8 +117,8 @@ export const summarize = config => {
         ),
         chain(parallel(10)),
         map(reduce(concat, [])),
-        chain(processWorkspace(drGenPath)),
-        chain(processPackage(drGenPath)),
+        chain(processWorkspace(banner, bannerPath, drGenPath)),
+        chain(processPackage),
         map(when(K(readme), renderReadme(repoUrl, deps, docUrl)))
       )(pkgPath)
 }

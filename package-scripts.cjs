@@ -8,16 +8,6 @@ const syncScripts = pkg =>
 
 const sequence = join(' && ')
 
-const SUMMARY = `# monoculture
-
-introspection and organization tools for monorepos
-
-*Dependency legend*:
-
- - 🦴 package from within this monorepo
- - 🧪 package used as a devDependency
-`
-
 module.exports = {
   scripts: {
     readme: sd(
@@ -55,6 +45,7 @@ module.exports = {
               'shared/jest-config',
               'shared/monoculture-tsconfig',
               'tools/doctor-general-cli',
+              'tools/digested',
               'tools/gitparty',
               'tools/spacework',
               'tools/superorganism',
@@ -82,8 +73,9 @@ module.exports = {
     },
     meta: {
       readme: sd(
+        `yarn workspace digested run test:readme --silent > README.md`,
         // eslint-disable-next-line max-len
-        `echo '${SUMMARY}' > README.md && ./tools/spacework/summarize-workspaces.cjs --readme --show-deps >> README.md`,
+        // `echo '${SUMMARY}' > README.md && ./tools/spacework/summarize-workspaces.cjs --readme --show-deps >> README.md`,
         'regenerate the README!'
       ),
       docs: sd(

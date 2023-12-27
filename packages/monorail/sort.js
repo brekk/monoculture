@@ -2,20 +2,18 @@ import { tap, pipe, map, prop, curry, reject, propEq } from 'ramda'
 import { Sorter } from '@hapi/topo'
 import { log } from './trace'
 
-export const withoutProp = curry((prop, value, x) =>
-  reject(propEq(value, prop), x)
+export const withoutProp = curry((property, value, x) =>
+  reject(propEq(value, property), x)
 )
 
 // javavascurpies
 const handleDefault = rawPlug => {
-  console.log('IN', rawPlug)
   // TODO: this must be an upstream bug
   const out = rawPlug?.default?.default
     ? rawPlug.default.default
     : rawPlug?.default
-    ? rawPlug.default
-    : rawPlug
-  console.log('OUT', out)
+      ? rawPlug.default
+      : rawPlug
   return out
 }
 

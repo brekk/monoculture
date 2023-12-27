@@ -6,6 +6,8 @@ export const YARGS_CONFIG = {
     deps: ['s'],
     api: ['s'],
     // string
+    banner: ['b'],
+    bannerPath: ['B'],
     pkgPath: ['pkg', 'i'],
     drGenPath: ['drgen', 'd'],
     docUrl: ['u'],
@@ -18,6 +20,11 @@ export const YARGS_CONFIG = {
 }
 
 export const HELP_CONFIG = {
+  banner:
+    'Provide a string to insert before the rendered content. (only applicable with `--readme`)',
+  bannerPath:
+    // eslint-disable-next-line max-len
+    'Provide a path to a file to insert before the rendered content. (only applicable with `--readme`)',
   pkgPath: 'The path to the `package.json` file.',
   drGenPath: 'An optional path to a dr-generated.json file',
   docUrl: 'The URI of a documentation site, used in generating links',

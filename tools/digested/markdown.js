@@ -1,7 +1,7 @@
-import { j2, isNotEmpty } from 'inherent'
+import { isNotEmpty } from 'inherent'
 
 import { unlines, strepeat } from 'knot'
-import { map, pipe, keys, toPairs, curry } from 'ramda'
+import { map, pipe, keys, toPairs, when, always as K, curry } from 'ramda'
 import { depUsage, docLinks } from './link'
 
 export const disclosable = curry((indent, title, content) => {
@@ -23,9 +23,9 @@ export const renderReadme = curry((repo, showDeps, pagesURL, raw) =>
           const {
             dependencies: deps,
             devDependencies: devDeps,
-            name: project,
+            name,
             documentation: docs = [],
-            description: summary,
+            description,
           } = entry
           const indent = 3
           const iDisclose = disclosable(indent)
@@ -33,16 +33,16 @@ export const renderReadme = curry((repo, showDeps, pagesURL, raw) =>
             '\n' +
             iDisclose(
               'Dependencies',
-              ` - ${depUsage(indent, { repo, project }, deps, devDeps)}`
+              ` - ${depUsage(indent, { repo, project: name }, deps, devDeps)}`
             )
           const docMap = docs.length
-            ? iDisclose('API', docLinks(indent, pagesURL, project, docs))
+            ? iDisclose('API', docLinks(indent, pagesURL, name, docs))
             : ''
           const docsAndDeps =
             showDeps && isNotEmpty(keys({ ...deps, ...devDeps }))
               ? `${docMap ? '\n' + docMap : ''}${dependencyMap}\n`
               : '\n'
-          return `[${project}](${repo}/${group}/${project}) - ${summary}${docsAndDeps}`
+          return `[${name}](${repo}/${group}/${name}) - ${description}${docsAndDeps}`
         }),
         projects =>
           `## ${group}\n\n${projects
@@ -50,6 +50,7 @@ export const renderReadme = curry((repo, showDeps, pagesURL, raw) =>
             .join(showDeps ? '\n' : '')}`
       )(list)
     ),
-    unlines
-  )(raw)
+    unlines,
+    when(K(raw.banner), y => raw.banner.replace(/\\n/g, '\n') + '\n' + y)
+  )(raw.grouped)
 )

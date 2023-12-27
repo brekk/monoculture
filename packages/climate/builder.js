@@ -71,8 +71,8 @@ export const configurate = curry((yargsConf, defaults, help, details, argv) => {
     boolean: !$yaBool
       ? $help
       : $yaBool.includes('help')
-      ? $yaBool
-      : $yaBool.concat(help),
+        ? $yaBool
+        : $yaBool.concat(help),
   })
   const { check = alwaysFalse } = details
   return pipe(
