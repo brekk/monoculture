@@ -5,6 +5,7 @@ import { configurate } from 'climate'
 import { isNotEmpty, j2, autobox } from 'inherent'
 import { extname, basename, join as pathJoin, dirname } from 'node:path'
 import {
+  tap,
   ap,
   includes,
   when,
@@ -187,7 +188,22 @@ const renderComments = curry((testMode, outputDir, x) =>
   chain(
     pipe(
       groupBy(propOr('unknown', testMode ? 'testPath' : 'workspace')),
-      log.cli(`grouped ${testMode ? 'tests' : 'comments'}...`),
+      tap(xxx =>
+        log.cli(
+          `grouped ${testMode ? 'tests' : 'comments'}...`,
+          pipe(
+            toPairs,
+            map(
+              ([k, y]) =>
+                `\n${k}:\n - ${pipe(
+                  map(z => z.slugName),
+                  join('\n - ')
+                )(y)}`
+            ),
+            join('\n')
+          )(xxx)
+        )
+      ),
       toPairs,
       map(([workspace, commentedFiles]) => {
         const filesToWrite = map(file => {
@@ -392,13 +408,7 @@ const runner = config => {
       () => monorunner(searchGlob, ignore, root, pkgJson),
       () => resolve(input)
     ),
-    map(
-      pipe(
-        map(relativize),
-        log.cli('read all files'),
-        chain(parseFile(debug, root))
-      )
-    ),
+    map(pipe(map(relativize), chain(parseFile(debug, root)))),
     chain(parallel(10)),
     map(testMode ? filterAndStructureTests : filterAndStructureComments),
     when(K(artifact), writeArtifact(relativeArtifact)),
