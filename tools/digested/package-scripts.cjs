@@ -8,14 +8,14 @@ const build = ([infile, outfile]) =>
     `${infile}`,
     `--outfile=${outfile}`,
     `--bundle`,
-    `--format=esm`,
+    `--format=cjs`,
     `--platform=node`,
-    `--packages=external`,
+    // `--packages=external`,
     `--banner:js="#!/usr/bin/env node"`,
-  ].join(' ')
+  ].join(' ') + ` && chmod +x ${outfile}`
 
 const INPUT = `executable.js`
-const OUTPUT = `dist/digested.js`
+const OUTPUT = `dist/digested.cjs`
 const watchMode = sd(
   `${build([INPUT, OUTPUT])} --watch`,
   'build with watch-mode'

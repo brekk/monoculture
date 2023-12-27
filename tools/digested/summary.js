@@ -1,6 +1,6 @@
 import { join as pathJoin } from 'node:path'
 import {
-  keys,
+  always as K,
   curry,
   find,
   equals,
@@ -14,23 +14,23 @@ import {
   head,
   chain,
   when,
-  toPairs,
 } from 'ramda'
+import { isNotEmpty } from 'inherent'
 import { parallel, resolve } from 'fluture'
 import { readDirWithConfig, readFile } from 'file-system'
+import { renderReadme } from './markdown'
 
-const processWorkspace = curry((docWorkspace, workspaces) => {
-  const matched = find(equals(docWorkspace), workspaces)
-  return matched
+const processWorkspace = curry((drGenPath, workspaces) => {
+  return isNotEmpty(drGenPath)
     ? pipe(
         readFile,
         map(JSON.parse),
         map(drGen => ({ drGen, workspaces }))
-      )(matched + '/dr-generated.json')
+      )(drGenPath)
     : resolve({ drGen: [], workspaces })
 })
 
-const processCoolshit = ({ workspaces, drGen = [] }) =>
+const processPackage = curry((drGen, workspaces) =>
   pipe(
     map(pathName =>
       pipe(
@@ -42,7 +42,7 @@ const processCoolshit = ({ workspaces, drGen = [] }) =>
           group: pathName.slice(0, pathName.indexOf('/')),
           documentation: filter(
             doc => doc.filename.startsWith(pathName),
-            drGen
+            drGen ?? []
           ),
         }))
       )(pathName)
@@ -50,33 +50,33 @@ const processCoolshit = ({ workspaces, drGen = [] }) =>
     parallel(10),
     map(
       pipe(
-        map(
-          pipe(z => [
-            z.group,
-            z.name,
-            z.description,
-            z.dependencies,
-            z.devDependencies,
-            z.documentation,
-          ])
-        ),
+        map(pipe(({ group, ...z }) => [group, z])),
         groupBy(head),
-        map(
-          map(([_k, v, d, deps, devDeps, docs]) => [v, d, deps, devDeps, docs])
-        )
+        map(map(([_k, g]) => [g]))
       )
     )
   )(workspaces)
+)
 
-export const summarize = curry((repo, pkg, docWorkspace, argv) => {
-  const pagesURL = pagesForGithub(repo)
-  return pipe(
-    propOr([], 'workspaces'),
-    map(readDirWithConfig({ onlyDirectories: true })),
-    parallel(10),
-    map(reduce(concat, [])),
-    chain(processWorkspace(docWorkspace)),
-    chain(processCoolshit),
-    when(() => isReadme, renderReadme(repo, showDeps, pagesURL))
-  )(pkg)
-})
+export const summarize = ({
+  repoUrl,
+  pkg,
+  drGenPath,
+  deps,
+  readme,
+  pagesUrl,
+  help = false,
+  HELP,
+}) => {
+  return help
+    ? HELP
+    : pipe(
+        propOr([], 'workspaces'),
+        map(readDirWithConfig({ onlyDirectories: true })),
+        parallel(10),
+        map(reduce(concat, [])),
+        chain(processWorkspace(drGenPath)),
+        chain(processPackage(drGenPath)),
+        when(K(readme), renderReadme(repoUrl, deps, pagesUrl))
+      )(pkg)
+}

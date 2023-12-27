@@ -1,5 +1,5 @@
 import { curry, pipe, toPairs, map, keys, join } from 'ramda'
-import { strepeat } from 'inherent'
+import { strepeat } from 'knot'
 
 export const depUsage = curry(({ repo }, deps, devDeps) =>
   pipe(

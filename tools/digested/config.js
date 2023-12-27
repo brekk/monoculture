@@ -1,27 +1,38 @@
 export const YARGS_CONFIG = {
   alias: {
+    // boolean
+    color: ['k'],
     readme: ['m'],
-    showDeps: ['s'],
-    drGenPath: ['d'],
-    repo: ['r'],
-    pkg: ['i'],
+    deps: ['s'],
+    api: ['s'],
+    // string
+    pkgPath: ['pkg', 'p'],
+    drGenPath: ['drgen', 'd'],
+    docUrl: ['u'],
+    repoUrl: ['r'],
   },
-  boolean: ['readme', 'showDeps'],
+  boolean: ['readme', 'deps', 'api'],
   configuration: {
     'strip-aliased': true,
   },
 }
 
 export const HELP_CONFIG = {
+  pkgPath: 'The path to the `package.json` file.',
+  drGenPath: 'An optional path to a dr-generated.json file',
+  docUrl: 'The URI of a documentation site, used in generating links',
+  repoUrl: 'The URI of a repository, used in generating links',
+  // booleans
   help: 'This text!',
-  color: 'Render stuff in color',
-  pkg: 'The path to the `package.json` file.',
+  color: 'Render stuff in glorious color',
   readme: 'Generate content for a readme (in markdown!)',
-  showDeps: 'Add dependency information (not applicable in all cases)',
+  deps: 'Add dependency information [default: true] (only applicable with `--readme`)',
+  api: 'Add API information [default: true] (only applicable with `--readme`)',
 }
 
 export const CONFIG_DEFAULTS = {
   readme: false,
-  showDeps: false,
+  api: true,
+  deps: true,
   color: true,
 }
