@@ -173,6 +173,33 @@
     "workspace": "bloodline"
   },
   {
+    "slugName": "builder",
+    "pageSummary": "",
+    "filename": "packages/climate/builder.js",
+    "comments": [
+      {
+        "start": 23,
+        "end": 64,
+        "summary": "Automatically create many of the fundamentals needed to build robust CLI tools,\nincluding help text.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "configurate",
+          "example": "```js\nconst YARGS_CONFIG = {\n  alias: {\n    readme: ['r'],\n    showDeps: ['s'],\n    drGenPath: ['d'],\n  },\n  boolean: ['readme', 'showDeps'],\n  configuration: {\n    'strip-aliased': true,\n  },\n}\n\nconst HELP_CONFIG = {\n  help: 'This text!',\n  color: 'Render stuff in color',\n  readme: 'Generate content for a readme (in markdown!)',\n  showDeps: 'Add dependency information (not applicable in all cases)',\n}\n\nconst CONFIG_DEFAULTS = {\n  readme: false,\n  showDeps: false,\n  color: true,\n}\n\nconst parseArgs = (args) => configurate(\n  YARGS_CONFIG,\n  CONFIG_DEFAULTS,\n  HELP_CONFIG,\n  {cwd: process.cwd()},\n  // process.argv.slice(2)\n  ['--readme']\n)\n// { readme: true, showDeps: false, color: true, HELP: `/* [...] *\\/` }\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/climate/builder.js"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "climate"
+  },
+  {
     "slugName": "fs",
     "pageSummary": "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.",
     "filename": "packages/file-system/fs.js",

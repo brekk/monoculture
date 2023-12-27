@@ -1,4 +1,4 @@
-import { curry, reject, propEq } from 'ramda'
+import { tap, pipe, map, prop, curry, reject, propEq } from 'ramda'
 import { Sorter } from '@hapi/topo'
 import { log } from './trace'
 
@@ -21,7 +21,7 @@ const handleDefault = rawPlug => {
 
 export const toposort = raw => {
   const list = raw.slice().map(handleDefault)
-  log.sort('sorting...', list)
+  tap(pipe(map(prop('name')), log.sort('sorting...'))(list))
   const t = new Sorter()
   list.forEach(({ group, name, dependencies: after }) => {
     t.add(name, {

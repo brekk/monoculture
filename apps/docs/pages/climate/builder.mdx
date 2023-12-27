@@ -1,0 +1,46 @@
+# builder
+
+
+
+## configurate
+
+Automatically create many of the fundamentals needed to build robust CLI tools,
+including help text.
+
+### Usage
+```js
+const YARGS_CONFIG = {
+  alias: {
+    readme: ['r'],
+    showDeps: ['s'],
+    drGenPath: ['d'],
+  },
+  boolean: ['readme', 'showDeps'],
+  configuration: {
+    'strip-aliased': true,
+  },
+}
+
+const HELP_CONFIG = {
+  help: 'This text!',
+  color: 'Render stuff in color',
+  readme: 'Generate content for a readme (in markdown!)',
+  showDeps: 'Add dependency information (not applicable in all cases)',
+}
+
+const CONFIG_DEFAULTS = {
+  readme: false,
+  showDeps: false,
+  color: true,
+}
+
+const parseArgs = (args) => configurate(
+  YARGS_CONFIG,
+  CONFIG_DEFAULTS,
+  HELP_CONFIG,
+  {cwd: process.cwd()},
+  // process.argv.slice(2)
+  ['--readme']
+)
+// { readme: true, showDeps: false, color: true, HELP: `/* [...] *\/` }
+```
