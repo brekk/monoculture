@@ -1,16 +1,16 @@
+import { cwd } from 'node:process'
 import { configurate } from 'climate'
-import { map, pipe } from 'ramda'
+import { chain, map, pipe } from 'ramda'
 import { YARGS_CONFIG, CONFIG_DEFAULTS, HELP_CONFIG } from './config'
 import { summarize } from './summary'
 import { trace } from 'xtrace'
 export const cli = args =>
   pipe(
-    configurate(YARGS_CONFIG, CONFIG_DEFAULTS, HELP_CONFIG, {
-      cwd: process.cwd(),
+    configurate(YARGS_CONFIG, { ...CONFIG_DEFAULTS, cwd: cwd() }, HELP_CONFIG, {
+      cwd: cwd(),
       name: 'digested',
       description: 'summarize a project or a monorepo',
       banner: `💬`,
     }),
-    trace('yarrrr'),
-    map(summarize)
+    chain(summarize)
   )(args)

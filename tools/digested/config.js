@@ -6,7 +6,7 @@ export const YARGS_CONFIG = {
     deps: ['s'],
     api: ['s'],
     // string
-    pkgPath: ['pkg', 'p'],
+    pkgPath: ['pkg', 'i'],
     drGenPath: ['drgen', 'd'],
     docUrl: ['u'],
     repoUrl: ['r'],
