@@ -14,7 +14,6 @@ ${i}${content}
 ${i}</details>`
 })
 
-// const pagesURL = pagesForGithub(repo)
 export const renderReadme = curry((repo, showDeps, pagesURL, raw) =>
   pipe(
     toPairs,
@@ -28,25 +27,26 @@ export const renderReadme = curry((repo, showDeps, pagesURL, raw) =>
             documentation: docs = [],
             description: summary,
           } = entry
-          const iDisclose = disclosable(5)
+          const indent = 3
+          const iDisclose = disclosable(indent)
           const dependencyMap =
             '\n' +
             iDisclose(
               'Dependencies',
-              ` - ${depUsage({ repo, project }, deps, devDeps)}`
+              ` - ${depUsage(indent, { repo, project }, deps, devDeps)}`
             )
           const docMap = docs.length
-            ? iDisclose('API', docLinks(5, pagesURL, project, docs))
+            ? iDisclose('API', docLinks(indent, pagesURL, project, docs))
             : ''
           const docsAndDeps =
             showDeps && isNotEmpty(keys({ ...deps, ...devDeps }))
-              ? `${docMap ? docMap + '\n' : ''}${dependencyMap}\n`
+              ? `${docMap ? '\n' + docMap : ''}${dependencyMap}\n`
               : '\n'
           return `[${project}](${repo}/${group}/${project}) - ${summary}${docsAndDeps}`
         }),
         projects =>
-          `\n## ${group}\n\n${projects
-            .map(z => '   * ' + z)
+          `## ${group}\n\n${projects
+            .map(z => ' * ' + z)
             .join(showDeps ? '\n' : '')}`
       )(list)
     ),

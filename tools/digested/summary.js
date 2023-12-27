@@ -52,21 +52,22 @@ const getWorkspaceGroupFromPath = pathName => {
 
 const processPackage = curry((drGenPath, { drGen, workspaces }) =>
   pipe(
-    map(pathName =>
-      pipe(
+    map(pathName => {
+      const group = getWorkspaceGroupFromPath(pathName)
+      return pipe(
         z => pathJoin(z, 'package.json'),
         readFile,
         map(JSON.parse),
         map(raw => ({
           ...raw,
-          group: getWorkspaceGroupFromPath(pathName),
+          group,
           documentation: filter(
-            doc => doc.filename.startsWith(pathName),
+            doc => doc.filename.startsWith(group),
             drGen ?? []
           ),
         }))
       )(pathName)
-    ),
+    }),
     parallel(10),
     map(
       pipe(
@@ -85,7 +86,7 @@ export const summarize = config => {
     drGenPath,
     deps,
     readme,
-    pagesUrl,
+    docUrl,
     help = false,
     cwd,
     HELP,
@@ -108,6 +109,6 @@ export const summarize = config => {
         map(reduce(concat, [])),
         chain(processWorkspace(drGenPath)),
         chain(processPackage(drGenPath)),
-        map(when(K(readme), renderReadme(repoUrl, deps, pagesUrl)))
+        map(when(K(readme), renderReadme(repoUrl, deps, docUrl)))
       )(pkgPath)
 }

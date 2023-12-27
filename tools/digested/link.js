@@ -1,8 +1,9 @@
 import { curry, pipe, toPairs, map, keys, join } from 'ramda'
 import { strepeat } from 'knot'
 
-export const depUsage = curry(({ repo }, deps, devDeps) =>
-  pipe(
+export const depUsage = curry((indent, { repo }, deps, devDeps) => {
+  const i = strepeat(' ', indent)
+  return pipe(
     toPairs,
     map(
       ([k, v]) =>
@@ -11,12 +12,11 @@ export const depUsage = curry(({ repo }, deps, devDeps) =>
           : `[${k}](https://www.npmjs.com/package/${k})`) +
         (keys(devDeps).includes(k) ? ' 🧪' : '')
     ),
-    join('\n      - ')
+    join(`\n${i} - `)
   )({ ...deps, ...devDeps })
-)
+})
 
 export const docLinks = curry((indent, docURL, project, docs) => {
-  console.log({ indent, docURL, project, docs })
   const i = strepeat(' ', indent)
   return docs.length
     ? pipe(
