@@ -54,6 +54,7 @@
     "sync": "dotenv -- nps -c ./package-scripts.cjs sync",
     "sync:scripts": "dotenv -- nps -c ./package-scripts.cjs sync.scripts",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:snapshot": "dotenv -- nps -c ./package-scripts.cjs test.snapshot",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch",
     "workflow": "dotenv -- nps -c ./package-scripts.cjs workflow",
     "workflow:validate": "dotenv -- nps -c ./package-scripts.cjs workflow.validate"

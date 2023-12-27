@@ -62,6 +62,7 @@ module.exports = {
     test: {
       ...sd('turbo run test', 'test with turbo'),
       watch: sd('turbo run test:watch', 'test with turbo in watch mode'),
+      snapshot: sd('turbo run test:snapshot', 'redo all the snapshots'),
     },
     deploy: sd('turbo run deploy', 'deploy and export builds'),
     prepare: sd('husky install', 'add git pre-commit hook'),

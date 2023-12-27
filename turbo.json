@@ -9,6 +9,9 @@
     "test": {
       "outputs": ["coverage/lcov-info"]
     },
+    "test:snapshot": {
+      "outputs": ["coverage/lcov-info"]
+    },
     "test:integration": {
       "dependsOn": ["build"],
       "outputs": ["coverage/lcov-info"]

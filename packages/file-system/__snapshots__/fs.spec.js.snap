@@ -1,4 +1,7 @@
-{
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`readFile 1`] = `
+"{
   "name": "file-system",
   "version": "0.0.1",
   "description": "fs, but in the future 🔮",
@@ -32,3 +35,5 @@
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }
 }
+"
+`;
