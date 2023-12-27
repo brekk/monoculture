@@ -1,19 +1,9 @@
 const PKG = require('./package.json')
 const sd = (script, description = '') =>
   !!description ? { script, description } : { script }
-const build = ([infile, outfile]) =>
-  [
-    `esbuild`,
-    `${infile}`,
-    `--outfile=${outfile}`,
-    `--bundle`,
-    `--format=esm`,
-    `--platform=node`,
-    `--packages=external`,
-    `--banner:js="#!/usr/bin/env node"`,
-  ].join(' ')
 
-const INPUT = `./index.js`
+
+const INPUT = `./file-system.js`
 const OUTPUT = `dist/` + PKG.main
 module.exports = {
   scripts: {

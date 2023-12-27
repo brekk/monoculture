@@ -6,14 +6,14 @@ const build = ([infile, outfile]) =>
     `${infile}`,
     `--outfile=${outfile}`,
     `--bundle`,
-    `--format=esm`,
+    `--format=cjs`,
     `--platform=node`,
-    `--packages=external`,
+    // `--packages=external`,
     `--banner:js="#!/usr/bin/env node"`,
   ].join(' ')
 
 const INPUT = `./cli.js`
-const OUTPUT = PKG.bin
+const OUTPUT = './dist/cli.cjs'
 
 const sd = (script, description = '') =>
   !!description ? { script, description } : { script }
@@ -26,6 +26,11 @@ module.exports = {
     test: {
       ...sd('jest', 'test!'),
       watch: sd('jest --watch', 'test with watch-mode!'),
+      integration: sd(
+        // eslint-disable-next-line max-len
+        `./dist/cli.cjs -c ./examples/rulefile-test-run.toml "./*" -i "./**/*.spec.*"`,
+        'run an example rulefile!'
+      ),
     },
     meta: {
       graph: `madge ${INPUT} --image graph.svg`,

@@ -111,9 +111,7 @@ test('readFile', done => {
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "exports": {
-    ".": "./index.js"
-  },
+  "exports": "./file-system.js",
   "dependencies": {
     "find-up": "7.0.0",
     "fluture": "14.0.0",

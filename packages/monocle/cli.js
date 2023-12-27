@@ -1,14 +1,16 @@
 import { resolve as pathResolve, dirname } from 'node:path'
 import { Chalk } from 'chalk'
-import { identity as I } from 'ramda/es/identity'
-import { always as K } from 'ramda/es/always'
-import { uniqBy } from 'ramda/es/uniqBy'
-import { curry } from 'ramda/es/curry'
-import { mergeRight } from 'ramda/es/mergeRight'
-import { pipe } from 'ramda/es/pipe'
-import { chain } from 'ramda/es/chain'
-import { map } from 'ramda/es/map'
-import { length } from 'ramda/es/length'
+import {
+  identity as I,
+  always as K,
+  uniqBy,
+  curry,
+  mergeRight,
+  pipe,
+  chain,
+  map,
+  length,
+} from 'ramda'
 import { reject, fork, parallel, resolve } from 'fluture'
 import { interpret, writeFile } from 'file-system'
 import { monoprocessor } from './reader'
@@ -62,8 +64,8 @@ const cli = curry((cancel, args) =>
       const plugins = config.plugin?.length
         ? config.plugin
         : config.plugins?.length
-          ? config.plugins
-          : []
+        ? config.plugins
+        : []
       const { basePath, _: dirGlob = [] } = config
       const [startGlob = false] = dirGlob
       if (!startGlob) {

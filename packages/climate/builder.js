@@ -13,7 +13,7 @@ import { log } from './log'
 import { parse as parseArgs } from './parser'
 import { generateHelp } from './help'
 import { reject, resolve, coalesce } from 'fluture'
-import { findUpWithCancel, readFileWithCancel } from 'file-system'
+import { digUpWithCancel, readFileWithCancel } from 'file-system'
 
 export const NO_OP = () => {}
 
@@ -21,6 +21,48 @@ export const showHelpWhen = curry(
   (check, parsed) => parsed.help || check(parsed)
 )
 
+/**
+ * Automatically create many of the fundamentals needed to build robust CLI tools,
+ * including help text.
+ * @name configurate
+ * @example
+ * ```js
+ * const YARGS_CONFIG = {
+ *   alias: {
+ *     readme: ['r'],
+ *     showDeps: ['s'],
+ *     drGenPath: ['d'],
+ *   },
+ *   boolean: ['readme', 'showDeps'],
+ *   configuration: {
+ *     'strip-aliased': true,
+ *   },
+ * }
+ *
+ * const HELP_CONFIG = {
+ *   help: 'This text!',
+ *   color: 'Render stuff in color',
+ *   readme: 'Generate content for a readme (in markdown!)',
+ *   showDeps: 'Add dependency information (not applicable in all cases)',
+ * }
+ *
+ * const CONFIG_DEFAULTS = {
+ *   readme: false,
+ *   showDeps: false,
+ *   color: true,
+ * }
+ *
+ * const parseArgs = (args) => configurate(
+ *   YARGS_CONFIG,
+ *   CONFIG_DEFAULTS,
+ *   HELP_CONFIG,
+ *   {cwd: process.cwd()},
+ *   // process.argv.slice(2)
+ *   ['--readme']
+ * )
+ * // { readme: true, showDeps: false, color: true, HELP: `/* [...] *\/` }
+ * ```
+ */
 export const configurate = curry((yargsConf, defaults, help, details, argv) => {
   const $help = ['help']
   const { boolean: $yaBool } = yargsConf
@@ -29,8 +71,8 @@ export const configurate = curry((yargsConf, defaults, help, details, argv) => {
     boolean: !$yaBool
       ? $help
       : $yaBool.includes('help')
-        ? $yaBool
-        : $yaBool.concat(help),
+      ? $yaBool
+      : $yaBool.concat(help),
   })
   const { check = alwaysFalse } = details
   return pipe(
@@ -75,7 +117,7 @@ export const configFileWithCancel = curry((cancel, opts) => {
   }
   const defOpts = !optString ? opts : {}
   const {
-    findUp: findUpOpts = {},
+    digUp: digUpOpts = {},
     ns = 'climate',
     wrapTransformer = true,
     json = false,
@@ -87,7 +129,7 @@ export const configFileWithCancel = curry((cancel, opts) => {
   if (!refF) {
     log.builder(`looking in...`, searchspace)
     refF = pipe(
-      findUpWithCancel(cancel, findUpOpts),
+      digUpWithCancel(cancel, digUpOpts),
       chain(readFileWithCancel(cancel)),
       optional && json
         ? pipe(

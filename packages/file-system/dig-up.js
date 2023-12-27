@@ -2,7 +2,7 @@ import { Future } from 'fluture'
 import { curry } from 'ramda'
 import { findUp as __findUp } from 'find-up'
 
-export const findUpWithCancel = curry((cancel, opts, x) =>
+export const digUpWithCancel = curry((cancel, opts, x) =>
   Future((bad, good) => {
     __findUp(x, opts)
       .catch(bad)
@@ -10,4 +10,4 @@ export const findUpWithCancel = curry((cancel, opts, x) =>
     return cancel
   })
 )
-export const findUp = findUpWithCancel(() => {})
+export const digUp = digUpWithCancel(() => {})

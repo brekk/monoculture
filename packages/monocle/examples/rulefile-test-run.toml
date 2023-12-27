@@ -4,8 +4,8 @@ plugins = [
   "./plugin-get-imports.js",
   "./plugin-wordcount.js",
   "./plugin-get-exports.js",
-  "../../robot-tourist/monocle-plugin-simple.js",
-  "../../robot-tourist/monocle-plugin-main.js",
+  "../../robot-tourist/dist/monocle-plugin-simple.cjs",
+  "../../robot-tourist/dist/monocle-plugin-main.cjs",
   "./plugin-has-imports.js",
 ]
 ignore = [

@@ -6972,6 +6972,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"digested@workspace:tools/digested":
+  version: 0.0.0-use.local
+  resolution: "digested@workspace:tools/digested"
+  dependencies:
+    climate: "workspace:packages/climate"
+    climate-json: "workspace:packages/climate-json"
+    climate-toml: "workspace:packages/climate-toml"
+    dotenv-cli: "npm:7.3.0"
+    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
+    file-system: "workspace:packages/file-system"
+    fluture: "npm:14.0.0"
+    jest-config: "workspace:shared/jest-config"
+    ramda: "npm:0.29.1"
+  bin:
+    digested: ./dist/digested.js
+  languageName: unknown
+  linkType: soft
+
 "dir-glob@npm:^3.0.1":
   version: 3.0.1
   resolution: "dir-glob@npm:3.0.1"

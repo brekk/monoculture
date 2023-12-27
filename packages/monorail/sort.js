@@ -7,10 +7,21 @@ export const withoutProp = curry((prop, value, x) =>
 )
 
 // javavascurpies
-const handleDefault = rawPlug => rawPlug?.default ?? rawPlug
+const handleDefault = rawPlug => {
+  console.log('IN', rawPlug)
+  // TODO: this must be an upstream bug
+  const out = rawPlug?.default?.default
+    ? rawPlug.default.default
+    : rawPlug?.default
+    ? rawPlug.default
+    : rawPlug
+  console.log('OUT', out)
+  return out
+}
 
 export const toposort = raw => {
   const list = raw.slice().map(handleDefault)
+  log.sort('sorting...', list)
   const t = new Sorter()
   list.forEach(({ group, name, dependencies: after }) => {
     t.add(name, {
