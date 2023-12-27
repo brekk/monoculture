@@ -2,9 +2,7 @@
   "name": "monocle",
   "version": "0.0.0",
   "description": "inspect code and apply rules, magically 🧐",
-  "bin": {
-    "monocle": "./dist/cli.cjs"
-  },
+  "bin": "./dist/cli.cjs",
   "type": "module",
   "repository": "brekk/monoculture",
   "author": "brekk",

@@ -13161,7 +13161,7 @@ __metadata:
     ramda: "npm:0.29.1"
     robot-tourist: "workspace:packages/robot-tourist"
   bin:
-    monocle: ./dist/cli.js
+    monocle: ./dist/cli.cjs
   languageName: unknown
   linkType: soft
 
