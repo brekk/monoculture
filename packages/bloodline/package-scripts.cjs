@@ -27,7 +27,7 @@ const build = ([infile, outfile]) =>
   ' && chmod +x ' +
   outfile
 
-const INPUT = './index.js'
+const INPUT = './cli.js'
 
 const sd = (script, description = '') =>
   !!description ? { script, description } : { script }
@@ -41,11 +41,16 @@ module.exports = {
     clean: sd('rm -r coverage', 'clean the build'),
     lint: sd('eslint --fix .', 'lint!'),
     meta: {
-      graph: `madge ${INPUT} --image graph.svg`,
+      graph: `nps -c ./package-scripts.cjs build test.integration`,
+      madge: `madge ${INPUT} --image graph-madge.svg`,
     },
     test: {
       ...sd('jest', 'test!'),
       watch: sd('jest --watch', 'test with watch-mode!'),
+      integration: sd(
+        `./dist/bloodline.cjs -i ./cli.js -o graph.svg`,
+        'use bloodline to generate a graph of bloodline!'
+      ),
     },
   },
 }

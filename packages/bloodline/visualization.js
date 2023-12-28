@@ -63,7 +63,7 @@ export const createGraph = curry(
         }
 
         forEach(depId => {
-          log.viz('>--->', depId)
+          log.viz('|->', depId)
           const hasSubChildren = isNotEmpty(modules[depId])
           nodes[depId] =
             nodes?.[depId] ??
@@ -73,8 +73,11 @@ export const createGraph = curry(
             })
 
           const colorizeSub = setColor(nodes[depId])
+
           if (!hasSubChildren) {
-            colorizeSub('#ffcc00')
+            colorizeSub(colorNoDependency)
+          } else {
+            log.viz(`|-<>`, '')
           }
           $g.createEdge([nodes[id], nodes[depId]])
         }, modules[id])

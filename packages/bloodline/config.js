@@ -12,6 +12,7 @@ export const CONFIG = {
 }
 
 export const CONFIG_DEFAULTS = {
+  basePath: '.',
   color: true,
 }
 

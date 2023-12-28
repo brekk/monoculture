@@ -109,5 +109,5 @@ module.exports = {
     'jsdoc',
     'unused-imports',
   ],
-  ignorePatterns: ['dist', 'coverage'],
+  ignorePatterns: ['**/dist/*', '**/coverage/*'],
 }

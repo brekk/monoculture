@@ -35,7 +35,9 @@
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
+    "meta:madge": "dotenv -- nps -c ./package-scripts.cjs meta.madge",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:integration": "dotenv -- nps -c ./package-scripts.cjs test.integration",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }
 }

@@ -141,8 +141,8 @@
         "filename": "packages/bloodline/tree.js"
       },
       {
-        "start": 199,
-        "end": 210,
+        "start": 205,
+        "end": 216,
         "summary": "Take a dependency tree and recursively walk it, returning flattened set of dependencies.",
         "links": [
           "groupTree"

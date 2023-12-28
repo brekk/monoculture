@@ -2,6 +2,18 @@
 
 exports[`familyTree 1`] = `
 {
+  "../monocle/cli.js": [
+    "chalk",
+    "ramda",
+    "fluture",
+    "file-system",
+    "monoculture/packages/monocle/reader.js",
+    "monoculture/packages/monocle/package.json",
+    "monoculture/packages/monocle/trace.js",
+    "monoculture/packages/monocle/config.js",
+    "climate-toml",
+    "climate-json",
+  ],
   "chalk": [],
   "climate-json": [
     "ramda",

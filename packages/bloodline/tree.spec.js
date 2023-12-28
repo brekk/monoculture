@@ -42,6 +42,6 @@ test('flattenTree', () => {
 })
 
 test('familyTree', () => {
-  const family = familyTree(sharedConfig, {}, {}, tree)
+  const family = familyTree('../monocle/cli.js', sharedConfig, {}, {}, tree)
   expect(family).toMatchSnapshot()
 })

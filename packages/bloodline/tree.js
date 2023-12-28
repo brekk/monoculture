@@ -169,11 +169,11 @@ export const groupTree = curry(({ basePath }, tree, cache, searchSpace) => {
 
 const modulate = when(isNodeModule, getNodeModule)
 
-export const familyTree = curry((config, tree, cache, searchSpace) =>
+export const familyTree = curry((rootFile, config, tree, cache, searchSpace) =>
   pipe(
     groupTree(config, tree, cache),
     log.tree('grouped!'),
-    map(
+    map(xxx =>
       pipe(
         reduce((stack, x) => {
           const h = head(x)
@@ -188,8 +188,14 @@ export const familyTree = curry((config, tree, cache, searchSpace) =>
             uniqBy(I)
           )(t)
           return mergeRight(stack, objOf(mh, cleaned))
-        }, {})
-      )
+        }, {}),
+        stack => {
+          const deps = pipe(values, map(head), map(modulate))(xxx)
+          return mergeRight(stack, {
+            [modulate(rootFile)]: deps,
+          })
+        }
+      )(xxx)
     ),
 
     values,

@@ -20,7 +20,7 @@ export const bloodlineWithCancel = curry((cancel, config) => {
   return pipe(
     pipe(log.cli('config'), plant($, basePath))(config),
     map(log.verbose('initial tree')),
-    familyTree(config, tree, cache),
+    familyTree(input, config, tree, cache),
     log.cli('family'),
     createSVG(cancel, graphvizConfig, []),
     chain(writeFileWithConfigAndCancel(cancel, config, outputPath)),
