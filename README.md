@@ -55,12 +55,6 @@ introspection and organization tools for monorepos
 
     - [executables](https://brekk.github.io/monoculture/bloodline/executables)
     - [tree](https://brekk.github.io/monoculture/bloodline/tree)
-    - [builder](https://brekk.github.io/monoculture/climate/builder)
-    - [fs](https://brekk.github.io/monoculture/file-system/fs)
-    - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
-    - [kiddo](https://brekk.github.io/monoculture/kiddo/kiddo)
-    - [knot](https://brekk.github.io/monoculture/knot/knot)
-    - [helpers](https://brekk.github.io/monoculture/monorail/helpers)
 
    </details>
 
@@ -88,14 +82,7 @@ introspection and organization tools for monorepos
 
    <details><summary>API</summary>
 
-    - [executables](https://brekk.github.io/monoculture/bloodline/executables)
-    - [tree](https://brekk.github.io/monoculture/bloodline/tree)
     - [builder](https://brekk.github.io/monoculture/climate/builder)
-    - [fs](https://brekk.github.io/monoculture/file-system/fs)
-    - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
-    - [kiddo](https://brekk.github.io/monoculture/kiddo/kiddo)
-    - [knot](https://brekk.github.io/monoculture/knot/knot)
-    - [helpers](https://brekk.github.io/monoculture/monorail/helpers)
 
    </details>
 
@@ -118,19 +105,6 @@ introspection and organization tools for monorepos
 
  * [climate-json](https://github.com/brekk/monoculture/tree/main/packages/climate-json) - JSON parser for climate 🐐
 
-   <details><summary>API</summary>
-
-    - [executables](https://brekk.github.io/monoculture/bloodline/executables)
-    - [tree](https://brekk.github.io/monoculture/bloodline/tree)
-    - [builder](https://brekk.github.io/monoculture/climate/builder)
-    - [fs](https://brekk.github.io/monoculture/file-system/fs)
-    - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
-    - [kiddo](https://brekk.github.io/monoculture/kiddo/kiddo)
-    - [knot](https://brekk.github.io/monoculture/knot/knot)
-    - [helpers](https://brekk.github.io/monoculture/monorail/helpers)
-
-   </details>
-
    <details><summary>Dependencies</summary>
 
     - [ramda](https://www.npmjs.com/package/ramda)
@@ -143,19 +117,6 @@ introspection and organization tools for monorepos
    </details>
 
  * [climate-toml](https://github.com/brekk/monoculture/tree/main/packages/climate-toml) - TOML parser for climate 🍅
-
-   <details><summary>API</summary>
-
-    - [executables](https://brekk.github.io/monoculture/bloodline/executables)
-    - [tree](https://brekk.github.io/monoculture/bloodline/tree)
-    - [builder](https://brekk.github.io/monoculture/climate/builder)
-    - [fs](https://brekk.github.io/monoculture/file-system/fs)
-    - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
-    - [kiddo](https://brekk.github.io/monoculture/kiddo/kiddo)
-    - [knot](https://brekk.github.io/monoculture/knot/knot)
-    - [helpers](https://brekk.github.io/monoculture/monorail/helpers)
-
-   </details>
 
    <details><summary>Dependencies</summary>
 
@@ -171,19 +132,6 @@ introspection and organization tools for monorepos
 
  * [climate-yaml](https://github.com/brekk/monoculture/tree/main/packages/climate-yaml) - YAML parser for climate 🍠
 
-   <details><summary>API</summary>
-
-    - [executables](https://brekk.github.io/monoculture/bloodline/executables)
-    - [tree](https://brekk.github.io/monoculture/bloodline/tree)
-    - [builder](https://brekk.github.io/monoculture/climate/builder)
-    - [fs](https://brekk.github.io/monoculture/file-system/fs)
-    - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
-    - [kiddo](https://brekk.github.io/monoculture/kiddo/kiddo)
-    - [knot](https://brekk.github.io/monoculture/knot/knot)
-    - [helpers](https://brekk.github.io/monoculture/monorail/helpers)
-
-   </details>
-
    <details><summary>Dependencies</summary>
 
     - [ramda](https://www.npmjs.com/package/ramda)
@@ -197,19 +145,6 @@ introspection and organization tools for monorepos
    </details>
 
  * [clox](https://github.com/brekk/monoculture/tree/main/packages/clox) - boxes for the terminal ⏰
-
-   <details><summary>API</summary>
-
-    - [executables](https://brekk.github.io/monoculture/bloodline/executables)
-    - [tree](https://brekk.github.io/monoculture/bloodline/tree)
-    - [builder](https://brekk.github.io/monoculture/climate/builder)
-    - [fs](https://brekk.github.io/monoculture/file-system/fs)
-    - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
-    - [kiddo](https://brekk.github.io/monoculture/kiddo/kiddo)
-    - [knot](https://brekk.github.io/monoculture/knot/knot)
-    - [helpers](https://brekk.github.io/monoculture/monorail/helpers)
-
-   </details>
 
    <details><summary>Dependencies</summary>
 
@@ -227,19 +162,6 @@ introspection and organization tools for monorepos
    </details>
 
  * [doctor-general](https://github.com/brekk/monoculture/tree/main/packages/doctor-general) - documentation generation 🩻
-
-   <details><summary>API</summary>
-
-    - [executables](https://brekk.github.io/monoculture/bloodline/executables)
-    - [tree](https://brekk.github.io/monoculture/bloodline/tree)
-    - [builder](https://brekk.github.io/monoculture/climate/builder)
-    - [fs](https://brekk.github.io/monoculture/file-system/fs)
-    - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
-    - [kiddo](https://brekk.github.io/monoculture/kiddo/kiddo)
-    - [knot](https://brekk.github.io/monoculture/knot/knot)
-    - [helpers](https://brekk.github.io/monoculture/monorail/helpers)
-
-   </details>
 
    <details><summary>Dependencies</summary>
 
@@ -265,14 +187,7 @@ introspection and organization tools for monorepos
 
    <details><summary>API</summary>
 
-    - [executables](https://brekk.github.io/monoculture/bloodline/executables)
-    - [tree](https://brekk.github.io/monoculture/bloodline/tree)
-    - [builder](https://brekk.github.io/monoculture/climate/builder)
     - [fs](https://brekk.github.io/monoculture/file-system/fs)
-    - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
-    - [kiddo](https://brekk.github.io/monoculture/kiddo/kiddo)
-    - [knot](https://brekk.github.io/monoculture/knot/knot)
-    - [helpers](https://brekk.github.io/monoculture/monorail/helpers)
 
    </details>
 
@@ -293,14 +208,7 @@ introspection and organization tools for monorepos
 
    <details><summary>API</summary>
 
-    - [executables](https://brekk.github.io/monoculture/bloodline/executables)
-    - [tree](https://brekk.github.io/monoculture/bloodline/tree)
-    - [builder](https://brekk.github.io/monoculture/climate/builder)
-    - [fs](https://brekk.github.io/monoculture/file-system/fs)
     - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
-    - [kiddo](https://brekk.github.io/monoculture/kiddo/kiddo)
-    - [knot](https://brekk.github.io/monoculture/knot/knot)
-    - [helpers](https://brekk.github.io/monoculture/monorail/helpers)
 
    </details>
 
@@ -317,14 +225,7 @@ introspection and organization tools for monorepos
 
    <details><summary>API</summary>
 
-    - [executables](https://brekk.github.io/monoculture/bloodline/executables)
-    - [tree](https://brekk.github.io/monoculture/bloodline/tree)
-    - [builder](https://brekk.github.io/monoculture/climate/builder)
-    - [fs](https://brekk.github.io/monoculture/file-system/fs)
-    - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
     - [kiddo](https://brekk.github.io/monoculture/kiddo/kiddo)
-    - [knot](https://brekk.github.io/monoculture/knot/knot)
-    - [helpers](https://brekk.github.io/monoculture/monorail/helpers)
 
    </details>
 
@@ -345,14 +246,7 @@ introspection and organization tools for monorepos
 
    <details><summary>API</summary>
 
-    - [executables](https://brekk.github.io/monoculture/bloodline/executables)
-    - [tree](https://brekk.github.io/monoculture/bloodline/tree)
-    - [builder](https://brekk.github.io/monoculture/climate/builder)
-    - [fs](https://brekk.github.io/monoculture/file-system/fs)
-    - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
-    - [kiddo](https://brekk.github.io/monoculture/kiddo/kiddo)
     - [knot](https://brekk.github.io/monoculture/knot/knot)
-    - [helpers](https://brekk.github.io/monoculture/monorail/helpers)
 
    </details>
 
@@ -367,19 +261,6 @@ introspection and organization tools for monorepos
    </details>
 
  * [monocle](https://github.com/brekk/monoculture/tree/main/packages/monocle) - inspect code and apply rules, magically 🧐
-
-   <details><summary>API</summary>
-
-    - [executables](https://brekk.github.io/monoculture/bloodline/executables)
-    - [tree](https://brekk.github.io/monoculture/bloodline/tree)
-    - [builder](https://brekk.github.io/monoculture/climate/builder)
-    - [fs](https://brekk.github.io/monoculture/file-system/fs)
-    - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
-    - [kiddo](https://brekk.github.io/monoculture/kiddo/kiddo)
-    - [knot](https://brekk.github.io/monoculture/knot/knot)
-    - [helpers](https://brekk.github.io/monoculture/monorail/helpers)
-
-   </details>
 
    <details><summary>Dependencies</summary>
 
@@ -404,13 +285,6 @@ introspection and organization tools for monorepos
 
    <details><summary>API</summary>
 
-    - [executables](https://brekk.github.io/monoculture/bloodline/executables)
-    - [tree](https://brekk.github.io/monoculture/bloodline/tree)
-    - [builder](https://brekk.github.io/monoculture/climate/builder)
-    - [fs](https://brekk.github.io/monoculture/file-system/fs)
-    - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
-    - [kiddo](https://brekk.github.io/monoculture/kiddo/kiddo)
-    - [knot](https://brekk.github.io/monoculture/knot/knot)
     - [helpers](https://brekk.github.io/monoculture/monorail/helpers)
 
    </details>
@@ -432,19 +306,6 @@ introspection and organization tools for monorepos
 
  * [robot-tourist](https://github.com/brekk/monoculture/tree/main/packages/robot-tourist) - human-centric source code interpreter 🤖
 
-   <details><summary>API</summary>
-
-    - [executables](https://brekk.github.io/monoculture/bloodline/executables)
-    - [tree](https://brekk.github.io/monoculture/bloodline/tree)
-    - [builder](https://brekk.github.io/monoculture/climate/builder)
-    - [fs](https://brekk.github.io/monoculture/file-system/fs)
-    - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
-    - [kiddo](https://brekk.github.io/monoculture/kiddo/kiddo)
-    - [knot](https://brekk.github.io/monoculture/knot/knot)
-    - [helpers](https://brekk.github.io/monoculture/monorail/helpers)
-
-   </details>
-
    <details><summary>Dependencies</summary>
 
     - [change-case](https://www.npmjs.com/package/change-case)
@@ -464,19 +325,6 @@ introspection and organization tools for monorepos
    </details>
 
  * [water-wheel](https://github.com/brekk/monoculture/tree/main/packages/water-wheel) - future-wrapping for streaming interfaces 🌊
-
-   <details><summary>API</summary>
-
-    - [executables](https://brekk.github.io/monoculture/bloodline/executables)
-    - [tree](https://brekk.github.io/monoculture/bloodline/tree)
-    - [builder](https://brekk.github.io/monoculture/climate/builder)
-    - [fs](https://brekk.github.io/monoculture/file-system/fs)
-    - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
-    - [kiddo](https://brekk.github.io/monoculture/kiddo/kiddo)
-    - [knot](https://brekk.github.io/monoculture/knot/knot)
-    - [helpers](https://brekk.github.io/monoculture/monorail/helpers)
-
-   </details>
 
    <details><summary>Dependencies</summary>
 

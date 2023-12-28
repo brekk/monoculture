@@ -40,7 +40,7 @@ module.exports = {
         `./dist/digested.cjs -m -u 'https://brekk.github.io/monoculture' -d ../../apps/docs/dr-generated.json -r 'https://github.com/brekk/monoculture/tree/main' -B ./README_BANNER.md -i ../../package.json`,
         'regenerate the readme'
       ),
-      readme: `nps --silent -c ./package-scripts.cjs test.int`,
+      readme: `nps --silent -c ./package-scripts.cjs build test.int`,
     },
   },
 }
