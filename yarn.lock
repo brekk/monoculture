@@ -4907,7 +4907,7 @@ __metadata:
     ramda: "npm:0.29.1"
     ts-graphviz: "npm:1.8.1"
   bin:
-    bloodline: ./cli.js
+    bloodline: ./dist/bloodline.cjs
   languageName: unknown
   linkType: soft
 
