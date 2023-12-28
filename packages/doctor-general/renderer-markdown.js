@@ -1,5 +1,6 @@
 import { wrap } from 'inherent'
 import {
+  replace,
   concat,
   ap,
   lt,
@@ -20,6 +21,7 @@ import {
   slice,
 } from 'ramda'
 import { lines, unlines } from './text'
+import { MAGIC_IMPORT_KEY } from './constants'
 
 const stripFence = when(startsWith('```'), K(''))
 
@@ -40,7 +42,10 @@ const flattenCommentData = applySpec({
   title: pathOr('Unknown', ['structure', 'name']),
   summary: propOr('?', 'summary'),
   links: propOr([], 'links'),
-  example: pathOr('', ['structure', 'example']),
+  example: pipe(
+    pathOr('', ['structure', 'example']),
+    replace(new RegExp('// ' + MAGIC_IMPORT_KEY, 'g'), '')
+  ),
 })
 
 const getCurried = pathOr([], ['structure', 'curried'])

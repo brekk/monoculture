@@ -8,14 +8,18 @@ Automatically create many of the fundamentals needed to build robust CLI tools,
 including help text.
 
 ### Usage
-```js
+```js test=true
+import { fork } from 'fluture'
+import stripAnsi from 'strip-ansi'
+
 const YARGS_CONFIG = {
   alias: {
-    readme: ['r'],
-    showDeps: ['s'],
-    drGenPath: ['d'],
+    meal: ['m'],
+    happyHour: ['h'],
+    multiplier: ['x'],
   },
-  boolean: ['readme', 'showDeps'],
+  boolean: ['happyHour'],
+  number: ['multiplier'],
   configuration: {
     'strip-aliased': true,
   },
@@ -23,24 +27,49 @@ const YARGS_CONFIG = {
 
 const HELP_CONFIG = {
   help: 'This text!',
+  // optional
   color: 'Render stuff in color',
-  readme: 'Generate content for a readme (in markdown!)',
-  showDeps: 'Add dependency information (not applicable in all cases)',
+  meal: 'Pass the name of the meal you want',
+  happyHour: 'Does happy hour apply here?',
+  multiplier: 'How many units should we apply?'
 }
 
 const CONFIG_DEFAULTS = {
-  readme: false,
-  showDeps: false,
   color: true,
+  happyHour: false
 }
 
 const parseArgs = (args) => configurate(
   YARGS_CONFIG,
-  CONFIG_DEFAULTS,
+  // closured so that we can pass cwd at runtime
+  {...CONFIG_DEFAULTS, cwd: process.cwd() },
   HELP_CONFIG,
-  {cwd: process.cwd()},
+  { name: "dumbwaiter", description: "order food!" },
   // process.argv.slice(2)
-  ['--readme']
+  args
 )
-// { readme: true, showDeps: false, color: true, HELP: `/* [...] *\/` }
+
+// renders in the failure channel
+fork(x => {
+  expect(stripAnsi(x).split('\n')).toEqual([
+    " dumbwaiter ",
+    "",
+    "order food!",
+    "",
+    "  -m / --meal",
+    "  	Pass the name of the meal you want",
+    "",
+    "  -h / --happyHour",
+    "  	Does happy hour apply here?",
+    "",
+    "  -x / --multiplier",
+    "  	How many units should we apply?",
+    "",
+    "  -h / --help",
+    "  	This text!",
+  ])
+  done()
+})(done)(
+  parseArgs(['--help'])
+)
 ```

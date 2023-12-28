@@ -14,6 +14,7 @@ import {
   always as K,
   map,
 } from 'ramda'
+import { MAGIC_IMPORT_KEY } from './constants'
 
 const handleSpecialCases = ifElse(
   either(
@@ -30,8 +31,6 @@ const grabCommentData = applySpec({
 })
 
 const getCurried = pathOr([], ['structure', 'curried'])
-
-const MAGIC_IMPORT_KEY = 'drgen-import-above'
 
 const renderTest = ({ title, example, future: asyncCallback }) => {
   if (!includes('test=true', example)) return ''
