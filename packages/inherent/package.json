@@ -30,6 +30,7 @@
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
     "test:auto": "dotenv -- nps -c ./package-scripts.cjs test.auto",
+    "test:ci": "dotenv -- nps -c ./package-scripts.cjs test.ci",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }
 }

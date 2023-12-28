@@ -25,6 +25,7 @@
     "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:ci": "dotenv -- nps -c ./package-scripts.cjs test.ci",
     "test:integration": "dotenv -- nps -c ./package-scripts.cjs test.integration",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }

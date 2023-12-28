@@ -36,6 +36,7 @@
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:ci": "dotenv -- nps -c ./package-scripts.cjs test.ci",
     "test:integration": "dotenv -- nps -c ./package-scripts.cjs test.integration",
     "test:readme": "dotenv -- nps -c ./package-scripts.cjs test.readme",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"

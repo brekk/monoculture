@@ -28,10 +28,14 @@ module.exports = {
     lint: sd('eslint --fix .', 'lint!'),
     test: {
       ...sd('jest', 'test!'),
+      ci: sd(
+        'jest --ci --json --coverage --testLocationInResults --outputFile=ci-report.json',
+        'test for CI!'
+      ),
       watch: sd('jest --watch', 'test with watch-mode!'),
       integration: sd(
         // eslint-disable-next-line max-len
-        `./dist/cli.cjs -c ./examples/rulefile-test-run.toml "./*" -i "./**/*.spec.*"`,
+        `./dist/cli.cjs -c ./examples/rulefile-test-run.toml "./*" -i "./**/*.spec.*" -i "./**/ci-report.json"`,
         'run an example rulefile!'
       ),
     },

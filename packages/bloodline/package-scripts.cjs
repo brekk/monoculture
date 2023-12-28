@@ -46,6 +46,10 @@ module.exports = {
     },
     test: {
       ...sd('jest', 'test!'),
+      ci: sd(
+        'jest --ci --json --coverage --testLocationInResults --outputFile=ci-report.json',
+        'test for CI!'
+      ),
       watch: sd('jest --watch', 'test with watch-mode!'),
       integration: sd(
         `./dist/bloodline.cjs -i ./cli.js -o graph.svg`,

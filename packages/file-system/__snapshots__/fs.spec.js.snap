@@ -31,6 +31,7 @@ exports[`readFile 1`] = `
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:ci": "dotenv -- nps -c ./package-scripts.cjs test.ci",
     "test:snapshot": "dotenv -- nps -c ./package-scripts.cjs test.snapshot",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }

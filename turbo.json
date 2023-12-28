@@ -1,5 +1,5 @@
 {
-  "globalEnv": ["NODE_ENV"],
+  "globalEnv": ["NODE_ENV", "CI"],
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "lint": {},
@@ -8,6 +8,9 @@
     },
     "test": {
       "outputs": ["coverage/lcov-info"]
+    },
+    "test:ci": {
+      "outputs": ["ci-report.json"]
     },
     "test:snapshot": {
       "outputs": ["coverage/lcov-info"]

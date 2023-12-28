@@ -61,6 +61,7 @@ module.exports = {
     lint: sd('turbo run lint', 'lint with turbo'),
     test: {
       ...sd('turbo run test', 'test with turbo'),
+      ci: sd('turbo run test:ci', 'test with turbo on CI'),
       watch: sd('turbo run test:watch', 'test with turbo in watch mode'),
       snapshot: sd('turbo run test:snapshot', 'redo all the snapshots'),
     },

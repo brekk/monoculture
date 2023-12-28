@@ -22,6 +22,10 @@ module.exports = {
     lint: sd('eslint --fix .', 'lint!'),
     test: {
       ...sd('jest --coverage', 'test!'),
+      ci: sd(
+        'jest --ci --json --coverage --testLocationInResults --outputFile=ci-report.json',
+        'test for CI!'
+      ),
       watch: sd('jest --watch --coverage', 'test with watch-mode!'),
     },
     meta: {
