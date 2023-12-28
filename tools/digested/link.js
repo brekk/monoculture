@@ -1,4 +1,16 @@
-import { curry, pipe, toPairs, map, keys, join } from 'ramda'
+import {
+  ifElse,
+  isEmpty,
+  always as K,
+  curry,
+  filter,
+  identity as I,
+  pipe,
+  toPairs,
+  map,
+  keys,
+  join,
+} from 'ramda'
 import { strepeat } from 'knot'
 
 export const depUsage = curry((indent, { repo }, deps, devDeps) => {
@@ -23,10 +35,15 @@ export const docLinks = curry((indent, docURL, project, docs) => {
         map(({ filename: f }) => {
           const raw = f.slice(f.indexOf('/') + 1, f.indexOf('.'))
           const key = raw.slice(raw.indexOf('/') + 1)
+          if (!raw.startsWith(project)) return ''
           return `[${key}](${docURL}/${raw})`
         }),
-        join(`\n${i} - `),
-        z => ` - ${z}`
+        filter(I),
+        ifElse(
+          isEmpty,
+          K(''),
+          pipe(join(`\n${i} - `), z => ` - ${z}`)
+        )
       )(docs)
     : ''
 })

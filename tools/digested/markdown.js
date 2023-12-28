@@ -35,9 +35,8 @@ export const renderReadme = curry((repo, showDeps, pagesURL, raw) =>
               'Dependencies',
               ` - ${depUsage(indent, { repo, project: name }, deps, devDeps)}`
             )
-          const docMap = docs.length
-            ? iDisclose('API', docLinks(indent, pagesURL, name, docs))
-            : ''
+          const apiContent = docLinks(indent, pagesURL, name, docs)
+          const docMap = apiContent ? iDisclose('API', apiContent) : ''
           const docsAndDeps =
             showDeps && isNotEmpty(keys({ ...deps, ...devDeps }))
               ? `${docMap ? '\n' + docMap : ''}${dependencyMap}\n`
