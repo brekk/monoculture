@@ -21,11 +21,10 @@ export const waterWheel = curry((cancel, $stream) =>
       return cancel
     }
     const onData = x => {
-      log('data', x)
       value.push(x)
     }
     const onEndOrError = err => {
-      log('stopping', err ? `😰 ${err}` : `😎`)
+      // log('stopping', err ? `😰 ${err}` : `😎`)
       if (err) {
         bad(err)
       } else {
@@ -34,7 +33,7 @@ export const waterWheel = curry((cancel, $stream) =>
       clean()
     }
     const onClose = x => {
-      log('closing 😎', value)
+      // log('closing 😎', value)
       good(value)
       clean()
     }

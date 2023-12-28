@@ -1,4 +1,11 @@
-import { getId, groupTree, plant, flattenTree, rootedPlant } from './tree'
+import {
+  getId,
+  groupTree,
+  plant,
+  flattenTree,
+  rootedPlant,
+  familyTree,
+} from './tree'
 // import { sep as SEP } from 'node:path'
 // import { nthIndex } from 'knot'
 
@@ -32,4 +39,9 @@ test('groupTree - rooted with npm', () => {
 test('flattenTree', () => {
   const flatTree = flattenTree(sharedConfig, {}, {}, tree)
   expect(flatTree).toMatchSnapshot()
+})
+
+test('familyTree', () => {
+  const family = familyTree(sharedConfig, {}, {}, tree)
+  expect(family).toMatchSnapshot()
 })

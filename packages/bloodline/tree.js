@@ -1,4 +1,11 @@
 import {
+  flatten,
+  chain,
+  values,
+  mergeRight,
+  objOf,
+  head,
+  tail,
   always as K,
   includes,
   pipe,
@@ -144,6 +151,15 @@ export const groupTree = curry(({ basePath }, tree, cache, searchSpace) => {
   walker(tree, cache, searchSpace)
   return tree
 })
+
+export const familyTree = curry((config, tree, cache, searchSpace) =>
+  pipe(
+    groupTree(config, tree, cache),
+    map(reduce((agg, x) => mergeRight(agg, objOf(head(x), tail(x))), {})),
+    values,
+    head
+  )(searchSpace)
+)
 
 /**
  * Take a dependency tree and recursively walk it, returning flattened set of dependencies.

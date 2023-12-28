@@ -14,8 +14,8 @@ import {
   curry,
 } from 'ramda'
 import { Future } from 'fluture'
-import gv from 'ts-graphviz'
-import adapter from 'ts-graphviz/adapter'
+import { digraph, toDot } from 'ts-graphviz'
+import { toStream } from 'ts-graphviz/adapter'
 import { isNotEmpty } from 'inherent'
 
 import { waterWheel } from 'water-wheel'
@@ -24,7 +24,7 @@ import { DEFAULT_GRAPHVIZ_CONFIG } from './constants'
 
 export const dotStreamAdapterWithCancel = curry((cancel, options, dot) =>
   Future((bad, good) => {
-    adapter.toStream(dot, options).catch(bad).then(good)
+    toStream(dot, options).catch(bad).then(good)
     return cancel
   })
 )
@@ -39,7 +39,7 @@ export const getCyclic = reduce((a, b) => concat(a, b), [])
 export const createGraph = curry(
   (cancel, config, circular, options, modules) => {
     const { fontname } = config
-    const $g = gv.digraph('G', { fontname })
+    const $g = digraph('G', { fontname })
     const cyclic = getCyclic(circular)
     const { nodeColor, colors = DEFAULT_GRAPHVIZ_CONFIG.colors } = config
     const { noDependency: colorNoDependency, cyclical: colorCyclical } = colors
@@ -81,8 +81,8 @@ export const createGraph = curry(
       })
     )(modules)
     return pipe(
-      gv.toDot,
-      log.viz('dotted'),
+      toDot,
+      log.dot('generated'),
       dotStreamAdapterWithCancel(cancel, options),
       chain(pipe(waterWheel(cancel), map(pipe(Buffer.concat))))
     )($g)

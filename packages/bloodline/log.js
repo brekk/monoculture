@@ -1,2 +1,10 @@
 import { complextrace } from 'envtrace'
-export const log = complextrace('bloodline', ['graph', 'tree', 'viz', 'exe'])
+export const log = complextrace('bloodline', [
+  'graph',
+  'tree',
+  'cli',
+  'viz',
+  'exe',
+  'dot',
+  'verbose',
+])
