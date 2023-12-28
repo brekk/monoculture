@@ -75,6 +75,7 @@ module.exports = {
     // jsdoc
     // we are using jsdoc in concert with doctor-general and typescript, so we can turn some rules off
     'jsdoc/check-tag-names': 0,
+    'jsdoc/tag-lines': 0,
     'jsdoc/require-jsdoc': 0,
     'jsdoc/require-returns': 0,
     'jsdoc/require-returns-check': 0,
@@ -108,5 +109,5 @@ module.exports = {
     'jsdoc',
     'unused-imports',
   ],
-  ignorePatterns: ['dist'],
+  ignorePatterns: ['**/dist/*', '**/coverage/*'],
 }

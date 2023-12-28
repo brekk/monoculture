@@ -11,7 +11,7 @@ import { configFileWithCancel, configurate } from 'climate'
 import { Chalk } from 'chalk'
 import { strepeat, box, getBorderWidth } from 'clox'
 import { swap, mapRej, resolve, reject as rejectF } from 'fluture'
-import { writeFileWithConfigAndCancel, findUpWithCancel } from 'file-system'
+import { writeFileWithConfigAndCancel, digUpWithCancel } from 'file-system'
 import strlen from 'string-length'
 import {
   reduce,
@@ -144,7 +144,7 @@ export const loadGitData = curry((cancel, config, chalk, data) => {
   ]
   return pipe(
     log.config('searching for .git/index'),
-    findUpWithCancel(cancel, {}),
+    digUpWithCancel(cancel, {}),
     map(log.config('git found, path...')),
     map(path.dirname),
     chain(repo =>

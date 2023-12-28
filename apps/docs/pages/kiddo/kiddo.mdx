@@ -1,0 +1,66 @@
+# kiddo
+
+Call external processes and consume them as a Future-wrapped value. This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.
+
+
+
+## execWithConfig
+
+Consume external commands as a Future-wrapped value.
+
+### Usage
+```js
+import { execWithConfig } from 'kiddo'
+import { fork } from 'fluture'
+fork(console.warn)(console.log)(
+  execWithConfig(
+    function customCancellationFunction() {},
+    'echo',
+    { cleanup: true },
+    ['ahoy']
+  )
+)
+```
+
+### See also
+ - execWithCancel
+ - exec
+## execWithCancel
+
+Consume external commands as a Future-wrapped value.
+
+### Usage
+```js
+import { execWithCancel } from 'kiddo'
+import { fork } from 'fluture'
+fork(console.warn)(console.log)(
+  execWithCancel(
+    function customCancellationFunction() {},
+    'echo',
+    ['ahoy']
+  )
+)
+```
+
+### See also
+ - execWithConfig
+ - exec
+## exec
+
+Consume external commands as a Future-wrapped value.
+
+### Usage
+```js
+import { exec } from 'kiddo'
+import { fork } from 'fluture'
+fork(console.warn)(console.log)(
+  exec(
+    'echo',
+    ['ahoy']
+  )
+)
+```
+
+### See also
+ - execWithConfig
+ - execWithCancel

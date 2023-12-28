@@ -8,14 +8,14 @@
     "./plugin-get-imports.js",
     "./plugin-wordcount.js",
     "./plugin-get-exports.js",
-    "../../robot-tourist/monocle-plugin-simple.js",
-    "../../robot-tourist/monocle-plugin-main.js",
+    "../../robot-tourist/monocle-plugin-simple.cjs",
+    "../../robot-tourist/monocle-plugin-main.cjs",
     "./plugin-has-imports.js"
   ],
   "ignore": [
-    "**/__snapshots__/*",
-    "**/coverage/**/*",
-    "**/monocle-findings.json",
-    "*.svg"
+    "./**/__snapshots__/*",
+    "./**/coverage/**/*",
+    "./**/monocle-findings.json",
+    "./*.svg"
   ]
 }

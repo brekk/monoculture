@@ -1,10 +1,17 @@
 const sd = (script, description = '') =>
   !!description ? { script, description } : { script }
 
-const INPUT = 'index.js'
+const INPUT = 'climate.js'
 
 module.exports = {
   scripts: {
+    autotest: sd(
+      `drgen -i ${['./builder.js', './help.js'].join(
+        ' '
+      )} -o autotests --test-mode`,
+      'use doctor-general to create tests for us!'
+    ),
+
     lint: sd('eslint --fix .', 'lint!'),
     test: {
       ...sd('jest', 'test!'),

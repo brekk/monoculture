@@ -1,11 +1,11 @@
 import { resolve as pathResolve, dirname } from 'node:path'
 import { Chalk } from 'chalk'
 import {
-  uniqBy,
   identity as I,
+  always as K,
+  uniqBy,
   curry,
   mergeRight,
-  always as K,
   pipe,
   chain,
   map,

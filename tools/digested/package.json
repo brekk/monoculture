@@ -1,0 +1,43 @@
+{
+  "name": "digested",
+  "version": "0.0.0",
+  "description": "summarize and automatically generate information about your projects 🍽️",
+  "main": "digested.js",
+  "type": "module",
+  "repository": "monoculture",
+  "author": "brekk",
+  "license": "ISC",
+  "private": true,
+  "bin": "./dist/digested.js",
+  "exports": {
+    ".": "./digested.js",
+    "./dist/digested.js": "./dist/digested.js"
+  },
+  "dependencies": {
+    "climate": "workspace:packages/climate",
+    "climate-json": "workspace:packages/climate-json",
+    "climate-toml": "workspace:packages/climate-toml",
+    "file-system": "workspace:packages/file-system",
+    "fluture": "14.0.0",
+    "ramda": "0.29.1"
+  },
+  "devDependencies": {
+    "dotenv-cli": "7.3.0",
+    "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
+    "jest-config": "workspace:shared/jest-config"
+  },
+  "scripts": {
+    "nps": "dotenv -- nps -c ./package-scripts.cjs",
+    "build": "dotenv -- nps -c ./package-scripts.cjs build",
+    "build:watch": "dotenv -- nps -c ./package-scripts.cjs build.watch",
+    "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
+    "dev": "dotenv -- nps -c ./package-scripts.cjs dev",
+    "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
+    "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
+    "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
+    "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:integration": "dotenv -- nps -c ./package-scripts.cjs test.integration",
+    "test:readme": "dotenv -- nps -c ./package-scripts.cjs test.readme",
+    "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
+  }
+}

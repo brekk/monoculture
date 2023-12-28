@@ -2,15 +2,14 @@
   "name": "monocle",
   "version": "0.0.0",
   "description": "inspect code and apply rules, magically 🧐",
-  "bin": "./dist/cli.js",
+  "bin": "./dist/cli.cjs",
   "type": "module",
-  "repository": "monoculture",
+  "repository": "brekk/monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
   "exports": {
-    ".": "./monocle.js",
-    "./cli.js": "./dist/cli.js"
+    ".": "./dist/cli.cjs"
   },
   "dependencies": {
     "climate": "workspace:packages/climate",
@@ -38,6 +37,7 @@
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:integration": "dotenv -- nps -c ./package-scripts.cjs test.integration",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }
 }

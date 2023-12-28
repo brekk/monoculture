@@ -13,7 +13,7 @@ import { log } from './log'
 import { parse as parseArgs } from './parser'
 import { generateHelp } from './help'
 import { reject, resolve, coalesce } from 'fluture'
-import { findUpWithCancel, readFileWithCancel } from 'file-system'
+import { digUpWithCancel, readFileWithCancel } from 'file-system'
 
 export const NO_OP = () => {}
 
@@ -21,6 +21,78 @@ export const showHelpWhen = curry(
   (check, parsed) => parsed.help || check(parsed)
 )
 
+/**
+ * Automatically create many of the fundamentals needed to build robust CLI tools,
+ * including help text.
+ * @name configurate
+ * @future
+ * @example
+ * ```js test=true
+ * import { fork } from 'fluture'
+ * import stripAnsi from 'strip-ansi'
+ * // drgen-import-above
+ * const YARGS_CONFIG = {
+ *   alias: {
+ *     meal: ['m'],
+ *     happyHour: ['h'],
+ *     multiplier: ['x'],
+ *   },
+ *   boolean: ['happyHour'],
+ *   number: ['multiplier'],
+ *   configuration: {
+ *     'strip-aliased': true,
+ *   },
+ * }
+ *
+ * const HELP_CONFIG = {
+ *   help: 'This text!',
+ *   // optional
+ *   color: 'Render stuff in color',
+ *   meal: 'Pass the name of the meal you want',
+ *   happyHour: 'Does happy hour apply here?',
+ *   multiplier: 'How many units should we apply?'
+ * }
+ *
+ * const CONFIG_DEFAULTS = {
+ *   color: true,
+ *   happyHour: false
+ * }
+ *
+ * const parseArgs = (args) => configurate(
+ *   YARGS_CONFIG,
+ *   // closured so that we can pass cwd at runtime
+ *   {...CONFIG_DEFAULTS, cwd: process.cwd() },
+ *   HELP_CONFIG,
+ *   { name: "dumbwaiter", description: "order food!" },
+ *   // process.argv.slice(2)
+ *   args
+ * )
+ *
+ * // renders in the failure channel
+ * fork(x => {
+ *   expect(stripAnsi(x).split('\n')).toEqual([
+ *     " dumbwaiter ",
+ *     "",
+ *     "order food!",
+ *     "",
+ *     "  -m / --meal",
+ *     "  	Pass the name of the meal you want",
+ *     "",
+ *     "  -h / --happyHour",
+ *     "  	Does happy hour apply here?",
+ *     "",
+ *     "  -x / --multiplier",
+ *     "  	How many units should we apply?",
+ *     "",
+ *     "  -h / --help",
+ *     "  	This text!",
+ *   ])
+ *   done()
+ * })(done)(
+ *   parseArgs(['--help'])
+ * )
+ * ```
+ */
 export const configurate = curry((yargsConf, defaults, help, details, argv) => {
   const $help = ['help']
   const { boolean: $yaBool } = yargsConf
@@ -75,7 +147,7 @@ export const configFileWithCancel = curry((cancel, opts) => {
   }
   const defOpts = !optString ? opts : {}
   const {
-    findUp: findUpOpts = {},
+    digUp: digUpOpts = {},
     ns = 'climate',
     wrapTransformer = true,
     json = false,
@@ -87,7 +159,7 @@ export const configFileWithCancel = curry((cancel, opts) => {
   if (!refF) {
     log.builder(`looking in...`, searchspace)
     refF = pipe(
-      findUpWithCancel(cancel, findUpOpts),
+      digUpWithCancel(cancel, digUpOpts),
       chain(readFileWithCancel(cancel)),
       optional && json
         ? pipe(

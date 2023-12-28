@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generateOptions 1`] = `
+{
+  "attributes": {
+    "edge": {
+      "color": "#888888",
+    },
+    "graph": {
+      "bgcolor": "#111111",
+      "layout": "dot",
+      "overlap": false,
+      "pad": 0.3,
+      "rankdir": "LR",
+    },
+    "node": {
+      "color": "#fff",
+      "fontcolor": "#fff",
+      "fontname": "Fira Code",
+      "fontsize": "16px",
+      "height": 0,
+      "shape": "box",
+      "style": "rounded",
+    },
+  },
+  "dotCommand": undefined,
+}
+`;

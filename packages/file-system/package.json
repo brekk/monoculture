@@ -8,11 +8,8 @@
   "author": "brekk",
   "license": "ISC",
   "private": true,
-  "exports": {
-    ".": "./index.js"
-  },
+  "exports": "./file-system.js",
   "dependencies": {
-    "execa": "8.0.1",
     "find-up": "7.0.0",
     "fluture": "14.0.0",
     "ramda": "0.29.1"
@@ -31,6 +28,7 @@
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:snapshot": "dotenv -- nps -c ./package-scripts.cjs test.snapshot",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }
 }

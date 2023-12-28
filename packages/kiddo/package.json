@@ -1,0 +1,33 @@
+{
+  "name": "kiddo",
+  "version": "0.0.1",
+  "description": "child processes in the future 👶",
+  "main": "kiddo.js",
+  "type": "module",
+  "repository": "brekk/monoculture",
+  "author": "brekk",
+  "license": "ISC",
+  "private": true,
+  "exports": {
+    ".": "./kiddo.js"
+  },
+  "dependencies": {
+    "execa": "8.0.1",
+    "fluture": "14.0.0",
+    "ramda": "0.29.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "6.1.5",
+    "dotenv-cli": "7.3.0",
+    "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
+    "jest": "29.7.0",
+    "jest-config": "workspace:shared/jest-config"
+  },
+  "scripts": {
+    "nps": "dotenv -- nps -c ./package-scripts.cjs",
+    "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
+    "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
+    "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
+  }
+}

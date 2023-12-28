@@ -1,0 +1,40 @@
+{
+  "name": "doctor-general",
+  "version": "0.0.1",
+  "description": "documentation generation 🩻",
+  "type": "module",
+  "repository": "brekk/monoculture",
+  "author": "brekk",
+  "license": "ISC",
+  "private": true,
+  "exports": {
+    ".": "./doctor-general.js"
+  },
+  "dependencies": {
+    "climate": "workspace:packages/climate",
+    "file-system": "workspace:packages/file-system",
+    "fluture": "14.0.0",
+    "inherent": "workspace:packages/inherent",
+    "kiddo": "workspace:packages/kiddo",
+    "knot": "workspace:packages/knot",
+    "ramda": "0.29.1"
+  },
+  "devDependencies": {
+    "dotenv-cli": "7.3.0",
+    "envtrace": "0.0.2",
+    "esbuild": "0.19.10",
+    "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
+    "jest-environment-jsdom": "29.7.0",
+    "madge": "6.1.0",
+    "strip-ansi": "7.1.0",
+    "xtrace": "0.3.0"
+  },
+  "scripts": {
+    "nps": "dotenv -- nps -c ./package-scripts.cjs",
+    "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
+    "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
+    "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
+    "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
+  }
+}

@@ -12,10 +12,10 @@
     ".": "./treacle.js"
   },
   "dependencies": {
-    "execa": "8.0.1",
     "file-system": "workspace:packages/file-system",
     "fluture": "14.0.0",
     "gitlog": "4.0.8",
+    "kiddo": "workspace:packages/kiddo",
     "ramda": "0.29.1"
   },
   "devDependencies": {

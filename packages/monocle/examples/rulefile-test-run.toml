@@ -1,18 +1,18 @@
 plugins = [
+  "../../robot-tourist/dist/monocle-plugin-main.cjs",
+  "./plugin-get-imports.js",
   "./plugin-c-words.js",
   "./plugin-has-exports.js",
-  "./plugin-get-imports.js",
-  "./plugin-wordcount.js",
   "./plugin-get-exports.js",
-  "../../robot-tourist/monocle-plugin-simple.js",
-  "../../robot-tourist/monocle-plugin-main.js",
+  "../../robot-tourist/dist/monocle-plugin-simple.cjs",
   "./plugin-has-imports.js",
+  "./plugin-wordcount.js",
 ]
 ignore = [
-  "**/__snapshots__/*",
-  "**/coverage/**/*",
-  "*.svg",
-  "**/monocle-findings.json"
+  "./**/__snapshots__/*",
+  "./**/coverage/**/*",
+  "./**/*.svg",
+  "./**/monocle-findings.json"
 ]
 
 [robot-tourist]

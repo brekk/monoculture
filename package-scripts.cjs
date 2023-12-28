@@ -8,17 +8,6 @@ const syncScripts = pkg =>
 
 const sequence = join(' && ')
 
-const SUMMARY = `# monoculture
-
-introspection and organization tools for monorepos
-
-*Dependency legend*:
-
- - 🦴 package from within this monorepo
- - 🧪 package used as a devDependency
-
-`
-
 module.exports = {
   scripts: {
     readme: sd(
@@ -38,21 +27,26 @@ module.exports = {
 
               'apps/docs',
               'packages/bloodline',
-              'packages/knot',
               'packages/climate',
               'packages/climate-json',
               'packages/climate-toml',
               'packages/climate-yaml',
               'packages/clox',
+              'packages/doctor-general',
               'packages/file-system',
+              'packages/inherent',
+              'packages/kiddo',
+              'packages/knot',
               'packages/monocle',
               'packages/monorail',
               'packages/robot-tourist',
+              'packages/water-wheel',
               'shared/eslint-config-monoculture',
               'shared/jest-config',
               'shared/monoculture-tsconfig',
+              'tools/doctor-general-cli',
+              'tools/digested',
               'tools/gitparty',
-              'tools/doctor-general',
               'tools/spacework',
               'tools/superorganism',
               'tools/treacle',
@@ -68,6 +62,7 @@ module.exports = {
     test: {
       ...sd('turbo run test', 'test with turbo'),
       watch: sd('turbo run test:watch', 'test with turbo in watch mode'),
+      snapshot: sd('turbo run test:snapshot', 'redo all the snapshots'),
     },
     deploy: sd('turbo run deploy', 'deploy and export builds'),
     prepare: sd('husky install', 'add git pre-commit hook'),
@@ -79,8 +74,9 @@ module.exports = {
     },
     meta: {
       readme: sd(
+        `yarn workspace digested run test:readme --silent > README.md`,
         // eslint-disable-next-line max-len
-        `echo '${SUMMARY}' > README.md && ./tools/spacework/summarize-workspaces.cjs --readme --show-deps >> README.md`,
+        // `echo '${SUMMARY}' > README.md && ./tools/spacework/summarize-workspaces.cjs --readme --show-deps >> README.md`,
         'regenerate the README!'
       ),
       docs: sd(

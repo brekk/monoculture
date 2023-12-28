@@ -19,8 +19,6 @@ console.log(`support ${localize('business')}`)
 
 Read a file asynchronously as a Future-wrapped value.
 
-Can be given a file encoding and a cancellation function.
-
 ### Usage
 ```js
 import { fork } from 'fluture'
@@ -30,14 +28,12 @@ fork(console.warn)(console.log)(
 )
 ```
 
-#### See also
+### See also
  - readFileWithCancel
  - readFile
 ## readFileWithCancel
 
 Read a file asynchronously as a Future-wrapped value.
-
-Reads `utf8` files only.
 
 ### Usage
 ```js
@@ -48,14 +44,12 @@ fork(console.warn)(console.log)(
 )
 ```
 
-#### See also
+### See also
  - readFileWithFormatAndCancel
  - readFile
 ## readFile
 
 Read a file asynchronously as a Future-wrapped value.
-
-Eschews any custom cancellation.
 
 ### Usage
 ```js
@@ -64,7 +58,7 @@ import { readFile } from 'file-system'
 fork(console.warn)(console.log)(readFile('./README.md'))
 ```
 
-#### See also
+### See also
  - readFileWithFormatAndCancel
  - readFileWithCancel
 
@@ -79,7 +73,7 @@ import { readJSONFile } from 'file-system'
 fork(console.warn)(console.log)(readJSONFile('./package.json'))
 ```
 
-#### See also
+### See also
  - readFile
  - readJSONFile
 
@@ -94,7 +88,7 @@ import { readJSONFile } from 'file-system'
 fork(console.warn)(console.log)(readJSONFile('./package.json'))
 ```
 
-#### See also
+### See also
  - readFile
  - readJSONFileWithCancel
 
@@ -114,7 +108,7 @@ pipe(
 )(readDirWithConfigAndCancel(cancellationFn, { ignore: ['node_modules/**'] }, 'src/*'))
 ```
 
-#### See also
+### See also
  - readDirWithConfig
  - readDir
 
@@ -133,7 +127,7 @@ pipe(
 )(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))
 ```
 
-#### See also
+### See also
  - readDirWithConfigAndCancel
  - readDir
 
@@ -150,7 +144,7 @@ import { readDir } from 'file-system'
 fork(console.warn)(console.log)(readDir('src/*'))
 ```
 
-#### See also
+### See also
  - readDirWithConfigAndCancel
  - readDirWithConfig
 
@@ -174,7 +168,7 @@ fork(console.warn)(console.log)(
 )
 ```
 
-#### See also
+### See also
  - writeFileWithConfig
  - writeFile
 
@@ -197,7 +191,7 @@ fork(console.warn)(console.log)(
 )
 ```
 
-#### See also
+### See also
  - writeFileWithConfigAndCancel
  - writeFile
 
@@ -219,7 +213,7 @@ fork(console.warn)(console.log)(
 )
 ```
 
-#### See also
+### See also
  - writeFileWithConfigAndCancel
  - writeFileWithConfig
 
@@ -242,7 +236,7 @@ fork(console.warn)(console.log)(
 )
 ```
 
-#### See also
+### See also
  - removeFileWithConfig
  - removeFile
 
@@ -264,7 +258,7 @@ fork(console.warn)(console.log)(
 )
 ```
 
-#### See also
+### See also
  - removeFileWithConfigAndCancel
  - removeFile
 
@@ -285,7 +279,7 @@ fork(console.warn)(console.log)(
 )
 ```
 
-#### See also
+### See also
  - removeFileWithConfigAndCancel
  - removeFileWithConfig
 
@@ -307,7 +301,7 @@ fork(console.warn)(console.log)(
 )
 ```
 
-#### See also
+### See also
  - removeFilesWithConfig
  - removeFiles
 
@@ -328,7 +322,7 @@ fork(console.warn)(console.log)(
 )
 ```
 
-#### See also
+### See also
  - removeFilesWithConfigAndCancel
  - removeFiles
 
@@ -348,7 +342,7 @@ fork(console.warn)(console.log)(
 )
 ```
 
-#### See also
+### See also
  - removeFilesWithConfigAndCancel
  - removeFiles
 
@@ -371,7 +365,7 @@ fork(console.warn)(console.log)(
 )
 ```
 
-#### See also
+### See also
  - mkdir
  - mkdirp
 
@@ -393,7 +387,7 @@ fork(console.warn)(console.log)(
 )
 ```
 
-#### See also
+### See also
  - mkdirWithCancel
  - mkdirp
 
@@ -415,7 +409,7 @@ fork(console.warn)(console.log)(
 )
 ```
 
-#### See also
+### See also
  - mkdirWithCancel
  - mkdir
 

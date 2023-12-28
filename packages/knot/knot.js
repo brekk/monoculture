@@ -1,4 +1,14 @@
-import { curry, join, pipe, range, reduce, split } from 'ramda'
+import {
+  curry,
+  join,
+  pipe,
+  range,
+  reduce,
+  memoizeWith,
+  identity as I,
+  repeat,
+  split,
+} from 'ramda'
 import { NEWLINE, SPACE, EMPTY, TAB } from './constants'
 
 const makeSplitJoinPair = z => [split(z), join(z)]
@@ -36,7 +46,31 @@ export const nthLastIndexOf = curry((delim, n, input) =>
     z => input.slice(z + 1)
   )(Math.abs(n))
 )
-
+/**
+ * Slice a string by counted delimiters
+ * @name nthIndex
+ * @example
+ * ```js test=true
+ * expect(
+ *   nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j')
+ * ).toEqual("f/g/h/i/j")
+ * ```
+ */
 export const nthIndex = curry((delim, n, input) =>
   (n > 0 ? nthIndexOf : nthLastIndexOf)(delim, n, input)
 )
+
+/**
+ * A simple memoized utility for repeating a string and joining the array.
+ * @name strepeat
+ * @example
+ * ```js test=true
+ * expect(strepeat('=', 5)).toEqual('=====')
+ * ```
+ */
+export const strepeat = curry((toRepeat, x) => {
+  const gen = memoizeWith(I, n =>
+    pipe(z => (z < 0 ? 0 : z), repeat(toRepeat), join(''))(n)
+  )
+  return gen(x)
+})

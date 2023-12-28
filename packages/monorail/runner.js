@@ -1,12 +1,21 @@
-import { curry, fromPairs, identity as I, map, pipe, prop, reduce } from 'ramda'
+import {
+  curry,
+  fromPairs,
+  tap,
+  identity as I,
+  map,
+  pipe,
+  prop,
+  reduce,
+} from 'ramda'
 import { pap, resolve } from 'fluture'
 import { makeFileHelpers, makePluginHelpers } from './helpers'
 import { toposort } from './sort'
 import { log } from './trace'
 
 export const stepFunction = curry((state, plugin, file) => {
-  log.run(`plugin [${plugin.name}]`, plugin)
-  log.run(`file [${file.name}]`, file)
+  tap(({ name, dependencies: d }) => log.run(`plugin [${name}]`, d))
+  tap(({ name, hash }) => log.run(`file [${name}]`, hash))
   const { selector = I, preserveLine = false, fn } = plugin
   const selected = selector(state)
   const base = makeFileHelpers(file)

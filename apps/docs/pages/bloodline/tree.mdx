@@ -1,0 +1,76 @@
+# tree
+
+
+
+## plant
+
+Generate a dependency tree, given a config, a directory, and a filename
+
+### Usage
+```js
+import { plant } from 'bloodline'
+const tree = plant({}, '../..', '../monocle/cli.js')
+```
+
+## isNodeModule
+
+Test whether a path includes `'node_modules'` within it.
+
+### Usage
+```js
+import { isNodeModule } from 'bloodline/tree'
+isNodeModule('./node_modules/ramda') // true
+```
+
+## isGitPath
+
+Test whether a path includes `'.git'` within it.
+
+### Usage
+```js
+import { isGitPath } from 'bloodline/tree'
+isGitPath('.git/config') // true
+```
+
+## getId
+
+Grab an id from a cache if possible
+
+### Usage
+```js
+import { getId } from 'bloodline/tree'
+const basePath = '..'
+const cache = {}
+const key = 'a'
+console.log(getId(basePath, cache, key)) // 'bloodline/a'
+```
+
+## groupTree
+
+Take a dependency tree and recursively walk it, returning a grouped set of dependencies.
+
+### Usage
+```js
+import { groupTree, plant } from 'bloodline/tree'
+const config = { basePath: '../..' }
+const tree = plant(config, '..', '../monocle/cli.js')
+const grouped = groupTree(config, {}, {}, tree)
+```
+
+### See also
+ - flattenTree
+
+## flattenTree
+
+Take a dependency tree and recursively walk it, returning flattened set of dependencies.
+
+### Usage
+```js
+import { flattenTree, plant } from 'bloodline/tree'
+const config = { basePath: '../..' }
+const tree = plant(config, '..', '../monocle/cli.js')
+const flattened = flattenTree(config, {}, {}, tree)
+```
+
+### See also
+ - groupTree

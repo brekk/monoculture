@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`default export 1`] = `
+{
+  "addLineNumbers": [Function],
+  "cleanupKeywords": [Function],
+  "commentToJestTest": [Function],
+  "commentToMarkdown": [Function],
+  "fence": [Function],
+  "findJSDocKeywords": [Function],
+  "formatComment": [Function],
+  "getCurriedDefinition": [Function],
+  "getExample": [Function],
+  "groupContiguousBlocks": [Function],
+  "handleSpecificKeywords": [Function],
+  "histogramBy": [Function],
+  "isJSDocComment": [Function],
+  "j2": [Function],
+  "lines": [Function],
+  "matchLinks": [Function],
+  "nixKeyword": [Function],
+  "nthIndexOf": [Function],
+  "nthLastIndexOf": [Function],
+  "objectifyComments": [Function],
+  "parse": [Function],
+  "parseFile": [Function],
+  "rarestBy": [Function],
+  "slug": [Function],
+  "stripLeadingHyphen": [Function],
+  "stripRelative": [Function],
+  "structureKeywords": [Function],
+  "trimComment": [Function],
+  "trimSummary": [Function],
+  "unlines": [Function],
+  "wipeComment": [Function],
+}
+`;

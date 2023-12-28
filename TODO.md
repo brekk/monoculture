@@ -48,71 +48,12 @@
  - [ ] `doctor-general` has some edges which either aren't well documented or have bad defaults (specifically, `@page` + `@pageSummary` stuff right now), we should clean that up so that we have better automatically generated content
  - [ ] `doctor-general` needs to have `@group` and `@addTo` documented (and tests updated)
  - [ ] `doctor-general` hangs indefinitely on inline `{@link hookInfo}` stuff
- - [ ] We should support a means of expressing curried morphisms succinctly
+ - [x] We should support a means of expressing curried morphisms succinctly. **Completed!** See `file-system/fs.js` for an example, but now we can support this via a special `@curried` tag.
+ - [ ] Apply [diátaxis](https://diataxis.fr/) framework
+   - [ ] Tutorials - Step the user through a concrete problem, with a modicum of explanation. Focus on the user's education. Work on basic competence. Apply a clear and managed path and work towards a conclusion.
+   - [ ] How-To - Step through a concrete real-world problem, focusing on the user's work. Help improve the already competent user. Aim for a clear result but expect the path to be less linear.
+   - [x] Reference - Describe the product / software clearly, authoritatively and unambiguously. **Complete!** Arguably we do this today, that's what `doctor-general` was originally designed for.
+   - [ ] Explanation - Provide context for broader understanding of things. Help provide a rationale for choices. Admit opinion and perspective.
+ - [x] AUTOMATICALLY GENERATE TESTS FROM COMMENTS! **Completed!** This is a little brittle currently, but really awesome.
+   - [ ] We need to have a more robust means of handling imports, right now it's likely to break
 
-```js
- /**
- * Read a glob asynchronously as a Future-wrapped value,
- * with configuration and a cancellation function.
- * Configuration is passed to [glob](https://www.npmjs.com/package/glob)
- * @name readDirWithConfigAndCancel
- * @see {@link readDirWithConfig}
- * @see {@link readDir}
- * @example
- * ```js
- * import { fork } from 'fluture'
- * import { readDirWithConfigAndCancel } from 'file-system'
- * // [...]
- * pipe(
- *   fork(console.warn)(console.log)
- * )(readDirWithConfigAndCancel(cancellationFn, { ignore: ['node_modules/**'] }, 'src/*'))
- * ```
- */
-export const readDirWithConfigAndCancel = curry((cancel, conf, g) =>
-  Future((bad, good) => {
-    try {
-      glob(g, conf, (e, x) =>
-        // thus far I cannot seem to ever call `bad` from within here
-        e ? bad(e) : good(x)
-      )
-    } catch (e) {
-      bad(e)
-    }
-    return cancel
-  })
-)
-
-/**
- * Read a glob asynchronously as a Future-wrapped value, with configuration.
- * Configuration is passed to [glob](https://www.npmjs.com/package/glob)
- * @name readDirWithConfig
- * @see {@link readDirWithConfigAndCancel}
- * @see {@link readDir}
- * @example
- * ```js
- * import { fork } from 'fluture'
- * import { readDirWithConfig } from 'file-system'
- * // [...]
- * pipe(
- *   fork(console.warn)(console.log)
- * )(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))
- * ```
- */
-export const readDirWithConfig = readDirWithConfigAndCancel(NO_OP)
-
-/**
- * Read a glob asynchronously as a Future-wrapped value, default config assumed.
- * Configuration is passed to [glob](https://www.npmjs.com/package/glob)
- * @name readDir
- * @see {@link readDirWithConfigAndCancel}
- * @see {@link readDirWithConfig}
- * @example
- * ```js
- * import { fork } from 'fluture'
- * import { readDir } from 'file-system'
- * // [...]
- * fork(console.warn)(console.log)(readDir('src/*'))
- * ```
- */
-export const readDir = readDirWithConfig({})
-```

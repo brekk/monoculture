@@ -1,5 +1,207 @@
 [
   {
+    "slugName": "executables",
+    "pageSummary": "",
+    "filename": "packages/bloodline/executables.js",
+    "comments": [
+      {
+        "start": 17,
+        "end": 33,
+        "summary": "Check for the existence of a binary",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "checkForBinaryWithCancel",
+          "example": "```js\nimport { checkForBinaryWithCancel } from 'bloodline'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  checkForBinaryWithCancel(\n    cancellationFn,\n    'gvpr',\n    ['-V'],\n    ''\n  )\n)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/bloodline/executables.js"
+      },
+      {
+        "start": 45,
+        "end": 60,
+        "summary": "Check for multiple binaries in a single call",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "checkForBinaries",
+          "example": "```js\nimport { checkForBinaries } from 'bloodline'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  checkForBinaries(\n    cancellationFn,\n    '/usr/bin',\n    { gvpr: ['-V'], dot: ['-V'] }\n  )\n)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/bloodline/executables.js"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "bloodline"
+  },
+  {
+    "slugName": "tree",
+    "pageSummary": "",
+    "filename": "packages/bloodline/tree.js",
+    "comments": [
+      {
+        "start": 28,
+        "end": 36,
+        "summary": "Generate a dependency tree, given a config, a directory, and a filename",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "plant",
+          "example": "```js\nimport { plant } from 'bloodline'\nconst tree = plant({}, '../..', '../monocle/cli.js')\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/bloodline/tree.js"
+      },
+      {
+        "start": 41,
+        "end": 49,
+        "summary": "Test whether a path includes `'node_modules'` within it.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "isNodeModule",
+          "example": "```js\nimport { isNodeModule } from 'bloodline/tree'\nisNodeModule('./node_modules/ramda') // true\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/bloodline/tree.js"
+      },
+      {
+        "start": 63,
+        "end": 71,
+        "summary": "Test whether a path includes `'.git'` within it.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "isGitPath",
+          "example": "```js\nimport { isGitPath } from 'bloodline/tree'\nisGitPath('.git/config') // true\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/bloodline/tree.js"
+      },
+      {
+        "start": 107,
+        "end": 118,
+        "summary": "Grab an id from a cache if possible",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "getId",
+          "example": "```js\nimport { getId } from 'bloodline/tree'\nconst basePath = '..'\nconst cache = {}\nconst key = 'a'\nconsole.log(getId(basePath, cache, key)) // 'bloodline/a'\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/bloodline/tree.js"
+      },
+      {
+        "start": 128,
+        "end": 139,
+        "summary": "Take a dependency tree and recursively walk it, returning a grouped set of dependencies.",
+        "links": [
+          "flattenTree"
+        ],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "groupTree",
+          "see": [
+            "flattenTree"
+          ],
+          "example": "```js\nimport { groupTree, plant } from 'bloodline/tree'\nconst config = { basePath: '../..' }\nconst tree = plant(config, '..', '../monocle/cli.js')\nconst grouped = groupTree(config, {}, {}, tree)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@link",
+          "@name",
+          "@see"
+        ],
+        "filename": "packages/bloodline/tree.js"
+      },
+      {
+        "start": 205,
+        "end": 216,
+        "summary": "Take a dependency tree and recursively walk it, returning flattened set of dependencies.",
+        "links": [
+          "groupTree"
+        ],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "flattenTree",
+          "see": [
+            "groupTree"
+          ],
+          "example": "```js\nimport { flattenTree, plant } from 'bloodline/tree'\nconst config = { basePath: '../..' }\nconst tree = plant(config, '..', '../monocle/cli.js')\nconst flattened = flattenTree(config, {}, {}, tree)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@link",
+          "@name",
+          "@see"
+        ],
+        "filename": "packages/bloodline/tree.js"
+      }
+    ],
+    "order": 0,
+    "links": [
+      "flattenTree",
+      "groupTree"
+    ],
+    "workspace": "bloodline"
+  },
+  {
+    "slugName": "builder",
+    "pageSummary": "",
+    "filename": "packages/climate/builder.js",
+    "comments": [
+      {
+        "start": 23,
+        "end": 94,
+        "summary": "Automatically create many of the fundamentals needed to build robust CLI tools,\nincluding help text.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "configurate",
+          "future": true,
+          "example": "```js test=true\nimport { fork } from 'fluture'\nimport stripAnsi from 'strip-ansi'\n// drgen-import-above\nconst YARGS_CONFIG = {\n  alias: {\n    meal: ['m'],\n    happyHour: ['h'],\n    multiplier: ['x'],\n  },\n  boolean: ['happyHour'],\n  number: ['multiplier'],\n  configuration: {\n    'strip-aliased': true,\n  },\n}\n\nconst HELP_CONFIG = {\n  help: 'This text!',\n  // optional\n  color: 'Render stuff in color',\n  meal: 'Pass the name of the meal you want',\n  happyHour: 'Does happy hour apply here?',\n  multiplier: 'How many units should we apply?'\n}\n\nconst CONFIG_DEFAULTS = {\n  color: true,\n  happyHour: false\n}\n\nconst parseArgs = (args) => configurate(\n  YARGS_CONFIG,\n  // closured so that we can pass cwd at runtime\n  {...CONFIG_DEFAULTS, cwd: process.cwd() },\n  HELP_CONFIG,\n  { name: \"dumbwaiter\", description: \"order food!\" },\n  // process.argv.slice(2)\n  args\n)\n\n// renders in the failure channel\nfork(x => {\n  expect(stripAnsi(x).split('\\n')).toEqual([\n    \" dumbwaiter \",\n    \"\",\n    \"order food!\",\n    \"\",\n    \"  -m / --meal\",\n    \"  \tPass the name of the meal you want\",\n    \"\",\n    \"  -h / --happyHour\",\n    \"  \tDoes happy hour apply here?\",\n    \"\",\n    \"  -x / --multiplier\",\n    \"  \tHow many units should we apply?\",\n    \"\",\n    \"  -h / --help\",\n    \"  \tThis text!\",\n  ])\n  done()\n})(done)(\n  parseArgs(['--help'])\n)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@future",
+          "@name"
+        ],
+        "filename": "packages/climate/builder.js"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "climate"
+  },
+  {
     "slugName": "fs",
     "pageSummary": "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.",
     "filename": "packages/file-system/fs.js",
@@ -13,24 +215,7 @@
         "addTo": "",
         "structure": {
           "pageSummary": [
-            "A",
-            "Future-wrapped",
-            "`fs`",
-            "API,",
-            "for",
-            "future-based,",
-            "lazy,",
-            "easy-to-model",
-            "asynchrony",
-            "that",
-            "makes",
-            "it",
-            "easy",
-            "to",
-            "manipulate",
-            "the",
-            "file",
-            "system."
+            "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system."
           ]
         },
         "keywords": [
@@ -614,6 +799,110 @@
     "workspace": "inherent"
   },
   {
+    "slugName": "kiddo",
+    "pageSummary": "Call external processes and consume them as a Future-wrapped value. This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
+    "filename": "packages/kiddo/kiddo.js",
+    "comments": [
+      {
+        "start": 10,
+        "end": 13,
+        "summary": "@pageSummary Call external processes and consume them as a Future-wrapped value.\nThis is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "pageSummary": [
+            "Call external processes and consume them as a Future-wrapped value.",
+            "This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info."
+          ]
+        },
+        "keywords": [
+          "@pageSummary"
+        ],
+        "filename": "packages/kiddo/kiddo.js"
+      },
+      {
+        "start": 16,
+        "end": 63,
+        "summary": "Consume external commands as a Future-wrapped value.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "curried": [
+            {
+              "name": "execWithConfig",
+              "summary": "Passes all possible configuration values plus a cancellation function.",
+              "lines": "```js\nimport { execWithConfig } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithConfig(\n    function customCancellationFunction() {},\n    'echo',\n    { cleanup: true },\n    ['ahoy']\n  )\n)\n```"
+            },
+            {
+              "name": "execWithCancel",
+              "summary": "Eschews any configuration and instead only expects a cancellation function, command and arguments.",
+              "lines": "```js\nimport { execWithCancel } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithCancel(\n    function customCancellationFunction() {},\n    'echo',\n    ['ahoy']\n  )\n)\n```"
+            },
+            {
+              "name": "exec",
+              "summary": "Eschews any configuration or cancellation function. Needs only command and arguments.",
+              "lines": "```js\nimport { exec } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  exec(\n    'echo',\n    ['ahoy']\n  )\n)\n```"
+            }
+          ]
+        },
+        "keywords": [
+          "@curried",
+          "@example"
+        ],
+        "filename": "packages/kiddo/kiddo.js"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "kiddo"
+  },
+  {
+    "slugName": "knot",
+    "pageSummary": "",
+    "filename": "packages/knot/knot.js",
+    "comments": [
+      {
+        "start": 48,
+        "end": 57,
+        "summary": "Slice a string by counted delimiters",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "nthIndex",
+          "example": "```js test=true\nexpect(\n  nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j')\n).toEqual(\"f/g/h/i/j\")\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/knot/knot.js"
+      },
+      {
+        "start": 62,
+        "end": 69,
+        "summary": "A simple memoized utility for repeating a string and joining the array.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "strepeat",
+          "example": "```js test=true\nexpect(strepeat('=', 5)).toEqual('=====')\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/knot/knot.js"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "knot"
+  },
+  {
     "slugName": "helpers",
     "pageTitle": "helpers",
     "pageSummary": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
@@ -628,26 +917,7 @@
         "addTo": "",
         "structure": {
           "pageSummary": [
-            "Built-in",
-            "helpers",
-            "for",
-            "making",
-            "custom",
-            "plugins",
-            "more",
-            "robust.",
-            "The",
-            "\"helpers\"",
-            "are",
-            "the",
-            "third",
-            "parameter",
-            "passed",
-            "to",
-            "a",
-            "custom",
-            "plugin's",
-            "function."
+            "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function."
           ],
           "page": "helpers",
           "name": "helpers",
