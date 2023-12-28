@@ -9,8 +9,12 @@ test('nthIndex', () => {
   expect(
     nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j')
   ).toEqual("f/g/h/i/j")
+  expect(
+    nthIndex('/', 5, 'a/b/c/d/e/f/g/h/i/j')
+  ).toEqual("a/b/c/d/e")
 })
 
 test('strepeat', () => {
   expect(strepeat('=', 5)).toEqual('=====')
+  expect(strepeat('/', -1)).toEqual('')
 })

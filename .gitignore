@@ -51,3 +51,4 @@ monocle-findings.json
 # skip dist files
 dist
 Icon?
+dr-generated.tests.json

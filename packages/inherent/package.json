@@ -24,10 +24,12 @@
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
+    "autotest": "dotenv -- nps -c ./package-scripts.cjs autotest",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:auto": "dotenv -- nps -c ./package-scripts.cjs test.auto",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }
 }

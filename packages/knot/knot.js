@@ -10,6 +10,7 @@ import {
   split,
 } from 'ramda'
 import { NEWLINE, SPACE, EMPTY, TAB } from './constants'
+export * from './constants'
 
 const makeSplitJoinPair = z => [split(z), join(z)]
 
@@ -54,6 +55,9 @@ export const nthLastIndexOf = curry((delim, n, input) =>
  * expect(
  *   nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j')
  * ).toEqual("f/g/h/i/j")
+ * expect(
+ *   nthIndex('/', 5, 'a/b/c/d/e/f/g/h/i/j')
+ * ).toEqual("a/b/c/d/e")
  * ```
  */
 export const nthIndex = curry((delim, n, input) =>
@@ -66,6 +70,7 @@ export const nthIndex = curry((delim, n, input) =>
  * @example
  * ```js test=true
  * expect(strepeat('=', 5)).toEqual('=====')
+ * expect(strepeat('/', -1)).toEqual('')
  * ```
  */
 export const strepeat = curry((toRepeat, x) => {
