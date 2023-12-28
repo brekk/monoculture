@@ -42,7 +42,7 @@ module.exports = {
     lint: sd('eslint --fix .', 'lint!'),
     meta: {
       graph: `nps -c ./package-scripts.cjs build test.integration`,
-      madge: `madge ${INPUT} --image graph-madge.svg`,
+      madge: `madge ${INPUT} --include-npm --image graph-madge.svg`,
     },
     test: {
       ...sd('jest', 'test!'),
