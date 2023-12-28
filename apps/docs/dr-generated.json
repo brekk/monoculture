@@ -49,8 +49,8 @@
     "filename": "packages/bloodline/tree.js",
     "comments": [
       {
-        "start": 24,
-        "end": 32,
+        "start": 33,
+        "end": 41,
         "summary": "Generate a dependency tree, given a config, a directory, and a filename",
         "links": [],
         "fileGroup": "",
@@ -66,8 +66,8 @@
         "filename": "packages/bloodline/tree.js"
       },
       {
-        "start": 37,
-        "end": 45,
+        "start": 46,
+        "end": 54,
         "summary": "Test whether a path includes `'node_modules'` within it.",
         "links": [],
         "fileGroup": "",
@@ -83,8 +83,8 @@
         "filename": "packages/bloodline/tree.js"
       },
       {
-        "start": 48,
-        "end": 56,
+        "start": 68,
+        "end": 76,
         "summary": "Test whether a path includes `'.git'` within it.",
         "links": [],
         "fileGroup": "",
@@ -100,8 +100,8 @@
         "filename": "packages/bloodline/tree.js"
       },
       {
-        "start": 92,
-        "end": 103,
+        "start": 112,
+        "end": 123,
         "summary": "Grab an id from a cache if possible",
         "links": [],
         "fileGroup": "",
@@ -117,8 +117,8 @@
         "filename": "packages/bloodline/tree.js"
       },
       {
-        "start": 113,
-        "end": 124,
+        "start": 133,
+        "end": 144,
         "summary": "Take a dependency tree and recursively walk it, returning a grouped set of dependencies.",
         "links": [
           "flattenTree"
@@ -141,8 +141,8 @@
         "filename": "packages/bloodline/tree.js"
       },
       {
-        "start": 163,
-        "end": 174,
+        "start": 204,
+        "end": 215,
         "summary": "Take a dependency tree and recursively walk it, returning flattened set of dependencies.",
         "links": [
           "groupTree"

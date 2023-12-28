@@ -1,6 +1,9 @@
 import {
-  flatten,
-  chain,
+  reject,
+  uniqBy,
+  identity as I,
+  when,
+  indexOf,
   values,
   mergeRight,
   objOf,
@@ -19,7 +22,8 @@ import {
   __ as $,
 } from 'ramda'
 import { fresh } from 'inherent'
-import { relative as relativePath } from 'node:path'
+import { log } from './log'
+import { sep as SEP, relative as relativePath } from 'node:path'
 import deptree from 'dependency-tree'
 
 /**
@@ -44,7 +48,18 @@ export const plant = curry((config, directory, filename) =>
  * isNodeModule('./node_modules/ramda') // true
  * ```
  */
-const isNodeModule = includes('node_modules')
+const $NODE = 'node_modules'
+const isNodeModule = includes($NODE)
+
+const getNodeModule = z => {
+  const i = indexOf($NODE, z)
+  if (i > -1) {
+    const cut = z.slice(i + $NODE.length + 1)
+    return cut.slice(0, indexOf(SEP, cut))
+  } else {
+    return z
+  }
+}
 
 /**
  * Test whether a path includes `'.git'` within it.
@@ -152,10 +167,31 @@ export const groupTree = curry(({ basePath }, tree, cache, searchSpace) => {
   return tree
 })
 
+const modulate = when(isNodeModule, getNodeModule)
+
 export const familyTree = curry((config, tree, cache, searchSpace) =>
   pipe(
     groupTree(config, tree, cache),
-    map(reduce((agg, x) => mergeRight(agg, objOf(head(x), tail(x))), {})),
+    log.tree('grouped!'),
+    map(
+      pipe(
+        reduce((stack, x) => {
+          const h = head(x)
+          const t = tail(x)
+          // if (isNodeModule(h)) {
+          // return mergeRight(stack, objOf(getNodeModule(h), []))
+          // }
+          const mh = modulate(h)
+          const cleaned = pipe(
+            map(modulate),
+            reject(z => z === mh),
+            uniqBy(I)
+          )(t)
+          return mergeRight(stack, objOf(mh, cleaned))
+        }, {})
+      )
+    ),
+
     values,
     head
   )(searchSpace)
