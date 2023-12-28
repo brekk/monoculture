@@ -195,10 +195,36 @@
           "@name"
         ],
         "filename": "packages/climate/builder.js"
+      },
+      {
+        "start": 136,
+        "end": 144,
+        "summary": "The default search space when running `configFileWithCancel`.",
+        "links": [
+          "configFileWithCancel"
+        ],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "defaultNameTemplate",
+          "see": [
+            "configFileWithCancel"
+          ],
+          "example": "```js test=true\nexpect(defaultNameTemplate('cool')).toEqual(['.coolrc', '.coolrc.json'])\n```"
+        },
+        "keywords": [
+          "@example",
+          "@link",
+          "@name",
+          "@see"
+        ],
+        "filename": "packages/climate/builder.js"
       }
     ],
     "order": 0,
-    "links": [],
+    "links": [
+      "configFileWithCancel"
+    ],
     "workspace": "climate"
   },
   {
@@ -864,15 +890,15 @@
     "filename": "packages/knot/knot.js",
     "comments": [
       {
-        "start": 48,
-        "end": 57,
+        "start": 49,
+        "end": 61,
         "summary": "Slice a string by counted delimiters",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
           "name": "nthIndex",
-          "example": "```js test=true\nexpect(\n  nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j')\n).toEqual(\"f/g/h/i/j\")\n```"
+          "example": "```js test=true\nexpect(\n  nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j')\n).toEqual(\"f/g/h/i/j\")\nexpect(\n  nthIndex('/', 5, 'a/b/c/d/e/f/g/h/i/j')\n).toEqual(\"a/b/c/d/e\")\n```"
         },
         "keywords": [
           "@example",
@@ -881,15 +907,15 @@
         "filename": "packages/knot/knot.js"
       },
       {
-        "start": 62,
-        "end": 69,
+        "start": 66,
+        "end": 74,
         "summary": "A simple memoized utility for repeating a string and joining the array.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
           "name": "strepeat",
-          "example": "```js test=true\nexpect(strepeat('=', 5)).toEqual('=====')\n```"
+          "example": "```js test=true\nexpect(strepeat('=', 5)).toEqual('=====')\nexpect(strepeat('/', -1)).toEqual('')\n```"
         },
         "keywords": [
           "@example",
