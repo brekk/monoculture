@@ -118,7 +118,6 @@ const capitalize = raw => `${toUpper(raw[0])}${slice(1, Infinity)(raw)}`
 const cleanFilename = curry(
   (testMode, { workspace, fileGroup, filename, comments }) => {
     const title = pullPageTitleFromAnyComment(comments)
-    // const sliced = title || slug(filename)
     const sliced = title || slug(filename)
     const result = toLower(capitalToKebab(sliced)) + '.mdx'
     return testMode
@@ -184,6 +183,12 @@ const processHelpOrRun = config => {
     : runner(config)
 }
 
+const TESTABLE_EXAMPLE = 'test=true'
+const hasTestableExample = pipe(
+  pathOr('', ['structure', 'example']),
+  includes(TESTABLE_EXAMPLE)
+)
+
 const renderComments = curry((testMode, outputDir, x) =>
   chain(
     pipe(
@@ -221,10 +226,7 @@ const renderComments = curry((testMode, outputDir, x) =>
                     autobox,
                     ap([
                       pathOr(false, ['structure', 'name']),
-                      pipe(
-                        pathOr('', ['structure', 'example']),
-                        includes('test=true')
-                      ),
+                      hasTestableExample,
                     ])
                   )
                 ),
@@ -263,7 +265,7 @@ const renderComments = curry((testMode, outputDir, x) =>
 )
 
 const filterAndStructureTests = pipe(
-  filter(pipe(propOr([], 'comments'), isNotEmpty)),
+  filter(pipe(propOr([], 'comments'), filter(hasTestableExample), isNotEmpty)),
   map(raw => {
     const filename = stripRelative(raw.filename)
     const ext = extname(filename)

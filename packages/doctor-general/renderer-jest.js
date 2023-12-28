@@ -26,13 +26,14 @@ const handleSpecialCases = ifElse(
 const grabCommentData = applySpec({
   title: pathOr('Unknown', ['structure', 'name']),
   example: pathOr('', ['structure', 'example']),
+  future: pathOr('', ['structure', 'future']),
 })
 
 const getCurried = pathOr([], ['structure', 'curried'])
 
 const MAGIC_IMPORT_KEY = 'drgen-import-above'
 
-const renderTest = ({ title, example, asyncCallback }) => {
+const renderTest = ({ title, example, future: asyncCallback }) => {
   if (!includes('test=true', example)) return ''
   const exlines = example.split('\n').filter(l => !l.startsWith('```'))
   const hasImports = any(includes(MAGIC_IMPORT_KEY), exlines)
@@ -51,12 +52,13 @@ const renderTest = ({ title, example, asyncCallback }) => {
 const handleCurriedExample = pipe(
   wrap,
   ap([getCurried, grabCommentData]),
-  ([curried, { summary }]) =>
+  ([curried, { future, summary }]) =>
     map(({ name, lines: example }) =>
       renderTest({
         name,
         summary,
         example,
+        future,
       })
     )(curried),
   filter(isNotEmpty),
