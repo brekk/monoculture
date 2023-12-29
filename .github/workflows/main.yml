@@ -106,7 +106,9 @@ jobs:
           number: ${{ steps.findPr.outputs.pr }}
           header: test
           message: |
-            **🦠 Monoculture Coverage Summary**
+            ### 🦠 Monoculture
+            
+            #### Coverage summary
 
             ${{ needs.test.outputs.summary }}
 

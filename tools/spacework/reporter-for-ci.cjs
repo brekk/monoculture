@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const {
+  prepend,
   nth,
   C,
   filter,
@@ -26,9 +27,11 @@ module.exports = pipe(
         const y = split('/', n)
         return [nth(1, y), ...rest]
       }),
-      map(
-        ([name, st, br, fn, ln]) =>
-          ` * **${name}**: \`${st}%\` / \`${br}%\` / \`${fn}%\` / \`${ln}%\``
+      prepend(['\n_Legend_: Statements / Branches / Functions / Lines\n']),
+      map(([name, st, br, fn, ln]) =>
+        st
+          ? ` * **${name}**: \`${st}%\` / \`${br}%\` / \`${fn}%\` / \`${ln}%\``
+          : name
       ),
       unlines
     )
