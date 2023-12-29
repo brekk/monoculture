@@ -6,7 +6,7 @@ runs:
   steps:
 
     - name: 🧱 Enabling corepack...
-        run: corepack enable
+      run: corepack enable
 
     - name: 🤖 Installing node...
       uses: actions/setup-node@v3
@@ -16,5 +16,4 @@ runs:
         cache: "yarn"
 
     - name: 🧶 Install dependencies...
-      shell: bash
       run: yarn --immutable
