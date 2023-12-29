@@ -62,7 +62,6 @@
     "test:ci": "dotenv -- nps -c ./package-scripts.cjs test.ci",
     "test:ciCopy": "dotenv -- nps -c ./package-scripts.cjs test.ciCopy",
     "test:ciReport": "dotenv -- nps -c ./package-scripts.cjs test.ciReport",
-    "test:ciSilentReport": "dotenv -- nps -c ./package-scripts.cjs test.ciSilentReport",
     "test:snapshot": "dotenv -- nps -c ./package-scripts.cjs test.snapshot",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch",
     "workflow": "dotenv -- nps -c ./package-scripts.cjs workflow",
