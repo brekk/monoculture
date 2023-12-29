@@ -406,6 +406,12 @@ introspection and organization tools for monorepos
 
  * [digested](https://github.com/brekk/monoculture/tree/main/tools/digested) - summarize and automatically generate information about your projects 🍽️
 
+   <details><summary>API</summary>
+
+    - [summary](https://brekk.github.io/monoculture/digested/summary)
+
+   </details>
+
    <details><summary>Dependencies</summary>
 
     - [climate](https://github.com/brekk/monoculture/tree/main/packages/climate) 🦴

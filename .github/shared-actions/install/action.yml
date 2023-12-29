@@ -1,4 +1,4 @@
-name: Install
+name: Shared Install
 description: Sets up Node.js and runs install
 author: brekk
 runs:

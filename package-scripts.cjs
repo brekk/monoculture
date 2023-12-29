@@ -74,8 +74,13 @@ module.exports = {
         'automatically generate the merged jest config'
       ),
       ciReport: sd(
-        `npx nyc report -t coverage --report-dir coverage --reporter=text`,
+        `npx nyc report -t coverage --report-dir coverage --reporter=text --reporter=text-summary`,
         'Run CI report!'
+      ),
+      ciProjectSummary: sd(
+        // eslint-disable-next-line max-len
+        `nps -c ./package-scripts.cjs test.ciReport | ./tools/spacework/reporter-for-ci.cjs`,
+        'Grab project summaries from the CI report'
       ),
       watch: sd('turbo run test:watch', 'test with turbo in watch mode'),
       snapshot: sd('turbo run test:snapshot', 'redo all the snapshots'),

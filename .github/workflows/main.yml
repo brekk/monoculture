@@ -50,6 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       coverage: ${{ env.coverage_report }}
+      summary: ${{ env.coverage_summary }}
     steps:
       - name: 🧾 Checking out code...
         uses: actions/checkout@v4 
@@ -72,6 +73,10 @@ jobs:
           echo "coverage_report<<EOF" >> $GITHUB_ENV
           echo "$COVERAGE" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+          SUMMARY=$(echo "$COVERAGE" | node ./tools/spacework/reporter-for-ci.cjs)
+          echo "coverage_summary<<EOF" >> $GITHUB_ENV
+          echo "$SUMMARY" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
       - name: 🧱 Building artifacts...
         run: yarn build
       - name: 🛫 Saving build artifacts... 
@@ -89,6 +94,9 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - name: ⏰ You got the time?
+        id: date
+        run: echo "utc=$(date -u)" >> $GITHUB_OUTPUT
       - name: 🔎 Get current PR number...
         uses: jwalton/gh-find-current-pr@v1
         id: findPr
@@ -98,7 +106,9 @@ jobs:
           number: ${{ steps.findPr.outputs.pr }}
           header: test
           message: |
-            **Shared Coverage**
+            **🦠 Monoculture Coverage Summary**
+
+            ${{ needs.test.outputs.summary }}
 
             <details closed><summary>Report</summary>
 
@@ -107,3 +117,5 @@ jobs:
             ```
 
             </details>
+
+            _Last updated_: ${{steps.date.outputs.utc}}
