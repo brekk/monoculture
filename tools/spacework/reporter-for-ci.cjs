@@ -82,10 +82,11 @@ module.exports = pipe(
       ),
       propOr([], 'stack'),
       slice(0, -1),
-      map(({ project, s, b, f, l, files }) => {
-        return `<details closed><summary>${project}</summary>
+      map(
+        ({ project, s, b, f, l, files }) =>
+          // eslint-disable-next-line max-len
+          ` * <details closed><summary><strong>${project}</strong> (<code>${s}</code> / <code>${b}</code> / <code>${f}</code> / <code>${l}</code>)</summary>
 
-  Overall: ${printSummary(s, b, f, l)} 
    - ${files
      .map(({ name, s: s2, b: b2, f: f2, l: l2 }) =>
        summarizeNode(name, s2, b2, f2, l2)
@@ -93,7 +94,7 @@ module.exports = pipe(
      .join('\n   - ')}
 
    </details>\n`
-      }),
+      ),
       unlines
     )
   ),
