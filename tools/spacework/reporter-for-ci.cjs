@@ -24,6 +24,9 @@ const {
   j2,
 } = require('snang/script')
 const perc = z => z + '%'
+const REPO = 'https://github.com/brekk/monoculture/blob/main'
+const summarizeLinkedNode = (filepath, project, s, b, f, l) =>
+  `[${project}](${REPO}/${filepath}/${project})  ${printSummary(s, b, f, l)}`
 const summarizeNode = (project, s, b, f, l) =>
   `**${project}**: ${printSummary(s, b, f, l)}`
 const printSummary = (s, b, f, l) =>
@@ -64,8 +67,10 @@ module.exports = pipe(
                 f: perc(f),
                 l: perc(l2),
               }))
+            const pathParts = active.split('/')
             stack.push({
-              project: active.split('/')[1],
+              path: pathParts.slice(0, 2).join('/'),
+              project: pathParts[1],
               s: perc(statements),
               b: perc(branches),
               f: perc(functions),
@@ -83,20 +88,21 @@ module.exports = pipe(
       propOr([], 'stack'),
       slice(0, -1),
       map(
-        ({ project, s, b, f, l, files }) =>
+        ({ project, s, b, f, l, path, files }) =>
           // eslint-disable-next-line max-len
-          `\n * <details closed><summary><strong>${project}</strong> (<code>${s}</code> / <code>${b}</code> / <code>${f}</code> / <code>${l}</code>)</summary>
+          `\n * <details closed><summary><strong><a href="${REPO}/${path}">${project}</a></strong> (<code>${s}</code> / <code>${b}</code> / <code>${f}</code> / <code>${l}</code>)</summary>
 
    - ${files
      .map(({ name, s: s2, b: b2, f: f2, l: l2 }) =>
-       summarizeNode(name, s2, b2, f2, l2)
+       summarizeLinkedNode(path, name, s2, b2, f2, l2)
      )
      .join('\n   - ')}
 
-   </details>\n`
+   </details>`
       ),
       unlines
     )
   ),
+  // eslint-disable-next-line no-console
   fork(console.error, console.log)
 )(process.argv.slice(2)[0])
