@@ -48,6 +48,8 @@ jobs:
     permissions:
       pull-requests: write
     runs-on: ubuntu-latest
+    outputs:
+      coverage: ${{ env.coverage_report }}
     steps:
       - name: 🧾 Checking out code...
         uses: actions/checkout@v4
@@ -60,26 +62,25 @@ jobs:
         run: |
           yarn test:ci
           yarn test:ciCopy
-
       - name: 🚁 Saving artifacts...
         uses: actions/upload-artifact@v3
         with:
-          name: coverage-artifact
+          name: coverage-artifacts
           path: |
             coverage/coverage-final.json
             coverage/lcov.info
-  report:
-    permissions:
-      pull-requests: write
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
       - name: 🎥 Calculating shared coverage...
         run: |
           COVERAGE=$(yarn test:ciReport)
           echo "coverage_report<<EOF" >> $GITHUB_ENV
           echo "$COVERAGE" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+  report:
+    permissions:
+      pull-requests: write
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
       - name: 🎙️ Updating PR...
         uses: marocchino/sticky-pull-request-comment@v2
         with:
@@ -89,7 +90,7 @@ jobs:
             *Shared Coverage*
             <details closed><summary>Report</summary>
             ```
-            ${{ env.coverage_report }}
+            ${{ needs.test.outputs.coverage }}
             ```
             </details>
 
