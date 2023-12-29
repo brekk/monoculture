@@ -64,18 +64,17 @@ module.exports = {
       ciCopy: sd(
         [
           'if [ -d coverage ]; then rm -r coverage; fi; mkdir -p coverage',
-          './tools/spacework/tps-reports.cjs > coverage/coverage-final.json',
+          './tools/spacework/tps-reports.cjs > ./coverage/coverage-final.json',
           // eslint-disable-next-line max-len
-          `npx nyc report -t coverage --report-dir coverage ${[
-            'html',
-            'text',
-            'json',
-            'lcov',
-          ]
+          `npx nyc report -t coverage --report-dir coverage ${['json', 'lcov']
             .map(r => `--reporter=${r}`)
             .join(' ')}`,
         ].join(' && '),
         'automatically generate the merged jest config'
+      ),
+      ciReport: sd(
+        `npx nyc report -t coverage --report-dir coverage --reporter=text`,
+        'Run CI report!'
       ),
       watch: sd('turbo run test:watch', 'test with turbo in watch mode'),
       snapshot: sd('turbo run test:snapshot', 'redo all the snapshots'),

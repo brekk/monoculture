@@ -58,7 +58,12 @@ jobs:
         run: |
           yarn test:ci
           yarn test:ciCopy
-          cat ./coverage/coverage-final.json
+      - name: 🎥 Calculating shared coverage...
+        run: |
+          COVERAGE=$(yarn test:ciReport)
+          echo "coverage_report<<EOF" >> $GITHUB_ENV
+          echo "$COVERAGE" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
       - name: 🚁 Saving artifacts...
         uses: actions/upload-artifact@v3
         with:
@@ -66,6 +71,14 @@ jobs:
           path: |
             coverage/coverage-final.json
             coverage/lcov.info
+      - name: 🎙️ Updating PR...
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: test
+          message: |
+            ```
+            ${{ env.coverage_report }}
+            ```
 
   build:
     runs-on: ubuntu-latest
