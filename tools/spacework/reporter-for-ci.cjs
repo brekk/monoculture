@@ -85,7 +85,7 @@ module.exports = pipe(
       map(
         ({ project, s, b, f, l, files }) =>
           // eslint-disable-next-line max-len
-          ` * <details closed><summary><strong>${project}</strong> (<code>${s}</code> / <code>${b}</code> / <code>${f}</code> / <code>${l}</code>)</summary>
+          `\n * <details closed><summary><strong>${project}</strong> (<code>${s}</code> / <code>${b}</code> / <code>${f}</code> / <code>${l}</code>)</summary>
 
    - ${files
      .map(({ name, s: s2, b: b2, f: f2, l: l2 }) =>
