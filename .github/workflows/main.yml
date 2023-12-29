@@ -68,7 +68,7 @@ jobs:
             coverage/lcov.info
       - name: 🎥 Calculating shared coverage...
         run: |
-          COVERAGE=$(nps --silent -c ./package-scripts.cjs test.ciReport)
+          COVERAGE=$(npx nps --silent -c ./package-scripts.cjs test.ciReport)
           echo "coverage_report<<EOF" >> $GITHUB_ENV
           echo "$COVERAGE" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
