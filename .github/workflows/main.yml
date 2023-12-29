@@ -58,6 +58,14 @@ jobs:
         run: |
           yarn test:ci
           yarn test:ciCopy
+          cat ./coverage/coverage-final.json
+      - name: 🚁 Saving artifacts...
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-artifact
+          path: |
+            coverage/coverage-final.json
+            coverage/lcov.info
 
   build:
     runs-on: ubuntu-latest
