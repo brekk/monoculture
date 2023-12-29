@@ -60,37 +60,7 @@ module.exports = {
     lint: sd('turbo run lint', 'lint with turbo'),
     test: {
       ...sd('turbo run test', 'test with turbo'),
-      ci: sd(
-        `mkdir -p .coverage && turbo run test:ci && ${[
-          'packages/bloodline/ci-report.json',
-          'packages/climate/ci-report.json',
-          'packages/climate-json/ci-report.json',
-          'packages/climate-toml/ci-report.json',
-          'packages/climate-yaml/ci-report.json',
-          'packages/clox/ci-report.json',
-          'packages/doctor-general/ci-report.json',
-          'packages/file-system/ci-report.json',
-          'packages/inherent/ci-report.json',
-          'packages/kiddo/ci-report.json',
-          'packages/knot/ci-report.json',
-          'packages/monocle/ci-report.json',
-          'packages/monorail/ci-report.json',
-          'packages/robot-tourist/ci-report.json',
-          'packages/water-wheel/ci-report.json',
-          'shared/monoculture-tsconfig/ci-report.json',
-          'tools/digested/ci-report.json',
-          'tools/doctor-general-cli/ci-report.json',
-          'tools/gitparty/ci-report.json',
-          'tools/superorganism/ci-report.json',
-          'tools/treacle/ci-report.json',
-        ]
-          .map(y => {
-            const newname = y.slice(y.indexOf('/') + 1, y.lastIndexOf('/'))
-            return 'cp ./' + y + ' .coverage/coverage-' + newname + '.json'
-          })
-          .join(' && ')} && nyc merge .coverage ci-report-full.json `,
-        'test with turbo on CI'
-      ),
+      ci: sd(`turbo run test:ci`, 'test with turbo on CI'),
       watch: sd('turbo run test:watch', 'test with turbo in watch mode'),
       snapshot: sd('turbo run test:snapshot', 'redo all the snapshots'),
     },

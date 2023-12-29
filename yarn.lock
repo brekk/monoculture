@@ -7180,7 +7180,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv-cli@npm:7.3.0":
+"dotenv-cli@npm:7.3.0, dotenv-cli@npm:^7.3.0":
   version: 7.3.0
   resolution: "dotenv-cli@npm:7.3.0"
   dependencies:
@@ -13335,6 +13335,8 @@ __metadata:
 "monoculture-tsconfig@workspace:shared/monoculture-tsconfig":
   version: 0.0.0-use.local
   resolution: "monoculture-tsconfig@workspace:shared/monoculture-tsconfig"
+  dependencies:
+    dotenv-cli: "npm:^7.3.0"
   languageName: unknown
   linkType: soft
 

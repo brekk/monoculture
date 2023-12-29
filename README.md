@@ -377,6 +377,12 @@ introspection and organization tools for monorepos
 
  * [monoculture-tsconfig](https://github.com/brekk/monoculture/tree/main/shared/monoculture-tsconfig) - shared tsconfig for monoculture packages 😵
 
+   <details><summary>Dependencies</summary>
+
+    - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
+
+   </details>
+
 ## tools
 
  * [digested](https://github.com/brekk/monoculture/tree/main/tools/digested) - summarize and automatically generate information about your projects 🍽️
