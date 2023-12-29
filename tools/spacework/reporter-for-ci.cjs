@@ -84,11 +84,15 @@ module.exports = pipe(
       slice(0, -1),
       map(({ project, s, b, f, l, files }) => {
         const sum = summarizeNode(project, s, b, f, l)
-        return ` * ${sum}\n\n     <details closed><summary>Files</summary>\n\n     * ${files
-          .map(({ name, s: s2, b: b2, f: f2, l: l2 }) =>
-            summarizeNode(name, s2, b2, f2, l2)
-          )
-          .join('\n     * ')}\n\n     </details>\n`
+        return ` * <details closed><summary>${sum}</summary>
+
+   - ${files
+     .map(({ name, s: s2, b: b2, f: f2, l: l2 }) =>
+       summarizeNode(name, s2, b2, f2, l2)
+     )
+     .join('\n   - ')}
+
+   </details>\n`
       }),
       unlines
     )
