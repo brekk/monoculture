@@ -2,6 +2,33 @@ name: 🦠 Monoculture
 on: [push, workflow_dispatch]
 jobs:
 
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🧾 Checking out code...
+        uses: actions/checkout@v4
+      - name: 🔩 Installing...
+        uses: ./.github/shared-actions/install
+      - name: ✍️  Preparing to journal...
+        uses: actions/configure-pages@v3
+      - name: 📩 Save documentation...
+        uses: actions/cache@v3
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-nextra-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextra-${{ hashFiles('**/yarn.lock') }}-
+      - name: 📦 Bundling docs...
+        run: yarn workspace docs run build
+      - name: 📟 Update pages...
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./apps/docs/out
+      - name: 👨 Scare away jekyll with a formula! 
+        run: |
+          mkdir public
+          touch public/.nojekyll
+
   deploy:
     permissions:
       contents: read
@@ -17,33 +44,6 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v2
 
-  docs:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🧾 Checking out code...
-        uses: actions/checkout@v4
-      - name: 🔩 Installing...
-        uses: ./.github/shared-actions/install
-      - name: ✍️  Preparing to journal...
-        uses: actions/configure-pages@v3
-      - name: 📩 Save documentation...
-        uses: actions/cache@v3
-        with:
-          path: .next/cache
-          key: ${{ runner.os }}-nextra-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**..[jt]sx') }}
-          restore-keys: |
-            ${{ runner.os }}-nextra-${{ hashFiles('**/yarn.lock') }}-
-      - name: 📦 Bundling docs...
-        run: yarn workspace docs run build
-      - name: 📟 Update pages...
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: ./apps/docs/out
-      - name: 👨 Scare away jekyll with a formula! 
-        run: |
-          mkdir public
-          touch public/.nojekyll
-
   test:
     permissions:
       pull-requests: write
@@ -52,17 +52,14 @@ jobs:
       coverage: ${{ env.coverage_report }}
     steps:
       - name: 🧾 Checking out code...
-        uses: actions/checkout@v4
-      - name: 🔎 Get current PR number...
-        uses: jwalton/gh-find-current-pr@v1
-        id: findPr
+        uses: actions/checkout@v4 
       - name: 🔩 Installing...
         uses: ./.github/shared-actions/install
-      - name: 🧪 Testing the packages...
+      - name: 🧪 Testing...
         run: |
           yarn test:ci
           yarn test:ciCopy
-      - name: 🚁 Saving artifacts...
+      - name: 🚁 Saving test artifacts...
         uses: actions/upload-artifact@v3
         with:
           name: coverage-artifacts
@@ -75,12 +72,26 @@ jobs:
           echo "coverage_report<<EOF" >> $GITHUB_ENV
           echo "$COVERAGE" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+      - name: 🧱 Building artifacts...
+        run: yarn build
+      - name: 🛫 Saving build artifacts... 
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: |
+            packages/**/dist/**
+            tools/**/dist/**
+            !node_modules/**
+
   report:
     permissions:
       pull-requests: write
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - name: 🔎 Get current PR number...
+        uses: jwalton/gh-find-current-pr@v1
+        id: findPr
       - name: 🎙️ Updating PR...
         uses: marocchino/sticky-pull-request-comment@v2
         with:
@@ -88,27 +99,9 @@ jobs:
           header: test
           message: |
             *Shared Coverage*
+
             <details closed><summary>Report</summary>
             ```
             ${{ needs.test.outputs.coverage }}
             ```
             </details>
-
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🧾 Checking out code...
-        uses: actions/checkout@v4
-      - name: 🔩 Installing...
-        uses: ./.github/shared-actions/install
-      - name: 📦 Bundling docs...
-        run: yarn workspace docs run build
-      - name: 🚁 Saving artifacts...
-        uses: actions/upload-artifact@v3
-        with:
-          name: artifacts
-          path: |
-            apps/docs/dr-generated.json
-            packages/**/dist/**
-            tools/**/dist/**
-            !node_modules/**
