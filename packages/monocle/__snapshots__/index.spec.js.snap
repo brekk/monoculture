@@ -109,20 +109,6 @@ exports[`monoprocessor 1`] = `
       "hash": "cecf9cfa2850eecfc09b728424354d72e4250e5c1838ee2f7cb0f0daaa144b4d",
       "name": "README.md",
     },
-    "ci-report.json": {
-      "body": [
-        [
-          1,
-          0,
-        ],
-        [
-          2,
-          0,
-        ],
-      ],
-      "hash": "e58b686e9dee11ddacbb3fd7f204548877be22d0ecf741ca66f4dbcf8d2f6e15",
-      "name": "ci-report.json",
-    },
     "cli.js": {
       "body": [
         [
@@ -2422,7 +2408,6 @@ exports[`monoprocessor 1`] = `
   },
   "wordcount": {
     "README.md": 210,
-    "ci-report.json": 4,
     "cli.js": 1068,
     "config.js": 351,
     "examples/plugin-c-words.js": 32,
@@ -2447,7 +2432,6 @@ exports[`monoprocessor 1`] = `
 
 exports[`readAll 1`] = `
 [
-  "e58b686e9dee11ddacbb3fd7f204548877be22d0ecf741ca66f4dbcf8d2f6e15",
   "d90d1a8245ef3c70484219ccb9c44c310d08a583bb02501e0a20d5e631b2b25a",
   "8d8164b8400b0d41daf95e4bc7904de22a7b4fdef1440a00a0fe61e4640d5474",
   "fa3c73824fe4e8bbdedcb0b6349190cf87a061232f53c86e5ee1c3011606f469",

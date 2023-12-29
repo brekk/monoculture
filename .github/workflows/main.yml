@@ -1,11 +1,12 @@
 name: Monoculture Builder 🏭
-on: [pull_request, workflow_dispatch]
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+on: [push, workflow_dispatch]
 jobs:
+
   deploy:
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     runs-on: ubuntu-latest
     needs: docs
     environment:
@@ -15,18 +16,16 @@ jobs:
       - name: 🚀 Deploy new build to pages...
         id: deployment
         uses: actions/deploy-pages@v2
+
   docs:
     runs-on: ubuntu-latest
     steps:
       - name: 🧾 Checking out code...
         uses: actions/checkout@v4
-     
       - name: 🔩 Installing...
         uses: ./.github/shared-actions/install
-      
       - name: ✍️  Preparing to journal...
         uses: actions/configure-pages@v3
-
       - name: 📩 Save documentation...
         uses: actions/cache@v3
         with:
@@ -34,15 +33,12 @@ jobs:
           key: ${{ runner.os }}-nextra-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**..[jt]sx') }}
           restore-keys: |
             ${{ runner.os }}-nextra-${{ hashFiles('**/yarn.lock') }}-
-
       - name: 📦 Bundling docs...
         run: yarn workspace docs run build
-
       - name: 📟 Update pages...
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./apps/docs/out
-
       - name: 👨 Scare away jekyll with a formula! 
         run: |
           mkdir public
@@ -51,32 +47,34 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-
       - name: 🧾 Checking out code...
         uses: actions/checkout@v4
-
+      - uses: jwalton/gh-find-current-pr@v1
+        id: findPr
       - name: 🔩 Installing...
         uses: ./.github/shared-actions/install
-
-      - name: 🔬 Testing build...
-        run: yarn test
-
-      - name: 🫣 Capturing coverage...
+      - name: 🧪 Testing...
+        run: |
+          yarn test
+      - name: 🫣 Covering packages...
         uses: ArtiomTr/jest-coverage-report-action@v2.2.6
+        with:
+          skip-step: all
+          coverage-file: packages/bloodline/ci-report.json
+          base-coverage-file: packages/bloodline/ci-report.json
+          prnumber: ${{ steps.findPr.outputs.number }}
+          package-manager: yarn
+          test-script: yarn test
 
   build:
     runs-on: ubuntu-latest
     steps:
-
       - name: 🧾 Checking out code...
         uses: actions/checkout@v4
-
       - name: 🔩 Installing...
         uses: ./.github/shared-actions/install
-
       - name: 📦 Bundling docs...
         run: yarn workspace docs run build
-
       - name: 🚁 Saving artifacts...
         uses: actions/upload-artifact@v3
         with:

@@ -33,7 +33,10 @@ const noSelfRef = reject(includes('monocle'))
 const cleanStuff = pipe(noReports, noSelfRef)
 test('readAll', done => {
   expect(readAll).toBeTruthy()
-  const readDF = readAll({ showMatchesOnly: true }, './*')
+  const readDF = readAll(
+    { ignore: ['./**/ci-report.json'], showMatchesOnly: true },
+    './*'
+  )
   fork(done)(x => {
     expect(cleanStuff(x)).toEqual(DIRFILES)
     done()
@@ -42,7 +45,12 @@ test('readAll', done => {
 test('monoprocessor', done => {
   expect(monoprocessor).toBeTruthy()
   const monoF = monoprocessor(
-    { showMatchesOnly: true, trim: false, basePath: __dirname },
+    {
+      showMatchesOnly: true,
+      trim: false,
+      basePath: __dirname,
+      ignore: ['./**/ci-report.json'],
+    },
     resolve([]),
     './*'
   )

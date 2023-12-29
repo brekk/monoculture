@@ -16,6 +16,7 @@ const DDD = process.cwd()
 const IGNORE = [
   path.join(DDD, '*.spec.js'),
   '**/__snapshots__/**',
+  '**/ci-report.json',
   '**/coverage/**',
   '**/dist/**',
   '**/monocle-findings.json',
