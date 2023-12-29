@@ -5,7 +5,9 @@ export default {
     // console.log(raw)
     return ['yarn sync:scripts', 'yarn meta:readme']
   },
-  '.github/**/*': 'action-validator',
+  '.github/**/*.yml': raw => {
+    return raw.map(z => 'action-validator ' + z)
+  },
   'packages/*': `yarn care`,
   'tools/*': `yarn care`,
   'apps/*': `yarn care`,

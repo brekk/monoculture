@@ -49,7 +49,8 @@ jobs:
     steps:
       - name: 🧾 Checking out code...
         uses: actions/checkout@v4
-      - uses: jwalton/gh-find-current-pr@v1
+      - name: 🔎 Get current PR number...
+        uses: jwalton/gh-find-current-pr@v1
         id: findPr
       - name: 🔩 Installing...
         uses: ./.github/shared-actions/install

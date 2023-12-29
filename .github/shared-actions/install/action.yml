@@ -1,19 +1,18 @@
 name: "Install"
 description: "Sets up Node.js and runs install"
-
+author: 'brekk'
 runs:
-  using: shared
+  using: "composite"
   steps:
-
     - name: 🧱 Enabling corepack...
+      shell: bash
       run: corepack enable
-
     - name: 🤖 Installing node...
       uses: actions/setup-node@v3
       with:
         node-version: '20.x'
         registry-url: 'https://registry.npmjs.org'
         cache: "yarn"
-
     - name: 🧶 Install dependencies...
+      shell: bash
       run: yarn --immutable
