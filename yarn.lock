@@ -4919,6 +4919,7 @@ __metadata:
     jest-config: "workspace:shared/jest-config"
     kiddo: "workspace:packages/kiddo"
     knot: "workspace:packages/knot"
+    nps: "npm:^5.10.0"
     precinct: "npm:11.0.5"
     ramda: "npm:0.29.1"
     ts-graphviz: "npm:1.8.1"
@@ -5437,6 +5438,7 @@ __metadata:
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     fluture: "npm:14.0.0"
     jest-config: "workspace:shared/jest-config"
+    nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"
   languageName: unknown
   linkType: soft
@@ -5450,6 +5452,7 @@ __metadata:
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     fluture: "npm:14.0.0"
     jest-config: "workspace:shared/jest-config"
+    nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"
     smol-toml: "npm:1.1.3"
   languageName: unknown
@@ -5464,6 +5467,7 @@ __metadata:
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     fluture: "npm:14.0.0"
     jest-config: "workspace:shared/jest-config"
+    nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"
     yaml: "npm:2.3.4"
   languageName: unknown
@@ -5481,6 +5485,7 @@ __metadata:
     eslint-plugin-prettier: "npm:5.1.1"
     file-system: "workspace:packages/file-system"
     jest: "npm:29.7.0"
+    nps: "npm:^5.10.0"
     prettier: "npm:3.1.1"
     ramda: "npm:0.29.1"
     smol-toml: "npm:1.1.3"
@@ -5570,6 +5575,7 @@ __metadata:
     dotenv-cli: "npm:7.3.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     jest-config: "workspace:shared/jest-config"
+    nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"
     string-length: "npm:6.0.0"
     widest-line: "npm:5.0.0"
@@ -7032,6 +7038,7 @@ __metadata:
     file-system: "workspace:packages/file-system"
     fluture: "npm:14.0.0"
     jest-config: "workspace:shared/jest-config"
+    nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"
   bin:
     digested: ./dist/digested.js
@@ -7078,7 +7085,7 @@ __metadata:
     next: "npm:14.0.4"
     nextra: "npm:2.13.2"
     nextra-theme-docs: "npm:2.13.2"
-    nps: "npm:5.10.0"
+    nps: "npm:^5.10.0"
     prettier: "npm:3.1.1"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
@@ -7099,6 +7106,7 @@ __metadata:
     inherent: "workspace:packages/inherent"
     jest-environment-jsdom: "npm:29.7.0"
     madge: "npm:6.1.0"
+    nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"
     strip-ansi: "npm:7.1.0"
     xtrace: "npm:0.3.0"
@@ -7124,6 +7132,7 @@ __metadata:
     kiddo: "workspace:packages/kiddo"
     knot: "workspace:packages/knot"
     madge: "npm:6.1.0"
+    nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"
     strip-ansi: "npm:7.1.0"
     xtrace: "npm:0.3.0"
@@ -7670,6 +7679,7 @@ __metadata:
     eslint-plugin-ramda: "npm:2.5.1"
     eslint-plugin-react: "npm:7.33.2"
     eslint-plugin-unused-imports: "npm:3.0.0"
+    nps: "npm:^5.10.0"
     prettier: "npm:3.1.1"
     typescript: "npm:5.3.3"
   languageName: unknown
@@ -8475,6 +8485,7 @@ __metadata:
     fluture: "npm:14.0.0"
     jest: "npm:29.7.0"
     jest-config: "workspace:shared/jest-config"
+    nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"
   languageName: unknown
   linkType: soft
@@ -9138,6 +9149,7 @@ __metadata:
     gitlog: "npm:4.0.8"
     jest-config: "workspace:shared/jest-config"
     micromatch: "npm:4.0.5"
+    nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"
     treacle: "workspace:tools/treacle"
   languageName: unknown
@@ -9957,6 +9969,7 @@ __metadata:
     dotenv-cli: "npm:7.3.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     jest-config: "workspace:shared/jest-config"
+    nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"
   languageName: unknown
   linkType: soft
@@ -10986,6 +10999,7 @@ __metadata:
     "@swc/jest": "npm:0.2.29"
     "@testing-library/jest-dom": "npm:6.1.5"
     jest: "npm:29.7.0"
+    nps: "npm:^5.10.0"
     ts-jest-resolver: "npm:2.0.1"
     typescript: "npm:5.3.3"
   languageName: unknown
@@ -11601,6 +11615,7 @@ __metadata:
     fluture: "npm:14.0.0"
     jest: "npm:29.7.0"
     jest-config: "workspace:shared/jest-config"
+    nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"
   languageName: unknown
   linkType: soft
@@ -11667,6 +11682,7 @@ __metadata:
     dotenv-cli: "npm:7.3.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     jest-config: "workspace:shared/jest-config"
+    nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"
   languageName: unknown
   linkType: soft
@@ -13326,6 +13342,7 @@ __metadata:
     jest: "npm:29.7.0"
     jest-config: "workspace:shared/jest-config"
     monorail: "workspace:packages/monorail"
+    nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"
     robot-tourist: "workspace:packages/robot-tourist"
   bin:
@@ -13338,6 +13355,7 @@ __metadata:
   resolution: "monoculture-tsconfig@workspace:shared/monoculture-tsconfig"
   dependencies:
     dotenv-cli: "npm:^7.3.0"
+    nps: "npm:^5.10.0"
   languageName: unknown
   linkType: soft
 
@@ -13385,7 +13403,7 @@ __metadata:
     file-system: "workspace:packages/file-system"
     jest: "npm:29.7.0"
     jest-config: "workspace:shared/jest-config"
-    nps: "npm:5.10.0"
+    nps: "npm:^5.10.0"
     unusual: "npm:0.0.3"
   languageName: unknown
   linkType: soft
@@ -13897,7 +13915,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nps@npm:5.10.0":
+"nps@npm:5.10.0, nps@npm:^5.10.0":
   version: 5.10.0
   resolution: "nps@npm:5.10.0"
   dependencies:
@@ -15896,6 +15914,7 @@ __metadata:
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     file-system: "workspace:packages/file-system"
     jest: "npm:29.7.0"
+    nps: "npm:^5.10.0"
     prettier: "npm:3.1.1"
     ramda: "npm:0.29.1"
     stemmer: "npm:2.0.1"
@@ -16419,6 +16438,7 @@ __metadata:
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     execa: "npm:8.0.1"
     fluture: "npm:14.0.0"
+    nps: "npm:^5.10.0"
     nps-utils: "npm:1.7.0"
     ramda: "npm:0.29.1"
     snang: "npm:0.2.7"
@@ -16982,6 +17002,7 @@ __metadata:
     fluture: "npm:14.0.0"
     jest-config: "workspace:shared/jest-config"
     kiddo: "workspace:packages/kiddo"
+    nps: "npm:^5.10.0"
     project-bin-path: "npm:2.0.0"
     ramda: "npm:0.29.1"
   bin:
@@ -17267,6 +17288,7 @@ __metadata:
     gitlog: "npm:4.0.8"
     jest-config: "workspace:shared/jest-config"
     kiddo: "workspace:packages/kiddo"
+    nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"
   languageName: unknown
   linkType: soft
@@ -18276,6 +18298,7 @@ __metadata:
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     fluture: "npm:14.0.0"
     jest-config: "workspace:shared/jest-config"
+    nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"
   languageName: unknown
   linkType: soft

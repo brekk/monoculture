@@ -23,7 +23,8 @@
   },
   "devDependencies": {
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
-    "jest-config": "workspace:shared/jest-config"
+    "jest-config": "workspace:shared/jest-config",
+    "nps": "^5.10.0"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",

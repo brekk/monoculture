@@ -27,6 +27,7 @@
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     "jest-environment-jsdom": "29.7.0",
     "madge": "6.1.0",
+    "nps": "^5.10.0",
     "strip-ansi": "7.1.0",
     "xtrace": "0.3.0"
   },

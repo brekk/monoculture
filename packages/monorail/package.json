@@ -21,7 +21,7 @@
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     "jest": "29.7.0",
     "jest-config": "workspace:shared/jest-config",
-    "nps": "5.10.0",
+    "nps": "^5.10.0",
     "unusual": "0.0.3"
   },
   "scripts": {
