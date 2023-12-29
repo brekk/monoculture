@@ -28,11 +28,7 @@ module.exports = pipe(
       }),
       map(
         ([name, st, br, fn, ln]) =>
-          ` * **${name}**:
-   - Statements: ${st}%
-   - Branches: ${br}%
-   - Functions: ${fn}%
-   - Lines: ${ln}%`
+          ` * **${name}**: \`${st}%\` / \`${br}%\` / \`${fn}%\` / \`${ln}%\``
       ),
       unlines
     )
