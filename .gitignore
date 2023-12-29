@@ -52,3 +52,5 @@ monocle-findings.json
 dist
 Icon?
 dr-generated.tests.json
+.coverage
+ci-report.json
