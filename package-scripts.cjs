@@ -72,6 +72,10 @@ module.exports = {
         ].join(' && '),
         'automatically generate the merged jest config'
       ),
+      ciSilentReport: sd(
+        `nps --silent -c ./package-scripts.cjs test.ciReport`,
+        `Do the CI report, but all quiet like`
+      ),
       ciReport: sd(
         `npx nyc report -t coverage --report-dir coverage --reporter=text`,
         'Run CI report!'

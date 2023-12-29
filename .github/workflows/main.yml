@@ -68,7 +68,7 @@ jobs:
             coverage/lcov.info
       - name: 🎥 Calculating shared coverage...
         run: |
-          COVERAGE=$(yarn test:ciReport)
+          COVERAGE=$(yarn test:ciSilentReport)
           echo "coverage_report<<EOF" >> $GITHUB_ENV
           echo "$COVERAGE" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
@@ -98,10 +98,12 @@ jobs:
           number: ${{ steps.findPr.outputs.pr }}
           header: test
           message: |
-            *Shared Coverage*
+            **Shared Coverage**
 
             <details closed><summary>Report</summary>
+
             ```
             ${{ needs.test.outputs.coverage }}
             ```
+
             </details>
