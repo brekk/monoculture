@@ -42,6 +42,7 @@ introspection and organization tools for monorepos
     - [jest](https://www.npmjs.com/package/jest) 🧪
     - [jest-environment-jsdom](https://www.npmjs.com/package/jest-environment-jsdom) 🧪
     - [monoculture-tsconfig](https://github.com/brekk/monoculture/tree/main/shared/monoculture-tsconfig) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
     - [prettier](https://www.npmjs.com/package/prettier) 🧪
     - [typescript](https://www.npmjs.com/package/typescript) 🧪
 
