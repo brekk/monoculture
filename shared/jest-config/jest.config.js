@@ -2,9 +2,10 @@ module.exports = {
   // testEnvironment: 'jsdom',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   collectCoverage: true,
-  coverageReporters: !!process.env.CI
+  coverageReporters: ['html', 'text-summary', 'json'],
+  reporters: process.env.CI
     ? [['github-actions', { silent: false }], 'summary']
-    : ['html', 'text'],
+    : ['text'],
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   transformIgnorePatterns: [],
   testEnvironment: 'node',
