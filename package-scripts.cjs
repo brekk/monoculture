@@ -66,7 +66,7 @@ module.exports = {
           'if [ -d coverage ]; then rm -r coverage; fi; mkdir -p coverage',
           './tools/spacework/tps-reports.cjs > coverage/coverage-final.json',
           // eslint-disable-next-line max-len
-          'nyc report -t coverage --report-dir coverage --reporter=html --reporter=text --reporter=json',
+          'npx nyc report -t coverage --report-dir coverage --reporter=html --reporter=text --reporter=json',
         ].join(' && '),
         'automatically generate the merged jest config'
       ),

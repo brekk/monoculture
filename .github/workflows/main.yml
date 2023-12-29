@@ -58,7 +58,6 @@ jobs:
         run: |
           yarn test:ci
           yarn test:ciCopy
-          nyc report -t coverage --report-dir coverage --reporter=html --reporter=lcov --reporter=text
 
   build:
     runs-on: ubuntu-latest

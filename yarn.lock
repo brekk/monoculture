@@ -13392,7 +13392,7 @@ __metadata:
     lint-staged: "npm:15.2.0"
     nps: "npm:5.10.0"
     nps-utils: "npm:1.7.0"
-    nyc: "npm:^15.1.0"
+    nyc: "npm:15.1.0"
     plop: "npm:4.0.0"
     prettier: "npm:3.1.1"
     ramda: "npm:0.29.1"
@@ -13954,7 +13954,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nyc@npm:^15.1.0":
+"nyc@npm:15.1.0":
   version: 15.1.0
   resolution: "nyc@npm:15.1.0"
   dependencies:
