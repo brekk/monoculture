@@ -83,9 +83,9 @@ module.exports = pipe(
       propOr([], 'stack'),
       slice(0, -1),
       map(({ project, s, b, f, l, files }) => {
-        const sum = summarizeNode(project, s, b, f, l)
-        return ` * <details closed><summary>${sum}</summary>
+        return `<details closed><summary>${project}</summary>
 
+  Overall: ${printSummary(s, b, f, l)} 
    - ${files
      .map(({ name, s: s2, b: b2, f: f2, l: l2 }) =>
        summarizeNode(name, s2, b2, f2, l2)
