@@ -45,6 +45,8 @@ jobs:
           touch public/.nojekyll
 
   test:
+    permissions:
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: 🧾 Checking out code...
@@ -58,12 +60,7 @@ jobs:
         run: |
           yarn test:ci
           yarn test:ciCopy
-      - name: 🎥 Calculating shared coverage...
-        run: |
-          COVERAGE=$(yarn test:ciReport)
-          echo "coverage_report<<EOF" >> $GITHUB_ENV
-          echo "$COVERAGE" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+
       - name: 🚁 Saving artifacts...
         uses: actions/upload-artifact@v3
         with:
@@ -71,6 +68,18 @@ jobs:
           path: |
             coverage/coverage-final.json
             coverage/lcov.info
+  report:
+    permissions:
+      pull-requests: write
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🎥 Calculating shared coverage...
+        run: |
+          COVERAGE=$(yarn test:ciReport)
+          echo "coverage_report<<EOF" >> $GITHUB_ENV
+          echo "$COVERAGE" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
       - name: 🎙️ Updating PR...
         uses: marocchino/sticky-pull-request-comment@v2
         with:
