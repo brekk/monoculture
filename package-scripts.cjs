@@ -60,6 +60,7 @@ module.exports = {
     lint: sd('turbo run lint', 'lint with turbo'),
     test: {
       ...sd('turbo run test', 'test with turbo'),
+      silent: sd('turbo run test:silent', 'test with turbo, quietly'),
       ci: sd('turbo run test:ci', 'test for CI'),
       ciCopy: sd(
         [

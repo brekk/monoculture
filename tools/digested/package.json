@@ -22,6 +22,7 @@
     "ramda": "0.29.1"
   },
   "devDependencies": {
+    "doctor-general-cli": "workspace:tools/doctor-general-cli",
     "dotenv-cli": "7.3.0",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     "jest-config": "workspace:shared/jest-config",
@@ -29,6 +30,7 @@
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
+    "autotest": "dotenv -- nps -c ./package-scripts.cjs autotest",
     "build": "dotenv -- nps -c ./package-scripts.cjs build",
     "build:watch": "dotenv -- nps -c ./package-scripts.cjs build.watch",
     "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
@@ -40,6 +42,7 @@
     "test:ci": "dotenv -- nps -c ./package-scripts.cjs test.ci",
     "test:integration": "dotenv -- nps -c ./package-scripts.cjs test.integration",
     "test:readme": "dotenv -- nps -c ./package-scripts.cjs test.readme",
+    "test:silent": "dotenv -- nps -c ./package-scripts.cjs test.silent",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }
 }

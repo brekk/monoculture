@@ -14,6 +14,7 @@
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
     "test:ci": "dotenv -- nps -c ./package-scripts.cjs test.ci",
+    "test:silent": "dotenv -- nps -c ./package-scripts.cjs test.silent",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }
 }

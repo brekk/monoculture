@@ -386,6 +386,7 @@ introspection and organization tools for monorepos
     - [@swc/jest](https://www.npmjs.com/package/@swc/jest)
     - [@testing-library/jest-dom](https://www.npmjs.com/package/@testing-library/jest-dom)
     - [jest](https://www.npmjs.com/package/jest)
+    - [jest-silent-reporter](https://www.npmjs.com/package/jest-silent-reporter)
     - [ts-jest-resolver](https://www.npmjs.com/package/ts-jest-resolver)
     - [typescript](https://www.npmjs.com/package/typescript)
     - [nps](https://www.npmjs.com/package/nps) 🧪
@@ -413,6 +414,7 @@ introspection and organization tools for monorepos
     - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
     - [fluture](https://www.npmjs.com/package/fluture)
     - [ramda](https://www.npmjs.com/package/ramda)
+    - [doctor-general-cli](https://github.com/brekk/monoculture/tree/main/tools/doctor-general-cli) 🦴 🧪
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
