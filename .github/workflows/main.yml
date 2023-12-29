@@ -60,7 +60,8 @@ jobs:
       - name: 🫣 Covering packages...
         uses: ArtiomTr/jest-coverage-report-action@v2.2.6
         with:
-          skip-step: all
+          skip-step: install
+          test-script: yarn test:ci
           package-manager: yarn
           working-directory: packages/bloodline
           prnumber: ${{ steps.findPr.outputs.number }}
