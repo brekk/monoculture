@@ -1,4 +1,4 @@
-name: Monoculture Builder 🏭
+name: 🦠 Monoculture
 on: [push, workflow_dispatch]
 jobs:
 
@@ -57,15 +57,13 @@ jobs:
       - name: 🧪 Testing...
         run: |
           yarn test:ci
-      # - name: 🫣 Covering packages...
-      #   uses: ArtiomTr/jest-coverage-report-action@v2.2.6
-      #   with:
-      #     skip-step: all
-      #     coverage-file: packages/bloodline/ci-report.json
-      #     base-coverage-file: packages/bloodline/ci-report.json
-      #     prnumber: ${{ steps.findPr.outputs.number }}
-      #     package-manager: yarn
-      #     test-script: yarn test
+      - name: 🫣 Covering packages...
+        uses: ArtiomTr/jest-coverage-report-action@v2.2.6
+        with:
+          skip-step: all
+          package-manager: yarn
+          working-directory: packages/bloodline
+          prnumber: ${{ steps.findPr.outputs.number }}
 
   build:
     runs-on: ubuntu-latest
