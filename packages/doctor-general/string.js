@@ -1,4 +1,4 @@
-import { curry, range, pipe, reduce } from 'ramda'
+import { curry, range, pipe, reduce, replace } from 'ramda'
 
 export const nthIndexOf = curry((delim, n, input) =>
   pipe(
@@ -19,3 +19,14 @@ export const nthLastIndexOf = curry((delim, n, input) =>
 export const fence = curry((delim, n, input) =>
   (n > 0 ? nthIndexOf : nthLastIndexOf)(delim, n, input)
 )
+
+export const capitalize = raw => `${raw[0].toUpper()}${raw.slice(1)}`
+
+export const capitalToKebab = s =>
+  pipe(
+    replace(/\//g, '-'),
+    replace(/--/g, '-')
+    // lowercaseFirst
+  )(s.replace(/[A-Z]/g, match => `-` + match))
+
+export const stripLeadingHyphen = replace(/^-/g, '')

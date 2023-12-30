@@ -1,41 +1,29 @@
+import { join as pathJoin } from 'node:path'
 import { cwd } from 'node:process'
 import { log } from './log'
-import { isNotEmpty, j2, autobox } from 'inherent'
-import { extname, basename, join as pathJoin, dirname } from 'node:path'
+import { j2, autobox } from 'inherent'
+import { commentToMarkdown } from './renderer-markdown'
+import { commentToJestTest } from './renderer-jest'
+import { prepareMetaFiles } from './next-meta-files'
 import {
   tap,
   ap,
-  includes,
   when,
   always as K,
-  applySpec,
   chain,
   curry,
-  defaultTo,
   filter,
   flatten,
-  fromPairs,
   groupBy,
   head,
   identity as I,
   ifElse,
   join,
-  last,
-  length,
-  lt,
   map,
-  path,
   pathOr,
   pipe,
-  prop,
   propOr,
-  reduce,
-  replace,
-  slice,
-  sortBy,
-  toLower,
   toPairs,
-  toUpper,
 } from 'ramda'
 import { resolve, parallel } from 'fluture'
 import {
@@ -44,55 +32,13 @@ import {
   readDirWithConfig,
   writeFileWithAutoPath,
 } from 'file-system'
-
+import { parseFile } from './parse'
 import {
-  slug,
-  stripLeadingHyphen,
-  commentToMarkdown,
-  commentToJestTest,
-  parseFile,
-  stripRelative,
-} from 'doctor-general'
-const parsePackageName = y => {
-  const slash = y.indexOf('/')
-  const start = slash + 1
-  const end = y.indexOf('/', start)
-  return y.slice(start, end)
-}
-// const lowercaseFirst = z => z[0].toLowerCase() + z.slice(1)
-
-const capitalToKebab = s =>
-  pipe(
-    replace(/\//g, '-'),
-    replace(/--/g, '-')
-    // lowercaseFirst
-  )(s.replace(/[A-Z]/g, match => `-` + match))
-
-const pullPageTitleFromAnyComment = pipe(
-  filter(pathOr(false, ['structure', 'page'])),
-  map(path(['structure', 'page'])),
-  head,
-  defaultTo(''),
-  replace(/\s/g, '-'),
-  defaultTo(false)
-)
-
-const capitalize = raw => `${toUpper(raw[0])}${slice(1, Infinity)(raw)}`
-
-const cleanFilename = curry((testMode, { fileGroup, filename, comments }) => {
-  const title = pullPageTitleFromAnyComment(comments)
-  const sliced = title || slug(filename)
-  const result = toLower(capitalToKebab(sliced)) + '.mdx'
-  return testMode
-    ? ''
-    : stripLeadingHyphen((fileGroup ? fileGroup + '/' : '') + result)
-})
-
-const TESTABLE_EXAMPLE = 'test=true'
-const hasTestableExample = pipe(
-  pathOr('', ['structure', 'example']),
-  includes(TESTABLE_EXAMPLE)
-)
+  hasTestableExample,
+  cleanFilename,
+  filterAndStructureComments,
+  filterAndStructureTests,
+} from './comment'
 
 const iterateOverWorkspacesAndReadFiles = curry(
   (searchGlob, ignore, root, x) => {
@@ -140,104 +86,6 @@ const monorunner = curry((searchGlob, ignore, root, x) => {
     map(flatten)
   )(x)
 })
-
-const filterAndStructureComments = pipe(
-  filter(pipe(propOr([], 'comments'), length, lt(0))),
-  map(raw => {
-    const filename = stripRelative(raw.filename)
-    return {
-      ...raw,
-      comments: raw.comments.map(r => ({ ...r, filename })),
-      filename,
-      workspace: parsePackageName(filename),
-    }
-  }),
-  reduce((agg, file) => {
-    const filenames = map(prop('filename'), agg)
-    const alreadyInList = filenames.includes(file.filename)
-    const anyFile = file.comments.filter(({ structure }) => structure.asFile)
-    const someFile = anyFile.length > 0 ? anyFile[0] : false
-    const asFilePath = pipe(
-      defaultTo({}),
-      pathOr('???', ['structure', 'asFile'])
-    )(someFile)
-    const withOrder = pipe(pathOr('0', ['structure', 'order']), x =>
-      parseInt(x, 10)
-    )(someFile)
-    const dir = dirname(file.filename)
-    const newFile = someFile ? pathJoin(dir, asFilePath) : '???'
-    return alreadyInList
-      ? map(raw => {
-          const check = raw.filename === file.filename
-          return check ? combineFiles(raw.order < withOrder, raw, file) : raw
-        })(agg)
-      : [
-          ...agg,
-          someFile
-            ? {
-                ...file,
-                filename: newFile,
-                order: withOrder,
-                originalFilename: file.filename,
-              }
-            : file,
-        ]
-  }, [])
-)
-const combineFiles = curry((leftToRight, a, b) =>
-  !leftToRight
-    ? combineFiles(true, b, a)
-    : {
-        ...a,
-        ...b,
-        comments: [...a.comments, ...b.comments],
-        links: [...a.links, ...b.links],
-      }
-)
-const filterAndStructureTests = pipe(
-  filter(pipe(propOr([], 'comments'), filter(hasTestableExample), isNotEmpty)),
-  map(raw => {
-    const filename = stripRelative(raw.filename)
-    const ext = extname(filename)
-    return {
-      ...raw,
-      comments: raw.comments.map(r => ({ ...r, filename })),
-      filename,
-      testPath: `${basename(filename, ext)}.spec${ext}`,
-    }
-  }),
-  reduce((agg, file) => {
-    const filenames = map(prop('filename'), agg)
-    const alreadyInList = filenames.includes(file.filename)
-    const anyFile = file.comments.filter(({ structure }) => structure.asFile)
-    const someFile = anyFile.length > 0 ? anyFile[0] : false
-    const asFilePath = pipe(
-      defaultTo({}),
-      pathOr('???', ['structure', 'asFile'])
-    )(someFile)
-    const withOrder = pipe(pathOr('0', ['structure', 'order']), x =>
-      parseInt(x, 10)
-    )(someFile)
-    const dir = dirname(file.filename)
-    const newFile = someFile ? pathJoin(dir, asFilePath) : '???'
-    return alreadyInList
-      ? map(raw => {
-          const check = raw.filename === file.filename
-          return check ? combineFiles(raw.order < withOrder, raw, file) : raw
-        })(agg)
-      : [
-          ...agg,
-          someFile
-            ? {
-                ...file,
-                filename: newFile,
-                order: withOrder,
-                originalFilename: file.filename,
-              }
-            : file,
-        ]
-  }, [])
-)
 
 const writeArtifact = curry((artifactPath, xxx) =>
   chain(content =>
@@ -371,44 +219,4 @@ const renderComments = curry((testMode, outputDir, x) =>
       parallel(10)
     )
   )(x)
-)
-
-const prepareMetaFiles = curry(
-  (testMode, outputDir, workspace, commentedFiles) =>
-    pipe(
-      map(raw => [
-        pipe(cleanFilename(testMode), x => basename(x, '.mdx'), toLower)(raw),
-        pipe(
-          propOr([], 'comments'),
-          filter(pathOr(false, ['structure', 'name'])),
-          head,
-          applySpec({
-            order: pipe(pathOr('0', ['structure', 'order']), x =>
-              parseInt(x, 10)
-            ),
-            group: pathOr('', ['structure', 'group']),
-            name: pipe(pathOr('???', ['structure', 'name'])),
-            metaName: K(prop('slugName', raw)),
-          })
-        )(raw),
-      ]),
-      groupBy(pipe(last, propOr('', 'group'))),
-      map(
-        pipe(
-          sortBy(pathOr(0, ['order'])),
-          map(([title, { metaName }]) => [
-            pipe(capitalToKebab, stripLeadingHyphen, toLower)(title),
-            metaName,
-          ]),
-          fromPairs
-        )
-      ),
-      toPairs,
-      map(([folder, data]) =>
-        writeFileWithAutoPath(
-          pathJoin(outputDir, workspace, toLower(folder), '_meta.json'),
-          JSON.stringify(data, null, 2)
-        )
-      )
-    )(commentedFiles)
 )

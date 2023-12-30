@@ -11,7 +11,7 @@ test('smoke', () => {
 
 const exe = execWithConfig(
   () => {},
-  relative(__dirname, '../dist/doctor-general.cjs'),
+  relative(__dirname, './dist/doctor-general.cjs'),
   {
     cwd: process.cwd(),
   }

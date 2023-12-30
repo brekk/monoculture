@@ -1,12 +1,14 @@
+import { extname, basename, dirname, join as pathJoin } from 'node:path'
+import { capitalToKebab, stripLeadingHyphen } from './string'
+import { isNotEmpty } from 'inherent'
+import { TESTABLE_EXAMPLE } from './constants'
 import {
-  any,
-  findIndex,
-  isEmpty,
-  split,
-  propOr,
+  includes,
+  prop,
   __ as $,
   addIndex,
   always as K,
+  any,
   anyPass,
   applySpec,
   chain,
@@ -16,27 +18,40 @@ import {
   either,
   equals,
   filter,
+  findIndex,
   fromPairs,
   head,
   identity as I,
   ifElse,
+  isEmpty,
   last,
   length,
   map,
   match,
+  path,
+  pathOr,
   pipe,
+  propOr,
   reduce,
   reject,
   replace,
   slice,
+  split,
   startsWith,
+  test as testRegExp,
+  toLower,
   toPairs,
   trim,
   uniq,
-  test as testRegExp,
 } from 'ramda'
 import { findJSDocKeywords, cleanupKeywords } from './file'
-import { unlines, formatComment, trimComment, wipeComment } from './text'
+import {
+  unlines,
+  formatComment,
+  trimComment,
+  wipeComment,
+  stripRelative,
+} from './text'
 
 const linkRegex = /\{@link (.*)+\}/g
 export const matchLinks = pipe(
@@ -187,8 +202,6 @@ export const slug = name => {
     : name.slice(slashPlus)
 }
 
-export const stripLeadingHyphen = replace(/^-/g, '')
-
 // getFileGroup :: String -> Comment
 const getFileGroup = propOr('', 'group')
 const addTo = propOr('', 'addTo')
@@ -245,4 +258,135 @@ export const getExample = curry((file, end, i) =>
 export const isJSDocComment = pipe(
   trim,
   anyPass([startsWith('/**'), startsWith('*'), startsWith('*/')])
+)
+
+export const combineFiles = curry((leftToRight, a, b) =>
+  !leftToRight
+    ? combineFiles(true, b, a)
+    : {
+        ...a,
+        ...b,
+        comments: [...a.comments, ...b.comments],
+        links: [...a.links, ...b.links],
+      }
+)
+
+export const parsePackageName = y => {
+  const slash = y.indexOf('/')
+  const start = slash + 1
+  const end = y.indexOf('/', start)
+  return y.slice(start, end)
+}
+
+export const filterAndStructureComments = pipe(
+  filter(pipe(propOr([], 'comments'), isEmpty)),
+  map(raw => {
+    const filename = stripRelative(raw.filename)
+    return {
+      ...raw,
+      comments: raw.comments.map(r => ({ ...r, filename })),
+      filename,
+      workspace: parsePackageName(filename),
+    }
+  }),
+  reduce((agg, file) => {
+    const filenames = map(prop('filename'), agg)
+    const alreadyInList = filenames.includes(file.filename)
+    const anyFile = file.comments.filter(({ structure }) => structure.asFile)
+    const someFile = anyFile.length > 0 ? anyFile[0] : false
+    const asFilePath = pipe(
+      defaultTo({}),
+      pathOr('???', ['structure', 'asFile'])
+    )(someFile)
+    const withOrder = pipe(pathOr('0', ['structure', 'order']), x =>
+      parseInt(x, 10)
+    )(someFile)
+    const dir = dirname(file.filename)
+    const newFile = someFile ? pathJoin(dir, asFilePath) : '???'
+    return alreadyInList
+      ? map(raw => {
+          const check = raw.filename === file.filename
+          return check ? combineFiles(raw.order < withOrder, raw, file) : raw
+        })(agg)
+      : [
+          ...agg,
+          someFile
+            ? {
+                ...file,
+                filename: newFile,
+                order: withOrder,
+                originalFilename: file.filename,
+              }
+            : file,
+        ]
+  }, [])
+)
+
+export const hasTestableExample = pipe(
+  pathOr('', ['structure', 'example']),
+  includes(TESTABLE_EXAMPLE)
+)
+export const filterAndStructureTests = pipe(
+  filter(pipe(propOr([], 'comments'), filter(hasTestableExample), isNotEmpty)),
+  map(raw => {
+    const filename = stripRelative(raw.filename)
+    const ext = extname(filename)
+    return {
+      ...raw,
+      comments: raw.comments.map(r => ({ ...r, filename })),
+      filename,
+      testPath: `${basename(filename, ext)}.spec${ext}`,
+    }
+  }),
+  reduce((agg, file) => {
+    const filenames = map(prop('filename'), agg)
+    const alreadyInList = filenames.includes(file.filename)
+    const anyFile = file.comments.filter(({ structure }) => structure.asFile)
+    const someFile = anyFile.length > 0 ? anyFile[0] : false
+    const asFilePath = pipe(
+      defaultTo({}),
+      pathOr('???', ['structure', 'asFile'])
+    )(someFile)
+    const withOrder = pipe(pathOr('0', ['structure', 'order']), x =>
+      parseInt(x, 10)
+    )(someFile)
+    const dir = dirname(file.filename)
+    const newFile = someFile ? pathJoin(dir, asFilePath) : '???'
+    return alreadyInList
+      ? map(raw => {
+          const check = raw.filename === file.filename
+          return check ? combineFiles(raw.order < withOrder, raw, file) : raw
+        })(agg)
+      : [
+          ...agg,
+          someFile
+            ? {
+                ...file,
+                filename: newFile,
+                order: withOrder,
+                originalFilename: file.filename,
+              }
+            : file,
+        ]
+  }, [])
+)
+
+export const pullPageTitleFromAnyComment = pipe(
+  filter(pathOr(false, ['structure', 'page'])),
+  map(path(['structure', 'page'])),
+  head,
+  defaultTo(''),
+  replace(/\s/g, '-'),
+  defaultTo(false)
+)
+
+export const cleanFilename = curry(
+  (testMode, { fileGroup, filename, comments }) => {
+    const title = pullPageTitleFromAnyComment(comments)
+    const sliced = title || slug(filename)
+    const result = toLower(capitalToKebab(sliced)) + '.mdx'
+    return testMode
+      ? ''
+      : stripLeadingHyphen((fileGroup ? fileGroup + '/' : '') + result)
+  }
 )
