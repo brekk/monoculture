@@ -25,10 +25,15 @@ const {
   j2,
 } = require('snang/script')
 const perc = z => z + '%'
-const REPO = 'https://github.com/brekk/monoculture/blob/main'
+const REPO = 'https://github.com/brekk/monoculture/blob'
 
-const summarizeLinkedNode = (filepath, project, s, b, f, l) =>
-  `[${project}](${REPO}/${filepath}/${project})  ${printSummary(s, b, f, l)}`
+const summarizeLinkedNode = (branch, filepath, project, s, b, f, l) =>
+  `[${project}](${REPO}/${branch}/${filepath}/${project})  ${printSummary(
+    s,
+    b,
+    f,
+    l
+  )}`
 
 const printSummary = (s, b, f, l) =>
   [s, b, f, l].map(z => `\`${z}\``).join(' / ')
@@ -103,11 +108,11 @@ function reporter(args) {
         map(
           ({ project, s, b, f, l, path, files }) =>
             // eslint-disable-next-line max-len
-            `\n * <details closed><summary><strong><a href="${REPO}/${path}">${project}</a></strong> (<code>${s}</code> / <code>${b}</code> / <code>${f}</code> / <code>${l}</code>)</summary>
+            `\n * <details closed><summary><strong><a href="${REPO}/${branch}/${path}">${project}</a></strong> (<code>${s}</code> / <code>${b}</code> / <code>${f}</code> / <code>${l}</code>)</summary>
 
    - ${files
      .map(({ name, s: s2, b: b2, f: f2, l: l2 }) =>
-       summarizeLinkedNode(path, name, s2, b2, f2, l2)
+       summarizeLinkedNode(branch, path, name, s2, b2, f2, l2)
      )
      .join('\n   - ')}
 
