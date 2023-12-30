@@ -96,9 +96,7 @@ jobs:
     steps:
       - name: 🐛 Debugging...
         run: |
-          echo $GITHUB_BASE_REF
-          echo $GITHUB_REF
-          echo $GITHUB_REF_NAME
+          echo "base: $GITHUB_BASE_REF ref: $GITHUB_REF name: $GITHUB_REF_NAME"
       - name: 🔎 Get current PR number...
         uses: jwalton/gh-find-current-pr@v1
         id: findPr
