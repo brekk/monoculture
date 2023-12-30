@@ -53,7 +53,6 @@ function reporter(args) {
     raw => yargsParser(raw, YARGS_CONFIG),
     ({ _: parsedArguments, pr, branch }) =>
       pipe(
-        trace('pre-split'),
         split(/\n\s{1}(\S+)/),
         map(lines),
         slice(1, Infinity),
