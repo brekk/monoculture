@@ -94,9 +94,6 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: ⏰ You got the time?
-        id: date
-        run: echo "utc=$(date -u)" >> $GITHUB_OUTPUT
       - name: 🔎 Get current PR number...
         uses: jwalton/gh-find-current-pr@v1
         id: findPr
@@ -121,5 +118,3 @@ jobs:
             ```
 
             </details>
-
-            _Last updated_: ${{steps.date.outputs.utc}}
