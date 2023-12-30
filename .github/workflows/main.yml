@@ -94,12 +94,12 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: 🐛 Debugging...
-        run: |
-          echo "base: $GITHUB_BASE_REF ref: $GITHUB_REF name: $GITHUB_REF_NAME"
       - name: 🔎 Get current PR number...
         uses: jwalton/gh-find-current-pr@v1
         id: findPr
+      - name: 🐛 Debugging...
+        run: |
+          echo "${{ steps.findPR.outputs.pr }} name: $GITHUB_REF_NAME"
       - name: 🎙️ Updating PR...
         uses: marocchino/sticky-pull-request-comment@v2
         with:
