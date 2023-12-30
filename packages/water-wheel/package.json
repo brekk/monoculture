@@ -13,16 +13,19 @@
   "dependencies": {
     "envtrace": "0.0.2",
     "fluture": "14.0.0",
+    "get-stream": "8.0.1",
     "ramda": "0.29.1"
   },
   "devDependencies": {
     "dotenv-cli": "7.3.0",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
+    "into-stream": "8.0.1",
     "jest-config": "workspace:shared/jest-config",
-    "nps": "^5.10.0"
+    "nps": "5.10.0"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
+    "autotest": "dotenv -- nps -c ./package-scripts.cjs autotest",
     "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",

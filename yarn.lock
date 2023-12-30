@@ -9088,6 +9088,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"get-stream@npm:8.0.1, get-stream@npm:^8.0.1":
+  version: 8.0.1
+  resolution: "get-stream@npm:8.0.1"
+  checksum: 5c2181e98202b9dae0bb4a849979291043e5892eb40312b47f0c22b9414fc9b28a3b6063d2375705eb24abc41ecf97894d9a51f64ff021511b504477b27b4290
+  languageName: node
+  linkType: hard
+
 "get-stream@npm:^3.0.0":
   version: 3.0.0
   resolution: "get-stream@npm:3.0.0"
@@ -9099,13 +9106,6 @@ __metadata:
   version: 6.0.1
   resolution: "get-stream@npm:6.0.1"
   checksum: 49825d57d3fd6964228e6200a58169464b8e8970489b3acdc24906c782fb7f01f9f56f8e6653c4a50713771d6658f7cfe051e5eb8c12e334138c9c918b296341
-  languageName: node
-  linkType: hard
-
-"get-stream@npm:^8.0.1":
-  version: 8.0.1
-  resolution: "get-stream@npm:8.0.1"
-  checksum: 5c2181e98202b9dae0bb4a849979291043e5892eb40312b47f0c22b9414fc9b28a3b6063d2375705eb24abc41ecf97894d9a51f64ff021511b504477b27b4290
   languageName: node
   linkType: hard
 
@@ -10095,6 +10095,13 @@ __metadata:
   version: 0.12.2
   resolution: "intersection-observer@npm:0.12.2"
   checksum: 9591f46b2b742f5801ed69dbc8860f487771b4af8361e7a5dcb28a377beff2ba56336a2b090af261825430d225dae9417121496d2e6925e000e4a469958843ff
+  languageName: node
+  linkType: hard
+
+"into-stream@npm:8.0.1":
+  version: 8.0.1
+  resolution: "into-stream@npm:8.0.1"
+  checksum: 555b937218ed17605247c155c586568fc8f23e68209abefc0cc4776921f14daa75ee00b4922036a1f7dc98074d04b6908335e5c7b7a825d1f8ef8b8300024f4b
   languageName: node
   linkType: hard
 
@@ -18373,8 +18380,10 @@ __metadata:
     envtrace: "npm:0.0.2"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     fluture: "npm:14.0.0"
+    get-stream: "npm:8.0.1"
+    into-stream: "npm:8.0.1"
     jest-config: "workspace:shared/jest-config"
-    nps: "npm:^5.10.0"
+    nps: "npm:5.10.0"
     ramda: "npm:0.29.1"
   languageName: unknown
   linkType: soft

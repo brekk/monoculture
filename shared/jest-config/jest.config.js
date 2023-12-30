@@ -5,7 +5,7 @@ module.exports = {
   coverageReporters: ['html', 'text', 'text-summary', 'lcov', 'json'],
   reporters: process.env.CI
     ? [['github-actions', { silent: false }], 'summary']
-    : [],
+    : ['default'],
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   transformIgnorePatterns: [],
   testEnvironment: 'node',

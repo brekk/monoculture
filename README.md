@@ -344,9 +344,11 @@ introspection and organization tools for monorepos
 
     - [envtrace](https://www.npmjs.com/package/envtrace)
     - [fluture](https://www.npmjs.com/package/fluture)
+    - [get-stream](https://www.npmjs.com/package/get-stream)
     - [ramda](https://www.npmjs.com/package/ramda)
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
+    - [into-stream](https://www.npmjs.com/package/into-stream) 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
     - [nps](https://www.npmjs.com/package/nps) 🧪
 
