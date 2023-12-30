@@ -94,6 +94,11 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - name: 🐛 Debugging...
+        run: |
+          echo $GITHUB_BASE_REF
+          echo $GITHUB_REF
+          echo $GITHUB_REF_NAME
       - name: 🔎 Get current PR number...
         uses: jwalton/gh-find-current-pr@v1
         id: findPr
