@@ -4,6 +4,7 @@ module.exports = {
   scripts: {
     clean: sd('rm -r dist', 'clean the build'),
     lint: sd('eslint --fix .', 'lint!'),
+    /*
     autotest: sd(
       `drgen -i ${['./water-wheel.js'].join(
         ' '
@@ -22,5 +23,6 @@ module.exports = {
       ),
       watch: sd('jest --watch', 'test with watch-mode!'),
     },
+    */
   },
 }

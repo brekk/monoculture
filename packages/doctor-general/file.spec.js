@@ -4,7 +4,16 @@ import {
   findJSDocKeywords,
   cleanupKeywords,
   groupContiguousBlocks,
+  isJSDocComment,
 } from './file'
+
+test('isJSDocComment', () => {
+  expect(isJSDocComment).toBeTruthy()
+  expect(isJSDocComment('test')).toBeFalsy()
+  expect(isJSDocComment('/**')).toBeTruthy()
+  expect(isJSDocComment('          *')).toBeTruthy()
+  expect(isJSDocComment('      */')).toBeTruthy()
+})
 
 test('addLineNumbers', () => {
   expect(typeof addLineNumbers).toEqual('function')
