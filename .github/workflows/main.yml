@@ -103,6 +103,8 @@ jobs:
       - name: 🎙️ Updating PR...
         uses: marocchino/sticky-pull-request-comment@v2
         with:
+          # delete the old comment and re-append to the end (useful for long running PRs)
+          recreate: true
           number: ${{ steps.findPr.outputs.pr }}
           header: test
           message: |
