@@ -18,8 +18,8 @@ import {
   pathOr,
 } from 'ramda'
 import { writeFileWithAutoPath } from 'file-system'
-import { cleanFilename } from './comment'
-import { capitalToKebab, stripLeadingHyphen } from './string'
+import { cleanFilename } from './file'
+import { capitalToKebab, stripLeadingHyphen } from './text'
 
 export const prepareMetaFiles = curry(
   (testMode, outputDir, workspace, commentedFiles) =>

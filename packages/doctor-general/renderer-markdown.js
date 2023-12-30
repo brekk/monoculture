@@ -20,7 +20,7 @@ import {
   map,
   slice,
 } from 'ramda'
-import { lines, unlines } from './text'
+import { lines, unlines } from 'knot'
 import { MAGIC_IMPORT_KEY } from './constants'
 
 const stripFence = when(startsWith('```'), K(''))

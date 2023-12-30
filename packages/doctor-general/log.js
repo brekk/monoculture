@@ -3,6 +3,7 @@ export const log = complextrace('doctor-general', [
   'core',
   'comment',
   'config',
+  'doc',
   'file',
   'parse',
   'renderer',

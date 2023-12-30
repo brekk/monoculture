@@ -18,11 +18,7 @@ import {
 } from 'ramda'
 import { log } from './log'
 import { parallel, resolve } from 'fluture'
-import {
-  readDirWithConfig,
-  pathJoin as normalPathJoin,
-  readFile,
-} from 'file-system'
+import { readDirWithConfig, relativePathJoin, readFile } from 'file-system'
 import { renderReadme } from './markdown'
 
 const processWorkspace = curry((banner, bannerPath, drGenPath, workspaces) => {
@@ -178,7 +174,7 @@ export const summarize = config => {
     : pipe(
         readFile,
         map(pipe(JSON.parse, propOr([], 'workspaces'))),
-        map(map(normalPathJoin(dirPath))),
+        map(map(relativePathJoin(dirPath))),
         map(
           map(
             readDirWithConfig({

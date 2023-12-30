@@ -1119,8 +1119,8 @@
     "filename": "tools/digested/summary.js",
     "comments": [
       {
-        "start": 90,
-        "end": 160,
+        "start": 86,
+        "end": 156,
         "summary": "Summarize a project, given:\n - the path to a `package.json` file\n - the path to a `dr-generated.json` file\n - the URI of a documentation site\n - the URI of a repository\n - (optional) a banner\n - or (optional) the path to a file which represents a banner",
         "links": [],
         "fileGroup": "",

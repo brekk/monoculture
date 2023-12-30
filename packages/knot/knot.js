@@ -79,3 +79,5 @@ export const strepeat = curry((toRepeat, x) => {
   )
   return gen(x)
 })
+
+export const capitalize = raw => `${raw[0].toUpper()}${raw.slice(1)}`

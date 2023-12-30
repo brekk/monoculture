@@ -1,21 +1,17 @@
 import {
-  reject,
   equals,
-  length,
   includes,
-  join,
+  length,
   map,
   pipe,
+  reject,
   replace,
   slice,
-  split,
   startsWith,
   trim,
   when,
 } from 'ramda'
-
-export const lines = split('\n')
-export const unlines = join('\n')
+import { unlines } from 'knot'
 
 // trimComment :: String -> String
 export const trimComment = pipe(
@@ -44,5 +40,20 @@ export const formatComment = block =>
     slice(1, length(block) - 1)
   )(block)
 
-export const j2 = x => JSON.stringify(x, null, 2)
 export const stripRelative = replace(/\.\.\/|\.\//g, '')
+
+export const capitalToKebab = s =>
+  pipe(
+    replace(/\//g, '-'),
+    replace(/--/g, '-')
+    // lowercaseFirst
+  )(s.replace(/[A-Z]/g, match => `-` + match))
+
+export const stripLeadingHyphen = replace(/^-/g, '')
+
+export const slug = name => {
+  const slashPlus = name.lastIndexOf('/') + 1
+  return name.indexOf('.') > -1
+    ? name.slice(slashPlus, name.indexOf('.'))
+    : name.slice(slashPlus)
+}
