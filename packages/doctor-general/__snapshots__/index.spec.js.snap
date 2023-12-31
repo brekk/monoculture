@@ -14,6 +14,7 @@ exports[`default export 1`] = `
   "formatComment": [Function],
   "getCurriedDefinition": [Function],
   "getExample": [Function],
+  "getImportsForTests": [Function],
   "groupContiguousBlocks": [Function],
   "handleSpecificKeywords": [Function],
   "histogramBy": [Function],

@@ -5,10 +5,11 @@ exports[`parseFile 1`] = `
   "comments": [
     {
       "addTo": "",
-      "end": 76,
+      "end": 77,
       "fileGroup": "",
       "keywords": [
         "@example",
+        "@exported",
         "@name",
         "@param",
         "@returns",
@@ -35,6 +36,7 @@ expect(combineFiles(false, a, b)).toEqual({
   links: ['c', 'd', 'a', 'b']
 })
 \`\`\`",
+        "exported": true,
         "name": "combineFiles",
         "param": [
           [
@@ -80,6 +82,7 @@ expect(combineFiles(false, a, b)).toEqual({
   "filename": "packages/doctor-general/file.js",
   "links": [],
   "order": 0,
+  "package": "doctor-general",
   "pageSummary": "",
   "pageTitle": undefined,
   "slugName": "file",

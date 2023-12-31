@@ -18,7 +18,7 @@ export const parsePackageName = y => {
   const slash = y.indexOf('/')
   const start = slash + 1
   const end = y.indexOf('/', start)
-  return y.slice(start, end)
+  return slash > -1 ? y.slice(start, end) : y
 }
 
 export const filterAndStructureComments = pipe(
@@ -34,7 +34,7 @@ export const filterAndStructureComments = pipe(
         package: raw.package,
       })),
       filename,
-      workspace: parsePackageName(filename),
+      workspace: raw.package,
     }
   }),
   reduce((agg, file) => {

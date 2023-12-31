@@ -42,8 +42,11 @@ const getPageSummary = pipe(
 const getPageTitle = getAny('', ['structure', 'page'])
 
 const getPackage = i => {
-  const y = nthIndex('/', -2, i)
-  return y.slice(0, y.indexOf('/'))
+  if (i.indexOf('/') > -1) {
+    const y = nthIndex('/', -2, i)
+    return y.slice(0, y.indexOf('/'))
+  }
+  return i
 }
 
 export const parse = curry((root, filename, content) => {

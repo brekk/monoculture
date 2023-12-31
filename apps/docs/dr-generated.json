@@ -1,7 +1,6 @@
 [
   {
     "slugName": "executables",
-    "package": "bloodline",
     "pageSummary": "",
     "filename": "packages/bloodline/executables.js",
     "comments": [
@@ -20,8 +19,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/executables.js",
-        "package": "bloodline"
+        "filename": "packages/bloodline/executables.js"
       },
       {
         "start": 45,
@@ -38,8 +36,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/executables.js",
-        "package": "bloodline"
+        "filename": "packages/bloodline/executables.js"
       }
     ],
     "order": 0,
@@ -48,7 +45,6 @@
   },
   {
     "slugName": "tree",
-    "package": "bloodline",
     "pageSummary": "",
     "filename": "packages/bloodline/tree.js",
     "comments": [
@@ -67,8 +63,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/tree.js",
-        "package": "bloodline"
+        "filename": "packages/bloodline/tree.js"
       },
       {
         "start": 41,
@@ -85,8 +80,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/tree.js",
-        "package": "bloodline"
+        "filename": "packages/bloodline/tree.js"
       },
       {
         "start": 63,
@@ -103,8 +97,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/tree.js",
-        "package": "bloodline"
+        "filename": "packages/bloodline/tree.js"
       },
       {
         "start": 107,
@@ -121,8 +114,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/tree.js",
-        "package": "bloodline"
+        "filename": "packages/bloodline/tree.js"
       },
       {
         "start": 128,
@@ -146,8 +138,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/bloodline/tree.js",
-        "package": "bloodline"
+        "filename": "packages/bloodline/tree.js"
       },
       {
         "start": 206,
@@ -171,8 +162,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/bloodline/tree.js",
-        "package": "bloodline"
+        "filename": "packages/bloodline/tree.js"
       }
     ],
     "order": 0,
@@ -184,7 +174,6 @@
   },
   {
     "slugName": "builder",
-    "package": "climate",
     "pageSummary": "",
     "filename": "packages/climate/builder.js",
     "comments": [
@@ -198,15 +187,14 @@
         "structure": {
           "name": "configurate",
           "future": true,
-          "example": "```js test=true\nimport { fork } from 'fluture'\nimport stripAnsi from 'strip-ansi'\n// drgen-import-above\nconst YARGS_CONFIG = {\n  alias: {\n    meal: ['m'],\n    happyHour: ['h'],\n    multiplier: ['x'],\n  },\n  boolean: ['happyHour'],\n  number: ['multiplier'],\n  configuration: {\n    'strip-aliased': true,\n  },\n}\n *\nconst HELP_CONFIG = {\n  help: 'This text!',\n  // optional\n  color: 'Render stuff in color',\n  meal: 'Pass the name of the meal you want',\n  happyHour: 'Does happy hour apply here?',\n  multiplier: 'How many units should we apply?'\n}\n *\nconst CONFIG_DEFAULTS = {\n  color: true,\n  happyHour: false\n}\n *\nconst parseArgs = (args) => configurate(\n  YARGS_CONFIG,\n  // closured so that we can pass cwd at runtime\n  {...CONFIG_DEFAULTS, cwd: process.cwd() },\n  HELP_CONFIG,\n  { name: \"dumbwaiter\", description: \"order food!\" },\n  // process.argv.slice(2)\n  args\n)\n *\n// renders in the failure channel\nfork(x => {\n  expect(stripAnsi(x).split('\\n')).toEqual([\n    \" dumbwaiter \",\n    \"\",\n    \"order food!\",\n    \"\",\n    \"  -m / --meal\",\n    \"  \tPass the name of the meal you want\",\n    \"\",\n    \"  -h / --happyHour\",\n    \"  \tDoes happy hour apply here?\",\n    \"\",\n    \"  -x / --multiplier\",\n    \"  \tHow many units should we apply?\",\n    \"\",\n    \"  -h / --help\",\n    \"  \tThis text!\",\n  ])\n  done()\n})(done)(\n  parseArgs(['--help'])\n)\n```"
+          "example": "```js test=true\nimport { fork } from 'fluture'\nimport stripAnsi from 'strip-ansi'\n// drgen-import-above\nconst YARGS_CONFIG = {\n  alias: {\n    meal: ['m'],\n    happyHour: ['h'],\n    multiplier: ['x'],\n  },\n  boolean: ['happyHour'],\n  number: ['multiplier'],\n  configuration: {\n    'strip-aliased': true,\n  },\n}\n\nconst HELP_CONFIG = {\n  help: 'This text!',\n  // optional\n  color: 'Render stuff in color',\n  meal: 'Pass the name of the meal you want',\n  happyHour: 'Does happy hour apply here?',\n  multiplier: 'How many units should we apply?'\n}\n\nconst CONFIG_DEFAULTS = {\n  color: true,\n  happyHour: false\n}\n\nconst parseArgs = (args) => configurate(\n  YARGS_CONFIG,\n  // closured so that we can pass cwd at runtime\n  {...CONFIG_DEFAULTS, cwd: process.cwd() },\n  HELP_CONFIG,\n  { name: \"dumbwaiter\", description: \"order food!\" },\n  // process.argv.slice(2)\n  args\n)\n\n// renders in the failure channel\nfork(x => {\n  expect(stripAnsi(x).split('\\n')).toEqual([\n    \" dumbwaiter \",\n    \"\",\n    \"order food!\",\n    \"\",\n    \"  -m / --meal\",\n    \"  \tPass the name of the meal you want\",\n    \"\",\n    \"  -h / --happyHour\",\n    \"  \tDoes happy hour apply here?\",\n    \"\",\n    \"  -x / --multiplier\",\n    \"  \tHow many units should we apply?\",\n    \"\",\n    \"  -h / --help\",\n    \"  \tThis text!\",\n  ])\n  done()\n})(done)(\n  parseArgs(['--help'])\n)\n```"
         },
         "keywords": [
           "@example",
           "@future",
           "@name"
         ],
-        "filename": "packages/climate/builder.js",
-        "package": "climate"
+        "filename": "packages/climate/builder.js"
       },
       {
         "start": 136,
@@ -230,8 +218,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/climate/builder.js",
-        "package": "climate"
+        "filename": "packages/climate/builder.js"
       }
     ],
     "order": 0,
@@ -242,7 +229,6 @@
   },
   {
     "slugName": "file",
-    "package": "doctor-general",
     "pageSummary": "",
     "filename": "packages/doctor-general/file.js",
     "comments": [
@@ -302,8 +288,7 @@
           "@returns",
           "@signature"
         ],
-        "filename": "packages/doctor-general/file.js",
-        "package": "doctor-general"
+        "filename": "packages/doctor-general/file.js"
       }
     ],
     "order": 0,
@@ -312,7 +297,6 @@
   },
   {
     "slugName": "text",
-    "package": "doctor-general",
     "pageSummary": "",
     "filename": "packages/doctor-general/text.js",
     "comments": [
@@ -337,8 +321,7 @@
           "@name",
           "@signature"
         ],
-        "filename": "packages/doctor-general/text.js",
-        "package": "doctor-general"
+        "filename": "packages/doctor-general/text.js"
       }
     ],
     "order": 0,
@@ -347,7 +330,6 @@
   },
   {
     "slugName": "fs",
-    "package": "file-system",
     "pageSummary": "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.",
     "filename": "packages/file-system/fs.js",
     "comments": [
@@ -366,8 +348,7 @@
         "keywords": [
           "@pageSummary"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 27,
@@ -384,8 +365,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 39,
@@ -397,8 +377,19 @@
         "structure": {
           "curried": [
             {
-              "name": "",
-              "lines": "1. readFileWithFormatAndCancel - Can be given a file encoding and a cancellation function.\n```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\nreadFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')\n)\n```\n2. readFileWithCancel - Reads `utf8` files only.\n```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\nreadFileWithCancel(() => process.exit(), './README.md')\n)\n```\n3. readFile - Eschews any custom cancellation.\n```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(readFile('./README.md'))\n```"
+              "name": "readFileWithFormatAndCancel",
+              "summary": "Can be given a file encoding and a cancellation function.",
+              "lines": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\n  readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')\n)\n```"
+            },
+            {
+              "name": "readFileWithCancel",
+              "summary": "Reads `utf8` files only.",
+              "lines": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\n  readFileWithCancel(() => process.exit(), './README.md')\n)\n```"
+            },
+            {
+              "name": "readFile",
+              "summary": "Eschews any custom cancellation.",
+              "lines": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(readFile('./README.md'))\n```"
             }
           ]
         },
@@ -406,8 +397,7 @@
           "@curried",
           "@example"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 80,
@@ -433,8 +423,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 96,
@@ -460,8 +449,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 110,
@@ -487,8 +475,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 141,
@@ -514,8 +501,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 159,
@@ -541,8 +527,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 175,
@@ -568,8 +553,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 210,
@@ -595,8 +579,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 232,
@@ -622,8 +605,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 253,
@@ -635,8 +617,19 @@
         "structure": {
           "curried": [
             {
-              "name": "",
-              "lines": "1. removeFileWithConfigAndCancel - Configuration and cancellation\n```js\nimport { fork } from 'fluture'\nimport { removeFileWithConfigAndCancel } from 'file-system'\nfork(console.warn)(console.log)(\nremoveFileWithConfigAndCancel(\ncancellationFn,\n{ ...fs.removeFileConfig },\n'my-file.txt'\n)\n)\n```\n2. removeFileWithConfig - No config, just cancellation\n```js\nimport { fork } from 'fluture'\nimport { removeFileWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\nremoveFileWithConfig(\n{ ...fs.removeFileConfig },\n'my-file.txt'\n)\n)\n```\n3. removeFile - remove a file. Aliased to `rm`.\n```js\nimport { fork } from 'fluture'\nimport { removeFile } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\nremoveFile(\n'my-file.txt'\n)\n)\n```"
+              "name": "removeFileWithConfigAndCancel",
+              "summary": "Configuration and cancellation",
+              "lines": " ```js\n import { fork } from 'fluture'\n import { removeFileWithConfigAndCancel } from 'file-system'\n fork(console.warn)(console.log)(\n   removeFileWithConfigAndCancel(\n     cancellationFn,\n     { ...fs.removeFileConfig },\n     'my-file.txt'\n   )\n )\n ```"
+            },
+            {
+              "name": "removeFileWithConfig",
+              "summary": "No config, just cancellation",
+              "lines": "```js\nimport { fork } from 'fluture'\nimport { removeFileWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFileWithConfig(\n    { ...fs.removeFileConfig },\n    'my-file.txt'\n  )\n)\n```"
+            },
+            {
+              "name": "removeFile",
+              "summary": "remove a file. Aliased to `rm`.",
+              "lines": "```js\nimport { fork } from 'fluture'\nimport { removeFile } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFile(\n    'my-file.txt'\n  )\n)\n```"
             }
           ]
         },
@@ -644,8 +637,7 @@
           "@curried",
           "@example"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 321,
@@ -671,8 +663,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 347,
@@ -698,8 +689,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 367,
@@ -725,8 +715,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 386,
@@ -752,8 +741,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 413,
@@ -779,8 +767,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 434,
@@ -806,8 +793,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       },
       {
         "start": 468,
@@ -824,8 +810,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/file-system/fs.js",
-        "package": "file-system"
+        "filename": "packages/file-system/fs.js"
       }
     ],
     "order": 0,
@@ -863,7 +848,6 @@
   },
   {
     "slugName": "primitives",
-    "package": "inherent",
     "pageSummary": "",
     "filename": "packages/inherent/primitives.js",
     "comments": [
@@ -876,14 +860,13 @@
         "addTo": "",
         "structure": {
           "name": "equalishBy",
-          "example": "```js test=true\nconst productIdSelector = z => {\n  const d = z.indexOf('-')\n  return d > -1 ? z.slice(0, d) : 'NO_MATCH'\n}\nconst isProduct = equalishBy(productIdSelector, 'coolco')\n *\nexpect(isProduct('coolco-10020')).toBeTruthy()\nexpect(isProduct('otherco-xkswn')).toBeFalsy()\nexpect(isProduct('blabbo')).toBeFalsy()\n```"
+          "example": "```js test=true\nconst productIdSelector = z => {\n  const d = z.indexOf('-')\n  return d > -1 ? z.slice(0, d) : 'NO_MATCH'\n}\nconst isProduct = equalishBy(productIdSelector, 'coolco')\n\nexpect(isProduct('coolco-10020')).toBeTruthy()\nexpect(isProduct('otherco-xkswn')).toBeFalsy()\nexpect(isProduct('blabbo')).toBeFalsy()\n```"
         },
         "keywords": [
           "@example",
           "@name"
         ],
-        "filename": "packages/inherent/primitives.js",
-        "package": "inherent"
+        "filename": "packages/inherent/primitives.js"
       },
       {
         "start": 35,
@@ -909,8 +892,7 @@
           "@param",
           "@returns"
         ],
-        "filename": "packages/inherent/primitives.js",
-        "package": "inherent"
+        "filename": "packages/inherent/primitives.js"
       }
     ],
     "order": 0,
@@ -919,7 +901,6 @@
   },
   {
     "slugName": "kiddo",
-    "package": "kiddo",
     "pageSummary": "Call external processes and consume them as a Future-wrapped value. This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
     "filename": "packages/kiddo/kiddo.js",
     "comments": [
@@ -939,8 +920,7 @@
         "keywords": [
           "@pageSummary"
         ],
-        "filename": "packages/kiddo/kiddo.js",
-        "package": "kiddo"
+        "filename": "packages/kiddo/kiddo.js"
       },
       {
         "start": 16,
@@ -952,8 +932,19 @@
         "structure": {
           "curried": [
             {
-              "name": "",
-              "lines": "1. execWithConfig - Passes all possible configuration values plus a cancellation function.\n```js\nimport { execWithConfig } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\nexecWithConfig(\nfunction customCancellationFunction() {},\n'echo',\n{ cleanup: true },\n['ahoy']\n)\n)\n```\n2. execWithCancel - Eschews any configuration and instead only expects a cancellation function, command and arguments.\n```js\nimport { execWithCancel } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\nexecWithCancel(\nfunction customCancellationFunction() {},\n'echo',\n['ahoy']\n)\n)\n```\n3. exec - Eschews any configuration or cancellation function. Needs only command and arguments.\n```js\nimport { exec } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\nexec(\n'echo',\n['ahoy']\n)\n)\n```"
+              "name": "execWithConfig",
+              "summary": "Passes all possible configuration values plus a cancellation function.",
+              "lines": "```js\nimport { execWithConfig } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithConfig(\n    function customCancellationFunction() {},\n    'echo',\n    { cleanup: true },\n    ['ahoy']\n  )\n)\n```"
+            },
+            {
+              "name": "execWithCancel",
+              "summary": "Eschews any configuration and instead only expects a cancellation function, command and arguments.",
+              "lines": "```js\nimport { execWithCancel } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithCancel(\n    function customCancellationFunction() {},\n    'echo',\n    ['ahoy']\n  )\n)\n```"
+            },
+            {
+              "name": "exec",
+              "summary": "Eschews any configuration or cancellation function. Needs only command and arguments.",
+              "lines": "```js\nimport { exec } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  exec(\n    'echo',\n    ['ahoy']\n  )\n)\n```"
             }
           ]
         },
@@ -961,8 +952,7 @@
           "@curried",
           "@example"
         ],
-        "filename": "packages/kiddo/kiddo.js",
-        "package": "kiddo"
+        "filename": "packages/kiddo/kiddo.js"
       }
     ],
     "order": 0,
@@ -971,7 +961,6 @@
   },
   {
     "slugName": "knot",
-    "package": "knot",
     "pageSummary": "",
     "filename": "packages/knot/knot.js",
     "comments": [
@@ -990,8 +979,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/knot/knot.js",
-        "package": "knot"
+        "filename": "packages/knot/knot.js"
       },
       {
         "start": 56,
@@ -1008,8 +996,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/knot/knot.js",
-        "package": "knot"
+        "filename": "packages/knot/knot.js"
       },
       {
         "start": 69,
@@ -1026,8 +1013,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/knot/knot.js",
-        "package": "knot"
+        "filename": "packages/knot/knot.js"
       }
     ],
     "order": 0,
@@ -1036,7 +1022,6 @@
   },
   {
     "slugName": "helpers",
-    "package": "monorail",
     "pageTitle": "helpers",
     "pageSummary": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
     "filename": "packages/monorail/helpers.js",
@@ -1060,8 +1045,7 @@
           "@page",
           "@pageSummary"
         ],
-        "filename": "packages/monorail/helpers.js",
-        "package": "monorail"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 33,
@@ -1078,8 +1062,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js",
-        "package": "monorail"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 47,
@@ -1096,8 +1079,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js",
-        "package": "monorail"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 62,
@@ -1114,8 +1096,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js",
-        "package": "monorail"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 77,
@@ -1132,8 +1113,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js",
-        "package": "monorail"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 92,
@@ -1150,8 +1130,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js",
-        "package": "monorail"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 115,
@@ -1168,8 +1147,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js",
-        "package": "monorail"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 163,
@@ -1186,8 +1164,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js",
-        "package": "monorail"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 179,
@@ -1204,8 +1181,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js",
-        "package": "monorail"
+        "filename": "packages/monorail/helpers.js"
       },
       {
         "start": 206,
@@ -1222,8 +1198,7 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js",
-        "package": "monorail"
+        "filename": "packages/monorail/helpers.js"
       }
     ],
     "order": 0,
@@ -1232,7 +1207,6 @@
   },
   {
     "slugName": "summary",
-    "package": "digested",
     "pageSummary": "",
     "filename": "tools/digested/summary.js",
     "comments": [
@@ -1253,8 +1227,7 @@
           "@future",
           "@name"
         ],
-        "filename": "tools/digested/summary.js",
-        "package": "digested"
+        "filename": "tools/digested/summary.js"
       }
     ],
     "order": 0,
