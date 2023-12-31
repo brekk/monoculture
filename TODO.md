@@ -68,3 +68,13 @@
  - [ ] Support proper links
  - [ ] Wiring docs to tests would be cool
  - [ ] Documentation pages should underline how they are written
+
+### monocle
+
+ - [ ] `monocle` could add `get-imports` -> `used-imports`
+ - [ ] I think it would make sense to have a mode which doesn't always read all the files -- that maybe should be an opt-in sort of thing
+ - [ ] There's also the domain of meta info about files -- lstat other stuff which predominantly isn't reliant on the material content of the file
+
+### manacle
+
+ - [ ] Something something `monocle -p used-imports` -> `manacle -r uses-imports`
