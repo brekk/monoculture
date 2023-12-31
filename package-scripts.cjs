@@ -24,7 +24,6 @@ module.exports = {
             // use :read !./tools/spacework/list-workspaces.cjs
             [
               '.',
-
               'apps/docs',
               'packages/bloodline',
               'packages/climate',
@@ -61,6 +60,28 @@ module.exports = {
     lint: sd('turbo run lint', 'lint with turbo'),
     test: {
       ...sd('turbo run test', 'test with turbo'),
+      silent: sd('turbo run test:silent', 'test with turbo, quietly'),
+      ci: sd('turbo run test:ci', 'test for CI'),
+      ciCopy: sd(
+        [
+          'if [ -d coverage ]; then rm -r coverage; fi; mkdir -p coverage',
+          './tools/spacework/tps-reports.cjs > ./coverage/coverage-final.json',
+          // eslint-disable-next-line max-len
+          `npx nyc report -t coverage --report-dir coverage ${['json', 'lcov']
+            .map(r => `--reporter=${r}`)
+            .join(' ')}`,
+        ].join(' && '),
+        'automatically generate the merged jest config'
+      ),
+      ciReport: sd(
+        `npx nyc report -t coverage --report-dir coverage --reporter=text --reporter=text-summary`,
+        'Run CI report!'
+      ),
+      ciProjectSummary: sd(
+        // eslint-disable-next-line max-len
+        `nps -c ./package-scripts.cjs test.ciReport | ./tools/spacework/reporter-for-ci.cjs`,
+        'Grab project summaries from the CI report'
+      ),
       watch: sd('turbo run test:watch', 'test with turbo in watch mode'),
       snapshot: sd('turbo run test:snapshot', 'redo all the snapshots'),
     },

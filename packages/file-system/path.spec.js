@@ -1,14 +1,13 @@
-import { pathJoin } from './path'
+import { relativePathJoin } from './path'
 
-test('pathJoin', () => {
-  expect(pathJoin(__dirname, '../data-hooks').split('/').slice(-2)).toEqual([
-    'packages',
-    'data-hooks',
-  ])
+test('relativePathJoin', () => {
+  expect(
+    relativePathJoin(__dirname, '../data-hooks').split('/').slice(-2)
+  ).toEqual(['packages', 'data-hooks'])
 })
 
-test('pathJoin - fails', () => {
-  expect(() => pathJoin(2, 2)).toThrow(
+test('relativePathJoin - fails', () => {
+  expect(() => relativePathJoin(2, 2)).toThrow(
     'Cannot normalize bad paths, given (2, 2).'
   )
 })

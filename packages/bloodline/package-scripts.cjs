@@ -42,10 +42,18 @@ module.exports = {
     lint: sd('eslint --fix .', 'lint!'),
     meta: {
       graph: `nps -c ./package-scripts.cjs build test.integration`,
-      madge: `madge ${INPUT} --image graph-madge.svg`,
+      madge: `madge ${INPUT} --include-npm --image graph-madge.svg`,
     },
     test: {
-      ...sd('jest', 'test!'),
+      ...sd('jest --coverage --verbose', 'test!'),
+      silent: sd(
+        'jest --silent --reporters=jest-silent-reporter --coverageReporters=none',
+        'test, quietly.'
+      ),
+      ci: sd(
+        'jest --ci --json --coverage --testLocationInResults --outputFile=ci-report.json',
+        'test for CI!'
+      ),
       watch: sd('jest --watch', 'test with watch-mode!'),
       integration: sd(
         `./dist/bloodline.cjs -i ./cli.js -o graph.svg`,

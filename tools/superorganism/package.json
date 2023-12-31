@@ -28,7 +28,8 @@
     "esbuild": "0.19.10",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     "fastest-levenshtein": "1.0.16",
-    "jest-config": "workspace:shared/jest-config"
+    "jest-config": "workspace:shared/jest-config",
+    "nps": "^5.10.0"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
@@ -42,6 +43,8 @@
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:ci": "dotenv -- nps -c ./package-scripts.cjs test.ci",
+    "test:silent": "dotenv -- nps -c ./package-scripts.cjs test.silent",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }
 }

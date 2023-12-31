@@ -12,7 +12,8 @@ ignore = [
   "./**/__snapshots__/*",
   "./**/coverage/**/*",
   "./**/*.svg",
-  "./**/monocle-findings.json"
+  "./**/monocle-findings.json",
+  "./**/ci-report.json"
 ]
 
 [robot-tourist]

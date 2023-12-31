@@ -1,10 +1,5 @@
 import { pipe, last, head } from 'ramda'
-import {
-  objectifyComments,
-  getExample,
-  structureKeywords,
-  isJSDocComment,
-} from './comment'
+import { objectifyComments, getExample, structureKeywords } from './comment'
 
 const CANONICAL_FILE = `
 
@@ -93,11 +88,4 @@ tsDrools = 'obviously'
     name: 'hooray',
     see: ['hey-now.coolBiz'],
   })
-})
-test('isJSDocComment', () => {
-  expect(isJSDocComment).toBeTruthy()
-  expect(isJSDocComment('test')).toBeFalsy()
-  expect(isJSDocComment('/**')).toBeTruthy()
-  expect(isJSDocComment('          *')).toBeTruthy()
-  expect(isJSDocComment('      */')).toBeTruthy()
 })

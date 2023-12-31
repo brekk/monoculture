@@ -73,3 +73,15 @@ fork(x => {
   parseArgs(['--help'])
 )
 ```
+
+## defaultNameTemplate
+
+The default search space when running `configFileWithCancel`.
+
+### Usage
+```js test=true
+expect(defaultNameTemplate('cool')).toEqual(['.coolrc', '.coolrc.json'])
+```
+
+### See also
+ - configFileWithCancel

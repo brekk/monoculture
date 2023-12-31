@@ -1,45 +1,25 @@
-name: Monoculture Builder 🏭
+name: 🦠 Monoculture
 on: [push, workflow_dispatch]
-permissions:
-  contents: read
-  pages: write
-  id-token: write
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: ci
-    steps:
-      - name: 🚀 Deploy new build to pages...
-        id: deployment
-        uses: actions/deploy-pages@v2
-  ci:
+
+  docs:
     runs-on: ubuntu-latest
     steps:
       - name: 🧾 Checking out code...
         uses: actions/checkout@v4
-      - name: 🧱 Unpacking corepack...
-        run: corepack enable
-      - name: 🤖 Installing node...
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20.x'
-          cache: 'yarn'
+      - name: 🔩 Installing...
+        uses: ./.github/shared-actions/install
       - name: ✍️  Preparing to journal...
         uses: actions/configure-pages@v3
-      - name: 🧶 Installing dependencies...
-        run: yarn --immutable
       - name: 📩 Save documentation...
         uses: actions/cache@v3
         with:
           path: .next/cache
-          key: ${{ runner.os }}-nextra-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**..[jt]sx') }}
+          key: ${{ runner.os }}-nextra-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
           restore-keys: |
             ${{ runner.os }}-nextra-${{ hashFiles('**/yarn.lock') }}-
-      - name: 🏗️ Building artifacts...
-        run: yarn build
+      - name: 📦 Bundling docs...
+        run: yarn workspace docs run build
       - name: 📟 Update pages...
         uses: actions/upload-pages-artifact@v1
         with:
@@ -48,15 +28,94 @@ jobs:
         run: |
           mkdir public
           touch public/.nojekyll
-          ls -Algp ./apps/docs/pages/file-system
-          echo "HEY LOOK"
-      - name: 🚁 Saving artifacts...
+
+  deploy:
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    runs-on: ubuntu-latest
+    needs: docs
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 🚀 Deploy new build to pages...
+        id: deployment
+        uses: actions/deploy-pages@v2
+
+  test:
+    permissions:
+      pull-requests: write
+    runs-on: ubuntu-latest
+    outputs:
+      coverage: ${{ env.coverage_report }}
+      summary: ${{ env.coverage_summary }}
+      pr: ${{ steps.findPr.outputs.pr }}
+    steps:
+      - name: 🧾 Checking out code...
+        uses: actions/checkout@v4 
+      - name: 🔩 Installing...
+        uses: ./.github/shared-actions/install
+      - name: 🧪 Testing...
+        run: |
+          yarn test:ci
+          yarn test:ciCopy
+      - name: 🚁 Saving test artifacts...
         uses: actions/upload-artifact@v3
         with:
-          name: artifacts
+          name: coverage-artifacts
+          path: |
+            coverage/coverage-final.json
+            coverage/lcov.info
+      - name: 🔎 Get current PR number...
+        uses: jwalton/gh-find-current-pr@v1
+        id: findPr
+      - name: 🎥 Calculating shared coverage...
+        run: |
+          COVERAGE=$(npx nps --silent -c ./package-scripts.cjs test.ciReport)
+          echo "coverage_report<<EOF" >> $GITHUB_ENV
+          echo "$COVERAGE" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          SUMMARY=$(echo "$COVERAGE" | node ./tools/spacework/reporter-for-ci.cjs --pr ${{ steps.findPR.outputs.pr }} --branch $GITHUB_REF_NAME)
+          echo "coverage_summary<<EOF" >> $GITHUB_ENV
+          echo "$SUMMARY" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      - name: 🧱 Building artifacts...
+        run: yarn build
+      - name: 🛫 Saving build artifacts... 
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
           path: |
             packages/**/dist/**
             tools/**/dist/**
             !node_modules/**
-      - name: 🔬 Testing build...
-        run: yarn test
+
+  report:
+    permissions:
+      pull-requests: write
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🎙️ Updating PR...
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          # delete the old comment and re-append to the end (useful for long running PRs)
+          recreate: true
+          number: ${{ needs.test.outputs.pr }}
+          header: test
+          message: |
+            ### 🦠 Monoculture
+            
+            #### Coverage summary
+
+            ${{ needs.test.outputs.summary }}
+
+            <details closed><summary>Report</summary>
+
+            ```
+            ${{ needs.test.outputs.coverage }}
+            ```
+
+            </details>

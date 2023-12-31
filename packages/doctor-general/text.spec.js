@@ -1,12 +1,4 @@
-import {
-  trimComment,
-  nixKeyword,
-  wipeComment,
-  formatComment,
-  lines,
-  unlines,
-  j2,
-} from './text'
+import { trimComment, nixKeyword, wipeComment, formatComment } from './text'
 
 test('trimComment', () => {
   expect(trimComment('        * zipzop')).toEqual('zipzop')
@@ -28,30 +20,4 @@ test('formatComment', () => {
       [2, ' */'],
     ])
   ).toEqual(['@zipzop'])
-})
-
-test('lines', () => {
-  expect(
-    lines(`a
-b
-c`)
-  ).toEqual(['a', 'b', 'c'])
-})
-test('unlines', () => {
-  expect(unlines(['a', 'b', 'c'])).toEqual(`a
-b
-c`)
-})
-
-test('j2', () => {
-  expect(j2({ a: { b: { c: ['e', 'f'] } } })).toEqual(`{
-  "a": {
-    "b": {
-      "c": [
-        "e",
-        "f"
-      ]
-    }
-  }
-}`)
 })

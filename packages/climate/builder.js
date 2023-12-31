@@ -134,7 +134,15 @@ export const pluginToCondMap = ({ name, test, parse }) => {
     pipe(parse, log.plugin(name + ':read')),
   ]
 }
-
+/**
+ * The default search space when running `configFileWithCancel`.
+ * @name defaultNameTemplate
+ * @see {@link configFileWithCancel}
+ * @example
+ * ```js test=true
+ * expect(defaultNameTemplate('cool')).toEqual(['.coolrc', '.coolrc.json'])
+ * ```
+ */
 export const defaultNameTemplate = ns => [`.${ns}rc`, `.${ns}rc.json`]
 
 export const configFileWithCancel = curry((cancel, opts) => {

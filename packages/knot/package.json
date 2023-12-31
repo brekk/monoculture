@@ -17,7 +17,8 @@
   "devDependencies": {
     "dotenv-cli": "7.3.0",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
-    "jest-config": "workspace:shared/jest-config"
+    "jest-config": "workspace:shared/jest-config",
+    "nps": "^5.10.0"
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
@@ -25,7 +26,9 @@
     "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:ci": "dotenv -- nps -c ./package-scripts.cjs test.ci",
     "test:integration": "dotenv -- nps -c ./package-scripts.cjs test.integration",
+    "test:silent": "dotenv -- nps -c ./package-scripts.cjs test.silent",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }
 }

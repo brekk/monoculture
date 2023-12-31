@@ -195,10 +195,36 @@
           "@name"
         ],
         "filename": "packages/climate/builder.js"
+      },
+      {
+        "start": 136,
+        "end": 144,
+        "summary": "The default search space when running `configFileWithCancel`.",
+        "links": [
+          "configFileWithCancel"
+        ],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "defaultNameTemplate",
+          "see": [
+            "configFileWithCancel"
+          ],
+          "example": "```js test=true\nexpect(defaultNameTemplate('cool')).toEqual(['.coolrc', '.coolrc.json'])\n```"
+        },
+        "keywords": [
+          "@example",
+          "@link",
+          "@name",
+          "@see"
+        ],
+        "filename": "packages/climate/builder.js"
       }
     ],
     "order": 0,
-    "links": [],
+    "links": [
+      "configFileWithCancel"
+    ],
     "workspace": "climate"
   },
   {
@@ -864,15 +890,15 @@
     "filename": "packages/knot/knot.js",
     "comments": [
       {
-        "start": 48,
-        "end": 57,
+        "start": 49,
+        "end": 61,
         "summary": "Slice a string by counted delimiters",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
           "name": "nthIndex",
-          "example": "```js test=true\nexpect(\n  nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j')\n).toEqual(\"f/g/h/i/j\")\n```"
+          "example": "```js test=true\nexpect(\n  nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j')\n).toEqual(\"f/g/h/i/j\")\nexpect(\n  nthIndex('/', 5, 'a/b/c/d/e/f/g/h/i/j')\n).toEqual(\"a/b/c/d/e\")\n```"
         },
         "keywords": [
           "@example",
@@ -881,15 +907,32 @@
         "filename": "packages/knot/knot.js"
       },
       {
-        "start": 62,
-        "end": 69,
+        "start": 66,
+        "end": 74,
         "summary": "A simple memoized utility for repeating a string and joining the array.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
           "name": "strepeat",
-          "example": "```js test=true\nexpect(strepeat('=', 5)).toEqual('=====')\n```"
+          "example": "```js test=true\nexpect(strepeat('=', 5)).toEqual('=====')\nexpect(strepeat('/', -1)).toEqual('')\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/knot/knot.js"
+      },
+      {
+        "start": 82,
+        "end": 90,
+        "summary": "Capitalize a string",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "capitalize",
+          "example": "```js test=true\nexpect(capitalize(\"nice\")).toEqual(\"Nice\")\nexpect(capitalize(\"\")).toEqual(\"\")\n```"
         },
         "keywords": [
           "@example",
@@ -1086,5 +1129,34 @@
     "order": 0,
     "links": [],
     "workspace": "monorail"
+  },
+  {
+    "slugName": "summary",
+    "pageSummary": "",
+    "filename": "tools/digested/summary.js",
+    "comments": [
+      {
+        "start": 86,
+        "end": 156,
+        "summary": "Summarize a project, given:\n - the path to a `package.json` file\n - the path to a `dr-generated.json` file\n - the URI of a documentation site\n - the URI of a repository\n - (optional) a banner\n - or (optional) the path to a file which represents a banner",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "summarize",
+          "future": true,
+          "example": "```js test=true\nimport path from 'node:path'\nimport { fork } from 'fluture'\n// drgen-import-above\nfork(done)(x => {\n  expect(x.split('\\n')).toEqual([\n    \"this is a cool test!\",\n    \"## apps\",\n    \"\",\n    \" * [docs](//repo.biz/apps/docs) - documentation site for monoculture\",\n    \"\",\n    \"## packages\",\n    \"\",\n    \" * [bloodline](//repo.biz/packages/bloodline) - determine the relationships between files 🩸\",\n    \" * [climate](//repo.biz/packages/climate) - CLI utilities, friend 👯\",\n    \" * [climate-json](//repo.biz/packages/climate-json) - JSON parser for climate 🐐\",\n    \" * [climate-toml](//repo.biz/packages/climate-toml) - TOML parser for climate 🍅\",\n    \" * [climate-yaml](//repo.biz/packages/climate-yaml) - YAML parser for climate 🍠\",\n    \" * [clox](//repo.biz/packages/clox) - boxes for the terminal ⏰\",\n    \" * [doctor-general](//repo.biz/packages/doctor-general) - documentation generation 🩻\",\n    \" * [file-system](//repo.biz/packages/file-system) - fs, but in the future 🔮\",\n    \" * [inherent](//repo.biz/packages/inherent) - functional utilities for primitives ⛺️\",\n    \" * [kiddo](//repo.biz/packages/kiddo) - child processes in the future 👶\",\n    \" * [knot](//repo.biz/packages/knot) - functional utilities for strings 🪢\",\n    \" * [monocle](//repo.biz/packages/monocle) - inspect code and apply rules, magically 🧐\",\n    \" * [monorail](//repo.biz/packages/monorail) - plugins for smug grins 🚂\",\n    \" * [robot-tourist](//repo.biz/packages/robot-tourist) - human-centric source code interpreter 🤖\",\n    \" * [water-wheel](//repo.biz/packages/water-wheel) - future-wrapping for streaming interfaces 🌊\",\n    \"\",\n    \"## shared\",\n    \"\",\n    \" * [eslint-config-monoculture](//repo.biz/shared/eslint-config-monoculture) - shared eslint configuration for monoculture packages 🧹\",\n    \" * [jest-config](//repo.biz/shared/jest-config) - shared jest configuration for monoculture packages 🎪\",\n    \" * [monoculture-tsconfig](//repo.biz/shared/monoculture-tsconfig) - shared tsconfig for monoculture packages 😵\",\n    \"\",\n    \"## tools\",\n    \"\",\n    \" * [digested](//repo.biz/tools/digested) - summarize and automatically generate information about your projects 🍽️\",\n    \" * [doctor-general-cli](//repo.biz/tools/doctor-general-cli) - documentation generation in a nice CLI 🫡\",\n    \" * [gitparty](//repo.biz/tools/gitparty) - visualize git logs with magical context 🎨\",\n    \" * [spacework](//repo.biz/tools/spacework) - meta tools for monoculture ☄️\",\n    \" * [superorganism](//repo.biz/tools/superorganism) - script runner from beyond the moon 🦠\",\n    \" * [treacle](//repo.biz/tools/treacle) - command line interface tree visualization pun 🫠\",\n    \"\",\n  ])\n  done()\n})(summarize({\n  readme: true,\n  dirPath: process.cwd(),\n  banner: 'this is a cool test!',\n  // repoUrl: 'https://github.com/brekk/monoculture/tree/main',\n  // docUrl: 'https://brekk.github.io/monoculture',\n  // base package only!\n  repoUrl: '//repo.biz',\n  docUrl: '//repo.doc',\n  pkgPath: '../../package.json',\n  drGenPath: '../../apps/docs/dr-generated.json'\n}))\n```"
+        },
+        "keywords": [
+          "@example",
+          "@future",
+          "@name"
+        ],
+        "filename": "tools/digested/summary.js"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "digested"
   }
 ]

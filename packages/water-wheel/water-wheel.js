@@ -1,53 +1,11 @@
 import { Future } from 'fluture'
-import { curry } from 'ramda'
-import { envtrace } from 'envtrace'
+import { __ as $, curry } from 'ramda'
+import { getStreamAsArray } from 'get-stream'
 
-const log = envtrace('water-wheel')
-
-export const makeRemovableListener = curry((stream, key, fn) => {
-  stream.on(key, fn)
-  log('listening to', key)
-  return () => {
-    stream.removeListener(key, fn)
-    log('stopped listening to', key)
-  }
-})
-
-export const waterWheel = curry((cancel, $stream) =>
+export const waterWheelWithConfig = curry((cancel, maxBuffer, x) =>
   Future((bad, good) => {
-    const value = []
-    if (!$stream.readable) {
-      good(value)
-      return cancel
-    }
-    const onData = x => {
-      value.push(x)
-    }
-    const onEndOrError = err => {
-      // log('stopping', err ? `😰 ${err}` : `😎`)
-      if (err) {
-        bad(err)
-      } else {
-        good(value)
-      }
-      clean()
-    }
-    const onClose = x => {
-      // log('closing 😎', value)
-      good(value)
-      clean()
-    }
-    const streamKill = makeRemovableListener($stream)
-    const killData = streamKill('data', onData)
-    const killEnd = streamKill('end', onEndOrError)
-    const killError = streamKill('error', onEndOrError)
-    const killClose = streamKill('close', onClose)
-    function clean() {
-      killData()
-      killError()
-      killEnd()
-      killClose()
-    }
+    getStreamAsArray(x, { maxBuffer }).catch(bad).then(good)
     return cancel
   })
 )
+export const waterWheel = waterWheelWithConfig($, Infinity)

@@ -17,9 +17,10 @@ import {
   uniq,
 } from 'ramda'
 import { readFile } from 'file-system'
-import { addLineNumbers, groupContiguousBlocks } from './file'
-import { lines, stripRelative } from './text'
-import { isJSDocComment, objectifyComments } from './comment'
+import { isJSDocComment, addLineNumbers, groupContiguousBlocks } from './file'
+import { stripRelative } from './text'
+import { lines } from 'knot'
+import { objectifyComments } from './comment'
 
 const getAny = curry((def, keyPath, comments) =>
   pipe(

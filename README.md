@@ -42,6 +42,7 @@ introspection and organization tools for monorepos
     - [jest](https://www.npmjs.com/package/jest) 🧪
     - [jest-environment-jsdom](https://www.npmjs.com/package/jest-environment-jsdom) 🧪
     - [monoculture-tsconfig](https://github.com/brekk/monoculture/tree/main/shared/monoculture-tsconfig) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
     - [prettier](https://www.npmjs.com/package/prettier) 🧪
     - [typescript](https://www.npmjs.com/package/typescript) 🧪
 
@@ -75,6 +76,7 @@ introspection and organization tools for monorepos
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
 
    </details>
 
@@ -97,6 +99,7 @@ introspection and organization tools for monorepos
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [eslint-plugin-prettier](https://www.npmjs.com/package/eslint-plugin-prettier) 🧪
     - [jest](https://www.npmjs.com/package/jest) 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
     - [prettier](https://www.npmjs.com/package/prettier) 🧪
     - [smol-toml](https://www.npmjs.com/package/smol-toml) 🧪
     - [strip-ansi](https://www.npmjs.com/package/strip-ansi) 🧪
@@ -113,6 +116,7 @@ introspection and organization tools for monorepos
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [fluture](https://www.npmjs.com/package/fluture) 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
 
    </details>
 
@@ -127,6 +131,7 @@ introspection and organization tools for monorepos
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [fluture](https://www.npmjs.com/package/fluture) 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
 
    </details>
 
@@ -141,6 +146,7 @@ introspection and organization tools for monorepos
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [fluture](https://www.npmjs.com/package/fluture) 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
 
    </details>
 
@@ -158,6 +164,7 @@ introspection and organization tools for monorepos
     - [wrap-ansi](https://www.npmjs.com/package/wrap-ansi)
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
 
    </details>
 
@@ -178,6 +185,7 @@ introspection and organization tools for monorepos
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [jest-environment-jsdom](https://www.npmjs.com/package/jest-environment-jsdom) 🧪
     - [madge](https://www.npmjs.com/package/madge) 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
     - [strip-ansi](https://www.npmjs.com/package/strip-ansi) 🧪
     - [xtrace](https://www.npmjs.com/package/xtrace) 🧪
 
@@ -201,6 +209,7 @@ introspection and organization tools for monorepos
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [jest](https://www.npmjs.com/package/jest) 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
 
    </details>
 
@@ -218,6 +227,7 @@ introspection and organization tools for monorepos
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
 
    </details>
 
@@ -239,6 +249,7 @@ introspection and organization tools for monorepos
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [jest](https://www.npmjs.com/package/jest) 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
 
    </details>
 
@@ -257,6 +268,7 @@ introspection and organization tools for monorepos
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
 
    </details>
 
@@ -277,6 +289,7 @@ introspection and organization tools for monorepos
     - [execa](https://www.npmjs.com/package/execa) 🧪
     - [jest](https://www.npmjs.com/package/jest) 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
     - [robot-tourist](https://github.com/brekk/monoculture/tree/main/packages/robot-tourist) 🦴 🧪
 
    </details>
@@ -319,6 +332,7 @@ introspection and organization tools for monorepos
     - [eslint](https://www.npmjs.com/package/eslint) 🧪
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [jest](https://www.npmjs.com/package/jest) 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
     - [prettier](https://www.npmjs.com/package/prettier) 🧪
     - [strip-ansi](https://www.npmjs.com/package/strip-ansi) 🧪
 
@@ -330,10 +344,13 @@ introspection and organization tools for monorepos
 
     - [envtrace](https://www.npmjs.com/package/envtrace)
     - [fluture](https://www.npmjs.com/package/fluture)
+    - [get-stream](https://www.npmjs.com/package/get-stream)
     - [ramda](https://www.npmjs.com/package/ramda)
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
+    - [into-stream](https://www.npmjs.com/package/into-stream) 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
 
    </details>
 
@@ -357,6 +374,7 @@ introspection and organization tools for monorepos
     - [eslint-plugin-ramda](https://www.npmjs.com/package/eslint-plugin-ramda)
     - [eslint-plugin-react](https://www.npmjs.com/package/eslint-plugin-react)
     - [eslint-plugin-unused-imports](https://www.npmjs.com/package/eslint-plugin-unused-imports)
+    - [nps](https://www.npmjs.com/package/nps) 🧪
     - [prettier](https://www.npmjs.com/package/prettier) 🧪
     - [typescript](https://www.npmjs.com/package/typescript) 🧪
 
@@ -370,16 +388,31 @@ introspection and organization tools for monorepos
     - [@swc/jest](https://www.npmjs.com/package/@swc/jest)
     - [@testing-library/jest-dom](https://www.npmjs.com/package/@testing-library/jest-dom)
     - [jest](https://www.npmjs.com/package/jest)
+    - [jest-silent-reporter](https://www.npmjs.com/package/jest-silent-reporter)
     - [ts-jest-resolver](https://www.npmjs.com/package/ts-jest-resolver)
     - [typescript](https://www.npmjs.com/package/typescript)
+    - [nps](https://www.npmjs.com/package/nps) 🧪
 
    </details>
 
  * [monoculture-tsconfig](https://github.com/brekk/monoculture/tree/main/shared/monoculture-tsconfig) - shared tsconfig for monoculture packages 😵
 
+   <details><summary>Dependencies</summary>
+
+    - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
+
+   </details>
+
 ## tools
 
  * [digested](https://github.com/brekk/monoculture/tree/main/tools/digested) - summarize and automatically generate information about your projects 🍽️
+
+   <details><summary>API</summary>
+
+    - [summary](https://brekk.github.io/monoculture/digested/summary)
+
+   </details>
 
    <details><summary>Dependencies</summary>
 
@@ -389,9 +422,11 @@ introspection and organization tools for monorepos
     - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
     - [fluture](https://www.npmjs.com/package/fluture)
     - [ramda](https://www.npmjs.com/package/ramda)
+    - [doctor-general-cli](https://github.com/brekk/monoculture/tree/main/tools/doctor-general-cli) 🦴 🧪
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
 
    </details>
 
@@ -409,6 +444,7 @@ introspection and organization tools for monorepos
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [jest-environment-jsdom](https://www.npmjs.com/package/jest-environment-jsdom) 🧪
     - [madge](https://www.npmjs.com/package/madge) 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
     - [strip-ansi](https://www.npmjs.com/package/strip-ansi) 🧪
     - [xtrace](https://www.npmjs.com/package/xtrace) 🧪
 
@@ -431,6 +467,7 @@ introspection and organization tools for monorepos
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
 
    </details>
 
@@ -443,6 +480,7 @@ introspection and organization tools for monorepos
     - [ramda](https://www.npmjs.com/package/ramda)
     - [snang](https://www.npmjs.com/package/snang)
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
     - [nps-utils](https://www.npmjs.com/package/nps-utils) 🧪
 
    </details>
@@ -464,6 +502,7 @@ introspection and organization tools for monorepos
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [fastest-levenshtein](https://www.npmjs.com/package/fastest-levenshtein) 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
 
    </details>
 
@@ -479,6 +518,7 @@ introspection and organization tools for monorepos
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
 
    </details>
 

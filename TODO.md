@@ -56,4 +56,5 @@
    - [ ] Explanation - Provide context for broader understanding of things. Help provide a rationale for choices. Admit opinion and perspective.
  - [x] AUTOMATICALLY GENERATE TESTS FROM COMMENTS! **Completed!** This is a little brittle currently, but really awesome.
    - [ ] We need to have a more robust means of handling imports, right now it's likely to break
+ - [ ] Right now `@example` assumes it will be the last entry, but that's not super robust, we should write a more comprehensive test for this
 
