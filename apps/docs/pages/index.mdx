@@ -5,12 +5,40 @@ import {
   mdiSourceRepository,
   mdiHook,
 } from '@mdi/js'
-import { Icon } from '@chakra-ui/react'
-import { Card, Cards } from 'nextra-theme-docs'
+import { Tabs, Card, Cards } from 'nextra-theme-docs'
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
+import {
+  faUserDoctor,
+  faDropletSlash,
+  faCloudBolt,
+  faFolderTree,
+  faBriefcase,
+  faMitten,
+  faSplotch,
+  faTrainTram,
+  faCookieBite,
+} from '@fortawesome/free-solid-svg-icons'
 
 # Monoculture
 ###### Tools for Monorepos
 
-<Cards num={2}>
-  <Card title="doctor-general" href="./doctor-general"/>
-</Cards>
+<Tabs items={["packages", "tools"]}>
+  <Tabs.Tab>
+    All packages are written in ESM. Some packages also generate a CLI tool, which is transpiled to CommonJS.
+    <Cards num={2}>
+      <Card icon={<Icon icon={faUserDoctor} />} title="doctor-general" href="./doctor-general" />
+      <Card icon={<Icon icon={faDropletSlash} />} title="bloodline" href="./bloodline" />
+      <Card icon={<Icon icon={faCloudBolt} />} title="climate" href="./climate" />
+      <Card icon={<Icon icon={faFolderTree} />} title="file-system" href="./file-system" />
+      <Card icon={<Icon icon={faBriefcase} />} title="inherent" href="./inherent" />
+      <Card icon={<Icon icon={faMitten} />} title="kiddo" href="./kiddo" />
+      <Card icon={<Icon icon={faSplotch} />} title="knot" href="./knot" />
+      <Card icon={<Icon icon={faTrainTram} />} title="monorail" href="./monorail" />
+    </Cards>
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <Cards>
+      <Card icon={<Icon icon={faCookieBite} />} title="digested" href="./digested" />
+    </Cards>
+  </Tabs.Tab>
+</Tabs>

@@ -14,7 +14,7 @@ const productIdSelector = z => {
   return d > -1 ? z.slice(0, d) : 'NO_MATCH'
 }
 const isProduct = equalishBy(productIdSelector, 'coolco')
-
+ *
 console.log(`1. ${isProduct('coolco-10020')}`) // true
 console.log(`2. ${isProduct('otherco-xkswn')}`) // false
 console.log(`3. ${isProduct('blabbo')}`) // false

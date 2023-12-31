@@ -17,6 +17,10 @@ introspection and organization tools for monorepos
     - [@chakra-ui/system](https://www.npmjs.com/package/@chakra-ui/system)
     - [@emotion/react](https://www.npmjs.com/package/@emotion/react)
     - [@emotion/styled](https://www.npmjs.com/package/@emotion/styled)
+    - [@fortawesome/fontawesome-svg-core](https://www.npmjs.com/package/@fortawesome/fontawesome-svg-core)
+    - [@fortawesome/free-regular-svg-icons](https://www.npmjs.com/package/@fortawesome/free-regular-svg-icons)
+    - [@fortawesome/free-solid-svg-icons](https://www.npmjs.com/package/@fortawesome/free-solid-svg-icons)
+    - [@fortawesome/react-fontawesome](https://www.npmjs.com/package/@fortawesome/react-fontawesome)
     - [@mdi/js](https://www.npmjs.com/package/@mdi/js)
     - [framer-motion](https://www.npmjs.com/package/framer-motion)
     - [next](https://www.npmjs.com/package/next)
@@ -172,6 +176,7 @@ introspection and organization tools for monorepos
 
    <details><summary>API</summary>
 
+    - [file](https://brekk.github.io/monoculture/doctor-general/file)
     - [text](https://brekk.github.io/monoculture/doctor-general/text)
 
    </details>

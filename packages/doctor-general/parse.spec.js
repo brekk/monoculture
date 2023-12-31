@@ -90,7 +90,7 @@ import { nice } from './parse'
   })
 })
 test('parseFile', done => {
-  const input = relativePathJoin(__dirname, './fixture/pkg/one/main.ts')
+  const input = relativePathJoin(__dirname, './file.js')
   fork(done)(raw => {
     const cleanFilename = raw.filename.split('/').slice(-3).join('/')
     expect({ ...raw, filename: cleanFilename }).toMatchSnapshot()

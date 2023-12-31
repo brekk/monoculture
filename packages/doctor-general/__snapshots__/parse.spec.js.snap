@@ -5,31 +5,73 @@ exports[`parseFile 1`] = `
   "comments": [
     {
       "addTo": "",
-      "end": 11,
+      "end": 75,
       "fileGroup": "",
       "keywords": [
         "@example",
         "@name",
+        "@param",
+        "@returns",
       ],
       "links": [],
-      "start": 2,
+      "start": 49,
       "structure": {
-        "example": "\`\`\`ts live=true
-import { add } from './fixture'
- *
-add(10)(20) === 30
+        "example": "\`\`\`js
+const a = { a: true, greeting: 'hello', comments: ['one', 'two'], links: ['a', 'b'] }
+const b = { b: true, greeting: 'ahoy', comments: ['three', 'four'], links: ['c', 'd'] }
+expect(combineFiles(true, a, b)).toEqual({
+  a: true,
+  b: true,
+  greeting: 'ahoy',
+  comments: ['one', 'two', 'three', 'four'],
+  links: ['a', 'b', 'c', 'd']
+})
+expect(combineFiles(false, a, b)).toEqual({
+  a: true,
+  b: true,
+  greeting: 'hello',
+  comments: ['three', 'four', 'one', 'two'],
+  links: ['c', 'd', 'a', 'b']
+})
 \`\`\`",
-        "name": "add",
+        "name": "combineFiles",
+        "param": [
+          [
+            "{boolean}",
+            "leftToRight",
+            "Associate",
+            "left",
+            "to",
+            "right",
+          ],
+          [
+            "{File}",
+            "a",
+            "left",
+            "file",
+          ],
+          [
+            "{File}",
+            "b",
+            "right",
+            "file",
+          ],
+        ],
+        "returns": [
+          "{File}",
+          "Merged",
+          "file",
+        ],
       },
-      "summary": "A curried binary addition function",
+      "summary": "Merge two file representations. Can be right or left associative",
     },
   ],
   "fileGroup": undefined,
-  "filename": "pkg/one/main.ts",
+  "filename": "packages/doctor-general/file.js",
   "links": [],
   "order": 0,
   "pageSummary": "",
   "pageTitle": undefined,
-  "slugName": "main",
+  "slugName": "file",
 }
 `;
