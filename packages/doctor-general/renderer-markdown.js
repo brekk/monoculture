@@ -1,5 +1,6 @@
 import { wrap } from 'inherent'
 import {
+  curry,
   replace,
   concat,
   ap,
@@ -22,6 +23,7 @@ import {
 } from 'ramda'
 import { lines, unlines } from 'knot'
 import { MAGIC_IMPORT_KEY } from './constants'
+import { log } from './log'
 
 const stripFence = when(startsWith('```'), K(''))
 
@@ -52,43 +54,80 @@ const getCurried = pathOr([], ['structure', 'curried'])
 
 const cleanlines = pipe(filter(I), join('\n'))
 
-const commonFields = ({ name, summary, links, example }) => [
-  name ? '## ' + name + '\n' : '',
-  summary ? summary + '\n' : '',
-  example ? `### Usage\n${example}` : '',
-  example.includes('live=true') ? `\n\n${liveExample(example)}` : '',
-  links.length ? `\n### See also\n - ${links.join('\n - ')}` : '',
-]
+const insertIntoExample = curry((imports, slugName, example) => {
+  let inserted = false
+  const fixed = !imports.length
+    ? example
+    : pipe(
+        lines,
+        map(y => {
+          if (!inserted && y.startsWith('```')) {
+            y += `\nimport { ${imports.join(', ')} } from '${slugName}'\n`
+            inserted = true
+          }
+          return y
+        }),
+        unlines
+      )(example)
+  log.renderer('fixed', fixed)
+  return fixed
+})
 
-const handleCurriedExample = pipe(
-  wrap,
-  ap([getCurried, flattenCommentData]),
-  ([curried, { summary, links }]) =>
-    map(({ name, lines: example }) =>
-      cleanlines(
-        commonFields({
-          name,
-          summary,
-          example,
-          links: pipe(
-            map(({ name: n }) => n),
-            filter(y => y !== name),
-            concat(links)
-          )(curried),
-        })
-      )
-    )(curried),
-  join('\n')
+const commonFields = curry(
+  (imports, { slugName, name, summary, links, example: ex }) => {
+    // const ex = insertIntoExample(uniq([...imports, name]), slugName, example)
+    return [
+      name ? '## ' + name + '\n' : '',
+      summary ? summary + '\n' : '',
+      ex ? `### Usage\n${ex}` : '',
+      ex.includes('live=true') ? `\n\n${liveExample(ex)}` : '',
+      links.length ? `\n### See also\n - ${links.join('\n - ')}` : '',
+    ]
+  }
 )
 
-export const commentToMarkdown = handleSpecialCases(
+const handleCurriedExample = curry((imports, x) =>
   pipe(
-    ifElse(
-      pipe(getCurried, length, lt(0)),
-      handleCurriedExample,
-      pipe(flattenCommentData, ({ title, summary, links, example }) =>
-        cleanlines(commonFields({ name: title, summary, example, links }))
+    wrap,
+    ap([getCurried, flattenCommentData]),
+    ([curried, { summary, links, slugName }]) =>
+      map(({ name, lines: example }) =>
+        cleanlines(
+          commonFields(imports, {
+            slugName,
+            name,
+            summary,
+            example,
+            links: pipe(
+              map(({ name: n }) => n),
+              filter(y => y !== name),
+              concat(links)
+            )(curried),
+          })
+        )
+      )(curried),
+    join('\n')
+  )(x)
+)
+
+export const commentToMarkdown = curry((slugName, imports, x) =>
+  handleSpecialCases(
+    pipe(
+      ifElse(
+        pipe(getCurried, length, lt(0)),
+        handleCurriedExample(imports),
+        pipe(flattenCommentData, ({ title, summary, links, example }) =>
+          cleanlines(
+            commonFields(imports, {
+              slugName,
+              name: title,
+              summary,
+              example,
+              links,
+            })
+          )
+        )
       )
     )
-  )
+  )(x)
 )

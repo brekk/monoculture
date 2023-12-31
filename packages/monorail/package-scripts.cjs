@@ -17,6 +17,17 @@ const sd = (script, description = '') =>
 
 module.exports = {
   scripts: {
+    autotest: sd(
+      `drgen -i ${[
+        './helpers.js',
+        './list.js',
+        './runner.js',
+        './sort.js',
+        './validate.js',
+      ].join(' ')} -o autotests --test-mode -a dr-generated.tests.json`,
+      'use doctor-general to create tests for us!'
+    ),
+
     clean: sd('rm -r dist', 'clean the build'),
 
     lint: sd('eslint --fix .', 'lint!'),

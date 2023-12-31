@@ -55,7 +55,10 @@ module.exports = {
         ),
       },
     },
-    care: sd('turbo run lint test build', 'build and test with turbo'),
+    care: sd(
+      'turbo run lint test build && yarn workspace docs run autodoc',
+      'build and test with turbo'
+    ),
     build: sd('turbo run build', 'build with turbo'),
     lint: sd('turbo run lint', 'lint with turbo'),
     test: {

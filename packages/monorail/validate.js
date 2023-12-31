@@ -4,7 +4,6 @@ import {
   without,
   all,
   applySpec,
-  curry,
   equals,
   keys,
   pipe,
@@ -13,37 +12,39 @@ import {
   reject,
   values,
 } from 'ramda'
-
-export const kindIs = curry((expected, x) => equals(expected, typeof x))
+import { isType, isArray } from 'inherent'
 
 export const coerce = x => !!x
+
+const isFunction = isType('function')
+const isBool = isType('boolean')
 
 export const PLUGIN_SHAPE = {
   // unique identifier for the plugin
   name: pipe(propOr(false, 'name'), coerce),
   // the "fn" property actually produces a value given
   // (selectedContext, config, file) => and stores it keyed by "name"
-  fn: pipe(propOr(false, 'fn'), kindIs('function')),
+  fn: pipe(propOr(false, 'fn'), isFunction),
   // the selector function accesses part of context to pass it to the "fn" transformer
   selector: pipe(
     propOr(() => {}, 'selector'),
-    kindIs('function')
+    isFunction
   ),
   preserveOffset: x => {
     const { preserveOffset: p = true } = x
-    return kindIs('boolean', p)
+    return isBool(p)
   },
   preserveLine: x => {
     const { preserveLine: p = true } = x
-    return kindIs('boolean', p)
+    return isBool(p)
   },
   // store
   store: pipe(
     propOr(() => {}, 'store'),
-    kindIs('function')
+    isFunction
   ),
   // does this plugin depend on anything specific to have happened before this?
-  dependencies: pipe(propOr([], 'dependencies'), Array.isArray),
+  dependencies: pipe(propOr([], 'dependencies'), isArray),
 }
 export const EXPECTED_KEYS = keys(PLUGIN_SHAPE)
 export const noExtraKeys = x =>

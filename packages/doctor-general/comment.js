@@ -1,11 +1,4 @@
 import { join as pathJoin } from 'node:path'
-import { writeFileWithAutoPath } from 'file-system'
-import { getImportsForTests, filterAndStructureTests } from './comment-test'
-import { filterAndStructureComments } from './comment-documentation'
-import { commentToMarkdown } from './renderer-markdown'
-import { commentToJestTest } from './renderer-jest'
-import { prepareMetaFiles } from './next-meta-files'
-import { log } from './log'
 import { parallel } from 'fluture'
 import {
   __ as $,
@@ -46,10 +39,27 @@ import {
   toPairs,
   trim,
   uniq,
+  pathOr,
+  ap,
 } from 'ramda'
+import { writeFileWithAutoPath } from 'file-system'
+import { filterAndStructureTests, hasExample } from './comment-test'
+import { filterAndStructureComments } from './comment-documentation'
+import { commentToMarkdown } from './renderer-markdown'
+import { commentToJestTest } from './renderer-jest'
+import { prepareMetaFiles } from './next-meta-files'
+import { log } from './log'
+import { unlines } from 'knot'
+import { autobox } from 'inherent'
 import { cleanFilename, findJSDocKeywords, cleanupKeywords } from './file'
 import { formatComment, trimComment, wipeComment } from './text'
-import { unlines } from 'knot'
+
+export const getImportsForTests = file =>
+  pipe(
+    map(pipe(autobox, ap([pathOr(false, ['structure', 'name']), hasExample]))),
+    filter(([a, b]) => a && b),
+    map(head)
+  )(file.comments)
 
 const linkRegex = /\{@link (.*)+\}/g
 export const matchLinks = pipe(
@@ -244,11 +254,14 @@ export const getExample = curry((file, end, i) =>
     unlines
   )(file)
 )
-
 const renderFile = curry((testMode, file) => {
-  const importsForTests = getImportsForTests(testMode, file)
+  const importsForTests = getImportsForTests(file)
   return pipe(
-    map(testMode ? commentToJestTest : commentToMarkdown),
+    map(
+      testMode
+        ? commentToJestTest
+        : commentToMarkdown(file.slugName, importsForTests)
+    ),
     z => {
       const out = !testMode
         ? ['# ' + file.slugName, file.pageSummary, ...z]

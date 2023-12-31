@@ -187,7 +187,7 @@
         "structure": {
           "name": "configurate",
           "future": true,
-          "example": "```js test=true\nimport { fork } from 'fluture'\nimport stripAnsi from 'strip-ansi'\n// drgen-import-above\nconst YARGS_CONFIG = {\n  alias: {\n    meal: ['m'],\n    happyHour: ['h'],\n    multiplier: ['x'],\n  },\n  boolean: ['happyHour'],\n  number: ['multiplier'],\n  configuration: {\n    'strip-aliased': true,\n  },\n}\n\nconst HELP_CONFIG = {\n  help: 'This text!',\n  // optional\n  color: 'Render stuff in color',\n  meal: 'Pass the name of the meal you want',\n  happyHour: 'Does happy hour apply here?',\n  multiplier: 'How many units should we apply?'\n}\n\nconst CONFIG_DEFAULTS = {\n  color: true,\n  happyHour: false\n}\n\nconst parseArgs = (args) => configurate(\n  YARGS_CONFIG,\n  // closured so that we can pass cwd at runtime\n  {...CONFIG_DEFAULTS, cwd: process.cwd() },\n  HELP_CONFIG,\n  { name: \"dumbwaiter\", description: \"order food!\" },\n  // process.argv.slice(2)\n  args\n)\n\n// renders in the failure channel\nfork(x => {\n  expect(stripAnsi(x).split('\\n')).toEqual([\n    \" dumbwaiter \",\n    \"\",\n    \"order food!\",\n    \"\",\n    \"  -m / --meal\",\n    \"  \tPass the name of the meal you want\",\n    \"\",\n    \"  -h / --happyHour\",\n    \"  \tDoes happy hour apply here?\",\n    \"\",\n    \"  -x / --multiplier\",\n    \"  \tHow many units should we apply?\",\n    \"\",\n    \"  -h / --help\",\n    \"  \tThis text!\",\n  ])\n  done()\n})(done)(\n  parseArgs(['--help'])\n)\n```"
+          "example": "```js test=true\nimport { fork } from 'fluture'\nimport stripAnsi from 'strip-ansi'\n// drgen-import-above\nconst YARGS_CONFIG = {\n  alias: {\n    meal: ['m'],\n    happyHour: ['h'],\n    multiplier: ['x'],\n  },\n  boolean: ['happyHour'],\n  number: ['multiplier'],\n  configuration: {\n    'strip-aliased': true,\n  },\n}\n *\nconst HELP_CONFIG = {\n  help: 'This text!',\n  // optional\n  color: 'Render stuff in color',\n  meal: 'Pass the name of the meal you want',\n  happyHour: 'Does happy hour apply here?',\n  multiplier: 'How many units should we apply?'\n}\n *\nconst CONFIG_DEFAULTS = {\n  color: true,\n  happyHour: false\n}\n *\nconst parseArgs = (args) => configurate(\n  YARGS_CONFIG,\n  // closured so that we can pass cwd at runtime\n  {...CONFIG_DEFAULTS, cwd: process.cwd() },\n  HELP_CONFIG,\n  { name: \"dumbwaiter\", description: \"order food!\" },\n  // process.argv.slice(2)\n  args\n)\n *\n// renders in the failure channel\nfork(x => {\n  expect(stripAnsi(x).split('\\n')).toEqual([\n    \" dumbwaiter \",\n    \"\",\n    \"order food!\",\n    \"\",\n    \"  -m / --meal\",\n    \"  \tPass the name of the meal you want\",\n    \"\",\n    \"  -h / --happyHour\",\n    \"  \tDoes happy hour apply here?\",\n    \"\",\n    \"  -x / --multiplier\",\n    \"  \tHow many units should we apply?\",\n    \"\",\n    \"  -h / --help\",\n    \"  \tThis text!\",\n  ])\n  done()\n})(done)(\n  parseArgs(['--help'])\n)\n```"
         },
         "keywords": [
           "@example",
@@ -375,19 +375,8 @@
         "structure": {
           "curried": [
             {
-              "name": "readFileWithFormatAndCancel",
-              "summary": "Can be given a file encoding and a cancellation function.",
-              "lines": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\n  readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')\n)\n```"
-            },
-            {
-              "name": "readFileWithCancel",
-              "summary": "Reads `utf8` files only.",
-              "lines": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\n  readFileWithCancel(() => process.exit(), './README.md')\n)\n```"
-            },
-            {
-              "name": "readFile",
-              "summary": "Eschews any custom cancellation.",
-              "lines": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(readFile('./README.md'))\n```"
+              "name": "",
+              "lines": "1. readFileWithFormatAndCancel - Can be given a file encoding and a cancellation function.\n```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\nreadFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')\n)\n```\n2. readFileWithCancel - Reads `utf8` files only.\n```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\nreadFileWithCancel(() => process.exit(), './README.md')\n)\n```\n3. readFile - Eschews any custom cancellation.\n```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(readFile('./README.md'))\n```"
             }
           ]
         },
@@ -615,19 +604,8 @@
         "structure": {
           "curried": [
             {
-              "name": "removeFileWithConfigAndCancel",
-              "summary": "Configuration and cancellation",
-              "lines": " ```js\n import { fork } from 'fluture'\n import { removeFileWithConfigAndCancel } from 'file-system'\n fork(console.warn)(console.log)(\n   removeFileWithConfigAndCancel(\n     cancellationFn,\n     { ...fs.removeFileConfig },\n     'my-file.txt'\n   )\n )\n ```"
-            },
-            {
-              "name": "removeFileWithConfig",
-              "summary": "No config, just cancellation",
-              "lines": "```js\nimport { fork } from 'fluture'\nimport { removeFileWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFileWithConfig(\n    { ...fs.removeFileConfig },\n    'my-file.txt'\n  )\n)\n```"
-            },
-            {
-              "name": "removeFile",
-              "summary": "remove a file. Aliased to `rm`.",
-              "lines": "```js\nimport { fork } from 'fluture'\nimport { removeFile } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFile(\n    'my-file.txt'\n  )\n)\n```"
+              "name": "",
+              "lines": "1. removeFileWithConfigAndCancel - Configuration and cancellation\n```js\nimport { fork } from 'fluture'\nimport { removeFileWithConfigAndCancel } from 'file-system'\nfork(console.warn)(console.log)(\nremoveFileWithConfigAndCancel(\ncancellationFn,\n{ ...fs.removeFileConfig },\n'my-file.txt'\n)\n)\n```\n2. removeFileWithConfig - No config, just cancellation\n```js\nimport { fork } from 'fluture'\nimport { removeFileWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\nremoveFileWithConfig(\n{ ...fs.removeFileConfig },\n'my-file.txt'\n)\n)\n```\n3. removeFile - remove a file. Aliased to `rm`.\n```js\nimport { fork } from 'fluture'\nimport { removeFile } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\nremoveFile(\n'my-file.txt'\n)\n)\n```"
             }
           ]
         },
@@ -858,11 +836,37 @@
         "addTo": "",
         "structure": {
           "name": "equalishBy",
-          "example": "```js\nconst productIdSelector = z => {\n  const d = z.indexOf('-')\n  return d > -1 ? z.slice(0, d) : 'NO_MATCH'\n}\nconst isProduct = equalishBy(productIdSelector, 'coolco')\n\nconsole.log(`1. ${isProduct('coolco-10020')}`) // true\nconsole.log(`2. ${isProduct('otherco-xkswn')}`) // false\nconsole.log(`3. ${isProduct('blabbo')}`) // false\n```"
+          "example": "```js test=true\nconst productIdSelector = z => {\n  const d = z.indexOf('-')\n  return d > -1 ? z.slice(0, d) : 'NO_MATCH'\n}\nconst isProduct = equalishBy(productIdSelector, 'coolco')\n *\nexpect(isProduct('coolco-10020')).toBeTruthy()\nexpect(isProduct('otherco-xkswn')).toBeFalsy()\nexpect(isProduct('blabbo')).toBeFalsy()\n```"
         },
         "keywords": [
           "@example",
           "@name"
+        ],
+        "filename": "packages/inherent/primitives.js"
+      },
+      {
+        "start": 35,
+        "end": 47,
+        "summary": "Coerce values to boolean explicitly",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "coerce",
+          "param": [
+            "{any}",
+            "x",
+            "Any",
+            "value"
+          ],
+          "returns": "boolean",
+          "example": "```js test=true\nexpect(coerce(0)).toBeFalsy()\nexpect(coerce('')).toBeFalsy()\nexpect(coerce([])).toBeTruthy()\nexpect(coerce(1)).toBeTruthy()\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name",
+          "@param",
+          "@returns"
         ],
         "filename": "packages/inherent/primitives.js"
       }
@@ -904,19 +908,8 @@
         "structure": {
           "curried": [
             {
-              "name": "execWithConfig",
-              "summary": "Passes all possible configuration values plus a cancellation function.",
-              "lines": "```js\nimport { execWithConfig } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithConfig(\n    function customCancellationFunction() {},\n    'echo',\n    { cleanup: true },\n    ['ahoy']\n  )\n)\n```"
-            },
-            {
-              "name": "execWithCancel",
-              "summary": "Eschews any configuration and instead only expects a cancellation function, command and arguments.",
-              "lines": "```js\nimport { execWithCancel } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithCancel(\n    function customCancellationFunction() {},\n    'echo',\n    ['ahoy']\n  )\n)\n```"
-            },
-            {
-              "name": "exec",
-              "summary": "Eschews any configuration or cancellation function. Needs only command and arguments.",
-              "lines": "```js\nimport { exec } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  exec(\n    'echo',\n    ['ahoy']\n  )\n)\n```"
+              "name": "",
+              "lines": "1. execWithConfig - Passes all possible configuration values plus a cancellation function.\n```js\nimport { execWithConfig } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\nexecWithConfig(\nfunction customCancellationFunction() {},\n'echo',\n{ cleanup: true },\n['ahoy']\n)\n)\n```\n2. execWithCancel - Eschews any configuration and instead only expects a cancellation function, command and arguments.\n```js\nimport { execWithCancel } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\nexecWithCancel(\nfunction customCancellationFunction() {},\n'echo',\n['ahoy']\n)\n)\n```\n3. exec - Eschews any configuration or cancellation function. Needs only command and arguments.\n```js\nimport { exec } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\nexec(\n'echo',\n['ahoy']\n)\n)\n```"
             }
           ]
         },

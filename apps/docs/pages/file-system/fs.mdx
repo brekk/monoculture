@@ -15,52 +15,31 @@ console.log(`support ${localize('business')}`)
 // support ./business
 ```
 
-## readFileWithFormatAndCancel
-
 Read a file asynchronously as a Future-wrapped value.
 
 ### Usage
+1. readFileWithFormatAndCancel - Can be given a file encoding and a cancellation function.
 ```js
 import { fork } from 'fluture'
 import { readFile } from 'file-system'
 fork(console.warn)(console.log)(
-  readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')
+readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')
 )
 ```
-
-### See also
- - readFileWithCancel
- - readFile
-## readFileWithCancel
-
-Read a file asynchronously as a Future-wrapped value.
-
-### Usage
+2. readFileWithCancel - Reads `utf8` files only.
 ```js
 import { fork } from 'fluture'
 import { readFile } from 'file-system'
 fork(console.warn)(console.log)(
-  readFileWithCancel(() => process.exit(), './README.md')
+readFileWithCancel(() => process.exit(), './README.md')
 )
 ```
-
-### See also
- - readFileWithFormatAndCancel
- - readFile
-## readFile
-
-Read a file asynchronously as a Future-wrapped value.
-
-### Usage
+3. readFile - Eschews any custom cancellation.
 ```js
 import { fork } from 'fluture'
 import { readFile } from 'file-system'
 fork(console.warn)(console.log)(readFile('./README.md'))
 ```
-
-### See also
- - readFileWithFormatAndCancel
- - readFileWithCancel
 
 ## readJSONFileWithCancel
 
@@ -217,68 +196,45 @@ fork(console.warn)(console.log)(
  - writeFileWithConfigAndCancel
  - writeFileWithConfig
 
-## removeFileWithConfigAndCancel
-
 Remove a file, configurably, with cancellation.
 Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
 
 ### Usage
- ```js
- import { fork } from 'fluture'
- import { removeFileWithConfigAndCancel } from 'file-system'
- fork(console.warn)(console.log)(
-   removeFileWithConfigAndCancel(
-     cancellationFn,
-     { ...fs.removeFileConfig },
-     'my-file.txt'
-   )
- )
- ```
-
-### See also
- - removeFileWithConfig
- - removeFile
-## removeFileWithConfig
-
-Remove a file, configurably, with cancellation.
-Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
-
-### Usage
+1. removeFileWithConfigAndCancel - Configuration and cancellation
+```js
+import { fork } from 'fluture'
+import { removeFileWithConfigAndCancel } from 'file-system'
+fork(console.warn)(console.log)(
+removeFileWithConfigAndCancel(
+cancellationFn,
+{ ...fs.removeFileConfig },
+'my-file.txt'
+)
+)
+```
+2. removeFileWithConfig - No config, just cancellation
 ```js
 import { fork } from 'fluture'
 import { removeFileWithConfig } from 'file-system'
 // [...]
 fork(console.warn)(console.log)(
-  removeFileWithConfig(
-    { ...fs.removeFileConfig },
-    'my-file.txt'
-  )
+removeFileWithConfig(
+{ ...fs.removeFileConfig },
+'my-file.txt'
+)
 )
 ```
-
-### See also
- - removeFileWithConfigAndCancel
- - removeFile
-## removeFile
-
-Remove a file, configurably, with cancellation.
-Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
-
-### Usage
+3. removeFile - remove a file. Aliased to `rm`.
 ```js
 import { fork } from 'fluture'
 import { removeFile } from 'file-system'
 // [...]
 fork(console.warn)(console.log)(
-  removeFile(
-    'my-file.txt'
-  )
+removeFile(
+'my-file.txt'
+)
 )
 ```
-
-### See also
- - removeFileWithConfigAndCancel
- - removeFileWithConfig
 
 ## removeFilesWithConfigAndCancel
 

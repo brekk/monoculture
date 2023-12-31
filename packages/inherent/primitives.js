@@ -5,16 +5,16 @@ import { map, curry } from 'ramda'
  * This can be used to create a number of other more complex functions.
  * @name equalishBy
  * @example
- * ```js
+ * ```js test=true
  * const productIdSelector = z => {
  *   const d = z.indexOf('-')
  *   return d > -1 ? z.slice(0, d) : 'NO_MATCH'
  * }
  * const isProduct = equalishBy(productIdSelector, 'coolco')
  *
- * console.log(`1. ${isProduct('coolco-10020')}`) // true
- * console.log(`2. ${isProduct('otherco-xkswn')}`) // false
- * console.log(`3. ${isProduct('blabbo')}`) // false
+ * expect(isProduct('coolco-10020')).toBeTruthy()
+ * expect(isProduct('otherco-xkswn')).toBeFalsy()
+ * expect(isProduct('blabbo')).toBeFalsy()
  * ```
  */
 export const equalishBy = curry(
@@ -32,3 +32,18 @@ export const [isObject, isString, isNumber, isBoolean, isUndefined] = map(
   ['object', 'string', 'number', 'boolean', 'undefined']
 )
 export const isArray = Array.isArray
+
+/**
+ * Coerce values to boolean explicitly
+ * @name coerce
+ * @param {any} x Any value
+ * @returns boolean
+ * @example
+ * ```js test=true
+ * expect(coerce(0)).toBeFalsy()
+ * expect(coerce('')).toBeFalsy()
+ * expect(coerce([])).toBeTruthy()
+ * expect(coerce(1)).toBeTruthy()
+ * ```
+ */
+export const coerce = x => !!x

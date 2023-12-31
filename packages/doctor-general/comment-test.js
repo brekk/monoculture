@@ -1,12 +1,9 @@
 import { extname, basename, dirname, join as pathJoin } from 'node:path'
-import { autobox, isNotEmpty } from 'inherent'
+import { isNotEmpty } from 'inherent'
 import { TESTABLE_EXAMPLE } from './constants'
 import {
-  ap,
-  curry,
   defaultTo,
   filter,
-  head,
   includes,
   map,
   pathOr,
@@ -17,14 +14,13 @@ import {
 } from 'ramda'
 import { stripRelative } from './text'
 import { combineFiles } from './file'
-
-export const hasTestableExample = pipe(
+export const hasExample = pipe(
   pathOr('', ['structure', 'example']),
   includes(TESTABLE_EXAMPLE)
 )
 
 export const filterAndStructureTests = pipe(
-  filter(pipe(propOr([], 'comments'), filter(hasTestableExample), isNotEmpty)),
+  filter(pipe(propOr([], 'comments'), filter(hasExample), isNotEmpty)),
   map(raw => {
     const filename = stripRelative(raw.filename)
     const ext = extname(filename)
@@ -66,18 +62,4 @@ export const filterAndStructureTests = pipe(
             : file,
         ]
   }, [])
-)
-export const getImportsForTests = curry((testMode, file) =>
-  !testMode
-    ? []
-    : pipe(
-        map(
-          pipe(
-            autobox,
-            ap([pathOr(false, ['structure', 'name']), hasTestableExample])
-          )
-        ),
-        filter(([a, b]) => a && b),
-        map(head)
-      )(file.comments)
 )
