@@ -82,6 +82,7 @@ const processPackage = ({ drGen, workspaces, banner }) =>
     ),
     map(grouped => ({ banner, grouped }))
   )(workspaces)
+
 /* eslint-disable jsdoc/no-multi-asterisks */
 /* eslint-disable max-len */
 /**

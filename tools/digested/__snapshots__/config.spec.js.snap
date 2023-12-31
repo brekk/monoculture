@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CONFIG_DEFAULTS 1`] = `
+{
+  "api": true,
+  "color": true,
+  "deps": true,
+  "readme": false,
+}
+`;
+
+exports[`HELP_CONFIG 1`] = `
+{
+  "api": "Add API information [default: true] (only applicable with \`--readme\`)",
+  "banner": "Provide a string to insert before the rendered content. (only applicable with \`--readme\`)",
+  "bannerPath": "Provide a path to a file to insert before the rendered content. (only applicable with \`--readme\`)",
+  "color": "Render stuff in glorious color",
+  "deps": "Add dependency information [default: true] (only applicable with \`--readme\`)",
+  "docUrl": "The URI of a documentation site, used in generating links",
+  "drGenPath": "An optional path to a dr-generated.json file",
+  "help": "This text!",
+  "pkgPath": "The path to the \`package.json\` file.",
+  "readme": "Generate content for a readme (in markdown!)",
+  "repoUrl": "The URI of a repository, used in generating links",
+}
+`;
+
+exports[`YARGS_CONFIG 1`] = `
+{
+  "alias": {
+    "api": [
+      "s",
+    ],
+    "banner": [
+      "b",
+    ],
+    "bannerPath": [
+      "B",
+    ],
+    "color": [
+      "k",
+    ],
+    "deps": [
+      "s",
+    ],
+    "docUrl": [
+      "u",
+    ],
+    "drGenPath": [
+      "drgen",
+      "d",
+    ],
+    "pkgPath": [
+      "pkg",
+      "i",
+    ],
+    "readme": [
+      "m",
+    ],
+    "repoUrl": [
+      "r",
+    ],
+  },
+  "boolean": [
+    "readme",
+    "deps",
+    "api",
+  ],
+  "configuration": {
+    "strip-aliased": true,
+  },
+}
+`;
