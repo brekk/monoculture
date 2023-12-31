@@ -280,27 +280,6 @@ fork(console.warn)(console.log)(
  - removeFileWithConfigAndCancel
  - removeFileWithConfig
 
-## removeFile
-
-Remove a file.
-Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
-
-### Usage
-```js
-import { fork } from 'fluture'
-import { removeFile } from 'file-system'
-// [...]
-fork(console.warn)(console.log)(
-  removeFile(
-    'my-file.txt'
-  )
-)
-```
-
-### See also
- - removeFileWithConfigAndCancel
- - removeFileWithConfig
-
 ## removeFilesWithConfigAndCancel
 
 Remove multiple files, configurably, with a cancellation function.

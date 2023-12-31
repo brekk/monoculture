@@ -320,26 +320,6 @@ export const DEFAULT_REMOVAL_CONFIG = {
 }
 
 /**
- * Remove a file.
- * Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
- * @name removeFile
- * @see {@link removeFileWithConfigAndCancel}
- * @see {@link removeFileWithConfig}
- * @example
- * ```js
- * import { fork } from 'fluture'
- * import { removeFile } from 'file-system'
- * // [...]
- * fork(console.warn)(console.log)(
- *   removeFile(
- *     'my-file.txt'
- *   )
- * )
- * ```
- */
-export const removeFile = removeFileWithConfig(DEFAULT_REMOVAL_CONFIG)
-
-/**
  * Remove multiple files, configurably, with a cancellation function.
  * @name removeFilesWithConfigAndCancel
  * @see {@link removeFilesWithConfig}

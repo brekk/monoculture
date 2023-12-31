@@ -540,33 +540,7 @@
       },
       {
         "start": 321,
-        "end": 338,
-        "summary": "Remove a file.\nUnlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
-        "links": [
-          "removeFileWithConfigAndCancel",
-          "removeFileWithConfig"
-        ],
-        "fileGroup": "",
-        "addTo": "",
-        "structure": {
-          "name": "removeFile",
-          "see": [
-            "removeFileWithConfigAndCancel",
-            "removeFileWithConfig"
-          ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { removeFile } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFile(\n    'my-file.txt'\n  )\n)\n```"
-        },
-        "keywords": [
-          "@example",
-          "@link",
-          "@name",
-          "@see"
-        ],
-        "filename": "packages/file-system/fs.js"
-      },
-      {
-        "start": 341,
-        "end": 359,
+        "end": 339,
         "summary": "Remove multiple files, configurably, with a cancellation function.",
         "links": [
           "removeFilesWithConfig",
@@ -591,8 +565,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 367,
-        "end": 384,
+        "start": 347,
+        "end": 364,
         "summary": "Remove multiple files, configurably.",
         "links": [
           "removeFilesWithConfigAndCancel",
@@ -617,8 +591,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 387,
-        "end": 403,
+        "start": 367,
+        "end": 383,
         "summary": "Remove multiple files, configurably.",
         "links": [
           "removeFilesWithConfigAndCancel",
@@ -643,8 +617,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 406,
-        "end": 425,
+        "start": 386,
+        "end": 405,
         "summary": "Make a directory, given a cancellation function.\nReturns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdir",
@@ -669,8 +643,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 433,
-        "end": 451,
+        "start": 413,
+        "end": 431,
         "summary": "Make a directory\nReturns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdirWithCancel",
@@ -695,8 +669,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 454,
-        "end": 472,
+        "start": 434,
+        "end": 452,
         "summary": "Make a directory, recursively.\nReturns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdirWithCancel",
@@ -721,8 +695,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 488,
-        "end": 503,
+        "start": 468,
+        "end": 483,
         "summary": "Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`",
         "links": [],
         "fileGroup": "",
@@ -756,8 +730,6 @@
       "writeFile",
       "writeFileWithConfigAndCancel",
       "writeFileWithConfig",
-      "removeFileWithConfigAndCancel",
-      "removeFileWithConfig",
       "removeFilesWithConfig",
       "removeFiles",
       "removeFilesWithConfigAndCancel",
