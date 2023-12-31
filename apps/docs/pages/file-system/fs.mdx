@@ -223,26 +223,24 @@ Remove a file, configurably, with cancellation.
 Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
 
 ### Usage
-```js
-import { fork } from 'fluture'
-import { removeFileWithConfigAndCancel } from 'file-system'
-// [...]
-fork(console.warn)(console.log)(
-  removeFileWithConfigAndCancel(
-    cancellationFn,
-    { ...fs.removeFileConfig },
-    'my-file.txt'
-  )
-)
-```
+ ```js
+ import { fork } from 'fluture'
+ import { removeFileWithConfigAndCancel } from 'file-system'
+ fork(console.warn)(console.log)(
+   removeFileWithConfigAndCancel(
+     cancellationFn,
+     { ...fs.removeFileConfig },
+     'my-file.txt'
+   )
+ )
+ ```
 
 ### See also
  - removeFileWithConfig
  - removeFile
-
 ## removeFileWithConfig
 
-Remove a file, configurably.
+Remove a file, configurably, with cancellation.
 Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
 
 ### Usage
@@ -261,6 +259,26 @@ fork(console.warn)(console.log)(
 ### See also
  - removeFileWithConfigAndCancel
  - removeFile
+## removeFile
+
+Remove a file, configurably, with cancellation.
+Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
+
+### Usage
+```js
+import { fork } from 'fluture'
+import { removeFile } from 'file-system'
+// [...]
+fork(console.warn)(console.log)(
+  removeFile(
+    'my-file.txt'
+  )
+)
+```
+
+### See also
+ - removeFileWithConfigAndCancel
+ - removeFileWithConfig
 
 ## removeFile
 

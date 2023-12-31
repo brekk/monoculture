@@ -508,59 +508,39 @@
       },
       {
         "start": 253,
-        "end": 272,
+        "end": 301,
         "summary": "Remove a file, configurably, with cancellation.\nUnlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
-        "links": [
-          "removeFileWithConfig",
-          "removeFile"
-        ],
+        "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "name": "removeFileWithConfigAndCancel",
-          "see": [
-            "removeFileWithConfig",
-            "removeFile"
-          ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { removeFileWithConfigAndCancel } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFileWithConfigAndCancel(\n    cancellationFn,\n    { ...fs.removeFileConfig },\n    'my-file.txt'\n  )\n)\n```"
+          "curried": [
+            {
+              "name": "removeFileWithConfigAndCancel",
+              "summary": "Configuration and cancellation",
+              "lines": " ```js\n import { fork } from 'fluture'\n import { removeFileWithConfigAndCancel } from 'file-system'\n fork(console.warn)(console.log)(\n   removeFileWithConfigAndCancel(\n     cancellationFn,\n     { ...fs.removeFileConfig },\n     'my-file.txt'\n   )\n )\n ```"
+            },
+            {
+              "name": "removeFileWithConfig",
+              "summary": "No config, just cancellation",
+              "lines": "```js\nimport { fork } from 'fluture'\nimport { removeFileWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFileWithConfig(\n    { ...fs.removeFileConfig },\n    'my-file.txt'\n  )\n)\n```"
+            },
+            {
+              "name": "removeFile",
+              "summary": "remove a file. Aliased to `rm`.",
+              "lines": "```js\nimport { fork } from 'fluture'\nimport { removeFile } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFile(\n    'my-file.txt'\n  )\n)\n```"
+            }
+          ]
         },
         "keywords": [
-          "@example",
-          "@link",
-          "@name",
-          "@see"
+          "@curried",
+          "@example"
         ],
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 280,
-        "end": 298,
-        "summary": "Remove a file, configurably.\nUnlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
-        "links": [
-          "removeFileWithConfigAndCancel",
-          "removeFile"
-        ],
-        "fileGroup": "",
-        "addTo": "",
-        "structure": {
-          "name": "removeFileWithConfig",
-          "see": [
-            "removeFileWithConfigAndCancel",
-            "removeFile"
-          ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { removeFileWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFileWithConfig(\n    { ...fs.removeFileConfig },\n    'my-file.txt'\n  )\n)\n```"
-        },
-        "keywords": [
-          "@example",
-          "@link",
-          "@name",
-          "@see"
-        ],
-        "filename": "packages/file-system/fs.js"
-      },
-      {
-        "start": 309,
-        "end": 326,
+        "start": 321,
+        "end": 338,
         "summary": "Remove a file.\nUnlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
         "links": [
           "removeFileWithConfigAndCancel",
@@ -585,8 +565,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 329,
-        "end": 347,
+        "start": 341,
+        "end": 359,
         "summary": "Remove multiple files, configurably, with a cancellation function.",
         "links": [
           "removeFilesWithConfig",
@@ -611,8 +591,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 355,
-        "end": 372,
+        "start": 367,
+        "end": 384,
         "summary": "Remove multiple files, configurably.",
         "links": [
           "removeFilesWithConfigAndCancel",
@@ -637,8 +617,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 375,
-        "end": 391,
+        "start": 387,
+        "end": 403,
         "summary": "Remove multiple files, configurably.",
         "links": [
           "removeFilesWithConfigAndCancel",
@@ -663,8 +643,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 394,
-        "end": 413,
+        "start": 406,
+        "end": 425,
         "summary": "Make a directory, given a cancellation function.\nReturns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdir",
@@ -689,8 +669,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 421,
-        "end": 439,
+        "start": 433,
+        "end": 451,
         "summary": "Make a directory\nReturns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdirWithCancel",
@@ -715,8 +695,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 442,
-        "end": 460,
+        "start": 454,
+        "end": 472,
         "summary": "Make a directory, recursively.\nReturns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdirWithCancel",
@@ -741,8 +721,8 @@
         "filename": "packages/file-system/fs.js"
       },
       {
-        "start": 476,
-        "end": 491,
+        "start": 488,
+        "end": 503,
         "summary": "Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`",
         "links": [],
         "fileGroup": "",
@@ -776,10 +756,6 @@
       "writeFile",
       "writeFileWithConfigAndCancel",
       "writeFileWithConfig",
-      "removeFileWithConfig",
-      "removeFile",
-      "removeFileWithConfigAndCancel",
-      "removeFile",
       "removeFileWithConfigAndCancel",
       "removeFileWithConfig",
       "removeFilesWithConfig",
@@ -890,8 +866,8 @@
     "filename": "packages/knot/knot.js",
     "comments": [
       {
-        "start": 49,
-        "end": 61,
+        "start": 39,
+        "end": 51,
         "summary": "Slice a string by counted delimiters",
         "links": [],
         "fileGroup": "",
@@ -907,8 +883,8 @@
         "filename": "packages/knot/knot.js"
       },
       {
-        "start": 66,
-        "end": 74,
+        "start": 56,
+        "end": 64,
         "summary": "A simple memoized utility for repeating a string and joining the array.",
         "links": [],
         "fileGroup": "",
@@ -924,8 +900,8 @@
         "filename": "packages/knot/knot.js"
       },
       {
-        "start": 82,
-        "end": 90,
+        "start": 69,
+        "end": 77,
         "summary": "Capitalize a string",
         "links": [],
         "fileGroup": "",
@@ -1136,8 +1112,8 @@
     "filename": "tools/digested/summary.js",
     "comments": [
       {
-        "start": 86,
-        "end": 156,
+        "start": 87,
+        "end": 157,
         "summary": "Summarize a project, given:\n - the path to a `package.json` file\n - the path to a `dr-generated.json` file\n - the URI of a documentation site\n - the URI of a repository\n - (optional) a banner\n - or (optional) the path to a file which represents a banner",
         "links": [],
         "fileGroup": "",

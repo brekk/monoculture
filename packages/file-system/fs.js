@@ -254,22 +254,51 @@ export const writeFile = writeFileWithConfig({ encoding: 'utf8' })
 /**
  * Remove a file, configurably, with cancellation.
  * Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
- * @name removeFileWithConfigAndCancel
- * @see {@link removeFileWithConfig}
- * @see {@link removeFile}
- * @example
- * ```js
- * import { fork } from 'fluture'
- * import { removeFileWithConfigAndCancel } from 'file-system'
- * // [...]
- * fork(console.warn)(console.log)(
- *   removeFileWithConfigAndCancel(
- *     cancellationFn,
- *     { ...fs.removeFileConfig },
- *     'my-file.txt'
- *   )
- * )
- * ```
+ * @curried
+ *  1. removeFileWithConfigAndCancel - Configuration and cancellation
+ *
+ *     @example
+ *      ```js
+ *      import { fork } from 'fluture'
+ *      import { removeFileWithConfigAndCancel } from 'file-system'
+ *
+ *      fork(console.warn)(console.log)(
+ *        removeFileWithConfigAndCancel(
+ *          cancellationFn,
+ *          { ...fs.removeFileConfig },
+ *          'my-file.txt'
+ *        )
+ *      )
+ *      ```
+ *  2. removeFileWithConfig - No config, just cancellation
+ *
+ *     @example
+ *     ```js
+ *     import { fork } from 'fluture'
+ *     import { removeFileWithConfig } from 'file-system'
+ *     // [...]
+ *     fork(console.warn)(console.log)(
+ *       removeFileWithConfig(
+ *         { ...fs.removeFileConfig },
+ *         'my-file.txt'
+ *       )
+ *     )
+ *     ```
+ *
+ *  3. removeFile - remove a file. Aliased to `rm`.
+ *
+ *     @example
+ *     ```js
+ *     import { fork } from 'fluture'
+ *     import { removeFile } from 'file-system'
+ *     // [...]
+ *     fork(console.warn)(console.log)(
+ *       removeFile(
+ *         'my-file.txt'
+ *       )
+ *     )
+ *     ```
+ *
  */
 export const removeFileWithConfigAndCancel = curry((cancel, options, fd) =>
   Future((bad, good) => {
@@ -277,27 +306,10 @@ export const removeFileWithConfigAndCancel = curry((cancel, options, fd) =>
     return cancel
   })
 )
-
-/**
- * Remove a file, configurably.
- * Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
- * @name removeFileWithConfig
- * @see {@link removeFileWithConfigAndCancel}
- * @see {@link removeFile}
- * @example
- * ```js
- * import { fork } from 'fluture'
- * import { removeFileWithConfig } from 'file-system'
- * // [...]
- * fork(console.warn)(console.log)(
- *   removeFileWithConfig(
- *     { ...fs.removeFileConfig },
- *     'my-file.txt'
- *   )
- * )
- * ```
- */
 export const removeFileWithConfig = removeFileWithConfigAndCancel(NO_OP)
+export const rm = removeFileWithConfig({})
+export const removeFile = rm
+export const rimraf = removeFileWithConfig({ force: true, recursive: true })
 
 export const DEFAULT_REMOVAL_CONFIG = {
   force: false,
@@ -501,15 +513,6 @@ export const writeFileWithAutoPath = curry((filePath, content) =>
     chain(() => writeFile(filePath, content))
   )(filePath)
 )
-
-export const rm = curry((conf, x) =>
-  Future((bad, good) => {
-    fs.rm(x, conf, err => (err ? bad(err) : good(x)))
-    return () => {}
-  })
-)
-
-export const rimraf = rm({ force: true, recursive: true })
 
 export const ioWithCancel = curry(
   (cancel, fn, fd, buffer, offset, len, position) =>

@@ -1,14 +1,4 @@
-import {
-  curry,
-  join,
-  pipe,
-  range,
-  reduce,
-  memoizeWith,
-  identity as I,
-  repeat,
-  split,
-} from 'ramda'
+import { curry, join, pipe, range, reduce, split } from 'ramda'
 import { NEWLINE, SPACE, EMPTY, TAB } from './constants'
 export * from './constants'
 
@@ -73,12 +63,9 @@ export const nthIndex = curry((delim, n, input) =>
  * expect(strepeat('/', -1)).toEqual('')
  * ```
  */
-export const strepeat = curry((toRepeat, x) => {
-  const gen = memoizeWith(I, n =>
-    pipe(z => (z < 0 ? 0 : z), repeat(toRepeat), join(''))(n)
-  )
-  return gen(x)
-})
+export const strepeat = curry((toRepeat, x) =>
+  x > 0 ? toRepeat.repeat(x) : ''
+)
 
 /**
  * Capitalize a string
