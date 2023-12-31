@@ -170,6 +170,12 @@ introspection and organization tools for monorepos
 
  * [doctor-general](https://github.com/brekk/monoculture/tree/main/packages/doctor-general) - documentation generation 🩻
 
+   <details><summary>API</summary>
+
+    - [text](https://brekk.github.io/monoculture/doctor-general/text)
+
+   </details>
+
    <details><summary>Dependencies</summary>
 
     - [climate](https://github.com/brekk/monoculture/tree/main/packages/climate) 🦴
@@ -179,7 +185,6 @@ introspection and organization tools for monorepos
     - [kiddo](https://github.com/brekk/monoculture/tree/main/packages/kiddo) 🦴
     - [knot](https://github.com/brekk/monoculture/tree/main/packages/knot) 🦴
     - [ramda](https://www.npmjs.com/package/ramda)
-    - [doctor-general-cli](https://github.com/brekk/monoculture/tree/main/tools/doctor-general-cli) 🦴 🧪
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [envtrace](https://www.npmjs.com/package/envtrace) 🧪
     - [esbuild](https://www.npmjs.com/package/esbuild) 🧪

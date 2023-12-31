@@ -233,8 +233,8 @@
     "filename": "packages/doctor-general/text.js",
     "comments": [
       {
-        "start": 18,
-        "end": 31,
+        "start": 21,
+        "end": 34,
         "summary": "For strings which look like extended jsdoc comment line (e.g. ` * whatever`),\neschew the comment decoration",
         "links": [],
         "fileGroup": "",
@@ -246,7 +246,7 @@
             "->",
             "String"
           ],
-          "example": "```js test=true\nexpect(trimComment('          * zipzop')).toEqual('zipzop')\nexpect(trimComment(' * squiggle         ')).toEqual('squiggle')\nconst input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)\nexpect(trimComment(input)).toEqual(input)\nexpect(trimComment(29292)).toEqual(29292)\n```"
+          "example": "```js\nexpect(trimComment('          * zipzop')).toEqual('zipzop')\nexpect(trimComment(' * squiggle         ')).toEqual('squiggle')\nconst input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)\nexpect(trimComment(input)).toEqual(input)\nexpect(trimComment(29292)).toEqual(29292)\n```"
         },
         "keywords": [
           "@example",

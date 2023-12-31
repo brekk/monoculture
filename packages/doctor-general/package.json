@@ -20,7 +20,6 @@
     "ramda": "0.29.1"
   },
   "devDependencies": {
-    "doctor-general-cli": "workspace:tools/doctor-general-cli",
     "dotenv-cli": "7.3.0",
     "envtrace": "0.0.2",
     "esbuild": "0.19.10",
@@ -33,7 +32,6 @@
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
-    "autotest": "dotenv -- nps -c ./package-scripts.cjs autotest",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
