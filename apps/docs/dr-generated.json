@@ -922,6 +922,23 @@
           "@name"
         ],
         "filename": "packages/knot/knot.js"
+      },
+      {
+        "start": 82,
+        "end": 90,
+        "summary": "Capitalize a string",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "capitalize",
+          "example": "```js test=true\nexpect(capitalize(\"nice\")).toEqual(\"Nice\")\nexpect(capitalize(\"\")).toEqual(\"\")\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/knot/knot.js"
       }
     ],
     "order": 0,
