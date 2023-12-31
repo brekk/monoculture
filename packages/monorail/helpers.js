@@ -1,3 +1,4 @@
+import { envtrace } from 'envtrace'
 import {
   __ as $,
   any,
@@ -221,4 +222,5 @@ export const _getConfigFrom = curry((name, c) => c?.config?.[name])
 
 export const makePluginHelpers = curry((state, plugin) => ({
   config: _getConfigFrom(plugin.name, state),
+  log: envtrace(`monorail:plugin:${plugin.name}`),
 }))

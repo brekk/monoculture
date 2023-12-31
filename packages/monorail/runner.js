@@ -11,7 +11,7 @@ import {
 import { pap, resolve } from 'fluture'
 import { makeFileHelpers, makePluginHelpers } from './helpers'
 import { toposort } from './sort'
-import { log } from './trace'
+import { log } from './log'
 
 export const stepFunction = curry((state, plugin, file) => {
   tap(({ name, dependencies: d }) => log.run(`plugin [${name}]`, d))
@@ -19,7 +19,7 @@ export const stepFunction = curry((state, plugin, file) => {
   const { selector = I, preserveLine = false, fn } = plugin
   const selected = selector(state)
   const base = makeFileHelpers(file)
-  const plugged = makePluginHelpers(state, plugin)
+  const plugged = makePluginHelpers(state, plugin, log)
   const helpers = { ...base, ...plugged }
   const output = preserveLine
     ? {

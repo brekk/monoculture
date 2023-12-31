@@ -78,3 +78,7 @@
 ### manacle
 
  - [ ] Something something `monocle -p used-imports` -> `manacle -r uses-imports`
+
+### monorail
+
+ - [ ] Monorail should do plugin validation

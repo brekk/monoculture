@@ -1,6 +1,6 @@
 import { tap, pipe, map, prop, curry, reject, propEq } from 'ramda'
 import { Sorter } from '@hapi/topo'
-import { log } from './trace'
+import { log } from './log'
 
 export const withoutProp = curry((property, value, x) =>
   reject(propEq(value, property), x)
