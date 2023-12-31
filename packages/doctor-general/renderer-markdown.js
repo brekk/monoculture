@@ -1,5 +1,6 @@
 import { wrap } from 'inherent'
 import {
+  uniq,
   curry,
   replace,
   concat,
@@ -41,6 +42,8 @@ const handleSpecialCases = ifElse(
 )
 
 const flattenCommentData = applySpec({
+  package: propOr('?', 'package'),
+  filename: propOr('?', 'filename'),
   title: pathOr('Unknown', ['structure', 'name']),
   summary: propOr('?', 'summary'),
   links: propOr([], 'links'),
@@ -48,13 +51,14 @@ const flattenCommentData = applySpec({
     pathOr('', ['structure', 'example']),
     replace(new RegExp('// ' + MAGIC_IMPORT_KEY, 'g'), '')
   ),
+  exported: pathOr(false, ['structure', 'exported']),
 })
 
 const getCurried = pathOr([], ['structure', 'curried'])
 
 const cleanlines = pipe(filter(I), join('\n'))
 
-const insertIntoExample = curry((imports, slugName, example) => {
+const insertIntoExample = curry((imports, importFrom, example) => {
   let inserted = false
   const fixed = !imports.length
     ? example
@@ -62,7 +66,7 @@ const insertIntoExample = curry((imports, slugName, example) => {
         lines,
         map(y => {
           if (!inserted && y.startsWith('```')) {
-            y += `\nimport { ${imports.join(', ')} } from '${slugName}'\n`
+            y += `\nimport { ${imports.join(', ')} } from '${importFrom}'\n`
             inserted = true
           }
           return y
@@ -74,8 +78,11 @@ const insertIntoExample = curry((imports, slugName, example) => {
 })
 
 const commonFields = curry(
-  (imports, { slugName, name, summary, links, example: ex }) => {
-    // const ex = insertIntoExample(uniq([...imports, name]), slugName, example)
+  (imports, { package: pkg, exported, name, summary, links, example }) => {
+    // this is helpful but only if we opt-in, otherwise it's easy to insert invalid imports
+    const ex = exported
+      ? insertIntoExample(uniq([...imports, name]), pkg, example)
+      : example
     return [
       name ? '## ' + name + '\n' : '',
       summary ? summary + '\n' : '',
@@ -90,11 +97,12 @@ const handleCurriedExample = curry((imports, x) =>
   pipe(
     wrap,
     ap([getCurried, flattenCommentData]),
-    ([curried, { summary, links, slugName }]) =>
+    ([curried, { summary, links, package: pkg, exported }]) =>
       map(({ name, lines: example }) =>
         cleanlines(
           commonFields(imports, {
-            slugName,
+            package: pkg,
+            exported,
             name,
             summary,
             example,
@@ -116,16 +124,21 @@ export const commentToMarkdown = curry((slugName, imports, x) =>
       ifElse(
         pipe(getCurried, length, lt(0)),
         handleCurriedExample(imports),
-        pipe(flattenCommentData, ({ title, summary, links, example }) =>
-          cleanlines(
-            commonFields(imports, {
-              slugName,
-              name: title,
-              summary,
-              example,
-              links,
-            })
-          )
+        pipe(
+          log.renderer('in'),
+          flattenCommentData,
+          log.renderer('out'),
+          ({ title, summary, links, example, package: pkg, exported }) =>
+            cleanlines(
+              commonFields(imports, {
+                exported,
+                package: pkg,
+                name: title,
+                summary,
+                example,
+                links,
+              })
+            )
         )
       )
     )

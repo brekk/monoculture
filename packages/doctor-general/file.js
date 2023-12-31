@@ -50,6 +50,7 @@ export const groupContiguousBlocks = reduce((agg, raw) => {
 /**
  * Merge two file representations. Can be right or left associative
  * @name combineFiles
+ * @exported
  * @param {boolean} leftToRight Associate left to right
  * @param {File} a left file
  * @param {File} b right file

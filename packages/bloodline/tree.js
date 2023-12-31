@@ -132,7 +132,8 @@ export const getId = curry((basePath, cache, key) => {
  * @see {@link flattenTree}
  * @example
  * ```js
- * import { groupTree, plant } from 'bloodline/tree'
+ * import { plant } from 'bloodline'
+ * // drgen-import-above
  * const config = { basePath: '../..' }
  * const tree = plant(config, '..', '../monocle/cli.js')
  * const grouped = groupTree(config, {}, {}, tree)
@@ -209,7 +210,8 @@ export const familyTree = curry((rootFile, config, tree, cache, searchSpace) =>
  * @see {@link groupTree}
  * @example
  * ```js
- * import { flattenTree, plant } from 'bloodline/tree'
+ * import { plant } from 'bloodline'
+ * // drgen-import-above
  * const config = { basePath: '../..' }
  * const tree = plant(config, '..', '../monocle/cli.js')
  * const flattened = flattenTree(config, {}, {}, tree)

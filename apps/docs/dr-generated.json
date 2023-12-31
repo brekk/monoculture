@@ -1,6 +1,7 @@
 [
   {
     "slugName": "executables",
+    "package": "bloodline",
     "pageSummary": "",
     "filename": "packages/bloodline/executables.js",
     "comments": [
@@ -19,7 +20,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/executables.js"
+        "filename": "packages/bloodline/executables.js",
+        "package": "bloodline"
       },
       {
         "start": 45,
@@ -36,7 +38,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/executables.js"
+        "filename": "packages/bloodline/executables.js",
+        "package": "bloodline"
       }
     ],
     "order": 0,
@@ -45,6 +48,7 @@
   },
   {
     "slugName": "tree",
+    "package": "bloodline",
     "pageSummary": "",
     "filename": "packages/bloodline/tree.js",
     "comments": [
@@ -63,7 +67,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/tree.js"
+        "filename": "packages/bloodline/tree.js",
+        "package": "bloodline"
       },
       {
         "start": 41,
@@ -80,7 +85,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/tree.js"
+        "filename": "packages/bloodline/tree.js",
+        "package": "bloodline"
       },
       {
         "start": 63,
@@ -97,7 +103,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/tree.js"
+        "filename": "packages/bloodline/tree.js",
+        "package": "bloodline"
       },
       {
         "start": 107,
@@ -114,11 +121,12 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/tree.js"
+        "filename": "packages/bloodline/tree.js",
+        "package": "bloodline"
       },
       {
         "start": 128,
-        "end": 139,
+        "end": 140,
         "summary": "Take a dependency tree and recursively walk it, returning a grouped set of dependencies.",
         "links": [
           "flattenTree"
@@ -130,7 +138,7 @@
           "see": [
             "flattenTree"
           ],
-          "example": "```js\nimport { groupTree, plant } from 'bloodline/tree'\nconst config = { basePath: '../..' }\nconst tree = plant(config, '..', '../monocle/cli.js')\nconst grouped = groupTree(config, {}, {}, tree)\n```"
+          "example": "```js\nimport { plant } from 'bloodline'\n// drgen-import-above\nconst config = { basePath: '../..' }\nconst tree = plant(config, '..', '../monocle/cli.js')\nconst grouped = groupTree(config, {}, {}, tree)\n```"
         },
         "keywords": [
           "@example",
@@ -138,11 +146,12 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/bloodline/tree.js"
+        "filename": "packages/bloodline/tree.js",
+        "package": "bloodline"
       },
       {
-        "start": 205,
-        "end": 216,
+        "start": 206,
+        "end": 218,
         "summary": "Take a dependency tree and recursively walk it, returning flattened set of dependencies.",
         "links": [
           "groupTree"
@@ -154,7 +163,7 @@
           "see": [
             "groupTree"
           ],
-          "example": "```js\nimport { flattenTree, plant } from 'bloodline/tree'\nconst config = { basePath: '../..' }\nconst tree = plant(config, '..', '../monocle/cli.js')\nconst flattened = flattenTree(config, {}, {}, tree)\n```"
+          "example": "```js\nimport { plant } from 'bloodline'\n// drgen-import-above\nconst config = { basePath: '../..' }\nconst tree = plant(config, '..', '../monocle/cli.js')\nconst flattened = flattenTree(config, {}, {}, tree)\n```"
         },
         "keywords": [
           "@example",
@@ -162,7 +171,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/bloodline/tree.js"
+        "filename": "packages/bloodline/tree.js",
+        "package": "bloodline"
       }
     ],
     "order": 0,
@@ -174,6 +184,7 @@
   },
   {
     "slugName": "builder",
+    "package": "climate",
     "pageSummary": "",
     "filename": "packages/climate/builder.js",
     "comments": [
@@ -194,7 +205,8 @@
           "@future",
           "@name"
         ],
-        "filename": "packages/climate/builder.js"
+        "filename": "packages/climate/builder.js",
+        "package": "climate"
       },
       {
         "start": 136,
@@ -218,7 +230,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/climate/builder.js"
+        "filename": "packages/climate/builder.js",
+        "package": "climate"
       }
     ],
     "order": 0,
@@ -229,18 +242,20 @@
   },
   {
     "slugName": "file",
+    "package": "doctor-general",
     "pageSummary": "",
     "filename": "packages/doctor-general/file.js",
     "comments": [
       {
         "start": 49,
-        "end": 76,
+        "end": 77,
         "summary": "Merge two file representations. Can be right or left associative",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
           "name": "combineFiles",
+          "exported": true,
           "param": [
             [
               "{boolean}",
@@ -281,12 +296,14 @@
         },
         "keywords": [
           "@example",
+          "@exported",
           "@name",
           "@param",
           "@returns",
           "@signature"
         ],
-        "filename": "packages/doctor-general/file.js"
+        "filename": "packages/doctor-general/file.js",
+        "package": "doctor-general"
       }
     ],
     "order": 0,
@@ -295,6 +312,7 @@
   },
   {
     "slugName": "text",
+    "package": "doctor-general",
     "pageSummary": "",
     "filename": "packages/doctor-general/text.js",
     "comments": [
@@ -319,7 +337,8 @@
           "@name",
           "@signature"
         ],
-        "filename": "packages/doctor-general/text.js"
+        "filename": "packages/doctor-general/text.js",
+        "package": "doctor-general"
       }
     ],
     "order": 0,
@@ -328,6 +347,7 @@
   },
   {
     "slugName": "fs",
+    "package": "file-system",
     "pageSummary": "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.",
     "filename": "packages/file-system/fs.js",
     "comments": [
@@ -346,7 +366,8 @@
         "keywords": [
           "@pageSummary"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 27,
@@ -363,7 +384,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 39,
@@ -384,7 +406,8 @@
           "@curried",
           "@example"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 80,
@@ -410,7 +433,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 96,
@@ -436,7 +460,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 110,
@@ -462,7 +487,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 141,
@@ -488,7 +514,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 159,
@@ -514,7 +541,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 175,
@@ -540,7 +568,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 210,
@@ -566,7 +595,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 232,
@@ -592,7 +622,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 253,
@@ -613,7 +644,8 @@
           "@curried",
           "@example"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 321,
@@ -639,7 +671,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 347,
@@ -665,7 +698,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 367,
@@ -691,7 +725,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 386,
@@ -717,7 +752,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 413,
@@ -743,7 +779,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 434,
@@ -769,7 +806,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 468,
@@ -786,7 +824,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       }
     ],
     "order": 0,
@@ -824,6 +863,7 @@
   },
   {
     "slugName": "primitives",
+    "package": "inherent",
     "pageSummary": "",
     "filename": "packages/inherent/primitives.js",
     "comments": [
@@ -842,7 +882,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/inherent/primitives.js"
+        "filename": "packages/inherent/primitives.js",
+        "package": "inherent"
       },
       {
         "start": 35,
@@ -868,7 +909,8 @@
           "@param",
           "@returns"
         ],
-        "filename": "packages/inherent/primitives.js"
+        "filename": "packages/inherent/primitives.js",
+        "package": "inherent"
       }
     ],
     "order": 0,
@@ -877,6 +919,7 @@
   },
   {
     "slugName": "kiddo",
+    "package": "kiddo",
     "pageSummary": "Call external processes and consume them as a Future-wrapped value. This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
     "filename": "packages/kiddo/kiddo.js",
     "comments": [
@@ -896,7 +939,8 @@
         "keywords": [
           "@pageSummary"
         ],
-        "filename": "packages/kiddo/kiddo.js"
+        "filename": "packages/kiddo/kiddo.js",
+        "package": "kiddo"
       },
       {
         "start": 16,
@@ -917,7 +961,8 @@
           "@curried",
           "@example"
         ],
-        "filename": "packages/kiddo/kiddo.js"
+        "filename": "packages/kiddo/kiddo.js",
+        "package": "kiddo"
       }
     ],
     "order": 0,
@@ -926,6 +971,7 @@
   },
   {
     "slugName": "knot",
+    "package": "knot",
     "pageSummary": "",
     "filename": "packages/knot/knot.js",
     "comments": [
@@ -944,7 +990,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/knot/knot.js"
+        "filename": "packages/knot/knot.js",
+        "package": "knot"
       },
       {
         "start": 56,
@@ -961,7 +1008,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/knot/knot.js"
+        "filename": "packages/knot/knot.js",
+        "package": "knot"
       },
       {
         "start": 69,
@@ -978,7 +1026,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/knot/knot.js"
+        "filename": "packages/knot/knot.js",
+        "package": "knot"
       }
     ],
     "order": 0,
@@ -987,6 +1036,7 @@
   },
   {
     "slugName": "helpers",
+    "package": "monorail",
     "pageTitle": "helpers",
     "pageSummary": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
     "filename": "packages/monorail/helpers.js",
@@ -1010,7 +1060,8 @@
           "@page",
           "@pageSummary"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       },
       {
         "start": 33,
@@ -1027,7 +1078,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       },
       {
         "start": 47,
@@ -1044,7 +1096,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       },
       {
         "start": 62,
@@ -1061,7 +1114,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       },
       {
         "start": 77,
@@ -1078,7 +1132,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       },
       {
         "start": 92,
@@ -1095,7 +1150,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       },
       {
         "start": 115,
@@ -1112,7 +1168,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       },
       {
         "start": 163,
@@ -1129,7 +1186,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       },
       {
         "start": 179,
@@ -1146,7 +1204,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       },
       {
         "start": 206,
@@ -1163,7 +1222,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       }
     ],
     "order": 0,
@@ -1172,6 +1232,7 @@
   },
   {
     "slugName": "summary",
+    "package": "digested",
     "pageSummary": "",
     "filename": "tools/digested/summary.js",
     "comments": [
@@ -1192,7 +1253,8 @@
           "@future",
           "@name"
         ],
-        "filename": "tools/digested/summary.js"
+        "filename": "tools/digested/summary.js",
+        "package": "digested"
       }
     ],
     "order": 0,

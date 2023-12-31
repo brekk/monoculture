@@ -1,4 +1,5 @@
 import { basename, extname } from 'node:path'
+
 import {
   unless,
   always as K,
@@ -19,7 +20,7 @@ import {
 import { readFile } from 'file-system'
 import { isJSDocComment, addLineNumbers, groupContiguousBlocks } from './file'
 import { stripRelative } from './text'
-import { lines } from 'knot'
+import { nthIndex, lines } from 'knot'
 import { objectifyComments } from './comment'
 
 const getAny = curry((def, keyPath, comments) =>
@@ -40,6 +41,11 @@ const getPageSummary = pipe(
 
 const getPageTitle = getAny('', ['structure', 'page'])
 
+const getPackage = i => {
+  const y = nthIndex('/', -2, i)
+  return y.slice(0, y.indexOf('/'))
+}
+
 export const parse = curry((root, filename, content) => {
   const newName = stripRelative(filename)
   const slugName = basename(newName, extname(newName))
@@ -59,6 +65,7 @@ export const parse = curry((root, filename, content) => {
         // List CommentBlock
         comments => ({
           slugName,
+          package: getPackage(newName),
           pageTitle: getPageTitle(comments),
           pageSummary: getPageSummary(comments),
           filename: newName,

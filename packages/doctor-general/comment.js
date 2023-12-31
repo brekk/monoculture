@@ -136,6 +136,7 @@ const getPageSummary = (file, end, i) =>
 export const handleSpecificKeywords = curry(
   (keyword, value, rest, file, end, i) =>
     cond([
+      [equals('exported'), () => true],
       [equals('pageSummary'), () => getPageSummary(file, end, i)],
       // curried function definitions afford named variants of the same function
       // see file-system/fs.js for an example

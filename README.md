@@ -318,6 +318,8 @@ introspection and organization tools for monorepos
     - [@hapi/topo](https://www.npmjs.com/package/@hapi/topo)
     - [envtrace](https://www.npmjs.com/package/envtrace)
     - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
+    - [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) 🦴
+    - [doctor-general-cli](https://github.com/brekk/monoculture/tree/main/tools/doctor-general-cli) 🦴 🧪
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [esbuild](https://www.npmjs.com/package/esbuild) 🧪
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪

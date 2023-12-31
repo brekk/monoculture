@@ -25,11 +25,14 @@ export const filterAndStructureComments = pipe(
   log.doc('filter and structure!'),
   filter(pipe(propOr([], 'comments'), isNotEmpty)),
   map(raw => {
-    log.doc('file', raw)
     const filename = stripRelative(raw.filename)
     return {
       ...raw,
-      comments: raw.comments.map(r => ({ ...r, filename })),
+      comments: raw.comments.map(r => ({
+        ...r,
+        filename,
+        package: raw.package,
+      })),
       filename,
       workspace: parsePackageName(filename),
     }

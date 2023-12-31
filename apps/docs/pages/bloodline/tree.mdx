@@ -51,7 +51,8 @@ Take a dependency tree and recursively walk it, returning a grouped set of depen
 
 ### Usage
 ```js
-import { groupTree, plant } from 'bloodline/tree'
+import { plant } from 'bloodline'
+
 const config = { basePath: '../..' }
 const tree = plant(config, '..', '../monocle/cli.js')
 const grouped = groupTree(config, {}, {}, tree)
@@ -66,7 +67,8 @@ Take a dependency tree and recursively walk it, returning flattened set of depen
 
 ### Usage
 ```js
-import { flattenTree, plant } from 'bloodline/tree'
+import { plant } from 'bloodline'
+
 const config = { basePath: '../..' }
 const tree = plant(config, '..', '../monocle/cli.js')
 const flattened = flattenTree(config, {}, {}, tree)
