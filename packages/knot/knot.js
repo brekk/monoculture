@@ -80,4 +80,14 @@ export const strepeat = curry((toRepeat, x) => {
   return gen(x)
 })
 
-export const capitalize = raw => `${raw[0].toUpper()}${raw.slice(1)}`
+/**
+ * Capitalize a string
+ * @name capitalize
+ * @example
+ * ```js test=true
+ * expect(capitalize("nice")).toEqual("Nice")
+ * expect(capitalize("")).toEqual("")
+ * ```
+ */
+export const capitalize = raw =>
+  raw.length ? `${raw[0].toUpperCase()}${raw.slice(1)}` : ''
