@@ -64,7 +64,7 @@ export const getCurriedDefinition = curry((file, end, i) => {
   return pipe(
     slice(i + 1, end),
     map(trimComment),
-    map(replace(/^\*$/g, '')),
+    map(pipe(trim, replace(/^\*$/g, ''))),
     filter(trim),
     map(line => [isListItem(line), line]),
     reduce(

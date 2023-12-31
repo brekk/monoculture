@@ -16,7 +16,7 @@ exports[`parseFile 1`] = `
       "structure": {
         "example": "\`\`\`ts live=true
 import { add } from './fixture'
-
+ *
 add(10)(20) === 30
 \`\`\`",
         "name": "add",
