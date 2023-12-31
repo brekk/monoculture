@@ -77,7 +77,7 @@ jobs:
           echo "coverage_report<<EOF" >> $GITHUB_ENV
           echo "$COVERAGE" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-          SUMMARY=$(echo $COVERAGE | node ./tools/spacework/reporter-for-ci.cjs --pr ${{ steps.findPR.outputs.pr }} --branch $GITHUB_REF_NAME)
+          SUMMARY=$(echo "$COVERAGE" | node ./tools/spacework/reporter-for-ci.cjs --pr ${{ steps.findPR.outputs.pr }} --branch $GITHUB_REF_NAME)
           echo "coverage_summary<<EOF" >> $GITHUB_ENV
           echo "$SUMMARY" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
