@@ -228,6 +228,39 @@
     "workspace": "climate"
   },
   {
+    "slugName": "text",
+    "pageSummary": "",
+    "filename": "packages/doctor-general/text.js",
+    "comments": [
+      {
+        "start": 18,
+        "end": 31,
+        "summary": "For strings which look like extended jsdoc comment line (e.g. ` * whatever`),\neschew the comment decoration",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "trimComment",
+          "signature": [
+            "String",
+            "->",
+            "String"
+          ],
+          "example": "```js test=true\nexpect(trimComment('          * zipzop')).toEqual('zipzop')\nexpect(trimComment(' * squiggle         ')).toEqual('squiggle')\nconst input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)\nexpect(trimComment(input)).toEqual(input)\nexpect(trimComment(29292)).toEqual(29292)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name",
+          "@signature"
+        ],
+        "filename": "packages/doctor-general/text.js"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "doctor-general"
+  },
+  {
     "slugName": "fs",
     "pageSummary": "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.",
     "filename": "packages/file-system/fs.js",

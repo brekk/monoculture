@@ -18,6 +18,11 @@
 
 ## Workspaces
 
+### docs
+
+ - [ ] Fix the `_meta.json` for the homepage Index
+ - [ ] Figure out a better means of moving the [doctor-general](https://brekk.github.io/monoculture/doctor-general/) documentation into `doctor-general` itself
+
 ### superorganism
 
  - [ ] `superorganism` needs more work -- if we're gonna re-imagine how `nps` config files are, we may need a backwards-compatible legacy mode, or we're already pretty coupled with `nps` in most of these packages.
@@ -59,5 +64,7 @@
  - [ ] Right now `@example` assumes it will be the last entry, but that's not super robust, we should write a more comprehensive test for this
  - [ ] Pretty sure `@curried` + `test=true` will barf right now. We should verify and fix it if so.
  - [ ] `@curried` stuff should be reworked in general (likely after we make the parser more robust -- Ideally you could use the `@curried` shorthand to simplify things but still provide any / all tags you'd provide elsewhere (within reason))
-
-
+ - [ ] I _think_ this would be a big task, but it's be awesome to be able to keep `autotests` ephemeral (generate in a temporary folder, run tests, validate, report, don't automatically inflate the codebase
+ - [ ] Support proper links
+ - [ ] Wiring docs to tests would be cool
+ - [ ] Documentation pages should underline how they are written
