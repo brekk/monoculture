@@ -5,13 +5,14 @@ exports[`parseFile 1`] = `
   "comments": [
     {
       "addTo": "",
-      "end": 75,
+      "end": 76,
       "fileGroup": "",
       "keywords": [
         "@example",
         "@name",
         "@param",
         "@returns",
+        "@signature",
       ],
       "links": [],
       "start": 49,
@@ -61,6 +62,15 @@ expect(combineFiles(false, a, b)).toEqual({
           "{File}",
           "Merged",
           "file",
+        ],
+        "signature": [
+          "boolean",
+          "->",
+          "File",
+          "->",
+          "File",
+          "->",
+          "File",
         ],
       },
       "summary": "Merge two file representations. Can be right or left associative",
