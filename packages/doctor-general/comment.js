@@ -52,7 +52,7 @@ import { log } from './log'
 import { unlines } from 'knot'
 import { autobox } from 'inherent'
 import { cleanFilename, findJSDocKeywords, cleanupKeywords } from './file'
-import { formatComment, trimComment, wipeComment, safeTrim } from './text'
+import { formatComment, trimComment, wipeComment } from './text'
 
 export const getImportsForTests = file =>
   pipe(
@@ -257,7 +257,7 @@ export const getExample = curry(function _getExample(file, end, i) {
   return pipe(
     slice(i + 1, end),
     map(trimComment),
-    reject(pipe(safeTrim, equals('*'))),
+    reject(pipe(trim, equals('*'))),
     unlines
   )(file)
 })

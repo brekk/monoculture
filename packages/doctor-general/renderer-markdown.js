@@ -125,9 +125,7 @@ export const commentToMarkdown = curry((slugName, imports, x) =>
         pipe(getCurried, length, lt(0)),
         handleCurriedExample(imports),
         pipe(
-          log.renderer('in'),
           flattenCommentData,
-          log.renderer('out'),
           ({ title, summary, links, example, package: pkg, exported }) =>
             cleanlines(
               commonFields(imports, {
