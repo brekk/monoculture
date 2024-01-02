@@ -13,9 +13,8 @@ import {
   when,
 } from 'ramda'
 import { unlines } from 'knot'
-import { log } from './log'
 
-const safeTrim = when(is(String), trim)
+export const safeTrim = when(is(String), trim)
 
 // trying to use `drgen` for autotesting is a cyclical disaster,
 // so we'll just manually copy these tests
@@ -55,7 +54,6 @@ export const wipeComment = pipe(trimComment, nixKeyword)
 export const formatComment = block =>
   pipe(
     map(([, v]) => v),
-    map(log.text('whodis')),
     map(trimComment),
     slice(1, length(block) - 1)
   )(block)

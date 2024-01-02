@@ -43,6 +43,7 @@ exports[`default export 1`] = `
   "rarestBy": [Function],
   "readPackageJsonWorkspaces": [Function],
   "renderComments": [Function],
+  "safeTrim": [Function],
   "slug": [Function],
   "stripLeadingHyphen": [Function],
   "stripRelative": [Function],
