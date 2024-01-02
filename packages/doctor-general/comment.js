@@ -1,6 +1,7 @@
 import { join as pathJoin } from 'node:path'
 import { parallel } from 'fluture'
 import {
+  when,
   __ as $,
   addIndex,
   always as K,
@@ -257,7 +258,7 @@ export const getExample = curry(function _getExample(file, end, i) {
   return pipe(
     slice(i + 1, end),
     map(trimComment),
-    reject(pipe(trim, equals('*'))),
+    map(when(pipe(trim, equals('*')), K(''))),
     unlines
   )(file)
 })

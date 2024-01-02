@@ -20,7 +20,7 @@
 
 ### docs
 
- - [ ] Fix the `_meta.json` for the homepage Index
+ - [x] Fix the `_meta.json` for the homepage Index
  - [ ] Figure out a better means of moving the [doctor-general](https://brekk.github.io/monoculture/doctor-general/) documentation into `doctor-general` itself
 
 ### superorganism
