@@ -24,7 +24,6 @@ const YARGS_CONFIG = {
     'strip-aliased': true,
   },
 }
- *
 const HELP_CONFIG = {
   help: 'This text!',
   // optional
@@ -33,12 +32,10 @@ const HELP_CONFIG = {
   happyHour: 'Does happy hour apply here?',
   multiplier: 'How many units should we apply?'
 }
- *
 const CONFIG_DEFAULTS = {
   color: true,
   happyHour: false
 }
- *
 const parseArgs = (args) => configurate(
   YARGS_CONFIG,
   // closured so that we can pass cwd at runtime
@@ -48,7 +45,6 @@ const parseArgs = (args) => configurate(
   // process.argv.slice(2)
   args
 )
- *
 // renders in the failure channel
 fork(x => {
   expect(stripAnsi(x).split('\n')).toEqual([
