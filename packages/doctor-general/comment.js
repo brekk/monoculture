@@ -76,8 +76,7 @@ export const getCurriedDefinition = curry(
     return pipe(
       slice(i + 1, end),
       map(trimComment),
-      map(pipe(trim, replace(/^\*$/g, ''))),
-      filter(trim),
+      map(when(pipe(trim, equals('*')), K(''))),
       map(line => [isListItem(line), line]),
       reduce(
         ({ subject, lines, defs }, [isDefinition, content]) => {
@@ -301,11 +300,8 @@ export const writeCommentsToFiles = curry(function _writeCommentsToFiles(
           // this part is the structure of the file we wanna write
           cleanFilename(testMode, file)
         )
-
-        return writeFileWithAutoPath(
-          filePathToWrite,
-          renderFile(testMode, file)
-        )
+        const raw = renderFile(testMode, file)
+        return writeFileWithAutoPath(filePathToWrite, raw)
       })(commentedFiles)
       return testMode
         ? filesToWrite

@@ -398,7 +398,22 @@
           "curried": [
             {
               "name": "",
-              "lines": "1. readFileWithFormatAndCancel - Can be given a file encoding and a cancellation function.\n```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\nreadFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')\n)\n```\n2. readFileWithCancel - Reads `utf8` files only.\n```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\nreadFileWithCancel(() => process.exit(), './README.md')\n)\n```\n3. readFile - Eschews any custom cancellation.\n```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(readFile('./README.md'))\n```"
+              "lines": ""
+            },
+            {
+              "name": "readFileWithFormatAndCancel",
+              "summary": "Can be given a file encoding and a cancellation function.",
+              "lines": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\n  readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')\n)\n```\n"
+            },
+            {
+              "name": "readFileWithCancel",
+              "summary": "Reads `utf8` files only.",
+              "lines": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\n  readFileWithCancel(() => process.exit(), './README.md')\n)\n```\n"
+            },
+            {
+              "name": "readFile",
+              "summary": "Eschews any custom cancellation.",
+              "lines": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(readFile('./README.md'))\n```"
             }
           ]
         },
@@ -635,8 +650,19 @@
         "structure": {
           "curried": [
             {
-              "name": "",
-              "lines": "1. removeFileWithConfigAndCancel - Configuration and cancellation\n```js\nimport { fork } from 'fluture'\nimport { removeFileWithConfigAndCancel } from 'file-system'\nfork(console.warn)(console.log)(\nremoveFileWithConfigAndCancel(\ncancellationFn,\n{ ...fs.removeFileConfig },\n'my-file.txt'\n)\n)\n```\n2. removeFileWithConfig - No config, just cancellation\n```js\nimport { fork } from 'fluture'\nimport { removeFileWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\nremoveFileWithConfig(\n{ ...fs.removeFileConfig },\n'my-file.txt'\n)\n)\n```\n3. removeFile - remove a file. Aliased to `rm`.\n```js\nimport { fork } from 'fluture'\nimport { removeFile } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\nremoveFile(\n'my-file.txt'\n)\n)\n```"
+              "name": "removeFileWithConfigAndCancel",
+              "summary": "Configuration and cancellation",
+              "lines": "\n ```js\n import { fork } from 'fluture'\n import { removeFileWithConfigAndCancel } from 'file-system'\n\n fork(console.warn)(console.log)(\n   removeFileWithConfigAndCancel(\n     cancellationFn,\n     { ...fs.removeFileConfig },\n     'my-file.txt'\n   )\n )\n ```"
+            },
+            {
+              "name": "removeFileWithConfig",
+              "summary": "No config, just cancellation",
+              "lines": "\n```js\nimport { fork } from 'fluture'\nimport { removeFileWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFileWithConfig(\n    { ...fs.removeFileConfig },\n    'my-file.txt'\n  )\n)\n```\n"
+            },
+            {
+              "name": "removeFile",
+              "summary": "remove a file. Aliased to `rm`.",
+              "lines": "\n```js\nimport { fork } from 'fluture'\nimport { removeFile } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFile(\n    'my-file.txt'\n  )\n)\n```\n"
             }
           ]
         },
@@ -952,8 +978,19 @@
         "structure": {
           "curried": [
             {
-              "name": "",
-              "lines": "1. execWithConfig - Passes all possible configuration values plus a cancellation function.\n```js\nimport { execWithConfig } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\nexecWithConfig(\nfunction customCancellationFunction() {},\n'echo',\n{ cleanup: true },\n['ahoy']\n)\n)\n```\n2. execWithCancel - Eschews any configuration and instead only expects a cancellation function, command and arguments.\n```js\nimport { execWithCancel } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\nexecWithCancel(\nfunction customCancellationFunction() {},\n'echo',\n['ahoy']\n)\n)\n```\n3. exec - Eschews any configuration or cancellation function. Needs only command and arguments.\n```js\nimport { exec } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\nexec(\n'echo',\n['ahoy']\n)\n)\n```"
+              "name": "execWithConfig",
+              "summary": "Passes all possible configuration values plus a cancellation function.",
+              "lines": "\n```js\nimport { execWithConfig } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithConfig(\n    function customCancellationFunction() {},\n    'echo',\n    { cleanup: true },\n    ['ahoy']\n  )\n)\n```\n"
+            },
+            {
+              "name": "execWithCancel",
+              "summary": "Eschews any configuration and instead only expects a cancellation function, command and arguments.",
+              "lines": "\n```js\nimport { execWithCancel } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithCancel(\n    function customCancellationFunction() {},\n    'echo',\n    ['ahoy']\n  )\n)\n```\n"
+            },
+            {
+              "name": "exec",
+              "summary": "Eschews any configuration or cancellation function. Needs only command and arguments.",
+              "lines": "\n```js\nimport { exec } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  exec(\n    'echo',\n    ['ahoy']\n  )\n)\n```"
             }
           ]
         },

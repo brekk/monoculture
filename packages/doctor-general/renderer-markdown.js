@@ -49,6 +49,7 @@ const flattenCommentData = applySpec({
   links: propOr([], 'links'),
   example: pipe(
     pathOr('', ['structure', 'example']),
+    log.renderer('markdown?'),
     replace(new RegExp('// ' + MAGIC_IMPORT_KEY, 'g'), '')
   ),
   exported: pathOr(false, ['structure', 'exported']),
@@ -98,20 +99,23 @@ const handleCurriedExample = curry((imports, x) =>
     wrap,
     ap([getCurried, flattenCommentData]),
     ([curried, { summary, links, package: pkg, exported }]) =>
-      map(({ name, lines: example }) =>
-        cleanlines(
-          commonFields(imports, {
-            package: pkg,
-            exported,
-            name,
-            summary,
-            example,
-            links: pipe(
-              map(({ name: n }) => n),
-              filter(y => y !== name),
-              concat(links)
-            )(curried),
-          })
+      pipe(
+        log.renderer('input!'),
+        map(({ name, lines: example }) =>
+          cleanlines(
+            commonFields(imports, {
+              package: pkg,
+              exported,
+              name,
+              summary,
+              example,
+              links: pipe(
+                map(({ name: n }) => n),
+                filter(y => y !== name),
+                concat(links)
+              )(curried),
+            })
+          )
         )
       )(curried),
     join('\n')
