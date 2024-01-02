@@ -66,30 +66,36 @@ const j2 = x => JSON.stringify(x, null, 2)
 
 const { name: $NAME, description: $DESC } = PKG
 
-const writeInitConfigFileWithCancel = curry((cancel, filepath) =>
-  pipe(
-    j2,
-    writeFileWithConfigAndCancel(cancel, { encoding: 'utf8' }, filepath),
-    map(K(`Wrote file to "${filepath}"!`))
-  )(DEFAULT_CONFIG_FILE)
+const writeInitConfigFileWithCancel = curry(
+  function _writeInitConfigFileWithCancel(cancel, filepath) {
+    return pipe(
+      j2,
+      writeFileWithConfigAndCancel(cancel, { encoding: 'utf8' }, filepath),
+      map(K(`Wrote file to "${filepath}"!`))
+    )(DEFAULT_CONFIG_FILE)
+  }
 )
 
-const getAggregatePatterns = curry((chalk, partyFile, data) => {
-  const aggCommit = reduce(
-    (agg, y) =>
-      mergeRight(
-        agg,
-        mergeRight(y, { files: uniq((y.files || []).concat(agg.files || [])) })
-      ),
-    {},
-    data
-  )
-  return renderPatternsWithAlt(
-    chalk.inverse('   '),
-    partyFile.patterns,
-    aggCommit
-  )
-})
+const getAggregatePatterns = curry(
+  function _getAggregatePatterns(chalk, partyFile, data) {
+    const aggCommit = reduce(
+      (agg, y) =>
+        mergeRight(
+          agg,
+          mergeRight(y, {
+            files: uniq((y.files || []).concat(agg.files || [])),
+          })
+        ),
+      {},
+      data
+    )
+    return renderPatternsWithAlt(
+      chalk.inverse('   '),
+      partyFile.patterns,
+      aggCommit
+    )
+  }
+)
 
 const loadPartyFile = curry(
   (cancel, { cwd, color: useColor, config, help, HELP, init }) => {
@@ -136,43 +142,47 @@ const loadPartyFile = curry(
   }
 )
 
-export const loadGitData = curry((cancel, config, chalk, data) => {
-  const { fields: _fields = [] } = config
-  const fields = [
-    ...CONFIG_DEFAULTS.fields,
-    ...(!Array.isArray(_fields) ? [_fields] : _fields),
-  ]
-  return pipe(
-    log.config('searching for .git/index'),
-    digUpWithCancel(cancel, {}),
-    map(log.config('git found, path...')),
-    map(path.dirname),
-    chain(repo =>
-      repo
-        ? gitlogWithCancel(cancel, {
-            repo,
-            number: config.totalCommits,
-            fields,
-          })
-        : rejectF(THIS_IS_NOT_A_GIT_REPO(chalk))
-    ),
-    map(pipe(objOf('gitlog'), mergeRight(data)))
-  )(['.git/index'])
-})
+export const loadGitData = curry(
+  function _loadGitData(cancel, config, chalk, data) {
+    const { fields: _fields = [] } = config
+    const fields = [
+      ...CONFIG_DEFAULTS.fields,
+      ...(!Array.isArray(_fields) ? [_fields] : _fields),
+    ]
+    return pipe(
+      log.config('searching for .git/index'),
+      digUpWithCancel(cancel, {}),
+      map(log.config('git found, path...')),
+      map(path.dirname),
+      chain(repo =>
+        repo
+          ? gitlogWithCancel(cancel, {
+              repo,
+              number: config.totalCommits,
+              fields,
+            })
+          : rejectF(THIS_IS_NOT_A_GIT_REPO(chalk))
+      ),
+      map(pipe(objOf('gitlog'), mergeRight(data)))
+    )(['.git/index'])
+  }
+)
 
-const adjustRelativeTimezone = curry((timeZone, preferredFormat, commit) => {
-  const { authorDate } = commit
-  const newDate = pipe(
-    // 2023-11-21 15:58:44 -0800
-    d => parseTime(d, 'yyyy-MM-dd HH:mm:ss XX', new Date()),
-    timeZone.toLowerCase() === 'utc'
-      ? zonedTimeToUtc
-      : pipe(zonedTimeToUtc, x => utcToZonedTime(x, timeZone)),
-    x => formatDate(x, preferredFormat, { timeZone })
-  )(authorDate)
-  commit.formattedDate = newDate
-  return commit
-})
+const adjustRelativeTimezone = curry(
+  function _adjustRelativeTimezone(timeZone, preferredFormat, commit) {
+    const { authorDate } = commit
+    const newDate = pipe(
+      // 2023-11-21 15:58:44 -0800
+      d => parseTime(d, 'yyyy-MM-dd HH:mm:ss XX', new Date()),
+      timeZone.toLowerCase() === 'utc'
+        ? zonedTimeToUtc
+        : pipe(zonedTimeToUtc, x => utcToZonedTime(x, timeZone)),
+      x => formatDate(x, preferredFormat, { timeZone })
+    )(authorDate)
+    commit.formattedDate = newDate
+    return commit
+  }
+)
 const deriveAuthor = curry((lookup, commit) => {})
 
 const getFiletype = z => {
@@ -191,7 +201,7 @@ const getFiletypes = commit =>
     mergeRight(commit)
   )(commit)
 
-export const processData = curry((chalk, config, data) => {
+export const processData = curry(function _processData(chalk, config, data) {
   return pipe(
     config.excludeMergeCommits
       ? reject(pipe(propOr('', 'subject'), startsWith('Merge')))
@@ -216,71 +226,73 @@ export const processData = curry((chalk, config, data) => {
   )(data)
 })
 
-export const printData = curry((chalk, partyFile, config, data) =>
-  pipe(
-    groupBy(pipe(prop('authorDate'), split(' '), head)),
-    map(
-      applySpec({
-        render: pipe(
-          map(commit => {
-            const {
-              filetypes,
-              subject,
-              authorName,
-              abbrevHash,
-              formattedDate,
-            } = commit
-            const matches = renderPatterns(partyFile.patterns, commit)
-            return box(
-              {
-                subtitleAlign: 'right',
-                width: partyFile.longestSubject,
-                padding: {
-                  left: 1,
-                  right: 1,
-                  bottom: 0,
-                  top: 0,
+export const printData = curry(
+  function _printData(chalk, partyFile, config, data) {
+    return pipe(
+      groupBy(pipe(prop('authorDate'), split(' '), head)),
+      map(
+        applySpec({
+          render: pipe(
+            map(commit => {
+              const {
+                filetypes,
+                subject,
+                authorName,
+                abbrevHash,
+                formattedDate,
+              } = commit
+              const matches = renderPatterns(partyFile.patterns, commit)
+              return box(
+                {
+                  subtitleAlign: 'right',
+                  width: partyFile.longestSubject,
+                  padding: {
+                    left: 1,
+                    right: 1,
+                    bottom: 0,
+                    top: 0,
+                  },
+                  subtitle: matches,
+                  title: `▶ ${chalk.red(
+                    authorName
+                  )} @ ${formattedDate} [${chalk.yellow(abbrevHash)}] ⏹`,
                 },
-                subtitle: matches,
-                title: `▶ ${chalk.red(
-                  authorName
-                )} @ ${formattedDate} [${chalk.yellow(abbrevHash)}] ⏹`,
-              },
-              subject + ' | ' + chalk.blue(filetypes.join(' '))
-            )
-          }),
-          join(`\n\n`)
-        ),
-        pattern: getAggregatePatterns(chalk, partyFile),
-      })
-    ),
-    toPairs,
-    map(([date, { render: v, pattern: patternSummary }]) => {
-      const xxx = strlen(date) + strlen(patternSummary)
-      return (
-        chalk.inverse(
-          ' ' +
-            date +
+                subject + ' | ' + chalk.blue(filetypes.join(' '))
+              )
+            }),
+            join(`\n\n`)
+          ),
+          pattern: getAggregatePatterns(chalk, partyFile),
+        })
+      ),
+      toPairs,
+      map(([date, { render: v, pattern: patternSummary }]) => {
+        const xxx = strlen(date) + strlen(patternSummary)
+        return (
+          chalk.inverse(
             ' ' +
-            strepeat(' ')(
-              Math.abs(partyFile.longestSubject - xxx) -
-                getBorderWidth(config.borderStyle)
-            )
-        ) +
-        patternSummary +
-        chalk.inverse('  ') +
-        `${NEWBAR} ${NEWBAR} ` +
-        v.replace(/\n/g, `${NEWBAR} `) +
-        `${NEWBAR} `
-      )
-    }),
-    join('\n'),
-    replace(/│ ╭/g, '├─┬')
-  )(data)
+              date +
+              ' ' +
+              strepeat(' ')(
+                Math.abs(partyFile.longestSubject - xxx) -
+                  getBorderWidth(config.borderStyle)
+              )
+          ) +
+          patternSummary +
+          chalk.inverse('  ') +
+          `${NEWBAR} ${NEWBAR} ` +
+          v.replace(/\n/g, `${NEWBAR} `) +
+          `${NEWBAR} `
+        )
+      }),
+      join('\n'),
+      replace(/│ ╭/g, '├─┬')
+    )(data)
+  }
 )
 
-export const processPatterns = curry((chalk, v) =>
-  v?.matches
+export const processPatterns = curry(function _processPatterns(chalk, v) {
+  return v?.matches
     ? mergeRight(v, {
         fn: Array.isArray(v.color)
           ? pipe(
@@ -291,9 +303,9 @@ export const processPatterns = curry((chalk, v) =>
         matches: v.matches,
       })
     : v
-)
+})
 
-export const runner = curry((cancel, argv) => {
+export const runner = curry(function _runner(cancel, argv) {
   let canon
   return pipe(
     v => {

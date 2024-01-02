@@ -33,14 +33,15 @@ import { log } from './log'
  * ```
  */
 export const checkForBinaryWithCancel = curry(
-  (cancel, binary, args, pathToLook) =>
-    pipe(
+  function _checkForBinaryWithCancel(cancel, binary, args, pathToLook) {
+    return pipe(
       execWithCancel(
         cancel,
         pathToLook ? sysPathJoin(pathToLook, binary) : binary
       ),
       bimap(K(false))(K(true))
     )(args)
+  }
 )
 
 /**
@@ -59,15 +60,17 @@ export const checkForBinaryWithCancel = curry(
  * )
  * ```
  */
-export const checkForBinaries = curry((cancel, basePath, keyed) => {
-  const keycount = pipe(keys, length)(keyed)
-  return pipe(
-    toPairs,
-    map(([cmd, { binPath = basePath, args = [] }]) =>
-      checkForBinaryWithCancel(cancel, cmd, args, binPath)
-    ),
-    parallel(10),
-    map(pipe(filter(I), length, equals(keycount))),
-    map(log.exe(`binaries`))
-  )(keyed)
-})
+export const checkForBinaries = curry(
+  function _checkForBinaries(cancel, basePath, keyed) {
+    const keycount = pipe(keys, length)(keyed)
+    return pipe(
+      toPairs,
+      map(([cmd, { binPath = basePath, args = [] }]) =>
+        checkForBinaryWithCancel(cancel, cmd, args, binPath)
+      ),
+      parallel(10),
+      map(pipe(filter(I), length, equals(keycount))),
+      map(log.exe(`binaries`))
+    )(keyed)
+  }
+)

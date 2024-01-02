@@ -64,14 +64,15 @@ export const fail = prop('stderr')
  */
 /* eslint-enable max-len */
 export const execWithConfig = curry(
-  (cancellation, cmd, opts, args) =>
-    new Future((bad, good) => {
+  function _execWithConfig(cancellation, cmd, opts, args) {
+    return new Future((bad, good) => {
       log('Running', `"${cmd} ${args.join(' ')}"`)
       execa(cmd, args, opts)
         .catch(pipe(fail, bad))
         .then(ifElse(didFail, pipe(fail, bad), good))
       return cancellation
     })
+  }
 )
 export const execWithCancel = execWithConfig($, $, undefined)
 export const exec = execWithCancel(() => {})

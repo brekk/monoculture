@@ -23,15 +23,15 @@ import { stripRelative } from './text'
 import { nthIndex, lines } from 'knot'
 import { objectifyComments } from './comment'
 
-const getAny = curry((def, keyPath, comments) =>
-  pipe(
+const getAny = curry(function _getAny(def, keyPath, comments) {
+  return pipe(
     map(pathOr(def, keyPath)),
     filter(identity),
     uniq,
     x => x.sort(),
     head
   )(comments)
-)
+})
 
 const getPageSummary = pipe(
   getAny('', ['structure', 'pageSummary']),
@@ -49,7 +49,7 @@ const getPackage = i => {
   return i
 }
 
-export const parse = curry((root, filename, content) => {
+export const parse = curry(function _parse(root, filename, content) {
   const newName = stripRelative(filename)
   const slugName = basename(newName, extname(newName))
   return pipe(
@@ -85,8 +85,8 @@ export const parse = curry((root, filename, content) => {
 })
 
 // comments in pipe show current shape per step
-export const parseFile = curry((debugMode, root, filename) =>
-  pipe(
+export const parseFile = curry(function _parseFile(debugMode, root, filename) {
+  return pipe(
     // String
     readFile,
     // Future<Error, String>
@@ -107,4 +107,4 @@ export const parseFile = curry((debugMode, root, filename) =>
     }))
     // CommentedFile
   )(filename)
-)
+})

@@ -13,7 +13,7 @@ import { makeFileHelpers, makePluginHelpers } from './helpers'
 import { toposort } from './sort'
 import { log } from './log'
 
-export const stepFunction = curry((state, plugin, file) => {
+export const stepFunction = curry(function _stepFunction(state, plugin, file) {
   tap(({ name, dependencies: d }) => log.run(`plugin [${name}]`, d))
   tap(({ name, hash }) => log.run(`file [${name}]`, hash))
   const { selector = I, preserveLine = false, fn } = plugin
@@ -30,14 +30,16 @@ export const stepFunction = curry((state, plugin, file) => {
   return output
 })
 
-const runPluginOnFilesWithContext = curry((context, files, plugin) => {
-  if (!plugin.name) return []
-  log.run('applying plugin', plugin.name)
-  return pipe(
-    map(file => [file.name, stepFunction(context, plugin, file)]),
-    fromPairs
-  )(files)
-})
+const runPluginOnFilesWithContext = curry(
+  function _runPluginOnFilesWithContext(context, files, plugin) {
+    if (!plugin.name) return []
+    log.run('applying plugin', plugin.name)
+    return pipe(
+      map(file => [file.name, stepFunction(context, plugin, file)]),
+      fromPairs
+    )(files)
+  }
+)
 
 export const getNames = map(prop('name'))
 export const getHashes = pipe(
@@ -45,27 +47,29 @@ export const getHashes = pipe(
   fromPairs
 )
 
-export const statefulApplicator = curry((context, plugins, files) => {
-  // drop info we don't want to retain downstream
-  const { HELP: _h, basePath: _b, cwd: _c, ...config } = context
-  return reduce(
-    (agg, plugin) => ({
-      ...agg,
-      state: {
-        ...agg.state,
-        [plugin.name]: pipe(runPluginOnFilesWithContext(agg, files))(plugin),
+export const statefulApplicator = curry(
+  function _statefulApplicator(context, plugins, files) {
+    // drop info we don't want to retain downstream
+    const { HELP: _h, basePath: _b, cwd: _c, ...config } = context
+    return reduce(
+      (agg, plugin) => ({
+        ...agg,
+        state: {
+          ...agg.state,
+          [plugin.name]: pipe(runPluginOnFilesWithContext(agg, files))(plugin),
+        },
+      }),
+      {
+        state: {},
+        filenames: getNames(files),
+        hashes: getHashes(files),
+        plugins: getNames(plugins),
+        config,
       },
-    }),
-    {
-      state: {},
-      filenames: getNames(files),
-      hashes: getHashes(files),
-      plugins: getNames(plugins),
-      config,
-    },
-    plugins
-  )
-})
+      plugins
+    )
+  }
+)
 
 export const futureFileProcessor = curry((context, pluginsF, filesF) =>
   pipe(

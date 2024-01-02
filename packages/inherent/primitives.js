@@ -17,9 +17,9 @@ import { map, curry } from 'ramda'
  * expect(isProduct('blabbo')).toBeFalsy()
  * ```
  */
-export const equalishBy = curry(
-  (transform, expected, x) => transform(x) === expected
-)
+export const equalishBy = curry(function _equalishBy(transform, expected, x) {
+  return transform(x) === expected
+})
 // I think this is a slight variation on the P combinator / psi function
 // https://gist.github.com/Avaq/1f0636ec5c8d6aed2e45
 

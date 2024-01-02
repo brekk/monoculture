@@ -24,8 +24,8 @@
         "package": "bloodline"
       },
       {
-        "start": 45,
-        "end": 60,
+        "start": 46,
+        "end": 61,
         "summary": "Check for multiple binaries in a single call",
         "links": [],
         "fileGroup": "",
@@ -107,8 +107,8 @@
         "package": "bloodline"
       },
       {
-        "start": 107,
-        "end": 118,
+        "start": 109,
+        "end": 120,
         "summary": "Grab an id from a cache if possible",
         "links": [],
         "fileGroup": "",
@@ -125,8 +125,8 @@
         "package": "bloodline"
       },
       {
-        "start": 128,
-        "end": 140,
+        "start": 130,
+        "end": 142,
         "summary": "Take a dependency tree and recursively walk it, returning a grouped set of dependencies.",
         "links": [
           "flattenTree"
@@ -150,8 +150,8 @@
         "package": "bloodline"
       },
       {
-        "start": 206,
-        "end": 218,
+        "start": 215,
+        "end": 227,
         "summary": "Take a dependency tree and recursively walk it, returning flattened set of dependencies.",
         "links": [
           "groupTree"
@@ -209,8 +209,8 @@
         "package": "climate"
       },
       {
-        "start": 136,
-        "end": 144,
+        "start": 138,
+        "end": 146,
         "summary": "The default search space when running `configFileWithCancel`.",
         "links": [
           "configFileWithCancel"
@@ -410,8 +410,8 @@
         "package": "file-system"
       },
       {
-        "start": 80,
-        "end": 91,
+        "start": 82,
+        "end": 93,
         "summary": "Read a JSON file asynchronously as a Future-wrapped value, given a cancellation function",
         "links": [
           "readFile",
@@ -437,8 +437,8 @@
         "package": "file-system"
       },
       {
-        "start": 96,
-        "end": 107,
+        "start": 100,
+        "end": 111,
         "summary": "Read a JSON file asynchronously as a Future-wrapped value",
         "links": [
           "readFile",
@@ -464,8 +464,8 @@
         "package": "file-system"
       },
       {
-        "start": 110,
-        "end": 126,
+        "start": 114,
+        "end": 130,
         "summary": "Read a glob asynchronously as a Future-wrapped value,\nwith configuration and a cancellation function.\nConfiguration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
           "readDirWithConfig",
@@ -491,8 +491,8 @@
         "package": "file-system"
       },
       {
-        "start": 141,
-        "end": 156,
+        "start": 147,
+        "end": 162,
         "summary": "Read a glob asynchronously as a Future-wrapped value, with configuration.\nConfiguration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
           "readDirWithConfigAndCancel",
@@ -518,8 +518,8 @@
         "package": "file-system"
       },
       {
-        "start": 159,
-        "end": 172,
+        "start": 165,
+        "end": 178,
         "summary": "Read a glob asynchronously as a Future-wrapped value, default config assumed.\nConfiguration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
           "readDirWithConfigAndCancel",
@@ -545,8 +545,8 @@
         "package": "file-system"
       },
       {
-        "start": 175,
-        "end": 195,
+        "start": 181,
+        "end": 201,
         "summary": "Write to a file, with configuration and a cancellation function.\nUnlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
           "writeFileWithConfig",
@@ -572,8 +572,8 @@
         "package": "file-system"
       },
       {
-        "start": 210,
-        "end": 229,
+        "start": 217,
+        "end": 236,
         "summary": "Write to a file, with configuration.\nUnlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
           "writeFileWithConfigAndCancel",
@@ -599,8 +599,8 @@
         "package": "file-system"
       },
       {
-        "start": 232,
-        "end": 250,
+        "start": 239,
+        "end": 257,
         "summary": "Write to a file, assuming `'utf8'`.\nUnlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
           "writeFileWithConfigAndCancel",
@@ -626,8 +626,8 @@
         "package": "file-system"
       },
       {
-        "start": 253,
-        "end": 301,
+        "start": 260,
+        "end": 308,
         "summary": "Remove a file, configurably, with cancellation.\nUnlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
         "links": [],
         "fileGroup": "",
@@ -648,8 +648,8 @@
         "package": "file-system"
       },
       {
-        "start": 321,
-        "end": 339,
+        "start": 330,
+        "end": 348,
         "summary": "Remove multiple files, configurably, with a cancellation function.",
         "links": [
           "removeFilesWithConfig",
@@ -675,8 +675,8 @@
         "package": "file-system"
       },
       {
-        "start": 347,
-        "end": 364,
+        "start": 358,
+        "end": 375,
         "summary": "Remove multiple files, configurably.",
         "links": [
           "removeFilesWithConfigAndCancel",
@@ -702,8 +702,8 @@
         "package": "file-system"
       },
       {
-        "start": 367,
-        "end": 383,
+        "start": 378,
+        "end": 394,
         "summary": "Remove multiple files, configurably.",
         "links": [
           "removeFilesWithConfigAndCancel",
@@ -729,8 +729,8 @@
         "package": "file-system"
       },
       {
-        "start": 386,
-        "end": 405,
+        "start": 397,
+        "end": 416,
         "summary": "Make a directory, given a cancellation function.\nReturns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdir",
@@ -756,8 +756,8 @@
         "package": "file-system"
       },
       {
-        "start": 413,
-        "end": 431,
+        "start": 426,
+        "end": 444,
         "summary": "Make a directory\nReturns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdirWithCancel",
@@ -783,8 +783,8 @@
         "package": "file-system"
       },
       {
-        "start": 434,
-        "end": 452,
+        "start": 447,
+        "end": 465,
         "summary": "Make a directory, recursively.\nReturns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdirWithCancel",
@@ -810,8 +810,8 @@
         "package": "file-system"
       },
       {
-        "start": 468,
-        "end": 483,
+        "start": 481,
+        "end": 496,
         "summary": "Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`",
         "links": [],
         "fileGroup": "",
@@ -1042,8 +1042,8 @@
     "filename": "packages/monorail/helpers.js",
     "comments": [
       {
-        "start": 23,
-        "end": 26,
+        "start": 22,
+        "end": 25,
         "summary": "@pageSummary Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
         "links": [],
         "fileGroup": "",
@@ -1054,7 +1054,7 @@
           ],
           "page": "helpers",
           "name": "helpers",
-          "detail": 23
+          "detail": 22
         },
         "keywords": [
           "@page",
@@ -1064,8 +1064,8 @@
         "package": "monorail"
       },
       {
-        "start": 34,
-        "end": 45,
+        "start": 33,
+        "end": 44,
         "summary": "Use this helper to test a regex that matches against any single incidence on any line",
         "links": [],
         "fileGroup": "",
@@ -1082,8 +1082,8 @@
         "package": "monorail"
       },
       {
-        "start": 48,
-        "end": 58,
+        "start": 47,
+        "end": 57,
         "summary": "Use this helper to test a regex that matches and filters against every line",
         "links": [],
         "fileGroup": "",
@@ -1100,8 +1100,8 @@
         "package": "monorail"
       },
       {
-        "start": 63,
-        "end": 73,
+        "start": 62,
+        "end": 72,
         "summary": "Use this helper to test a regex that matches and finds the first matching line",
         "links": [],
         "fileGroup": "",
@@ -1118,8 +1118,8 @@
         "package": "monorail"
       },
       {
-        "start": 78,
-        "end": 88,
+        "start": 77,
+        "end": 87,
         "summary": "Use this helper to test a regex that matches and finds the last matching line",
         "links": [],
         "fileGroup": "",
@@ -1136,8 +1136,8 @@
         "package": "monorail"
       },
       {
-        "start": 93,
-        "end": 103,
+        "start": 92,
+        "end": 102,
         "summary": "Use this helper to select content between two repeating regular expressions",
         "links": [],
         "fileGroup": "",
@@ -1154,8 +1154,8 @@
         "package": "monorail"
       },
       {
-        "start": 116,
-        "end": 126,
+        "start": 115,
+        "end": 125,
         "summary": "Use this helper to select all content between two repeating regular expressions",
         "links": [],
         "fileGroup": "",
@@ -1172,8 +1172,8 @@
         "package": "monorail"
       },
       {
-        "start": 164,
-        "end": 175,
+        "start": 163,
+        "end": 174,
         "summary": "Use this helper to easily reduce over all lines and aggregate a value",
         "links": [],
         "fileGroup": "",
@@ -1190,8 +1190,8 @@
         "package": "monorail"
       },
       {
-        "start": 180,
-        "end": 193,
+        "start": 179,
+        "end": 192,
         "summary": "Use this helper to easily filter all lines related to a given regular expression",
         "links": [],
         "fileGroup": "",
@@ -1208,8 +1208,8 @@
         "package": "monorail"
       },
       {
-        "start": 207,
-        "end": 220,
+        "start": 206,
+        "end": 219,
         "summary": "The `config` value is patched in so that it is easier to pass values from the rulefile configuration to the plugins themselves, scoped to the plugin name.",
         "links": [],
         "fileGroup": "",
@@ -1237,8 +1237,8 @@
     "filename": "tools/digested/summary.js",
     "comments": [
       {
-        "start": 87,
-        "end": 157,
+        "start": 89,
+        "end": 159,
         "summary": "Summarize a project, given:\n - the path to a `package.json` file\n - the path to a `dr-generated.json` file\n - the URI of a documentation site\n - the URI of a repository\n - (optional) a banner\n - or (optional) the path to a file which represents a banner",
         "links": [],
         "fileGroup": "",

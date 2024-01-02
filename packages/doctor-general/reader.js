@@ -21,31 +21,35 @@ export const iterateOverWorkspacesAndReadFiles = curry(
   }
 )
 
-export const readPackageJsonWorkspaces = curry((root, x) =>
-  map(
-    pipe(
-      // grab the workspaces field
-      propOr([], 'workspaces'),
-      log.parse('workspaces'),
-      // we want directories only
-      map(z => `${z}/`),
-      // read all the directories
-      map(readDirWithConfig({ cwd: root }))
-    )
-  )(x)
+export const readPackageJsonWorkspaces = curry(
+  function _readPackageJsonWorkspaces(root, x) {
+    return map(
+      pipe(
+        // grab the workspaces field
+        propOr([], 'workspaces'),
+        log.parse('workspaces'),
+        // we want directories only
+        map(z => `${z}/`),
+        // read all the directories
+        map(readDirWithConfig({ cwd: root }))
+      )
+    )(x)
+  }
 )
 
-export const monorepoRunner = curry((searchGlob, ignore, root, x) => {
-  return pipe(
-    log.core('reading root package.json'),
-    readJSONFile,
-    readPackageJsonWorkspaces(root),
-    chain(parallel(10)),
-    map(log.core('reading all the workspaces')),
-    map(flatten),
-    iterateOverWorkspacesAndReadFiles(searchGlob, ignore, root),
-    chain(parallel(10)),
-    map(log.core('monorun output')),
-    map(flatten)
-  )(x)
-})
+export const monorepoRunner = curry(
+  function _monorepoRunner(searchGlob, ignore, root, x) {
+    return pipe(
+      log.core('reading root package.json'),
+      readJSONFile,
+      readPackageJsonWorkspaces(root),
+      chain(parallel(10)),
+      map(log.core('reading all the workspaces')),
+      map(flatten),
+      iterateOverWorkspacesAndReadFiles(searchGlob, ignore, root),
+      chain(parallel(10)),
+      map(log.core('monorun output')),
+      map(flatten)
+    )(x)
+  }
+)

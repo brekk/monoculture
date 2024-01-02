@@ -76,8 +76,8 @@ export const groupContiguousBlocks = reduce((agg, raw) => {
  * })
  * ```
  */
-export const combineFiles = curry((leftToRight, a, b) =>
-  !leftToRight
+export const combineFiles = curry(function _combineFiles(leftToRight, a, b) {
+  return !leftToRight
     ? combineFiles(true, b, a)
     : {
         ...a,
@@ -85,7 +85,7 @@ export const combineFiles = curry((leftToRight, a, b) =>
         comments: [...a.comments, ...b.comments],
         links: [...a.links, ...b.links],
       }
-)
+})
 
 // isJSDocComment :: String -> Boolean
 export const isJSDocComment = pipe(

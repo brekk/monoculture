@@ -82,22 +82,24 @@ export const parse = curry(
     )(input)
 )
 
-export const parseAndClassify = curry((conf, x) =>
-  pipe(parse(conf), classifyEntities)(x)
+export const parseAndClassify = curry(function _parseAndClassify(conf, x) {
+  return pipe(parse(conf), classifyEntities)(x)
+})
+
+export const parseAndClassifyWithFile = curry(
+  function _parseAndClassifyWithFile(file, conf, x) {
+    return pipe(parseAndClassify(conf), mergeRight({ file }))(x)
+  }
 )
 
-export const parseAndClassifyWithFile = curry((file, conf, x) =>
-  pipe(parseAndClassify(conf), mergeRight({ file }))(x)
-)
+export const simplifier = curry(function _simplifier(conf, x) {
+  return parseAndClassifyWithFile(conf.file, conf, x)
+})
 
-export const simplifier = curry((conf, x) =>
-  parseAndClassifyWithFile(conf.file, conf, x)
-)
-
-export const robotTourist = curry((config, x) =>
-  pipe(
+export const robotTourist = curry(function _robotTourist(config, x) {
+  return pipe(
     simplifier(config),
     histograph(config),
     correlateSimilar(config.assumeSimilarWords)
   )(x)
-)
+})

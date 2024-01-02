@@ -27,13 +27,13 @@ export const parser = pipe(
   )
 )
 
-export const gitgraph = curry((cancel, argv) =>
-  pipe(
+export const gitgraph = curry(function _gitgraph(cancel, argv) {
+  return pipe(
     execWithCancel(cancel, 'git'),
     bimap(propOr('', 'stderr'))(propOr('', 'stdout')),
     map(parser)
   )(['log', '--decorate', '--graph', '--oneline', ...argv])
-)
+})
 
 export const renderTree = pipe(
   map(({ commit: c = '', tree: t = '' }) => t + ' ' + c),

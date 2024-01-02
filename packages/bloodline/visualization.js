@@ -22,14 +22,16 @@ import { waterWheel } from 'water-wheel'
 
 import { DEFAULT_GRAPHVIZ_CONFIG } from './constants'
 
-export const dotStreamAdapterWithCancel = curry((cancel, options, dot) =>
-  Future((bad, good) => {
-    toStream(dot, options).catch(bad).then(good)
-    return cancel
-  })
+export const dotStreamAdapterWithCancel = curry(
+  function _dotStreamAdapterWithCancel(cancel, options, dot) {
+    return Future((bad, good) => {
+      toStream(dot, options).catch(bad).then(good)
+      return cancel
+    })
+  }
 )
 
-export const setAttribute = curry((key, node, x) => {
+export const setAttribute = curry(function _setAttribute(key, node, x) {
   node.attributes.set(key, x)
   return node
 })
@@ -143,11 +145,13 @@ export const generateOptions = config => {
     },
   }
 }
-export const createSVG = curry((cancel, config, circular, modules) =>
-  pipe(
-    generateOptions,
-    mergeLeft({ format: 'svg' }),
-    log.viz('createSVG options'),
-    createGraph(cancel, config, circular, $, modules)
-  )(config)
+export const createSVG = curry(
+  function _createSVG(cancel, config, circular, modules) {
+    return pipe(
+      generateOptions,
+      mergeLeft({ format: 'svg' }),
+      log.viz('createSVG options'),
+      createGraph(cancel, config, circular, $, modules)
+    )(config)
+  }
 )

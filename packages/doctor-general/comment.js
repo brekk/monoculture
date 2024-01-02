@@ -70,54 +70,56 @@ const ORDERED_LIST_ITEM = /^\s\d*\.\s/g
 const CURRIED_LIST_ITEM = /^\d+\.\s(\w+)\s-\s(.*)/g
 const isListItem = testRegExp(ORDERED_LIST_ITEM)
 
-export const getCurriedDefinition = curry((file, end, i) => {
-  return pipe(
-    slice(i + 1, end),
-    map(trimComment),
-    map(pipe(trim, replace(/^\*$/g, ''))),
-    filter(trim),
-    map(line => [isListItem(line), line]),
-    reduce(
-      ({ subject, lines, defs }, [isDefinition, content]) => {
-        if (isDefinition) {
-          if (lines.length) {
+export const getCurriedDefinition = curry(
+  function _getCurriedDefinition(file, end, i) {
+    return pipe(
+      slice(i + 1, end),
+      map(trimComment),
+      map(pipe(trim, replace(/^\*$/g, ''))),
+      filter(trim),
+      map(line => [isListItem(line), line]),
+      reduce(
+        ({ subject, lines, defs }, [isDefinition, content]) => {
+          if (isDefinition) {
+            if (lines.length) {
+              return {
+                defs: [...defs, { lines, subject }],
+                lines: [],
+                subject: content,
+              }
+            }
             return {
-              defs: [...defs, { lines, subject }],
+              defs,
               lines: [],
               subject: content,
             }
           }
           return {
+            subject,
             defs,
-            lines: [],
-            subject: content,
+            lines: [
+              ...lines,
+              content.startsWith('    ') ? content.slice(4) : content,
+            ],
           }
-        }
+        },
+        { subject: null, lines: [], defs: [] }
+      ),
+      ({ subject, defs, lines }) => [...defs, { lines, subject }],
+      map(({ lines, subject }) => {
+        const matched = subject
+          ? trim(subject).replace(CURRIED_LIST_ITEM, '$1⩇$2')
+          : ''
+        const [name, summary] = split('⩇', matched)
         return {
-          subject,
-          defs,
-          lines: [
-            ...lines,
-            content.startsWith('    ') ? content.slice(4) : content,
-          ],
+          name,
+          summary,
+          lines: pipe(reject(equals('@example')), unlines)(lines),
         }
-      },
-      { subject: null, lines: [], defs: [] }
-    ),
-    ({ subject, defs, lines }) => [...defs, { lines, subject }],
-    map(({ lines, subject }) => {
-      const matched = subject
-        ? trim(subject).replace(CURRIED_LIST_ITEM, '$1⩇$2')
-        : ''
-      const [name, summary] = split('⩇', matched)
-      return {
-        name,
-        summary,
-        lines: pipe(reject(equals('@example')), unlines)(lines),
-      }
-    })
-  )(file)
-})
+      })
+    )(file)
+  }
+)
 
 const getPageSummary = (file, end, i) =>
   pipe(
@@ -158,38 +160,40 @@ export const handleSpecificKeywords = curry(
 )
 
 // structureKeywords :: List String -> CommentBlock -> Integer -> CommentStructure
-export const structureKeywords = curry((file, block, end) =>
-  pipe(
-    map(([i, line]) => [
-      i,
-      ifElse(
-        pipe(findJSDocKeywords, length, z => z > 0),
-        pipe(wipeComment, cleanupKeywords),
-        K(false)
-      )(line),
-    ]),
-    filter(last),
-    reject(pipe(last, head, isEmpty)),
-    map(([i, [keyword, value = true, ...rest]]) => [
-      i,
-      [keyword, handleSpecificKeywords(keyword, value, rest, file, end, i)],
-    ]),
-    map(last),
-    // fromPairs truncates duplicate keys, so we have to arrayify them
-    reduce(
-      (agg, [key, ...value]) =>
-        agg[key] && Array.isArray(agg[key])
-          ? { ...agg, [key]: agg[key].concat(value) }
-          : { ...agg, [key]: value },
-      {}
-    ),
-    toPairs,
-    map(([k, v]) => [
-      k,
-      k !== 'see' && Array.isArray(v) && v.length === 1 ? v[0] : v,
-    ]),
-    fromPairs
-  )(block)
+export const structureKeywords = curry(
+  function _structureKeywords(file, block, end) {
+    return pipe(
+      map(([i, line]) => [
+        i,
+        ifElse(
+          pipe(findJSDocKeywords, length, z => z > 0),
+          pipe(wipeComment, cleanupKeywords),
+          K(false)
+        )(line),
+      ]),
+      filter(last),
+      reject(pipe(last, head, isEmpty)),
+      map(([i, [keyword, value = true, ...rest]]) => [
+        i,
+        [keyword, handleSpecificKeywords(keyword, value, rest, file, end, i)],
+      ]),
+      map(last),
+      // fromPairs truncates duplicate keys, so we have to arrayify them
+      reduce(
+        (agg, [key, ...value]) =>
+          agg[key] && Array.isArray(agg[key])
+            ? { ...agg, [key]: agg[key].concat(value) }
+            : { ...agg, [key]: value },
+        {}
+      ),
+      toPairs,
+      map(([k, v]) => [
+        k,
+        k !== 'see' && Array.isArray(v) && v.length === 1 ? v[0] : v,
+      ]),
+      fromPairs
+    )(block)
+  }
 )
 
 const summarize = lines => {
@@ -209,53 +213,55 @@ const getFileGroup = propOr('', 'group')
 const addTo = propOr('', 'addTo')
 
 // objectifyComments :: Boolean -> String -> List Comment -> List CommentBlock
-export const objectifyComments = curry((filename, file, comments) =>
-  reduce(
-    (agg, block) =>
-      agg.concat(
-        pipe(
-          // pass one
-          applySpec({
-            start: pipe(head, head),
-            end: pipe(last, head),
-            lines: formatComment,
-          }),
-          // pass two
-          gen => {
-            const structure = structureKeywords(file, block, gen.end)
-            if (structure.page && !structure.name) {
-              structure.name = structure.page
-              structure.detail = gen.start
+export const objectifyComments = curry(
+  function _objectifyComments(filename, file, comments) {
+    return reduce(
+      (agg, block) =>
+        agg.concat(
+          pipe(
+            // pass one
+            applySpec({
+              start: pipe(head, head),
+              end: pipe(last, head),
+              lines: formatComment,
+            }),
+            // pass two
+            gen => {
+              const structure = structureKeywords(file, block, gen.end)
+              if (structure.page && !structure.name) {
+                structure.name = structure.page
+                structure.detail = gen.start
+              }
+              return {
+                ...gen,
+                summary: summarize(gen.lines),
+                links: matchLinks(gen.lines),
+                fileGroup: getFileGroup(structure),
+                addTo: addTo(structure),
+                structure,
+                keywords: pipe(unlines, findJSDocKeywords, uniq, z => z.sort())(
+                  gen.lines
+                ),
+              }
             }
-            return {
-              ...gen,
-              summary: summarize(gen.lines),
-              links: matchLinks(gen.lines),
-              fileGroup: getFileGroup(structure),
-              addTo: addTo(structure),
-              structure,
-              keywords: pipe(unlines, findJSDocKeywords, uniq, z => z.sort())(
-                gen.lines
-              ),
-            }
-          }
-        )(block)
-      ),
-    [],
-    comments
-  )
+          )(block)
+        ),
+      [],
+      comments
+    )
+  }
 )
 
 // getExample :: List String -> Integer -> Integer -> String
-export const getExample = curry((file, end, i) =>
-  pipe(
+export const getExample = curry(function _getExample(file, end, i) {
+  return pipe(
     slice(i + 1, end),
     map(trimComment),
     map(replace(/^\*$/g, '')),
     unlines
   )(file)
-)
-const renderFile = curry((testMode, file) => {
+})
+const renderFile = curry(function _renderFile(testMode, file) {
   const importsForTests = getImportsForTests(file)
   return pipe(
     map(
@@ -280,8 +286,11 @@ const renderFile = curry((testMode, file) => {
   )(file.comments)
 })
 
-export const writeCommentsToFiles = curry(({ testMode, outputDir }, x) =>
-  pipe(
+export const writeCommentsToFiles = curry(function _writeCommentsToFiles(
+  { testMode, outputDir },
+  x
+) {
+  return pipe(
     toPairs,
     map(([workspace, commentedFiles]) => {
       const filesToWrite = map(file => {
@@ -306,33 +315,35 @@ export const writeCommentsToFiles = curry(({ testMode, outputDir }, x) =>
     flatten,
     parallel(10)
   )(x)
+})
+
+export const renderComments = curry(
+  function _renderComments(testMode, outputDir, x) {
+    return chain(
+      pipe(
+        groupBy(propOr('unknown', testMode ? 'testPath' : 'workspace')),
+        tap(xxx =>
+          log.core(
+            `grouped ${testMode ? 'tests' : 'comments'}...`,
+            pipe(
+              toPairs,
+              map(
+                ([k, y]) =>
+                  `\n${k}:\n - ${pipe(
+                    map(z => z.slugName),
+                    join('\n - ')
+                  )(y)}`
+              ),
+              join('\n')
+            )(xxx)
+          )
+        ),
+        writeCommentsToFiles({ testMode, outputDir })
+      )
+    )(x)
+  }
 )
 
-export const renderComments = curry((testMode, outputDir, x) =>
-  chain(
-    pipe(
-      groupBy(propOr('unknown', testMode ? 'testPath' : 'workspace')),
-      tap(xxx =>
-        log.core(
-          `grouped ${testMode ? 'tests' : 'comments'}...`,
-          pipe(
-            toPairs,
-            map(
-              ([k, y]) =>
-                `\n${k}:\n - ${pipe(
-                  map(z => z.slugName),
-                  join('\n - ')
-                )(y)}`
-            ),
-            join('\n')
-          )(xxx)
-        )
-      ),
-      writeCommentsToFiles({ testMode, outputDir })
-    )
-  )(x)
-)
-
-export const processComments = curry((testMode, x) =>
-  (testMode ? filterAndStructureTests : filterAndStructureComments)(x)
-)
+export const processComments = curry(function _processComments(testMode, x) {
+  return (testMode ? filterAndStructureTests : filterAndStructureComments)(x)
+})

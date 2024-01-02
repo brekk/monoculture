@@ -21,25 +21,27 @@ import { parallel, resolve } from 'fluture'
 import { readDirWithConfig, relativePathJoin, readFile } from 'file-system'
 import { renderReadme } from './markdown'
 
-const processWorkspace = curry((banner, bannerPath, drGenPath, workspaces) => {
-  const readables = []
-  if (drGenPath) {
-    log.summary('reading doctor-general path', drGenPath)
-    readables.push(
-      pipe(readFile, map(JSON.parse), map(objOf('drGen')))(drGenPath)
-    )
+const processWorkspace = curry(
+  function _processWorkspace(banner, bannerPath, drGenPath, workspaces) {
+    const readables = []
+    if (drGenPath) {
+      log.summary('reading doctor-general path', drGenPath)
+      readables.push(
+        pipe(readFile, map(JSON.parse), map(objOf('drGen')))(drGenPath)
+      )
+    }
+    if (!banner && bannerPath) {
+      log.summary('reading banner path', bannerPath)
+      readables.push(pipe(readFile, map(objOf('banner')))(bannerPath))
+    }
+    return readables.length
+      ? pipe(
+          parallel(10),
+          map(reduce((agg, x) => mergeRight(agg, x), { workspaces, banner }))
+        )(readables)
+      : resolve({ banner: banner || '', drGen: [], workspaces })
   }
-  if (!banner && bannerPath) {
-    log.summary('reading banner path', bannerPath)
-    readables.push(pipe(readFile, map(objOf('banner')))(bannerPath))
-  }
-  return readables.length
-    ? pipe(
-        parallel(10),
-        map(reduce((agg, x) => mergeRight(agg, x), { workspaces, banner }))
-      )(readables)
-    : resolve({ banner: banner || '', drGen: [], workspaces })
-})
+)
 
 const getWorkspaceGroupFromPath = pathName => {
   let y = pathName

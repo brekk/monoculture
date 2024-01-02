@@ -17,7 +17,9 @@ import {
 } from 'ramda'
 const unwords = join(' ')
 const words = split(' ')
-const regex = z => new RegExp(z)
+function regex(z, flags) {
+  return new RegExp(z)
+}
 import { isArray } from 'inherent'
 
 const plugin = {
@@ -35,6 +37,7 @@ const plugin = {
         const star = y.indexOf('* as ')
         const hasBrace = y.indexOf('{')
         const starImport = y.slice(star + 3, y.indexOf('from'))
+        /* eslint-disable no-console */
         console.log({ starImport, y, star, hasBrace })
         let allImported =
           hasBrace > -1
@@ -48,8 +51,8 @@ const plugin = {
                 })
                 .filter(I)
             : star > -1
-            ? starImport
-            : y.replace(/import (.*) from (.*)/, '$1')
+              ? starImport
+              : y.replace(/import (.*) from (.*)/, '$1')
         if (!isArray(allImported)) {
           allImported = [allImported]
         }
@@ -64,8 +67,9 @@ const plugin = {
         )(aliased)
         console.log('DOMAIN', domain)
         const usage = Array.isArray(domain)
-          ? pipe('any in', regex, any, log('any out'))(domain)
+          ? pipe('any in', yin => regex(yin, 'g'), any, log('any out'))(domain)
           : {}
+        console.log('usage!', usage)
         const used = pipe(zip(domain), log('zipped?'), toPairs)(usage)
         return {
           used,

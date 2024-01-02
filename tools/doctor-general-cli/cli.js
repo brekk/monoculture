@@ -13,8 +13,8 @@ const processHelpOrRun = config => {
 }
 
 const { name: $NAME, description: $DESC } = PKG
-export const cli = curry((cancel, argv) =>
-  pipe(
+export const cli = curry(function _cli(cancel, argv) {
+  return pipe(
     slice(2, Infinity),
     configurate(
       YARGS_CONFIG,
@@ -25,4 +25,4 @@ export const cli = curry((cancel, argv) =>
     ),
     chain(processHelpOrRun)
   )(argv)
-)
+})

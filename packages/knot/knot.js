@@ -22,21 +22,21 @@ export const markdownTabs = cake(
   MARKDOWN_LIST_ITEM
 )
 
-export const nthIndexOf = curry((delim, n, input) =>
-  pipe(
+export const nthIndexOf = curry(function _nthIndexOf(delim, n, input) {
+  return pipe(
     range(0),
     reduce((x, _) => input.indexOf(delim, x + 1), -1),
     z => input.slice(0, z)
   )(n)
-)
+})
 
-export const nthLastIndexOf = curry((delim, n, input) =>
-  pipe(
+export const nthLastIndexOf = curry(function _nthLastIndexOf(delim, n, input) {
+  return pipe(
     range(0),
     reduce((x, _) => input.lastIndexOf(delim, x - 1), input.length),
     z => input.slice(z + 1)
   )(Math.abs(n))
-)
+})
 /**
  * Slice a string by counted delimiters
  * @name nthIndex
@@ -50,9 +50,9 @@ export const nthLastIndexOf = curry((delim, n, input) =>
  * ).toEqual("a/b/c/d/e")
  * ```
  */
-export const nthIndex = curry((delim, n, input) =>
-  (n > 0 ? nthIndexOf : nthLastIndexOf)(delim, n, input)
-)
+export const nthIndex = curry(function _nthIndex(delim, n, input) {
+  return (n > 0 ? nthIndexOf : nthLastIndexOf)(delim, n, input)
+})
 
 /**
  * A simple memoized utility for repeating a string and joining the array.
@@ -63,9 +63,9 @@ export const nthIndex = curry((delim, n, input) =>
  * expect(strepeat('/', -1)).toEqual('')
  * ```
  */
-export const strepeat = curry((toRepeat, x) =>
-  x > 0 ? toRepeat.repeat(x) : ''
-)
+export const strepeat = curry(function _strepeat(toRepeat, x) {
+  return x > 0 ? toRepeat.repeat(x) : ''
+})
 
 /**
  * Capitalize a string

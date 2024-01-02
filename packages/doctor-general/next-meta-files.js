@@ -22,7 +22,7 @@ import { cleanFilename } from './file'
 import { capitalToKebab, stripLeadingHyphen } from './text'
 
 export const prepareMetaFiles = curry(
-  (testMode, outputDir, workspace, commentedFiles) =>
+  function _prepareMetaFiles(testMode, outputDir, workspace, commentedFiles) {
     pipe(
       map(raw => [
         pipe(cleanFilename(testMode), x => basename(x, '.mdx'), toLower)(raw),
@@ -59,4 +59,5 @@ export const prepareMetaFiles = curry(
         )
       )
     )(commentedFiles)
+  }
 )

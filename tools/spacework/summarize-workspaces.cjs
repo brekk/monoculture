@@ -44,8 +44,8 @@ const pagesForGithub = z => {
   return `https://${org}.github.io/${repo}`
 }
 
-const depUsage = curry(({ repo, project }, deps, devDeps) =>
-  pipe(
+const depUsage = curry(function _depUsage({ repo, project }, deps, devDeps) {
+  return pipe(
     toPairs,
     map(
       ([k, v]) =>
@@ -56,24 +56,28 @@ const depUsage = curry(({ repo, project }, deps, devDeps) =>
     ),
     join('\n      - ')
   )({ ...deps, ...devDeps })
-)
+})
 
 // const space = strepeat(' ')
-const strepeat = curry((del, x) => join('', repeat(del, x)))
+const strepeat = curry(function _strepeat(del, x) {
+  return join('', repeat(del, x))
+})
 const respace = strepeat(' ')
 
-const makeDisclosable = curry((indent, title, content) => {
-  const i = respace(indent)
-  const out = `
+const makeDisclosable = curry(
+  function _makeDisclosable(indent, title, content) {
+    const i = respace(indent)
+    const out = `
 ${i}<details><summary>${title}</summary>
 
 ${i}${content}
 
 ${i}</details>`
-  return out
-})
+    return out
+  }
+)
 
-const docLinks = curry((indent, docURL, project, docs) => {
+const docLinks = curry(function _docLinks(indent, docURL, project, docs) {
   const i = respace(indent)
   return docs.length
     ? pipe(
@@ -88,7 +92,7 @@ const docLinks = curry((indent, docURL, project, docs) => {
     : ''
 })
 
-const summarize = curry((repo, package, docWorkspace, argv) => {
+const summarize = curry(function _summarize(repo, package, docWorkspace, argv) {
   const isReadme = argv.includes('--readme')
   const showDependencies = argv.includes('--show-deps')
   return pipe(

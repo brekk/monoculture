@@ -6,8 +6,8 @@ import { CONFIG_DEFAULTS, CONFIG, HELP_CONFIG } from './config'
 import { bloodlineWithCancel } from './bloodline'
 import PKG from './package.json'
 
-export const cli = curry((cancel, args) =>
-  pipe(
+export const cli = curry(function _cli(cancel, args) {
+  return pipe(
     configurate(
       CONFIG,
       { cwd: process.cwd(), ...CONFIG_DEFAULTS },
@@ -19,7 +19,7 @@ export const cli = curry((cancel, args) =>
     ),
     chain(bloodlineWithCancel(cancel))
   )(args)
-)
+})
 
 // eslint-disable-next-line no-console
 fork(console.warn)(console.log)(cli(() => {}, process.argv.slice(2)))

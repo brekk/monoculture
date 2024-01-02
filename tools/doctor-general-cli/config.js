@@ -2,7 +2,9 @@ import { curry } from 'ramda'
 import yargsParser from 'yargs-parser'
 
 // parser :: YargsConfig -> List String -> Object
-export const parser = curry((opts, args) => yargsParser(args, opts))
+export const parser = curry(function _parser(opts, args) {
+  return yargsParser(args, opts)
+})
 
 export const YARGS_CONFIG = {
   alias: {

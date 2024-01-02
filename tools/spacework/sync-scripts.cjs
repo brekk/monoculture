@@ -35,19 +35,18 @@ const {
 
 const NPS = `dotenv -- nps -c ./package-scripts.cjs`
 
-const writeFile = curry(
-  (handle, value) =>
-    new F.Future((bad, good) => {
-      writeFileRaw(handle, value, 'utf8', err => {
-        if (err) {
-          bad(err)
-        } else {
-          good(value)
-        }
-      })
-      return () => {}
+const writeFile = curry(function _writeFile(handle, value) {
+  return new F.Future((bad, good) => {
+    writeFileRaw(handle, value, 'utf8', err => {
+      if (err) {
+        bad(err)
+      } else {
+        good(value)
+      }
     })
-)
+    return () => {}
+  })
+})
 
 const consumeScripts = pipe(
   propOr({}, 'scripts'),
@@ -79,14 +78,14 @@ const consumeScripts = pipe(
   fromPairs
 )
 
-const process = curry((rawPkg, rawScripts) =>
-  pipe(
+const process = curry(function _process(rawPkg, rawScripts) {
+  return pipe(
     omit(['scripts']),
     mergeRight($, { scripts: consumeScripts(rawScripts) }),
     j2,
     z => z + '\n'
   )(rawPkg)
-)
+})
 
 const relative = x => path.resolve(cwd(), x)
 

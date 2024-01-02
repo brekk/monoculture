@@ -35,9 +35,9 @@ import deptree from 'dependency-tree'
  * const tree = plant({}, '../..', '../monocle/cli.js')
  * ```
  */
-export const plant = curry((config, directory, filename) =>
-  deptree({ ...config, filename, directory })
-)
+export const plant = curry(function _plant(config, directory, filename) {
+  return deptree({ ...config, filename, directory })
+})
 
 /**
  * Test whether a path includes `'node_modules'` within it.
@@ -72,38 +72,40 @@ const getNodeModule = z => {
  */
 const isGitPath = includes('.git')
 
-export const rootedPlant = curry((config, directory, filename) => {
-  const npmPaths = {}
-  const planted = plant(
-    {
-      ...config,
-      filter: (depPath, $y) => {
-        const isNpmPath = isNodeModule(depPath)
-        if (isGitPath(depPath)) {
-          return false
-        }
-        const {
-          includeNpm = true,
-          dependencyFilter: $depFilt = K(true),
-          basePath,
-        } = config
-        const refined = $depFilt(basePath, depPath, $y)
+export const rootedPlant = curry(
+  function _rootedPlant(config, directory, filename) {
+    const npmPaths = {}
+    const planted = plant(
+      {
+        ...config,
+        filter: (depPath, $y) => {
+          const isNpmPath = isNodeModule(depPath)
+          if (isGitPath(depPath)) {
+            return false
+          }
+          const {
+            includeNpm = true,
+            dependencyFilter: $depFilt = K(true),
+            basePath,
+          } = config
+          const refined = $depFilt(basePath, depPath, $y)
 
-        if (includeNpm && isNpmPath) {
-          const y = fresh(npmPaths?.[$y] ?? [])
-          y.push(depPath)
-          npmPaths[$y] = y
-        }
+          if (includeNpm && isNpmPath) {
+            const y = fresh(npmPaths?.[$y] ?? [])
+            y.push(depPath)
+            npmPaths[$y] = y
+          }
 
-        return !isNpmPath && refined.length
+          return !isNpmPath && refined.length
+        },
       },
-    },
 
-    directory,
-    filename
-  )
-  return { npmPaths, tree: planted }
-})
+      directory,
+      filename
+    )
+    return { npmPaths, tree: planted }
+  }
+)
 
 /**
  * Grab an id from a cache if possible
@@ -117,7 +119,7 @@ export const rootedPlant = curry((config, directory, filename) => {
  * console.log(getId(basePath, cache, key)) // 'bloodline/a'
  * ```
  */
-export const getId = curry((basePath, cache, key) => {
+export const getId = curry(function _getId(basePath, cache, key) {
   if (cache[key]) {
     return cache[key]
   }
@@ -139,7 +141,12 @@ export const getId = curry((basePath, cache, key) => {
  * const grouped = groupTree(config, {}, {}, tree)
  * ```
  */
-export const groupTree = curry(({ basePath }, tree, cache, searchSpace) => {
+export const groupTree = curry(function _groupTree(
+  { basePath },
+  tree,
+  cache,
+  searchSpace
+) {
   // we need things to run this tick, so we'll do our recursion within this curried function
   const walker = (_tree, _cache, _searchSpace) => {
     // our lookup is curried and closured to _cache
@@ -170,38 +177,40 @@ export const groupTree = curry(({ basePath }, tree, cache, searchSpace) => {
 
 const modulate = when(isNodeModule, getNodeModule)
 
-export const familyTree = curry((rootFile, config, tree, cache, searchSpace) =>
-  pipe(
-    groupTree(config, tree, cache),
-    log.tree('grouped!'),
-    map(xxx =>
-      pipe(
-        reduce((stack, x) => {
-          const h = head(x)
-          const t = tail(x)
-          // if (isNodeModule(h)) {
-          // return mergeRight(stack, objOf(getNodeModule(h), []))
-          // }
-          const mh = modulate(h)
-          const cleaned = pipe(
-            map(modulate),
-            reject(z => z === mh),
-            uniqBy(I)
-          )(t)
-          return mergeRight(stack, objOf(mh, cleaned))
-        }, {}),
-        stack => {
-          const deps = pipe(values, map(head), map(modulate))(xxx)
-          return mergeRight(stack, {
-            [modulate(rootFile)]: deps,
-          })
-        }
-      )(xxx)
-    ),
+export const familyTree = curry(
+  function _familyTree(rootFile, config, tree, cache, searchSpace) {
+    return pipe(
+      groupTree(config, tree, cache),
+      log.tree('grouped!'),
+      map(xxx =>
+        pipe(
+          reduce((stack, x) => {
+            const h = head(x)
+            const t = tail(x)
+            // if (isNodeModule(h)) {
+            // return mergeRight(stack, objOf(getNodeModule(h), []))
+            // }
+            const mh = modulate(h)
+            const cleaned = pipe(
+              map(modulate),
+              reject(z => z === mh),
+              uniqBy(I)
+            )(t)
+            return mergeRight(stack, objOf(mh, cleaned))
+          }, {}),
+          stack => {
+            const deps = pipe(values, map(head), map(modulate))(xxx)
+            return mergeRight(stack, {
+              [modulate(rootFile)]: deps,
+            })
+          }
+        )(xxx)
+      ),
 
-    values,
-    head
-  )(searchSpace)
+      values,
+      head
+    )(searchSpace)
+  }
 )
 
 /**
@@ -217,9 +226,11 @@ export const familyTree = curry((rootFile, config, tree, cache, searchSpace) =>
  * const flattened = flattenTree(config, {}, {}, tree)
  * ```
  */
-export const flattenTree = curry((config, tree, cache, searchSpace) =>
-  pipe(
-    groupTree(config, $, cache, searchSpace),
-    map(reduce((agg, x) => concat(agg, x), []))
-  )(tree)
+export const flattenTree = curry(
+  function _flattenTree(config, tree, cache, searchSpace) {
+    return pipe(
+      groupTree(config, $, cache, searchSpace),
+      map(reduce((agg, x) => concat(agg, x), []))
+    )(tree)
+  }
 )

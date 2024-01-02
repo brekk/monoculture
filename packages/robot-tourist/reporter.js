@@ -38,22 +38,27 @@ export const summarize = pipe(
   join('\n')
 )
 
-export const robotTouristReporter = curry(
-  ($wordlimit, $fun, { file: f, report }) =>
-    `${$fun ? `\n${BW_LOGO}\n\n` : ''}SCANNED: ${f}
+export const robotTouristReporter = curry(function _robotTouristReporter(
+  $wordlimit,
+  $fun,
+  { file: f, report }
+) {
+  return `${$fun ? `\n${BW_LOGO}\n\n` : ''}SCANNED: ${f}
 The ${
-      $wordlimit !== Infinity ? $wordlimit + ' ' : ''
-    }most common words in this file are:
+    $wordlimit !== Infinity ? $wordlimit + ' ' : ''
+  }most common words in this file are:
 ${getWords(report)}
 These words were found in this pattern:
 ${summarize(report)}
 `
-)
+})
 export const dropJSKeywords = mapSnd(replace(RG_JS_KEYWORDS, ''))
 export const dropTSKeywords = mapSnd(replace(RG_TS_KEYWORDS, ''))
 
-export const dropUserDefinedValues = curry((skippable, x) =>
-  mapSnd(replace(skippable, ''))(x)
+export const dropUserDefinedValues = curry(
+  function _dropUserDefinedValues(skippable, x) {
+    return mapSnd(replace(skippable, ''))(x)
+  }
 )
 
 export const createEntitiesFromRaw = pipe(
@@ -70,6 +75,6 @@ export const createEntitiesFromRaw = pipe(
   )
 )
 
-export const createEntities = curry((file, raw) =>
-  pipe(createEntitiesFromRaw, mergeRight({ file }))(raw)
-)
+export const createEntities = curry(function _createEntities(file, raw) {
+  return pipe(createEntitiesFromRaw, mergeRight({ file }))(raw)
+})

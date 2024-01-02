@@ -25,8 +25,8 @@ const j = i => x => JSON.stringify(x, null, i)
 // const readConfigFile = configFile('monocle')
 // eslint-disable no-console
 
-const cli = curry((cancel, args) =>
-  pipe(
+const cli = curry(function _cli(cancel, args) {
+  return pipe(
     configurate(
       CONFIG,
       { ...CONFIG_DEFAULTS, basePath: process.cwd(), cwd: process.cwd() },
@@ -105,7 +105,7 @@ const cli = curry((cancel, args) =>
     // eslint-disable-next-line no-console
     fork(console.warn)(console.log)
   )(args)
-)
+})
 
 cli(() => {}, process.argv.slice(2))
 

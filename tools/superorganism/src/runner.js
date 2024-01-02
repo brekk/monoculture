@@ -26,12 +26,13 @@ import PKG from '../package.json'
 import { YARGS_CONFIG, HELP_CONFIG, CONFIG_DEFAULTS } from './config'
 
 const j2 = x => JSON.stringify(x, null, 2)
-const $f = curry((cancel, raw) =>
+const $f = curry(function _$f(cancel, raw) {
+  return
   Future((bad, good) => {
     script(raw).catch(bad).then(good)
     return cancel
   })
-)
+})
 
 const getScriptFromTask = t => {
   if (t.script) t = t.script
@@ -39,9 +40,9 @@ const getScriptFromTask = t => {
   return t
 }
 
-const makeScriptGetter = curry((scripts, task) =>
-  pipe(split('.'), pathOr(false, __, scripts), getScriptFromTask)(task)
-)
+const makeScriptGetter = curry(function _makeScriptGetter(scripts, task) {
+  return pipe(split('.'), pathOr(false, __, scripts), getScriptFromTask)(task)
+})
 export const getNestedTasks = scripts => {
   const getScript = makeScriptGetter(scripts)
   let tasks = keys(scripts)
@@ -76,7 +77,10 @@ export const EXECA_FORCE_COLOR = {
 const getStdOut = propOr('', 'stdout')
 
 /* eslint-disable no-console */
-export const executeWithCancel = curry((cancel, { tasks, scripts, config }) => {
+export const executeWithCancel = curry(function _executeWithCancel(
+  cancel,
+  { tasks, scripts, config }
+) {
   const chalk = new Chalk({ level: config.color ? 2 : 0 })
   if (config.help) return config.HELP
   const getScript = makeScriptGetter(scripts)
@@ -135,7 +139,8 @@ const $BANNER = `.--,       .--,
     >  ▼  <
 .mm'-------'mm.`
 
-export const runnerWithCancel = curry((cancel, argv) =>
+export const runnerWithCancel = curry(function _runnerWithCancel(cancel, argv) {
+  return
   pipe(
     configurate(
       YARGS_CONFIG,
@@ -169,6 +174,6 @@ export const runnerWithCancel = curry((cancel, argv) =>
       }
     )
   )(argv)
-)
+})
 
 export const runner = runnerWithCancel(() => {})
