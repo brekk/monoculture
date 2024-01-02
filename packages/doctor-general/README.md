@@ -27,7 +27,7 @@ This is decribed in much [greater detail here](https://brekk.github.io/monocultu
 
 ### Version: Unpublished
 
-This tool is being actively developed. It is in use within this codebase in several locations, but it is currently unpublished.
+This tool is being actively developed. It is in use within this codebase in several locations, but it is currently unpublished. Since it is fundamental to this codebase it is being extended as other projects need it, as this will hopefully provide paths to obvious features.
 
 ## Usage
 
@@ -36,13 +36,13 @@ Primarily this module is a library. There is a downstream CLI tool, defined in [
 We use it to automatically generate tests in:
 
  1. `climate`
- 1. `digested
+ 1. `digested`
  1. `inherent`
  1. `knot`
  1. `monorail`
  1. `water-wheel`
 
-And we use it to automatically generate documentation in `apps/docs` (this is publically accessible [here](https://brekk.github.io/monoculture).
+And we use it to automatically generate documentation in `apps/docs` (this is publically accessible [here](https://brekk.github.io/monoculture).)
 
 ## Dependencies
 
