@@ -16,13 +16,10 @@ const { name: $NAME, description: $DESC } = PKG
 export const cli = curry(function _cli(cancel, argv) {
   return pipe(
     slice(2, Infinity),
-    configurate(
-      YARGS_CONFIG,
-      CONFIG_DEFAULTS,
-      HELP_CONFIG,
-
-      { name: $NAME, description: $DESC }
-    ),
+    configurate(YARGS_CONFIG, CONFIG_DEFAULTS, HELP_CONFIG, {
+      name: $NAME,
+      description: $DESC,
+    }),
     chain(processHelpOrRun)
   )(argv)
 })
