@@ -13471,6 +13471,7 @@ __metadata:
     fluture: "npm:14.0.0"
     jest: "npm:29.7.0"
     jest-config: "workspace:shared/jest-config"
+    knot: "workspace:packages/knot"
     monorail: "workspace:packages/monorail"
     nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"

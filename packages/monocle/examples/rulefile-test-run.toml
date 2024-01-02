@@ -6,6 +6,7 @@ plugins = [
   "./plugin-has-exports.js",
   "./plugin-get-exports.js",
   "../../robot-tourist/dist/monocle-plugin-simple.cjs",
+  "./plugin-get-imported.js",
   "./plugin-has-imports.js",
   "./plugin-wordcount.js",
 ]

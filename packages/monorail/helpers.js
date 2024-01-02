@@ -18,6 +18,7 @@ import {
   reduce,
   test,
 } from 'ramda'
+import { log } from './log'
 
 /* eslint-disable max-len */
 /**
@@ -27,9 +28,9 @@ import {
 
 export const getBody = propOr([], 'body')
 
-export const bodyTest = curry((fn, file, needle) =>
-  pipe(getBody, fn(pipe(last, test(needle))))(file)
-)
+export const bodyTest = curry(function bodyTest(fn, file, needle) {
+  return pipe(getBody, fn(pipe(last, test(needle))))(file)
+})
 
 /**
  * Use this helper to test a regex that matches against any single incidence on any line

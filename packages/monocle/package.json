@@ -27,6 +27,7 @@
     "execa": "8.0.1",
     "jest": "29.7.0",
     "jest-config": "workspace:shared/jest-config",
+    "knot": "workspace:packages/knot",
     "nps": "^5.10.0",
     "robot-tourist": "workspace:packages/robot-tourist"
   },

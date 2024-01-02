@@ -1,6 +1,6 @@
 import { complextrace } from 'envtrace'
 export const log = complextrace('monorail', [
-  'async',
+  'helper',
   'validate',
   'sort',
   'route',

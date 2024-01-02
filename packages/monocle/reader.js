@@ -9,6 +9,7 @@ import {
   split,
   addIndex,
   chain,
+  uniq,
 } from 'ramda'
 import { parallel } from 'fluture'
 
@@ -16,7 +17,7 @@ import { readDirWithConfig, readFile } from 'file-system'
 import { futureFileProcessor } from 'monorail'
 
 import { hash } from './hash'
-import { log } from './trace'
+import { log } from './log'
 
 export const readMonoFile = curry((basePath, trimContent, file) =>
   pipe(
