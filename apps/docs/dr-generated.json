@@ -976,6 +976,7 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
+          "future": true,
           "curried": [
             {
               "name": "execWithConfig",
@@ -990,20 +991,21 @@
             {
               "name": "exec",
               "summary": "Eschews any configuration or cancellation function. Needs only command and arguments.",
-              "lines": "\n```js\nimport { exec } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  exec(\n    'echo',\n    ['ahoy']\n  )\n)\n```"
+              "lines": "\n```js test=true\nimport { fork } from 'fluture'\n// drgen-import-above\nconst blah = Math.round(Math.random() * 100000)\nfork(done)(z => {\n  expect(z.stdout).toEqual('' + blah)\n  done()\n})(exec('echo', [blah]))\n```"
             }
           ]
         },
         "keywords": [
           "@curried",
-          "@example"
+          "@example",
+          "@future"
         ],
         "filename": "packages/kiddo/kiddo.js",
         "package": "kiddo"
       },
       {
         "start": 80,
-        "end": 101,
+        "end": 100,
         "summary": "Add an `ora` indicator to a Future",
         "links": [],
         "fileGroup": "",
@@ -1012,7 +1014,7 @@
           "name": "signal",
           "future": true,
           "exported": true,
-          "example": "```js test=true\nimport { pipe, map } from 'ramda'\nimport { readFile } from 'file-system'\nimport { fork } from 'fluture'\n// drgen-import-above\nconst cancel = () => {}\npipe(\n  signal(cancel, { text: 'Reading file...', successText: 'Read file!'}),\n  map(JSON.parse),\n  fork(done)(raw => {\n    expect(raw.name).toEqual('kiddo')\n    done()\n  })\n)(readFile('./package.json'))\n```"
+          "example": "```js test=true\nimport { pipe, map } from 'ramda'\nimport { readFile } from 'file-system'\n// drgen-import-above\nconst cancel = () => {}\npipe(\n  signal(cancel, { text: 'Reading file...', successText: 'Read file!'}),\n  map(JSON.parse),\n  fork(done)(raw => {\n    expect(raw.name).toEqual('kiddo')\n    done()\n  })\n)(readFile('./package.json'))\n```"
         },
         "keywords": [
           "@example",

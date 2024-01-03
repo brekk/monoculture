@@ -17,6 +17,7 @@ export const fail = prop('stderr')
 /* eslint-disable jsdoc/tag-lines */
 /**
  * Consume external commands as a Future-wrapped value.
+ * @future
  * @curried
  *  1. execWithConfig - Passes all possible configuration values plus a cancellation function.
  *
@@ -52,15 +53,14 @@ export const fail = prop('stderr')
  *  3. exec - Eschews any configuration or cancellation function. Needs only command and arguments.
  *
  *     @example
- *     ```js
- *     import { exec } from 'kiddo'
+ *     ```js test=true
  *     import { fork } from 'fluture'
- *     fork(console.warn)(console.log)(
- *       exec(
- *         'echo',
- *         ['ahoy']
- *       )
- *     )
+ *     // drgen-import-above
+ *     const blah = Math.round(Math.random() * 100000)
+ *     fork(done)(z => {
+ *       expect(z.stdout).toEqual('' + blah)
+ *       done()
+ *     })(exec('echo', [blah]))
  *     ```
  */
 /* eslint-enable max-len */
@@ -87,7 +87,6 @@ export const exec = execWithCancel(() => {})
  * ```js test=true
  * import { pipe, map } from 'ramda'
  * import { readFile } from 'file-system'
- * import { fork } from 'fluture'
  * // drgen-import-above
  * const cancel = () => {}
  * pipe(

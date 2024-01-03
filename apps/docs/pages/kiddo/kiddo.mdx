@@ -55,15 +55,14 @@ Consume external commands as a Future-wrapped value.
 
 ### Usage
 
-```js
-import { exec } from 'kiddo'
+```js test=true
 import { fork } from 'fluture'
-fork(console.warn)(console.log)(
-  exec(
-    'echo',
-    ['ahoy']
-  )
-)
+// drgen-import-above
+const blah = Math.round(Math.random() * 100000)
+fork(done)(z => {
+  expect(z.stdout).toEqual('' + blah)
+  done()
+})(exec('echo', [blah]))
 ```
 
 ### See also
@@ -80,7 +79,6 @@ import { signal } from 'kiddo'
 
 import { pipe, map } from 'ramda'
 import { readFile } from 'file-system'
-import { fork } from 'fluture'
 
 const cancel = () => {}
 pipe(

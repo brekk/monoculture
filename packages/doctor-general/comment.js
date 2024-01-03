@@ -1,7 +1,9 @@
 import { join as pathJoin } from 'node:path'
 import { parallel } from 'fluture'
+import { isNotEmpty, autobox } from 'inherent'
 import { TESTABLE_EXAMPLE } from './constants'
 import {
+  concat,
   when,
   __ as $,
   addIndex,
@@ -51,7 +53,6 @@ import { writeFileWithAutoPath } from 'file-system'
 // import { prepareMetaFiles } from './next-meta-files'
 import { log } from './log'
 import { unlines } from 'knot'
-import { autobox } from 'inherent'
 import { findJSDocKeywords, cleanupKeywords } from './file'
 import { formatComment, trimComment, wipeComment } from './text'
 
@@ -62,7 +63,29 @@ export const hasExample = pipe(
 
 export const getImportsForTests = file =>
   pipe(
-    map(pipe(autobox, ap([pathOr(false, ['structure', 'name']), hasExample]))),
+    map(
+      pipe(
+        autobox,
+        ap([
+          pathOr(false, ['structure', 'name']),
+          hasExample,
+          pathOr([], ['structure', 'curried']),
+        ])
+      )
+    ),
+    reduce(function handleCurriedExamples(agg, [a, b, c]) {
+      const isCurried = isNotEmpty(c)
+      return pipe(
+        concat(
+          isCurried
+            ? map(({ name, lines: example }) => [
+                name,
+                includes(TESTABLE_EXAMPLE)(example),
+              ])(c)
+            : [[a, b]]
+        )
+      )(agg)
+    }, []),
     filter(([a, b]) => a && b),
     map(head)
   )(file.comments)

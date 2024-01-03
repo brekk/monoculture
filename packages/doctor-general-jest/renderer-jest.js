@@ -14,6 +14,7 @@ import {
   always as K,
   map,
 } from 'ramda'
+import { log } from './log'
 
 const handleSpecialCases = ifElse(
   either(
@@ -32,6 +33,7 @@ const grabCommentData = applySpec({
 const getCurried = pathOr([], ['structure', 'curried'])
 const MAGIC_IMPORT_KEY = 'drgen-import-above'
 const renderTest = ({ title, example, future: asyncCallback }) => {
+  log.renderer('inputs', { title, example })
   if (!includes('test=true', example)) return ''
   const exlines = example.split('\n').filter(l => !l.startsWith('```'))
   const hasImports = any(includes(MAGIC_IMPORT_KEY), exlines)
@@ -51,14 +53,18 @@ const handleCurriedExample = pipe(
   wrap,
   ap([getCurried, grabCommentData]),
   ([curried, { future, summary }]) =>
-    map(({ name, lines: example }) =>
-      renderTest({
-        name,
+    map(({ name: title, lines: example }) =>
+      pipe(
+        log.curried('currious'),
+        renderTest
+      )({
+        title,
         summary,
         example,
         future,
       })
     )(curried),
+  log.renderer('out?'),
   filter(isNotEmpty),
   join('\n')
 )

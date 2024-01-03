@@ -68,6 +68,7 @@
  - [ ] Support proper links
  - [ ] Wiring docs to tests would be cool
  - [ ] Documentation pages should underline how they are written
+ - [ ] Now that we have `processor` as a means of segmenting parsing + rendering, we _need_ validation for processors, esp. the curried interface (or eschew that)
 
 ### monocle
 
