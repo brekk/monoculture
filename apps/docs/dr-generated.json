@@ -950,8 +950,8 @@
     "filename": "packages/kiddo/kiddo.js",
     "comments": [
       {
-        "start": 10,
-        "end": 13,
+        "start": 11,
+        "end": 14,
         "summary": "@pageSummary Call external processes and consume them as a Future-wrapped value.\nThis is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
         "links": [],
         "fileGroup": "",
@@ -969,8 +969,8 @@
         "package": "kiddo"
       },
       {
-        "start": 16,
-        "end": 63,
+        "start": 17,
+        "end": 64,
         "summary": "Consume external commands as a Future-wrapped value.",
         "links": [],
         "fileGroup": "",

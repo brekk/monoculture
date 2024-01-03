@@ -1,7 +1,8 @@
 import { pipe, curry, prop, ifElse, propOr, __ as $ } from 'ramda'
 import { execa } from 'execa'
-import { Future } from 'fluture'
+import { Future, promise } from 'fluture'
 import { envtrace } from 'envtrace'
+import ora, { oraPromise } from 'ora'
 
 const log = envtrace('kiddo')
 
@@ -76,3 +77,17 @@ export const execWithConfig = curry(
 )
 export const execWithCancel = execWithConfig($, $, undefined)
 export const exec = execWithCancel(() => {})
+
+export const signifier = curry(function _signifier(cancel, options) {
+  return Future(function _signifierF(bad, good) {
+    ora(options).catch(bad).then(good)
+    return cancel
+  })
+})
+
+export const signal = curry(function _signal(cancel, options, f) {
+  return Future(function _signalF(bad, good) {
+    oraPromise(promise(f), options).catch(bad).then(good)
+    return cancel
+  })
+})

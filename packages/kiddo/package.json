@@ -12,8 +12,10 @@
     ".": "./kiddo.js"
   },
   "dependencies": {
+    "envtrace": "0.0.2",
     "execa": "8.0.1",
     "fluture": "14.0.0",
+    "ora": "8.0.1",
     "ramda": "0.29.1"
   },
   "devDependencies": {

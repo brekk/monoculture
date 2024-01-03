@@ -12,45 +12,28 @@ const build =
       `--bundle`,
       `--format=${format}`,
       `--platform=node`,
-      `--packages=external`,
-      script
-        ? `--banner:js='#!/usr/bin/env node\nimport { createRequire as topLevelCreateRequire } from \"module\";\n const require = topLevelCreateRequire(import.meta.url);'`
-        : ``,
+      script ? `--banner:js='#!/usr/bin/env node'` : ``,
     ]
       .filter(z => z)
       .join(' ')
 
-// const esm = build({ format: 'esm' })
-// const cjs = build({ script: true, format: 'cjs' })
-
-const INPUT = `src/index.js`
-const OUTPUT = `dist/superorganism.mjs`
 const CLI_INPUT = `src/cli.js`
-const CLI_OUTPUT = `dist/cli.mjs`
+const CLI_OUTPUT = `dist/cli.cjs`
 
-const watchMode = sd(
-  `${build({ script: false, format: 'esm' })([INPUT, OUTPUT])} --watch`,
-  'build with watch-mode'
-)
 module.exports = {
   scripts: {
     clean: sd('rm -r dist', 'unbuild!'),
     build: {
       ...sd(
-        'nps -c ./package-scripts.cjs build.main build.cli',
+        'nps -c ./package-scripts.cjs build.cli build.perms',
         'build everything!'
       ),
-      main: sd(
-        build({ script: false, format: 'esm' })([INPUT, OUTPUT]),
-        'build module!'
-      ),
       cli: sd(
-        build({ script: true, format: 'esm' })([CLI_INPUT, CLI_OUTPUT]),
+        build({ script: true, format: 'cjs' })([CLI_INPUT, CLI_OUTPUT]),
         'build cli!'
       ),
-      watch: watchMode,
+      perms: sd(`chmod +x ${CLI_OUTPUT}`, 'make the CLI file runnable'),
     },
-    dev: watchMode,
     meta: {
       graph: `madge ${CLI_INPUT} --image graph.svg`,
     },

@@ -300,8 +300,10 @@ introspection and organization tools for monorepos
 
    <details><summary>Dependencies</summary>
 
+    - [envtrace](https://www.npmjs.com/package/envtrace)
     - [execa](https://www.npmjs.com/package/execa)
     - [fluture](https://www.npmjs.com/package/fluture)
+    - [ora](https://www.npmjs.com/package/ora)
     - [ramda](https://www.npmjs.com/package/ramda)
     - [@testing-library/jest-dom](https://www.npmjs.com/package/@testing-library/jest-dom) 🧪
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
@@ -545,7 +547,7 @@ introspection and organization tools for monorepos
 
    </details>
 
- * [superorganism](https://github.com/brekk/monoculture/tree/main/tools/superorganism) - script runner from beyond the moon 🦠
+ * [superorganism](https://github.com/brekk/monoculture/tree/main/tools/superorganism) - script runner from beyond the moon 🐁
 
    <details><summary>Dependencies</summary>
 
