@@ -6,6 +6,9 @@
     "build": {
       "outputs": ["dist/**", ".next/**", "*.artifact.js"]
     },
+    "autotest": {
+      "outputs": ["coverage/lcov-info"]
+    },
     "test": {
       "outputs": ["coverage/lcov-info"]
     },

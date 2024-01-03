@@ -46,6 +46,7 @@
   "packageManager": "yarn@4.0.2",
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
+    "autotest": "dotenv -- nps -c ./package-scripts.cjs autotest",
     "build": "dotenv -- nps -c ./package-scripts.cjs build",
     "care": "dotenv -- nps -c ./package-scripts.cjs care",
     "deploy": "dotenv -- nps -c ./package-scripts.cjs deploy",

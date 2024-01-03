@@ -62,6 +62,10 @@ module.exports = {
       'build and test with turbo'
     ),
     build: sd('turbo run build', 'build with turbo'),
+    autotest: sd(
+      'turbo run autotest',
+      'build tests with drgen and then run them'
+    ),
     lint: sd('turbo run lint', 'lint with turbo'),
     test: {
       ...sd('turbo run test', 'test with turbo'),

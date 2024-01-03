@@ -30,6 +30,7 @@
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "autotest": "dotenv -- nps -c ./package-scripts.cjs autotest",
+    "autotest:rebuild": "dotenv -- nps -c ./package-scripts.cjs autotest.rebuild",
     "build": "dotenv -- nps -c ./package-scripts.cjs build",
     "build:watch": "dotenv -- nps -c ./package-scripts.cjs build.watch",
     "clean": "dotenv -- nps -c ./package-scripts.cjs clean",

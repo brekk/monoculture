@@ -4,16 +4,22 @@ const sd = (script, description = '') =>
   !!description ? { script, description } : { script }
 module.exports = {
   scripts: {
-    autotest: sd(
-      `drgen -i ${[
-        './array.js',
-        './common.js',
-        './inherent.js',
-        './object.js',
-        './primitives.js',
-      ].join(' ')} -o autotests --processor doctor-general-jest`,
-      'generate tests with `doctor-general`!'
-    ),
+    autotest: {
+      ...sd(
+        'nps -c ./package-scripts.cjs autotest.rebuild test',
+        'rebuild and test autotests'
+      ),
+      rebuild: sd(
+        `drgen -i ${[
+          './array.js',
+          './common.js',
+          './inherent.js',
+          './object.js',
+          './primitives.js',
+        ].join(' ')} -o autotests --processor doctor-general-jest`,
+        'generate tests with `doctor-general`!'
+      ),
+    },
     lint: sd('eslint --fix .', 'lint!'),
     meta: {
       graph: `madge ${INPUT} --image graph.svg`,

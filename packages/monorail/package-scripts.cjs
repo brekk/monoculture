@@ -17,16 +17,19 @@ const sd = (script, description = '') =>
 
 module.exports = {
   scripts: {
-    autotest: sd(
-      `drgen -i ${[
-        './helpers.js',
-        './list.js',
-        './runner.js',
-        './sort.js',
-        './validate.js',
-      ].join(' ')} -o autotests --processor doctor-general-jest`,
-      'use doctor-general to create tests for us!'
-    ),
+    autotest: {
+      ...sd('nps -c ./package-scripts.cjs autotest.rebuild test'),
+      rebuild: sd(
+        `drgen -i ${[
+          './helpers.js',
+          './list.js',
+          './runner.js',
+          './sort.js',
+          './validate.js',
+        ].join(' ')} -o autotests --processor doctor-general-jest`,
+        'use doctor-general to create tests for us!'
+      ),
+    },
 
     clean: sd('rm -r dist', 'clean the build'),
 
