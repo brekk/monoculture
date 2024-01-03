@@ -48,7 +48,9 @@ export const prepareMetaFiles = curry(
       map(
         pipe(
           sortBy(pathOr(0, ['order'])),
-          map(([title, { metaName }]) => [slugWord(title), metaName]),
+          // TODO: this broke when we moved away from consolidation in doctor-general,
+          // metaName should also yield to title, but this is a temp fix
+          map(([title, { metaName }]) => [metaName, metaName]),
           fromPairs
         )
       ),
