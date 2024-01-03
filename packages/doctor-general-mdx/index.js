@@ -17,7 +17,7 @@ export default {
     const result = slugWord(sliced) + '.mdx'
     return (fileGroup ? fileGroup + '/' : '') + result
   },
-  group: 'testPath',
+  group: 'workspace',
   process: filterAndStructureComments,
   postProcess: curry(({ outputDir, workspace }, commentedFiles, filesToWrite) =>
     filesToWrite.concat(prepareMetaFiles(outputDir, workspace, commentedFiles))

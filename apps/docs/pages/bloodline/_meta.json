@@ -1,4 +1,4 @@
 {
-  "executables": "executables",
-  "tree": "tree"
+  "packages-bloodline-executables.js": "executables",
+  "packages-bloodline-tree.js": "tree"
 }

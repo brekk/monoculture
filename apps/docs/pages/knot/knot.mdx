@@ -35,3 +35,19 @@ Capitalize a string
 expect(capitalize("nice")).toEqual("Nice")
 expect(capitalize("")).toEqual("")
 ```
+
+## slugWord
+
+Take PascalCase and kebabCase inputs and replace them with slug-case
+
+### Usage
+```js test=true
+expect(slugWord('CoolFuckingShit')).toEqual('cool-fucking-shit')
+expect(slugWord('hoorayNiceLife')).toEqual('hooray-nice-life')
+expect(slugWord('Do nothingCool ever')).toEqual('do nothing-cool ever')
+expect(
+  slugWord('src/components/homepage/AugmentedDetailsDumbComponent')
+).toEqual(
+  'src-components-homepage-augmented-details-dumb-component'
+)
+```
