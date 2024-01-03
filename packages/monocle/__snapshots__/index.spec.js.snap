@@ -1045,7 +1045,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           7,
-          1,
+          0,
         ],
         [
           8,
@@ -1061,7 +1061,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           11,
-          0,
+          1,
         ],
         [
           12,
@@ -1081,7 +1081,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           16,
-          1,
+          0,
         ],
         [
           17,
@@ -1089,15 +1089,15 @@ exports[`monoprocessor 1`] = `
         ],
         [
           18,
-          1,
+          0,
         ],
         [
           19,
-          1,
+          0,
         ],
         [
           20,
-          0,
+          1,
         ],
         [
           21,
@@ -1105,11 +1105,11 @@ exports[`monoprocessor 1`] = `
         ],
         [
           22,
-          0,
+          1,
         ],
         [
           23,
-          0,
+          1,
         ],
         [
           24,
@@ -1117,7 +1117,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           25,
-          1,
+          0,
         ],
         [
           26,
@@ -1125,7 +1125,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           27,
-          0,
+          1,
         ],
         [
           28,
@@ -1137,7 +1137,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           30,
-          1,
+          0,
         ],
         [
           31,
@@ -1149,11 +1149,11 @@ exports[`monoprocessor 1`] = `
         ],
         [
           33,
-          0,
+          1,
         ],
         [
           34,
-          0,
+          1,
         ],
         [
           35,
@@ -1161,23 +1161,23 @@ exports[`monoprocessor 1`] = `
         ],
         [
           36,
-          1,
+          0,
         ],
         [
           37,
-          1,
+          0,
         ],
         [
           38,
-          1,
+          0,
         ],
         [
           39,
-          1,
+          0,
         ],
         [
           40,
-          0,
+          1,
         ],
         [
           41,
@@ -1185,19 +1185,19 @@ exports[`monoprocessor 1`] = `
         ],
         [
           42,
-          0,
+          1,
         ],
         [
           43,
-          0,
+          1,
         ],
         [
           44,
-          0,
+          1,
         ],
         [
           45,
-          0,
+          1,
         ],
         [
           46,
@@ -1205,7 +1205,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           47,
-          0,
+          1,
         ],
         [
           48,
@@ -1213,7 +1213,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           49,
-          1,
+          0,
         ],
         [
           50,
@@ -1237,7 +1237,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           55,
-          0,
+          1,
         ],
         [
           56,
@@ -1261,7 +1261,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           61,
-          1,
+          0,
         ],
         [
           62,
@@ -1269,27 +1269,27 @@ exports[`monoprocessor 1`] = `
         ],
         [
           63,
-          1,
-        ],
-        [
-          64,
-          1,
-        ],
-        [
-          65,
-          1,
-        ],
-        [
-          66,
-          1,
-        ],
-        [
-          67,
           0,
         ],
         [
-          68,
+          64,
+          0,
+        ],
+        [
+          65,
+          0,
+        ],
+        [
+          66,
+          0,
+        ],
+        [
+          67,
           1,
+        ],
+        [
+          68,
+          0,
         ],
         [
           69,
@@ -1297,11 +1297,11 @@ exports[`monoprocessor 1`] = `
         ],
         [
           70,
-          0,
+          1,
         ],
         [
           71,
-          0,
+          1,
         ],
         [
           72,
@@ -1309,15 +1309,15 @@ exports[`monoprocessor 1`] = `
         ],
         [
           73,
-          1,
+          0,
         ],
         [
           74,
-          0,
+          1,
         ],
         [
           75,
-          0,
+          1,
         ],
         [
           76,
@@ -1367,8 +1367,112 @@ exports[`monoprocessor 1`] = `
           87,
           0,
         ],
+        [
+          88,
+          0,
+        ],
+        [
+          89,
+          0,
+        ],
+        [
+          90,
+          0,
+        ],
+        [
+          91,
+          0,
+        ],
+        [
+          92,
+          0,
+        ],
+        [
+          93,
+          0,
+        ],
+        [
+          94,
+          0,
+        ],
+        [
+          95,
+          0,
+        ],
+        [
+          96,
+          1,
+        ],
+        [
+          97,
+          1,
+        ],
+        [
+          98,
+          0,
+        ],
+        [
+          99,
+          0,
+        ],
+        [
+          100,
+          0,
+        ],
+        [
+          101,
+          0,
+        ],
+        [
+          102,
+          0,
+        ],
+        [
+          103,
+          0,
+        ],
+        [
+          104,
+          0,
+        ],
+        [
+          105,
+          0,
+        ],
+        [
+          106,
+          0,
+        ],
+        [
+          107,
+          0,
+        ],
+        [
+          108,
+          0,
+        ],
+        [
+          109,
+          0,
+        ],
+        [
+          110,
+          0,
+        ],
+        [
+          111,
+          0,
+        ],
+        [
+          112,
+          0,
+        ],
+        [
+          113,
+          0,
+        ],
       ],
-      "hash": "7237cb22cf1411313322269119892143ce766829f7812b568b87f0d628c6354f",
+      "hash": "bd85a2388b822d04e255137cf538a5853058d0c4b516a08acfeb4f3b1d2c9e9e",
       "name": "examples/plugin-get-imported.js",
     },
     "examples/plugin-get-imports.js": {
@@ -2599,11 +2703,11 @@ exports[`monoprocessor 1`] = `
         ],
         [
           37,
-          1,
+          0,
         ],
         [
           38,
-          0,
+          1,
         ],
         [
           39,
@@ -2645,8 +2749,12 @@ exports[`monoprocessor 1`] = `
           48,
           0,
         ],
+        [
+          49,
+          0,
+        ],
       ],
-      "hash": "ba9c43eebce6b39b095dc012a5b575e9cfb8c1e58d861dadc89f72f61b06de7d",
+      "hash": "c38dd76731cddf76ec60f31c2b7dc455a1a174916550d11bda473a3f91265e40",
       "name": "package.json",
     },
     "reader.js": {
@@ -2910,7 +3018,7 @@ exports[`monoprocessor 1`] = `
     "config.js": 351,
     "examples/plugin-c-words.js": 32,
     "examples/plugin-get-exports.js": 222,
-    "examples/plugin-get-imported.js": 819,
+    "examples/plugin-get-imported.js": 1221,
     "examples/plugin-get-imports.js": 96,
     "examples/plugin-has-exports.js": 36,
     "examples/plugin-has-imports.js": 42,
@@ -2923,7 +3031,7 @@ exports[`monoprocessor 1`] = `
     "jest.config.cjs": 12,
     "log.js": 16,
     "package-scripts.cjs": 345,
-    "package.json": 295,
+    "package.json": 301,
     "reader.js": 387,
   },
 }
@@ -2939,7 +3047,7 @@ exports[`readAll 1`] = `
   "af210769222c38f339d77fa8ac1638aead4c191818f39f1f5c754ada22a980be",
   "97c92175e3d025641201b1fdb1fbb7c7852f980f1b73890b4b8e07a7184ef2ba",
   "cb508146748ce89a70fc1e66982441a82c714d514275c9b49b57fd79b00ca0b7",
-  "ba9c43eebce6b39b095dc012a5b575e9cfb8c1e58d861dadc89f72f61b06de7d",
+  "c38dd76731cddf76ec60f31c2b7dc455a1a174916550d11bda473a3f91265e40",
   "a2f3d3e57dd1c45095d85f4c002ac6664a6abbdc2e92720939a32ef533c24dfe",
   "90b0977f3737cd068137030b563465322cf51495a253a76e5916e1ac658002c5",
 ]
