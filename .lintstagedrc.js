@@ -1,5 +1,6 @@
 export default {
   '*.{js,jsx,ts,tsx}': 'eslint --fix',
+  'packages/monocle/package.json': () => 'yarn workspace monocle test:snapshot',
   // run syncScripts whenever `package-scripts.cjs` / `package.json` changes
   'package*': raw => {
     // console.log(raw)

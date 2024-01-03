@@ -2485,11 +2485,11 @@ exports[`monoprocessor 1`] = `
         ],
         [
           35,
-          1,
+          0,
         ],
         [
           36,
-          0,
+          1,
         ],
         [
           37,
@@ -2551,8 +2551,12 @@ exports[`monoprocessor 1`] = `
           51,
           0,
         ],
+        [
+          52,
+          0,
+        ],
       ],
-      "hash": "cb508146748ce89a70fc1e66982441a82c714d514275c9b49b57fd79b00ca0b7",
+      "hash": "e5654bcbb97cb55f0a6becc133f3ae25cd55142e9bc265230cab7885018eff0b",
       "name": "package-scripts.cjs",
     },
     "package.json": {
@@ -2753,8 +2757,12 @@ exports[`monoprocessor 1`] = `
           49,
           0,
         ],
+        [
+          50,
+          0,
+        ],
       ],
-      "hash": "c38dd76731cddf76ec60f31c2b7dc455a1a174916550d11bda473a3f91265e40",
+      "hash": "6a81b5ad606ee1a638b2c554024d09ced24b2b9d49ae2857bdb9bc2a4d2add98",
       "name": "package.json",
     },
     "reader.js": {
@@ -3030,8 +3038,8 @@ exports[`monoprocessor 1`] = `
     "index.js": 9,
     "jest.config.cjs": 12,
     "log.js": 16,
-    "package-scripts.cjs": 345,
-    "package.json": 301,
+    "package-scripts.cjs": 356,
+    "package.json": 312,
     "reader.js": 387,
   },
 }
@@ -3046,8 +3054,8 @@ exports[`readAll 1`] = `
   "f5ca9070a68f19933e3cd35a10e18013655b9b9a9c1b78ec2c7262a98c2fee17",
   "af210769222c38f339d77fa8ac1638aead4c191818f39f1f5c754ada22a980be",
   "97c92175e3d025641201b1fdb1fbb7c7852f980f1b73890b4b8e07a7184ef2ba",
-  "cb508146748ce89a70fc1e66982441a82c714d514275c9b49b57fd79b00ca0b7",
-  "c38dd76731cddf76ec60f31c2b7dc455a1a174916550d11bda473a3f91265e40",
+  "e5654bcbb97cb55f0a6becc133f3ae25cd55142e9bc265230cab7885018eff0b",
+  "6a81b5ad606ee1a638b2c554024d09ced24b2b9d49ae2857bdb9bc2a4d2add98",
   "a2f3d3e57dd1c45095d85f4c002ac6664a6abbdc2e92720939a32ef533c24dfe",
   "90b0977f3737cd068137030b563465322cf51495a253a76e5916e1ac658002c5",
 ]

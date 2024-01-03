@@ -43,6 +43,7 @@
     "test:ci": "dotenv -- nps -c ./package-scripts.cjs test.ci",
     "test:integration": "dotenv -- nps -c ./package-scripts.cjs test.integration",
     "test:silent": "dotenv -- nps -c ./package-scripts.cjs test.silent",
+    "test:snapshot": "dotenv -- nps -c ./package-scripts.cjs test.snapshot",
     "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
   }
 }
