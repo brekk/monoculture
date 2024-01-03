@@ -23,7 +23,6 @@ import {
   slice,
 } from 'ramda'
 import { lines, unlines } from 'knot'
-import { log } from './log'
 
 // TODO: we should consolidate this
 const MAGIC_IMPORT_KEY = 'drgen-import-above'
@@ -51,7 +50,6 @@ const flattenCommentData = applySpec({
   links: propOr([], 'links'),
   example: pipe(
     pathOr('', ['structure', 'example']),
-    log.renderer('markdown?'),
     replace(new RegExp('// ' + MAGIC_IMPORT_KEY, 'g'), '')
   ),
   exported: pathOr(false, ['structure', 'exported']),
@@ -77,7 +75,6 @@ const insertIntoExample = curry(
           }),
           unlines
         )(example)
-    log.renderer('fixed', fixed)
     return fixed
   }
 )
@@ -104,7 +101,6 @@ const handleCurriedExample = curry(function _handleCurriedExample(imports, x) {
     ap([getCurried, flattenCommentData]),
     ([curried, { summary, links, package: pkg, exported }]) =>
       pipe(
-        log.renderer('input!'),
         map(({ name, lines: example }) =>
           cleanlines(
             commonFields(imports, {

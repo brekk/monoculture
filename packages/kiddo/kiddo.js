@@ -84,10 +84,18 @@ export const signifier = curry(function _signifier(cancel, options) {
     return cancel
   })
 })
-
+// I think that doing this this way means that we don't get any status until the very end
 export const signal = curry(function _signal(cancel, options, f) {
   return Future(function _signalF(bad, good) {
     oraPromise(promise(f), options).catch(bad).then(good)
     return cancel
   })
 })
+/*
+// use pap?
+export const signal = curry(function _signal(cancel, options, f) {
+  return pipe(
+    signifier(cancel),
+  )(options)
+})
+*/

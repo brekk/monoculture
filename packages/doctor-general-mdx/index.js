@@ -2,7 +2,6 @@
 import { prepareMetaFiles } from './next-meta-files'
 import { curry } from 'ramda'
 import { commentToMarkdown } from './renderer-markdown'
-import { log } from './log'
 import { slugWord } from 'knot'
 import {
   slug,
@@ -22,10 +21,9 @@ export default {
   postProcess: curry(({ outputDir, workspace }, commentedFiles, filesToWrite) =>
     filesToWrite.concat(prepareMetaFiles(outputDir, workspace, commentedFiles))
   ),
-  renderer: curry(({ file, imports }, raw) => {
-    log.main('file', file)
-    return commentToMarkdown(file.slugName, imports, raw)
-  }),
+  renderer: curry(({ file, imports }, raw) =>
+    commentToMarkdown(file.slugName, imports, raw)
+  ),
   postRender: curry(({ file }, raw) =>
     [`# ${file.slugName}`, file.pageSummary, ...raw].join('\n\n')
   ),

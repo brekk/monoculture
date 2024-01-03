@@ -14,7 +14,6 @@ import {
   replace,
   curry,
 } from 'ramda'
-import { log } from './log'
 
 // TODO: consolidate this
 export const combineFiles = curry(function _combineFiles(leftToRight, a, b) {
@@ -54,7 +53,6 @@ export const slug = name => {
 export const stripRelative = replace(/\.\.\/|\.\//g, '')
 
 export const filterAndStructureComments = pipe(
-  log.doc('filter and structure!'),
   filter(pipe(propOr([], 'comments'), isNotEmpty)),
   map(raw => {
     const filename = stripRelative(raw.filename)

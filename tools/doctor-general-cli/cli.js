@@ -15,7 +15,11 @@ const processHelpOrRun = curry(function _processHelpOrRun(cancel, config) {
   }
   return pipe(
     interpret,
-    signal(cancel, { text: 'Loading processor...' }),
+    signal(cancel, {
+      text: `Loading processor: ${processor}...`,
+      successText: `Loaded processor: ${processor}...`,
+      failText: `Unable to load processor: ${processor}`,
+    }),
     chain(p =>
       drgen({
         ...config,

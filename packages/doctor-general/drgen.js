@@ -1,5 +1,6 @@
 import { join as pathJoin } from 'node:path'
 import { cwd } from 'node:process'
+import { signal } from 'kiddo'
 import { log } from './log'
 import {
   when,
@@ -44,6 +45,7 @@ export const drgen = config => {
   const root = pkgJson.slice(0, pkgJson.lastIndexOf('/'))
   const toLocal = map(ii => ii.slice(0, ii.lastIndexOf('/')), input)
   const relativize = r => (monorepoMode ? pathJoin(toLocal[0], r) : r)
+  const cancel = () => {}
   return pipe(
     log.core(`monorepoMode?`),
     ifElse(
@@ -56,14 +58,16 @@ export const drgen = config => {
     map(processComments(processor)),
     when(K(artifact), writeArtifact(relativeArtifact)),
     renderComments(processor, outputDir),
-    map(
-      K(
+    signal(cancel, {
+      text: 'Rendering comments...',
+      successText:
         artifact || output
-          ? `Wrote to${output ? ' output: "' + output + '";' : ''}${
-              artifact ? ' artifact: "' + artifact + '"' : ''
-            }.`
-          : `Processed ${input.join(' ')}`
-      )
-    )
+          ? `Wrote to${
+              output ? ' output: "' + output + '"' + (artifact ? ';' : '') : ''
+            }${artifact ? ' artifact: "' + artifact + '"' : ''}.`
+          : `Processed ${input.join(' ')}`,
+      failText: 'Unable to render comments!',
+    }),
+    map(K(''))
   )(monorepoMode)
 }
