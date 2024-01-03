@@ -18,6 +18,7 @@
     "climate": "workspace:packages/climate",
     "doctor-general": "workspace:packages/doctor-general",
     "inherent": "workspace:packages/inherent",
+    "kiddo": "workspace:packages/kiddo",
     "ramda": "0.29.1"
   },
   "devDependencies": {
