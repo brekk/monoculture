@@ -2,34 +2,14 @@
 
 exports[`parseFile 1`] = `
 {
-  "comments": [
-    {
-      "addTo": "",
-      "end": 11,
-      "fileGroup": "",
-      "keywords": [
-        "@example",
-        "@name",
-      ],
-      "links": [],
-      "start": 2,
-      "structure": {
-        "example": "\`\`\`ts live=true
-import { add } from './fixture'
-
-add(10)(20) === 30
-\`\`\`",
-        "name": "add",
-      },
-      "summary": "A curried binary addition function",
-    },
-  ],
+  "comments": [],
   "fileGroup": undefined,
-  "filename": "pkg/one/main.ts",
+  "filename": "packages/doctor-general/file.js",
   "links": [],
-  "order": 0,
+  "order": NaN,
+  "package": "doctor-general",
   "pageSummary": "",
   "pageTitle": undefined,
-  "slugName": "main",
+  "slugName": "file",
 }
 `;

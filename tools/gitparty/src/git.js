@@ -5,11 +5,11 @@ const glog = GLOG.default || GLOG
 
 export const NO_OP = () => {}
 
-export const gitlogWithCancel = curry((cancel, opts) =>
-  Future((bad, good) => {
+export const gitlogWithCancel = curry(function _gitlogWithCancel(cancel, opts) {
+  return Future((bad, good) => {
     glog(opts, (e, data) => (e ? bad(e) : good(data)))
     return cancel
   })
-)
+})
 
 export const gitlog = gitlogWithCancel(NO_OP)

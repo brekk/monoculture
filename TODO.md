@@ -18,6 +18,11 @@
 
 ## Workspaces
 
+### docs
+
+ - [x] Fix the `_meta.json` for the homepage Index
+ - [ ] Figure out a better means of moving the [doctor-general](https://brekk.github.io/monoculture/doctor-general/) documentation into `doctor-general` itself
+
 ### superorganism
 
  - [ ] `superorganism` needs more work -- if we're gonna re-imagine how `nps` config files are, we may need a backwards-compatible legacy mode, or we're already pretty coupled with `nps` in most of these packages.
@@ -57,4 +62,24 @@
  - [x] AUTOMATICALLY GENERATE TESTS FROM COMMENTS! **Completed!** This is a little brittle currently, but really awesome.
    - [ ] We need to have a more robust means of handling imports, right now it's likely to break
  - [ ] Right now `@example` assumes it will be the last entry, but that's not super robust, we should write a more comprehensive test for this
+ - [ ] Pretty sure `@curried` + `test=true` will barf right now. We should verify and fix it if so.
+ - [ ] `@curried` stuff should be reworked in general (likely after we make the parser more robust -- Ideally you could use the `@curried` shorthand to simplify things but still provide any / all tags you'd provide elsewhere (within reason))
+ - [ ] I _think_ this would be a big task, but it's be awesome to be able to keep `autotests` ephemeral (generate in a temporary folder, run tests, validate, report, don't automatically inflate the codebase
+ - [ ] Support proper links
+ - [ ] Wiring docs to tests would be cool
+ - [ ] Documentation pages should underline how they are written
+ - [ ] Now that we have `processor` as a means of segmenting parsing + rendering, we _need_ validation for processors, esp. the curried interface (or eschew that)
 
+### monocle
+
+ - [ ] `monocle` could add `get-imports` -> `used-imports`
+ - [ ] I think it would make sense to have a mode which doesn't always read all the files -- that maybe should be an opt-in sort of thing
+ - [ ] There's also the domain of meta info about files -- lstat other stuff which predominantly isn't reliant on the material content of the file
+
+### manacle
+
+ - [ ] Something something `monocle -p used-imports` -> `manacle -r uses-imports`
+
+### monorail
+
+ - [ ] Monorail should do plugin validation

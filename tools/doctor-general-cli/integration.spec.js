@@ -20,33 +20,37 @@ const exe = execWithConfig(
 // const badPath = propOr('', 'stderr')
 
 // it's a killable function
-const killjoy = curry((done, fn, x) => (is(Function)(fn) ? fn(done)(x) : x))
+const killjoy = curry(function _killjoy(done, fn, x) {
+  return is(Function)(fn) ? fn(done)(x) : x
+})
 
 // transforms need to provide their own `map` / `mapRej` / `chain` wrapping
-const runner = curry((transforms, done, args) => {
+const runner = curry(function _runner(transforms, done, args) {
   const fun = map(tr => killjoy(done, tr), transforms)
   return pipe(exe, ...fun)(args)
 })
 
-const testCLI = curry((transforms, postRun, finalAssertion, args) => {
-  test(`doctor-general ${join(' ')(args)}`, done => {
-    pipe(
-      runner(transforms, done),
-      map(trace('run')),
-      killjoy(done, postRun),
-      map(trace('postrun')),
-      fork(e => {
-        done(e)
-      })(raw => {
-        if (is(Function)(finalAssertion)) {
-          finalAssertion(done)(raw)
-        } else {
-          done()
-        }
-      })
-    )(args)
-  })
-})
+const testCLI = curry(
+  function _testCLI(transforms, postRun, finalAssertion, args) {
+    test(`doctor-general ${join(' ')(args)}`, done => {
+      pipe(
+        runner(transforms, done),
+        map(trace('run')),
+        killjoy(done, postRun),
+        map(trace('postrun')),
+        fork(e => {
+          done(e)
+        })(raw => {
+          if (is(Function)(finalAssertion)) {
+            finalAssertion(done)(raw)
+          } else {
+            done()
+          }
+        })
+      )(args)
+    })
+  }
+)
 
 // testCLI(
 //   [

@@ -1,7 +1,8 @@
 import { pipe, curry, prop, ifElse, propOr, __ as $ } from 'ramda'
 import { execa } from 'execa'
-import { Future } from 'fluture'
+import { Future, promise } from 'fluture'
 import { envtrace } from 'envtrace'
+import { oraPromise } from 'ora'
 
 const log = envtrace('kiddo')
 
@@ -16,6 +17,7 @@ export const fail = prop('stderr')
 /* eslint-disable jsdoc/tag-lines */
 /**
  * Consume external commands as a Future-wrapped value.
+ * @future
  * @curried
  *  1. execWithConfig - Passes all possible configuration values plus a cancellation function.
  *
@@ -51,27 +53,55 @@ export const fail = prop('stderr')
  *  3. exec - Eschews any configuration or cancellation function. Needs only command and arguments.
  *
  *     @example
- *     ```js
- *     import { exec } from 'kiddo'
+ *     ```js test=true
  *     import { fork } from 'fluture'
- *     fork(console.warn)(console.log)(
- *       exec(
- *         'echo',
- *         ['ahoy']
- *       )
- *     )
+ *     // drgen-import-above
+ *     const blah = Math.round(Math.random() * 100000)
+ *     fork(done)(z => {
+ *       expect(z.stdout).toEqual('' + blah)
+ *       done()
+ *     })(exec('echo', [blah]))
  *     ```
  */
 /* eslint-enable max-len */
 export const execWithConfig = curry(
-  (cancellation, cmd, opts, args) =>
-    new Future((bad, good) => {
+  function _execWithConfig(cancellation, cmd, opts, args) {
+    return new Future((bad, good) => {
       log('Running', `"${cmd} ${args.join(' ')}"`)
       execa(cmd, args, opts)
         .catch(pipe(fail, bad))
         .then(ifElse(didFail, pipe(fail, bad), good))
       return cancellation
     })
+  }
 )
 export const execWithCancel = execWithConfig($, $, undefined)
 export const exec = execWithCancel(() => {})
+
+/**
+ * Add an `ora` indicator to a Future
+ * @name signal
+ * @future
+ * @exported
+ * @example
+ * ```js test=true
+ * import { pipe, map } from 'ramda'
+ * import { readFile } from 'file-system'
+ * // drgen-import-above
+ * const cancel = () => {}
+ * pipe(
+ *   signal(cancel, { text: 'Reading file...', successText: 'Read file!'}),
+ *   map(JSON.parse),
+ *   fork(done)(raw => {
+ *     expect(raw.name).toEqual('kiddo')
+ *     done()
+ *   })
+ * )(readFile('./package.json'))
+ * ```
+ */
+export const signal = curry(function _signal(cancel, options, f) {
+  return Future(function _signalF(bad, good) {
+    oraPromise(promise(f), options).catch(bad).then(good)
+    return cancel
+  })
+})

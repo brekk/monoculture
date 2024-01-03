@@ -65,17 +65,19 @@ export const cleanups = anyPass([
   startsWith('```'),
 ])
 
-export const getWordsFromEntities = curry((infer, skippables, raw) =>
-  pipe(
-    map(map(noCase)),
-    values,
-    reduce((agg, x) => [...agg, ...x], []),
-    chain(split(' ')),
-    map(toLower),
-    reject(includes($, skippables)),
-    infer ? map(stemmer) : I,
-    z => z.sort()
-  )(raw)
+export const getWordsFromEntities = curry(
+  function _getWordsFromEntities(infer, skippables, raw) {
+    return pipe(
+      map(map(noCase)),
+      values,
+      reduce((agg, x) => [...agg, ...x], []),
+      chain(split(' ')),
+      map(toLower),
+      reject(includes($, skippables)),
+      infer ? map(stemmer) : I,
+      z => z.sort()
+    )(raw)
+  }
 )
 
 export const parseWords = ({
@@ -100,32 +102,34 @@ export const parseWords = ({
     fromPairs
   )(entities)
 
-export const compareContentToWords = curry((infer, line, content, _words) => {
-  if (isEmpty(content) || isEmpty(_words)) return false
-  const cleancontent = pipe(
-    map(noCase),
-    chain(split(' ')),
-    infer ? map(stemmer) : I,
-    uniq
-  )(content)
-  return reduce(
-    (agg, word) => {
-      if (agg.matched) {
-        return agg
-      }
-      const stem = infer ? stemmer(word) : word
-      const matched = includes(stem, cleancontent)
-      return matched
-        ? { matched, relationships: [...agg.relationships, [line, word]] }
-        : agg
-    },
-    { matched: false, relationships: [] },
-    keys(_words)
-  )
-})
+export const compareContentToWords = curry(
+  function _compareContentToWords(infer, line, content, _words) {
+    if (isEmpty(content) || isEmpty(_words)) return false
+    const cleancontent = pipe(
+      map(noCase),
+      chain(split(' ')),
+      infer ? map(stemmer) : I,
+      uniq
+    )(content)
+    return reduce(
+      (agg, word) => {
+        if (agg.matched) {
+          return agg
+        }
+        const stem = infer ? stemmer(word) : word
+        const matched = includes(stem, cleancontent)
+        return matched
+          ? { matched, relationships: [...agg.relationships, [line, word]] }
+          : agg
+      },
+      { matched: false, relationships: [] },
+      keys(_words)
+    )
+  }
+)
 
-export const correlate = curry((infer, _words, _lines) =>
-  pipe(
+export const correlate = curry(function _correlate(infer, _words, _lines) {
+  return pipe(
     reduce((agg, { line, content }) => {
       const compared = compareContentToWords(infer, line, content, _words)
       return compared.matched ? [...agg, compared.relationships] : agg
@@ -134,7 +138,7 @@ export const correlate = curry((infer, _words, _lines) =>
     groupBy(last),
     map(map(head))
   )(_lines)
-)
+})
 
 export const dropMultilineCommentsWithSteps = reduce(
   (agg, [k, v]) => {

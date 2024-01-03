@@ -1,11 +1,4 @@
-import { curry, __ as $, identity as I } from 'ramda'
+import { complextrace } from 'envtrace'
+import PKG from '../package.json'
 
-export const scopedBinaryEffect = curry((effect, scope, a, b) => {
-  effect(a, scope(b))
-  return b
-})
-
-export const binaryEffect = scopedBinaryEffect($, I)
-
-// eslint-disable-next-line no-console
-export const trace = binaryEffect(console.log)
+export const log = complextrace(PKG.name, ['info', 'config', 'io'])

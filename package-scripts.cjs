@@ -32,6 +32,8 @@ module.exports = {
               'packages/climate-yaml',
               'packages/clox',
               'packages/doctor-general',
+              'packages/doctor-general-mdx',
+              'packages/doctor-general-jest',
               'packages/file-system',
               'packages/inherent',
               'packages/kiddo',
@@ -55,8 +57,15 @@ module.exports = {
         ),
       },
     },
-    care: sd('turbo run lint test build', 'build and test with turbo'),
+    care: sd(
+      'turbo run lint test build && yarn workspace docs run autodoc',
+      'build and test with turbo'
+    ),
     build: sd('turbo run build', 'build with turbo'),
+    autotest: sd(
+      'turbo run autotest',
+      'build tests with drgen and then run them'
+    ),
     lint: sd('turbo run lint', 'lint with turbo'),
     test: {
       ...sd('turbo run test', 'test with turbo'),

@@ -20,6 +20,8 @@ test('summarize', done => {
       ' * [climate-yaml](//repo.biz/packages/climate-yaml) - YAML parser for climate 🍠',
       ' * [clox](//repo.biz/packages/clox) - boxes for the terminal ⏰',
       ' * [doctor-general](//repo.biz/packages/doctor-general) - documentation generation 🩻',
+      ' * [doctor-general-jest](//repo.biz/packages/doctor-general-jest) - documentation generation - jest 🃏',
+      ' * [doctor-general-mdx](//repo.biz/packages/doctor-general-mdx) - documentation generation - mdx 🩺',
       ' * [file-system](//repo.biz/packages/file-system) - fs, but in the future 🔮',
       ' * [inherent](//repo.biz/packages/inherent) - functional utilities for primitives ⛺️',
       ' * [kiddo](//repo.biz/packages/kiddo) - child processes in the future 👶',
@@ -41,7 +43,7 @@ test('summarize', done => {
       ' * [doctor-general-cli](//repo.biz/tools/doctor-general-cli) - documentation generation in a nice CLI 🫡',
       ' * [gitparty](//repo.biz/tools/gitparty) - visualize git logs with magical context 🎨',
       ' * [spacework](//repo.biz/tools/spacework) - meta tools for monoculture ☄️',
-      ' * [superorganism](//repo.biz/tools/superorganism) - script runner from beyond the moon 🦠',
+      ' * [superorganism](//repo.biz/tools/superorganism) - script runner from beyond the moon 🐁',
       ' * [treacle](//repo.biz/tools/treacle) - command line interface tree visualization pun 🫠',
       '',
     ])

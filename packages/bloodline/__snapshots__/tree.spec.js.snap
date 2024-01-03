@@ -9,7 +9,7 @@ exports[`familyTree 1`] = `
     "file-system",
     "monoculture/packages/monocle/reader.js",
     "monoculture/packages/monocle/package.json",
-    "monoculture/packages/monocle/trace.js",
+    "monoculture/packages/monocle/log.js",
     "monoculture/packages/monocle/config.js",
     "climate-toml",
     "climate-json",
@@ -24,16 +24,16 @@ exports[`familyTree 1`] = `
   "file-system": [],
   "fluture": [],
   "monoculture/packages/monocle/config.js": [],
+  "monoculture/packages/monocle/log.js": [
+    "envtrace",
+  ],
   "monoculture/packages/monocle/package.json": [],
   "monoculture/packages/monocle/reader.js": [
     "ramda",
     "fluture",
     "file-system",
     "monoculture/packages/monocle/hash.js",
-    "monoculture/packages/monocle/trace.js",
-  ],
-  "monoculture/packages/monocle/trace.js": [
-    "envtrace",
+    "monoculture/packages/monocle/log.js",
   ],
   "ramda": [],
 }
@@ -322,9 +322,9 @@ exports[`flattenTree 1`] = `
     "monoculture/node_modules/fluture/index.cjs",
     "monoculture/node_modules/file-system/file-system.js",
     "monoculture/packages/monocle/hash.js",
-    "monoculture/packages/monocle/trace.js",
+    "monoculture/packages/monocle/log.js",
     "monoculture/packages/monocle/package.json",
-    "monoculture/packages/monocle/trace.js",
+    "monoculture/packages/monocle/log.js",
     "monoculture/node_modules/envtrace/envtrace.js",
     "monoculture/packages/monocle/config.js",
     "monoculture/node_modules/climate-toml/climate-toml.js",
@@ -659,13 +659,13 @@ exports[`groupTree 1`] = `
       "monoculture/node_modules/fluture/index.cjs",
       "monoculture/node_modules/file-system/file-system.js",
       "monoculture/packages/monocle/hash.js",
-      "monoculture/packages/monocle/trace.js",
+      "monoculture/packages/monocle/log.js",
     ],
     [
       "monoculture/packages/monocle/package.json",
     ],
     [
-      "monoculture/packages/monocle/trace.js",
+      "monoculture/packages/monocle/log.js",
       "monoculture/node_modules/envtrace/envtrace.js",
     ],
     [

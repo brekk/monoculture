@@ -21,25 +21,27 @@ import { parallel, resolve } from 'fluture'
 import { readDirWithConfig, relativePathJoin, readFile } from 'file-system'
 import { renderReadme } from './markdown'
 
-const processWorkspace = curry((banner, bannerPath, drGenPath, workspaces) => {
-  const readables = []
-  if (drGenPath) {
-    log.summary('reading doctor-general path', drGenPath)
-    readables.push(
-      pipe(readFile, map(JSON.parse), map(objOf('drGen')))(drGenPath)
-    )
+const processWorkspace = curry(
+  function _processWorkspace(banner, bannerPath, drGenPath, workspaces) {
+    const readables = []
+    if (drGenPath) {
+      log.summary('reading doctor-general path', drGenPath)
+      readables.push(
+        pipe(readFile, map(JSON.parse), map(objOf('drGen')))(drGenPath)
+      )
+    }
+    if (!banner && bannerPath) {
+      log.summary('reading banner path', bannerPath)
+      readables.push(pipe(readFile, map(objOf('banner')))(bannerPath))
+    }
+    return readables.length
+      ? pipe(
+          parallel(10),
+          map(reduce((agg, x) => mergeRight(agg, x), { workspaces, banner }))
+        )(readables)
+      : resolve({ banner: banner || '', drGen: [], workspaces })
   }
-  if (!banner && bannerPath) {
-    log.summary('reading banner path', bannerPath)
-    readables.push(pipe(readFile, map(objOf('banner')))(bannerPath))
-  }
-  return readables.length
-    ? pipe(
-        parallel(10),
-        map(reduce((agg, x) => mergeRight(agg, x), { workspaces, banner }))
-      )(readables)
-    : resolve({ banner: banner || '', drGen: [], workspaces })
-})
+)
 
 const getWorkspaceGroupFromPath = pathName => {
   let y = pathName
@@ -77,7 +79,7 @@ const processPackage = ({ drGen, workspaces, banner }) =>
       pipe(
         map(pipe(({ group, ...z }) => [group, z])),
         groupBy(head),
-        map(map(([_k, g]) => g))
+        map(map(([, g]) => g))
       )
     ),
     map(grouped => ({ banner, grouped }))
@@ -116,6 +118,8 @@ const processPackage = ({ drGen, workspaces, banner }) =>
  *     " * [climate-yaml](//repo.biz/packages/climate-yaml) - YAML parser for climate 🍠",
  *     " * [clox](//repo.biz/packages/clox) - boxes for the terminal ⏰",
  *     " * [doctor-general](//repo.biz/packages/doctor-general) - documentation generation 🩻",
+ *     " * [doctor-general-jest](//repo.biz/packages/doctor-general-jest) - documentation generation - jest 🃏",
+ *     " * [doctor-general-mdx](//repo.biz/packages/doctor-general-mdx) - documentation generation - mdx 🩺",
  *     " * [file-system](//repo.biz/packages/file-system) - fs, but in the future 🔮",
  *     " * [inherent](//repo.biz/packages/inherent) - functional utilities for primitives ⛺️",
  *     " * [kiddo](//repo.biz/packages/kiddo) - child processes in the future 👶",
@@ -137,7 +141,7 @@ const processPackage = ({ drGen, workspaces, banner }) =>
  *     " * [doctor-general-cli](//repo.biz/tools/doctor-general-cli) - documentation generation in a nice CLI 🫡",
  *     " * [gitparty](//repo.biz/tools/gitparty) - visualize git logs with magical context 🎨",
  *     " * [spacework](//repo.biz/tools/spacework) - meta tools for monoculture ☄️",
- *     " * [superorganism](//repo.biz/tools/superorganism) - script runner from beyond the moon 🦠",
+ *     " * [superorganism](//repo.biz/tools/superorganism) - script runner from beyond the moon 🐁",
  *     " * [treacle](//repo.biz/tools/treacle) - command line interface tree visualization pun 🫠",
  *     "",
  *   ])

@@ -5,19 +5,21 @@ import { checkCyclicWithCancel } from './cyclic'
 import { handleWarnings } from './failure'
 import { isString, neue, wrap } from 'inherent'
 
-export const makeArteryWithCancel = curry((cancel, filepath, config) =>
-  Future((bad, good) => {
-    const $conf = neue(defaultConfig, config)
-    // TODO: make it so that we can consume other bloodlines
-    const path = when(isString, wrap)(filepath)
-    pipe(
-      treeWithCancel(cancel, path),
-      mapRej(handleWarnings),
-      $conf.checkCyclic ? checkCyclicWithCancel(cancel) : I,
-      good
-    )($conf)
-    return cancel
-  })
+export const makeArteryWithCancel = curry(
+  function _makeArteryWithCancel(cancel, filepath, config) {
+    return Future((bad, good) => {
+      const $conf = neue(defaultConfig, config)
+      // TODO: make it so that we can consume other bloodlines
+      const path = when(isString, wrap)(filepath)
+      pipe(
+        treeWithCancel(cancel, path),
+        mapRej(handleWarnings),
+        $conf.checkCyclic ? checkCyclicWithCancel(cancel) : I,
+        good
+      )($conf)
+      return cancel
+    })
+  }
 )
 
 const defaultConfig = {

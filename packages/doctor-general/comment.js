@@ -1,13 +1,10 @@
 import { join as pathJoin } from 'node:path'
-import { writeFileWithAutoPath } from 'file-system'
-import { getImportsForTests, filterAndStructureTests } from './comment-test'
-import { filterAndStructureComments } from './comment-documentation'
-import { commentToMarkdown } from './renderer-markdown'
-import { commentToJestTest } from './renderer-jest'
-import { prepareMetaFiles } from './next-meta-files'
-import { log } from './log'
 import { parallel } from 'fluture'
+import { isNotEmpty, autobox } from 'inherent'
+import { TESTABLE_EXAMPLE } from './constants'
 import {
+  concat,
+  when,
   __ as $,
   addIndex,
   always as K,
@@ -28,7 +25,6 @@ import {
   identity as I,
   ifElse,
   isEmpty,
-  join,
   last,
   length,
   map,
@@ -41,15 +37,58 @@ import {
   slice,
   split,
   startsWith,
-  tap,
   test as testRegExp,
   toPairs,
   trim,
   uniq,
+  pathOr,
+  ap,
+  includes,
 } from 'ramda'
-import { cleanFilename, findJSDocKeywords, cleanupKeywords } from './file'
-import { formatComment, trimComment, wipeComment } from './text'
+import { writeFileWithAutoPath } from 'file-system'
+// import { filterAndStructureTests, hasExample } from './comment-test'
+// import { filterAndStructureComments } from './comment-documentation'
+// import { commentToMarkdown } from './renderer-markdown'
+// import { commentToJestTest } from './renderer-jest'
+// import { prepareMetaFiles } from './next-meta-files'
+import { log } from './log'
 import { unlines } from 'knot'
+import { findJSDocKeywords, cleanupKeywords } from './file'
+import { formatComment, trimComment, wipeComment } from './text'
+
+export const hasExample = pipe(
+  pathOr('', ['structure', 'example']),
+  includes(TESTABLE_EXAMPLE)
+)
+
+export const getImportsForTests = file =>
+  pipe(
+    map(
+      pipe(
+        autobox,
+        ap([
+          pathOr(false, ['structure', 'name']),
+          hasExample,
+          pathOr([], ['structure', 'curried']),
+        ])
+      )
+    ),
+    reduce(function handleCurriedExamples(agg, [a, b, c]) {
+      const isCurried = isNotEmpty(c)
+      return pipe(
+        concat(
+          isCurried
+            ? map(({ name, lines: example }) => [
+                name,
+                includes(TESTABLE_EXAMPLE)(example),
+              ])(c)
+            : [[a, b]]
+        )
+      )(agg)
+    }, []),
+    filter(([a, b]) => a && b),
+    map(head)
+  )(file.comments)
 
 const linkRegex = /\{@link (.*)+\}/g
 export const matchLinks = pipe(
@@ -60,54 +99,55 @@ const ORDERED_LIST_ITEM = /^\s\d*\.\s/g
 const CURRIED_LIST_ITEM = /^\d+\.\s(\w+)\s-\s(.*)/g
 const isListItem = testRegExp(ORDERED_LIST_ITEM)
 
-export const getCurriedDefinition = curry((file, end, i) => {
-  return pipe(
-    slice(i + 1, end),
-    map(trimComment),
-    map(replace(/^\*$/g, '')),
-    filter(trim),
-    map(line => [isListItem(line), line]),
-    reduce(
-      ({ subject, lines, defs }, [isDefinition, content]) => {
-        if (isDefinition) {
-          if (lines.length) {
+export const getCurriedDefinition = curry(
+  function _getCurriedDefinition(file, end, i) {
+    return pipe(
+      slice(i + 1, end),
+      map(trimComment),
+      map(when(pipe(trim, equals('*')), K(''))),
+      map(line => [isListItem(line), line]),
+      reduce(
+        ({ subject, lines, defs }, [isDefinition, content]) => {
+          if (isDefinition) {
+            if (lines.length) {
+              return {
+                defs: [...defs, { lines, subject }],
+                lines: [],
+                subject: content,
+              }
+            }
             return {
-              defs: [...defs, { lines, subject }],
+              defs,
               lines: [],
               subject: content,
             }
           }
           return {
+            subject,
             defs,
-            lines: [],
-            subject: content,
+            lines: [
+              ...lines,
+              content.startsWith('    ') ? content.slice(4) : content,
+            ],
           }
-        }
+        },
+        { subject: null, lines: [], defs: [] }
+      ),
+      ({ subject, defs, lines }) => [...defs, { lines, subject }],
+      map(({ lines, subject }) => {
+        const matched = subject
+          ? trim(subject).replace(CURRIED_LIST_ITEM, '$1⩇$2')
+          : ''
+        const [name, summary] = split('⩇', matched)
         return {
-          subject,
-          defs,
-          lines: [
-            ...lines,
-            content.startsWith('    ') ? content.slice(4) : content,
-          ],
+          name,
+          summary,
+          lines: pipe(reject(equals('@example')), unlines)(lines),
         }
-      },
-      { subject: null, lines: [], defs: [] }
-    ),
-    ({ subject, defs, lines }) => [...defs, { lines, subject }],
-    map(({ lines, subject }) => {
-      const matched = subject
-        ? trim(subject).replace(CURRIED_LIST_ITEM, '$1⩇$2')
-        : ''
-      const [name, summary] = split('⩇', matched)
-      return {
-        name,
-        summary,
-        lines: pipe(reject(equals('@example')), unlines)(lines),
-      }
-    })
-  )(file)
-})
+      })
+    )(file)
+  }
+)
 
 const getPageSummary = (file, end, i) =>
   pipe(
@@ -126,6 +166,7 @@ const getPageSummary = (file, end, i) =>
 export const handleSpecificKeywords = curry(
   (keyword, value, rest, file, end, i) =>
     cond([
+      [equals('exported'), () => true],
       [equals('pageSummary'), () => getPageSummary(file, end, i)],
       // curried function definitions afford named variants of the same function
       // see file-system/fs.js for an example
@@ -147,38 +188,40 @@ export const handleSpecificKeywords = curry(
 )
 
 // structureKeywords :: List String -> CommentBlock -> Integer -> CommentStructure
-export const structureKeywords = curry((file, block, end) =>
-  pipe(
-    map(([i, line]) => [
-      i,
-      ifElse(
-        pipe(findJSDocKeywords, length, z => z > 0),
-        pipe(wipeComment, cleanupKeywords),
-        K(false)
-      )(line),
-    ]),
-    filter(last),
-    reject(pipe(last, head, isEmpty)),
-    map(([i, [keyword, value = true, ...rest]]) => [
-      i,
-      [keyword, handleSpecificKeywords(keyword, value, rest, file, end, i)],
-    ]),
-    map(last),
-    // fromPairs truncates duplicate keys, so we have to arrayify them
-    reduce(
-      (agg, [key, ...value]) =>
-        agg[key] && Array.isArray(agg[key])
-          ? { ...agg, [key]: agg[key].concat(value) }
-          : { ...agg, [key]: value },
-      {}
-    ),
-    toPairs,
-    map(([k, v]) => [
-      k,
-      k !== 'see' && Array.isArray(v) && v.length === 1 ? v[0] : v,
-    ]),
-    fromPairs
-  )(block)
+export const structureKeywords = curry(
+  function _structureKeywords(file, block, end) {
+    return pipe(
+      map(([i, line]) => [
+        i,
+        ifElse(
+          pipe(findJSDocKeywords, length, z => z > 0),
+          pipe(wipeComment, cleanupKeywords),
+          K(false)
+        )(line),
+      ]),
+      filter(last),
+      reject(pipe(last, head, isEmpty)),
+      map(([i, [keyword, value = true, ...rest]]) => [
+        i,
+        [keyword, handleSpecificKeywords(keyword, value, rest, file, end, i)],
+      ]),
+      map(last),
+      // fromPairs truncates duplicate keys, so we have to arrayify them
+      reduce(
+        (agg, [key, ...value]) =>
+          agg[key] && Array.isArray(agg[key])
+            ? { ...agg, [key]: agg[key].concat(value) }
+            : { ...agg, [key]: value },
+        {}
+      ),
+      toPairs,
+      map(([k, v]) => [
+        k,
+        k !== 'see' && Array.isArray(v) && v.length === 1 ? v[0] : v,
+      ]),
+      fromPairs
+    )(block)
+  }
 )
 
 const summarize = lines => {
@@ -198,76 +241,75 @@ const getFileGroup = propOr('', 'group')
 const addTo = propOr('', 'addTo')
 
 // objectifyComments :: Boolean -> String -> List Comment -> List CommentBlock
-export const objectifyComments = curry((filename, file, comments) =>
-  reduce(
-    (agg, block) =>
-      agg.concat(
-        pipe(
-          // pass one
-          applySpec({
-            start: pipe(head, head),
-            end: pipe(last, head),
-            lines: formatComment,
-          }),
-          // pass two
-          gen => {
-            const structure = structureKeywords(file, block, gen.end)
-            if (structure.page && !structure.name) {
-              structure.name = structure.page
-              structure.detail = gen.start
+export const objectifyComments = curry(
+  function _objectifyComments(filename, file, comments) {
+    return reduce(
+      (agg, block) =>
+        agg.concat(
+          pipe(
+            // pass one
+            applySpec({
+              start: pipe(head, head),
+              end: pipe(last, head),
+              lines: formatComment,
+            }),
+            // pass two
+            gen => {
+              const structure = structureKeywords(file, block, gen.end)
+              if (structure.page && !structure.name) {
+                structure.name = structure.page
+                structure.detail = gen.start
+              }
+              return {
+                ...gen,
+                summary: summarize(gen.lines),
+                links: matchLinks(gen.lines),
+                fileGroup: getFileGroup(structure),
+                addTo: addTo(structure),
+                structure,
+                keywords: pipe(unlines, findJSDocKeywords, uniq, z => z.sort())(
+                  gen.lines
+                ),
+              }
             }
-            return {
-              ...gen,
-              summary: summarize(gen.lines),
-              links: matchLinks(gen.lines),
-              fileGroup: getFileGroup(structure),
-              addTo: addTo(structure),
-              structure,
-              keywords: pipe(unlines, findJSDocKeywords, uniq, z => z.sort())(
-                gen.lines
-              ),
-            }
-          }
-        )(block)
-      ),
-    [],
-    comments
-  )
+          )(block)
+        ),
+      [],
+      comments
+    )
+  }
 )
 
 // getExample :: List String -> Integer -> Integer -> String
-export const getExample = curry((file, end, i) =>
-  pipe(
+export const getExample = curry(function _getExample(file, end, i) {
+  return pipe(
     slice(i + 1, end),
     map(trimComment),
-    map(replace(/^\*$/g, '')),
+    map(when(pipe(trim, equals('*')), K(''))),
     unlines
   )(file)
-)
-
-const renderFile = curry((testMode, file) => {
-  const importsForTests = getImportsForTests(testMode, file)
+})
+const renderFileWith = curry(function _renderFileWith(
+  { renderer, postRender },
+  file
+) {
+  const importsForTests = getImportsForTests(file)
+  const info = { imports: importsForTests, file }
   return pipe(
-    map(testMode ? commentToJestTest : commentToMarkdown),
-    z => {
-      const out = !testMode
-        ? ['# ' + file.slugName, file.pageSummary, ...z]
-        : [
-            '// This test automatically generated by doctor-general.',
-            `// Sourced from '${file.filename}', edits to this file may be erased.`,
-            `import {
-  ${importsForTests.join(',\n  ')}
-} from '../${file.slugName}'\n`,
-            ...z,
-          ]
-      return out
-    },
-    join(testMode ? '\n' : '\n\n')
+    map(renderer(info)),
+    log.verbose('rendered'),
+    postRender(info),
+    log.verbose('postRendered')
   )(file.comments)
 })
 
-export const writeCommentsToFiles = curry(({ testMode, outputDir }, x) =>
-  pipe(
+export const writeCommentsToFiles = curry(function _writeCommentsToFiles(
+  { processor, outputDir },
+  x
+) {
+  const { output: $outputPath, postProcess: $postProcess = (_a, _b, c) => c } =
+    processor
+  return pipe(
     toPairs,
     map(([workspace, commentedFiles]) => {
       const filesToWrite = map(file => {
@@ -275,50 +317,36 @@ export const writeCommentsToFiles = curry(({ testMode, outputDir }, x) =>
           outputDir,
           workspace,
           // this part is the structure of the file we wanna write
-          cleanFilename(testMode, file)
+          $outputPath(file)
         )
-
-        return writeFileWithAutoPath(
-          filePathToWrite,
-          renderFile(testMode, file)
-        )
+        return pipe(
+          renderFileWith(processor),
+          writeFileWithAutoPath(filePathToWrite)
+        )(file)
       })(commentedFiles)
-      return testMode
-        ? filesToWrite
-        : filesToWrite.concat(
-            prepareMetaFiles(testMode, outputDir, workspace, commentedFiles)
-          )
+      return $postProcess(
+        { outputDir, workspace },
+        commentedFiles,
+        filesToWrite
+      )
     }),
     flatten,
     parallel(10)
   )(x)
+})
+
+export const renderComments = curry(
+  function _renderComments(processor, outputDir, x) {
+    log.comment('processor.group', processor.group)
+    return chain(
+      pipe(
+        groupBy(propOr('unknown', processor.group)),
+        writeCommentsToFiles({ processor, outputDir })
+      )
+    )(x)
+  }
 )
 
-export const renderComments = curry((testMode, outputDir, x) =>
-  chain(
-    pipe(
-      groupBy(propOr('unknown', testMode ? 'testPath' : 'workspace')),
-      tap(xxx =>
-        log.core(
-          `grouped ${testMode ? 'tests' : 'comments'}...`,
-          pipe(
-            toPairs,
-            map(
-              ([k, y]) =>
-                `\n${k}:\n - ${pipe(
-                  map(z => z.slugName),
-                  join('\n - ')
-                )(y)}`
-            ),
-            join('\n')
-          )(xxx)
-        )
-      ),
-      writeCommentsToFiles({ testMode, outputDir })
-    )
-  )(x)
-)
-
-export const processComments = curry((testMode, x) =>
-  (testMode ? filterAndStructureTests : filterAndStructureComments)(x)
-)
+export const processComments = curry(function _processComments(processor, x) {
+  return processor.process(x)
+})

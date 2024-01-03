@@ -1,4 +1,5 @@
 import { basename, extname } from 'node:path'
+
 import {
   unless,
   always as K,
@@ -17,20 +18,20 @@ import {
   uniq,
 } from 'ramda'
 import { readFile } from 'file-system'
+import { nthIndex, lines } from 'knot'
 import { isJSDocComment, addLineNumbers, groupContiguousBlocks } from './file'
 import { stripRelative } from './text'
-import { lines } from 'knot'
 import { objectifyComments } from './comment'
 
-const getAny = curry((def, keyPath, comments) =>
-  pipe(
+const getAny = curry(function _getAny(def, keyPath, comments) {
+  return pipe(
     map(pathOr(def, keyPath)),
     filter(identity),
     uniq,
     x => x.sort(),
     head
   )(comments)
-)
+})
 
 const getPageSummary = pipe(
   getAny('', ['structure', 'pageSummary']),
@@ -40,7 +41,15 @@ const getPageSummary = pipe(
 
 const getPageTitle = getAny('', ['structure', 'page'])
 
-export const parse = curry((root, filename, content) => {
+const getPackage = i => {
+  if (i.indexOf('/') > -1) {
+    const y = nthIndex('/', -2, i)
+    return y.slice(0, y.indexOf('/'))
+  }
+  return i
+}
+
+export const parse = curry(function _parse(root, filename, content) {
   const newName = stripRelative(filename)
   const slugName = basename(newName, extname(newName))
   return pipe(
@@ -59,6 +68,7 @@ export const parse = curry((root, filename, content) => {
         // List CommentBlock
         comments => ({
           slugName,
+          package: getPackage(newName),
           pageTitle: getPageTitle(comments),
           pageSummary: getPageSummary(comments),
           filename: newName,
@@ -74,9 +84,8 @@ export const parse = curry((root, filename, content) => {
   )(content)
 })
 
-// comments in pipe show current shape per step
-export const parseFile = curry((debugMode, root, filename) =>
-  pipe(
+export const parseFile = curry(function _parseFile(debugMode, root, filename) {
+  return pipe(
     // String
     readFile,
     // Future<Error, String>
@@ -91,10 +100,10 @@ export const parseFile = curry((debugMode, root, filename) =>
         ),
         unless(
           K(debugMode),
-          map(({ lines: _lines, ...rest }) => rest)
+          map(({ lines: __lines, ...rest }) => rest)
         )
       )(p.comments),
     }))
     // CommentedFile
   )(filename)
-)
+})

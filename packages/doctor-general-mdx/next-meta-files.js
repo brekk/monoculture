@@ -17,15 +17,19 @@ import {
   toPairs,
   pathOr,
 } from 'ramda'
+import { slugWord } from 'knot'
 import { writeFileWithAutoPath } from 'file-system'
-import { cleanFilename } from './file'
-import { capitalToKebab, stripLeadingHyphen } from './text'
 
 export const prepareMetaFiles = curry(
-  (testMode, outputDir, workspace, commentedFiles) =>
-    pipe(
+  function _prepareMetaFiles(outputDir, workspace, commentedFiles) {
+    return pipe(
       map(raw => [
-        pipe(cleanFilename(testMode), x => basename(x, '.mdx'), toLower)(raw),
+        pipe(
+          propOr('???', 'filename'),
+          slugWord,
+          x => basename(x, '.mdx'),
+          toLower
+        )(raw),
         pipe(
           propOr([], 'comments'),
           filter(pathOr(false, ['structure', 'name'])),
@@ -44,10 +48,9 @@ export const prepareMetaFiles = curry(
       map(
         pipe(
           sortBy(pathOr(0, ['order'])),
-          map(([title, { metaName }]) => [
-            pipe(capitalToKebab, stripLeadingHyphen, toLower)(title),
-            metaName,
-          ]),
+          // TODO: this broke when we moved away from consolidation in doctor-general,
+          // metaName should also yield to title, but this is a temp fix
+          map(([title, { metaName }]) => [metaName, metaName]),
           fromPairs
         )
       ),
@@ -59,4 +62,5 @@ export const prepareMetaFiles = curry(
         )
       )
     )(commentedFiles)
+  }
 )

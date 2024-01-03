@@ -1,4 +1,5 @@
 import {
+  is,
   equals,
   includes,
   length,
@@ -13,10 +14,27 @@ import {
 } from 'ramda'
 import { unlines } from 'knot'
 
-// trimComment :: String -> String
-export const trimComment = pipe(
-  trim,
-  when(startsWith('* '), slice(2, Infinity))
+export const safeTrim = when(is(String), trim)
+
+// trying to use `drgen` for autotesting is a cyclical disaster,
+// so we'll just manually copy these tests
+/**
+ * For strings which look like extended jsdoc comment line (e.g. ` * whatever`),
+ * eschew the comment decoration
+ * @name trimComment
+ * @signature String -> String
+ * @example
+ * ```js
+ * expect(trimComment('          * zipzop')).toEqual('zipzop')
+ * expect(trimComment(' * squiggle         ')).toEqual('squiggle')
+ * const input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)
+ * expect(trimComment(input)).toEqual(input)
+ * expect(trimComment(29292)).toEqual(29292)
+ * ```
+ */
+export const trimComment = when(
+  pipe(safeTrim, startsWith('* ')),
+  pipe(safeTrim, slice(2, Infinity))
 )
 
 export const trimSummary = pipe(
@@ -44,16 +62,10 @@ export const stripRelative = replace(/\.\.\/|\.\//g, '')
 
 export const capitalToKebab = s =>
   pipe(
+    replace(/[A-Z]/g, match => `-` + match),
     replace(/\//g, '-'),
     replace(/--/g, '-')
     // lowercaseFirst
-  )(s.replace(/[A-Z]/g, match => `-` + match))
+  )(s)
 
 export const stripLeadingHyphen = replace(/^-/g, '')
-
-export const slug = name => {
-  const slashPlus = name.lastIndexOf('/') + 1
-  return name.indexOf('.') > -1
-    ? name.slice(slashPlus, name.indexOf('.'))
-    : name.slice(slashPlus)
-}

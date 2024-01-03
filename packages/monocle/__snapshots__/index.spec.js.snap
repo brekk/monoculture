@@ -23,7 +23,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           5,
-          2,
+          4,
         ],
         [
           6,
@@ -31,7 +31,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           7,
-          1,
+          0,
         ],
         [
           8,
@@ -39,7 +39,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           9,
-          0,
+          1,
         ],
         [
           10,
@@ -47,7 +47,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           11,
-          0,
+          2,
         ],
         [
           12,
@@ -55,7 +55,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           13,
-          0,
+          1,
         ],
         [
           14,
@@ -67,11 +67,11 @@ exports[`monoprocessor 1`] = `
         ],
         [
           16,
-          1,
+          0,
         ],
         [
           17,
-          1,
+          0,
         ],
         [
           18,
@@ -95,7 +95,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           23,
-          2,
+          0,
         ],
         [
           24,
@@ -105,8 +105,96 @@ exports[`monoprocessor 1`] = `
           25,
           0,
         ],
+        [
+          26,
+          0,
+        ],
+        [
+          27,
+          0,
+        ],
+        [
+          28,
+          0,
+        ],
+        [
+          29,
+          0,
+        ],
+        [
+          30,
+          0,
+        ],
+        [
+          31,
+          0,
+        ],
+        [
+          32,
+          0,
+        ],
+        [
+          33,
+          0,
+        ],
+        [
+          34,
+          1,
+        ],
+        [
+          35,
+          1,
+        ],
+        [
+          36,
+          0,
+        ],
+        [
+          37,
+          0,
+        ],
+        [
+          38,
+          0,
+        ],
+        [
+          39,
+          0,
+        ],
+        [
+          40,
+          0,
+        ],
+        [
+          41,
+          2,
+        ],
+        [
+          42,
+          0,
+        ],
+        [
+          43,
+          0,
+        ],
+        [
+          44,
+          0,
+        ],
+        [
+          45,
+          0,
+        ],
+        [
+          46,
+          0,
+        ],
+        [
+          47,
+          0,
+        ],
       ],
-      "hash": "cecf9cfa2850eecfc09b728424354d72e4250e5c1838ee2f7cb0f0daaa144b4d",
+      "hash": "90b0977f3737cd068137030b563465322cf51495a253a76e5916e1ac658002c5",
       "name": "README.md",
     },
     "cli.js": {
@@ -564,7 +652,7 @@ exports[`monoprocessor 1`] = `
           0,
         ],
       ],
-      "hash": "d90d1a8245ef3c70484219ccb9c44c310d08a583bb02501e0a20d5e631b2b25a",
+      "hash": "df8134a04b0402fddcd2f958baddf5ce66a0cf0c5b9dc858ffc57b0a10dcf795",
       "name": "cli.js",
     },
     "config.js": {
@@ -926,8 +1014,466 @@ exports[`monoprocessor 1`] = `
           0,
         ],
       ],
-      "hash": "cd55fedb68dc8ac2ec4a1a53a0626e078d8773abefcc04ac3cc7af1115261474",
+      "hash": "763a77e313736b79748f3c5be1d4605fe4bc605add54b0d2254f27f797d7043e",
       "name": "examples/plugin-get-exports.js",
+    },
+    "examples/plugin-get-imported.js": {
+      "body": [
+        [
+          1,
+          0,
+        ],
+        [
+          2,
+          0,
+        ],
+        [
+          3,
+          0,
+        ],
+        [
+          4,
+          0,
+        ],
+        [
+          5,
+          0,
+        ],
+        [
+          6,
+          0,
+        ],
+        [
+          7,
+          0,
+        ],
+        [
+          8,
+          0,
+        ],
+        [
+          9,
+          0,
+        ],
+        [
+          10,
+          0,
+        ],
+        [
+          11,
+          1,
+        ],
+        [
+          12,
+          0,
+        ],
+        [
+          13,
+          0,
+        ],
+        [
+          14,
+          0,
+        ],
+        [
+          15,
+          0,
+        ],
+        [
+          16,
+          0,
+        ],
+        [
+          17,
+          0,
+        ],
+        [
+          18,
+          0,
+        ],
+        [
+          19,
+          0,
+        ],
+        [
+          20,
+          1,
+        ],
+        [
+          21,
+          0,
+        ],
+        [
+          22,
+          1,
+        ],
+        [
+          23,
+          1,
+        ],
+        [
+          24,
+          0,
+        ],
+        [
+          25,
+          0,
+        ],
+        [
+          26,
+          0,
+        ],
+        [
+          27,
+          1,
+        ],
+        [
+          28,
+          0,
+        ],
+        [
+          29,
+          1,
+        ],
+        [
+          30,
+          0,
+        ],
+        [
+          31,
+          0,
+        ],
+        [
+          32,
+          0,
+        ],
+        [
+          33,
+          1,
+        ],
+        [
+          34,
+          1,
+        ],
+        [
+          35,
+          0,
+        ],
+        [
+          36,
+          0,
+        ],
+        [
+          37,
+          0,
+        ],
+        [
+          38,
+          0,
+        ],
+        [
+          39,
+          0,
+        ],
+        [
+          40,
+          1,
+        ],
+        [
+          41,
+          1,
+        ],
+        [
+          42,
+          1,
+        ],
+        [
+          43,
+          1,
+        ],
+        [
+          44,
+          1,
+        ],
+        [
+          45,
+          1,
+        ],
+        [
+          46,
+          0,
+        ],
+        [
+          47,
+          1,
+        ],
+        [
+          48,
+          0,
+        ],
+        [
+          49,
+          0,
+        ],
+        [
+          50,
+          0,
+        ],
+        [
+          51,
+          0,
+        ],
+        [
+          52,
+          0,
+        ],
+        [
+          53,
+          0,
+        ],
+        [
+          54,
+          0,
+        ],
+        [
+          55,
+          1,
+        ],
+        [
+          56,
+          0,
+        ],
+        [
+          57,
+          0,
+        ],
+        [
+          58,
+          0,
+        ],
+        [
+          59,
+          0,
+        ],
+        [
+          60,
+          0,
+        ],
+        [
+          61,
+          0,
+        ],
+        [
+          62,
+          0,
+        ],
+        [
+          63,
+          0,
+        ],
+        [
+          64,
+          0,
+        ],
+        [
+          65,
+          0,
+        ],
+        [
+          66,
+          0,
+        ],
+        [
+          67,
+          1,
+        ],
+        [
+          68,
+          0,
+        ],
+        [
+          69,
+          1,
+        ],
+        [
+          70,
+          1,
+        ],
+        [
+          71,
+          1,
+        ],
+        [
+          72,
+          1,
+        ],
+        [
+          73,
+          0,
+        ],
+        [
+          74,
+          1,
+        ],
+        [
+          75,
+          1,
+        ],
+        [
+          76,
+          0,
+        ],
+        [
+          77,
+          0,
+        ],
+        [
+          78,
+          0,
+        ],
+        [
+          79,
+          0,
+        ],
+        [
+          80,
+          0,
+        ],
+        [
+          81,
+          0,
+        ],
+        [
+          82,
+          0,
+        ],
+        [
+          83,
+          0,
+        ],
+        [
+          84,
+          0,
+        ],
+        [
+          85,
+          0,
+        ],
+        [
+          86,
+          0,
+        ],
+        [
+          87,
+          0,
+        ],
+        [
+          88,
+          0,
+        ],
+        [
+          89,
+          0,
+        ],
+        [
+          90,
+          0,
+        ],
+        [
+          91,
+          0,
+        ],
+        [
+          92,
+          0,
+        ],
+        [
+          93,
+          0,
+        ],
+        [
+          94,
+          0,
+        ],
+        [
+          95,
+          0,
+        ],
+        [
+          96,
+          1,
+        ],
+        [
+          97,
+          1,
+        ],
+        [
+          98,
+          0,
+        ],
+        [
+          99,
+          0,
+        ],
+        [
+          100,
+          0,
+        ],
+        [
+          101,
+          0,
+        ],
+        [
+          102,
+          0,
+        ],
+        [
+          103,
+          0,
+        ],
+        [
+          104,
+          0,
+        ],
+        [
+          105,
+          0,
+        ],
+        [
+          106,
+          0,
+        ],
+        [
+          107,
+          0,
+        ],
+        [
+          108,
+          0,
+        ],
+        [
+          109,
+          0,
+        ],
+        [
+          110,
+          0,
+        ],
+        [
+          111,
+          0,
+        ],
+        [
+          112,
+          0,
+        ],
+        [
+          113,
+          0,
+        ],
+      ],
+      "hash": "bd85a2388b822d04e255137cf538a5853058d0c4b516a08acfeb4f3b1d2c9e9e",
+      "name": "examples/plugin-get-imported.js",
     },
     "examples/plugin-get-imports.js": {
       "body": [
@@ -991,8 +1537,12 @@ exports[`monoprocessor 1`] = `
           15,
           0,
         ],
+        [
+          16,
+          0,
+        ],
       ],
-      "hash": "98779a3a83f653180061a5c35a6650de76d2620f032cfe21bcc8bebfdc17b4a1",
+      "hash": "1bf3d8b3f4401c874059caeb10bcabd1464d5c63da3e198159aefb93649b0d19",
       "name": "examples/plugin-get-imports.js",
     },
     "examples/plugin-has-exports.js": {
@@ -1329,8 +1879,16 @@ exports[`monoprocessor 1`] = `
           22,
           0,
         ],
+        [
+          23,
+          0,
+        ],
+        [
+          24,
+          0,
+        ],
       ],
-      "hash": "6f3d4f9c146a7f4f6c54e23137035dac90f86a0ac2b7f417c6c697072d4b9436",
+      "hash": "2d46bcd25e17481ee7ea77146aa7ec28de58c00f0a791052e352460941665f90",
       "name": "examples/rulefile-test-run.toml",
     },
     "graph.svg": {
@@ -1765,6 +2323,28 @@ exports[`monoprocessor 1`] = `
       "hash": "af210769222c38f339d77fa8ac1638aead4c191818f39f1f5c754ada22a980be",
       "name": "jest.config.cjs",
     },
+    "log.js": {
+      "body": [
+        [
+          1,
+          1,
+        ],
+        [
+          2,
+          0,
+        ],
+        [
+          3,
+          2,
+        ],
+        [
+          4,
+          0,
+        ],
+      ],
+      "hash": "97c92175e3d025641201b1fdb1fbb7c7852f980f1b73890b4b8e07a7184ef2ba",
+      "name": "log.js",
+    },
     "package-scripts.cjs": {
       "body": [
         [
@@ -1905,11 +2485,11 @@ exports[`monoprocessor 1`] = `
         ],
         [
           35,
-          1,
+          0,
         ],
         [
           36,
-          0,
+          1,
         ],
         [
           37,
@@ -1971,8 +2551,12 @@ exports[`monoprocessor 1`] = `
           51,
           0,
         ],
+        [
+          52,
+          0,
+        ],
       ],
-      "hash": "cb508146748ce89a70fc1e66982441a82c714d514275c9b49b57fd79b00ca0b7",
+      "hash": "e5654bcbb97cb55f0a6becc133f3ae25cd55142e9bc265230cab7885018eff0b",
       "name": "package-scripts.cjs",
     },
     "package.json": {
@@ -2119,7 +2703,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           36,
-          1,
+          0,
         ],
         [
           37,
@@ -2127,7 +2711,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           38,
-          0,
+          1,
         ],
         [
           39,
@@ -2165,8 +2749,20 @@ exports[`monoprocessor 1`] = `
           47,
           0,
         ],
+        [
+          48,
+          0,
+        ],
+        [
+          49,
+          0,
+        ],
+        [
+          50,
+          0,
+        ],
       ],
-      "hash": "f58c58469a7aafdaf453c4caf867fb922747bf8f2cc8071869715e7d6b86a1b0",
+      "hash": "6a81b5ad606ee1a638b2c554024d09ced24b2b9d49ae2857bdb9bc2a4d2add98",
       "name": "package.json",
     },
     "reader.js": {
@@ -2281,11 +2877,11 @@ exports[`monoprocessor 1`] = `
         ],
         [
           28,
-          1,
+          0,
         ],
         [
           29,
-          0,
+          1,
         ],
         [
           30,
@@ -2329,7 +2925,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           40,
-          2,
+          0,
         ],
         [
           41,
@@ -2337,7 +2933,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           42,
-          0,
+          2,
         ],
         [
           43,
@@ -2345,7 +2941,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           44,
-          1,
+          0,
         ],
         [
           45,
@@ -2357,15 +2953,15 @@ exports[`monoprocessor 1`] = `
         ],
         [
           47,
-          1,
+          0,
         ],
         [
           48,
-          0,
+          1,
         ],
         [
           49,
-          0,
+          1,
         ],
         [
           50,
@@ -2377,7 +2973,7 @@ exports[`monoprocessor 1`] = `
         ],
         [
           52,
-          2,
+          0,
         ],
         [
           53,
@@ -2385,11 +2981,11 @@ exports[`monoprocessor 1`] = `
         ],
         [
           54,
-          0,
+          2,
         ],
         [
           55,
-          1,
+          0,
         ],
         [
           56,
@@ -2401,71 +2997,66 @@ exports[`monoprocessor 1`] = `
         ],
         [
           58,
+          1,
+        ],
+        [
+          59,
+          0,
+        ],
+        [
+          60,
+          0,
+        ],
+        [
+          61,
+          0,
+        ],
+        [
+          62,
           0,
         ],
       ],
-      "hash": "d407873d6c8d31716c263d133720e5f34356dbfafdcbdaed734f6ee341791286",
+      "hash": "a2f3d3e57dd1c45095d85f4c002ac6664a6abbdc2e92720939a32ef533c24dfe",
       "name": "reader.js",
-    },
-    "trace.js": {
-      "body": [
-        [
-          1,
-          1,
-        ],
-        [
-          2,
-          0,
-        ],
-        [
-          3,
-          2,
-        ],
-        [
-          4,
-          0,
-        ],
-      ],
-      "hash": "97c92175e3d025641201b1fdb1fbb7c7852f980f1b73890b4b8e07a7184ef2ba",
-      "name": "trace.js",
     },
   },
   "wordcount": {
-    "README.md": 210,
-    "cli.js": 1068,
+    "README.md": 277,
+    "cli.js": 1070,
     "config.js": 351,
     "examples/plugin-c-words.js": 32,
     "examples/plugin-get-exports.js": 222,
-    "examples/plugin-get-imports.js": 88,
+    "examples/plugin-get-imported.js": 1221,
+    "examples/plugin-get-imports.js": 96,
     "examples/plugin-has-exports.js": 36,
     "examples/plugin-has-imports.js": 42,
     "examples/plugin-wordcount.js": 68,
     "examples/rulefile-test-run.json": 90,
-    "examples/rulefile-test-run.toml": 54,
+    "examples/rulefile-test-run.toml": 72,
     "graph.svg": 438,
     "hash.js": 27,
     "index.js": 9,
     "jest.config.cjs": 12,
-    "package-scripts.cjs": 345,
-    "package.json": 289,
-    "reader.js": 331,
-    "trace.js": 16,
+    "log.js": 16,
+    "package-scripts.cjs": 356,
+    "package.json": 312,
+    "reader.js": 387,
   },
 }
 `;
 
 exports[`readAll 1`] = `
 [
-  "d90d1a8245ef3c70484219ccb9c44c310d08a583bb02501e0a20d5e631b2b25a",
+  "df8134a04b0402fddcd2f958baddf5ce66a0cf0c5b9dc858ffc57b0a10dcf795",
   "8d8164b8400b0d41daf95e4bc7904de22a7b4fdef1440a00a0fe61e4640d5474",
   "fa3c73824fe4e8bbdedcb0b6349190cf87a061232f53c86e5ee1c3011606f469",
   "5cd99d9df3d8e4c2fcc83cf248314a4836c71d88f8d6e4fdc0d84c4e8c7b029d",
   "f5ca9070a68f19933e3cd35a10e18013655b9b9a9c1b78ec2c7262a98c2fee17",
   "af210769222c38f339d77fa8ac1638aead4c191818f39f1f5c754ada22a980be",
-  "cb508146748ce89a70fc1e66982441a82c714d514275c9b49b57fd79b00ca0b7",
-  "f58c58469a7aafdaf453c4caf867fb922747bf8f2cc8071869715e7d6b86a1b0",
-  "d407873d6c8d31716c263d133720e5f34356dbfafdcbdaed734f6ee341791286",
-  "cecf9cfa2850eecfc09b728424354d72e4250e5c1838ee2f7cb0f0daaa144b4d",
   "97c92175e3d025641201b1fdb1fbb7c7852f980f1b73890b4b8e07a7184ef2ba",
+  "e5654bcbb97cb55f0a6becc133f3ae25cd55142e9bc265230cab7885018eff0b",
+  "6a81b5ad606ee1a638b2c554024d09ced24b2b9d49ae2857bdb9bc2a4d2add98",
+  "a2f3d3e57dd1c45095d85f4c002ac6664a6abbdc2e92720939a32ef533c24dfe",
+  "90b0977f3737cd068137030b563465322cf51495a253a76e5916e1ac658002c5",
 ]
 `;

@@ -1,14 +1,7 @@
 import {
-  filter,
-  pathOr,
-  path,
-  head,
-  defaultTo,
-  toLower,
   trim,
   anyPass,
   startsWith,
-  curry,
   addIndex,
   map,
   match,
@@ -19,7 +12,6 @@ import {
   replace,
   init,
 } from 'ramda'
-import { slug, stripLeadingHyphen, capitalToKebab } from './text'
 
 // addLineNumbers :: List String -> List Comment
 export const addLineNumbers = addIndex(map)((a, i) => [i, a])
@@ -47,39 +39,8 @@ export const groupContiguousBlocks = reduce((agg, raw) => {
   return agg.concat([[raw]])
 }, [])
 
-export const combineFiles = curry((leftToRight, a, b) =>
-  !leftToRight
-    ? combineFiles(true, b, a)
-    : {
-        ...a,
-        ...b,
-        comments: [...a.comments, ...b.comments],
-        links: [...a.links, ...b.links],
-      }
-)
-
 // isJSDocComment :: String -> Boolean
 export const isJSDocComment = pipe(
   trim,
   anyPass([startsWith('/**'), startsWith('*'), startsWith('*/')])
-)
-
-export const pullPageTitleFromAnyComment = pipe(
-  filter(pathOr(false, ['structure', 'page'])),
-  map(path(['structure', 'page'])),
-  head,
-  defaultTo(''),
-  replace(/\s/g, '-'),
-  defaultTo(false)
-)
-
-export const cleanFilename = curry(
-  (testMode, { fileGroup, filename, comments }) => {
-    const title = pullPageTitleFromAnyComment(comments)
-    const sliced = title || slug(filename)
-    const result = toLower(capitalToKebab(sliced)) + '.mdx'
-    return testMode
-      ? ''
-      : stripLeadingHyphen((fileGroup ? fileGroup + '/' : '') + result)
-  }
 )

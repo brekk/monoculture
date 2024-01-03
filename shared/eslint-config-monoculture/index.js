@@ -40,7 +40,7 @@ module.exports = {
     'no-unused-vars': 0,
     '@typescript-eslint/no-unused-vars': [
       1,
-      { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
+      { varsIgnorePattern: '^__', argsIgnorePattern: '^__' },
     ],
     'no-unused-expressions': 2,
     'no-sequences': 2,
@@ -73,7 +73,8 @@ module.exports = {
     ],
     'object-shorthand': 2,
     // jsdoc
-    // we are using jsdoc in concert with doctor-general and typescript, so we can turn some rules off
+    // we are using jsdoc in concert with doctor-general and typescript,
+    // so we can turn some rules off
     'jsdoc/check-tag-names': 0,
     'jsdoc/tag-lines': 0,
     'jsdoc/require-jsdoc': 0,
@@ -87,6 +88,7 @@ module.exports = {
     'jsdoc/require-param-type': 0,
     'jsdoc/require-example': 2,
     'jsdoc/no-undefined-types': 0,
+    'jsdoc/no-types': 0,
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': [
       'warn',

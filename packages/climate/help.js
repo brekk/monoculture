@@ -29,14 +29,16 @@ export const invalidHelpConfig = key => {
 }
 
 // failIfMissingFlag :: String -> String -> String
-export const failIfMissingFlag = curry((env, k, raw) =>
-  env !== 'production' && raw === '???' ? invalidHelpConfig(k) : raw
+export const failIfMissingFlag = curry(
+  function _failIfMissingFlag(env, k, raw) {
+    return env !== 'production' && raw === '???' ? invalidHelpConfig(k) : raw
+  }
 )
 
 const pad = z => ` ${z} `
 
 export const generateHelp = curry(
-  (showColor, $details, helpConfig, yargsConfig) => {
+  function _generateHelp(showColor, $details, helpConfig, yargsConfig) {
     const {
       showName = true,
       postscript: $postscript = '',

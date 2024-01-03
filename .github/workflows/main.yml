@@ -109,6 +109,8 @@ jobs:
             ### 🦠 Monoculture
             
             #### Coverage summary
+            
+            _Legend_: (Statements / Branches / Functions / Lines)
 
             ${{ needs.test.outputs.summary }}
 

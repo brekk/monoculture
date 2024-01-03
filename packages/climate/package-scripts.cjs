@@ -5,13 +5,15 @@ const INPUT = 'climate.js'
 
 module.exports = {
   scripts: {
-    autotest: sd(
-      `drgen -i ${['./builder.js', './help.js'].join(
-        ' '
-      )} -o autotests --test-mode`,
-      'use doctor-general to create tests for us!'
-    ),
-
+    autotest: {
+      ...sd('nps -c ./package-scripts.cjs autotest.rebuild test'),
+      rebuild: sd(
+        `drgen -i ${['./builder.js', './help.js'].join(
+          ' '
+        )} -o autotests --processor doctor-general-jest`,
+        'use doctor-general to create tests for us!'
+      ),
+    },
     lint: sd('eslint --fix .', 'lint!'),
     test: {
       ...sd('jest --coverage --verbose', 'test!'),

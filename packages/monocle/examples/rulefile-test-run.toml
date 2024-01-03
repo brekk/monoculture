@@ -1,3 +1,4 @@
+# we put these in random order to prove that the topo sort is working
 plugins = [
   "../../robot-tourist/dist/monocle-plugin-main.cjs",
   "./plugin-get-imports.js",
@@ -5,6 +6,7 @@ plugins = [
   "./plugin-has-exports.js",
   "./plugin-get-exports.js",
   "../../robot-tourist/dist/monocle-plugin-simple.cjs",
+  "./plugin-get-imported.js",
   "./plugin-has-imports.js",
   "./plugin-wordcount.js",
 ]

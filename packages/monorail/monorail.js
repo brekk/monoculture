@@ -1,4 +1,3 @@
-export * from './async'
 export * from './list'
 export * from './runner'
 export * from './sort'

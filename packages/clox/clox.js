@@ -81,41 +81,43 @@ export const SIDES = [
 ]
 export const isOdd = x => x % 2 === 1
 
-export const makeTitle = curry((text, horizontal, alignment) => {
-  const textWidth = strlen(text)
-  return pipe(
-    cond([
-      [equals('left'), () => text + horizontal.slice(textWidth)],
-      [equals('right'), () => horizontal.slice(textWidth) + text],
-      [
-        T,
-        () => {
-          horizontal = horizontal.slice(textWidth)
+export const makeTitle = curry(
+  function _makeTitle(text, horizontal, alignment) {
+    const textWidth = strlen(text)
+    return pipe(
+      cond([
+        [equals('left'), () => text + horizontal.slice(textWidth)],
+        [equals('right'), () => horizontal.slice(textWidth) + text],
+        [
+          T,
+          () => {
+            horizontal = horizontal.slice(textWidth)
 
-          if (isOdd(strlen(horizontal))) {
-            // when length is odd
-            horizontal = horizontal.slice(Math.floor(strlen(horizontal) / 2))
-            return horizontal.slice(1) + text + horizontal
-          } else {
-            horizontal = horizontal.slice(strlen(horizontal) / 2)
-            return horizontal + text + horizontal
-          }
-        },
-      ],
-    ])
-  )(alignment)
-})
+            if (isOdd(strlen(horizontal))) {
+              // when length is odd
+              horizontal = horizontal.slice(Math.floor(strlen(horizontal) / 2))
+              return horizontal.slice(1) + text + horizontal
+            } else {
+              horizontal = horizontal.slice(strlen(horizontal) / 2)
+              return horizontal + text + horizontal
+            }
+          },
+        ],
+      ])
+    )(alignment)
+  }
+)
 
-export const enpad = curry(({ align, max, longest }, i) =>
-  align === 'center'
+export const enpad = curry(function _enpad({ align, max, longest }, i) {
+  return align === 'center'
     ? repad((max - longest) / 2) + i
     : align === 'right'
       ? repad(max - longest) + i
       : '' + i
-)
+})
 
-const addNewLines = curry((max, align, lx) =>
-  reduce(
+const addNewLines = curry(function _addNewLines(max, align, lx) {
+  return reduce(
     (newLines, line) => {
       const paddedLines = pipe(
         ansiWrap($, max, { hard: true }),
@@ -134,16 +136,16 @@ const addNewLines = curry((max, align, lx) =>
     [],
     lx
   )
-)
-const realign = curry(({ max, textWidth }, align, linex) =>
-  map(line =>
+})
+const realign = curry(function _realign({ max, textWidth }, align, linex) {
+  return map(line =>
     align === 'center'
       ? repad((max - textWidth) / 2) + line
       : align === 'right'
         ? repad(max - textWidth) + line
         : line
   )(linex)
-)
+})
 
 const makeContentText = (text, { padding, width, align, height }) => {
   text = ansiAlign(text, { align })
@@ -193,7 +195,7 @@ const makeContentText = (text, { padding, width, align, height }) => {
   return linex.join(NEWLINE)
 }
 
-const colorizeBorder = curry((options, border) => {
+const colorizeBorder = curry(function _colorizeBorder(options, border) {
   const { chalk } = options
   const newBorder = options.borderColor
     ? getColorFn(options.borderColor)(border)
@@ -201,17 +203,17 @@ const colorizeBorder = curry((options, border) => {
   return options.dimBorder ? chalk.dim(newBorder) : newBorder
 })
 
-const colorizeContent = curry((options, content) =>
-  options.backgroundColor
+const colorizeContent = curry(function _colorizeContent(options, content) {
+  return options.backgroundColor
     ? getBGColorFn(options.chalk, options.backgroundColor)(content)
     : content
-)
-const minimumEdge = curry((field, ox) =>
-  when(propOr(false, field), o => {
+})
+const minimumEdge = curry(function _minimumEdge(field, ox) {
+  return when(propOr(false, field), o => {
     o[field] = Math.max(1, o[field] - getBorderWidth(o.borderStyle))
     return o
   })(ox)
-)
+})
 
 const sanitizeOptions = pipe(
   when(
@@ -239,14 +241,17 @@ const sanitizeOptions = pipe(
   minimumEdge('height')
 )
 
-const formatWithPointer = curry(
-  (char, selector, { [selector]: title, borderStyle, padTitle, chars }) =>
-    borderStyle === NONE
-      ? title
-      : padTitle
-        ? ` ${title} `
-        : `${chars[char]}${title}${chars[char]}`
-)
+const formatWithPointer = curry(function _formatWithPointer(
+  char,
+  selector,
+  { [selector]: title, borderStyle, padTitle, chars }
+) {
+  return borderStyle === NONE
+    ? title
+    : padTitle
+      ? ` ${title} `
+      : `${chars[char]}${title}${chars[char]}`
+})
 
 const formatTitle = formatWithPointer('top', 'title')
 const formatSubTitle = formatWithPointer('bottom', 'subtitle')
@@ -258,27 +263,24 @@ export const strepeat = toRepeat =>
 
 const repad = strepeat(PAD)
 
-const getLeftMarginByAlignment = curry(
-  (columns, contentWidth, { borderStyle, margin, float }) =>
-    float === 'center'
+const getLeftMarginByAlignment = curry(function _getLeftMarginByAlignment(
+  columns,
+  contentWidth,
+  { borderStyle, margin, float }
+) {
+  return float === 'center'
+    ? repad(
+        Math.max((columns - contentWidth - getBorderWidth(borderStyle)) / 2, 0)
+      )
+    : float === 'right'
       ? repad(
           Math.max(
-            (columns - contentWidth - getBorderWidth(borderStyle)) / 2,
+            columns - contentWidth - margin.right - getBorderWidth(borderStyle),
             0
           )
         )
-      : float === 'right'
-        ? repad(
-            Math.max(
-              columns -
-                contentWidth -
-                margin.right -
-                getBorderWidth(borderStyle),
-              0
-            )
-          )
-        : repad(margin.left)
-)
+      : repad(margin.left)
+})
 const reline = strepeat(NEWLINE)
 
 const processContent = raw =>
@@ -295,8 +297,7 @@ const processContent = raw =>
       [
         ({ borderStyle, title }) => borderStyle !== NONE || title,
         opts => {
-          const { marginLeft, contentWidth, title, chars, align, titleAlign } =
-            opts
+          const { marginLeft, contentWidth, title, chars, titleAlign } = opts
           const retop = strepeat(chars.top)
           return (
             colorizeBorder(
@@ -332,14 +333,8 @@ const processContent = raw =>
       [
         ({ subtitle, borderStyle }) => subtitle || borderStyle !== NONE,
         opts => {
-          const {
-            marginLeft,
-            contentWidth,
-            subtitle,
-            chars,
-            align,
-            subtitleAlign,
-          } = opts
+          const { marginLeft, contentWidth, subtitle, chars, subtitleAlign } =
+            opts
           const rebottom = strepeat(chars.bottom)
           return colorizeBorder(
             opts,
@@ -362,8 +357,8 @@ const boxContent = (content, contentWidth, opts) => {
   return processContent({ marginLeft, contentWidth, content, ...opts })
 }
 
-const noverflow = curry((what, dim, edges, opts) =>
-  pipe(
+const noverflow = curry(function _noverflow(what, dim, edges, opts) {
+  return pipe(
     when(
       o => {
         const pads = reduce((agg, x) => agg + opts[what][x], 0, edges)
@@ -380,14 +375,14 @@ const noverflow = curry((what, dim, edges, opts) =>
         )
     )
   )(opts)
-)
+})
 const noPaddingOverflow = noverflow('padding')
 
 const handlePadding = pipe(
   noPaddingOverflow('width', ['left', 'right']),
   noPaddingOverflow('height', ['top', 'bottom'])
 )
-const retitle = curry((w, title, formatter, opts) => {
+const retitle = curry(function _retitle(w, title, formatter, opts) {
   const cut = Math.max(0, w - 2)
   return cut ? formatter(opts) : opts
 })
@@ -411,12 +406,16 @@ const handleKeyedTitle = curry(
 const handleTitle = handleKeyedTitle('title', formatTitle)
 const handleSubTitle = handleKeyedTitle('subtitle', formatSubTitle)
 
-const boundMargin = curry((m, x) =>
-  pipe(Math.floor, z => Math.max(0, z))(x * m)
-)
+const boundMargin = curry(function _boundMargin(m, x) {
+  return pipe(Math.floor, z => Math.max(0, z))(x * m)
+})
 
-const handleMargin = curry(({ maxWidth, borderWidth, columns }, rewire, opts) =>
-  unless(
+const handleMargin = curry(function _handleMargin(
+  { maxWidth, borderWidth, columns },
+  rewire,
+  opts
+) {
+  return unless(
     () => rewire,
     pipe(
       when(
@@ -441,7 +440,7 @@ const handleMargin = curry(({ maxWidth, borderWidth, columns }, rewire, opts) =>
       })
     )
   )(opts)
-)
+})
 
 const size = curry((p, t) => widestLine(t) + p)
 
@@ -487,18 +486,20 @@ export const isHex = color => color.match(/^#(?:[0-f]{3}){1,2}$/i)
 export const isChalkColorValid = curry(
   (chalk, color) => typeof color === 'string' && (chalk[color] ?? isHex(color))
 )
-export const getColorFn = curry((chalk, color) =>
-  isHex(color) ? chalk.hex(color) : chalk[color]
-)
-export const getBGColorFn = curry((chalk, color) =>
-  isHex(color) ? chalk.bgHex(color) : chalk[camelCase(['bg', color])]
-)
-
-export const ensureValidColor = curry((chalk, key, color) => {
-  if (color && !isChalkColorValid(chalk, color)) {
-    throw new Error(`${color} is not a valid color (key: ${key})`)
-  }
+export const getColorFn = curry(function _getColorFn(chalk, color) {
+  return isHex(color) ? chalk.hex(color) : chalk[color]
 })
+export const getBGColorFn = curry(function _getBGColorFn(chalk, color) {
+  return isHex(color) ? chalk.bgHex(color) : chalk[camelCase(['bg', color])]
+})
+
+export const ensureValidColor = curry(
+  function _ensureValidColor(chalk, key, color) {
+    if (color && !isChalkColorValid(chalk, color)) {
+      throw new Error(`${color} is not a valid color (key: ${key})`)
+    }
+  }
+)
 export const DEFAULT_OPTIONS = {
   color: true,
   padding: 0,
@@ -521,7 +522,7 @@ export const DEFAULT_OPTIONS = {
   padTitle: false,
 }
 
-export const box = curry((opts, text) => {
+export const box = curry(function _box(opts, text) {
   opts = mergeRight(DEFAULT_OPTIONS)(opts)
 
   const chalk = new Chalk({ level: opts.color ? 2 : 0 })

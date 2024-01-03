@@ -39,6 +39,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@adobe/css-tools@npm:^4.3.2":
+  version: 4.3.2
+  resolution: "@adobe/css-tools@npm:4.3.2"
+  checksum: 296a03dd29f227c60500d2da8c7f64991fecf1d8b456ce2b4adb8cec7363d9c08b5b03f1463673fc8cbfe54b538745588e7a13c736d2dd14a80c01a20f127f39
+  languageName: node
+  linkType: hard
+
 "@ampproject/remapping@npm:^2.2.0":
   version: 2.2.1
   resolution: "@ampproject/remapping@npm:2.2.1"
@@ -2286,6 +2293,52 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/fontawesome-common-types@npm:6.5.1":
+  version: 6.5.1
+  resolution: "@fortawesome/fontawesome-common-types@npm:6.5.1"
+  checksum: afd4e6de0af60b1dc1557877f8f5fa95ee9f0fb0558581d25c46d24c2946bbcf54e351451d0ca2d6b043a283a66526450da7cf052a45702237b0c8383823a825
+  languageName: node
+  linkType: hard
+
+"@fortawesome/fontawesome-svg-core@npm:^6.5.1":
+  version: 6.5.1
+  resolution: "@fortawesome/fontawesome-svg-core@npm:6.5.1"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:6.5.1"
+  checksum: ba4f4f4f1a98a154ff89ed9a24c586809cd277e147d177fcdc5a76c0ea315087d5e383487d0658b9d27cfcb26971a45364f567c475b4e2df16cfb50cde4a83af
+  languageName: node
+  linkType: hard
+
+"@fortawesome/free-regular-svg-icons@npm:^6.5.1":
+  version: 6.5.1
+  resolution: "@fortawesome/free-regular-svg-icons@npm:6.5.1"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:6.5.1"
+  checksum: 6e35a9b054854484e11d6e5b99bd7a59d421b43a252ce1cdd2054080738f2a4d4b7219245ba3753bd506fd847a7b7ad8e1a24fca270fa51b0bd9299ccc23401c
+  languageName: node
+  linkType: hard
+
+"@fortawesome/free-solid-svg-icons@npm:^6.5.1":
+  version: 6.5.1
+  resolution: "@fortawesome/free-solid-svg-icons@npm:6.5.1"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:6.5.1"
+  checksum: 4874dca5780b74097a5ee8cb86eced74a61b175b6a0b1e5a963b932f6e87f98485d50b9bca208738316e0bccf4cadbea73ecb5678c9ba8d85f2f9f7cb455fd20
+  languageName: node
+  linkType: hard
+
+"@fortawesome/react-fontawesome@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@fortawesome/react-fontawesome@npm:0.2.0"
+  dependencies:
+    prop-types: "npm:^15.8.1"
+  peerDependencies:
+    "@fortawesome/fontawesome-svg-core": ~1 || ~6
+    react: ">=16.3"
+  checksum: cf1bd3840dfe1b39d2d5ee92ac49ba3aabad95d05dd6374368a5a1e5f140c8e497d11599290cb70afc6c856bb3228628269199e9659ce8f3132692a2d1e464a5
+  languageName: node
+  linkType: hard
+
 "@hapi/hoek@npm:^11.0.2":
   version: 11.0.4
   resolution: "@hapi/hoek@npm:11.0.4"
@@ -2595,19 +2648,6 @@ __metadata:
     slash: "npm:^3.0.0"
     write-file-atomic: "npm:^4.0.2"
   checksum: 7f4a7f73dcf45dfdf280c7aa283cbac7b6e5a904813c3a93ead7e55873761fc20d5c4f0191d2019004fac6f55f061c82eb3249c2901164ad80e362e7a7ede5a6
-  languageName: node
-  linkType: hard
-
-"@jest/types@npm:^26.6.2":
-  version: 26.6.2
-  resolution: "@jest/types@npm:26.6.2"
-  dependencies:
-    "@types/istanbul-lib-coverage": "npm:^2.0.0"
-    "@types/istanbul-reports": "npm:^3.0.0"
-    "@types/node": "npm:*"
-    "@types/yargs": "npm:^15.0.0"
-    chalk: "npm:^4.0.0"
-  checksum: 5b9b957f38a002895eb04bbb8c3dda6fccce8e2551f3f44b02f1f43063a78e8bedce73cd4330b53ede00ae005de5cd805982fbb2ec6ab9feacf96344240d5db2
   languageName: node
   linkType: hard
 
@@ -3259,9 +3299,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/core-darwin-arm64@npm:1.3.102":
+  version: 1.3.102
+  resolution: "@swc/core-darwin-arm64@npm:1.3.102"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@swc/core-darwin-x64@npm:1.3.101":
   version: 1.3.101
   resolution: "@swc/core-darwin-x64@npm:1.3.101"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@swc/core-darwin-x64@npm:1.3.102":
+  version: 1.3.102
+  resolution: "@swc/core-darwin-x64@npm:1.3.102"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
@@ -3273,9 +3327,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/core-linux-arm-gnueabihf@npm:1.3.102":
+  version: 1.3.102
+  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.3.102"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
 "@swc/core-linux-arm64-gnu@npm:1.3.101":
   version: 1.3.101
   resolution: "@swc/core-linux-arm64-gnu@npm:1.3.101"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-arm64-gnu@npm:1.3.102":
+  version: 1.3.102
+  resolution: "@swc/core-linux-arm64-gnu@npm:1.3.102"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
@@ -3287,9 +3355,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/core-linux-arm64-musl@npm:1.3.102":
+  version: 1.3.102
+  resolution: "@swc/core-linux-arm64-musl@npm:1.3.102"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
 "@swc/core-linux-x64-gnu@npm:1.3.101":
   version: 1.3.101
   resolution: "@swc/core-linux-x64-gnu@npm:1.3.101"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-x64-gnu@npm:1.3.102":
+  version: 1.3.102
+  resolution: "@swc/core-linux-x64-gnu@npm:1.3.102"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
@@ -3301,9 +3383,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/core-linux-x64-musl@npm:1.3.102":
+  version: 1.3.102
+  resolution: "@swc/core-linux-x64-musl@npm:1.3.102"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
 "@swc/core-win32-arm64-msvc@npm:1.3.101":
   version: 1.3.101
   resolution: "@swc/core-win32-arm64-msvc@npm:1.3.101"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@swc/core-win32-arm64-msvc@npm:1.3.102":
+  version: 1.3.102
+  resolution: "@swc/core-win32-arm64-msvc@npm:1.3.102"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
@@ -3315,9 +3411,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/core-win32-ia32-msvc@npm:1.3.102":
+  version: 1.3.102
+  resolution: "@swc/core-win32-ia32-msvc@npm:1.3.102"
+  conditions: os=win32 & cpu=ia32
+  languageName: node
+  linkType: hard
+
 "@swc/core-win32-x64-msvc@npm:1.3.101":
   version: 1.3.101
   resolution: "@swc/core-win32-x64-msvc@npm:1.3.101"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@swc/core-win32-x64-msvc@npm:1.3.102":
+  version: 1.3.102
+  resolution: "@swc/core-win32-x64-msvc@npm:1.3.102"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -3368,6 +3478,52 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/core@npm:^1.3.95":
+  version: 1.3.102
+  resolution: "@swc/core@npm:1.3.102"
+  dependencies:
+    "@swc/core-darwin-arm64": "npm:1.3.102"
+    "@swc/core-darwin-x64": "npm:1.3.102"
+    "@swc/core-linux-arm-gnueabihf": "npm:1.3.102"
+    "@swc/core-linux-arm64-gnu": "npm:1.3.102"
+    "@swc/core-linux-arm64-musl": "npm:1.3.102"
+    "@swc/core-linux-x64-gnu": "npm:1.3.102"
+    "@swc/core-linux-x64-musl": "npm:1.3.102"
+    "@swc/core-win32-arm64-msvc": "npm:1.3.102"
+    "@swc/core-win32-ia32-msvc": "npm:1.3.102"
+    "@swc/core-win32-x64-msvc": "npm:1.3.102"
+    "@swc/counter": "npm:^0.1.1"
+    "@swc/types": "npm:^0.1.5"
+  peerDependencies:
+    "@swc/helpers": ^0.5.0
+  dependenciesMeta:
+    "@swc/core-darwin-arm64":
+      optional: true
+    "@swc/core-darwin-x64":
+      optional: true
+    "@swc/core-linux-arm-gnueabihf":
+      optional: true
+    "@swc/core-linux-arm64-gnu":
+      optional: true
+    "@swc/core-linux-arm64-musl":
+      optional: true
+    "@swc/core-linux-x64-gnu":
+      optional: true
+    "@swc/core-linux-x64-musl":
+      optional: true
+    "@swc/core-win32-arm64-msvc":
+      optional: true
+    "@swc/core-win32-ia32-msvc":
+      optional: true
+    "@swc/core-win32-x64-msvc":
+      optional: true
+  peerDependenciesMeta:
+    "@swc/helpers":
+      optional: true
+  checksum: e87bf302b3e6e7c0a6cf6abb001e196f9461fa8fdfc20c6dcef217f50298f31e81aed4ff7402833470241dccd35d354e4e17ac56d0e551792735aefeb4604871
+  languageName: node
+  linkType: hard
+
 "@swc/counter@npm:^0.1.1":
   version: 0.1.2
   resolution: "@swc/counter@npm:0.1.2"
@@ -3384,7 +3540,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/jest@npm:0.2.29":
+"@swc/jest@npm:0.2.29, @swc/jest@npm:^0.2.29":
   version: 0.2.29
   resolution: "@swc/jest@npm:0.2.29"
   dependencies:
@@ -3461,6 +3617,36 @@ __metadata:
     vitest:
       optional: true
   checksum: f3643a56fcd970b5c7e8fd10faf3c4817d8ab0e74fb1198d726643bdc5ac675ceaac3b0068c5b4fbad254470e8f98ed50028741de875a29ceaa2f854570979c9
+  languageName: node
+  linkType: hard
+
+"@testing-library/jest-dom@npm:^6.1.4":
+  version: 6.1.6
+  resolution: "@testing-library/jest-dom@npm:6.1.6"
+  dependencies:
+    "@adobe/css-tools": "npm:^4.3.2"
+    "@babel/runtime": "npm:^7.9.2"
+    aria-query: "npm:^5.0.0"
+    chalk: "npm:^3.0.0"
+    css.escape: "npm:^1.5.1"
+    dom-accessibility-api: "npm:^0.5.6"
+    lodash: "npm:^4.17.15"
+    redent: "npm:^3.0.0"
+  peerDependencies:
+    "@jest/globals": ">= 28"
+    "@types/jest": ">= 28"
+    jest: ">= 28"
+    vitest: ">= 0.32"
+  peerDependenciesMeta:
+    "@jest/globals":
+      optional: true
+    "@types/jest":
+      optional: true
+    jest:
+      optional: true
+    vitest:
+      optional: true
+  checksum: f98f79f3e470517469c86947d0ff1bb83ac2e59fd2a29728ab306eca5fba63c948084ec06b7b531642e6002d1f0211d918c298c628f0d386c0ef63ba881c47ba
   languageName: node
   linkType: hard
 
@@ -3913,15 +4099,6 @@ __metadata:
   version: 21.0.0
   resolution: "@types/yargs-parser@npm:21.0.0"
   checksum: cb89f3bb2e8002f1479a65a934e825be4cc18c50b350bbc656405d41cf90b8a299b105e7da497d7eb1aa460472a07d1e5a389f3af0862f1d1252279cfcdd017c
-  languageName: node
-  linkType: hard
-
-"@types/yargs@npm:^15.0.0":
-  version: 15.0.19
-  resolution: "@types/yargs@npm:15.0.19"
-  dependencies:
-    "@types/yargs-parser": "npm:*"
-  checksum: 9fe9b8645304a628006cbba2d1990fb015e2727274d0e3853f321a379a1242d1da2c15d2f56cff0d4313ae94f0383ccf834c3bded9fb3589608aefb3432fcf00
   languageName: node
   linkType: hard
 
@@ -4932,7 +5109,6 @@ __metadata:
     chalk: "npm:5.3.0"
     climate: "workspace:packages/climate"
     dependency-tree: "npm:10.0.9"
-    doctor-general-cli: "workspace:tools/doctor-general-cli"
     dotenv-cli: "npm:7.3.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     file-system: "workspace:packages/file-system"
@@ -5356,13 +5532,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ci-info@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "ci-info@npm:2.0.0"
-  checksum: 8c5fa3830a2bcee2b53c2e5018226f0141db9ec9f7b1e27a5c57db5512332cde8a0beb769bcbaf0d8775a78afbf2bb841928feca4ea6219638a5b088f9884b46
-  languageName: node
-  linkType: hard
-
 "ci-info@npm:^3.2.0":
   version: 3.8.0
   resolution: "ci-info@npm:3.8.0"
@@ -5424,6 +5593,13 @@ __metadata:
   version: 2.9.1
   resolution: "cli-spinners@npm:2.9.1"
   checksum: c9b1152bd387e5b76823bdee6f19079c4017994d352627216e5d3dab9220a8402514519ad96a0a12120b80752fead98d1e7a7a5f56ce32125f92778ef47bdd8c
+  languageName: node
+  linkType: hard
+
+"cli-spinners@npm:^2.9.2":
+  version: 2.9.2
+  resolution: "cli-spinners@npm:2.9.2"
+  checksum: 907a1c227ddf0d7a101e7ab8b300affc742ead4b4ebe920a5bf1bc6d45dce2958fcd195eb28fa25275062fe6fa9b109b93b63bc8033396ed3bcb50297008b3a3
   languageName: node
   linkType: hard
 
@@ -7062,7 +7238,7 @@ __metadata:
     climate: "workspace:packages/climate"
     climate-json: "workspace:packages/climate-json"
     climate-toml: "workspace:packages/climate-toml"
-    doctor-general-cli: "workspace:tools/doctor-general-cli"
+    doctor-general-cli: "portal:../doctor-general-cli"
     dotenv-cli: "npm:7.3.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     file-system: "workspace:packages/file-system"
@@ -7093,6 +7269,10 @@ __metadata:
     "@chakra-ui/system": "npm:2.6.2"
     "@emotion/react": "npm:11.11.1"
     "@emotion/styled": "npm:11.11.0"
+    "@fortawesome/fontawesome-svg-core": "npm:^6.5.1"
+    "@fortawesome/free-regular-svg-icons": "npm:^6.5.1"
+    "@fortawesome/free-solid-svg-icons": "npm:^6.5.1"
+    "@fortawesome/react-fontawesome": "npm:^0.2.0"
     "@mdi/js": "npm:7.3.67"
     "@testing-library/dom": "npm:9.3.3"
     "@testing-library/jest-dom": "npm:6.1.5"
@@ -7101,6 +7281,7 @@ __metadata:
     "@types/jest": "npm:29.5.11"
     "@types/react": "npm:18.2.45"
     doctor-general-cli: "workspace:tools/doctor-general-cli"
+    doctor-general-mdx: "workspace:packages/doctor-general-mdx"
     dotenv-cli: "npm:7.3.0"
     eslint: "npm:8.56.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
@@ -7123,6 +7304,66 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"doctor-general-cli@portal:../../tools/doctor-general-cli::locator=inherent%40workspace%3Apackages%2Finherent":
+  version: 0.0.0-use.local
+  resolution: "doctor-general-cli@portal:../../tools/doctor-general-cli::locator=inherent%40workspace%3Apackages%2Finherent"
+  dependencies:
+    climate: "workspace:packages/climate"
+    doctor-general: "workspace:packages/doctor-general"
+    inherent: "workspace:packages/inherent"
+    kiddo: "workspace:packages/kiddo"
+    ramda: "npm:0.29.1"
+  bin:
+    doctor-general: ./dist/doctor-general.cjs
+    drgen: ./dist/doctor-general.cjs
+  languageName: node
+  linkType: soft
+
+"doctor-general-cli@portal:../../tools/doctor-general-cli::locator=knot%40workspace%3Apackages%2Fknot":
+  version: 0.0.0-use.local
+  resolution: "doctor-general-cli@portal:../../tools/doctor-general-cli::locator=knot%40workspace%3Apackages%2Fknot"
+  dependencies:
+    climate: "workspace:packages/climate"
+    doctor-general: "workspace:packages/doctor-general"
+    inherent: "workspace:packages/inherent"
+    kiddo: "workspace:packages/kiddo"
+    ramda: "npm:0.29.1"
+  bin:
+    doctor-general: ./dist/doctor-general.cjs
+    drgen: ./dist/doctor-general.cjs
+  languageName: node
+  linkType: soft
+
+"doctor-general-cli@portal:../../tools/doctor-general-cli::locator=monorail%40workspace%3Apackages%2Fmonorail":
+  version: 0.0.0-use.local
+  resolution: "doctor-general-cli@portal:../../tools/doctor-general-cli::locator=monorail%40workspace%3Apackages%2Fmonorail"
+  dependencies:
+    climate: "workspace:packages/climate"
+    doctor-general: "workspace:packages/doctor-general"
+    inherent: "workspace:packages/inherent"
+    kiddo: "workspace:packages/kiddo"
+    ramda: "npm:0.29.1"
+  bin:
+    doctor-general: ./dist/doctor-general.cjs
+    drgen: ./dist/doctor-general.cjs
+  languageName: node
+  linkType: soft
+
+"doctor-general-cli@portal:../doctor-general-cli::locator=digested%40workspace%3Atools%2Fdigested":
+  version: 0.0.0-use.local
+  resolution: "doctor-general-cli@portal:../doctor-general-cli::locator=digested%40workspace%3Atools%2Fdigested"
+  dependencies:
+    climate: "workspace:packages/climate"
+    doctor-general: "workspace:packages/doctor-general"
+    inherent: "workspace:packages/inherent"
+    kiddo: "workspace:packages/kiddo"
+    ramda: "npm:0.29.1"
+  bin:
+    doctor-general: ./dist/doctor-general.cjs
+    drgen: ./dist/doctor-general.cjs
+  languageName: node
+  linkType: soft
+
 "doctor-general-cli@workspace:tools/doctor-general-cli":
   version: 0.0.0-use.local
   resolution: "doctor-general-cli@workspace:tools/doctor-general-cli"
@@ -7135,6 +7376,7 @@ __metadata:
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     inherent: "workspace:packages/inherent"
     jest-environment-jsdom: "npm:29.7.0"
+    kiddo: "workspace:packages/kiddo"
     madge: "npm:6.1.0"
     nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"
@@ -7143,6 +7385,48 @@ __metadata:
   bin:
     doctor-general: ./dist/doctor-general.cjs
     drgen: ./dist/doctor-general.cjs
+  languageName: unknown
+  linkType: soft
+
+"doctor-general-jest@workspace:packages/doctor-general-jest":
+  version: 0.0.0-use.local
+  resolution: "doctor-general-jest@workspace:packages/doctor-general-jest"
+  dependencies:
+    dotenv-cli: "npm:7.3.0"
+    envtrace: "npm:0.0.2"
+    esbuild: "npm:0.19.10"
+    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
+    file-system: "workspace:packages/file-system"
+    fluture: "npm:14.0.0"
+    inherent: "workspace:packages/inherent"
+    jest-environment-jsdom: "npm:29.7.0"
+    knot: "workspace:packages/knot"
+    madge: "npm:6.1.0"
+    nps: "npm:^5.10.0"
+    ramda: "npm:0.29.1"
+    strip-ansi: "npm:7.1.0"
+    xtrace: "npm:0.3.0"
+  languageName: unknown
+  linkType: soft
+
+"doctor-general-mdx@workspace:packages/doctor-general-mdx":
+  version: 0.0.0-use.local
+  resolution: "doctor-general-mdx@workspace:packages/doctor-general-mdx"
+  dependencies:
+    dotenv-cli: "npm:7.3.0"
+    envtrace: "npm:0.0.2"
+    esbuild: "npm:0.19.10"
+    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
+    file-system: "workspace:packages/file-system"
+    fluture: "npm:14.0.0"
+    inherent: "workspace:packages/inherent"
+    jest-environment-jsdom: "npm:29.7.0"
+    knot: "workspace:packages/knot"
+    madge: "npm:6.1.0"
+    nps: "npm:^5.10.0"
+    ramda: "npm:0.29.1"
+    strip-ansi: "npm:7.1.0"
+    xtrace: "npm:0.3.0"
   languageName: unknown
   linkType: soft
 
@@ -9996,6 +10280,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "inherent@workspace:packages/inherent"
   dependencies:
+    doctor-general-cli: "portal:../../tools/doctor-general-cli"
     dotenv-cli: "npm:7.3.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     jest-config: "workspace:shared/jest-config"
@@ -10224,17 +10509,6 @@ __metadata:
   version: 1.2.7
   resolution: "is-callable@npm:1.2.7"
   checksum: ceebaeb9d92e8adee604076971dd6000d38d6afc40bb843ea8e45c5579b57671c3f3b50d7f04869618242c6cee08d1b67806a8cb8edaaaf7c0748b3720d6066f
-  languageName: node
-  linkType: hard
-
-"is-ci@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "is-ci@npm:2.0.0"
-  dependencies:
-    ci-info: "npm:^2.0.0"
-  bin:
-    is-ci: bin.js
-  checksum: 17de4e2cd8f993c56c86472dd53dd9e2c7f126d0ee55afe610557046cdd64de0e8feadbad476edc9eeff63b060523b8673d9094ed2ab294b59efb5a66dd05a9a
   languageName: node
   linkType: hard
 
@@ -10682,6 +10956,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-unicode-supported@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "is-unicode-supported@npm:2.0.0"
+  checksum: 3013dfb8265fe9f9a0d1e9433fc4e766595631a8d85d60876c457b4bedc066768dab1477c553d02e2f626d88a4e019162706e04263c94d74994ef636a33b5f94
+  languageName: node
+  linkType: hard
+
 "is-url-superb@npm:^4.0.0":
   version: 4.0.0
   resolution: "is-url-superb@npm:4.0.0"
@@ -11050,14 +11331,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "jest-config@workspace:shared/jest-config"
   dependencies:
-    "@swc/core": "npm:1.3.101"
-    "@swc/jest": "npm:0.2.29"
-    "@testing-library/jest-dom": "npm:6.1.5"
-    jest: "npm:29.7.0"
-    jest-silent-reporter: "npm:^0.5.0"
-    nps: "npm:^5.10.0"
-    ts-jest-resolver: "npm:2.0.1"
-    typescript: "npm:5.3.3"
+    "@swc/core": "npm:^1.3.95"
+    "@swc/jest": "npm:^0.2.29"
+    "@testing-library/jest-dom": "npm:^6.1.4"
+    dotenv-cli: "npm:7.3.0"
+    jest: "npm:^29.7.0"
+    ts-jest-resolver: "npm:^2.0.1"
+    typescript: "npm:^5.2.2"
   languageName: unknown
   linkType: soft
 
@@ -11315,16 +11595,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-silent-reporter@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "jest-silent-reporter@npm:0.5.0"
-  dependencies:
-    chalk: "npm:^4.0.0"
-    jest-util: "npm:^26.0.0"
-  checksum: d92a13699b289826bc9e95165291d8f64c6ee6e01a5d5fe84eaf678bf47c8c89f7f3682c9994395192767c1cfea883a976898a4ebd64a8a9207beb971576b1d1
-  languageName: node
-  linkType: hard
-
 "jest-snapshot@npm:^29.7.0":
   version: 29.7.0
   resolution: "jest-snapshot@npm:29.7.0"
@@ -11350,20 +11620,6 @@ __metadata:
     pretty-format: "npm:^29.7.0"
     semver: "npm:^7.5.3"
   checksum: 6e9003c94ec58172b4a62864a91c0146513207bedf4e0a06e1e2ac70a4484088a2683e3a0538d8ea913bcfd53dc54a9b98a98cdfa562e7fe1d1339aeae1da570
-  languageName: node
-  linkType: hard
-
-"jest-util@npm:^26.0.0":
-  version: 26.6.2
-  resolution: "jest-util@npm:26.6.2"
-  dependencies:
-    "@jest/types": "npm:^26.6.2"
-    "@types/node": "npm:*"
-    chalk: "npm:^4.0.0"
-    graceful-fs: "npm:^4.2.4"
-    is-ci: "npm:^2.0.0"
-    micromatch: "npm:^4.0.2"
-  checksum: ab93709840f87bdf478d082f5465467c27a20a422cbe456cc2a56961d8c950ea52511995fb6063f62a113737f3dd714b836a1fbde51abef96642a5975e835a01
   languageName: node
   linkType: hard
 
@@ -11423,7 +11679,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:29.7.0":
+"jest@npm:29.7.0, jest@npm:^29.7.0":
   version: 29.7.0
   resolution: "jest@npm:29.7.0"
   dependencies:
@@ -11690,12 +11946,14 @@ __metadata:
   dependencies:
     "@testing-library/jest-dom": "npm:6.1.5"
     dotenv-cli: "npm:7.3.0"
+    envtrace: "npm:0.0.2"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     execa: "npm:8.0.1"
     fluture: "npm:14.0.0"
     jest: "npm:29.7.0"
     jest-config: "workspace:shared/jest-config"
     nps: "npm:^5.10.0"
+    ora: "npm:8.0.1"
     ramda: "npm:0.29.1"
   languageName: unknown
   linkType: soft
@@ -11759,6 +12017,7 @@ __metadata:
   resolution: "knot@workspace:packages/knot"
   dependencies:
     chalk: "npm:5.3.0"
+    doctor-general-cli: "portal:../../tools/doctor-general-cli"
     dotenv-cli: "npm:7.3.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     jest-config: "workspace:shared/jest-config"
@@ -12042,6 +12301,16 @@ __metadata:
     chalk: "npm:^5.0.0"
     is-unicode-supported: "npm:^1.1.0"
   checksum: c14f8567c6618a7f96209c4c4b9fb3b794187116904712f7b526e465a5c9535728aec983735a5bef919247d0e54b9b72b6680a7fb9fc72d76b945dac4865e669
+  languageName: node
+  linkType: hard
+
+"log-symbols@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "log-symbols@npm:6.0.0"
+  dependencies:
+    chalk: "npm:^5.3.0"
+    is-unicode-supported: "npm:^1.3.0"
+  checksum: 36636cacedba8f067d2deb4aad44e91a89d9efb3ead27e1846e7b82c9a10ea2e3a7bd6ce28a7ca616bebc60954ff25c67b0f92d20a6a746bb3cc52c3701891f6
   languageName: node
   linkType: hard
 
@@ -13149,7 +13418,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromatch@npm:4.0.5, micromatch@npm:^4.0.2, micromatch@npm:^4.0.4":
+"micromatch@npm:4.0.5, micromatch@npm:^4.0.4":
   version: 4.0.5
   resolution: "micromatch@npm:4.0.5"
   dependencies:
@@ -13419,8 +13688,10 @@ __metadata:
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     execa: "npm:8.0.1"
     fluture: "npm:14.0.0"
+    inherent: "workspace:packages/inherent"
     jest: "npm:29.7.0"
     jest-config: "workspace:shared/jest-config"
+    knot: "workspace:packages/knot"
     monorail: "workspace:packages/monorail"
     nps: "npm:^5.10.0"
     ramda: "npm:0.29.1"
@@ -13479,11 +13750,13 @@ __metadata:
   resolution: "monorail@workspace:packages/monorail"
   dependencies:
     "@hapi/topo": "npm:6.0.2"
+    doctor-general-cli: "portal:../../tools/doctor-general-cli"
     dotenv-cli: "npm:7.3.0"
     envtrace: "npm:0.0.2"
     esbuild: "npm:0.19.10"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     file-system: "workspace:packages/file-system"
+    inherent: "workspace:packages/inherent"
     jest: "npm:29.7.0"
     jest-config: "workspace:shared/jest-config"
     nps: "npm:^5.10.0"
@@ -14282,6 +14555,23 @@ __metadata:
     prelude-ls: "npm:^1.2.1"
     type-check: "npm:^0.4.0"
   checksum: 66fba794d425b5be51353035cf3167ce6cfa049059cbb93229b819167687e0f48d2bc4603fcb21b091c99acb516aae1083624675b15c4765b2e4693a085e959c
+  languageName: node
+  linkType: hard
+
+"ora@npm:8.0.1":
+  version: 8.0.1
+  resolution: "ora@npm:8.0.1"
+  dependencies:
+    chalk: "npm:^5.3.0"
+    cli-cursor: "npm:^4.0.0"
+    cli-spinners: "npm:^2.9.2"
+    is-interactive: "npm:^2.0.0"
+    is-unicode-supported: "npm:^2.0.0"
+    log-symbols: "npm:^6.0.0"
+    stdin-discarder: "npm:^0.2.1"
+    string-width: "npm:^7.0.0"
+    strip-ansi: "npm:^7.1.0"
+  checksum: 7a94c075a7f182a6ace80c3505b945520ab16e05ebe536a714a3d61e51dd8f777c75c8be920e157e0c60ada6fe89bca37376897fb4d486bea5771229be992097
   languageName: node
   linkType: hard
 
@@ -16662,6 +16952,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"stdin-discarder@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "stdin-discarder@npm:0.2.1"
+  checksum: 77e2117d40a361ba8df007406004c4101b3e12d00f93c38bd9ab7251a12804e32f9cce470b905b24566257662afede299ff6d83645f0f982f570d09449f5f9b3
+  languageName: node
+  linkType: hard
+
 "stemmer@npm:2.0.1":
   version: 2.0.1
   resolution: "stemmer@npm:2.0.1"
@@ -17089,7 +17386,7 @@ __metadata:
     project-bin-path: "npm:2.0.0"
     ramda: "npm:0.29.1"
   bin:
-    superorganism: ./dist/cli.js
+    superorganism: ./dist/cli.cjs
   languageName: unknown
   linkType: soft
 
@@ -17429,7 +17726,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest-resolver@npm:2.0.1":
+"ts-jest-resolver@npm:^2.0.1":
   version: 2.0.1
   resolution: "ts-jest-resolver@npm:2.0.1"
   dependencies:
@@ -17690,7 +17987,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.3.3, typescript@npm:^5.0.4, typescript@npm:^5.3.3":
+"typescript@npm:5.3.3, typescript@npm:^5.0.4, typescript@npm:^5.2.2, typescript@npm:^5.3.3":
   version: 5.3.3
   resolution: "typescript@npm:5.3.3"
   bin:
@@ -17720,7 +18017,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.0.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.3.3#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.0.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.2.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.3.3#optional!builtin<compat/typescript>":
   version: 5.3.3
   resolution: "typescript@patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"
   bin:

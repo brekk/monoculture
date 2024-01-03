@@ -32,17 +32,24 @@ module.exports = {
       graph: `madge ${INPUT} --image graph.svg`,
     },
     lint: sd('eslint --fix .', 'lint!'),
-    autotest: sd(
-      `drgen -i ${[
-        './config.js',
-        './digested.js',
-        './executable.js',
-        './link.js',
-        './markdown.js',
-        './summary.js',
-      ].join(' ')} -o autotests --test-mode`,
-      'use doctor-general to create tests from us!'
-    ),
+    autotest: {
+      ...sd(
+        'nps -c ./package-scripts.cjs autotest.rebuild test',
+        'rebuild everything'
+      ),
+
+      rebuild: sd(
+        `drgen -i ${[
+          './config.js',
+          './digested.js',
+          './executable.js',
+          './link.js',
+          './markdown.js',
+          './summary.js',
+        ].join(' ')} -o autotests --processor doctor-general-jest`,
+        'use doctor-general to create tests from us!'
+      ),
+    },
     test: {
       ...sd('jest --coverage --verbose', 'test!'),
       silent: sd(

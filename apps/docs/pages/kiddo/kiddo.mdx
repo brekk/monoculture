@@ -9,6 +9,7 @@ Call external processes and consume them as a Future-wrapped value. This is a li
 Consume external commands as a Future-wrapped value.
 
 ### Usage
+
 ```js
 import { execWithConfig } from 'kiddo'
 import { fork } from 'fluture'
@@ -22,6 +23,7 @@ fork(console.warn)(console.log)(
 )
 ```
 
+
 ### See also
  - execWithCancel
  - exec
@@ -30,6 +32,7 @@ fork(console.warn)(console.log)(
 Consume external commands as a Future-wrapped value.
 
 ### Usage
+
 ```js
 import { execWithCancel } from 'kiddo'
 import { fork } from 'fluture'
@@ -42,6 +45,7 @@ fork(console.warn)(console.log)(
 )
 ```
 
+
 ### See also
  - execWithConfig
  - exec
@@ -50,17 +54,39 @@ fork(console.warn)(console.log)(
 Consume external commands as a Future-wrapped value.
 
 ### Usage
-```js
-import { exec } from 'kiddo'
+
+```js test=true
 import { fork } from 'fluture'
-fork(console.warn)(console.log)(
-  exec(
-    'echo',
-    ['ahoy']
-  )
-)
+// drgen-import-above
+const blah = Math.round(Math.random() * 100000)
+fork(done)(z => {
+  expect(z.stdout).toEqual('' + blah)
+  done()
+})(exec('echo', [blah]))
 ```
 
 ### See also
  - execWithConfig
  - execWithCancel
+
+## signal
+
+Add an `ora` indicator to a Future
+
+### Usage
+```js test=true
+import { signal } from 'kiddo'
+
+import { pipe, map } from 'ramda'
+import { readFile } from 'file-system'
+
+const cancel = () => {}
+pipe(
+  signal(cancel, { text: 'Reading file...', successText: 'Read file!'}),
+  map(JSON.parse),
+  fork(done)(raw => {
+    expect(raw.name).toEqual('kiddo')
+    done()
+  })
+)(readFile('./package.json'))
+```

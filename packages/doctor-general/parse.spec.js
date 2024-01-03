@@ -85,12 +85,14 @@ import { nice } from './parse'
     filename: 'i-yam-what-i.yaml',
     links: ['emoji.sunglasses'],
     order: 0,
+    package: 'i-yam-what-i.yaml',
     pageSummary: '',
+    pageTitle: undefined,
     slugName: 'i-yam-what-i',
   })
 })
 test('parseFile', done => {
-  const input = relativePathJoin(__dirname, './fixture/pkg/one/main.ts')
+  const input = relativePathJoin(__dirname, './file.js')
   fork(done)(raw => {
     const cleanFilename = raw.filename.split('/').slice(-3).join('/')
     expect({ ...raw, filename: cleanFilename }).toMatchSnapshot()

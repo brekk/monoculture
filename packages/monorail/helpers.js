@@ -1,3 +1,4 @@
+import { envtrace } from 'envtrace'
 import {
   __ as $,
   any,
@@ -26,9 +27,9 @@ import {
 
 export const getBody = propOr([], 'body')
 
-export const bodyTest = curry((fn, file, needle) =>
-  pipe(getBody, fn(pipe(last, test(needle))))(file)
-)
+export const bodyTest = curry(function bodyTest(fn, file, needle) {
+  return pipe(getBody, fn(pipe(last, test(needle))))(file)
+})
 
 /**
  * Use this helper to test a regex that matches against any single incidence on any line
@@ -55,9 +56,9 @@ export const _any = bodyTest(any)
  * }
  * ```
  */
-export const onLines = curry((file, needle) =>
-  pipe(bodyTest(filter, file), map(head))(needle)
-)
+export const onLines = curry(function _onLines(file, needle) {
+  return pipe(bodyTest(filter, file), map(head))(needle)
+})
 
 /**
  * Use this helper to test a regex that matches and finds the first matching line
@@ -70,9 +71,9 @@ export const onLines = curry((file, needle) =>
  * }
  * ```
  */
-export const onLine = curry((file, needle) =>
-  pipe(bodyTest(find, file), defaultTo([-1]), head)(needle)
-)
+export const onLine = curry(function _onLine(file, needle) {
+  return pipe(bodyTest(find, file), defaultTo([-1]), head)(needle)
+})
 
 /**
  * Use this helper to test a regex that matches and finds the last matching line
@@ -85,9 +86,9 @@ export const onLine = curry((file, needle) =>
  * }
  * ```
  */
-export const onLastLine = curry((file, needle) =>
-  pipe(bodyTest(findLast, file), defaultTo([-1]), head)(needle)
-)
+export const onLastLine = curry(function _onLastLine(file, needle) {
+  return pipe(bodyTest(findLast, file), defaultTo([-1]), head)(needle)
+})
 
 /**
  * Use this helper to select content between two repeating regular expressions
@@ -100,8 +101,8 @@ export const onLastLine = curry((file, needle) =>
  * }
  * ```
  */
-export const selectBetween = curry((file, start, end) =>
-  pipe(
+export const selectBetween = curry(function _selectBetween(file, start, end) {
+  return pipe(
     z => [z],
     ap([onLine($, start), onLastLine($, end), getBody]),
 
@@ -110,7 +111,23 @@ export const selectBetween = curry((file, start, end) =>
         ? []
         : filter(([line]) => a <= line && line <= z)(body)
   )(file)
-)
+})
+
+/**
+ * Use this helper to easily reduce over all lines and aggregate a value
+ * @name reduce
+ * @example
+ * ```js
+ * const plugin = {
+ *   name: 'select-specifics',
+ *   fn: (state, file, { reduce }) => reduce((agg, [line, content]) => content.length > 10 : agg.concat(content) : agg, [])
+ * }
+ * export default plugin
+ * ```
+ */
+export const _reduce = curry(function __reduce(file, fn, initial) {
+  return pipe(getBody, reduce(fn, initial))(file)
+})
 
 /**
  * Use this helper to select all content between two repeating regular expressions
@@ -123,10 +140,10 @@ export const selectBetween = curry((file, start, end) =>
  * }
  * ```
  */
-export const selectAll = curry((file, start, end) =>
-  pipe(
-    getBody,
-    reduce(
+export const selectAll = curry(function _selectAll(file, start, end) {
+  return pipe(
+    _reduce(
+      $,
       ({ active, all, current }, [line, content]) => {
         const testContent = test($, content)
         const checkStart = testContent(start)
@@ -158,23 +175,7 @@ export const selectAll = curry((file, start, end) =>
     propOr([], 'all'),
     filter(pipe(length, lt(0)))
   )(file)
-)
-
-/**
- * Use this helper to easily reduce over all lines and aggregate a value
- * @name reduce
- * @example
- * ```js
- * const plugin = {
- *   name: 'select-specifics',
- *   fn: (state, file, { reduce }) => reduce((agg, [line, content]) => content.length > 10 : agg.concat(content) : agg, [])
- * }
- * export default plugin
- * ```
- */
-export const _reduce = curry((file, fn, initial) =>
-  pipe(getBody, reduce(fn, initial))(file)
-)
+})
 
 /**
  * Use this helper to easily filter all lines related to a given regular expression
@@ -219,6 +220,11 @@ export const makeFileHelpers = file => ({
  */
 export const _getConfigFrom = curry((name, c) => c?.config?.[name])
 
-export const makePluginHelpers = curry((state, plugin) => ({
-  config: _getConfigFrom(plugin.name, state),
-}))
+export const makePluginHelpers = curry(
+  function _makePluginHelpers(state, plugin) {
+    return {
+      config: _getConfigFrom(plugin.name, state),
+      log: envtrace(`monorail:plugin:${plugin.name}`),
+    }
+  }
+)

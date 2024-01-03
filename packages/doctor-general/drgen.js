@@ -1,5 +1,6 @@
 import { join as pathJoin } from 'node:path'
 import { cwd } from 'node:process'
+import { signal } from 'kiddo'
 import { log } from './log'
 import {
   when,
@@ -19,18 +20,21 @@ import { writeArtifact } from './writer'
 
 export const drgen = config => {
   const {
+    processor,
     debug,
     input,
     output,
     search: searchGlob,
     ignore,
     artifact = false,
-    testMode,
     monorepo: monorepoMode = false,
   } = config
+  log.core('processor!', processor)
+  // TODO: come back to this modality
+  // const testMode = mode === 'test'
   log.core('input', input)
   log.core('monorepoMode', monorepoMode)
-  log.core('testMode', testMode)
+  // log.core('testMode', testMode)
   const current = cwd()
   const rel = relativePathJoin(current)
   const outputDir = rel(output)
@@ -41,6 +45,7 @@ export const drgen = config => {
   const root = pkgJson.slice(0, pkgJson.lastIndexOf('/'))
   const toLocal = map(ii => ii.slice(0, ii.lastIndexOf('/')), input)
   const relativize = r => (monorepoMode ? pathJoin(toLocal[0], r) : r)
+  const cancel = () => {}
   return pipe(
     log.core(`monorepoMode?`),
     ifElse(
@@ -50,18 +55,19 @@ export const drgen = config => {
     ),
     map(pipe(map(relativize), chain(parseFile(debug, root)))),
     chain(parallel(10)),
-    map(processComments(testMode)),
-    map(log.core('processed comments?')),
+    map(processComments(processor)),
     when(K(artifact), writeArtifact(relativeArtifact)),
-    renderComments(testMode, outputDir),
-    map(
-      K(
+    renderComments(processor, outputDir),
+    signal(cancel, {
+      text: 'Rendering comments...',
+      successText:
         artifact || output
-          ? `Wrote to${output ? ' output: "' + output + '";' : ''}${
-              artifact ? ' artifact: "' + artifact + '"' : ''
-            }.`
-          : `Processed ${input.join(' ')}`
-      )
-    )
+          ? `Wrote to${
+              output ? ' output: "' + output + '"' + (artifact ? ';' : '') : ''
+            }${artifact ? ' artifact: "' + artifact + '"' : ''}.`
+          : `Processed ${input.join(' ')}`,
+      failText: 'Unable to render comments!',
+    }),
+    map(K(''))
   )(monorepoMode)
 }

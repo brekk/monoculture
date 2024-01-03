@@ -21,12 +21,12 @@ const DIRFILES = [
   './index.js',
   './index.spec.js',
   './jest.config.cjs',
+  './log.js',
   './package-scripts.cjs',
   './package.json',
   './reader.js',
   './reader.spec.js',
   './README.md',
-  './trace.js',
 ]
 const noReports = reject(includes('ci-report'))
 const noSelfRef = reject(includes('monocle'))

@@ -1,12 +1,11 @@
 import {
+  toLower,
   curry,
+  replace,
   join,
   pipe,
   range,
   reduce,
-  memoizeWith,
-  identity as I,
-  repeat,
   split,
 } from 'ramda'
 import { NEWLINE, SPACE, EMPTY, TAB } from './constants'
@@ -32,21 +31,21 @@ export const markdownTabs = cake(
   MARKDOWN_LIST_ITEM
 )
 
-export const nthIndexOf = curry((delim, n, input) =>
-  pipe(
+export const nthIndexOf = curry(function _nthIndexOf(delim, n, input) {
+  return pipe(
     range(0),
-    reduce((x, _) => input.indexOf(delim, x + 1), -1),
+    reduce(x => input.indexOf(delim, x + 1), -1),
     z => input.slice(0, z)
   )(n)
-)
+})
 
-export const nthLastIndexOf = curry((delim, n, input) =>
-  pipe(
+export const nthLastIndexOf = curry(function _nthLastIndexOf(delim, n, input) {
+  return pipe(
     range(0),
-    reduce((x, _) => input.lastIndexOf(delim, x - 1), input.length),
+    reduce(x => input.lastIndexOf(delim, x - 1), input.length),
     z => input.slice(z + 1)
   )(Math.abs(n))
-)
+})
 /**
  * Slice a string by counted delimiters
  * @name nthIndex
@@ -60,9 +59,9 @@ export const nthLastIndexOf = curry((delim, n, input) =>
  * ).toEqual("a/b/c/d/e")
  * ```
  */
-export const nthIndex = curry((delim, n, input) =>
-  (n > 0 ? nthIndexOf : nthLastIndexOf)(delim, n, input)
-)
+export const nthIndex = curry(function _nthIndex(delim, n, input) {
+  return (n > 0 ? nthIndexOf : nthLastIndexOf)(delim, n, input)
+})
 
 /**
  * A simple memoized utility for repeating a string and joining the array.
@@ -73,11 +72,8 @@ export const nthIndex = curry((delim, n, input) =>
  * expect(strepeat('/', -1)).toEqual('')
  * ```
  */
-export const strepeat = curry((toRepeat, x) => {
-  const gen = memoizeWith(I, n =>
-    pipe(z => (z < 0 ? 0 : z), repeat(toRepeat), join(''))(n)
-  )
-  return gen(x)
+export const strepeat = curry(function _strepeat(toRepeat, x) {
+  return x > 0 ? toRepeat.repeat(x) : ''
 })
 
 /**
@@ -91,3 +87,26 @@ export const strepeat = curry((toRepeat, x) => {
  */
 export const capitalize = raw =>
   raw.length ? `${raw[0].toUpperCase()}${raw.slice(1)}` : ''
+
+/**
+ * Take PascalCase and kebabCase inputs and replace them with slug-case
+ * @name slugWord
+ * @example
+ * ```js test=true
+ * expect(slugWord('CoolFuckingShit')).toEqual('cool-fucking-shit')
+ * expect(slugWord('hoorayNiceLife')).toEqual('hooray-nice-life')
+ * expect(slugWord('Do nothingCool ever')).toEqual('do nothing-cool ever')
+ * expect(
+ *   slugWord('src/components/homepage/AugmentedDetailsDumbComponent')
+ * ).toEqual(
+ *   'src-components-homepage-augmented-details-dumb-component'
+ * )
+ * ```
+ */
+export const slugWord = pipe(
+  replace(/[A-Z]/g, match => `-` + match),
+  replace(/\//g, '-'),
+  replace(/--/g, '-'),
+  replace(/^-/, ''),
+  toLower
+)

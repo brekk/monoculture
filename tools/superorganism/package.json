@@ -1,17 +1,15 @@
 {
   "name": "superorganism",
   "version": "0.0.0",
-  "description": "script runner from beyond the moon 🦠",
+  "description": "script runner from beyond the moon 🐁",
   "type": "module",
-  "main": "superorganism.js",
-  "bin": "./dist/cli.js",
+  "bin": "./dist/cli.cjs",
   "repository": "monoculture",
   "author": "brekk",
   "license": "ISC",
   "private": true,
   "exports": {
-    ".": "./superorganism.js",
-    "./cli.js": "./dist/cli.js"
+    "./cli.cjs": "./dist/cli.cjs"
   },
   "dependencies": {
     "chalk": "5.3.0",
@@ -35,10 +33,8 @@
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "build": "dotenv -- nps -c ./package-scripts.cjs build",
     "build:cli": "dotenv -- nps -c ./package-scripts.cjs build.cli",
-    "build:main": "dotenv -- nps -c ./package-scripts.cjs build.main",
-    "build:watch": "dotenv -- nps -c ./package-scripts.cjs build.watch",
+    "build:perms": "dotenv -- nps -c ./package-scripts.cjs build.perms",
     "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
-    "dev": "dotenv -- nps -c ./package-scripts.cjs dev",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",

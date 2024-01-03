@@ -65,18 +65,6 @@ export default {
 }
 ```
 
-## selectAll
-
-Use this helper to select all content between two repeating regular expressions
-
-### Usage
-```js
-export default {
-  name: 'expanded-imports',
-  fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)
-}
-```
-
 ## reduce
 
 Use this helper to easily reduce over all lines and aggregate a value
@@ -88,6 +76,18 @@ const plugin = {
   fn: (state, file, { reduce }) => reduce((agg, [line, content]) => content.length > 10 : agg.concat(content) : agg, [])
 }
 export default plugin
+```
+
+## selectAll
+
+Use this helper to select all content between two repeating regular expressions
+
+### Usage
+```js
+export default {
+  name: 'expanded-imports',
+  fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)
+}
 ```
 
 ## filter

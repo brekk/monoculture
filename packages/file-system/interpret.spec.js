@@ -4,7 +4,7 @@ import { interpret } from './interpret'
 test('interpret', done => {
   expect(interpret).toBeTruthy()
   fork(done)(x => {
-    expect(x.default).toEqual({ input: 'this is a fixture' })
+    expect(x).toEqual({ input: 'this is a fixture' })
     done()
   })(interpret('./fixture/raw.js'))
 })

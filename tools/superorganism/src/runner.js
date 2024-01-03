@@ -16,8 +16,8 @@ import {
 } from 'ramda'
 import { configurate } from 'climate'
 import { interpret } from 'file-system'
-import { execWithConfig } from 'kiddo'
-import { log } from './trace'
+import { execWithConfig, signal } from 'kiddo'
+import { log } from './log'
 import { recurse } from './recursive'
 import { $ as script } from 'execa'
 import { bimap, Future, resolve } from 'fluture'
@@ -26,12 +26,12 @@ import PKG from '../package.json'
 import { YARGS_CONFIG, HELP_CONFIG, CONFIG_DEFAULTS } from './config'
 
 const j2 = x => JSON.stringify(x, null, 2)
-const $f = curry((cancel, raw) =>
-  Future((bad, good) => {
+const $f = curry(function _$f(cancel, raw) {
+  return Future((bad, good) => {
     script(raw).catch(bad).then(good)
     return cancel
   })
-)
+})
 
 const getScriptFromTask = t => {
   if (t.script) t = t.script
@@ -39,9 +39,15 @@ const getScriptFromTask = t => {
   return t
 }
 
-const makeScriptGetter = curry((scripts, task) =>
-  pipe(split('.'), pathOr(false, __, scripts), getScriptFromTask)(task)
-)
+const SCRIPT_JOINER_DELIMITER = ':'
+
+const makeScriptGetter = curry(function _makeScriptGetter(scripts, task) {
+  return pipe(
+    split(SCRIPT_JOINER_DELIMITER),
+    pathOr(false, __, scripts),
+    getScriptFromTask
+  )(task)
+})
 export const getNestedTasks = scripts => {
   const getScript = makeScriptGetter(scripts)
   let tasks = keys(scripts)
@@ -49,7 +55,7 @@ export const getNestedTasks = scripts => {
     {
       pair: curry((crumbs, [k, v]) => {
         if (k !== 'description' && k !== 'script') {
-          tasks = uniq(tasks.concat([crumbs.join('.')]))
+          tasks = uniq(tasks.concat([crumbs.join(SCRIPT_JOINER_DELIMITER)]))
         }
         return [k, v]
       }),
@@ -66,7 +72,8 @@ export const getNestedTasks = scripts => {
       const task = getScript(taskName)
       if (typeof task === 'object') return false
       return true
-    })
+    }),
+    y => y.sort()
   )(tasks)
 }
 
@@ -76,32 +83,47 @@ export const EXECA_FORCE_COLOR = {
 const getStdOut = propOr('', 'stdout')
 
 /* eslint-disable no-console */
-export const executeWithCancel = curry((cancel, { tasks, scripts, config }) => {
+export const executeWithCancel = curry(function _executeWithCancel(
+  cancel,
+  { tasks, scripts, config }
+) {
   const chalk = new Chalk({ level: config.color ? 2 : 0 })
   if (config.help) return config.HELP
   const getScript = makeScriptGetter(scripts)
+  let showHelp = true
+  const messages = []
   if (config._.length > 0) {
     const [task] = config._
     if (tasks.includes(task)) {
       const get = getScript(task)
       const scriptLookup = typeof get === 'string' ? get : get.scriptLookup
-      console.log(
-        `Running...\n${chalk.inverse(task)}: \`${chalk.green(scriptLookup)}\``
-      )
       const [cmd, ...args] = scriptLookup.split(' ')
       if (scriptLookup) {
-        return pipe(bimap(getStdOut)(getStdOut))(
-          execWithConfig(cancel, cmd, args, {
-            cwd: process.cwd(),
-            ...(config.color ? EXECA_FORCE_COLOR : {}),
+        return pipe(
+          bimap(getStdOut)(getStdOut),
+          signal(cancel, {
+            text: `${chalk.inverse(' ' + task + ' ')}: \`${chalk.green(
+              scriptLookup
+            )}\``,
           })
+        )(
+          execWithConfig(
+            cancel,
+            cmd,
+            {
+              cwd: process.cwd(),
+              ...(config.color ? EXECA_FORCE_COLOR : {}),
+            },
+            args
+          )
         )
       }
     } else {
-      console.log(`I cannot understand the ${task} command.`)
+      messages.push(`I cannot understand the "${chalk.red(task)}" command.`)
       const lookup = closest(task, tasks)
+      showHelp = false
       if (distance(task, lookup) < 4) {
-        console.log(`Did you mean to run "${lookup}" instead?`)
+        messages.push(`Did you mean to run "${chalk.yellow(lookup)}" instead?`)
       }
     }
   }
@@ -109,8 +131,8 @@ export const executeWithCancel = curry((cancel, { tasks, scripts, config }) => {
     map(task => `${chalk.green(task)} - ${getScript(task)}`)
   )(tasks)
   return resolve(
-    config.HELP +
-      `\n\n${chalk.inverse('Available commands:')}\n\n${commands.join('\n')}`
+    (showHelp ? config.HELP : messages.join(' ')) +
+      `\n\n${chalk.inverse(' Available commands: ')}\n\n${commands.join('\n')}`
   )
 })
 const { name: $NAME, description: $DESC } = PKG
@@ -135,8 +157,8 @@ const $BANNER = `.--,       .--,
     >  ▼  <
 .mm'-------'mm.`
 
-export const runnerWithCancel = curry((cancel, argv) =>
-  pipe(
+export const runnerWithCancel = curry(function _runnerWithCancel(cancel, argv) {
+  return pipe(
     configurate(
       YARGS_CONFIG,
       { ...CONFIG_DEFAULTS, basePath: process.cwd() },
@@ -153,22 +175,18 @@ export const runnerWithCancel = curry((cancel, argv) =>
           log.config('reading...'),
           interpret,
           map(
-            pipe(
-              pathOr({}, ['default', 'scripts']),
-              loadedScripts => ({
-                config: parsedConfig,
-                scripts: loadedScripts,
-                tasks: getNestedTasks(loadedScripts),
-                source,
-              })
-              // tap(pipe(propOr([], 'tasks'), log.config('tasks')))
-            )
+            pipe(pathOr({}, ['scripts']), loadedScripts => ({
+              config: parsedConfig,
+              scripts: loadedScripts,
+              tasks: getNestedTasks(loadedScripts),
+              source,
+            }))
           ),
           chain(executeWithCancel(cancel))
         )(source)
       }
     )
   )(argv)
-)
+})
 
 export const runner = runnerWithCancel(() => {})

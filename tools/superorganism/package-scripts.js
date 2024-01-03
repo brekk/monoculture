@@ -1,36 +1,43 @@
 // eslint-disable-next-line import/extensions
-import { sd } from './superorganism.mjs'
+// import { sd } from './superorganism.mjs'
+const sd = (script, description) =>
+  description ? { description, script } : script
 
-const build = ([infile, outfile], addendum = '') =>
-  [
-    `esbuild`,
-    `${infile}`,
-    `--outfile=${outfile}`,
-    `--bundle`,
-    `--format=esm`,
-    `--platform=node`,
-    `--packages=external`,
-    `--banner:js="#!/usr/bin/env node"`,
-    ...addendum,
-  ]
-    .filter(z => z)
-    .join(' ')
+/* eslint-disable max-len */
+const build =
+  ({ script = false, format }) =>
+  ([infile, outfile]) =>
+    [
+      `esbuild`,
+      `${infile}`,
+      `--outfile=${outfile}`,
+      `--bundle`,
+      `--format=${format}`,
+      `--platform=node`,
+      script ? `--banner:js='#!/usr/bin/env node'` : ``,
+    ]
+      .filter(z => z)
+      .join(' ')
 
-const INPUT = `src/index.js`
-const OUTPUT = `superorganism.js`
-const watchMode = sd(
-  build([INPUT, OUTPUT], ['--watch']),
-  'build with watch-mode'
-)
+const CLI_INPUT = `src/cli.js`
+const CLI_OUTPUT = `dist/cli.cjs`
+
 export default {
   scripts: {
+    clean: sd('rm -r dist', 'unbuild!'),
     build: {
-      ...sd(build([INPUT, OUTPUT]), 'build!'),
-      watch: watchMode,
+      ...sd('nps -c ./package-scripts.cjs build.cli', 'build everything!'),
+      // main: sd(
+      // build({ script: false, format: 'esm' })([INPUT, OUTPUT]),
+      // 'build module!'
+      // ),
+      cli: sd(
+        build({ script: true, format: 'cjs' })([CLI_INPUT, CLI_OUTPUT]),
+        'build cli!'
+      ),
     },
-    dev: watchMode,
     meta: {
-      graph: `madge ${INPUT} --image graph.svg`,
+      graph: `madge ${CLI_INPUT} --image graph.svg`,
     },
     lint: sd('eslint --fix .', 'lint!'),
     test: {
@@ -38,6 +45,10 @@ export default {
       silent: sd(
         'jest --silent --reporters=jest-silent-reporter --coverageReporters=none',
         'test, quietly.'
+      ),
+      ci: sd(
+        'jest --ci --json --coverage --testLocationInResults --outputFile=ci-report.json',
+        'test for CI!'
       ),
       watch: sd('jest --watch', 'test with watch-mode!'),
     },

@@ -69,11 +69,13 @@ export const localize = z => `.${sep}${z}`
  *     fork(console.warn)(console.log)(readFile('./README.md'))
  *     ```
  */
-export const readFileWithFormatAndCancel = curry((cancel, format, x) =>
-  Future((bad, good) => {
-    fs.readFile(x, format, (err, data) => (err ? bad(err) : good(data)))
-    return cancel
-  })
+export const readFileWithFormatAndCancel = curry(
+  function _readFileWithFormatAndCancel(cancel, format, x) {
+    return Future((bad, good) => {
+      fs.readFile(x, format, (err, data) => (err ? bad(err) : good(data)))
+      return cancel
+    })
+  }
 )
 export const readFileWithCancel = readFileWithFormatAndCancel($, 'utf8')
 export const readFile = readFileWithCancel(NO_OP)
@@ -90,8 +92,10 @@ export const readFile = readFileWithCancel(NO_OP)
  * fork(console.warn)(console.log)(readJSONFile('./package.json'))
  * ```
  */
-export const readJSONFileWithCancel = curry((cancel, x) =>
-  pipe(readFileWithCancel(cancel), map(JSON.parse))(x)
+export const readJSONFileWithCancel = curry(
+  function _readJSONFileWithCancel(cancel, x) {
+    return pipe(readFileWithCancel(cancel), map(JSON.parse))(x)
+  }
 )
 
 /**
@@ -125,18 +129,20 @@ export const readJSONFile = readJSONFileWithCancel(NO_OP)
  * )(readDirWithConfigAndCancel(cancellationFn, { ignore: ['node_modules/**'] }, 'src/*'))
  * ```
  */
-export const readDirWithConfigAndCancel = curry((cancel, conf, g) =>
-  Future((bad, good) => {
-    try {
-      glob(g, conf, (e, x) =>
-        // thus far I cannot seem to ever call `bad` from within here
-        e ? bad(e) : good(x)
-      )
-    } catch (e) {
-      bad(e)
-    }
-    return cancel
-  })
+export const readDirWithConfigAndCancel = curry(
+  function _readDirWithConfigAndCancel(cancel, conf, g) {
+    return Future((bad, good) => {
+      try {
+        glob(g, conf, (e, x) =>
+          // thus far I cannot seem to ever call `bad` from within here
+          e ? bad(e) : good(x)
+        )
+      } catch (e) {
+        bad(e)
+      }
+      return cancel
+    })
+  }
 )
 
 /**
@@ -195,8 +201,8 @@ export const readDir = readDirWithConfig({})
  * ```
  */
 export const writeFileWithConfigAndCancel = curry(
-  (cancel, conf, file, content) =>
-    Future((bad, good) => {
+  function _writeFileWithConfigAndCancel(cancel, conf, file, content) {
+    return Future((bad, good) => {
       fs.writeFile(file, content, conf, e => {
         if (e) {
           bad(e)
@@ -206,6 +212,7 @@ export const writeFileWithConfigAndCancel = curry(
       })
       return cancel
     })
+  }
 )
 
 /**
@@ -254,50 +261,64 @@ export const writeFile = writeFileWithConfig({ encoding: 'utf8' })
 /**
  * Remove a file, configurably, with cancellation.
  * Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
- * @name removeFileWithConfigAndCancel
- * @see {@link removeFileWithConfig}
- * @see {@link removeFile}
- * @example
- * ```js
- * import { fork } from 'fluture'
- * import { removeFileWithConfigAndCancel } from 'file-system'
- * // [...]
- * fork(console.warn)(console.log)(
- *   removeFileWithConfigAndCancel(
- *     cancellationFn,
- *     { ...fs.removeFileConfig },
- *     'my-file.txt'
- *   )
- * )
- * ```
+ * @curried
+ *  1. removeFileWithConfigAndCancel - Configuration and cancellation
+ *
+ *     @example
+ *      ```js
+ *      import { fork } from 'fluture'
+ *      import { removeFileWithConfigAndCancel } from 'file-system'
+ *
+ *      fork(console.warn)(console.log)(
+ *        removeFileWithConfigAndCancel(
+ *          cancellationFn,
+ *          { ...fs.removeFileConfig },
+ *          'my-file.txt'
+ *        )
+ *      )
+ *      ```
+ *  2. removeFileWithConfig - No config, just cancellation
+ *
+ *     @example
+ *     ```js
+ *     import { fork } from 'fluture'
+ *     import { removeFileWithConfig } from 'file-system'
+ *     // [...]
+ *     fork(console.warn)(console.log)(
+ *       removeFileWithConfig(
+ *         { ...fs.removeFileConfig },
+ *         'my-file.txt'
+ *       )
+ *     )
+ *     ```
+ *
+ *  3. removeFile - remove a file. Aliased to `rm`.
+ *
+ *     @example
+ *     ```js
+ *     import { fork } from 'fluture'
+ *     import { removeFile } from 'file-system'
+ *     // [...]
+ *     fork(console.warn)(console.log)(
+ *       removeFile(
+ *         'my-file.txt'
+ *       )
+ *     )
+ *     ```
+ *
  */
-export const removeFileWithConfigAndCancel = curry((cancel, options, fd) =>
-  Future((bad, good) => {
-    fs.rm(fd, options, err => (err ? bad(err) : good(fd)))
-    return cancel
-  })
+export const removeFileWithConfigAndCancel = curry(
+  function _removeFileWithConfigAndCancel(cancel, options, fd) {
+    return Future((bad, good) => {
+      fs.rm(fd, options, err => (err ? bad(err) : good(fd)))
+      return cancel
+    })
+  }
 )
-
-/**
- * Remove a file, configurably.
- * Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
- * @name removeFileWithConfig
- * @see {@link removeFileWithConfigAndCancel}
- * @see {@link removeFile}
- * @example
- * ```js
- * import { fork } from 'fluture'
- * import { removeFileWithConfig } from 'file-system'
- * // [...]
- * fork(console.warn)(console.log)(
- *   removeFileWithConfig(
- *     { ...fs.removeFileConfig },
- *     'my-file.txt'
- *   )
- * )
- * ```
- */
 export const removeFileWithConfig = removeFileWithConfigAndCancel(NO_OP)
+export const rm = removeFileWithConfig({})
+export const removeFile = rm
+export const rimraf = removeFileWithConfig({ force: true, recursive: true })
 
 export const DEFAULT_REMOVAL_CONFIG = {
   force: false,
@@ -306,26 +327,6 @@ export const DEFAULT_REMOVAL_CONFIG = {
   retryDelay: 100,
   parallel: 10,
 }
-
-/**
- * Remove a file.
- * Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.
- * @name removeFile
- * @see {@link removeFileWithConfigAndCancel}
- * @see {@link removeFileWithConfig}
- * @example
- * ```js
- * import { fork } from 'fluture'
- * import { removeFile } from 'file-system'
- * // [...]
- * fork(console.warn)(console.log)(
- *   removeFile(
- *     'my-file.txt'
- *   )
- * )
- * ```
- */
-export const removeFile = removeFileWithConfig(DEFAULT_REMOVAL_CONFIG)
 
 /**
  * Remove multiple files, configurably, with a cancellation function.
@@ -346,11 +347,13 @@ export const removeFile = removeFileWithConfig(DEFAULT_REMOVAL_CONFIG)
  * )
  * ```
  */
-export const removeFilesWithConfigAndCancel = curry((cancel, conf, list) =>
-  pipe(
-    map(removeFileWithConfigAndCancel(cancel, without(['parallel'], conf))),
-    parallel(propOr(10, 'parallel', conf))
-  )(list)
+export const removeFilesWithConfigAndCancel = curry(
+  function _removeFilesWithConfigAndCancel(cancel, conf, list) {
+    return pipe(
+      map(removeFileWithConfigAndCancel(cancel, without(['parallel'], conf))),
+      parallel(propOr(10, 'parallel', conf))
+    )(list)
+  }
 )
 
 /**
@@ -412,11 +415,13 @@ export const removeFiles = removeFilesWithConfig(DEFAULT_REMOVAL_CONFIG)
  * )
  * ```
  */
-export const mkdirWithCancel = curry((cancel, conf, x) =>
-  Future((bad, good) => {
-    fs.mkdir(x, conf, err => (err ? bad(err) : good(x)))
-    return cancel
-  })
+export const mkdirWithCancel = curry(
+  function _mkdirWithCancel(cancel, conf, x) {
+    return Future((bad, good) => {
+      fs.mkdir(x, conf, err => (err ? bad(err) : good(x)))
+      return cancel
+    })
+  }
 )
 
 /**
@@ -461,12 +466,12 @@ export const mkdir = mkdirWithCancel(NO_OP)
  */
 export const mkdirp = mkdir({ recursive: true })
 
-export const access = curry((permissions, filePath) =>
-  Future((bad, good) => {
+export const access = curry(function _access(permissions, filePath) {
+  return Future((bad, good) => {
     fs.access(filePath, permissions, err => (err ? bad(err) : good(true)))
     return () => {}
   })
-)
+})
 
 export const exists = access(constants.F_OK)
 export const readable = access(constants.R_OK)
@@ -490,35 +495,29 @@ export const directoryOnly = filePath =>
  * )
  * ```
  */
-export const writeFileWithAutoPath = curry((filePath, content) =>
-  pipe(
-    directoryOnly,
-    dir =>
-      pipe(
-        exists,
-        chainRej(() => mkdirp(dir))
-      )(dir),
-    chain(() => writeFile(filePath, content))
-  )(filePath)
+export const writeFileWithAutoPath = curry(
+  function _writeFileWithAutoPath(filePath, content) {
+    return pipe(
+      directoryOnly,
+      dir =>
+        pipe(
+          exists,
+          chainRej(() => mkdirp(dir))
+        )(dir),
+      chain(() => writeFile(filePath, content))
+    )(filePath)
+  }
 )
-
-export const rm = curry((conf, x) =>
-  Future((bad, good) => {
-    fs.rm(x, conf, err => (err ? bad(err) : good(x)))
-    return () => {}
-  })
-)
-
-export const rimraf = rm({ force: true, recursive: true })
 
 export const ioWithCancel = curry(
-  (cancel, fn, fd, buffer, offset, len, position) =>
-    Future((bad, good) => {
+  function _ioWithCancel(cancel, fn, fd, buffer, offset, len, position) {
+    return Future((bad, good) => {
       fn(fd, buffer, offset, len, position, (e, bytes, buff) =>
         e ? bad(e) : good(bytes, buff)
       )
       return cancel
     })
+  }
 )
 
 export const io = ioWithCancel(NO_OP)
@@ -526,14 +525,16 @@ export const io = ioWithCancel(NO_OP)
 export const read = io(fs.read)
 export const write = io(fs.write)
 
-export const findFile = curry((fn, def, x) =>
-  pipe(
+export const findFile = curry(function _findFile(fn, def, x) {
+  return pipe(
     map(pipe(fn, mapRej(F))),
     reduce((a, b) => (isFuture(a) ? race(a)(b) : b), def)
   )(x)
-)
+})
 
-export const readAnyOr = curry((def, format, x) => findFile(readFile, def, x))
+export const readAnyOr = curry(function _readAnyOr(def, format, x) {
+  return findFile(readFile, def, x)
+})
 
 export const readAny = readAnyOr(null)
 

@@ -1,6 +1,7 @@
 [
   {
     "slugName": "executables",
+    "package": "bloodline",
     "pageSummary": "",
     "filename": "packages/bloodline/executables.js",
     "comments": [
@@ -19,11 +20,12 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/executables.js"
+        "filename": "packages/bloodline/executables.js",
+        "package": "bloodline"
       },
       {
-        "start": 45,
-        "end": 60,
+        "start": 46,
+        "end": 61,
         "summary": "Check for multiple binaries in a single call",
         "links": [],
         "fileGroup": "",
@@ -36,7 +38,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/executables.js"
+        "filename": "packages/bloodline/executables.js",
+        "package": "bloodline"
       }
     ],
     "order": 0,
@@ -45,6 +48,7 @@
   },
   {
     "slugName": "tree",
+    "package": "bloodline",
     "pageSummary": "",
     "filename": "packages/bloodline/tree.js",
     "comments": [
@@ -63,7 +67,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/tree.js"
+        "filename": "packages/bloodline/tree.js",
+        "package": "bloodline"
       },
       {
         "start": 41,
@@ -80,7 +85,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/tree.js"
+        "filename": "packages/bloodline/tree.js",
+        "package": "bloodline"
       },
       {
         "start": 63,
@@ -97,11 +103,12 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/tree.js"
+        "filename": "packages/bloodline/tree.js",
+        "package": "bloodline"
       },
       {
-        "start": 107,
-        "end": 118,
+        "start": 109,
+        "end": 120,
         "summary": "Grab an id from a cache if possible",
         "links": [],
         "fileGroup": "",
@@ -114,11 +121,12 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/bloodline/tree.js"
+        "filename": "packages/bloodline/tree.js",
+        "package": "bloodline"
       },
       {
-        "start": 128,
-        "end": 139,
+        "start": 130,
+        "end": 142,
         "summary": "Take a dependency tree and recursively walk it, returning a grouped set of dependencies.",
         "links": [
           "flattenTree"
@@ -130,7 +138,7 @@
           "see": [
             "flattenTree"
           ],
-          "example": "```js\nimport { groupTree, plant } from 'bloodline/tree'\nconst config = { basePath: '../..' }\nconst tree = plant(config, '..', '../monocle/cli.js')\nconst grouped = groupTree(config, {}, {}, tree)\n```"
+          "example": "```js\nimport { plant } from 'bloodline'\n// drgen-import-above\nconst config = { basePath: '../..' }\nconst tree = plant(config, '..', '../monocle/cli.js')\nconst grouped = groupTree(config, {}, {}, tree)\n```"
         },
         "keywords": [
           "@example",
@@ -138,11 +146,12 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/bloodline/tree.js"
+        "filename": "packages/bloodline/tree.js",
+        "package": "bloodline"
       },
       {
-        "start": 205,
-        "end": 216,
+        "start": 215,
+        "end": 227,
         "summary": "Take a dependency tree and recursively walk it, returning flattened set of dependencies.",
         "links": [
           "groupTree"
@@ -154,7 +163,7 @@
           "see": [
             "groupTree"
           ],
-          "example": "```js\nimport { flattenTree, plant } from 'bloodline/tree'\nconst config = { basePath: '../..' }\nconst tree = plant(config, '..', '../monocle/cli.js')\nconst flattened = flattenTree(config, {}, {}, tree)\n```"
+          "example": "```js\nimport { plant } from 'bloodline'\n// drgen-import-above\nconst config = { basePath: '../..' }\nconst tree = plant(config, '..', '../monocle/cli.js')\nconst flattened = flattenTree(config, {}, {}, tree)\n```"
         },
         "keywords": [
           "@example",
@@ -162,7 +171,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/bloodline/tree.js"
+        "filename": "packages/bloodline/tree.js",
+        "package": "bloodline"
       }
     ],
     "order": 0,
@@ -174,6 +184,7 @@
   },
   {
     "slugName": "builder",
+    "package": "climate",
     "pageSummary": "",
     "filename": "packages/climate/builder.js",
     "comments": [
@@ -194,11 +205,12 @@
           "@future",
           "@name"
         ],
-        "filename": "packages/climate/builder.js"
+        "filename": "packages/climate/builder.js",
+        "package": "climate"
       },
       {
-        "start": 136,
-        "end": 144,
+        "start": 138,
+        "end": 146,
         "summary": "The default search space when running `configFileWithCancel`.",
         "links": [
           "configFileWithCancel"
@@ -218,7 +230,8 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/climate/builder.js"
+        "filename": "packages/climate/builder.js",
+        "package": "climate"
       }
     ],
     "order": 0,
@@ -228,7 +241,113 @@
     "workspace": "climate"
   },
   {
+    "slugName": "comment-test",
+    "package": "doctor-general-jest",
+    "pageSummary": "",
+    "filename": "packages/doctor-general-jest/comment-test.js",
+    "comments": [
+      {
+        "start": 17,
+        "end": 45,
+        "summary": "Merge two file representations. Can be right or left associative",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "combineFiles",
+          "exported": true,
+          "param": [
+            [
+              "{boolean}",
+              "leftToRight",
+              "Associate",
+              "left",
+              "to",
+              "right"
+            ],
+            [
+              "{File}",
+              "a",
+              "left",
+              "file"
+            ],
+            [
+              "{File}",
+              "b",
+              "right",
+              "file"
+            ]
+          ],
+          "returns": [
+            "{File}",
+            "Merged",
+            "file"
+          ],
+          "signature": [
+            "boolean",
+            "->",
+            "File",
+            "->",
+            "File",
+            "->",
+            "File"
+          ],
+          "example": "```js\nconst a = { a: true, greeting: 'hello', comments: ['one', 'two'], links: ['a', 'b'] }\nconst b = { b: true, greeting: 'ahoy', comments: ['three', 'four'], links: ['c', 'd'] }\nexpect(combineFiles(true, a, b)).toEqual({\n  a: true,\n  b: true,\n  greeting: 'ahoy',\n  comments: ['one', 'two', 'three', 'four'],\n  links: ['a', 'b', 'c', 'd']\n})\nexpect(combineFiles(false, a, b)).toEqual({\n  a: true,\n  b: true,\n  greeting: 'hello',\n  comments: ['three', 'four', 'one', 'two'],\n  links: ['c', 'd', 'a', 'b']\n})\n```"
+        },
+        "keywords": [
+          "@example",
+          "@exported",
+          "@name",
+          "@param",
+          "@returns",
+          "@signature"
+        ],
+        "filename": "packages/doctor-general-jest/comment-test.js",
+        "package": "doctor-general-jest"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "doctor-general-jest"
+  },
+  {
+    "slugName": "text",
+    "package": "doctor-general",
+    "pageSummary": "",
+    "filename": "packages/doctor-general/text.js",
+    "comments": [
+      {
+        "start": 20,
+        "end": 33,
+        "summary": "For strings which look like extended jsdoc comment line (e.g. ` * whatever`),\neschew the comment decoration",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "trimComment",
+          "signature": [
+            "String",
+            "->",
+            "String"
+          ],
+          "example": "```js\nexpect(trimComment('          * zipzop')).toEqual('zipzop')\nexpect(trimComment(' * squiggle         ')).toEqual('squiggle')\nconst input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)\nexpect(trimComment(input)).toEqual(input)\nexpect(trimComment(29292)).toEqual(29292)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name",
+          "@signature"
+        ],
+        "filename": "packages/doctor-general/text.js",
+        "package": "doctor-general"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "doctor-general"
+  },
+  {
     "slugName": "fs",
+    "package": "file-system",
     "pageSummary": "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.",
     "filename": "packages/file-system/fs.js",
     "comments": [
@@ -247,7 +366,8 @@
         "keywords": [
           "@pageSummary"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 27,
@@ -264,7 +384,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
         "start": 39,
@@ -276,14 +397,18 @@
         "structure": {
           "curried": [
             {
+              "name": "",
+              "lines": ""
+            },
+            {
               "name": "readFileWithFormatAndCancel",
               "summary": "Can be given a file encoding and a cancellation function.",
-              "lines": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\n  readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')\n)\n```"
+              "lines": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\n  readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')\n)\n```\n"
             },
             {
               "name": "readFileWithCancel",
               "summary": "Reads `utf8` files only.",
-              "lines": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\n  readFileWithCancel(() => process.exit(), './README.md')\n)\n```"
+              "lines": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\n  readFileWithCancel(() => process.exit(), './README.md')\n)\n```\n"
             },
             {
               "name": "readFile",
@@ -296,11 +421,12 @@
           "@curried",
           "@example"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
-        "start": 80,
-        "end": 91,
+        "start": 82,
+        "end": 93,
         "summary": "Read a JSON file asynchronously as a Future-wrapped value, given a cancellation function",
         "links": [
           "readFile",
@@ -322,11 +448,12 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
-        "start": 96,
-        "end": 107,
+        "start": 100,
+        "end": 111,
         "summary": "Read a JSON file asynchronously as a Future-wrapped value",
         "links": [
           "readFile",
@@ -348,11 +475,12 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
-        "start": 110,
-        "end": 126,
+        "start": 114,
+        "end": 130,
         "summary": "Read a glob asynchronously as a Future-wrapped value,\nwith configuration and a cancellation function.\nConfiguration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
           "readDirWithConfig",
@@ -374,11 +502,12 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
-        "start": 141,
-        "end": 156,
+        "start": 147,
+        "end": 162,
         "summary": "Read a glob asynchronously as a Future-wrapped value, with configuration.\nConfiguration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
           "readDirWithConfigAndCancel",
@@ -400,11 +529,12 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
-        "start": 159,
-        "end": 172,
+        "start": 165,
+        "end": 178,
         "summary": "Read a glob asynchronously as a Future-wrapped value, default config assumed.\nConfiguration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
           "readDirWithConfigAndCancel",
@@ -426,11 +556,12 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
-        "start": 175,
-        "end": 195,
+        "start": 181,
+        "end": 201,
         "summary": "Write to a file, with configuration and a cancellation function.\nUnlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
           "writeFileWithConfig",
@@ -452,11 +583,12 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
-        "start": 210,
-        "end": 229,
+        "start": 217,
+        "end": 236,
         "summary": "Write to a file, with configuration.\nUnlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
           "writeFileWithConfigAndCancel",
@@ -478,11 +610,12 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
-        "start": 232,
-        "end": 250,
+        "start": 239,
+        "end": 257,
         "summary": "Write to a file, assuming `'utf8'`.\nUnlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
           "writeFileWithConfigAndCancel",
@@ -504,89 +637,45 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
-        "start": 253,
-        "end": 272,
+        "start": 260,
+        "end": 308,
         "summary": "Remove a file, configurably, with cancellation.\nUnlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
-        "links": [
-          "removeFileWithConfig",
-          "removeFile"
-        ],
+        "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "name": "removeFileWithConfigAndCancel",
-          "see": [
-            "removeFileWithConfig",
-            "removeFile"
-          ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { removeFileWithConfigAndCancel } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFileWithConfigAndCancel(\n    cancellationFn,\n    { ...fs.removeFileConfig },\n    'my-file.txt'\n  )\n)\n```"
+          "curried": [
+            {
+              "name": "removeFileWithConfigAndCancel",
+              "summary": "Configuration and cancellation",
+              "lines": "\n ```js\n import { fork } from 'fluture'\n import { removeFileWithConfigAndCancel } from 'file-system'\n\n fork(console.warn)(console.log)(\n   removeFileWithConfigAndCancel(\n     cancellationFn,\n     { ...fs.removeFileConfig },\n     'my-file.txt'\n   )\n )\n ```"
+            },
+            {
+              "name": "removeFileWithConfig",
+              "summary": "No config, just cancellation",
+              "lines": "\n```js\nimport { fork } from 'fluture'\nimport { removeFileWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFileWithConfig(\n    { ...fs.removeFileConfig },\n    'my-file.txt'\n  )\n)\n```\n"
+            },
+            {
+              "name": "removeFile",
+              "summary": "remove a file. Aliased to `rm`.",
+              "lines": "\n```js\nimport { fork } from 'fluture'\nimport { removeFile } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFile(\n    'my-file.txt'\n  )\n)\n```\n"
+            }
+          ]
         },
         "keywords": [
-          "@example",
-          "@link",
-          "@name",
-          "@see"
+          "@curried",
+          "@example"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
-        "start": 280,
-        "end": 298,
-        "summary": "Remove a file, configurably.\nUnlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
-        "links": [
-          "removeFileWithConfigAndCancel",
-          "removeFile"
-        ],
-        "fileGroup": "",
-        "addTo": "",
-        "structure": {
-          "name": "removeFileWithConfig",
-          "see": [
-            "removeFileWithConfigAndCancel",
-            "removeFile"
-          ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { removeFileWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFileWithConfig(\n    { ...fs.removeFileConfig },\n    'my-file.txt'\n  )\n)\n```"
-        },
-        "keywords": [
-          "@example",
-          "@link",
-          "@name",
-          "@see"
-        ],
-        "filename": "packages/file-system/fs.js"
-      },
-      {
-        "start": 309,
-        "end": 326,
-        "summary": "Remove a file.\nUnlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
-        "links": [
-          "removeFileWithConfigAndCancel",
-          "removeFileWithConfig"
-        ],
-        "fileGroup": "",
-        "addTo": "",
-        "structure": {
-          "name": "removeFile",
-          "see": [
-            "removeFileWithConfigAndCancel",
-            "removeFileWithConfig"
-          ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { removeFile } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFile(\n    'my-file.txt'\n  )\n)\n```"
-        },
-        "keywords": [
-          "@example",
-          "@link",
-          "@name",
-          "@see"
-        ],
-        "filename": "packages/file-system/fs.js"
-      },
-      {
-        "start": 329,
-        "end": 347,
+        "start": 330,
+        "end": 348,
         "summary": "Remove multiple files, configurably, with a cancellation function.",
         "links": [
           "removeFilesWithConfig",
@@ -608,11 +697,12 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
-        "start": 355,
-        "end": 372,
+        "start": 358,
+        "end": 375,
         "summary": "Remove multiple files, configurably.",
         "links": [
           "removeFilesWithConfigAndCancel",
@@ -634,11 +724,12 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
-        "start": 375,
-        "end": 391,
+        "start": 378,
+        "end": 394,
         "summary": "Remove multiple files, configurably.",
         "links": [
           "removeFilesWithConfigAndCancel",
@@ -660,11 +751,12 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
-        "start": 394,
-        "end": 413,
+        "start": 397,
+        "end": 416,
         "summary": "Make a directory, given a cancellation function.\nReturns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdir",
@@ -686,11 +778,12 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
-        "start": 421,
-        "end": 439,
+        "start": 426,
+        "end": 444,
         "summary": "Make a directory\nReturns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdirWithCancel",
@@ -712,11 +805,12 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
-        "start": 442,
-        "end": 460,
+        "start": 447,
+        "end": 465,
         "summary": "Make a directory, recursively.\nReturns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdirWithCancel",
@@ -738,11 +832,12 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       },
       {
-        "start": 476,
-        "end": 491,
+        "start": 481,
+        "end": 496,
         "summary": "Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`",
         "links": [],
         "fileGroup": "",
@@ -755,7 +850,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/file-system/fs.js"
+        "filename": "packages/file-system/fs.js",
+        "package": "file-system"
       }
     ],
     "order": 0,
@@ -776,12 +872,6 @@
       "writeFile",
       "writeFileWithConfigAndCancel",
       "writeFileWithConfig",
-      "removeFileWithConfig",
-      "removeFile",
-      "removeFileWithConfigAndCancel",
-      "removeFile",
-      "removeFileWithConfigAndCancel",
-      "removeFileWithConfig",
       "removeFilesWithConfig",
       "removeFiles",
       "removeFilesWithConfigAndCancel",
@@ -799,6 +889,7 @@
   },
   {
     "slugName": "primitives",
+    "package": "inherent",
     "pageSummary": "",
     "filename": "packages/inherent/primitives.js",
     "comments": [
@@ -811,13 +902,41 @@
         "addTo": "",
         "structure": {
           "name": "equalishBy",
-          "example": "```js\nconst productIdSelector = z => {\n  const d = z.indexOf('-')\n  return d > -1 ? z.slice(0, d) : 'NO_MATCH'\n}\nconst isProduct = equalishBy(productIdSelector, 'coolco')\n\nconsole.log(`1. ${isProduct('coolco-10020')}`) // true\nconsole.log(`2. ${isProduct('otherco-xkswn')}`) // false\nconsole.log(`3. ${isProduct('blabbo')}`) // false\n```"
+          "example": "```js test=true\nconst productIdSelector = z => {\n  const d = z.indexOf('-')\n  return d > -1 ? z.slice(0, d) : 'NO_MATCH'\n}\nconst isProduct = equalishBy(productIdSelector, 'coolco')\n\nexpect(isProduct('coolco-10020')).toBeTruthy()\nexpect(isProduct('otherco-xkswn')).toBeFalsy()\nexpect(isProduct('blabbo')).toBeFalsy()\n```"
         },
         "keywords": [
           "@example",
           "@name"
         ],
-        "filename": "packages/inherent/primitives.js"
+        "filename": "packages/inherent/primitives.js",
+        "package": "inherent"
+      },
+      {
+        "start": 35,
+        "end": 47,
+        "summary": "Coerce values to boolean explicitly",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "coerce",
+          "param": [
+            "{any}",
+            "x",
+            "Any",
+            "value"
+          ],
+          "returns": "boolean",
+          "example": "```js test=true\nexpect(coerce(0)).toBeFalsy()\nexpect(coerce('')).toBeFalsy()\nexpect(coerce([])).toBeTruthy()\nexpect(coerce(1)).toBeTruthy()\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name",
+          "@param",
+          "@returns"
+        ],
+        "filename": "packages/inherent/primitives.js",
+        "package": "inherent"
       }
     ],
     "order": 0,
@@ -826,12 +945,13 @@
   },
   {
     "slugName": "kiddo",
+    "package": "kiddo",
     "pageSummary": "Call external processes and consume them as a Future-wrapped value. This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
     "filename": "packages/kiddo/kiddo.js",
     "comments": [
       {
-        "start": 10,
-        "end": 13,
+        "start": 11,
+        "end": 14,
         "summary": "@pageSummary Call external processes and consume them as a Future-wrapped value.\nThis is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
         "links": [],
         "fileGroup": "",
@@ -845,39 +965,65 @@
         "keywords": [
           "@pageSummary"
         ],
-        "filename": "packages/kiddo/kiddo.js"
+        "filename": "packages/kiddo/kiddo.js",
+        "package": "kiddo"
       },
       {
-        "start": 16,
-        "end": 63,
+        "start": 17,
+        "end": 64,
         "summary": "Consume external commands as a Future-wrapped value.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
+          "future": true,
           "curried": [
             {
               "name": "execWithConfig",
               "summary": "Passes all possible configuration values plus a cancellation function.",
-              "lines": "```js\nimport { execWithConfig } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithConfig(\n    function customCancellationFunction() {},\n    'echo',\n    { cleanup: true },\n    ['ahoy']\n  )\n)\n```"
+              "lines": "\n```js\nimport { execWithConfig } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithConfig(\n    function customCancellationFunction() {},\n    'echo',\n    { cleanup: true },\n    ['ahoy']\n  )\n)\n```\n"
             },
             {
               "name": "execWithCancel",
               "summary": "Eschews any configuration and instead only expects a cancellation function, command and arguments.",
-              "lines": "```js\nimport { execWithCancel } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithCancel(\n    function customCancellationFunction() {},\n    'echo',\n    ['ahoy']\n  )\n)\n```"
+              "lines": "\n```js\nimport { execWithCancel } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithCancel(\n    function customCancellationFunction() {},\n    'echo',\n    ['ahoy']\n  )\n)\n```\n"
             },
             {
               "name": "exec",
               "summary": "Eschews any configuration or cancellation function. Needs only command and arguments.",
-              "lines": "```js\nimport { exec } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  exec(\n    'echo',\n    ['ahoy']\n  )\n)\n```"
+              "lines": "\n```js test=true\nimport { fork } from 'fluture'\n// drgen-import-above\nconst blah = Math.round(Math.random() * 100000)\nfork(done)(z => {\n  expect(z.stdout).toEqual('' + blah)\n  done()\n})(exec('echo', [blah]))\n```"
             }
           ]
         },
         "keywords": [
           "@curried",
-          "@example"
+          "@example",
+          "@future"
         ],
-        "filename": "packages/kiddo/kiddo.js"
+        "filename": "packages/kiddo/kiddo.js",
+        "package": "kiddo"
+      },
+      {
+        "start": 80,
+        "end": 100,
+        "summary": "Add an `ora` indicator to a Future",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "signal",
+          "future": true,
+          "exported": true,
+          "example": "```js test=true\nimport { pipe, map } from 'ramda'\nimport { readFile } from 'file-system'\n// drgen-import-above\nconst cancel = () => {}\npipe(\n  signal(cancel, { text: 'Reading file...', successText: 'Read file!'}),\n  map(JSON.parse),\n  fork(done)(raw => {\n    expect(raw.name).toEqual('kiddo')\n    done()\n  })\n)(readFile('./package.json'))\n```"
+        },
+        "keywords": [
+          "@example",
+          "@exported",
+          "@future",
+          "@name"
+        ],
+        "filename": "packages/kiddo/kiddo.js",
+        "package": "kiddo"
       }
     ],
     "order": 0,
@@ -886,12 +1032,13 @@
   },
   {
     "slugName": "knot",
+    "package": "knot",
     "pageSummary": "",
     "filename": "packages/knot/knot.js",
     "comments": [
       {
-        "start": 49,
-        "end": 61,
+        "start": 48,
+        "end": 60,
         "summary": "Slice a string by counted delimiters",
         "links": [],
         "fileGroup": "",
@@ -904,11 +1051,12 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/knot/knot.js"
+        "filename": "packages/knot/knot.js",
+        "package": "knot"
       },
       {
-        "start": 66,
-        "end": 74,
+        "start": 65,
+        "end": 73,
         "summary": "A simple memoized utility for repeating a string and joining the array.",
         "links": [],
         "fileGroup": "",
@@ -921,11 +1069,12 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/knot/knot.js"
+        "filename": "packages/knot/knot.js",
+        "package": "knot"
       },
       {
-        "start": 82,
-        "end": 90,
+        "start": 78,
+        "end": 86,
         "summary": "Capitalize a string",
         "links": [],
         "fileGroup": "",
@@ -938,7 +1087,26 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/knot/knot.js"
+        "filename": "packages/knot/knot.js",
+        "package": "knot"
+      },
+      {
+        "start": 90,
+        "end": 104,
+        "summary": "Take PascalCase and kebabCase inputs and replace them with slug-case",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "slugWord",
+          "example": "```js test=true\nexpect(slugWord('CoolFuckingShit')).toEqual('cool-fucking-shit')\nexpect(slugWord('hoorayNiceLife')).toEqual('hooray-nice-life')\nexpect(slugWord('Do nothingCool ever')).toEqual('do nothing-cool ever')\nexpect(\n  slugWord('src/components/homepage/AugmentedDetailsDumbComponent')\n).toEqual(\n  'src-components-homepage-augmented-details-dumb-component'\n)\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/knot/knot.js",
+        "package": "knot"
       }
     ],
     "order": 0,
@@ -947,13 +1115,14 @@
   },
   {
     "slugName": "helpers",
+    "package": "monorail",
     "pageTitle": "helpers",
     "pageSummary": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
     "filename": "packages/monorail/helpers.js",
     "comments": [
       {
-        "start": 21,
-        "end": 24,
+        "start": 22,
+        "end": 25,
         "summary": "@pageSummary Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
         "links": [],
         "fileGroup": "",
@@ -964,17 +1133,18 @@
           ],
           "page": "helpers",
           "name": "helpers",
-          "detail": 21
+          "detail": 22
         },
         "keywords": [
           "@page",
           "@pageSummary"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       },
       {
-        "start": 32,
-        "end": 43,
+        "start": 33,
+        "end": 44,
         "summary": "Use this helper to test a regex that matches against any single incidence on any line",
         "links": [],
         "fileGroup": "",
@@ -987,11 +1157,12 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       },
       {
-        "start": 46,
-        "end": 56,
+        "start": 47,
+        "end": 57,
         "summary": "Use this helper to test a regex that matches and filters against every line",
         "links": [],
         "fileGroup": "",
@@ -1004,11 +1175,12 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       },
       {
-        "start": 61,
-        "end": 71,
+        "start": 62,
+        "end": 72,
         "summary": "Use this helper to test a regex that matches and finds the first matching line",
         "links": [],
         "fileGroup": "",
@@ -1021,11 +1193,12 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       },
       {
-        "start": 76,
-        "end": 86,
+        "start": 77,
+        "end": 87,
         "summary": "Use this helper to test a regex that matches and finds the last matching line",
         "links": [],
         "fileGroup": "",
@@ -1038,11 +1211,12 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       },
       {
-        "start": 91,
-        "end": 101,
+        "start": 92,
+        "end": 102,
         "summary": "Use this helper to select content between two repeating regular expressions",
         "links": [],
         "fileGroup": "",
@@ -1055,28 +1229,12 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       },
       {
-        "start": 114,
-        "end": 124,
-        "summary": "Use this helper to select all content between two repeating regular expressions",
-        "links": [],
-        "fileGroup": "",
-        "addTo": "",
-        "structure": {
-          "name": "selectAll",
-          "example": "```js\nexport default {\n  name: 'expanded-imports',\n  fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)\n}\n```"
-        },
-        "keywords": [
-          "@example",
-          "@name"
-        ],
-        "filename": "packages/monorail/helpers.js"
-      },
-      {
-        "start": 162,
-        "end": 173,
+        "start": 115,
+        "end": 126,
         "summary": "Use this helper to easily reduce over all lines and aggregate a value",
         "links": [],
         "fileGroup": "",
@@ -1089,11 +1247,30 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       },
       {
-        "start": 178,
-        "end": 191,
+        "start": 131,
+        "end": 141,
+        "summary": "Use this helper to select all content between two repeating regular expressions",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "selectAll",
+          "example": "```js\nexport default {\n  name: 'expanded-imports',\n  fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)\n}\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
+      },
+      {
+        "start": 179,
+        "end": 192,
         "summary": "Use this helper to easily filter all lines related to a given regular expression",
         "links": [],
         "fileGroup": "",
@@ -1106,11 +1283,12 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       },
       {
-        "start": 205,
-        "end": 218,
+        "start": 206,
+        "end": 219,
         "summary": "The `config` value is patched in so that it is easier to pass values from the rulefile configuration to the plugins themselves, scoped to the plugin name.",
         "links": [],
         "fileGroup": "",
@@ -1123,7 +1301,8 @@
           "@example",
           "@name"
         ],
-        "filename": "packages/monorail/helpers.js"
+        "filename": "packages/monorail/helpers.js",
+        "package": "monorail"
       }
     ],
     "order": 0,
@@ -1132,12 +1311,13 @@
   },
   {
     "slugName": "summary",
+    "package": "digested",
     "pageSummary": "",
     "filename": "tools/digested/summary.js",
     "comments": [
       {
-        "start": 86,
-        "end": 156,
+        "start": 89,
+        "end": 161,
         "summary": "Summarize a project, given:\n - the path to a `package.json` file\n - the path to a `dr-generated.json` file\n - the URI of a documentation site\n - the URI of a repository\n - (optional) a banner\n - or (optional) the path to a file which represents a banner",
         "links": [],
         "fileGroup": "",
@@ -1145,14 +1325,15 @@
         "structure": {
           "name": "summarize",
           "future": true,
-          "example": "```js test=true\nimport path from 'node:path'\nimport { fork } from 'fluture'\n// drgen-import-above\nfork(done)(x => {\n  expect(x.split('\\n')).toEqual([\n    \"this is a cool test!\",\n    \"## apps\",\n    \"\",\n    \" * [docs](//repo.biz/apps/docs) - documentation site for monoculture\",\n    \"\",\n    \"## packages\",\n    \"\",\n    \" * [bloodline](//repo.biz/packages/bloodline) - determine the relationships between files 🩸\",\n    \" * [climate](//repo.biz/packages/climate) - CLI utilities, friend 👯\",\n    \" * [climate-json](//repo.biz/packages/climate-json) - JSON parser for climate 🐐\",\n    \" * [climate-toml](//repo.biz/packages/climate-toml) - TOML parser for climate 🍅\",\n    \" * [climate-yaml](//repo.biz/packages/climate-yaml) - YAML parser for climate 🍠\",\n    \" * [clox](//repo.biz/packages/clox) - boxes for the terminal ⏰\",\n    \" * [doctor-general](//repo.biz/packages/doctor-general) - documentation generation 🩻\",\n    \" * [file-system](//repo.biz/packages/file-system) - fs, but in the future 🔮\",\n    \" * [inherent](//repo.biz/packages/inherent) - functional utilities for primitives ⛺️\",\n    \" * [kiddo](//repo.biz/packages/kiddo) - child processes in the future 👶\",\n    \" * [knot](//repo.biz/packages/knot) - functional utilities for strings 🪢\",\n    \" * [monocle](//repo.biz/packages/monocle) - inspect code and apply rules, magically 🧐\",\n    \" * [monorail](//repo.biz/packages/monorail) - plugins for smug grins 🚂\",\n    \" * [robot-tourist](//repo.biz/packages/robot-tourist) - human-centric source code interpreter 🤖\",\n    \" * [water-wheel](//repo.biz/packages/water-wheel) - future-wrapping for streaming interfaces 🌊\",\n    \"\",\n    \"## shared\",\n    \"\",\n    \" * [eslint-config-monoculture](//repo.biz/shared/eslint-config-monoculture) - shared eslint configuration for monoculture packages 🧹\",\n    \" * [jest-config](//repo.biz/shared/jest-config) - shared jest configuration for monoculture packages 🎪\",\n    \" * [monoculture-tsconfig](//repo.biz/shared/monoculture-tsconfig) - shared tsconfig for monoculture packages 😵\",\n    \"\",\n    \"## tools\",\n    \"\",\n    \" * [digested](//repo.biz/tools/digested) - summarize and automatically generate information about your projects 🍽️\",\n    \" * [doctor-general-cli](//repo.biz/tools/doctor-general-cli) - documentation generation in a nice CLI 🫡\",\n    \" * [gitparty](//repo.biz/tools/gitparty) - visualize git logs with magical context 🎨\",\n    \" * [spacework](//repo.biz/tools/spacework) - meta tools for monoculture ☄️\",\n    \" * [superorganism](//repo.biz/tools/superorganism) - script runner from beyond the moon 🦠\",\n    \" * [treacle](//repo.biz/tools/treacle) - command line interface tree visualization pun 🫠\",\n    \"\",\n  ])\n  done()\n})(summarize({\n  readme: true,\n  dirPath: process.cwd(),\n  banner: 'this is a cool test!',\n  // repoUrl: 'https://github.com/brekk/monoculture/tree/main',\n  // docUrl: 'https://brekk.github.io/monoculture',\n  // base package only!\n  repoUrl: '//repo.biz',\n  docUrl: '//repo.doc',\n  pkgPath: '../../package.json',\n  drGenPath: '../../apps/docs/dr-generated.json'\n}))\n```"
+          "example": "```js test=true\nimport path from 'node:path'\nimport { fork } from 'fluture'\n// drgen-import-above\nfork(done)(x => {\n  expect(x.split('\\n')).toEqual([\n    \"this is a cool test!\",\n    \"## apps\",\n    \"\",\n    \" * [docs](//repo.biz/apps/docs) - documentation site for monoculture\",\n    \"\",\n    \"## packages\",\n    \"\",\n    \" * [bloodline](//repo.biz/packages/bloodline) - determine the relationships between files 🩸\",\n    \" * [climate](//repo.biz/packages/climate) - CLI utilities, friend 👯\",\n    \" * [climate-json](//repo.biz/packages/climate-json) - JSON parser for climate 🐐\",\n    \" * [climate-toml](//repo.biz/packages/climate-toml) - TOML parser for climate 🍅\",\n    \" * [climate-yaml](//repo.biz/packages/climate-yaml) - YAML parser for climate 🍠\",\n    \" * [clox](//repo.biz/packages/clox) - boxes for the terminal ⏰\",\n    \" * [doctor-general](//repo.biz/packages/doctor-general) - documentation generation 🩻\",\n    \" * [doctor-general-jest](//repo.biz/packages/doctor-general-jest) - documentation generation - jest 🃏\",\n    \" * [doctor-general-mdx](//repo.biz/packages/doctor-general-mdx) - documentation generation - mdx 🩺\",\n    \" * [file-system](//repo.biz/packages/file-system) - fs, but in the future 🔮\",\n    \" * [inherent](//repo.biz/packages/inherent) - functional utilities for primitives ⛺️\",\n    \" * [kiddo](//repo.biz/packages/kiddo) - child processes in the future 👶\",\n    \" * [knot](//repo.biz/packages/knot) - functional utilities for strings 🪢\",\n    \" * [monocle](//repo.biz/packages/monocle) - inspect code and apply rules, magically 🧐\",\n    \" * [monorail](//repo.biz/packages/monorail) - plugins for smug grins 🚂\",\n    \" * [robot-tourist](//repo.biz/packages/robot-tourist) - human-centric source code interpreter 🤖\",\n    \" * [water-wheel](//repo.biz/packages/water-wheel) - future-wrapping for streaming interfaces 🌊\",\n    \"\",\n    \"## shared\",\n    \"\",\n    \" * [eslint-config-monoculture](//repo.biz/shared/eslint-config-monoculture) - shared eslint configuration for monoculture packages 🧹\",\n    \" * [jest-config](//repo.biz/shared/jest-config) - shared jest configuration for monoculture packages 🎪\",\n    \" * [monoculture-tsconfig](//repo.biz/shared/monoculture-tsconfig) - shared tsconfig for monoculture packages 😵\",\n    \"\",\n    \"## tools\",\n    \"\",\n    \" * [digested](//repo.biz/tools/digested) - summarize and automatically generate information about your projects 🍽️\",\n    \" * [doctor-general-cli](//repo.biz/tools/doctor-general-cli) - documentation generation in a nice CLI 🫡\",\n    \" * [gitparty](//repo.biz/tools/gitparty) - visualize git logs with magical context 🎨\",\n    \" * [spacework](//repo.biz/tools/spacework) - meta tools for monoculture ☄️\",\n    \" * [superorganism](//repo.biz/tools/superorganism) - script runner from beyond the moon 🐁\",\n    \" * [treacle](//repo.biz/tools/treacle) - command line interface tree visualization pun 🫠\",\n    \"\",\n  ])\n  done()\n})(summarize({\n  readme: true,\n  dirPath: process.cwd(),\n  banner: 'this is a cool test!',\n  // repoUrl: 'https://github.com/brekk/monoculture/tree/main',\n  // docUrl: 'https://brekk.github.io/monoculture',\n  // base package only!\n  repoUrl: '//repo.biz',\n  docUrl: '//repo.doc',\n  pkgPath: '../../package.json',\n  drGenPath: '../../apps/docs/dr-generated.json'\n}))\n```"
         },
         "keywords": [
           "@example",
           "@future",
           "@name"
         ],
-        "filename": "tools/digested/summary.js"
+        "filename": "tools/digested/summary.js",
+        "package": "digested"
       }
     ],
     "order": 0,

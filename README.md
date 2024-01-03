@@ -17,6 +17,10 @@ introspection and organization tools for monorepos
     - [@chakra-ui/system](https://www.npmjs.com/package/@chakra-ui/system)
     - [@emotion/react](https://www.npmjs.com/package/@emotion/react)
     - [@emotion/styled](https://www.npmjs.com/package/@emotion/styled)
+    - [@fortawesome/fontawesome-svg-core](https://www.npmjs.com/package/@fortawesome/fontawesome-svg-core)
+    - [@fortawesome/free-regular-svg-icons](https://www.npmjs.com/package/@fortawesome/free-regular-svg-icons)
+    - [@fortawesome/free-solid-svg-icons](https://www.npmjs.com/package/@fortawesome/free-solid-svg-icons)
+    - [@fortawesome/react-fontawesome](https://www.npmjs.com/package/@fortawesome/react-fontawesome)
     - [@mdi/js](https://www.npmjs.com/package/@mdi/js)
     - [framer-motion](https://www.npmjs.com/package/framer-motion)
     - [next](https://www.npmjs.com/package/next)
@@ -32,6 +36,7 @@ introspection and organization tools for monorepos
     - [@types/jest](https://www.npmjs.com/package/@types/jest) 🧪
     - [@types/react](https://www.npmjs.com/package/@types/react) 🧪
     - [doctor-general-cli](https://github.com/brekk/monoculture/tree/main/tools/doctor-general-cli) 🦴 🧪
+    - [doctor-general-mdx](https://github.com/brekk/monoculture/tree/main/packages/doctor-general-mdx) 🦴 🧪
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [eslint](https://www.npmjs.com/package/eslint) 🧪
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
@@ -72,7 +77,6 @@ introspection and organization tools for monorepos
     - [precinct](https://www.npmjs.com/package/precinct)
     - [ramda](https://www.npmjs.com/package/ramda)
     - [ts-graphviz](https://www.npmjs.com/package/ts-graphviz)
-    - [doctor-general-cli](https://github.com/brekk/monoculture/tree/main/tools/doctor-general-cli) 🦴 🧪
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
@@ -170,6 +174,13 @@ introspection and organization tools for monorepos
 
  * [doctor-general](https://github.com/brekk/monoculture/tree/main/packages/doctor-general) - documentation generation 🩻
 
+   <details><summary>API</summary>
+
+    - [comment-test](https://brekk.github.io/monoculture/doctor-general-jest/comment-test)
+    - [text](https://brekk.github.io/monoculture/doctor-general/text)
+
+   </details>
+
    <details><summary>Dependencies</summary>
 
     - [climate](https://github.com/brekk/monoculture/tree/main/packages/climate) 🦴
@@ -177,6 +188,54 @@ introspection and organization tools for monorepos
     - [fluture](https://www.npmjs.com/package/fluture)
     - [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) 🦴
     - [kiddo](https://github.com/brekk/monoculture/tree/main/packages/kiddo) 🦴
+    - [knot](https://github.com/brekk/monoculture/tree/main/packages/knot) 🦴
+    - [ramda](https://www.npmjs.com/package/ramda)
+    - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
+    - [envtrace](https://www.npmjs.com/package/envtrace) 🧪
+    - [esbuild](https://www.npmjs.com/package/esbuild) 🧪
+    - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
+    - [jest-environment-jsdom](https://www.npmjs.com/package/jest-environment-jsdom) 🧪
+    - [madge](https://www.npmjs.com/package/madge) 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
+    - [strip-ansi](https://www.npmjs.com/package/strip-ansi) 🧪
+    - [xtrace](https://www.npmjs.com/package/xtrace) 🧪
+
+   </details>
+
+ * [doctor-general-jest](https://github.com/brekk/monoculture/tree/main/packages/doctor-general-jest) - documentation generation - jest 🃏
+
+   <details><summary>API</summary>
+
+    - [comment-test](https://brekk.github.io/monoculture/doctor-general-jest/comment-test)
+
+   </details>
+
+   <details><summary>Dependencies</summary>
+
+    - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
+    - [fluture](https://www.npmjs.com/package/fluture)
+    - [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) 🦴
+    - [knot](https://github.com/brekk/monoculture/tree/main/packages/knot) 🦴
+    - [ramda](https://www.npmjs.com/package/ramda)
+    - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
+    - [envtrace](https://www.npmjs.com/package/envtrace) 🧪
+    - [esbuild](https://www.npmjs.com/package/esbuild) 🧪
+    - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
+    - [jest-environment-jsdom](https://www.npmjs.com/package/jest-environment-jsdom) 🧪
+    - [madge](https://www.npmjs.com/package/madge) 🧪
+    - [nps](https://www.npmjs.com/package/nps) 🧪
+    - [strip-ansi](https://www.npmjs.com/package/strip-ansi) 🧪
+    - [xtrace](https://www.npmjs.com/package/xtrace) 🧪
+
+   </details>
+
+ * [doctor-general-mdx](https://github.com/brekk/monoculture/tree/main/packages/doctor-general-mdx) - documentation generation - mdx 🩺
+
+   <details><summary>Dependencies</summary>
+
+    - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
+    - [fluture](https://www.npmjs.com/package/fluture)
+    - [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) 🦴
     - [knot](https://github.com/brekk/monoculture/tree/main/packages/knot) 🦴
     - [ramda](https://www.npmjs.com/package/ramda)
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
@@ -224,6 +283,7 @@ introspection and organization tools for monorepos
    <details><summary>Dependencies</summary>
 
     - [ramda](https://www.npmjs.com/package/ramda)
+    - [doctor-general-cli](https://github.com/brekk/monoculture/tree/main/tools/doctor-general-cli) 🦴 🧪
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
@@ -241,8 +301,10 @@ introspection and organization tools for monorepos
 
    <details><summary>Dependencies</summary>
 
+    - [envtrace](https://www.npmjs.com/package/envtrace)
     - [execa](https://www.npmjs.com/package/execa)
     - [fluture](https://www.npmjs.com/package/fluture)
+    - [ora](https://www.npmjs.com/package/ora)
     - [ramda](https://www.npmjs.com/package/ramda)
     - [@testing-library/jest-dom](https://www.npmjs.com/package/@testing-library/jest-dom) 🧪
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
@@ -265,6 +327,7 @@ introspection and organization tools for monorepos
 
     - [chalk](https://www.npmjs.com/package/chalk)
     - [ramda](https://www.npmjs.com/package/ramda)
+    - [doctor-general-cli](https://github.com/brekk/monoculture/tree/main/tools/doctor-general-cli) 🦴 🧪
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
@@ -281,6 +344,7 @@ introspection and organization tools for monorepos
     - [climate-toml](https://github.com/brekk/monoculture/tree/main/packages/climate-toml) 🦴
     - [envtrace](https://www.npmjs.com/package/envtrace)
     - [fluture](https://www.npmjs.com/package/fluture)
+    - [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) 🦴
     - [monorail](https://github.com/brekk/monoculture/tree/main/packages/monorail) 🦴
     - [ramda](https://www.npmjs.com/package/ramda)
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
@@ -289,6 +353,7 @@ introspection and organization tools for monorepos
     - [execa](https://www.npmjs.com/package/execa) 🧪
     - [jest](https://www.npmjs.com/package/jest) 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
+    - [knot](https://github.com/brekk/monoculture/tree/main/packages/knot) 🦴 🧪
     - [nps](https://www.npmjs.com/package/nps) 🧪
     - [robot-tourist](https://github.com/brekk/monoculture/tree/main/packages/robot-tourist) 🦴 🧪
 
@@ -307,6 +372,8 @@ introspection and organization tools for monorepos
     - [@hapi/topo](https://www.npmjs.com/package/@hapi/topo)
     - [envtrace](https://www.npmjs.com/package/envtrace)
     - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
+    - [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) 🦴
+    - [doctor-general-cli](https://github.com/brekk/monoculture/tree/main/tools/doctor-general-cli) 🦴 🧪
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [esbuild](https://www.npmjs.com/package/esbuild) 🧪
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
@@ -388,10 +455,9 @@ introspection and organization tools for monorepos
     - [@swc/jest](https://www.npmjs.com/package/@swc/jest)
     - [@testing-library/jest-dom](https://www.npmjs.com/package/@testing-library/jest-dom)
     - [jest](https://www.npmjs.com/package/jest)
-    - [jest-silent-reporter](https://www.npmjs.com/package/jest-silent-reporter)
     - [ts-jest-resolver](https://www.npmjs.com/package/ts-jest-resolver)
     - [typescript](https://www.npmjs.com/package/typescript)
-    - [nps](https://www.npmjs.com/package/nps) 🧪
+    - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
 
    </details>
 
@@ -422,7 +488,7 @@ introspection and organization tools for monorepos
     - [file-system](https://github.com/brekk/monoculture/tree/main/packages/file-system) 🦴
     - [fluture](https://www.npmjs.com/package/fluture)
     - [ramda](https://www.npmjs.com/package/ramda)
-    - [doctor-general-cli](https://github.com/brekk/monoculture/tree/main/tools/doctor-general-cli) 🦴 🧪
+    - [doctor-general-cli](https://github.com/brekk/monoculture/tree/main/doctor-general-cli) 🦴 🧪
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [eslint-config-monoculture](https://github.com/brekk/monoculture/tree/main/shared/eslint-config-monoculture) 🦴 🧪
     - [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) 🦴 🧪
@@ -437,6 +503,7 @@ introspection and organization tools for monorepos
     - [climate](https://github.com/brekk/monoculture/tree/main/packages/climate) 🦴
     - [doctor-general](https://github.com/brekk/monoculture/tree/main/packages/doctor-general) 🦴
     - [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) 🦴
+    - [kiddo](https://github.com/brekk/monoculture/tree/main/packages/kiddo) 🦴
     - [ramda](https://www.npmjs.com/package/ramda)
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [envtrace](https://www.npmjs.com/package/envtrace) 🧪
@@ -485,7 +552,7 @@ introspection and organization tools for monorepos
 
    </details>
 
- * [superorganism](https://github.com/brekk/monoculture/tree/main/tools/superorganism) - script runner from beyond the moon 🦠
+ * [superorganism](https://github.com/brekk/monoculture/tree/main/tools/superorganism) - script runner from beyond the moon 🐁
 
    <details><summary>Dependencies</summary>
 

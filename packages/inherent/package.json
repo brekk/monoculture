@@ -9,15 +9,13 @@
   "license": "ISC",
   "private": true,
   "exports": {
-    ".": "./inherent.js",
-    "./primitives.js": "./primitives.js",
-    "./array.js": "./array.js",
-    "./object.js": "./object.js"
+    ".": "./inherent.js"
   },
   "dependencies": {
     "ramda": "0.29.1"
   },
   "devDependencies": {
+    "doctor-general-cli": "portal:../../tools/doctor-general-cli",
     "dotenv-cli": "7.3.0",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     "jest-config": "workspace:shared/jest-config",
@@ -26,6 +24,7 @@
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "autotest": "dotenv -- nps -c ./package-scripts.cjs autotest",
+    "autotest:rebuild": "dotenv -- nps -c ./package-scripts.cjs autotest.rebuild",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
