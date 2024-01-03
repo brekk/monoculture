@@ -2,7 +2,7 @@ import { pipe, curry, prop, ifElse, propOr, __ as $ } from 'ramda'
 import { execa } from 'execa'
 import { Future, promise } from 'fluture'
 import { envtrace } from 'envtrace'
-import ora, { oraPromise } from 'ora'
+import { oraPromise } from 'ora'
 
 const log = envtrace('kiddo')
 
@@ -78,27 +78,26 @@ export const execWithConfig = curry(
 export const execWithCancel = execWithConfig($, $, undefined)
 export const exec = execWithCancel(() => {})
 
-export const signifier = curry(function _signifier(cancel, options) {
-  return Future(function _signifierF(bad, good) {
-    ora(options).catch(bad).then(good)
-    return cancel
-  })
-})
-
 /**
  * Add an `ora` indicator to a Future
  * @name signal
+ * @future
  * @exported
  * @example
- * ```js
+ * ```js test=true
+ * import { pipe, map } from 'ramda'
  * import { readFile } from 'file-system'
  * import { fork } from 'fluture'
  * // drgen-import-above
  * const cancel = () => {}
  * pipe(
  *   signal(cancel, { text: 'Reading file...', successText: 'Read file!'}),
- *   fork(console.warn)(console.log)
- * )(readFile('./myfile.txt'))
+ *   map(JSON.parse),
+ *   fork(done)(raw => {
+ *     expect(raw.name).toEqual('kiddo')
+ *     done()
+ *   })
+ * )(readFile('./package.json'))
  * ```
  */
 export const signal = curry(function _signal(cancel, options, f) {

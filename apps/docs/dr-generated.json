@@ -1000,6 +1000,28 @@
         ],
         "filename": "packages/kiddo/kiddo.js",
         "package": "kiddo"
+      },
+      {
+        "start": 80,
+        "end": 101,
+        "summary": "Add an `ora` indicator to a Future",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "signal",
+          "future": true,
+          "exported": true,
+          "example": "```js test=true\nimport { pipe, map } from 'ramda'\nimport { readFile } from 'file-system'\nimport { fork } from 'fluture'\n// drgen-import-above\nconst cancel = () => {}\npipe(\n  signal(cancel, { text: 'Reading file...', successText: 'Read file!'}),\n  map(JSON.parse),\n  fork(done)(raw => {\n    expect(raw.name).toEqual('kiddo')\n    done()\n  })\n)(readFile('./package.json'))\n```"
+        },
+        "keywords": [
+          "@example",
+          "@exported",
+          "@future",
+          "@name"
+        ],
+        "filename": "packages/kiddo/kiddo.js",
+        "package": "kiddo"
       }
     ],
     "order": 0,

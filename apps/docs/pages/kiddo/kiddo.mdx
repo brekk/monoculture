@@ -69,3 +69,26 @@ fork(console.warn)(console.log)(
 ### See also
  - execWithConfig
  - execWithCancel
+
+## signal
+
+Add an `ora` indicator to a Future
+
+### Usage
+```js test=true
+import { signal } from 'kiddo'
+
+import { pipe, map } from 'ramda'
+import { readFile } from 'file-system'
+import { fork } from 'fluture'
+
+const cancel = () => {}
+pipe(
+  signal(cancel, { text: 'Reading file...', successText: 'Read file!'}),
+  map(JSON.parse),
+  fork(done)(raw => {
+    expect(raw.name).toEqual('kiddo')
+    done()
+  })
+)(readFile('./package.json'))
+```
