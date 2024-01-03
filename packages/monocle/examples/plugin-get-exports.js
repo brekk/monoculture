@@ -7,7 +7,7 @@ const plugin = {
   selector: y => y?.state?.['has-exports'],
   fn: (context, file, { filter }) =>
     context?.[file.name]
-      ? filter(/^export/g).reduce((agg, [_line, content]) => {
+      ? filter(/^export/g).reduce((agg, [__line, content]) => {
           const parts = words(content)
           const [, declaration, x] = parts
           if (declaration !== '*' || x !== 'from') {

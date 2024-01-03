@@ -17,7 +17,7 @@ export const histogramBy = curry(function _histogramBy(pred, list) {
 export const rarestBy = curry(function _rarestBy(pred, list) {
   return pipe(
     histogramBy(pred),
-    x => x.sort(([_1, v], [_2, v2]) => v - v2),
+    x => x.sort(([__1, v], [__2, v2]) => v - v2),
     when(pipe(length, equals(0)), always([[]])),
     head,
     head

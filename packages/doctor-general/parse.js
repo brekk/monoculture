@@ -100,7 +100,7 @@ export const parseFile = curry(function _parseFile(debugMode, root, filename) {
         ),
         unless(
           K(debugMode),
-          map(({ lines: _lines, ...rest }) => rest)
+          map(({ lines: __lines, ...rest }) => rest)
         )
       )(p.comments),
     }))

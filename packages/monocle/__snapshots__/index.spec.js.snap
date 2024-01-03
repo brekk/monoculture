@@ -1014,7 +1014,7 @@ exports[`monoprocessor 1`] = `
           0,
         ],
       ],
-      "hash": "cd55fedb68dc8ac2ec4a1a53a0626e078d8773abefcc04ac3cc7af1115261474",
+      "hash": "763a77e313736b79748f3c5be1d4605fe4bc605add54b0d2254f27f797d7043e",
       "name": "examples/plugin-get-exports.js",
     },
     "examples/plugin-get-imported.js": {

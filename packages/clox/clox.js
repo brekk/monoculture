@@ -297,8 +297,7 @@ const processContent = raw =>
       [
         ({ borderStyle, title }) => borderStyle !== NONE || title,
         opts => {
-          const { marginLeft, contentWidth, title, chars, align, titleAlign } =
-            opts
+          const { marginLeft, contentWidth, title, chars, titleAlign } = opts
           const retop = strepeat(chars.top)
           return (
             colorizeBorder(
@@ -334,14 +333,8 @@ const processContent = raw =>
       [
         ({ subtitle, borderStyle }) => subtitle || borderStyle !== NONE,
         opts => {
-          const {
-            marginLeft,
-            contentWidth,
-            subtitle,
-            chars,
-            align,
-            subtitleAlign,
-          } = opts
+          const { marginLeft, contentWidth, subtitle, chars, subtitleAlign } =
+            opts
           const rebottom = strepeat(chars.bottom)
           return colorizeBorder(
             opts,

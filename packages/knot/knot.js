@@ -34,7 +34,7 @@ export const markdownTabs = cake(
 export const nthIndexOf = curry(function _nthIndexOf(delim, n, input) {
   return pipe(
     range(0),
-    reduce((x, _) => input.indexOf(delim, x + 1), -1),
+    reduce(x => input.indexOf(delim, x + 1), -1),
     z => input.slice(0, z)
   )(n)
 })
@@ -42,7 +42,7 @@ export const nthIndexOf = curry(function _nthIndexOf(delim, n, input) {
 export const nthLastIndexOf = curry(function _nthLastIndexOf(delim, n, input) {
   return pipe(
     range(0),
-    reduce((x, _) => input.lastIndexOf(delim, x - 1), input.length),
+    reduce(x => input.lastIndexOf(delim, x - 1), input.length),
     z => input.slice(z + 1)
   )(Math.abs(n))
 })

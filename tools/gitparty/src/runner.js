@@ -41,7 +41,7 @@ import {
   uniq,
   zip,
 } from 'ramda'
-import { canonicalize } from './alias'
+// import { canonicalize } from './alias'
 import {
   THIS_IS_NOT_A_GIT_REPO,
   CONFIG_NOT_VALID,
@@ -56,8 +56,6 @@ import {
 import { gitlogWithCancel } from './git'
 import { log } from './log'
 import PKG from '../package.json'
-
-const unlines = join('\n')
 
 const BAR = `│`
 const NEWBAR = `\n${BAR}`
@@ -183,7 +181,7 @@ const adjustRelativeTimezone = curry(
     return commit
   }
 )
-const deriveAuthor = curry((lookup, commit) => {})
+// const deriveAuthor = curry((lookup, commit) => {})
 
 const getFiletype = z => {
   const y = z.slice(z.indexOf('.') + 1)
@@ -306,7 +304,7 @@ export const processPatterns = curry(function _processPatterns(chalk, v) {
 })
 
 export const runner = curry(function _runner(cancel, argv) {
-  let canon
+  // let canon
   return pipe(
     v => {
       const cwd = process.cwd()
@@ -333,7 +331,7 @@ export const runner = curry(function _runner(cancel, argv) {
       )(config)
     }),
     map(({ config, partyFile, gitlog, chalk }) => {
-      canon = canonicalize({})
+      // canon = canonicalize({})
       return pipe(
         propOr({}, 'patterns'),
         map(processPatterns(chalk)),

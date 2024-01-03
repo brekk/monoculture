@@ -40,7 +40,7 @@ module.exports = {
     'no-unused-vars': 0,
     '@typescript-eslint/no-unused-vars': [
       1,
-      { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
+      { varsIgnorePattern: '^__', argsIgnorePattern: '^__' },
     ],
     'no-unused-expressions': 2,
     'no-sequences': 2,

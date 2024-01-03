@@ -446,7 +446,7 @@ introspection and organization tools for monorepos
 
    </details>
 
- * [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) - shared jest configuration for monoculture packages 🎪
+ * [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) - shared jest configuration for monoculture packages 
 
    <details><summary>Dependencies</summary>
 
@@ -454,10 +454,9 @@ introspection and organization tools for monorepos
     - [@swc/jest](https://www.npmjs.com/package/@swc/jest)
     - [@testing-library/jest-dom](https://www.npmjs.com/package/@testing-library/jest-dom)
     - [jest](https://www.npmjs.com/package/jest)
-    - [jest-silent-reporter](https://www.npmjs.com/package/jest-silent-reporter)
     - [ts-jest-resolver](https://www.npmjs.com/package/ts-jest-resolver)
     - [typescript](https://www.npmjs.com/package/typescript)
-    - [nps](https://www.npmjs.com/package/nps) 🧪
+    - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
 
    </details>
 

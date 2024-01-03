@@ -79,7 +79,7 @@ const processPackage = ({ drGen, workspaces, banner }) =>
       pipe(
         map(pipe(({ group, ...z }) => [group, z])),
         groupBy(head),
-        map(map(([_k, g]) => g))
+        map(map(([, g]) => g))
       )
     ),
     map(grouped => ({ banner, grouped }))
