@@ -1,0 +1,5 @@
+ - [ ] - Let's eschew usage of `nps`
+ - [ ] - Let's run `superorganism` through its paces
+   - It should be compatible with `package-scripts.cjs` / CommonJS files.
+   - It should support some means of templating / reusable config across multiple workspaces
+   - Perhaps a stretch goal: It should support eschewing our current hackjob of `sync:scripts`
