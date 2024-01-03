@@ -12,10 +12,21 @@ import {
   path,
   head,
   replace,
+  curry,
 } from 'ramda'
 import { log } from './log'
-// import { stripRelative } from './text'
-// import { combineFiles } from './file'
+
+// TODO: consolidate this
+export const combineFiles = curry(function _combineFiles(leftToRight, a, b) {
+  return !leftToRight
+    ? combineFiles(true, b, a)
+    : {
+        ...a,
+        ...b,
+        comments: [...a.comments, ...b.comments],
+        links: [...a.links, ...b.links],
+      }
+})
 
 export const pullPageTitleFromAnyComment = pipe(
   filter(pathOr(false, ['structure', 'page'])),

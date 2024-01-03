@@ -18,8 +18,6 @@
     "ramda": "0.29.1"
   },
   "devDependencies": {
-    "doctor-general-cli": "workspace:tools/doctor-general-cli",
-    "doctor-general-jest": "workspace:packages/doctor-general-jest",
     "dotenv-cli": "7.3.0",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     "jest-config": "workspace:shared/jest-config",

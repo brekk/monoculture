@@ -19,7 +19,6 @@ import {
 } from 'ramda'
 import { slugWord } from 'knot'
 import { writeFileWithAutoPath } from 'file-system'
-import { log } from './log'
 
 export const prepareMetaFiles = curry(
   function _prepareMetaFiles(outputDir, workspace, commentedFiles) {

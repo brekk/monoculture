@@ -2,86 +2,11 @@
 
 exports[`parseFile 1`] = `
 {
-  "comments": [
-    {
-      "addTo": "",
-      "end": 77,
-      "fileGroup": "",
-      "keywords": [
-        "@example",
-        "@exported",
-        "@name",
-        "@param",
-        "@returns",
-        "@signature",
-      ],
-      "links": [],
-      "start": 49,
-      "structure": {
-        "example": "\`\`\`js
-const a = { a: true, greeting: 'hello', comments: ['one', 'two'], links: ['a', 'b'] }
-const b = { b: true, greeting: 'ahoy', comments: ['three', 'four'], links: ['c', 'd'] }
-expect(combineFiles(true, a, b)).toEqual({
-  a: true,
-  b: true,
-  greeting: 'ahoy',
-  comments: ['one', 'two', 'three', 'four'],
-  links: ['a', 'b', 'c', 'd']
-})
-expect(combineFiles(false, a, b)).toEqual({
-  a: true,
-  b: true,
-  greeting: 'hello',
-  comments: ['three', 'four', 'one', 'two'],
-  links: ['c', 'd', 'a', 'b']
-})
-\`\`\`",
-        "exported": true,
-        "name": "combineFiles",
-        "param": [
-          [
-            "{boolean}",
-            "leftToRight",
-            "Associate",
-            "left",
-            "to",
-            "right",
-          ],
-          [
-            "{File}",
-            "a",
-            "left",
-            "file",
-          ],
-          [
-            "{File}",
-            "b",
-            "right",
-            "file",
-          ],
-        ],
-        "returns": [
-          "{File}",
-          "Merged",
-          "file",
-        ],
-        "signature": [
-          "boolean",
-          "->",
-          "File",
-          "->",
-          "File",
-          "->",
-          "File",
-        ],
-      },
-      "summary": "Merge two file representations. Can be right or left associative",
-    },
-  ],
+  "comments": [],
   "fileGroup": undefined,
   "filename": "packages/doctor-general/file.js",
   "links": [],
-  "order": 0,
+  "order": NaN,
   "package": "doctor-general",
   "pageSummary": "",
   "pageTitle": undefined,

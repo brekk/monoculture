@@ -1,7 +1,7 @@
 import PKG from './package.json'
 import { interpret } from 'file-system'
 import { configurate } from 'climate'
-import { chain, curry, pipe, slice, map } from 'ramda'
+import { chain, curry, pipe, slice } from 'ramda'
 import { resolve } from 'fluture'
 import { drgen } from 'doctor-general'
 

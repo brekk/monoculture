@@ -17,8 +17,6 @@
     "inherent": "workspace:packages/inherent"
   },
   "devDependencies": {
-    "doctor-general-cli": "workspace:tools/doctor-general-cli",
-    "doctor-general-jest": "workspace:packages/doctor-general-jest",
     "dotenv-cli": "7.3.0",
     "esbuild": "0.19.10",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",

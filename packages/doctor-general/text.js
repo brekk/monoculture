@@ -69,4 +69,3 @@ export const capitalToKebab = s =>
   )(s)
 
 export const stripLeadingHyphen = replace(/^-/g, '')
-

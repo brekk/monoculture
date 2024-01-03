@@ -84,7 +84,6 @@ export const parse = curry(function _parse(root, filename, content) {
   )(content)
 })
 
-// comments in pipe show current shape per step
 export const parseFile = curry(function _parseFile(debugMode, root, filename) {
   return pipe(
     // String
