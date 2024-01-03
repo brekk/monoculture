@@ -84,18 +84,26 @@ export const signifier = curry(function _signifier(cancel, options) {
     return cancel
   })
 })
-// I think that doing this this way means that we don't get any status until the very end
+
+/**
+ * Add an `ora` indicator to a Future
+ * @name signal
+ * @exported
+ * @example
+ * ```js
+ * import { readFile } from 'file-system'
+ * import { fork } from 'fluture'
+ * // drgen-import-above
+ * const cancel = () => {}
+ * pipe(
+ *   signal(cancel, { text: 'Reading file...', successText: 'Read file!'}),
+ *   fork(console.warn)(console.log)
+ * )(readFile('./myfile.txt'))
+ * ```
+ */
 export const signal = curry(function _signal(cancel, options, f) {
   return Future(function _signalF(bad, good) {
     oraPromise(promise(f), options).catch(bad).then(good)
     return cancel
   })
 })
-/*
-// use pap?
-export const signal = curry(function _signal(cancel, options, f) {
-  return pipe(
-    signifier(cancel),
-  )(options)
-})
-*/
