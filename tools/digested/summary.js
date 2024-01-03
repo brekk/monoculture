@@ -141,7 +141,7 @@ const processPackage = ({ drGen, workspaces, banner }) =>
  *     " * [doctor-general-cli](//repo.biz/tools/doctor-general-cli) - documentation generation in a nice CLI 🫡",
  *     " * [gitparty](//repo.biz/tools/gitparty) - visualize git logs with magical context 🎨",
  *     " * [spacework](//repo.biz/tools/spacework) - meta tools for monoculture ☄️",
- *     " * [superorganism](//repo.biz/tools/superorganism) - script runner from beyond the moon 🦠",
+ *     " * [superorganism](//repo.biz/tools/superorganism) - script runner from beyond the moon 🐁",
  *     " * [treacle](//repo.biz/tools/treacle) - command line interface tree visualization pun 🫠",
  *     "",
  *   ])
