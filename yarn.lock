@@ -13688,6 +13688,7 @@ __metadata:
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     execa: "npm:8.0.1"
     fluture: "npm:14.0.0"
+    inherent: "workspace:packages/inherent"
     jest: "npm:29.7.0"
     jest-config: "workspace:shared/jest-config"
     knot: "workspace:packages/knot"

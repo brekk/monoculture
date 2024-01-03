@@ -1,8 +1,12 @@
 import {
+  lt,
+  reduce,
+  mergeRight,
+  length,
+  objOf,
   when,
   toPairs,
   __ as $,
-  zip,
   values,
   concat,
   split,
@@ -20,12 +24,12 @@ const words = split(' ')
 function regex(z, flags) {
   return new RegExp(z)
 }
-import { isArray } from 'inherent'
+const isArray = Array.isArray
 
 const plugin = {
   name: 'get-imported',
   dependencies: [],
-  fn: (c, file, { selectAll, any, log }) => {
+  fn: (c, file, { selectAll, onLines, any, log }) => {
     const last = z => z[z.length - 1]
     const rawImports = selectAll(/^import/, /from (.*)$/g)
     log('rawImports', rawImports)
@@ -33,6 +37,8 @@ const plugin = {
       map(reject(z => typeof z === 'number')),
       map(unwords),
       map(y => {
+        // TODO: we should handle this fucking weird case:
+        // import crap, { zipZop } from 'gorgonzola'
         const lastWord = last(words(y))
         const star = y.indexOf('* as ')
         const hasBrace = y.indexOf('{')
@@ -66,19 +72,39 @@ const plugin = {
           pipe(values, filter(I), log('@@@'), concat($, unaliased))
         )(aliased)
         console.log('DOMAIN', domain)
-        const usage = Array.isArray(domain)
-          ? pipe('any in', yin => regex(yin, 'g'), any, log('any out'))(domain)
+        const usage = isArray(domain)
+          ? pipe(
+              reduce(
+                (agg, d) =>
+                  pipe(
+                    yin => regex(yin, 'g'),
+                    log('regular'),
+                    onLines,
+                    log('lines'),
+                    // length,
+                    // lt(1),
+                    objOf(d),
+                    log('any out'),
+                    mergeRight(agg),
+                    log('final')
+                  )(d),
+                {}
+              )
+              // fromPairs
+            )(domain)
           : {}
         console.log('usage!', usage)
-        const used = pipe(zip(domain), log('zipped?'), toPairs)(usage)
+        const used = pipe(map(pipe(length, lt(1))))(usage)
         return {
           used,
+          usage,
           domain,
           aliased,
           unaliased,
           from: lastWord.slice(1, -1),
         }
-      })
+      }),
+      toPairs
     )(rawImports)
   },
 }

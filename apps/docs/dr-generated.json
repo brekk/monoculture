@@ -1210,14 +1210,14 @@
       },
       {
         "start": 115,
-        "end": 125,
-        "summary": "Use this helper to select all content between two repeating regular expressions",
+        "end": 126,
+        "summary": "Use this helper to easily reduce over all lines and aggregate a value",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "name": "selectAll",
-          "example": "```js\nexport default {\n  name: 'expanded-imports',\n  fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)\n}\n```"
+          "name": "reduce",
+          "example": "```js\nconst plugin = {\n  name: 'select-specifics',\n  fn: (state, file, { reduce }) => reduce((agg, [line, content]) => content.length > 10 : agg.concat(content) : agg, [])\n}\nexport default plugin\n```"
         },
         "keywords": [
           "@example",
@@ -1227,15 +1227,15 @@
         "package": "monorail"
       },
       {
-        "start": 163,
-        "end": 174,
-        "summary": "Use this helper to easily reduce over all lines and aggregate a value",
+        "start": 131,
+        "end": 141,
+        "summary": "Use this helper to select all content between two repeating regular expressions",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "name": "reduce",
-          "example": "```js\nconst plugin = {\n  name: 'select-specifics',\n  fn: (state, file, { reduce }) => reduce((agg, [line, content]) => content.length > 10 : agg.concat(content) : agg, [])\n}\nexport default plugin\n```"
+          "name": "selectAll",
+          "example": "```js\nexport default {\n  name: 'expanded-imports',\n  fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)\n}\n```"
         },
         "keywords": [
           "@example",

@@ -344,6 +344,7 @@ introspection and organization tools for monorepos
     - [climate-toml](https://github.com/brekk/monoculture/tree/main/packages/climate-toml) 🦴
     - [envtrace](https://www.npmjs.com/package/envtrace)
     - [fluture](https://www.npmjs.com/package/fluture)
+    - [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) 🦴
     - [monorail](https://github.com/brekk/monoculture/tree/main/packages/monorail) 🦴
     - [ramda](https://www.npmjs.com/package/ramda)
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
@@ -446,7 +447,7 @@ introspection and organization tools for monorepos
 
    </details>
 
- * [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) - shared jest configuration for monoculture packages 
+ * [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) - shared jest configuration for monoculture packages 🎪
 
    <details><summary>Dependencies</summary>
 

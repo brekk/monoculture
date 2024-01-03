@@ -114,6 +114,22 @@ export const selectBetween = curry(function _selectBetween(file, start, end) {
 })
 
 /**
+ * Use this helper to easily reduce over all lines and aggregate a value
+ * @name reduce
+ * @example
+ * ```js
+ * const plugin = {
+ *   name: 'select-specifics',
+ *   fn: (state, file, { reduce }) => reduce((agg, [line, content]) => content.length > 10 : agg.concat(content) : agg, [])
+ * }
+ * export default plugin
+ * ```
+ */
+export const _reduce = curry(function __reduce(file, fn, initial) {
+  return pipe(getBody, reduce(fn, initial))(file)
+})
+
+/**
  * Use this helper to select all content between two repeating regular expressions
  * @name selectAll
  * @example
@@ -126,8 +142,8 @@ export const selectBetween = curry(function _selectBetween(file, start, end) {
  */
 export const selectAll = curry(function _selectAll(file, start, end) {
   return pipe(
-    getBody,
-    reduce(
+    _reduce(
+      $,
       ({ active, all, current }, [line, content]) => {
         const testContent = test($, content)
         const checkStart = testContent(start)
@@ -159,22 +175,6 @@ export const selectAll = curry(function _selectAll(file, start, end) {
     propOr([], 'all'),
     filter(pipe(length, lt(0)))
   )(file)
-})
-
-/**
- * Use this helper to easily reduce over all lines and aggregate a value
- * @name reduce
- * @example
- * ```js
- * const plugin = {
- *   name: 'select-specifics',
- *   fn: (state, file, { reduce }) => reduce((agg, [line, content]) => content.length > 10 : agg.concat(content) : agg, [])
- * }
- * export default plugin
- * ```
- */
-export const _reduce = curry(function __reduce(file, fn, initial) {
-  return pipe(getBody, reduce(fn, initial))(file)
 })
 
 /**

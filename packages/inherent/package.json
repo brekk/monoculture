@@ -9,10 +9,7 @@
   "license": "ISC",
   "private": true,
   "exports": {
-    ".": "./inherent.js",
-    "./primitives.js": "./primitives.js",
-    "./array.js": "./array.js",
-    "./object.js": "./object.js"
+    ".": "./inherent.js"
   },
   "dependencies": {
     "ramda": "0.29.1"
