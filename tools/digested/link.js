@@ -10,8 +10,11 @@ import {
   map,
   keys,
   join,
+  replace,
 } from 'ramda'
 import { strepeat } from 'knot'
+
+const stripRelative = replace(/\.\.\/|\.\//g, '')
 
 export const depUsage = curry(function _depUsage(
   indent,
@@ -24,8 +27,8 @@ export const depUsage = curry(function _depUsage(
     toPairs,
     map(
       ([k, v]) =>
-        (v.startsWith('workspace:')
-          ? `[${k}](${repo}/${v.slice(v.indexOf(':') + 1)}) 🦴`
+        (v.startsWith('workspace:') || v.startsWith('portal:')
+          ? `[${k}](${repo}/${stripRelative(v.slice(v.indexOf(':') + 1))}) 🦴`
           : `[${k}](https://www.npmjs.com/package/${k})`) +
         (keys(devDeps).includes(k) ? ' 🧪' : '')
     ),

@@ -7180,6 +7180,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"doctor-general-cli@portal:../../tools/doctor-general-cli::locator=inherent%40workspace%3Apackages%2Finherent":
+  version: 0.0.0-use.local
+  resolution: "doctor-general-cli@portal:../../tools/doctor-general-cli::locator=inherent%40workspace%3Apackages%2Finherent"
+  dependencies:
+    climate: "workspace:packages/climate"
+    doctor-general: "workspace:packages/doctor-general"
+    inherent: "workspace:packages/inherent"
+    kiddo: "workspace:packages/kiddo"
+    ramda: "npm:0.29.1"
+  bin:
+    doctor-general: ./dist/doctor-general.cjs
+    drgen: ./dist/doctor-general.cjs
+  languageName: node
+  linkType: soft
+
 "doctor-general-cli@portal:../../tools/doctor-general-cli::locator=knot%40workspace%3Apackages%2Fknot":
   version: 0.0.0-use.local
   resolution: "doctor-general-cli@portal:../../tools/doctor-general-cli::locator=knot%40workspace%3Apackages%2Fknot"
@@ -10141,6 +10156,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "inherent@workspace:packages/inherent"
   dependencies:
+    doctor-general-cli: "portal:../../tools/doctor-general-cli"
     dotenv-cli: "npm:7.3.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     jest-config: "workspace:shared/jest-config"
