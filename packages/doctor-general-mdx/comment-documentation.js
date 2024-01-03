@@ -9,10 +9,22 @@ import {
   prop,
   propOr,
   reduce,
+  path,
+  head,
+  replace,
 } from 'ramda'
 import { log } from './log'
-import { stripRelative } from './text'
-import { combineFiles } from './file'
+// import { stripRelative } from './text'
+// import { combineFiles } from './file'
+
+export const pullPageTitleFromAnyComment = pipe(
+  filter(pathOr(false, ['structure', 'page'])),
+  map(path(['structure', 'page'])),
+  head,
+  defaultTo(''),
+  replace(/\s/g, '-'),
+  defaultTo(false)
+)
 
 export const parsePackageName = y => {
   const slash = y.indexOf('/')
@@ -20,6 +32,15 @@ export const parsePackageName = y => {
   const end = y.indexOf('/', start)
   return slash > -1 ? y.slice(start, end) : y
 }
+
+export const slug = name => {
+  const slashPlus = name.lastIndexOf('/') + 1
+  return name.indexOf('.') > -1
+    ? name.slice(slashPlus, name.indexOf('.'))
+    : name.slice(slashPlus)
+}
+// TODO: we should consolidate this eventually
+export const stripRelative = replace(/\.\.\/|\.\//g, '')
 
 export const filterAndStructureComments = pipe(
   log.doc('filter and structure!'),

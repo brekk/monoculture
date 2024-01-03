@@ -1,4 +1,13 @@
-import { curry, join, pipe, range, reduce, split } from 'ramda'
+import {
+  toLower,
+  curry,
+  replace,
+  join,
+  pipe,
+  range,
+  reduce,
+  split,
+} from 'ramda'
 import { NEWLINE, SPACE, EMPTY, TAB } from './constants'
 export * from './constants'
 
@@ -78,3 +87,26 @@ export const strepeat = curry(function _strepeat(toRepeat, x) {
  */
 export const capitalize = raw =>
   raw.length ? `${raw[0].toUpperCase()}${raw.slice(1)}` : ''
+
+/**
+ * Take PascalCase and kebabCase inputs and replace them with slug-case
+ * @name slugWord
+ * @example
+ * ```js test=true
+ * expect(slugWord('CoolFuckingShit')).toEqual('cool-fucking-shit')
+ * expect(slugWord('hoorayNiceLife')).toEqual('hooray-nice-life')
+ * expect(slugWord('Do nothingCool ever')).toEqual('do nothing-cool ever')
+ * expect(
+ *   slugWord('src/components/homepage/AugmentedDetailsDumbComponent')
+ * ).toEqual(
+ *   'src-components-homepage-augmented-details-dumb-component'
+ * )
+ * ```
+ */
+export const slugWord = pipe(
+  replace(/[A-Z]/g, match => `-` + match),
+  replace(/\//g, '-'),
+  replace(/--/g, '-'),
+  replace(/^-/, ''),
+  toLower
+)

@@ -14,10 +14,6 @@ import {
 } from 'ramda'
 import { stripRelative } from './text'
 import { combineFiles } from './file'
-export const hasExample = pipe(
-  pathOr('', ['structure', 'example']),
-  includes(TESTABLE_EXAMPLE)
-)
 
 export const filterAndStructureTests = pipe(
   filter(pipe(propOr([], 'comments'), filter(hasExample), isNotEmpty)),

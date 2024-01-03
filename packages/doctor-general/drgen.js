@@ -25,9 +25,11 @@ export const drgen = config => {
     search: searchGlob,
     ignore,
     artifact = false,
-    testMode,
+    mode,
     monorepo: monorepoMode = false,
   } = config
+  // TODO: come back to this modality
+  const testMode = mode === 'test'
   log.core('input', input)
   log.core('monorepoMode', monorepoMode)
   log.core('testMode', testMode)

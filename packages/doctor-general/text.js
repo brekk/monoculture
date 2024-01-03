@@ -62,10 +62,11 @@ export const stripRelative = replace(/\.\.\/|\.\//g, '')
 
 export const capitalToKebab = s =>
   pipe(
+    replace(/[A-Z]/g, match => `-` + match),
     replace(/\//g, '-'),
     replace(/--/g, '-')
     // lowercaseFirst
-  )(s.replace(/[A-Z]/g, match => `-` + match))
+  )(s)
 
 export const stripLeadingHyphen = replace(/^-/g, '')
 
