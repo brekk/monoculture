@@ -8,7 +8,7 @@
   "license": "ISC",
   "private": true,
   "exports": {
-    ".": "./index.js"
+    ".": "./dist/doctor-general-jest.cjs"
   },
   "dependencies": {
     "file-system": "workspace:packages/file-system",
@@ -30,6 +30,7 @@
   },
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
+    "build": "dotenv -- nps -c ./package-scripts.cjs build",
     "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
     "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
     "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",

@@ -20,6 +20,8 @@ test('summarize', done => {
       ' * [climate-yaml](//repo.biz/packages/climate-yaml) - YAML parser for climate 🍠',
       ' * [clox](//repo.biz/packages/clox) - boxes for the terminal ⏰',
       ' * [doctor-general](//repo.biz/packages/doctor-general) - documentation generation 🩻',
+      ' * [doctor-general-jest](//repo.biz/packages/doctor-general-jest) - documentation generation - jest 🃏',
+      ' * [doctor-general-mdx](//repo.biz/packages/doctor-general-mdx) - documentation generation - mdx 🩺',
       ' * [file-system](//repo.biz/packages/file-system) - fs, but in the future 🔮',
       ' * [inherent](//repo.biz/packages/inherent) - functional utilities for primitives ⛺️',
       ' * [kiddo](//repo.biz/packages/kiddo) - child processes in the future 👶',

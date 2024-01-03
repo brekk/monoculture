@@ -1,14 +1,7 @@
 import {
-  filter,
-  pathOr,
-  path,
-  head,
-  defaultTo,
-  toLower,
   trim,
   anyPass,
   startsWith,
-  curry,
   addIndex,
   map,
   match,
@@ -45,46 +38,6 @@ export const groupContiguousBlocks = reduce((agg, raw) => {
   }
   return agg.concat([[raw]])
 }, [])
-
-/**
- * Merge two file representations. Can be right or left associative
- * @name combineFiles
- * @exported
- * @param {boolean} leftToRight Associate left to right
- * @param {File} a left file
- * @param {File} b right file
- * @returns {File} Merged file
- * @signature boolean -> File -> File -> File
- * @example
- * ```js
- * const a = { a: true, greeting: 'hello', comments: ['one', 'two'], links: ['a', 'b'] }
- * const b = { b: true, greeting: 'ahoy', comments: ['three', 'four'], links: ['c', 'd'] }
- * expect(combineFiles(true, a, b)).toEqual({
- *   a: true,
- *   b: true,
- *   greeting: 'ahoy',
- *   comments: ['one', 'two', 'three', 'four'],
- *   links: ['a', 'b', 'c', 'd']
- * })
- * expect(combineFiles(false, a, b)).toEqual({
- *   a: true,
- *   b: true,
- *   greeting: 'hello',
- *   comments: ['three', 'four', 'one', 'two'],
- *   links: ['c', 'd', 'a', 'b']
- * })
- * ```
- */
-export const combineFiles = curry(function _combineFiles(leftToRight, a, b) {
-  return !leftToRight
-    ? combineFiles(true, b, a)
-    : {
-        ...a,
-        ...b,
-        comments: [...a.comments, ...b.comments],
-        links: [...a.links, ...b.links],
-      }
-})
 
 // isJSDocComment :: String -> Boolean
 export const isJSDocComment = pipe(

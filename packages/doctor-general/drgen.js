@@ -54,7 +54,6 @@ export const drgen = config => {
     map(pipe(map(relativize), chain(parseFile(debug, root)))),
     chain(parallel(10)),
     map(processComments(processor)),
-    map(log.core('processed comments?')),
     when(K(artifact), writeArtifact(relativeArtifact)),
     renderComments(processor, outputDir),
     map(

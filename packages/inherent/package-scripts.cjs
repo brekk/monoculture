@@ -11,7 +11,7 @@ module.exports = {
         './inherent.js',
         './object.js',
         './primitives.js',
-      ].join(' ')} -o autotests --test-mode -a dr-generated.tests.json`,
+      ].join(' ')} -o autotests --processor doctor-general-jest`,
       'generate tests with `doctor-general`!'
     ),
     lint: sd('eslint --fix .', 'lint!'),

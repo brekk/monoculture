@@ -8,7 +8,7 @@ module.exports = {
     autotest: sd(
       `drgen -i ${['./builder.js', './help.js'].join(
         ' '
-      )} -o autotests --test-mode`,
+      )} -o autotests --processor doctor-general-jest`,
       'use doctor-general to create tests for us!'
     ),
 

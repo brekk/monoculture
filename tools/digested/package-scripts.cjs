@@ -40,7 +40,7 @@ module.exports = {
         './link.js',
         './markdown.js',
         './summary.js',
-      ].join(' ')} -o autotests --test-mode`,
+      ].join(' ')} -o autotests --processor doctor-general-jest`,
       'use doctor-general to create tests from us!'
     ),
     test: {

@@ -24,7 +24,7 @@ module.exports = {
         './runner.js',
         './sort.js',
         './validate.js',
-      ].join(' ')} -o autotests --test-mode -a dr-generated.tests.json`,
+      ].join(' ')} -o autotests --processor doctor-general-jest`,
       'use doctor-general to create tests for us!'
     ),
 

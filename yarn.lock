@@ -5553,6 +5553,8 @@ __metadata:
   resolution: "climate@workspace:packages/climate"
   dependencies:
     chalk: "npm:5.3.0"
+    doctor-general-cli: "workspace:tools/doctor-general-cli"
+    doctor-general-jest: "workspace:packages/doctor-general-jest"
     dotenv-cli: "npm:7.3.0"
     envtrace: "npm:0.0.2"
     eslint: "npm:8.56.0"
@@ -7109,6 +7111,7 @@ __metadata:
     climate-json: "workspace:packages/climate-json"
     climate-toml: "workspace:packages/climate-toml"
     doctor-general-cli: "workspace:tools/doctor-general-cli"
+    doctor-general-jest: "workspace:packages/doctor-general-jest"
     dotenv-cli: "npm:7.3.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     file-system: "workspace:packages/file-system"
@@ -7151,6 +7154,7 @@ __metadata:
     "@types/jest": "npm:29.5.11"
     "@types/react": "npm:18.2.45"
     doctor-general-cli: "workspace:tools/doctor-general-cli"
+    doctor-general-mdx: "workspace:packages/doctor-general-mdx"
     dotenv-cli: "npm:7.3.0"
     eslint: "npm:8.56.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
@@ -10088,6 +10092,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "inherent@workspace:packages/inherent"
   dependencies:
+    doctor-general-cli: "workspace:tools/doctor-general-cli"
+    doctor-general-jest: "workspace:packages/doctor-general-jest"
     dotenv-cli: "npm:7.3.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     jest-config: "workspace:shared/jest-config"
@@ -11851,6 +11857,8 @@ __metadata:
   resolution: "knot@workspace:packages/knot"
   dependencies:
     chalk: "npm:5.3.0"
+    doctor-general-cli: "workspace:tools/doctor-general-cli"
+    doctor-general-jest: "workspace:packages/doctor-general-jest"
     dotenv-cli: "npm:7.3.0"
     eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
     jest-config: "workspace:shared/jest-config"
@@ -13573,6 +13581,7 @@ __metadata:
   dependencies:
     "@hapi/topo": "npm:6.0.2"
     doctor-general-cli: "workspace:tools/doctor-general-cli"
+    doctor-general-jest: "workspace:packages/doctor-general-jest"
     dotenv-cli: "npm:7.3.0"
     envtrace: "npm:0.0.2"
     esbuild: "npm:0.19.10"
