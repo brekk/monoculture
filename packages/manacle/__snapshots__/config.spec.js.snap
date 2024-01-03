@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CONFIG 1`] = `
+{
+  "alias": {
+    "check": [
+      "c",
+    ],
+    "color": [
+      "k",
+    ],
+    "help": [
+      "h",
+    ],
+    "input": [
+      "i",
+    ],
+    "query": [
+      "q",
+    ],
+  },
+  "array": [
+    "check",
+  ],
+  "boolean": [
+    "help",
+    "color",
+  ],
+  "configuration": {
+    "strip-aliased": true,
+  },
+}
+`;
+
+exports[`CONFIG_DEFAULTS 1`] = `
+{
+  "color": true,
+  "help": false,
+}
+`;
+
+exports[`HELP_CONFIG 1`] = `
+{
+  "check": "Provide a checkfile (Can be specified multiple times)",
+  "color": "Do stuff with glorious color",
+  "help": "This text you're reading now!",
+  "input": "The path to a monocle-findings.json file.",
+  "query": "Ask a question of the data",
+}
+`;

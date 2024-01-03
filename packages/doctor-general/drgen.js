@@ -3,6 +3,7 @@ import { cwd } from 'node:process'
 import { signal } from 'kiddo'
 import { log } from './log'
 import {
+  unless,
   when,
   always as K,
   chain,
@@ -11,12 +12,13 @@ import {
   map,
   pipe,
 } from 'ramda'
-import { resolve, parallel } from 'fluture'
+import { resolve as good, parallel, reject as bad } from 'fluture'
 import { relativePathJoin } from 'file-system'
 import { parseFile } from './parse'
 import { renderComments, processComments } from './comment'
 import { monorepoRunner } from './reader'
 import { writeArtifact } from './writer'
+import { validate, interrogate } from './processor'
 
 export const drgen = config => {
   const {
@@ -28,13 +30,20 @@ export const drgen = config => {
     ignore,
     artifact = false,
     monorepo: monorepoMode = false,
+    showMatchesOnly = false,
   } = config
+  log.core('showMatchesOnly', showMatchesOnly)
   log.core('processor!', processor)
-  // TODO: come back to this modality
-  // const testMode = mode === 'test'
+  if (!validate(processor)) {
+    return pipe(
+      interrogate,
+      ({ incorrectFields }) =>
+        `Processor is invalid. Incorrect fields: ${incorrectFields}`,
+      bad
+    )(processor)
+  }
   log.core('input', input)
   log.core('monorepoMode', monorepoMode)
-  // log.core('testMode', testMode)
   const current = cwd()
   const rel = relativePathJoin(current)
   const outputDir = rel(output)
@@ -50,24 +59,36 @@ export const drgen = config => {
     log.core(`monorepoMode?`),
     ifElse(
       I,
-      () => monorepoRunner(searchGlob, ignore, root, pkgJson),
-      () => resolve(input)
+      () => monorepoRunner(showMatchesOnly, searchGlob, ignore, root, pkgJson),
+      () => good(input)
     ),
-    map(pipe(map(relativize), chain(parseFile(debug, root)))),
-    chain(parallel(10)),
-    map(processComments(processor)),
-    when(K(artifact), writeArtifact(relativeArtifact)),
-    renderComments(processor, outputDir),
-    signal(cancel, {
-      text: 'Rendering comments...',
-      successText:
-        artifact || output
-          ? `Wrote to${
-              output ? ' output: "' + output + '"' + (artifact ? ';' : '') : ''
-            }${artifact ? ' artifact: "' + artifact + '"' : ''}.`
-          : `Processed ${input.join(' ')}`,
-      failText: 'Unable to render comments!',
-    }),
-    map(K(''))
+    unless(
+      () => showMatchesOnly,
+      pipe(
+        map(pipe(map(relativize), chain(parseFile(debug, root)))),
+        chain(parallel(10)),
+        signal(cancel, {
+          text: 'Parsing files...',
+          successText: 'Parsed files!',
+          failText: 'Unable to parse files!',
+        }),
+        map(processComments(processor)),
+        when(K(artifact), writeArtifact(relativeArtifact)),
+        renderComments(processor, outputDir),
+        signal(cancel, {
+          text: 'Rendering comments...',
+          successText:
+            artifact || output
+              ? `Wrote to${
+                  output
+                    ? ' output: "' + output + '"' + (artifact ? ';' : '')
+                    : ''
+                }${artifact ? ' artifact: "' + artifact + '"' : ''}.`
+              : `Processed ${input.join(' ')}`,
+          failText: 'Unable to render comments!',
+        }),
+        map(K(''))
+      )
+    )
   )(monorepoMode)
 }

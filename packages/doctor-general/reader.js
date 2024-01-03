@@ -1,11 +1,12 @@
 import { log } from './log'
-import { chain, curry, flatten, map, pipe, propOr } from 'ramda'
+import { chain, when, curry, flatten, map, pipe, propOr } from 'ramda'
 import { parallel } from 'fluture'
 import { signal } from 'kiddo'
 import { readJSONFile, readDirWithConfig } from 'file-system'
 
 export const iterateOverWorkspacesAndReadFiles = curry(
   (searchGlob, ignore, root, x) => {
+    log.reader('ignoring...', ignore)
     return map(
       pipe(
         // look for specific file types
@@ -39,7 +40,7 @@ export const readPackageJsonWorkspaces = curry(
 )
 
 export const monorepoRunner = curry(
-  function _monorepoRunner(searchGlob, ignore, root, x) {
+  function _monorepoRunner(showMatchOnly, searchGlob, ignore, root, x) {
     const cancel = () => {}
     return pipe(
       log.core('reading root package.json'),
@@ -54,13 +55,18 @@ export const monorepoRunner = curry(
       map(flatten),
       iterateOverWorkspacesAndReadFiles(searchGlob, ignore, root),
       chain(parallel(10)),
-      map(log.verbose('files read')),
-      map(flatten),
-      signal(cancel, {
-        text: 'Reading all files...',
-        successText: 'Read all files!',
-        failText: 'Unable to read all files.',
-      })
+      when(
+        () => !showMatchOnly,
+        pipe(
+          map(log.verbose('files read')),
+          map(flatten),
+          signal(cancel, {
+            text: 'Reading all files...',
+            successText: 'Read all files!',
+            failText: 'Unable to read all files.',
+          })
+        )
+      )
     )(x)
   }
 )

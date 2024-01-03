@@ -78,6 +78,95 @@ export const execWithConfig = curry(
 export const execWithCancel = execWithConfig($, $, undefined)
 export const exec = execWithCancel(() => {})
 
+export const SIGNAL_DEFAULT_SPINNER = {
+  interval: 50,
+  frames: [
+    `        `,
+    `❯       `,
+    `❯❯      `,
+    `❯❯❯     `,
+    `❯❯❯❯    `,
+    `❯❯❯❯❯   `,
+    `❯❯❯❯❯❯  `,
+    `❯❯❯❯❯❯❯ `,
+    `❯❯❯❯❯❯❯❯`,
+    ` ❯❯❯❯❯❯❯`,
+    `  ❯❯❯❯❯❯`,
+    `   ❯❯❯❯❯`,
+    `    ❯❯❯❯`,
+    `     ❯❯❯`,
+    `      ❯❯`,
+    `       ❯`,
+  ],
+}
+
+const SIGNAL_BUILDUP_SPINNER = {
+  interval: 20,
+  frames: [
+    `          `,
+    `▁         `,
+    `▃         `,
+    `▄         `,
+    `▅         `,
+    `▆         `,
+    `▇         `,
+    `█▁        `,
+    `█▃        `,
+    `█▄        `,
+    `█▅        `,
+    `█▆        `,
+    `██▁       `,
+    `██▃       `,
+    `██▄       `,
+    `██▅       `,
+    `██▆       `,
+    `███▁      `,
+    `███▃      `,
+    `███▄      `,
+    `███▅      `,
+    `███▆      `,
+    `████▆     `,
+    `█████▁    `,
+    `█████▃    `,
+    `█████▄    `,
+    `█████▅    `,
+    `█████▆    `,
+    `██████▆   `,
+    `███████▁  `,
+    `███████▃  `,
+    `███████▄  `,
+    `███████▅  `,
+    `███████▆  `,
+    `████████  `,
+
+    `███████▆  `,
+    `████████▁ `,
+    `████████▃ `,
+    `████████▄ `,
+    `████████▅ `,
+    `████████▆ `,
+    `█████████ `,
+
+    `████████▆ `,
+    `█████████▁`,
+    `█████████▃`,
+    `█████████▄`,
+    `█████████▅`,
+    `█████████▆`,
+    `██████████`,
+    ` █████████`,
+    `  ████████`,
+    `   ███████`,
+    `    ██████`,
+    `     █████`,
+    `      ████`,
+    `       ███`,
+    `        ██`,
+    `         █`,
+    `          `,
+  ],
+}
+
 /**
  * Add an `ora` indicator to a Future
  * @name signal
@@ -101,7 +190,14 @@ export const exec = execWithCancel(() => {})
  */
 export const signal = curry(function _signal(cancel, options, f) {
   return Future(function _signalF(bad, good) {
-    oraPromise(promise(f), options).catch(bad).then(good)
+    oraPromise(promise(f), {
+      spinner: SIGNAL_BUILDUP_SPINNER,
+      ...options,
+    })
+      .catch(bad)
+      .then(good)
+    // for debugging porpoises
+    // .then(y => setTimeout(() => good(y), 3e3))
     return cancel
   })
 })

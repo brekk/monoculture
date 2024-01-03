@@ -1,18 +1,19 @@
 import * as CLIMATE from './climate'
 test('CLIMATE exports', () => {
-  expect(Object.keys(CLIMATE)).toEqual([
-    'failIfMissingFlag',
-    'generateHelp',
-    'invalidHelpConfig',
-    'longFlag',
-    'shortFlag',
+  expect(Object.keys(CLIMATE).sort()).toEqual([
     'NO_OP',
     'configFile',
     'configFileWithCancel',
     'configurate',
     'defaultNameTemplate',
-    'pluginToCondMap',
-    'showHelpWhen',
+    'failIfMissingFlag',
+    'generateHelp',
+    'interrupt',
+    'invalidHelpConfig',
+    'longFlag',
     'parse',
+    'pluginToCondMap',
+    'shortFlag',
+    'showHelpWhen',
   ])
 })

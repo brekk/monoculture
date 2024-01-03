@@ -17,9 +17,11 @@ export const YARGS_CONFIG = {
     debug: ['d'],
     monorepo: ['m'],
     processor: ['p'],
+    verifyProcessor: ['f'],
+    showMatchOnly: ['w'],
   },
-  array: ['input'],
-  boolean: ['color', 'debug', 'monorepo'],
+  array: ['input', 'ignore'],
+  boolean: ['color', 'debug', 'monorepo', 'verifyProcessor', 'showMatchOnly'],
   configuration: {
     'strip-aliased': true,
   },
@@ -39,6 +41,9 @@ export const HELP_CONFIG = {
   debug: 'Generate additional information when processing content.',
   monorepo: 'Process content for a monorepo (walking all "workspaces")',
   processor: 'Specify a processor to use when running doctor-general',
+  verifyProcessor: 'Validate a given processor is correct (modal behavior)',
+  showMatchOnly:
+    "If set, show the files we would read, but don't actually read them. Helpful for debugging.",
 }
 
 export const CONFIG_DEFAULTS = {
@@ -52,4 +57,6 @@ export const CONFIG_DEFAULTS = {
   ],
   search: '**/*.{js,jsx,ts,tsx}',
   debug: false,
+  verifyProcessor: false,
+  showMatchOnly: false,
 }

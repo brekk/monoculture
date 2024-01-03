@@ -17,6 +17,7 @@ module.exports = {
     lint: sd('eslint --fix .', 'lint!'),
     test: {
       ...sd('jest --coverage --verbose', 'test!'),
+      snapshot: sd('jest -u', 'test with snapshottsssss'),
       silent: sd(
         'jest --silent --reporters=jest-silent-reporter --coverageReporters=none',
         'test, quietly.'

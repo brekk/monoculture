@@ -1,3 +1,5 @@
 {
+  "comment": "comment",
+  "processor": "processor",
   "text": "text"
 }

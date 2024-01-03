@@ -311,14 +311,192 @@
     "workspace": "doctor-general-jest"
   },
   {
+    "slugName": "comment",
+    "package": "doctor-general",
+    "pageSummary": "",
+    "filename": "packages/doctor-general/comment.js",
+    "comments": [
+      {
+        "start": 56,
+        "end": 65,
+        "summary": "Check to see if a comment has an example within its structure.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "hasExample",
+          "example": "```js test=true\nexpect(hasExample({structure: {example: [`test=true`]}})).toBeTruthy()\nexpect(hasExample({})).toBeFalsy()\nexpect(hasExample('zipzop')).toBeFalsy()\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 72,
+        "end": 91,
+        "summary": "Pull all imports from a given file, including `@curried` examples",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "Pull": [
+            "all",
+            "imports",
+            "from",
+            "a",
+            "given",
+            "file,",
+            "including",
+            "`curried`",
+            "examples"
+          ],
+          "name": "getImportsForTests",
+          "example": "```js test=true\nconst file = { comments: [\n  {\n    structure: { curried: [\n      { name: 'coolWithConfig', lines: ['test=true'] },\n      { name: 'cool', lines: ['test=true'] }\n    ] }\n  },\n  {\n    structure: { name: 'otherFunc', example: ['test=true'] }\n  }\n] }\n\nexpect(getImportsForTests(file)).toEqual(['otherFunc', 'coolWithConfig', 'cool'])\n```"
+        },
+        "keywords": [
+          "@curried",
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 178,
+        "end": 199,
+        "summary": "Grab the summary from raw lines, given some indices to slice",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "getPageSummary",
+          "example": "```js test=true\nconst rawLines = [\n  ' * @pageSummary Hey cool this is a multi-line',\n  ' * description of stuff in the whole file',\n  ' * @page testPageSummary',\n  ' * @huh notSure'\n]\nexpect(\n  getPageSummary(rawLines, Infinity, 0)\n).toEqual([\n  'Hey cool this is a multi-line',\n  'description of stuff in the whole file'\n])\nexpect(\n  getPageSummary([' * hey', ' * there'], Infinity, 0)\n).toEqual(['hey', 'there'])\n```"
+        },
+        "keywords": [
+          "@example",
+          "@huh",
+          "@name",
+          "@page",
+          "@pageSummary"
+        ],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 217,
+        "end": 232,
+        "summary": "@name getExample",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "getExample",
+          "signature": [
+            "List",
+            "String",
+            "->",
+            "Integer",
+            "->",
+            "Integer",
+            "->",
+            "String"
+          ],
+          "example": "```js test=true\nconst rawLines = [\n  '* Ouroboric summary',\n  '* @name getExample',\n  '* @example',\n  '* ```js',\n  '* getExample(rawLines)',\n  '* ```',\n]\nexpect(getExample(rawLines, 5, 3)).toEqual('getExample(rawLines)')\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name",
+          "@signature"
+        ],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "doctor-general"
+  },
+  {
+    "slugName": "processor",
+    "package": "doctor-general",
+    "pageSummary": "",
+    "filename": "packages/doctor-general/processor.js",
+    "comments": [
+      {
+        "start": 25,
+        "end": 34,
+        "summary": "Return the number of arguments a function expects",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "arity",
+          "example": "```js test=true\nexpect(arity((a,b,c) => {})).toEqual(3)\nexpect(arity(function tertiary(a,b,c) {})).toEqual(3)\nexpect(arity(a => b => c => c)).toEqual(1)\nexpect(arity('poo')).toEqual(-1)"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/doctor-general/processor.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 71,
+        "end": 167,
+        "summary": "Apply tests to a given processor in order to assess its correctness.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "interrogate",
+          "exported": true,
+          "example": "```js test=true\n// drgen-import-above\nconst myCoolProcessor = {\n  output: () => {},\n  group: '',\n  process: () => {},\n  postRender: (a, b) => b,\n  renderer: (a, b) => b,\n}\nexpect(interrogate({})).toEqual({\n  additionalFieldCheck: {},\n  additionalFields: [],\n  meetsOptionalRequirements: false,\n  meetsRequirements: false,\n  incorrectFields: [\n    'output',\n    'group',\n    'process',\n    'renderer',\n    'postRender',\n    'postProcess'\n  ],\n  checked: {\n    optional: { postProcess: false },\n    required: {\n      group: false,\n      output: false,\n      postRender: false,\n      process: false,\n      renderer: false\n    }\n  }\n})\nexpect(interrogate(myCoolProcessor)).toEqual({\n  additionalFieldCheck: {},\n  additionalFields: [],\n  meetsOptionalRequirements: false,\n  meetsRequirements: true,\n  incorrectFields: ['postProcess'],\n  checked: {\n    optional: { postProcess: false },\n    required: {\n      group: true,\n      output: true,\n      postRender: true,\n      process: true,\n      renderer: true\n    }\n  }\n})\nexpect(interrogate({\n  ...myCoolProcessor,\n  postProcess: (a, b, c) => b\n})).toEqual({\n  additionalFieldCheck: { postProcess: true },\n  additionalFields: [ 'postProcess' ],\n  meetsOptionalRequirements: true,\n  meetsRequirements: true,\n  incorrectFields: [],\n  checked: {\n    optional: { postProcess: true },\n    required: {\n      group: true,\n      output: true,\n      postRender: true,\n      process: true,\n      renderer: true\n    }\n  }\n})\nexpect(interrogate({\n  ...myCoolProcessor,\n  unsupportedFunction: (a, b) => b\n})).toEqual({\n  additionalFieldCheck: { unsupportedFunction: false },\n  additionalFields: ['unsupportedFunction'],\n  meetsOptionalRequirements: false,\n  meetsRequirements: true,\n  checked: {\n    optional: { postProcess: false },\n    required: {\n      group: true,\n      output: true,\n      postRender: true,\n      process: true,\n      renderer: true\n    }\n  },\n  incorrectFields: ['postProcess']\n})\n```"
+        },
+        "keywords": [
+          "@example",
+          "@exported",
+          "@name"
+        ],
+        "filename": "packages/doctor-general/processor.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 205,
+        "end": 232,
+        "summary": "Validate a given processor is correct.\nIf you want to see _why_ it is incorrect, use `interrogate` instead.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "validate",
+          "exported": true,
+          "example": "```js test=true\n// drgen-import-above\nconst myCoolProcessor = {\n  output: () => {},\n  group: '',\n  process: () => {},\n  postRender: (a, b) => b,\n  renderer: (a, b) => b,\n}\n\nexpect(validate({})).toBeFalsy()\nexpect(validate(myCoolProcessor)).toBeTruthy()\nexpect(validate({\n  ...myCoolProcessor,\n  postProcess: (a, b, c) => b\n})).toBeTruthy()\nexpect(validate({\n  ...myCoolProcessor,\n  unsupportedFunction: (a, b) => b\n})).toBeFalsy()\n```"
+        },
+        "keywords": [
+          "@example",
+          "@exported",
+          "@name"
+        ],
+        "filename": "packages/doctor-general/processor.js",
+        "package": "doctor-general"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "doctor-general"
+  },
+  {
     "slugName": "text",
     "package": "doctor-general",
     "pageSummary": "",
     "filename": "packages/doctor-general/text.js",
     "comments": [
       {
-        "start": 20,
-        "end": 33,
+        "start": 18,
+        "end": 31,
         "summary": "For strings which look like extended jsdoc comment line (e.g. ` * whatever`),\neschew the comment decoration",
         "links": [],
         "fileGroup": "",
@@ -330,7 +508,7 @@
             "->",
             "String"
           ],
-          "example": "```js\nexpect(trimComment('          * zipzop')).toEqual('zipzop')\nexpect(trimComment(' * squiggle         ')).toEqual('squiggle')\nconst input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)\nexpect(trimComment(input)).toEqual(input)\nexpect(trimComment(29292)).toEqual(29292)\n```"
+          "example": "```js test=true\nexpect(trimComment('          * zipzop')).toEqual('zipzop')\nexpect(trimComment(' * squiggle         ')).toEqual('squiggle')\nconst input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)\nexpect(trimComment(input)).toEqual(input)\nexpect(trimComment(29292)).toEqual(29292)\n```"
         },
         "keywords": [
           "@example",
@@ -1004,8 +1182,8 @@
         "package": "kiddo"
       },
       {
-        "start": 80,
-        "end": 100,
+        "start": 169,
+        "end": 189,
         "summary": "Add an `ora` indicator to a Future",
         "links": [],
         "fileGroup": "",

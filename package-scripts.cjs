@@ -38,6 +38,7 @@ module.exports = {
               'packages/inherent',
               'packages/kiddo',
               'packages/knot',
+              'packages/manacle',
               'packages/monocle',
               'packages/monorail',
               'packages/robot-tourist',
@@ -57,10 +58,7 @@ module.exports = {
         ),
       },
     },
-    care: sd(
-      'turbo run lint test build && yarn workspace docs run autodoc',
-      'build and test with turbo'
-    ),
+    care: sd('turbo run lint test build', 'build and test with turbo'),
     build: sd('turbo run build', 'build with turbo'),
     autotest: sd(
       'turbo run autotest',

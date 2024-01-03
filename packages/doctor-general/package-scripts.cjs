@@ -3,12 +3,29 @@ const sd = (script, description = '') =>
 
 module.exports = {
   scripts: {
+    autotest: {
+      ...sd(
+        'nps -c ./package-scripts.cjs autotest.rebuild test',
+        'rebuild and test autotests'
+      ),
+      rebuild: sd(
+        `drgen -i ${[
+          './processor.js',
+          './text.js',
+          './file.js',
+          './comment.js',
+        ].join(' ')} -o autotests --processor doctor-general-jest`,
+        'generate tests with `doctor-general`!'
+      ),
+    },
+
     meta: {
       graph: `madge ./doctor-general.js --image graph.svg`,
     },
     lint: sd('eslint --fix .', 'lint!'),
     test: {
       ...sd('jest --coverage --verbose', 'test!'),
+      snapshot: sd('jest -u', 'update snerpsherts'),
 
       silent: sd(
         'jest --silent --reporters=jest-silent-reporter --coverageReporters=none',
