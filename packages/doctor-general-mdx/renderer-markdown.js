@@ -23,8 +23,10 @@ import {
   slice,
 } from 'ramda'
 import { lines, unlines } from 'knot'
-import { MAGIC_IMPORT_KEY } from './constants'
 import { log } from './log'
+
+// TODO: we should consolidate this
+const MAGIC_IMPORT_KEY = 'drgen-import-above'
 
 const stripFence = when(startsWith('```'), K(''))
 
@@ -59,24 +61,26 @@ const getCurried = pathOr([], ['structure', 'curried'])
 
 const cleanlines = pipe(filter(I), join('\n'))
 
-const insertIntoExample = curry((imports, importFrom, example) => {
-  let inserted = false
-  const fixed = !imports.length
-    ? example
-    : pipe(
-        lines,
-        map(y => {
-          if (!inserted && y.startsWith('```')) {
-            y += `\nimport { ${imports.join(', ')} } from '${importFrom}'\n`
-            inserted = true
-          }
-          return y
-        }),
-        unlines
-      )(example)
-  log.renderer('fixed', fixed)
-  return fixed
-})
+const insertIntoExample = curry(
+  function _insertIntoExample(imports, importFrom, example) {
+    let inserted = false
+    const fixed = !imports.length
+      ? example
+      : pipe(
+          lines,
+          map(y => {
+            if (!inserted && y.startsWith('```')) {
+              y += `\nimport { ${imports.join(', ')} } from '${importFrom}'\n`
+              inserted = true
+            }
+            return y
+          }),
+          unlines
+        )(example)
+    log.renderer('fixed', fixed)
+    return fixed
+  }
+)
 
 const commonFields = curry(
   (imports, { package: pkg, exported, name, summary, links, example }) => {
@@ -94,8 +98,8 @@ const commonFields = curry(
   }
 )
 
-const handleCurriedExample = curry((imports, x) =>
-  pipe(
+const handleCurriedExample = curry(function _handleCurriedExample(imports, x) {
+  return pipe(
     wrap,
     ap([getCurried, flattenCommentData]),
     ([curried, { summary, links, package: pkg, exported }]) =>
@@ -120,29 +124,31 @@ const handleCurriedExample = curry((imports, x) =>
       )(curried),
     join('\n')
   )(x)
-)
+})
 
-export const commentToMarkdown = curry((slugName, imports, x) =>
-  handleSpecialCases(
-    pipe(
-      ifElse(
-        pipe(getCurried, length, lt(0)),
-        handleCurriedExample(imports),
-        pipe(
-          flattenCommentData,
-          ({ title, summary, links, example, package: pkg, exported }) =>
-            cleanlines(
-              commonFields(imports, {
-                exported,
-                package: pkg,
-                name: title,
-                summary,
-                example,
-                links,
-              })
-            )
+export const commentToMarkdown = curry(
+  function _commentToMarkdown(slugName, imports, x) {
+    return handleSpecialCases(
+      pipe(
+        ifElse(
+          pipe(getCurried, length, lt(0)),
+          handleCurriedExample(imports),
+          pipe(
+            flattenCommentData,
+            ({ title, summary, links, example, package: pkg, exported }) =>
+              cleanlines(
+                commonFields(imports, {
+                  exported,
+                  package: pkg,
+                  name: title,
+                  summary,
+                  example,
+                  links,
+                })
+              )
+          )
         )
       )
-    )
-  )(x)
+    )(x)
+  }
 )

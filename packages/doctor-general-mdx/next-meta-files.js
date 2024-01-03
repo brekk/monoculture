@@ -17,15 +17,20 @@ import {
   toPairs,
   pathOr,
 } from 'ramda'
+import { slugWord } from 'knot'
 import { writeFileWithAutoPath } from 'file-system'
-import { cleanFilename } from './file'
-import { capitalToKebab, stripLeadingHyphen } from './text'
+import { log } from './log'
 
 export const prepareMetaFiles = curry(
-  function _prepareMetaFiles(testMode, outputDir, workspace, commentedFiles) {
+  function _prepareMetaFiles(outputDir, workspace, commentedFiles) {
     return pipe(
       map(raw => [
-        pipe(cleanFilename(testMode), x => basename(x, '.mdx'), toLower)(raw),
+        pipe(
+          propOr('???', 'filename'),
+          slugWord,
+          x => basename(x, '.mdx'),
+          toLower
+        )(raw),
         pipe(
           propOr([], 'comments'),
           filter(pathOr(false, ['structure', 'name'])),
@@ -44,10 +49,7 @@ export const prepareMetaFiles = curry(
       map(
         pipe(
           sortBy(pathOr(0, ['order'])),
-          map(([title, { metaName }]) => [
-            pipe(capitalToKebab, stripLeadingHyphen, toLower)(title),
-            metaName,
-          ]),
+          map(([title, { metaName }]) => [slugWord(title), metaName]),
           fromPairs
         )
       ),

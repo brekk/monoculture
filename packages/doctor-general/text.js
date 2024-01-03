@@ -70,9 +70,3 @@ export const capitalToKebab = s =>
 
 export const stripLeadingHyphen = replace(/^-/g, '')
 
-export const slug = name => {
-  const slashPlus = name.lastIndexOf('/') + 1
-  return name.indexOf('.') > -1
-    ? name.slice(slashPlus, name.indexOf('.'))
-    : name.slice(slashPlus)
-}

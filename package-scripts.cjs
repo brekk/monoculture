@@ -32,6 +32,8 @@ module.exports = {
               'packages/climate-yaml',
               'packages/clox',
               'packages/doctor-general',
+              'packages/doctor-general-mdx',
+              'packages/doctor-general-jest',
               'packages/file-system',
               'packages/inherent',
               'packages/kiddo',

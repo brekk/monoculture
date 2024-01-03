@@ -7196,6 +7196,48 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"doctor-general-jest@workspace:packages/doctor-general-jest":
+  version: 0.0.0-use.local
+  resolution: "doctor-general-jest@workspace:packages/doctor-general-jest"
+  dependencies:
+    dotenv-cli: "npm:7.3.0"
+    envtrace: "npm:0.0.2"
+    esbuild: "npm:0.19.10"
+    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
+    file-system: "workspace:packages/file-system"
+    fluture: "npm:14.0.0"
+    inherent: "workspace:packages/inherent"
+    jest-environment-jsdom: "npm:29.7.0"
+    knot: "workspace:packages/knot"
+    madge: "npm:6.1.0"
+    nps: "npm:^5.10.0"
+    ramda: "npm:0.29.1"
+    strip-ansi: "npm:7.1.0"
+    xtrace: "npm:0.3.0"
+  languageName: unknown
+  linkType: soft
+
+"doctor-general-mdx@workspace:packages/doctor-general-mdx":
+  version: 0.0.0-use.local
+  resolution: "doctor-general-mdx@workspace:packages/doctor-general-mdx"
+  dependencies:
+    dotenv-cli: "npm:7.3.0"
+    envtrace: "npm:0.0.2"
+    esbuild: "npm:0.19.10"
+    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
+    file-system: "workspace:packages/file-system"
+    fluture: "npm:14.0.0"
+    inherent: "workspace:packages/inherent"
+    jest-environment-jsdom: "npm:29.7.0"
+    knot: "workspace:packages/knot"
+    madge: "npm:6.1.0"
+    nps: "npm:^5.10.0"
+    ramda: "npm:0.29.1"
+    strip-ansi: "npm:7.1.0"
+    xtrace: "npm:0.3.0"
+  languageName: unknown
+  linkType: soft
+
 "doctor-general@workspace:packages/doctor-general":
   version: 0.0.0-use.local
   resolution: "doctor-general@workspace:packages/doctor-general"

@@ -19,20 +19,21 @@ import { writeArtifact } from './writer'
 
 export const drgen = config => {
   const {
+    processor,
     debug,
     input,
     output,
     search: searchGlob,
     ignore,
     artifact = false,
-    mode,
     monorepo: monorepoMode = false,
   } = config
+  log.core('processor!', processor)
   // TODO: come back to this modality
-  const testMode = mode === 'test'
+  // const testMode = mode === 'test'
   log.core('input', input)
   log.core('monorepoMode', monorepoMode)
-  log.core('testMode', testMode)
+  // log.core('testMode', testMode)
   const current = cwd()
   const rel = relativePathJoin(current)
   const outputDir = rel(output)
@@ -52,10 +53,10 @@ export const drgen = config => {
     ),
     map(pipe(map(relativize), chain(parseFile(debug, root)))),
     chain(parallel(10)),
-    map(processComments(testMode)),
+    map(processComments(processor)),
     map(log.core('processed comments?')),
     when(K(artifact), writeArtifact(relativeArtifact)),
-    renderComments(testMode, outputDir),
+    renderComments(processor, outputDir),
     map(
       K(
         artifact || output

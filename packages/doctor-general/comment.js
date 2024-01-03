@@ -50,11 +50,11 @@ import { writeFileWithAutoPath } from 'file-system'
 // import { filterAndStructureComments } from './comment-documentation'
 // import { commentToMarkdown } from './renderer-markdown'
 // import { commentToJestTest } from './renderer-jest'
-import { prepareMetaFiles } from './next-meta-files'
+// import { prepareMetaFiles } from './next-meta-files'
 import { log } from './log'
 import { unlines } from 'knot'
 import { autobox } from 'inherent'
-import { cleanFilename, findJSDocKeywords, cleanupKeywords } from './file'
+import { findJSDocKeywords, cleanupKeywords } from './file'
 import { formatComment, trimComment, wipeComment } from './text'
 
 export const hasExample = pipe(
@@ -268,7 +268,7 @@ export const getExample = curry(function _getExample(file, end, i) {
     unlines
   )(file)
 })
-const renderFileWith = curry(function _renderFile(
+const renderFileWith = curry(function _renderFileWith(
   { renderer, postRender },
   file
 ) {
@@ -281,7 +281,9 @@ const renderFileWith = curry(function _renderFile(
       //   : commentToMarkdown(file.slugName, importsForTests)
       renderer({ imports: importsForTests, file })
     ),
-    postRender
+    log.renderer('rendered'),
+    postRender({ file }),
+    log.renderer('postRendered')
     // z => {
     // const out = !testMode
     //   ? ['# ' + file.slugName, file.pageSummary, ...z]
@@ -307,11 +309,8 @@ export const writeCommentsToFiles = curry(function _writeCommentsToFiles(
   { processor, outputDir },
   x
 ) {
-  const {
-    output: $outputPath,
-    renderer: $render,
-    postProcess: $postProcess = I,
-  } = processor
+  const { output: $outputPath, postProcess: $postProcess = (_a, _b, c) => c } =
+    processor
   return pipe(
     toPairs,
     map(([workspace, commentedFiles]) => {
@@ -322,9 +321,16 @@ export const writeCommentsToFiles = curry(function _writeCommentsToFiles(
           // this part is the structure of the file we wanna write
           $outputPath(file)
         )
-        return writeFileWithAutoPath(filePathToWrite, $render(file))
+        return pipe(
+          renderFileWith(processor),
+          writeFileWithAutoPath(filePathToWrite)
+        )(file)
       })(commentedFiles)
-      return $postProcess(filesToWrite)
+      return $postProcess(
+        { outputDir, workspace },
+        commentedFiles,
+        filesToWrite
+      )
       // return testMode
       //   ? filesToWrite
       //   : filesToWrite.concat(
@@ -332,6 +338,7 @@ export const writeCommentsToFiles = curry(function _writeCommentsToFiles(
       //     )
     }),
     flatten,
+    log.comment('WHAT?!'),
     parallel(10)
   )(x)
 })
