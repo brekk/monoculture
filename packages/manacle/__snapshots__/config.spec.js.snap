@@ -9,6 +9,9 @@ exports[`CONFIG 1`] = `
     "color": [
       "k",
     ],
+    "filter": [
+      "f",
+    ],
     "help": [
       "h",
     ],
@@ -21,6 +24,7 @@ exports[`CONFIG 1`] = `
   },
   "array": [
     "check",
+    "filter",
   ],
   "boolean": [
     "help",
@@ -43,6 +47,7 @@ exports[`HELP_CONFIG 1`] = `
 {
   "check": "Provide a checkfile (Can be specified multiple times)",
   "color": "Do stuff with glorious color",
+  "filter": "Filter the results and cut down the output",
   "help": "This text you're reading now!",
   "input": "The path to a monocle-findings.json file.",
   "query": "Ask a question of the data",
