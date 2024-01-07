@@ -1,0 +1,75 @@
+# comment
+
+
+
+## hasExample
+
+Check to see if a comment has an example within its structure.
+
+### Usage
+```js test=true
+expect(hasExample({structure: {example: [`test=true`]}})).toBeTruthy()
+expect(hasExample({})).toBeFalsy()
+expect(hasExample('zipzop')).toBeFalsy()
+```
+
+## getImportsForTests
+
+Pull all imports from a given file, including `@curried` examples
+
+### Usage
+```js test=true
+const file = { comments: [
+  {
+    structure: { curried: [
+      { name: 'coolWithConfig', lines: ['test=true'] },
+      { name: 'cool', lines: ['test=true'] }
+    ] }
+  },
+  {
+    structure: { name: 'otherFunc', example: ['test=true'] }
+  }
+] }
+
+expect(getImportsForTests(file)).toEqual(['otherFunc', 'coolWithConfig', 'cool'])
+```
+
+## getPageSummary
+
+Grab the summary from raw lines, given some indices to slice
+
+### Usage
+```js test=true
+const rawLines = [
+  ' * @pageSummary Hey cool this is a multi-line',
+  ' * description of stuff in the whole file',
+  ' * @page testPageSummary',
+  ' * @huh notSure'
+]
+expect(
+  getPageSummary(rawLines, Infinity, 0)
+).toEqual([
+  'Hey cool this is a multi-line',
+  'description of stuff in the whole file'
+])
+expect(
+  getPageSummary([' * hey', ' * there'], Infinity, 0)
+).toEqual(['hey', 'there'])
+```
+
+## getExample
+
+@name getExample
+
+### Usage
+```js test=true
+const rawLines = [
+  '* Ouroboric summary',
+  '* @name getExample',
+  '* @example',
+  '* ```js',
+  '* getExample(rawLines)',
+  '* ```',
+]
+expect(getExample(rawLines, 5, 3)).toEqual('getExample(rawLines)')
+```

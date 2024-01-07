@@ -247,8 +247,8 @@
     "filename": "packages/doctor-general-jest/comment-test.js",
     "comments": [
       {
-        "start": 17,
-        "end": 45,
+        "start": 19,
+        "end": 47,
         "summary": "Merge two file representations. Can be right or left associative",
         "links": [],
         "fileGroup": "",
@@ -311,14 +311,192 @@
     "workspace": "doctor-general-jest"
   },
   {
+    "slugName": "comment",
+    "package": "doctor-general",
+    "pageSummary": "",
+    "filename": "packages/doctor-general/comment.js",
+    "comments": [
+      {
+        "start": 56,
+        "end": 65,
+        "summary": "Check to see if a comment has an example within its structure.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "hasExample",
+          "example": "```js test=true\nexpect(hasExample({structure: {example: [`test=true`]}})).toBeTruthy()\nexpect(hasExample({})).toBeFalsy()\nexpect(hasExample('zipzop')).toBeFalsy()\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 72,
+        "end": 91,
+        "summary": "Pull all imports from a given file, including `@curried` examples",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "Pull": [
+            "all",
+            "imports",
+            "from",
+            "a",
+            "given",
+            "file,",
+            "including",
+            "`curried`",
+            "examples"
+          ],
+          "name": "getImportsForTests",
+          "example": "```js test=true\nconst file = { comments: [\n  {\n    structure: { curried: [\n      { name: 'coolWithConfig', lines: ['test=true'] },\n      { name: 'cool', lines: ['test=true'] }\n    ] }\n  },\n  {\n    structure: { name: 'otherFunc', example: ['test=true'] }\n  }\n] }\n\nexpect(getImportsForTests(file)).toEqual(['otherFunc', 'coolWithConfig', 'cool'])\n```"
+        },
+        "keywords": [
+          "@curried",
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 178,
+        "end": 199,
+        "summary": "Grab the summary from raw lines, given some indices to slice",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "getPageSummary",
+          "example": "```js test=true\nconst rawLines = [\n  ' * @pageSummary Hey cool this is a multi-line',\n  ' * description of stuff in the whole file',\n  ' * @page testPageSummary',\n  ' * @huh notSure'\n]\nexpect(\n  getPageSummary(rawLines, Infinity, 0)\n).toEqual([\n  'Hey cool this is a multi-line',\n  'description of stuff in the whole file'\n])\nexpect(\n  getPageSummary([' * hey', ' * there'], Infinity, 0)\n).toEqual(['hey', 'there'])\n```"
+        },
+        "keywords": [
+          "@example",
+          "@huh",
+          "@name",
+          "@page",
+          "@pageSummary"
+        ],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 217,
+        "end": 232,
+        "summary": "@name getExample",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "getExample",
+          "signature": [
+            "List",
+            "String",
+            "->",
+            "Integer",
+            "->",
+            "Integer",
+            "->",
+            "String"
+          ],
+          "example": "```js test=true\nconst rawLines = [\n  '* Ouroboric summary',\n  '* @name getExample',\n  '* @example',\n  '* ```js',\n  '* getExample(rawLines)',\n  '* ```',\n]\nexpect(getExample(rawLines, 5, 3)).toEqual('getExample(rawLines)')\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name",
+          "@signature"
+        ],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "doctor-general"
+  },
+  {
+    "slugName": "processor",
+    "package": "doctor-general",
+    "pageSummary": "",
+    "filename": "packages/doctor-general/processor.js",
+    "comments": [
+      {
+        "start": 25,
+        "end": 34,
+        "summary": "Return the number of arguments a function expects",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "arity",
+          "example": "```js test=true\nexpect(arity((a,b,c) => {})).toEqual(3)\nexpect(arity(function tertiary(a,b,c) {})).toEqual(3)\nexpect(arity(a => b => c => c)).toEqual(1)\nexpect(arity('poo')).toEqual(-1)"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/doctor-general/processor.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 71,
+        "end": 167,
+        "summary": "Apply tests to a given processor in order to assess its correctness.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "interrogate",
+          "exported": true,
+          "example": "```js test=true\n// drgen-import-above\nconst myCoolProcessor = {\n  output: () => {},\n  group: '',\n  process: () => {},\n  postRender: (a, b) => b,\n  renderer: (a, b) => b,\n}\nexpect(interrogate({})).toEqual({\n  additionalFieldCheck: {},\n  additionalFields: [],\n  meetsOptionalRequirements: false,\n  meetsRequirements: false,\n  incorrectFields: [\n    'output',\n    'group',\n    'process',\n    'renderer',\n    'postRender',\n    'postProcess'\n  ],\n  checked: {\n    optional: { postProcess: false },\n    required: {\n      group: false,\n      output: false,\n      postRender: false,\n      process: false,\n      renderer: false\n    }\n  }\n})\nexpect(interrogate(myCoolProcessor)).toEqual({\n  additionalFieldCheck: {},\n  additionalFields: [],\n  meetsOptionalRequirements: false,\n  meetsRequirements: true,\n  incorrectFields: ['postProcess'],\n  checked: {\n    optional: { postProcess: false },\n    required: {\n      group: true,\n      output: true,\n      postRender: true,\n      process: true,\n      renderer: true\n    }\n  }\n})\nexpect(interrogate({\n  ...myCoolProcessor,\n  postProcess: (a, b, c) => b\n})).toEqual({\n  additionalFieldCheck: { postProcess: true },\n  additionalFields: [ 'postProcess' ],\n  meetsOptionalRequirements: true,\n  meetsRequirements: true,\n  incorrectFields: [],\n  checked: {\n    optional: { postProcess: true },\n    required: {\n      group: true,\n      output: true,\n      postRender: true,\n      process: true,\n      renderer: true\n    }\n  }\n})\nexpect(interrogate({\n  ...myCoolProcessor,\n  unsupportedFunction: (a, b) => b\n})).toEqual({\n  additionalFieldCheck: { unsupportedFunction: false },\n  additionalFields: ['unsupportedFunction'],\n  meetsOptionalRequirements: false,\n  meetsRequirements: true,\n  checked: {\n    optional: { postProcess: false },\n    required: {\n      group: true,\n      output: true,\n      postRender: true,\n      process: true,\n      renderer: true\n    }\n  },\n  incorrectFields: ['postProcess']\n})\n```"
+        },
+        "keywords": [
+          "@example",
+          "@exported",
+          "@name"
+        ],
+        "filename": "packages/doctor-general/processor.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 205,
+        "end": 232,
+        "summary": "Validate a given processor is correct.\nIf you want to see _why_ it is incorrect, use `interrogate` instead.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "validate",
+          "exported": true,
+          "example": "```js test=true\n// drgen-import-above\nconst myCoolProcessor = {\n  output: () => {},\n  group: '',\n  process: () => {},\n  postRender: (a, b) => b,\n  renderer: (a, b) => b,\n}\n\nexpect(validate({})).toBeFalsy()\nexpect(validate(myCoolProcessor)).toBeTruthy()\nexpect(validate({\n  ...myCoolProcessor,\n  postProcess: (a, b, c) => b\n})).toBeTruthy()\nexpect(validate({\n  ...myCoolProcessor,\n  unsupportedFunction: (a, b) => b\n})).toBeFalsy()\n```"
+        },
+        "keywords": [
+          "@example",
+          "@exported",
+          "@name"
+        ],
+        "filename": "packages/doctor-general/processor.js",
+        "package": "doctor-general"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "doctor-general"
+  },
+  {
     "slugName": "text",
     "package": "doctor-general",
     "pageSummary": "",
     "filename": "packages/doctor-general/text.js",
     "comments": [
       {
-        "start": 20,
-        "end": 33,
+        "start": 18,
+        "end": 31,
         "summary": "For strings which look like extended jsdoc comment line (e.g. ` * whatever`),\neschew the comment decoration",
         "links": [],
         "fileGroup": "",
@@ -330,7 +508,7 @@
             "->",
             "String"
           ],
-          "example": "```js\nexpect(trimComment('          * zipzop')).toEqual('zipzop')\nexpect(trimComment(' * squiggle         ')).toEqual('squiggle')\nconst input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)\nexpect(trimComment(input)).toEqual(input)\nexpect(trimComment(29292)).toEqual(29292)\n```"
+          "example": "```js test=true\nexpect(trimComment('          * zipzop')).toEqual('zipzop')\nexpect(trimComment(' * squiggle         ')).toEqual('squiggle')\nconst input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)\nexpect(trimComment(input)).toEqual(input)\nexpect(trimComment(29292)).toEqual(29292)\n```"
         },
         "keywords": [
           "@example",
@@ -888,6 +1066,53 @@
     "workspace": "file-system"
   },
   {
+    "slugName": "groupByIndex",
+    "package": "inherent",
+    "pageSummary": "",
+    "filename": "packages/inherent/groupByIndex.js",
+    "comments": [
+      {
+        "start": 24,
+        "end": 44,
+        "summary": "@name groupByIndex",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "groupByIndex",
+          "example": "```js test=true\nexpect(groupByIndex(0, [\n  ['spades', 'ace'],\n  ['diamonds', 'seven'],\n  ['hearts', 'eight'],\n  ['clubs', 'jack'],\n  ['diamonds', 'ace'],\n  ['spades', 'king'],\n  ['diamonds', 'four'],\n  ['spades', 'eight'],\n])).toEqual({\n  clubs: [['jack']],\n  diamonds: [['seven'], ['ace'], ['four']],\n  hearts: [['eight']],\n  spades: [['ace'], ['king'], ['eight']],\n})\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/inherent/groupByIndex.js",
+        "package": "inherent"
+      },
+      {
+        "start": 49,
+        "end": 69,
+        "summary": "@name groupFlatByIndex",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "groupFlatByIndex",
+          "example": "```js test=true\nexpect(groupFlatByIndex(0, [\n  ['spades', 'ace'],\n  ['diamonds', 'seven'],\n  ['hearts', 'eight'],\n  ['clubs', 'jack'],\n  ['diamonds', 'ace'],\n  ['spades', 'king'],\n  ['diamonds', 'four'],\n  ['spades', 'eight'],\n])).toEqual({\n  clubs: ['jack'],\n  diamonds: ['seven', 'ace', 'four'],\n  hearts: ['eight'],\n  spades: ['ace', 'king', 'eight'],\n})\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/inherent/groupByIndex.js",
+        "package": "inherent"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "inherent"
+  },
+  {
     "slugName": "primitives",
     "package": "inherent",
     "pageSummary": "",
@@ -1004,8 +1229,8 @@
         "package": "kiddo"
       },
       {
-        "start": 80,
-        "end": 100,
+        "start": 169,
+        "end": 189,
         "summary": "Add an `ora` indicator to a Future",
         "links": [],
         "fileGroup": "",
@@ -1317,7 +1542,7 @@
     "comments": [
       {
         "start": 89,
-        "end": 161,
+        "end": 162,
         "summary": "Summarize a project, given:\n - the path to a `package.json` file\n - the path to a `dr-generated.json` file\n - the URI of a documentation site\n - the URI of a repository\n - (optional) a banner\n - or (optional) the path to a file which represents a banner",
         "links": [],
         "fileGroup": "",
@@ -1325,7 +1550,7 @@
         "structure": {
           "name": "summarize",
           "future": true,
-          "example": "```js test=true\nimport path from 'node:path'\nimport { fork } from 'fluture'\n// drgen-import-above\nfork(done)(x => {\n  expect(x.split('\\n')).toEqual([\n    \"this is a cool test!\",\n    \"## apps\",\n    \"\",\n    \" * [docs](//repo.biz/apps/docs) - documentation site for monoculture\",\n    \"\",\n    \"## packages\",\n    \"\",\n    \" * [bloodline](//repo.biz/packages/bloodline) - determine the relationships between files 🩸\",\n    \" * [climate](//repo.biz/packages/climate) - CLI utilities, friend 👯\",\n    \" * [climate-json](//repo.biz/packages/climate-json) - JSON parser for climate 🐐\",\n    \" * [climate-toml](//repo.biz/packages/climate-toml) - TOML parser for climate 🍅\",\n    \" * [climate-yaml](//repo.biz/packages/climate-yaml) - YAML parser for climate 🍠\",\n    \" * [clox](//repo.biz/packages/clox) - boxes for the terminal ⏰\",\n    \" * [doctor-general](//repo.biz/packages/doctor-general) - documentation generation 🩻\",\n    \" * [doctor-general-jest](//repo.biz/packages/doctor-general-jest) - documentation generation - jest 🃏\",\n    \" * [doctor-general-mdx](//repo.biz/packages/doctor-general-mdx) - documentation generation - mdx 🩺\",\n    \" * [file-system](//repo.biz/packages/file-system) - fs, but in the future 🔮\",\n    \" * [inherent](//repo.biz/packages/inherent) - functional utilities for primitives ⛺️\",\n    \" * [kiddo](//repo.biz/packages/kiddo) - child processes in the future 👶\",\n    \" * [knot](//repo.biz/packages/knot) - functional utilities for strings 🪢\",\n    \" * [monocle](//repo.biz/packages/monocle) - inspect code and apply rules, magically 🧐\",\n    \" * [monorail](//repo.biz/packages/monorail) - plugins for smug grins 🚂\",\n    \" * [robot-tourist](//repo.biz/packages/robot-tourist) - human-centric source code interpreter 🤖\",\n    \" * [water-wheel](//repo.biz/packages/water-wheel) - future-wrapping for streaming interfaces 🌊\",\n    \"\",\n    \"## shared\",\n    \"\",\n    \" * [eslint-config-monoculture](//repo.biz/shared/eslint-config-monoculture) - shared eslint configuration for monoculture packages 🧹\",\n    \" * [jest-config](//repo.biz/shared/jest-config) - shared jest configuration for monoculture packages 🎪\",\n    \" * [monoculture-tsconfig](//repo.biz/shared/monoculture-tsconfig) - shared tsconfig for monoculture packages 😵\",\n    \"\",\n    \"## tools\",\n    \"\",\n    \" * [digested](//repo.biz/tools/digested) - summarize and automatically generate information about your projects 🍽️\",\n    \" * [doctor-general-cli](//repo.biz/tools/doctor-general-cli) - documentation generation in a nice CLI 🫡\",\n    \" * [gitparty](//repo.biz/tools/gitparty) - visualize git logs with magical context 🎨\",\n    \" * [spacework](//repo.biz/tools/spacework) - meta tools for monoculture ☄️\",\n    \" * [superorganism](//repo.biz/tools/superorganism) - script runner from beyond the moon 🐁\",\n    \" * [treacle](//repo.biz/tools/treacle) - command line interface tree visualization pun 🫠\",\n    \"\",\n  ])\n  done()\n})(summarize({\n  readme: true,\n  dirPath: process.cwd(),\n  banner: 'this is a cool test!',\n  // repoUrl: 'https://github.com/brekk/monoculture/tree/main',\n  // docUrl: 'https://brekk.github.io/monoculture',\n  // base package only!\n  repoUrl: '//repo.biz',\n  docUrl: '//repo.doc',\n  pkgPath: '../../package.json',\n  drGenPath: '../../apps/docs/dr-generated.json'\n}))\n```"
+          "example": "```js test=true\nimport path from 'node:path'\nimport { fork } from 'fluture'\n// drgen-import-above\nfork(done)(x => {\n  expect(x.split('\\n')).toEqual([\n    \"this is a cool test!\",\n    \"## apps\",\n    \"\",\n    \" * [docs](//repo.biz/apps/docs) - documentation site for monoculture\",\n    \"\",\n    \"## packages\",\n    \"\",\n    \" * [bloodline](//repo.biz/packages/bloodline) - determine the relationships between files 🩸\",\n    \" * [climate](//repo.biz/packages/climate) - CLI utilities, friend 👯\",\n    \" * [climate-json](//repo.biz/packages/climate-json) - JSON parser for climate 🐐\",\n    \" * [climate-toml](//repo.biz/packages/climate-toml) - TOML parser for climate 🍅\",\n    \" * [climate-yaml](//repo.biz/packages/climate-yaml) - YAML parser for climate 🍠\",\n    \" * [clox](//repo.biz/packages/clox) - boxes for the terminal ⏰\",\n    \" * [doctor-general](//repo.biz/packages/doctor-general) - documentation generation 🩻\",\n    \" * [doctor-general-jest](//repo.biz/packages/doctor-general-jest) - documentation generation - jest 🃏\",\n    \" * [doctor-general-mdx](//repo.biz/packages/doctor-general-mdx) - documentation generation - mdx 🩺\",\n    \" * [file-system](//repo.biz/packages/file-system) - fs, but in the future 🔮\",\n    \" * [inherent](//repo.biz/packages/inherent) - functional utilities for primitives ⛺️\",\n    \" * [kiddo](//repo.biz/packages/kiddo) - child processes in the future 👶\",\n    \" * [knot](//repo.biz/packages/knot) - functional utilities for strings 🪢\",\n    \" * [manacle](//repo.biz/packages/manacle) - make conventions into rules, magically 🔒\",\n    \" * [monocle](//repo.biz/packages/monocle) - inspect code and apply rules, magically 🧐\",\n    \" * [monorail](//repo.biz/packages/monorail) - plugins for smug grins 🚂\",\n    \" * [robot-tourist](//repo.biz/packages/robot-tourist) - human-centric source code interpreter 🤖\",\n    \" * [water-wheel](//repo.biz/packages/water-wheel) - future-wrapping for streaming interfaces 🌊\",\n    \"\",\n    \"## shared\",\n    \"\",\n    \" * [eslint-config-monoculture](//repo.biz/shared/eslint-config-monoculture) - shared eslint configuration for monoculture packages 🧹\",\n    \" * [jest-config](//repo.biz/shared/jest-config) - shared jest configuration for monoculture packages 🎪\",\n    \" * [monoculture-tsconfig](//repo.biz/shared/monoculture-tsconfig) - shared tsconfig for monoculture packages 😵\",\n    \"\",\n    \"## tools\",\n    \"\",\n    \" * [digested](//repo.biz/tools/digested) - summarize and automatically generate information about your projects 🍽️\",\n    \" * [doctor-general-cli](//repo.biz/tools/doctor-general-cli) - documentation generation in a nice CLI 🫡\",\n    \" * [gitparty](//repo.biz/tools/gitparty) - visualize git logs with magical context 🎨\",\n    \" * [spacework](//repo.biz/tools/spacework) - meta tools for monoculture ☄️\",\n    \" * [superorganism](//repo.biz/tools/superorganism) - script runner from beyond the moon 🐁\",\n    \" * [treacle](//repo.biz/tools/treacle) - command line interface tree visualization pun 🫠\",\n    \"\",\n  ])\n  done()\n})(summarize({\n  readme: true,\n  dirPath: process.cwd(),\n  banner: 'this is a cool test!',\n  // repoUrl: 'https://github.com/brekk/monoculture/tree/main',\n  // docUrl: 'https://brekk.github.io/monoculture',\n  // base package only!\n  repoUrl: '//repo.biz',\n  docUrl: '//repo.doc',\n  pkgPath: '../../package.json',\n  drGenPath: '../../apps/docs/dr-generated.json'\n}))\n```"
         },
         "keywords": [
           "@example",

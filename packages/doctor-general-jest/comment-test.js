@@ -12,6 +12,7 @@ import {
   propOr,
   reduce,
   replace,
+  any,
 } from 'ramda'
 export const TESTABLE_EXAMPLE = 'test=true'
 
@@ -61,11 +62,14 @@ export const hasExample = pipe(
   includes(TESTABLE_EXAMPLE)
 )
 
+export const testUsesImport = curry((imp, ex) => any(includes(imp), ex))
+
 export const filterAndStructureTests = pipe(
   filter(pipe(propOr([], 'comments'), filter(hasExample), isNotEmpty)),
   map(raw => {
     const filename = stripRelative(raw.filename)
     const ext = extname(filename)
+    // log.filter('raw', raw)
     return {
       ...raw,
       comments: raw.comments.map(r => ({ ...r, filename })),

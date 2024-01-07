@@ -16,15 +16,13 @@ import { unlines } from 'knot'
 
 export const safeTrim = when(is(String), trim)
 
-// trying to use `drgen` for autotesting is a cyclical disaster,
-// so we'll just manually copy these tests
 /**
  * For strings which look like extended jsdoc comment line (e.g. ` * whatever`),
  * eschew the comment decoration
  * @name trimComment
  * @signature String -> String
  * @example
- * ```js
+ * ```js test=true
  * expect(trimComment('          * zipzop')).toEqual('zipzop')
  * expect(trimComment(' * squiggle         ')).toEqual('squiggle')
  * const input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)

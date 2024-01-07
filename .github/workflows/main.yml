@@ -1,7 +1,11 @@
-name: 🦠 Monoculture
-on: [push, workflow_dispatch]
-jobs:
+name: 🦠 Monoculture - Main
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 
+jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
@@ -19,7 +23,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextra-${{ hashFiles('**/yarn.lock') }}-
       - name: 📦 Bundling docs...
-        run: yarn workspace docs run build
+        run: |
+          yarn workspace doctor-general-mdx run build
+          yarn workspace doctor-general-cli run build
+          yarn workspace docs run build
       - name: 📟 Update pages...
         uses: actions/upload-pages-artifact@v1
         with:
@@ -43,81 +50,3 @@ jobs:
       - name: 🚀 Deploy new build to pages...
         id: deployment
         uses: actions/deploy-pages@v2
-
-  test:
-    permissions:
-      pull-requests: write
-    runs-on: ubuntu-latest
-    outputs:
-      coverage: ${{ env.coverage_report }}
-      summary: ${{ env.coverage_summary }}
-      pr: ${{ steps.findPr.outputs.pr }}
-    steps:
-      - name: 🧾 Checking out code...
-        uses: actions/checkout@v4 
-      - name: 🔩 Installing...
-        uses: ./.github/shared-actions/install
-      - name: 🧪 Testing...
-        run: |
-          yarn test:ci
-          yarn test:ciCopy
-      - name: 🚁 Saving test artifacts...
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-artifacts
-          path: |
-            coverage/coverage-final.json
-            coverage/lcov.info
-      - name: 🔎 Get current PR number...
-        uses: jwalton/gh-find-current-pr@v1
-        id: findPr
-      - name: 🎥 Calculating shared coverage...
-        run: |
-          COVERAGE=$(npx nps --silent -c ./package-scripts.cjs test.ciReport)
-          echo "coverage_report<<EOF" >> $GITHUB_ENV
-          echo "$COVERAGE" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-          SUMMARY=$(echo "$COVERAGE" | node ./tools/spacework/reporter-for-ci.cjs --pr ${{ steps.findPR.outputs.pr }} --branch $GITHUB_REF_NAME)
-          echo "coverage_summary<<EOF" >> $GITHUB_ENV
-          echo "$SUMMARY" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-      - name: 🧱 Building artifacts...
-        run: yarn build
-      - name: 🛫 Saving build artifacts... 
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-artifacts
-          path: |
-            packages/**/dist/**
-            tools/**/dist/**
-            !node_modules/**
-
-  report:
-    permissions:
-      pull-requests: write
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🎙️ Updating PR...
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          # delete the old comment and re-append to the end (useful for long running PRs)
-          recreate: true
-          number: ${{ needs.test.outputs.pr }}
-          header: test
-          message: |
-            ### 🦠 Monoculture
-            
-            #### Coverage summary
-            
-            _Legend_: (Statements / Branches / Functions / Lines)
-
-            ${{ needs.test.outputs.summary }}
-
-            <details closed><summary>Report</summary>
-
-            ```
-            ${{ needs.test.outputs.coverage }}
-            ```
-
-            </details>
