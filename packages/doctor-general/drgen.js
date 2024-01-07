@@ -72,7 +72,7 @@ export const drgen = config => {
           successText: 'Parsed files!',
           failText: 'Unable to parse files!',
         }),
-        map(processComments(processor)),
+        map(processComments(bad, processor)),
         when(K(artifact), writeArtifact(relativeArtifact)),
         renderComments(processor, outputDir),
         signal(cancel, {

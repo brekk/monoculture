@@ -279,6 +279,7 @@ introspection and organization tools for monorepos
 
    <details><summary>API</summary>
 
+    - [groupByIndex](https://brekk.github.io/monoculture/inherent/groupByIndex)
     - [primitives](https://brekk.github.io/monoculture/inherent/primitives)
 
    </details>

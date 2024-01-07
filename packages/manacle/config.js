@@ -5,9 +5,10 @@ export const CONFIG = {
     input: ['i'],
     query: ['q'],
     check: ['c'],
+    filter: ['f'],
   },
   boolean: ['help', 'color'],
-  array: ['check'],
+  array: ['check', 'filter'],
   configuration: {
     'strip-aliased': true,
   },
@@ -25,6 +26,7 @@ export const HELP_CONFIG = {
   input: `The path to a monocle-findings.json file.`,
   query: `Ask a question of the data`,
   check: `Provide a checkfile (Can be specified multiple times)`,
+  filter: `Filter the results and cut down the output`,
 }
 /* eslint-enable max-len */
 

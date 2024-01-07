@@ -4,14 +4,12 @@ import {
   join,
   ifElse,
   always as K,
-  groupBy,
-  tail,
-  head,
   curry,
   pipe,
   chain,
   map,
 } from 'ramda'
+import { groupByIndex } from 'inherent'
 import { fork, parallel } from 'fluture'
 import { interpret, readFileWithCancel } from 'file-system'
 import { configurate } from 'climate'
@@ -49,8 +47,9 @@ const cli = curry(function _cli(cancel, args) {
           name,
           pipe(ifElse(check, report, K('')))(findings),
         ]),
-        groupBy(head),
-        map(map(tail)),
+        groupByIndex(0),
+        // groupBy(head),
+        // map(map(tail)),
         map(join('')),
         toPairs,
         map(([k, v]) => `${k}\n\n${v}`),

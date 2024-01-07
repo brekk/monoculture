@@ -247,8 +247,8 @@
     "filename": "packages/doctor-general-jest/comment-test.js",
     "comments": [
       {
-        "start": 17,
-        "end": 45,
+        "start": 19,
+        "end": 47,
         "summary": "Merge two file representations. Can be right or left associative",
         "links": [],
         "fileGroup": "",
@@ -1064,6 +1064,53 @@
       "mkdir"
     ],
     "workspace": "file-system"
+  },
+  {
+    "slugName": "groupByIndex",
+    "package": "inherent",
+    "pageSummary": "",
+    "filename": "packages/inherent/groupByIndex.js",
+    "comments": [
+      {
+        "start": 24,
+        "end": 44,
+        "summary": "@name groupByIndex",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "groupByIndex",
+          "example": "```js test=true\nexpect(groupByIndex(0, [\n  ['spades', 'ace'],\n  ['diamonds', 'seven'],\n  ['hearts', 'eight'],\n  ['clubs', 'jack'],\n  ['diamonds', 'ace'],\n  ['spades', 'king'],\n  ['diamonds', 'four'],\n  ['spades', 'eight'],\n])).toEqual({\n  clubs: [['jack']],\n  diamonds: [['seven'], ['ace'], ['four']],\n  hearts: [['eight']],\n  spades: [['ace'], ['king'], ['eight']],\n})\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/inherent/groupByIndex.js",
+        "package": "inherent"
+      },
+      {
+        "start": 49,
+        "end": 69,
+        "summary": "@name groupFlatByIndex",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "groupFlatByIndex",
+          "example": "```js test=true\nexpect(groupFlatByIndex(0, [\n  ['spades', 'ace'],\n  ['diamonds', 'seven'],\n  ['hearts', 'eight'],\n  ['clubs', 'jack'],\n  ['diamonds', 'ace'],\n  ['spades', 'king'],\n  ['diamonds', 'four'],\n  ['spades', 'eight'],\n])).toEqual({\n  clubs: ['jack'],\n  diamonds: ['seven', 'ace', 'four'],\n  hearts: ['eight'],\n  spades: ['ace', 'king', 'eight'],\n})\n```"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/inherent/groupByIndex.js",
+        "package": "inherent"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "inherent"
   },
   {
     "slugName": "primitives",

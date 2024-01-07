@@ -12,6 +12,7 @@ module.exports = {
       rebuild: sd(
         `drgen -i ${[
           './array.js',
+          './groupByIndex.js',
           './common.js',
           './inherent.js',
           './object.js',

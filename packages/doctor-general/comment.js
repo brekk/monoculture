@@ -423,7 +423,6 @@ export const writeCommentsToFiles = curry(function _writeCommentsToFiles(
 
 export const renderComments = curry(
   function _renderComments(processor, outputDir, x) {
-    log.comment('processor.group', processor.group)
     return chain(
       pipe(
         groupBy(propOr('unknown', processor.group)),
@@ -433,6 +432,12 @@ export const renderComments = curry(
   }
 )
 
-export const processComments = curry(function _processComments(processor, x) {
-  return processor.process(x)
-})
+export const processComments = curry(
+  function _processComments(bad, processor, x) {
+    try {
+      return processor.process(x)
+    } catch (e) {
+      bad(e)
+    }
+  }
+)
