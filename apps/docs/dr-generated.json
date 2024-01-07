@@ -247,8 +247,8 @@
     "filename": "packages/doctor-general-jest/comment-test.js",
     "comments": [
       {
-        "start": 19,
-        "end": 47,
+        "start": 18,
+        "end": 46,
         "summary": "Merge two file representations. Can be right or left associative",
         "links": [],
         "fileGroup": "",
@@ -1072,8 +1072,8 @@
     "filename": "packages/inherent/groupByIndex.js",
     "comments": [
       {
-        "start": 24,
-        "end": 44,
+        "start": 14,
+        "end": 34,
         "summary": "@name groupByIndex",
         "links": [],
         "fileGroup": "",
@@ -1090,8 +1090,8 @@
         "package": "inherent"
       },
       {
-        "start": 49,
-        "end": 69,
+        "start": 39,
+        "end": 59,
         "summary": "@name groupFlatByIndex",
         "links": [],
         "fileGroup": "",

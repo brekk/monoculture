@@ -1,12 +1,13 @@
 import PKG from './package.json'
 import { interpret } from 'file-system'
 import { configurate } from 'climate'
-import { chain, curry, pipe, slice } from 'ramda'
+import { map, chain, curry, pipe, slice } from 'ramda'
 import { resolve } from 'fluture'
 import { drgen } from 'doctor-general'
 import { signal } from 'kiddo'
 
 import { HELP_CONFIG, YARGS_CONFIG, CONFIG_DEFAULTS } from './config'
+import { log } from './log'
 
 const processHelpOrRun = curry(function _processHelpOrRun(cancel, config) {
   const { HELP, help, input, output, processor } = config
@@ -20,8 +21,9 @@ const processHelpOrRun = curry(function _processHelpOrRun(cancel, config) {
       successText: `Loaded processor: ${processor}...`,
       failText: `Unable to load processor: ${processor}`,
     }),
+    log.core('processor'),
     chain(p =>
-      drgen({
+      drgen(cancel, {
         ...config,
         processor: p,
       })
@@ -37,6 +39,7 @@ export const cli = curry(function _cli(cancel, argv) {
       name: $NAME,
       description: $DESC,
     }),
-    chain(processHelpOrRun(cancel))
+    chain(processHelpOrRun(cancel)),
+    map(log.core('out!'))
   )(argv)
 })

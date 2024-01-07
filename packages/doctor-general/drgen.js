@@ -3,6 +3,7 @@ import { cwd } from 'node:process'
 import { signal } from 'kiddo'
 import { log } from './log'
 import {
+  curry,
   unless,
   when,
   always as K,
@@ -20,7 +21,7 @@ import { monorepoRunner } from './reader'
 import { writeArtifact } from './writer'
 import { validate, interrogate } from './processor'
 
-export const drgen = config => {
+export const drgen = curry(function _drgen(cancel, config) {
   const {
     processor,
     debug,
@@ -54,12 +55,17 @@ export const drgen = config => {
   const root = pkgJson.slice(0, pkgJson.lastIndexOf('/'))
   const toLocal = map(ii => ii.slice(0, ii.lastIndexOf('/')), input)
   const relativize = r => (monorepoMode ? pathJoin(toLocal[0], r) : r)
-  const cancel = () => {}
   return pipe(
     log.core(`monorepoMode?`),
     ifElse(
       I,
-      () => monorepoRunner(showMatchesOnly, searchGlob, ignore, root, pkgJson),
+      () =>
+        monorepoRunner(
+          cancel,
+          { showMatchesOnly, searchGlob, ignore },
+          root,
+          pkgJson
+        ),
       () => good(input)
     ),
     unless(
@@ -91,4 +97,4 @@ export const drgen = config => {
       )
     )
   )(monorepoMode)
-}
+})
