@@ -21,10 +21,48 @@ import { monorepoRunner } from './reader'
 import { writeArtifact } from './writer'
 import { validate, interrogate } from './processor'
 
+const handleInvalidProcessor = pipe(
+  interrogate,
+  ({ incorrectFields }) =>
+    `Processor is invalid. Incorrect fields: ${incorrectFields}`,
+  bad
+)
+
+export const handleMatches = curry(function _handleMatches(
+  cancel,
+  config,
+  { outputDir, relativeArtifact, relative, root },
+  raw
+) {
+  const { processor, debug, input, output, artifact = false } = config
+  return pipe(
+    map(pipe(map(relative), chain(parseFile(debug, root)))),
+    chain(parallel(10)),
+    signal(cancel, {
+      text: 'Parsing files...',
+      successText: 'Parsed files!',
+      failText: 'Unable to parse files!',
+    }),
+    map(processComments(bad, processor)),
+    when(K(artifact), writeArtifact(relativeArtifact)),
+    renderComments(processor, outputDir),
+    signal(cancel, {
+      text: 'Rendering comments...',
+      successText:
+        artifact || output
+          ? `Wrote to${
+              output ? ' output: "' + output + '"' + (artifact ? ';' : '') : ''
+            }${artifact ? ' artifact: "' + artifact + '"' : ''}.`
+          : `Processed ${input.join(' ')}`,
+      failText: 'Unable to render comments!',
+    }),
+    map(K(''))
+  )(raw)
+})
+
 export const drgen = curry(function _drgen(cancel, config) {
   const {
     processor,
-    debug,
     input,
     output,
     search: searchGlob,
@@ -36,12 +74,7 @@ export const drgen = curry(function _drgen(cancel, config) {
   log.core('showMatchesOnly', showMatchesOnly)
   log.core('processor!', processor)
   if (!validate(processor)) {
-    return pipe(
-      interrogate,
-      ({ incorrectFields }) =>
-        `Processor is invalid. Incorrect fields: ${incorrectFields}`,
-      bad
-    )(processor)
+    handleInvalidProcessor(processor)
   }
   log.core('input', input)
   log.core('monorepoMode', monorepoMode)
@@ -54,7 +87,7 @@ export const drgen = curry(function _drgen(cancel, config) {
   log.core('relating...', `${current} -> ${output}`)
   const root = pkgJson.slice(0, pkgJson.lastIndexOf('/'))
   const toLocal = map(ii => ii.slice(0, ii.lastIndexOf('/')), input)
-  const relativize = r => (monorepoMode ? pathJoin(toLocal[0], r) : r)
+  const relative = r => (monorepoMode ? pathJoin(toLocal[0], r) : r)
   return pipe(
     log.core(`monorepoMode?`),
     ifElse(
@@ -70,31 +103,12 @@ export const drgen = curry(function _drgen(cancel, config) {
     ),
     unless(
       () => showMatchesOnly,
-      pipe(
-        map(pipe(map(relativize), chain(parseFile(debug, root)))),
-        chain(parallel(10)),
-        signal(cancel, {
-          text: 'Parsing files...',
-          successText: 'Parsed files!',
-          failText: 'Unable to parse files!',
-        }),
-        map(processComments(bad, processor)),
-        when(K(artifact), writeArtifact(relativeArtifact)),
-        renderComments(processor, outputDir),
-        signal(cancel, {
-          text: 'Rendering comments...',
-          successText:
-            artifact || output
-              ? `Wrote to${
-                  output
-                    ? ' output: "' + output + '"' + (artifact ? ';' : '')
-                    : ''
-                }${artifact ? ' artifact: "' + artifact + '"' : ''}.`
-              : `Processed ${input.join(' ')}`,
-          failText: 'Unable to render comments!',
-        }),
-        map(K(''))
-      )
+      handleMatches(cancel, config, {
+        outputDir,
+        relativeArtifact,
+        relative,
+        root,
+      })
     )
   )(monorepoMode)
 })
