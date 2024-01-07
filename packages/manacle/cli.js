@@ -1,5 +1,17 @@
 import { resolve as pathResolve } from 'node:path'
-import { curry, pipe, chain, map } from 'ramda'
+import {
+  toPairs,
+  join,
+  ifElse,
+  always as K,
+  groupBy,
+  tail,
+  head,
+  curry,
+  pipe,
+  chain,
+  map,
+} from 'ramda'
 import { fork, parallel } from 'fluture'
 import { interpret, readFileWithCancel } from 'file-system'
 import { configurate } from 'climate'
@@ -21,13 +33,30 @@ const cli = curry(function _cli(cancel, args) {
       const { input, check, cwd } = config
       const readRel = x =>
         pipe(y => pathResolve(cwd, y), readFileWithCancel(cancel))(x)
-      const checks = map(pipe(readRel, interpret), check)
+      const checks = map(
+        pipe(y => pathResolve(cwd, y), interpret),
+        check
+      )
       const findings = pipe(readRel, map(JSON.parse))(input)
 
       const allFiles = [findings, ...checks]
 
-      return pipe(map(log.cli('all files')), parallel(10))(allFiles)
-    })
+      return pipe(parallel(10), map(log.cli('all files')))(allFiles)
+    }),
+    map(([findings, ...checks]) =>
+      pipe(
+        map(({ name, report, check }) => [
+          name,
+          pipe(ifElse(check, report, K('')))(findings),
+        ]),
+        groupBy(head),
+        map(map(tail)),
+        map(join('')),
+        toPairs,
+        map(([k, v]) => `${k}\n\n${v}`),
+        join('')
+      )(checks)
+    )
   )(args)
 })
 
