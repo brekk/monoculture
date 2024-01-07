@@ -49,7 +49,7 @@ const getPackage = i => {
   return i
 }
 
-export const parse = curry(function _parse(root, filename, content) {
+export const parse = curry(function _parse(filename, content) {
   const newName = stripRelative(filename)
   const slugName = basename(newName, extname(newName))
   return pipe(
@@ -84,12 +84,12 @@ export const parse = curry(function _parse(root, filename, content) {
   )(content)
 })
 
-export const parseFile = curry(function _parseFile(debugMode, root, filename) {
+export const parseFile = curry(function _parseFile(debugMode, filename) {
   return pipe(
     // String
     readFile,
     // Future<Error, String>
-    map(parse(root, filename)),
+    map(parse(filename)),
     // remove orphan comments (parser found it but its not well-formed)
     map(p => ({
       ...p,

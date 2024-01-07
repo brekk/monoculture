@@ -31,12 +31,12 @@ const handleInvalidProcessor = pipe(
 export const handleMatches = curry(function _handleMatches(
   cancel,
   config,
-  { outputDir, relativeArtifact, relative, root },
+  { outputDir, relativeArtifact, relative },
   raw
 ) {
   const { processor, debug, input, output, artifact = false } = config
   return pipe(
-    map(pipe(map(relative), chain(parseFile(debug, root)))),
+    map(pipe(map(relative), chain(parseFile(debug)))),
     chain(parallel(10)),
     signal(cancel, {
       text: 'Parsing files...',
@@ -58,6 +58,82 @@ export const handleMatches = curry(function _handleMatches(
     }),
     map(K(''))
   )(raw)
+})
+
+export const drgenMono = curry(function _drgenMono(cancel, config) {
+  const {
+    processor,
+    input,
+    output,
+    search: searchGlob,
+    ignore,
+    artifact = false,
+    showMatchesOnly = false,
+  } = config
+  log.core('showMatchesOnly', showMatchesOnly)
+  log.core('processor!', processor)
+  if (!validate(processor)) {
+    handleInvalidProcessor(processor)
+  }
+  log.core('input', input)
+  const current = cwd()
+  const rel = relativePathJoin(current)
+  const outputDir = rel(output)
+  const relativeArtifact = artifact ? rel(artifact) : false
+  const relativeInput = map(rel, input)
+  const pkgJson = relativeInput[0]
+  log.core('relating...', `${current} -> ${output}`)
+  const root = pkgJson.slice(0, pkgJson.lastIndexOf('/'))
+  const toLocal = map(ii => ii.slice(0, ii.lastIndexOf('/')), input)
+  return pipe(
+    monorepoRunner(cancel, { showMatchesOnly, searchGlob, ignore }, root),
+    unless(
+      () => showMatchesOnly,
+      handleMatches(cancel, config, {
+        outputDir,
+        relativeArtifact,
+        relative: r => pathJoin(toLocal[0], r),
+      })
+    )
+  )(pkgJson)
+})
+
+export const drgenDirect = curry(function _drgenDirect(cancel, config) {
+  const {
+    processor,
+    input,
+    output,
+    search: searchGlob,
+    ignore,
+    artifact = false,
+    showMatchesOnly = false,
+  } = config
+  log.core('showMatchesOnly', showMatchesOnly)
+  log.core('processor!', processor)
+  if (!validate(processor)) {
+    handleInvalidProcessor(processor)
+  }
+  log.core('input', input)
+  const current = cwd()
+  const rel = relativePathJoin(current)
+  const outputDir = rel(output)
+  const relativeArtifact = artifact ? rel(artifact) : false
+  const relativeInput = map(rel, input)
+
+  // TODO: we ought to segment the monorepoMode out further
+  log.core('relating...', `${current} -> ${output}`)
+  const toLocal = map(ii => ii.slice(0, ii.lastIndexOf('/')), input)
+  return pipe(
+    good,
+    unless(
+      () => showMatchesOnly,
+      handleMatches(cancel, config, {
+        outputDir,
+        relativeArtifact,
+        relative: I,
+      })
+    )
+  )(input)
 })
 
 export const drgen = curry(function _drgen(cancel, config) {
@@ -83,11 +159,12 @@ export const drgen = curry(function _drgen(cancel, config) {
   const outputDir = rel(output)
   const relativeArtifact = artifact ? rel(artifact) : false
   const relativeInput = map(rel, input)
+
+  // TODO: we ought to segment the monorepoMode out further
   const pkgJson = monorepoMode ? relativeInput[0] : 'NOT RELEVANT'
   log.core('relating...', `${current} -> ${output}`)
   const root = pkgJson.slice(0, pkgJson.lastIndexOf('/'))
   const toLocal = map(ii => ii.slice(0, ii.lastIndexOf('/')), input)
-  const relative = r => (monorepoMode ? pathJoin(toLocal[0], r) : r)
   return pipe(
     log.core(`monorepoMode?`),
     ifElse(
@@ -106,7 +183,7 @@ export const drgen = curry(function _drgen(cancel, config) {
       handleMatches(cancel, config, {
         outputDir,
         relativeArtifact,
-        relative,
+        relative: r => (monorepoMode ? pathJoin(toLocal[0], r) : r),
         root,
       })
     )
