@@ -1,0 +1,27 @@
+# reader
+
+
+
+## iterateOverWorkspacesAndReadFiles
+
+@name iterateOverWorkspacesAndReadFiles
+
+### Usage
+```js test=true
+import { fork, resolve, parallel } from 'fluture'
+
+fork(done)(x => {
+  expect(x).toEqual([])
+  done()
+})(
+  parallel(10)(
+    iterateOverWorkspacesAndReadFiles(
+      {
+        searchGlob: '*',
+        ignore: []
+      },
+      '..',
+      resolve(['tools/'])
+    )
+  )
+)

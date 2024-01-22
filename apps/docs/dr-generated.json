@@ -489,6 +489,37 @@
     "workspace": "doctor-general"
   },
   {
+    "slugName": "reader",
+    "package": "doctor-general",
+    "pageSummary": "",
+    "filename": "packages/doctor-general/reader.js",
+    "comments": [
+      {
+        "start": 6,
+        "end": 28,
+        "summary": "@name iterateOverWorkspacesAndReadFiles",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "iterateOverWorkspacesAndReadFiles",
+          "future": true,
+          "example": "```js test=true\nimport { fork, resolve, parallel } from 'fluture'\n// drgen-import-above\nfork(done)(x => {\n  expect(x).toEqual([])\n  done()\n})(\n  parallel(10)(\n    iterateOverWorkspacesAndReadFiles(\n      {\n        searchGlob: '*',\n        ignore: []\n      },\n      '..',\n      resolve(['tools/'])\n    )\n  )\n)"
+        },
+        "keywords": [
+          "@example",
+          "@future",
+          "@name"
+        ],
+        "filename": "packages/doctor-general/reader.js",
+        "package": "doctor-general"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "doctor-general"
+  },
+  {
     "slugName": "text",
     "package": "doctor-general",
     "pageSummary": "",

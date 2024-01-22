@@ -11,6 +11,7 @@ module.exports = {
       rebuild: sd(
         `drgen -i ${[
           './processor.js',
+          './reader.js',
           './text.js',
           './file.js',
           './comment.js',
