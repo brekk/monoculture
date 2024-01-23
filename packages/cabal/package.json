@@ -1,0 +1,39 @@
+{
+  "name": "cabal",
+  "version": "0.0.1",
+  "description": "tooling for Sets 🍽️",
+  "main": "cabal.js",
+  "type": "module",
+  "repository": "brekk/monoculture",
+  "author": "brekk",
+  "license": "ISC",
+  "private": true,
+  "exports": {
+    ".": "./cabal.js"
+  },
+  "dependencies": {
+    "envtrace": "0.0.2",
+    "fluture": "14.0.0",
+    "ramda": "0.29.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "6.1.5",
+    "doctor-general-cli": "portal:../../tools/doctor-general-cli",
+    "dotenv-cli": "7.3.0",
+    "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
+    "jest": "29.7.0",
+    "jest-config": "workspace:shared/jest-config",
+    "nps": "^5.10.0"
+  },
+  "scripts": {
+    "nps": "dotenv -- nps -c ./package-scripts.cjs",
+    "autotest": "dotenv -- nps -c ./package-scripts.cjs autotest",
+    "autotest:rebuild": "dotenv -- nps -c ./package-scripts.cjs autotest.rebuild",
+    "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
+    "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
+    "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:ci": "dotenv -- nps -c ./package-scripts.cjs test.ci",
+    "test:silent": "dotenv -- nps -c ./package-scripts.cjs test.silent",
+    "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
+  }
+}
