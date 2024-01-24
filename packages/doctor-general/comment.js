@@ -117,9 +117,18 @@ export const getImportsForTests = pipe(
   map(head)
 )
 
-const linkRegex = /\{@link (.*)+\}/g
+export const LINK_REGEX = /\{@link (.*)+\}/g
+
+/**
+ * @name matchLinks
+ * @example
+ * ```js test=true
+ * expect(matchLinks([])).toEqual([])
+ * expect(matchLinks([`{@link cool}`])).toEqual(['cool'])
+ * ```
+ */
 export const matchLinks = pipe(
-  chain(match(linkRegex)),
+  chain(match(LINK_REGEX)),
   map(z => slice('{@link '.length, z.length - 1, z))
 )
 const ORDERED_LIST_ITEM = /^\s\d*\.\s/g
@@ -211,8 +220,26 @@ export const getPageSummary = (rawLines, end, i) =>
     }
   )(rawLines)
 
-export const isAsterisk = both(is(String), pipe(trim, equals('*')))
-export const stripEmptyCommentLines = when(isAsterisk, K(''))
+/**
+ * Is it an asterisk with maybe some whitespace around it?
+ * @name isAsterisky
+ * @example
+ * ```js test=true
+ * expect(isAsterisky('     * ')).toBeTruthy()
+ * expect(isAsterisky('*')).toBeTruthy()
+ * expect(isAsterisky('obelisk')).toBeFalsy()
+ * ```
+ */
+export const isAsterisky = both(is(String), pipe(trim, equals('*')))
+
+/**
+ * @name stripEmptyCommentLines
+ * @example
+ * ```js test=true
+ * expect(stripEmptyCommentLines('     *')).toEqual('')
+ * expect(stripEmptyCommentLines('hooray!')).toEqual('hooray!')
+ */
+export const stripEmptyCommentLines = when(isAsterisky, K(''))
 
 /*
  * Grab the example from raw lines and some indices to slice
@@ -241,6 +268,7 @@ export const getExample = curry(function _getExample(rawLines, end, i) {
 
 export const handleSpecificKeywords = curry(
   function _handleSpecificKeywords(keyword, value, rest, rawLines, end, i) {
+    // console.log('RAW SPEC', { keyword, value, rest, rawLines, end, i })
     // there should only be three(?) kinds of tags
     // 1. single-line - ` * @blah zipzap zipzop` / ` * @blah {aFormat} [toParse] no newline yet`
     // 2. multi-line - ` * @heyYou it is actually
@@ -281,7 +309,7 @@ export const structureKeywords = curry(
         return [
           i,
           ifElse(
-            pipe(findJSDocKeywords, length, z => z > 0),
+            pipe(findJSDocKeywords, isNotEmpty),
             pipe(wipeComment, cleanupKeywords),
             K(false)
           )(line),

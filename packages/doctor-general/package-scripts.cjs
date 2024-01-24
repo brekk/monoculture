@@ -12,6 +12,7 @@ module.exports = {
         `drgen -i ${[
           './processor.js',
           './reader.js',
+          './parse.js',
           './text.js',
           './file.js',
           './comment.js',

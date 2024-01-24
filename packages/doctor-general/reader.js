@@ -9,38 +9,40 @@ import { readJSONFile, readDirWithConfig } from 'file-system'
  * @future
  * @example
  * ```js test=true
- * import { fork, resolve, parallel } from 'fluture'
+ * import { fork, resolve as resolveF, parallel } from 'fluture'
  * // drgen-import-above
  * fork(done)(x => {
- *   expect(x).toEqual([])
+ *   expect(x).toEqual([
+ *     "tools/digested",
+ *     "tools/doctor-general-cli",
+ *     "tools/gitparty",
+ *     "tools/spacework",
+ *     "tools/superorganism",
+ *     "tools/treacle",
+ *   ])
  *   done()
  * })(
- *   parallel(10)(
- *     iterateOverWorkspacesAndReadFiles(
- *       {
- *         searchGlob: '*',
- *         ignore: []
- *       },
- *       '..',
- *       resolve(['tools/'])
- *     )
+ *   iterateOverWorkspacesAndReadFiles(
+ *     {
+ *       searchGlob: '*',
+ *       ignore: []
+ *     },
+ *     '../..',
+ *     resolveF(['tools/'])
  *   )
  * )
  */
 export const iterateOverWorkspacesAndReadFiles = curry(
-  ({ searchGlob, ignore }, root, x) => {
-    log.reader('iter...', { searchGlob, ignore, root, x })
-    return map(
-      pipe(
-        // look for specific file types
-        map(workspace => workspace + searchGlob),
-        // exclude some search spaces
-        chain(
-          readDirWithConfig({
-            ignore,
-            cwd: root,
-          })
-        )
+  function _iterateOverWorkspacesAndReadFiles({ searchGlob, ignore }, root, x) {
+    return pipe(
+      // look for specific file types
+      map(workspace => workspace + searchGlob),
+      chain(
+        readDirWithConfig({
+          // exclude some search spaces
+          ignore,
+          cwd: root,
+        })
       )
     )(x)
   }

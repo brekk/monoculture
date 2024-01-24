@@ -13,31 +13,37 @@ import {
   pathOr,
   always as K,
   map,
+  is,
+  curry,
+  when,
 } from 'ramda'
 import { log } from './log'
 
+const fromStructureOr = curry((def, crumbs, x) =>
+  pathOr(def, ['structure', ...when(is(String), wrap)(crumbs)], x)
+)
+
 const handleSpecialCases = ifElse(
-  either(
-    pathOr(false, ['structure', 'page']),
-    pathOr(false, ['structure', 'pageSummary'])
-  ),
+  either(fromStructureOr(false, 'page'), fromStructureOr(false, 'pageSummary')),
   K('')
 )
 
 const grabCommentData = applySpec({
-  title: pathOr('Unknown', ['structure', 'name']),
-  example: pathOr('', ['structure', 'example']),
-  future: pathOr('', ['structure', 'future']),
+  title: fromStructureOr('Unknown', 'name'),
+  example: fromStructureOr('', 'example'),
+  future: fromStructureOr('', 'future'),
 })
 
-const getCurried = pathOr([], ['structure', 'curried'])
+const getCurried = fromStructureOr([], 'curried')
 const MAGIC_IMPORT_KEY = 'drgen-import-above'
+const hasMagicImport = includes(MAGIC_IMPORT_KEY)
+const TEST_INDICATOR = 'test=true'
 const renderTest = ({ title, example, future: asyncCallback }) => {
   log.renderer('inputs', { title, example })
-  if (!includes('test=true', example)) return ''
+  if (!includes(TEST_INDICATOR, example)) return ''
   const exlines = example.split('\n').filter(l => !l.startsWith('```'))
-  const hasImports = any(includes(MAGIC_IMPORT_KEY), exlines)
-  const importIndex = findIndex(includes(MAGIC_IMPORT_KEY), exlines)
+  const hasImports = any(hasMagicImport, exlines)
+  const importIndex = findIndex(hasMagicImport, exlines)
   const [imps, content] = hasImports
     ? [exlines.slice(0, importIndex), exlines.slice(importIndex + 1)]
     : [[], exlines]

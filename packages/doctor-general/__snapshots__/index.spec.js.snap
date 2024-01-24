@@ -2,6 +2,9 @@
 
 exports[`default export 1`] = `
 {
+  "LINK_REGEX": /\\\\\\{@link \\(\\.\\*\\)\\+\\\\\\}/g,
+  "MAGIC_COMMENT_END": "*/",
+  "MAGIC_COMMENT_START": "/**",
   "MAGIC_IMPORT_KEY": "drgen-import-above",
   "TESTABLE_EXAMPLE": "test=true",
   "addLineNumbers": [Function],
@@ -15,10 +18,11 @@ exports[`default export 1`] = `
   "getImportsForTests": [Function],
   "getPageSummary": [Function],
   "groupContiguousBlocks": [Function],
+  "handleMatches": [Function],
   "handleSpecificKeywords": [Function],
   "hasExample": [Function],
   "histogramBy": [Function],
-  "isAsterisk": [Function],
+  "isAsterisky": [Function],
   "isJSDocComment": [Function],
   "iterateOverWorkspacesAndReadFiles": [Function],
   "log": {

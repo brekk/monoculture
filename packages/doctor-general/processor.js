@@ -49,12 +49,18 @@ const OPTIONAL = {
   postProcess: arityOf(3),
 }
 const UNMATCHED = Infinity
+
+// whereWithContext is (I think?) a unary `applySpec`
 export const whereWithContext = curry((spec, comp) =>
   pipe(
     toPairs,
     map(([k, fn]) => [
       k,
-      pipe(propOr(UNMATCHED, k), ifElse(equals(UNMATCHED), K(false), fn))(comp),
+      pipe(
+        // we can't shortcut this with `false` as a default
+        propOr(UNMATCHED, k),
+        ifElse(equals(UNMATCHED), K(false), fn)
+      )(comp),
     ]),
     fromPairs
   )(spec)
@@ -207,6 +213,7 @@ export const interrogate = raw =>
  * Validate a given processor is correct.
  * If you want to see _why_ it is incorrect, use `interrogate` instead.
  * @name validate
+ * @see {@link interrogate}
  * @exported
  * @example
  * ```js test=true
