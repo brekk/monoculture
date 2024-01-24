@@ -76,7 +76,7 @@ test('objectifyComments', () => {
         postExample: 'Really nice, proper parsies!',
         example: ['```ts', "tsDrools = 'obviously'", '```'],
       },
-      summary: 'Nice, we support multiline\ndescriptions\nnow',
+      summary: 'Nice, we support multiline descriptions now',
     },
   ])
 })

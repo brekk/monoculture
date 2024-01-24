@@ -4,8 +4,6 @@ import { isNotEmpty, autobox } from 'inherent'
 import { TESTABLE_EXAMPLE } from './constants'
 import {
   prop,
-  __ as $,
-  addIndex,
   always as K,
   any,
   ap,
@@ -15,7 +13,6 @@ import {
   concat,
   cond,
   curry,
-  defaultTo,
   either,
   equals,
   filter,
@@ -23,12 +20,10 @@ import {
   flatten,
   groupBy,
   head,
-  identity as I,
   ifElse,
   includes,
   is,
   last,
-  length,
   map,
   match,
   pathOr,
@@ -50,8 +45,8 @@ import { writeFileWithAutoPath } from 'file-system'
 import { unlines } from 'knot'
 
 import { log } from './log'
-import { findJSDocKeywords, cleanupKeywords } from './file'
-import { formatComment, trimComment, wipeComment } from './text'
+import { findJSDocKeywords } from './file'
+import { formatComment, trimComment } from './text'
 
 /**
  * Check to see if a comment has an example within its structure.
@@ -303,31 +298,25 @@ export const handleSpecificKeywords = curry(
 )
 
 /**
- * @name structureComment
+ * Given a line within a magic comment block, remove the leading asterisks
+ * @name stripLeadingComment
  * @example
  * ```js test=true
- * expect(structureComment([0, ' * @cool nice yes'])).toEqual('???')
+ * import { MAGIC_COMMENT_START as START, MAGIC_COMMENT_END as END } from '../constants'
+ * // drgen-import-above
+ * expect(stripLeadingComment('     ' + START)).toEqual('')
+ * expect(stripLeadingComment(END)).toEqual('')
+ * expect(stripLeadingComment(' * hey cool!')).toEqual('hey cool!')
  * ```
  */
-export function structureComment([i, line]) {
-  return [
-    i,
-    ifElse(
-      pipe(findJSDocKeywords, isNotEmpty),
-      pipe(wipeComment, cleanupKeywords),
-      K(false)
-    )(line),
-  ]
-}
-
-const stripLeadingComment = pipe(
+export const stripLeadingComment = pipe(
   trim,
   when(equals('/**'), K('')),
   when(equals('*/'), K('')),
   when(startsWith('*'), pipe(slice(1, Infinity), trim))
 )
 
-function uncommentBlock(block) {
+export function uncommentBlock(block) {
   return map(([lineNum, line]) => [lineNum, stripLeadingComment(line)], block)
 }
 
@@ -344,13 +333,17 @@ const segmentBlock = pipe(
         additional = lineParts
       }
       const cleanTag = hasTag ? tag.slice(1) : tag
-      log.comment(
-        `!!! ${cleanTag} -> (current: ${current}, hasTag: ${hasTag})`,
-        additional
-      )
-      log.comment(`-> current`, structure[current])
       const currentStructure = current ? structure?.[current] : []
       const toAdd = additional.join(' ')
+      if (!current) {
+        return {
+          structure: {
+            ...structure,
+            description: [toAdd],
+          },
+          current: 'description',
+        }
+      }
       if (hasTag) {
         const insert = additional.length ? toAdd : true
         const prev = structure?.[cleanTag] ?? false
@@ -366,19 +359,12 @@ const segmentBlock = pipe(
         }
       }
 
-      if (!current) {
-        return {
-          structure: {
-            ...structure,
-            description: [toAdd],
-          },
-          current: 'description',
-        }
-      }
       return {
         structure: {
           ...structure,
           [current]: [
+            // if there's a prior entry that is an array, merge with it,
+            // otherwise we inferred boolean on something multiline
             ...(Array.isArray(currentStructure) ? currentStructure : []),
             toAdd,
           ],
@@ -411,18 +397,6 @@ export const structureKeywords = curry(
   }
 )
 
-const summarize = lines => {
-  const stripped = reject(equals('*'), lines)
-  return pipe(
-    addIndex(map)((x, i) => ifElse(startsWith('@'), K(i), K(false))(x)),
-    filter(I),
-    head,
-    defaultTo(length(stripped)),
-    slice(0, $, stripped),
-    unlines
-  )(stripped)
-}
-
 // getFileGroup :: String -> Comment
 const getFileGroup = propOr('', 'group')
 const addTo = propOr('', 'addTo')
@@ -449,11 +423,12 @@ export const objectifyComments = curry(
               }
               return {
                 ...gen,
-                summary: summarize(gen.lines),
+                summary: structure.description, //  summarize(gen.lines),
                 links: matchLinks(gen.lines),
                 fileGroup: getFileGroup(structure),
                 addTo: addTo(structure),
                 structure,
+                // this pulls @link, which isn't part of what is captured by the current parse
                 keywords: pipe(unlines, findJSDocKeywords, uniq, z => z.sort())(
                   gen.lines
                 ),

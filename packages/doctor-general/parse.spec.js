@@ -28,7 +28,7 @@ the content here will be thrown right in the trash
  * \`\`\`
  */
 `
-  expect(parse('root', filename, content)).toEqual({
+  expect(parse(filename, content)).toEqual({
     comments: [
       {
         addTo: '',
@@ -48,12 +48,11 @@ the content here will be thrown right in the trash
         links: ['emoji.sunglasses'],
         start: 1,
         structure: {
-          example: `\`\`\`ts
-import { cool } from './parse'
-\`\`\``,
+          description: 'Very cool',
+          example: ['```ts', "import { cool } from './parse'", '```'],
           name: 'cool',
           private: true,
-          see: ['emoji.sunglasses'],
+          see: '{@link emoji.sunglasses}',
         },
         summary: 'Very cool',
       },
@@ -73,9 +72,8 @@ import { cool } from './parse'
         links: [],
         start: 14,
         structure: {
-          example: `\`\`\`ts
-import { nice } from './parse'
-\`\`\``,
+          description: 'Nice',
+          example: ['```ts', "import { nice } from './parse'", '```'],
           name: 'nice',
         },
         summary: 'Nice',
@@ -97,5 +95,5 @@ test('parseFile', done => {
     const cleanFilename = raw.filename.split('/').slice(-3).join('/')
     expect({ ...raw, filename: cleanFilename }).toMatchSnapshot()
     done()
-  })(parseFile(false, 'root', input))
+  })(parseFile(false, input))
 })

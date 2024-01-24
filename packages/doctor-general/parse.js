@@ -60,51 +60,6 @@ const getPackage = i => {
   return i
 }
 
-export const MAGIC_COMMENT_START = '/**'
-export const MAGIC_COMMENT_END = '*/'
-
-/**
- * @name parse
- * @example
- * ```js test=true
- * import { MAGIC_COMMENT_END, MAGIC_COMMENT_START } from '../parse'
- * // drgen-import-above
- * const RAW = `
- * This is my really cool function
- * @name exampleFunction
- * `
- * const pseudocomment = z => [
- *   MAGIC_COMMENT_START,
- *   z.split('\n').map(y => '* ' + y).join('\n'),
- *   MAGIC_COMMENT_END
- * ].join('')
- * const FILENAME = 'monoculture/packages/cool/myfile.js'
- * const parsed = parse(FILENAME, pseudocomment(RAW))
- * expect(parsed).toEqual({
- *   comments: [
- *     {
- *       addTo: "",
- *       end: 3,
- *       fileGroup: "",
- *       keywords: ["@name"],
- *       lines: RAW.split('\n').filter(z => z.trim()),
- *       links: [],
- *       start: 0,
- *       structure: {},
- *       summary: RAW
- *     }
- *   ],
- *   fileGroup: undefined,
- *   filename: FILENAME,
- *   links: [],
- *   order: 0,
- *   package: 'cool',
- *   pageSummary: '',
- *   pageTitle: undefined,
- *   slugName: 'myfile'
- * })
- * ```
- */
 export const parse = curry(function _parse(rawFilename, content) {
   const filename = stripRelative(rawFilename)
   const slugName = basename(filename, extname(filename))
