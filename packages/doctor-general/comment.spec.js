@@ -19,15 +19,19 @@ const CANONICAL_FILE = `
 const CANONICAL_COMMENTS = [
   [
     [4, '/**'],
-    [5, ' * Nice!'],
-    [6, ' * @name hooray'],
-    [7, ' * @private'],
-    [8, ' * @see {@link hey-now.coolBiz}'],
-    [9, ' * @example'],
-    [10, ' * ```ts'],
-    [11, " * tsDrools = 'obviously'"],
-    [12, ' * ```'],
-    [13, ' */'],
+    [5, ' * Nice, we support multiline'],
+    [6, ' * descriptions'],
+    [7, ' * now'],
+    [8, ' * @name hooray'],
+    [9, ' * @private'],
+    [10, ' * @see {@link hey-now.coolBiz}'],
+    [11, ' * @example'],
+    [12, ' * ```ts'],
+    [13, " * tsDrools = 'obviously'"],
+    [14, ' * ```'],
+    [15, ' * @postExample Really nice, proper parsies!'],
+    [10, ' * @see {@link secondary.link}'],
+    [16, ' */'],
   ],
 ]
 
@@ -40,9 +44,18 @@ test('objectifyComments', () => {
       addTo: '',
       end: pipe(last, last, head)(CANONICAL_COMMENTS),
       fileGroup: '',
-      keywords: ['@example', '@link', '@name', '@private', '@see'],
+      keywords: [
+        '@example',
+        '@link',
+        '@name',
+        '@postExample',
+        '@private',
+        '@see',
+      ],
       lines: [
-        'Nice!',
+        'Nice, we support multiline',
+        'descriptions',
+        'now',
         '@name hooray',
         '@private',
         '@see {@link hey-now.coolBiz}',
@@ -50,18 +63,20 @@ test('objectifyComments', () => {
         '```ts',
         "tsDrools = 'obviously'",
         '```',
+        '@postExample Really nice, proper parsies!',
+        `@see {@link secondary.link}`,
       ],
-      links: ['hey-now.coolBiz'],
+      links: ['hey-now.coolBiz', 'secondary.link'],
       start: pipe(last, head, head)(CANONICAL_COMMENTS),
       structure: {
-        example: `\`\`\`ts
-tsDrools = 'obviously'
-\`\`\``,
+        description: 'Nice, we support multiline descriptions now',
         private: true,
         name: 'hooray',
-        see: ['hey-now.coolBiz'],
+        see: ['{@link hey-now.coolBiz}', '{@link secondary.link}'],
+        postExample: 'Really nice, proper parsies!',
+        example: ['```ts', "tsDrools = 'obviously'", '```'],
       },
-      summary: 'Nice!',
+      summary: 'Nice, we support multiline\ndescriptions\nnow',
     },
   ])
 })
@@ -81,11 +96,11 @@ test('structureKeywords', () => {
       pipe(last, last, head)(CANONICAL_COMMENTS)
     )
   ).toEqual({
-    example: `\`\`\`ts
-tsDrools = 'obviously'
-\`\`\``,
-    private: true,
+    description: 'Nice, we support multiline descriptions now',
+    example: ['```ts', "tsDrools = 'obviously'", '```'],
     name: 'hooray',
-    see: ['hey-now.coolBiz'],
+    postExample: 'Really nice, proper parsies!',
+    private: true,
+    see: ['{@link hey-now.coolBiz}', '{@link secondary.link}'],
   })
 })

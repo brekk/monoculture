@@ -3,6 +3,7 @@ import { parallel } from 'fluture'
 import { isNotEmpty, autobox } from 'inherent'
 import { TESTABLE_EXAMPLE } from './constants'
 import {
+  prop,
   __ as $,
   addIndex,
   always as K,
@@ -20,14 +21,12 @@ import {
   filter,
   findIndex,
   flatten,
-  fromPairs,
   groupBy,
   head,
   identity as I,
   ifElse,
   includes,
   is,
-  isEmpty,
   last,
   length,
   map,
@@ -268,14 +267,16 @@ export const getExample = curry(function _getExample(rawLines, end, i) {
 
 export const handleSpecificKeywords = curry(
   function _handleSpecificKeywords(keyword, value, rest, rawLines, end, i) {
-    // console.log('RAW SPEC', { keyword, value, rest, rawLines, end, i })
+    log.comment('RAW SPEC', { keyword, value, rest, rawLines, end, i })
     // there should only be three(?) kinds of tags
     // 1. single-line - ` * @blah zipzap zipzop` / ` * @blah {aFormat} [toParse] no newline yet`
     // 2. multi-line - ` * @heyYou it is actually
     //  * not syllable based, you know
-    //  * cutting lines are of import`
+    //  * cutting lines are of import` -- these are left associative and
+    //    stop at the beginning of the first tag which starts a line
     // 3. ephemeral - these tags do specific "magical" things,
-    // like `@group` / `@page` / `@pageSummary` / `@addTo` / `@curried`
+    //    like `@group` / `@page` / `@pageSummary` / `@addTo` / `@curried`
+    //    and some of these tags then are not present in the resulting structure
     return pipe(
       cond([
         [equals('exported'), () => true],
@@ -301,40 +302,111 @@ export const handleSpecificKeywords = curry(
   }
 )
 
+/**
+ * @name structureComment
+ * @example
+ * ```js test=true
+ * expect(structureComment([0, ' * @cool nice yes'])).toEqual('???')
+ * ```
+ */
+export function structureComment([i, line]) {
+  return [
+    i,
+    ifElse(
+      pipe(findJSDocKeywords, isNotEmpty),
+      pipe(wipeComment, cleanupKeywords),
+      K(false)
+    )(line),
+  ]
+}
+
+const stripLeadingComment = pipe(
+  trim,
+  when(equals('/**'), K('')),
+  when(equals('*/'), K('')),
+  when(startsWith('*'), pipe(slice(1, Infinity), trim))
+)
+
+function uncommentBlock(block) {
+  return map(([lineNum, line]) => [lineNum, stripLeadingComment(line)], block)
+}
+
+const segmentBlock = pipe(
+  reduce(
+    function segmentLogicalGroupsOfCommentBlock(agg, [lineNum, line]) {
+      const lineParts = line.split(' ')
+      const { structure } = agg
+      const { current } = agg
+      // eslint-disable-next-line prefer-const
+      let [tag, ...additional] = lineParts
+      const hasTag = startsWith('@', tag)
+      if (!hasTag) {
+        additional = lineParts
+      }
+      const cleanTag = hasTag ? tag.slice(1) : tag
+      log.comment(
+        `!!! ${cleanTag} -> (current: ${current}, hasTag: ${hasTag})`,
+        additional
+      )
+      log.comment(`-> current`, structure[current])
+      const currentStructure = current ? structure?.[current] : []
+      const toAdd = additional.join(' ')
+      if (hasTag) {
+        const insert = additional.length ? toAdd : true
+        const prev = structure?.[cleanTag] ?? false
+        return {
+          structure: {
+            ...structure,
+            [cleanTag]: prev
+              ? // arrayify if there's a prior entry
+                [...autobox(prev), insert]
+              : insert,
+          },
+          current: cleanTag,
+        }
+      }
+
+      if (!current) {
+        return {
+          structure: {
+            ...structure,
+            description: [toAdd],
+          },
+          current: 'description',
+        }
+      }
+      return {
+        structure: {
+          ...structure,
+          [current]: [
+            ...(Array.isArray(currentStructure) ? currentStructure : []),
+            toAdd,
+          ],
+        },
+        current,
+      }
+    },
+    { structure: {}, current: false }
+  ),
+  prop('structure'),
+  z => ({ ...z, description: z.description.join(' ') })
+)
+
 // structureKeywords :: List String -> CommentBlock -> Integer -> CommentStructure
 export const structureKeywords = curry(
   function _structureKeywords(file, block, end) {
     return pipe(
-      map(function _handleComment([i, line]) {
-        return [
-          i,
-          ifElse(
-            pipe(findJSDocKeywords, isNotEmpty),
-            pipe(wipeComment, cleanupKeywords),
-            K(false)
-          )(line),
-        ]
-      }),
-      filter(last),
-      reject(pipe(last, head, isEmpty)),
+      uncommentBlock,
+      filter(pipe(last, isNotEmpty)),
+      segmentBlock
+      /*
       map(function _handleSpecificRemap([i, [keyword, value = true, ...rest]]) {
         return [
           i,
           [keyword, handleSpecificKeywords(keyword, value, rest, file, end, i)],
         ]
       }),
-      map(last),
-      // fromPairs truncates duplicate keys, so we have to arrayify them
-      reduce(function arrayifyStructure(agg, [key, ...value]) {
-        return agg[key] && Array.isArray(agg[key])
-          ? { ...agg, [key]: agg[key].concat(value) }
-          : { ...agg, [key]: value }
-      }, {}),
-      toPairs,
-      map(function _handleSee([k, v]) {
-        return [k, k !== 'see' && Array.isArray(v) && v.length === 1 ? v[0] : v]
-      }),
-      fromPairs
+      */
     )(block)
   }
 )
@@ -399,12 +471,11 @@ const renderFileWith = curry(function _renderFileWith(
   { renderer, postRender },
   file
 ) {
-  const importsForTests = getImportsForTests(file)
-  const info = { imports: importsForTests, file }
+  const info = { imports: getImportsForTests(file), file }
   return pipe(
-    // we can't be tacit with this or we end up
+    // XXX: we can't be tacit with this or we end up
     // forcing our processor to remember to be curried
-    // which is a PITA
+    // which is a PITA to debug downstream
     map(function applyProcessorRenderer(raw) {
       return renderer(info, raw)
     }),

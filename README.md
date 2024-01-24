@@ -179,6 +179,7 @@ introspection and organization tools for monorepos
     - [comment-test](https://brekk.github.io/monoculture/doctor-general-jest/comment-test)
     - [comment](https://brekk.github.io/monoculture/doctor-general/comment)
     - [processor](https://brekk.github.io/monoculture/doctor-general/processor)
+    - [reader](https://brekk.github.io/monoculture/doctor-general/reader)
     - [text](https://brekk.github.io/monoculture/doctor-general/text)
 
    </details>
