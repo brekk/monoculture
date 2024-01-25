@@ -22,7 +22,7 @@ const processHelpOrRun = curry(function _processHelpOrRun(cancel, config) {
       successText: `Loaded processor: ${processor}...`,
       failText: `Unable to load processor: ${processor}`,
     }),
-    log.core('processor'),
+    log.cli('processor'),
     chain(p =>
       drgen(cancel, {
         ...config,
@@ -41,6 +41,6 @@ export const cli = curry(function _cli(cancel, argv) {
       description: $DESC,
     }),
     chain(processHelpOrRun(cancel)),
-    map(log.core('out!'))
+    map(log.cli('out!'))
   )(argv)
 })

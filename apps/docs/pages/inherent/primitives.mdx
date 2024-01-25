@@ -2,32 +2,11 @@
 
 
 
-## equalishBy
+## Unknown
 
-Generic comparison function.
-This can be used to create a number of other more complex functions.
+ Generic comparison function.  This can be used to create a number of other more complex functions.  @name equalishBy  @example  ```js test=true  const productIdSelector = z => {    const d = z.indexOf('-')    return d > -1 ? z.slice(0, d) : 'NO_MATCH'  }  const isProduct = equalishBy(productIdSelector, 'coolco')  expect(isProduct('coolco-10020')).toBeTruthy()  expect(isProduct('otherco-xkswn')).toBeFalsy()  expect(isProduct('blabbo')).toBeFalsy()  ```
 
-### Usage
-```js test=true
-const productIdSelector = z => {
-  const d = z.indexOf('-')
-  return d > -1 ? z.slice(0, d) : 'NO_MATCH'
-}
-const isProduct = equalishBy(productIdSelector, 'coolco')
 
-expect(isProduct('coolco-10020')).toBeTruthy()
-expect(isProduct('otherco-xkswn')).toBeFalsy()
-expect(isProduct('blabbo')).toBeFalsy()
-```
+## Unknown
 
-## coerce
-
-Coerce values to boolean explicitly
-
-### Usage
-```js test=true
-expect(coerce(0)).toBeFalsy()
-expect(coerce('')).toBeFalsy()
-expect(coerce([])).toBeTruthy()
-expect(coerce(1)).toBeTruthy()
-```
+ Coerce values to boolean explicitly  @name coerce  @param {any} x Any value  @returns boolean  @example  ```js test=true  expect(coerce(0)).toBeFalsy()  expect(coerce('')).toBeFalsy()  expect(coerce([])).toBeTruthy()  expect(coerce(1)).toBeTruthy()  ```

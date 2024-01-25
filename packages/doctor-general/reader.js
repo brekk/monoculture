@@ -37,6 +37,7 @@ export const iterateOverWorkspacesAndReadFiles = curry(
     return pipe(
       // look for specific file types
       map(workspace => workspace + searchGlob),
+      log.core('ITERATING'),
       chain(
         readDirWithConfig({
           // exclude some search spaces
@@ -67,6 +68,7 @@ export const readPackageJsonWorkspaces = curry(
 export const monorepoRunner = curry(
   function _monorepoRunner(cancel, config, root, pkgJsonPath) {
     const { showMatchesOnly } = config
+    log.core('CONFIG', config)
     return pipe(
       log.core('reading root package.json'),
       readJSONFile,
@@ -79,13 +81,15 @@ export const monorepoRunner = curry(
       }),
       map(flatten),
       map(log.core('workflows, flat')),
-      iterateOverWorkspacesAndReadFiles(config, root),
+      map(iterateOverWorkspacesAndReadFiles(config, root)),
       chain(parallel(10)),
       when(
         () => !showMatchesOnly,
         pipe(
+          log.core('READ READ'),
           map(log.verbose('files read')),
           map(flatten),
+          log.core('heynongman'),
           signal(cancel, {
             text: 'Reading all files...',
             successText: 'Read all files!',

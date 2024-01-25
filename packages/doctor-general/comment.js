@@ -13,7 +13,6 @@ import {
   concat,
   cond,
   curry,
-  either,
   equals,
   filter,
   findIndex,
@@ -259,39 +258,22 @@ export const getExample = curry(function _getExample(rawLines, end, i) {
     unlines
   )(rawLines)
 })
+// there should only be three(?) kinds of tags
+// 1. single-line - ` * @blah zipzap zipzop` / ` * @blah {aFormat} [toParse] no newline yet`
+// 2. multi-line - ` * @hey You it is actually
+//  * not syllable based, you know
+//  * cutting lines are of import` -- these are left associative and
+//    stop at the beginning of the first tag which starts a line
+// 3. ephemeral - these tags do specific "magical" things,
+//    like `@group` / `@page` / `@pageSummary` / `@addTo` / `@curried`
+//    and some of these tags then are not present in the resulting structure
 
-export const handleSpecificKeywords = curry(
-  function _handleSpecificKeywords(keyword, value, rest, rawLines, end, i) {
-    log.comment('RAW SPEC', { keyword, value, rest, rawLines, end, i })
-    // there should only be three(?) kinds of tags
-    // 1. single-line - ` * @blah zipzap zipzop` / ` * @blah {aFormat} [toParse] no newline yet`
-    // 2. multi-line - ` * @heyYou it is actually
-    //  * not syllable based, you know
-    //  * cutting lines are of import` -- these are left associative and
-    //    stop at the beginning of the first tag which starts a line
-    // 3. ephemeral - these tags do specific "magical" things,
-    //    like `@group` / `@page` / `@pageSummary` / `@addTo` / `@curried`
-    //    and some of these tags then are not present in the resulting structure
+export const handleEphemeralKeywords = curry(
+  function _handleEphemeralKeywords(keyword, value, rest, rawLines, end, i) {
     return pipe(
       cond([
-        [equals('exported'), () => true],
         [equals('pageSummary'), () => getPageSummary(rawLines, end, i)],
-        // curried function definitions afford named variants of the same function
-        // see rawLines-system/fs.js for an example
         [equals('curried'), () => getCurriedDefinition(rawLines, end, i)],
-        // if example found, pull from raw rawLines
-        [equals('example'), () => getExample(rawLines, end, i)],
-        // if see found, do some light cleanup
-        [equals('see'), () => pipe(head, slice(0, -1))(rest)],
-        // Consume pages + names as sentences
-        [
-          either(equals('name'), equals('page')),
-          () => trim(`${value} ${rest.join(' ')}`),
-        ],
-        // if an array value, concat it
-        [() => rest.length, () => [value, ...rest]],
-        // otherwise just return the value
-        [K(true), () => value],
       ])
     )(keyword)
   }
@@ -313,7 +295,7 @@ export const stripLeadingComment = pipe(
   trim,
   when(equals('/**'), K('')),
   when(equals('*/'), K('')),
-  when(startsWith('*'), pipe(slice(1, Infinity), trim))
+  when(startsWith('*'), pipe(slice(1, Infinity)))
 )
 
 export function uncommentBlock(block) {
@@ -375,7 +357,7 @@ const segmentBlock = pipe(
     { structure: {}, current: false }
   ),
   prop('structure'),
-  z => ({ ...z, description: z.description.join(' ') })
+  z => ({ ...z, description: (z?.description ?? []).join(' ') })
 )
 
 // structureKeywords :: List String -> CommentBlock -> Integer -> CommentStructure
@@ -401,7 +383,14 @@ export const structureKeywords = curry(
 const getFileGroup = propOr('', 'group')
 const addTo = propOr('', 'addTo')
 
-// objectifyComments :: Boolean -> String -> List Comment -> List CommentBlock
+/**
+ * @name objectifyComments
+ * @signature String -> String -> List Comment -> List CommentBlock
+ * @example
+ * ```js test=true
+ * expect(objectifyComments('x', 'x', [])).toEqual([])
+ * ```
+ */
 export const objectifyComments = curry(
   function _objectifyComments(filename, file, comments) {
     return reduce(
@@ -506,6 +495,19 @@ export const renderComments = curry(
   }
 )
 
+/**
+ * Process comments given a processor and an error handler
+ * @name processComments
+ * @example
+ * ```js test=true
+ * const input = Math.round(Math.random() * 1e3)
+ * expect(
+ *   processComments(() => 'huh?', {process: y => y * 2}, input)
+ * ).toEqual(input * 2)
+ * const fn = jest.fn()
+ * processComments(fn, false, input)
+ * expect(fn).toHaveBeenCalled()
+ */
 export const processComments = curry(
   function _processComments(bad, processor, x) {
     try {

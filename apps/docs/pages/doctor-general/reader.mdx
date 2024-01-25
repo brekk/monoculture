@@ -2,26 +2,6 @@
 
 
 
-## iterateOverWorkspacesAndReadFiles
+## Unknown
 
-@name iterateOverWorkspacesAndReadFiles
-
-### Usage
-```js test=true
-import { fork, resolve, parallel } from 'fluture'
-
-fork(done)(x => {
-  expect(x).toEqual([])
-  done()
-})(
-  parallel(10)(
-    iterateOverWorkspacesAndReadFiles(
-      {
-        searchGlob: '*',
-        ignore: []
-      },
-      '..',
-      resolve(['tools/'])
-    )
-  )
-)
+ @name iterateOverWorkspacesAndReadFiles  @future  @example  ```js test=true  import { fork, resolve as resolveF, parallel } from 'fluture'  // drgen-import-above  fork(done)(x => {    expect(x).toEqual([      "tools/digested",      "tools/doctor-general-cli",      "tools/gitparty",      "tools/spacework",      "tools/superorganism",      "tools/treacle",    ])    done()  })(    iterateOverWorkspacesAndReadFiles(      {        searchGlob: '*',        ignore: []      },      '../..',      resolveF(['tools/'])    )  )

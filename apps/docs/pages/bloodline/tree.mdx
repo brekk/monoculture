@@ -2,77 +2,38 @@
 
 
 
-## plant
+## Unknown
 
-Generate a dependency tree, given a config, a directory, and a filename
+ Generate a dependency tree, given a config, a directory, and a filename  @name plant  @example  ```js  import { plant } from 'bloodline'  const tree = plant({}, '../..', '../monocle/cli.js')  ```
 
-### Usage
-```js
-import { plant } from 'bloodline'
-const tree = plant({}, '../..', '../monocle/cli.js')
-```
 
-## isNodeModule
+## Unknown
 
-Test whether a path includes `'node_modules'` within it.
+ Test whether a path includes `'node_modules'` within it.  @name isNodeModule  @example  ```js  import { isNodeModule } from 'bloodline/tree'  isNodeModule('./node_modules/ramda') // true  ```
 
-### Usage
-```js
-import { isNodeModule } from 'bloodline/tree'
-isNodeModule('./node_modules/ramda') // true
-```
 
-## isGitPath
+## Unknown
 
-Test whether a path includes `'.git'` within it.
+ Test whether a path includes `'.git'` within it.  @name isGitPath  @example  ```js  import { isGitPath } from 'bloodline/tree'  isGitPath('.git/config') // true  ```
 
-### Usage
-```js
-import { isGitPath } from 'bloodline/tree'
-isGitPath('.git/config') // true
-```
 
-## getId
+## Unknown
 
-Grab an id from a cache if possible
+ Grab an id from a cache if possible  @name getId  @example  ```js  import { getId } from 'bloodline/tree'  const basePath = '..'  const cache = {}  const key = 'a'  console.log(getId(basePath, cache, key)) // 'bloodline/a'  ```
 
-### Usage
-```js
-import { getId } from 'bloodline/tree'
-const basePath = '..'
-const cache = {}
-const key = 'a'
-console.log(getId(basePath, cache, key)) // 'bloodline/a'
-```
 
-## groupTree
+## Unknown
 
-Take a dependency tree and recursively walk it, returning a grouped set of dependencies.
+ Take a dependency tree and recursively walk it, returning a grouped set of dependencies.  @name groupTree  @see {@link flattenTree}  @example  ```js  import { plant } from 'bloodline'  // drgen-import-above  const config = { basePath: '../..' }  const tree = plant(config, '..', '../monocle/cli.js')  const grouped = groupTree(config, {}, {}, tree)  ```
 
-### Usage
-```js
-import { plant } from 'bloodline'
-
-const config = { basePath: '../..' }
-const tree = plant(config, '..', '../monocle/cli.js')
-const grouped = groupTree(config, {}, {}, tree)
-```
 
 ### See also
  - flattenTree
 
-## flattenTree
+## Unknown
 
-Take a dependency tree and recursively walk it, returning flattened set of dependencies.
+ Take a dependency tree and recursively walk it, returning flattened set of dependencies.  @name flattenTree  @see {@link groupTree}  @example  ```js  import { plant } from 'bloodline'  // drgen-import-above  const config = { basePath: '../..' }  const tree = plant(config, '..', '../monocle/cli.js')  const flattened = flattenTree(config, {}, {}, tree)  ```
 
-### Usage
-```js
-import { plant } from 'bloodline'
-
-const config = { basePath: '../..' }
-const tree = plant(config, '..', '../monocle/cli.js')
-const flattened = flattenTree(config, {}, {}, tree)
-```
 
 ### See also
  - groupTree
