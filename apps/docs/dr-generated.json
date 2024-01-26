@@ -8,29 +8,27 @@
       {
         "start": 17,
         "end": 33,
-        "lines": [
-          "Check for the existence of a binary",
-          "@name checkForBinaryWithCancel",
-          "@example",
-          "```js",
-          "import { checkForBinaryWithCancel } from 'bloodline'",
-          "import { fork } from 'fluture'",
-          "fork(console.warn)(console.log)(",
-          "  checkForBinaryWithCancel(",
-          "    cancellationFn,",
-          "    'gvpr',",
-          "    ['-V'],",
-          "    ''",
-          "  )",
-          ")",
-          "```"
-        ],
-        "summary": " Check for the existence of a binary  @name checkForBinaryWithCancel  @example  ```js  import { checkForBinaryWithCancel } from 'bloodline'  import { fork } from 'fluture'  fork(console.warn)(console.log)(    checkForBinaryWithCancel(      cancellationFn,      'gvpr',      ['-V'],      ''    )  )  ```",
+        "summary": "Check for the existence of a binary",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Check for the existence of a binary  @name checkForBinaryWithCancel  @example  ```js  import { checkForBinaryWithCancel } from 'bloodline'  import { fork } from 'fluture'  fork(console.warn)(console.log)(    checkForBinaryWithCancel(      cancellationFn,      'gvpr',      ['-V'],      ''    )  )  ```"
+          "description": "Check for the existence of a binary",
+          "name": [
+            " @example",
+            "```js",
+            "import { checkForBinaryWithCancel } from 'bloodline'",
+            "import { fork } from 'fluture'",
+            "fork(console.warn)(console.log)(",
+            "checkForBinaryWithCancel(",
+            "cancellationFn,",
+            "'gvpr',",
+            "['-V'],",
+            "''",
+            ")",
+            ")",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -42,28 +40,26 @@
       {
         "start": 46,
         "end": 61,
-        "lines": [
-          "Check for multiple binaries in a single call",
-          "@name checkForBinaries",
-          "@example",
-          "```js",
-          "import { checkForBinaries } from 'bloodline'",
-          "import { fork } from 'fluture'",
-          "fork(console.warn)(console.log)(",
-          "  checkForBinaries(",
-          "    cancellationFn,",
-          "    '/usr/bin',",
-          "    { gvpr: ['-V'], dot: ['-V'] }",
-          "  )",
-          ")",
-          "```"
-        ],
-        "summary": " Check for multiple binaries in a single call  @name checkForBinaries  @example  ```js  import { checkForBinaries } from 'bloodline'  import { fork } from 'fluture'  fork(console.warn)(console.log)(    checkForBinaries(      cancellationFn,      '/usr/bin',      { gvpr: ['-V'], dot: ['-V'] }    )  )  ```",
+        "summary": "Check for multiple binaries in a single call",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Check for multiple binaries in a single call  @name checkForBinaries  @example  ```js  import { checkForBinaries } from 'bloodline'  import { fork } from 'fluture'  fork(console.warn)(console.log)(    checkForBinaries(      cancellationFn,      '/usr/bin',      { gvpr: ['-V'], dot: ['-V'] }    )  )  ```"
+          "description": "Check for multiple binaries in a single call",
+          "name": [
+            " @example",
+            "```js",
+            "import { checkForBinaries } from 'bloodline'",
+            "import { fork } from 'fluture'",
+            "fork(console.warn)(console.log)(",
+            "checkForBinaries(",
+            "cancellationFn,",
+            "'/usr/bin',",
+            "{ gvpr: ['-V'], dot: ['-V'] }",
+            ")",
+            ")",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -86,21 +82,19 @@
       {
         "start": 28,
         "end": 36,
-        "lines": [
-          "Generate a dependency tree, given a config, a directory, and a filename",
-          "@name plant",
-          "@example",
-          "```js",
-          "import { plant } from 'bloodline'",
-          "const tree = plant({}, '../..', '../monocle/cli.js')",
-          "```"
-        ],
-        "summary": " Generate a dependency tree, given a config, a directory, and a filename  @name plant  @example  ```js  import { plant } from 'bloodline'  const tree = plant({}, '../..', '../monocle/cli.js')  ```",
+        "summary": "Generate a dependency tree, given a config, a directory, and a filename",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Generate a dependency tree, given a config, a directory, and a filename  @name plant  @example  ```js  import { plant } from 'bloodline'  const tree = plant({}, '../..', '../monocle/cli.js')  ```"
+          "description": "Generate a dependency tree, given a config, a directory, and a filename",
+          "name": [
+            " @example",
+            "```js",
+            "import { plant } from 'bloodline'",
+            "const tree = plant({}, '../..', '../monocle/cli.js')",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -112,21 +106,19 @@
       {
         "start": 41,
         "end": 49,
-        "lines": [
-          "Test whether a path includes `'node_modules'` within it.",
-          "@name isNodeModule",
-          "@example",
-          "```js",
-          "import { isNodeModule } from 'bloodline/tree'",
-          "isNodeModule('./node_modules/ramda') // true",
-          "```"
-        ],
-        "summary": " Test whether a path includes `'node_modules'` within it.  @name isNodeModule  @example  ```js  import { isNodeModule } from 'bloodline/tree'  isNodeModule('./node_modules/ramda') // true  ```",
+        "summary": "Test whether a path includes `'node_modules'` within it.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Test whether a path includes `'node_modules'` within it.  @name isNodeModule  @example  ```js  import { isNodeModule } from 'bloodline/tree'  isNodeModule('./node_modules/ramda') // true  ```"
+          "description": "Test whether a path includes `'node_modules'` within it.",
+          "name": [
+            " @example",
+            "```js",
+            "import { isNodeModule } from 'bloodline/tree'",
+            "isNodeModule('./node_modules/ramda') // true",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -138,21 +130,19 @@
       {
         "start": 63,
         "end": 71,
-        "lines": [
-          "Test whether a path includes `'.git'` within it.",
-          "@name isGitPath",
-          "@example",
-          "```js",
-          "import { isGitPath } from 'bloodline/tree'",
-          "isGitPath('.git/config') // true",
-          "```"
-        ],
-        "summary": " Test whether a path includes `'.git'` within it.  @name isGitPath  @example  ```js  import { isGitPath } from 'bloodline/tree'  isGitPath('.git/config') // true  ```",
+        "summary": "Test whether a path includes `'.git'` within it.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Test whether a path includes `'.git'` within it.  @name isGitPath  @example  ```js  import { isGitPath } from 'bloodline/tree'  isGitPath('.git/config') // true  ```"
+          "description": "Test whether a path includes `'.git'` within it.",
+          "name": [
+            " @example",
+            "```js",
+            "import { isGitPath } from 'bloodline/tree'",
+            "isGitPath('.git/config') // true",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -164,24 +154,22 @@
       {
         "start": 109,
         "end": 120,
-        "lines": [
-          "Grab an id from a cache if possible",
-          "@name getId",
-          "@example",
-          "```js",
-          "import { getId } from 'bloodline/tree'",
-          "const basePath = '..'",
-          "const cache = {}",
-          "const key = 'a'",
-          "console.log(getId(basePath, cache, key)) // 'bloodline/a'",
-          "```"
-        ],
-        "summary": " Grab an id from a cache if possible  @name getId  @example  ```js  import { getId } from 'bloodline/tree'  const basePath = '..'  const cache = {}  const key = 'a'  console.log(getId(basePath, cache, key)) // 'bloodline/a'  ```",
+        "summary": "Grab an id from a cache if possible",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Grab an id from a cache if possible  @name getId  @example  ```js  import { getId } from 'bloodline/tree'  const basePath = '..'  const cache = {}  const key = 'a'  console.log(getId(basePath, cache, key)) // 'bloodline/a'  ```"
+          "description": "Grab an id from a cache if possible",
+          "name": [
+            " @example",
+            "```js",
+            "import { getId } from 'bloodline/tree'",
+            "const basePath = '..'",
+            "const cache = {}",
+            "const key = 'a'",
+            "console.log(getId(basePath, cache, key)) // 'bloodline/a'",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -193,27 +181,25 @@
       {
         "start": 130,
         "end": 142,
-        "lines": [
-          "Take a dependency tree and recursively walk it, returning a grouped set of dependencies.",
-          "@name groupTree",
-          "@see {@link flattenTree}",
-          "@example",
-          "```js",
-          "import { plant } from 'bloodline'",
-          "// drgen-import-above",
-          "const config = { basePath: '../..' }",
-          "const tree = plant(config, '..', '../monocle/cli.js')",
-          "const grouped = groupTree(config, {}, {}, tree)",
-          "```"
-        ],
-        "summary": " Take a dependency tree and recursively walk it, returning a grouped set of dependencies.  @name groupTree  @see {@link flattenTree}  @example  ```js  import { plant } from 'bloodline'  // drgen-import-above  const config = { basePath: '../..' }  const tree = plant(config, '..', '../monocle/cli.js')  const grouped = groupTree(config, {}, {}, tree)  ```",
+        "summary": "Take a dependency tree and recursively walk it, returning a grouped set of dependencies.",
         "links": [
           "flattenTree"
         ],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Take a dependency tree and recursively walk it, returning a grouped set of dependencies.  @name groupTree  @see {@link flattenTree}  @example  ```js  import { plant } from 'bloodline'  // drgen-import-above  const config = { basePath: '../..' }  const tree = plant(config, '..', '../monocle/cli.js')  const grouped = groupTree(config, {}, {}, tree)  ```"
+          "description": "Take a dependency tree and recursively walk it, returning a grouped set of dependencies.",
+          "name": "groupTree",
+          "see": [
+            " @example",
+            "```js",
+            "import { plant } from 'bloodline'",
+            "// drgen-import-above",
+            "const config = { basePath: '../..' }",
+            "const tree = plant(config, '..', '../monocle/cli.js')",
+            "const grouped = groupTree(config, {}, {}, tree)",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -227,27 +213,25 @@
       {
         "start": 215,
         "end": 227,
-        "lines": [
-          "Take a dependency tree and recursively walk it, returning flattened set of dependencies.",
-          "@name flattenTree",
-          "@see {@link groupTree}",
-          "@example",
-          "```js",
-          "import { plant } from 'bloodline'",
-          "// drgen-import-above",
-          "const config = { basePath: '../..' }",
-          "const tree = plant(config, '..', '../monocle/cli.js')",
-          "const flattened = flattenTree(config, {}, {}, tree)",
-          "```"
-        ],
-        "summary": " Take a dependency tree and recursively walk it, returning flattened set of dependencies.  @name flattenTree  @see {@link groupTree}  @example  ```js  import { plant } from 'bloodline'  // drgen-import-above  const config = { basePath: '../..' }  const tree = plant(config, '..', '../monocle/cli.js')  const flattened = flattenTree(config, {}, {}, tree)  ```",
+        "summary": "Take a dependency tree and recursively walk it, returning flattened set of dependencies.",
         "links": [
           "groupTree"
         ],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Take a dependency tree and recursively walk it, returning flattened set of dependencies.  @name flattenTree  @see {@link groupTree}  @example  ```js  import { plant } from 'bloodline'  // drgen-import-above  const config = { basePath: '../..' }  const tree = plant(config, '..', '../monocle/cli.js')  const flattened = flattenTree(config, {}, {}, tree)  ```"
+          "description": "Take a dependency tree and recursively walk it, returning flattened set of dependencies.",
+          "name": "flattenTree",
+          "see": [
+            " @example",
+            "```js",
+            "import { plant } from 'bloodline'",
+            "// drgen-import-above",
+            "const config = { basePath: '../..' }",
+            "const tree = plant(config, '..', '../monocle/cli.js')",
+            "const flattened = flattenTree(config, {}, {}, tree)",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -275,84 +259,77 @@
       {
         "start": 23,
         "end": 94,
-        "lines": [
-          "Automatically create many of the fundamentals needed to build robust CLI tools,",
-          "including help text.",
-          "@name configurate",
-          "@future",
-          "@example",
-          "```js test=true",
-          "import { fork } from 'fluture'",
-          "import stripAnsi from 'strip-ansi'",
-          "// drgen-import-above",
-          "const YARGS_CONFIG = {",
-          "  alias: {",
-          "    meal: ['m'],",
-          "    happyHour: ['h'],",
-          "    multiplier: ['x'],",
-          "  },",
-          "  boolean: ['happyHour'],",
-          "  number: ['multiplier'],",
-          "  configuration: {",
-          "    'strip-aliased': true,",
-          "  },",
-          "}",
-          " *",
-          "const HELP_CONFIG = {",
-          "  help: 'This text!',",
-          "  // optional",
-          "  color: 'Render stuff in color',",
-          "  meal: 'Pass the name of the meal you want',",
-          "  happyHour: 'Does happy hour apply here?',",
-          "  multiplier: 'How many units should we apply?'",
-          "}",
-          " *",
-          "const CONFIG_DEFAULTS = {",
-          "  color: true,",
-          "  happyHour: false",
-          "}",
-          " *",
-          "const parseArgs = (args) => configurate(",
-          "  YARGS_CONFIG,",
-          "  // closured so that we can pass cwd at runtime",
-          "  {...CONFIG_DEFAULTS, cwd: process.cwd() },",
-          "  HELP_CONFIG,",
-          "  { name: \"dumbwaiter\", description: \"order food!\" },",
-          "  // process.argv.slice(2)",
-          "  args",
-          ")",
-          " *",
-          "// renders in the failure channel",
-          "fork(x => {",
-          "  expect(stripAnsi(x).split('\\n')).toEqual([",
-          "    \" dumbwaiter \",",
-          "    \"\",",
-          "    \"order food!\",",
-          "    \"\",",
-          "    \"  -m / --meal\",",
-          "    \"  \tPass the name of the meal you want\",",
-          "    \"\",",
-          "    \"  -h / --happyHour\",",
-          "    \"  \tDoes happy hour apply here?\",",
-          "    \"\",",
-          "    \"  -x / --multiplier\",",
-          "    \"  \tHow many units should we apply?\",",
-          "    \"\",",
-          "    \"  -h / --help\",",
-          "    \"  \tThis text!\",",
-          "  ])",
-          "  done()",
-          "})(done)(",
-          "  parseArgs(['--help'])",
-          ")",
-          "```"
-        ],
-        "summary": " Automatically create many of the fundamentals needed to build robust CLI tools,  including help text.  @name configurate  @future  @example  ```js test=true  import { fork } from 'fluture'  import stripAnsi from 'strip-ansi'  // drgen-import-above  const YARGS_CONFIG = {    alias: {      meal: ['m'],      happyHour: ['h'],      multiplier: ['x'],    },    boolean: ['happyHour'],    number: ['multiplier'],    configuration: {      'strip-aliased': true,    },  }  const HELP_CONFIG = {    help: 'This text!',    // optional    color: 'Render stuff in color',    meal: 'Pass the name of the meal you want',    happyHour: 'Does happy hour apply here?',    multiplier: 'How many units should we apply?'  }  const CONFIG_DEFAULTS = {    color: true,    happyHour: false  }  const parseArgs = (args) => configurate(    YARGS_CONFIG,    // closured so that we can pass cwd at runtime    {...CONFIG_DEFAULTS, cwd: process.cwd() },    HELP_CONFIG,    { name: \"dumbwaiter\", description: \"order food!\" },    // process.argv.slice(2)    args  )  // renders in the failure channel  fork(x => {    expect(stripAnsi(x).split('\\n')).toEqual([      \" dumbwaiter \",      \"\",      \"order food!\",      \"\",      \"  -m / --meal\",      \"  \tPass the name of the meal you want\",      \"\",      \"  -h / --happyHour\",      \"  \tDoes happy hour apply here?\",      \"\",      \"  -x / --multiplier\",      \"  \tHow many units should we apply?\",      \"\",      \"  -h / --help\",      \"  \tThis text!\",    ])    done()  })(done)(    parseArgs(['--help'])  )  ```",
+        "summary": "Automatically create many of the fundamentals needed to build robust CLI tools, including help text.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Automatically create many of the fundamentals needed to build robust CLI tools,  including help text.  @name configurate  @future  @example  ```js test=true  import { fork } from 'fluture'  import stripAnsi from 'strip-ansi'  // drgen-import-above  const YARGS_CONFIG = {    alias: {      meal: ['m'],      happyHour: ['h'],      multiplier: ['x'],    },    boolean: ['happyHour'],    number: ['multiplier'],    configuration: {      'strip-aliased': true,    },  }  const HELP_CONFIG = {    help: 'This text!',    // optional    color: 'Render stuff in color',    meal: 'Pass the name of the meal you want',    happyHour: 'Does happy hour apply here?',    multiplier: 'How many units should we apply?'  }  const CONFIG_DEFAULTS = {    color: true,    happyHour: false  }  const parseArgs = (args) => configurate(    YARGS_CONFIG,    // closured so that we can pass cwd at runtime    {...CONFIG_DEFAULTS, cwd: process.cwd() },    HELP_CONFIG,    { name: \"dumbwaiter\", description: \"order food!\" },    // process.argv.slice(2)    args  )  // renders in the failure channel  fork(x => {    expect(stripAnsi(x).split('\\n')).toEqual([      \" dumbwaiter \",      \"\",      \"order food!\",      \"\",      \"  -m / --meal\",      \"  \tPass the name of the meal you want\",      \"\",      \"  -h / --happyHour\",      \"  \tDoes happy hour apply here?\",      \"\",      \"  -x / --multiplier\",      \"  \tHow many units should we apply?\",      \"\",      \"  -h / --help\",      \"  \tThis text!\",    ])    done()  })(done)(    parseArgs(['--help'])  )  ```"
+          "description": "Automatically create many of the fundamentals needed to build robust CLI tools, including help text.",
+          "name": "configurate",
+          "future": [
+            " @example",
+            "```js test=true",
+            "import { fork } from 'fluture'",
+            "import stripAnsi from 'strip-ansi'",
+            "// drgen-import-above",
+            "const YARGS_CONFIG = {",
+            "alias: {",
+            "meal: ['m'],",
+            "happyHour: ['h'],",
+            "multiplier: ['x'],",
+            "},",
+            "boolean: ['happyHour'],",
+            "number: ['multiplier'],",
+            "configuration: {",
+            "'strip-aliased': true,",
+            "},",
+            "}",
+            "const HELP_CONFIG = {",
+            "help: 'This text!',",
+            "// optional",
+            "color: 'Render stuff in color',",
+            "meal: 'Pass the name of the meal you want',",
+            "happyHour: 'Does happy hour apply here?',",
+            "multiplier: 'How many units should we apply?'",
+            "}",
+            "const CONFIG_DEFAULTS = {",
+            "color: true,",
+            "happyHour: false",
+            "}",
+            "const parseArgs = (args) => configurate(",
+            "YARGS_CONFIG,",
+            "// closured so that we can pass cwd at runtime",
+            "{...CONFIG_DEFAULTS, cwd: process.cwd() },",
+            "HELP_CONFIG,",
+            "{ name: \"dumbwaiter\", description: \"order food!\" },",
+            "// process.argv.slice(2)",
+            "args",
+            ")",
+            "// renders in the failure channel",
+            "fork(x => {",
+            "expect(stripAnsi(x).split('\\n')).toEqual([",
+            "\" dumbwaiter \",",
+            "\"\",",
+            "\"order food!\",",
+            "\"\",",
+            "\"  -m / --meal\",",
+            "\"  \tPass the name of the meal you want\",",
+            "\"\",",
+            "\"  -h / --happyHour\",",
+            "\"  \tDoes happy hour apply here?\",",
+            "\"\",",
+            "\"  -x / --multiplier\",",
+            "\"  \tHow many units should we apply?\",",
+            "\"\",",
+            "\"  -h / --help\",",
+            "\"  \tThis text!\",",
+            "])",
+            "done()",
+            "})(done)(",
+            "parseArgs(['--help'])",
+            ")",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -365,23 +342,21 @@
       {
         "start": 138,
         "end": 146,
-        "lines": [
-          "The default search space when running `configFileWithCancel`.",
-          "@name defaultNameTemplate",
-          "@see {@link configFileWithCancel}",
-          "@example",
-          "```js test=true",
-          "expect(defaultNameTemplate('cool')).toEqual(['.coolrc', '.coolrc.json'])",
-          "```"
-        ],
-        "summary": " The default search space when running `configFileWithCancel`.  @name defaultNameTemplate  @see {@link configFileWithCancel}  @example  ```js test=true  expect(defaultNameTemplate('cool')).toEqual(['.coolrc', '.coolrc.json'])  ```",
+        "summary": "The default search space when running `configFileWithCancel`.",
         "links": [
           "configFileWithCancel"
         ],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " The default search space when running `configFileWithCancel`.  @name defaultNameTemplate  @see {@link configFileWithCancel}  @example  ```js test=true  expect(defaultNameTemplate('cool')).toEqual(['.coolrc', '.coolrc.json'])  ```"
+          "description": "The default search space when running `configFileWithCancel`.",
+          "name": "defaultNameTemplate",
+          "see": [
+            " @example",
+            "```js test=true",
+            "expect(defaultNameTemplate('cool')).toEqual(['.coolrc', '.coolrc.json'])",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -408,41 +383,41 @@
       {
         "start": 18,
         "end": 46,
-        "lines": [
-          "Merge two file representations. Can be right or left associative",
-          "@name combineFiles",
-          "@exported",
-          "@param {boolean} leftToRight Associate left to right",
-          "@param {File} a left file",
-          "@param {File} b right file",
-          "@returns {File} Merged file",
-          "@signature boolean -> File -> File -> File",
-          "@example",
-          "```js",
-          "const a = { a: true, greeting: 'hello', comments: ['one', 'two'], links: ['a', 'b'] }",
-          "const b = { b: true, greeting: 'ahoy', comments: ['three', 'four'], links: ['c', 'd'] }",
-          "expect(combineFiles(true, a, b)).toEqual({",
-          "  a: true,",
-          "  b: true,",
-          "  greeting: 'ahoy',",
-          "  comments: ['one', 'two', 'three', 'four'],",
-          "  links: ['a', 'b', 'c', 'd']",
-          "})",
-          "expect(combineFiles(false, a, b)).toEqual({",
-          "  a: true,",
-          "  b: true,",
-          "  greeting: 'hello',",
-          "  comments: ['three', 'four', 'one', 'two'],",
-          "  links: ['c', 'd', 'a', 'b']",
-          "})",
-          "```"
-        ],
-        "summary": " Merge two file representations. Can be right or left associative  @name combineFiles  @exported  @param {boolean} leftToRight Associate left to right  @param {File} a left file  @param {File} b right file  @returns {File} Merged file  @signature boolean -> File -> File -> File  @example  ```js  const a = { a: true, greeting: 'hello', comments: ['one', 'two'], links: ['a', 'b'] }  const b = { b: true, greeting: 'ahoy', comments: ['three', 'four'], links: ['c', 'd'] }  expect(combineFiles(true, a, b)).toEqual({    a: true,    b: true,    greeting: 'ahoy',    comments: ['one', 'two', 'three', 'four'],    links: ['a', 'b', 'c', 'd']  })  expect(combineFiles(false, a, b)).toEqual({    a: true,    b: true,    greeting: 'hello',    comments: ['three', 'four', 'one', 'two'],    links: ['c', 'd', 'a', 'b']  })  ```",
+        "summary": "Merge two file representations. Can be right or left associative",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Merge two file representations. Can be right or left associative  @name combineFiles  @exported  @param {boolean} leftToRight Associate left to right  @param {File} a left file  @param {File} b right file  @returns {File} Merged file  @signature boolean -> File -> File -> File  @example  ```js  const a = { a: true, greeting: 'hello', comments: ['one', 'two'], links: ['a', 'b'] }  const b = { b: true, greeting: 'ahoy', comments: ['three', 'four'], links: ['c', 'd'] }  expect(combineFiles(true, a, b)).toEqual({    a: true,    b: true,    greeting: 'ahoy',    comments: ['one', 'two', 'three', 'four'],    links: ['a', 'b', 'c', 'd']  })  expect(combineFiles(false, a, b)).toEqual({    a: true,    b: true,    greeting: 'hello',    comments: ['three', 'four', 'one', 'two'],    links: ['c', 'd', 'a', 'b']  })  ```"
+          "description": "Merge two file representations. Can be right or left associative",
+          "name": "combineFiles",
+          "exported": true,
+          "param": [
+            "{boolean} leftToRight Associate left to right",
+            "{File} a left file",
+            "{File} b right file"
+          ],
+          "returns": "{File} Merged file",
+          "signature": [
+            " @example",
+            "```js",
+            "const a = { a: true, greeting: 'hello', comments: ['one', 'two'], links: ['a', 'b'] }",
+            "const b = { b: true, greeting: 'ahoy', comments: ['three', 'four'], links: ['c', 'd'] }",
+            "expect(combineFiles(true, a, b)).toEqual({",
+            "a: true,",
+            "b: true,",
+            "greeting: 'ahoy',",
+            "comments: ['one', 'two', 'three', 'four'],",
+            "links: ['a', 'b', 'c', 'd']",
+            "})",
+            "expect(combineFiles(false, a, b)).toEqual({",
+            "a: true,",
+            "b: true,",
+            "greeting: 'hello',",
+            "comments: ['three', 'four', 'one', 'two'],",
+            "links: ['c', 'd', 'a', 'b']",
+            "})",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -467,24 +442,22 @@
     "pageSummary": "",
     "comments": [
       {
-        "start": 50,
-        "end": 59,
-        "lines": [
-          "Check to see if a comment has an example within its structure.",
-          "@name hasExample",
-          "@example",
-          "```js test=true",
-          "expect(hasExample({structure: {example: [`test=true`]}})).toBeTruthy()",
-          "expect(hasExample({})).toBeFalsy()",
-          "expect(hasExample('zipzop')).toBeFalsy()",
-          "```"
-        ],
-        "summary": " Check to see if a comment has an example within its structure.  @name hasExample  @example  ```js test=true  expect(hasExample({structure: {example: [`test=true`]}})).toBeTruthy()  expect(hasExample({})).toBeFalsy()  expect(hasExample('zipzop')).toBeFalsy()  ```",
+        "start": 49,
+        "end": 58,
+        "summary": "Check to see if a comment has an example within its structure.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Check to see if a comment has an example within its structure.  @name hasExample  @example  ```js test=true  expect(hasExample({structure: {example: [`test=true`]}})).toBeTruthy()  expect(hasExample({})).toBeFalsy()  expect(hasExample('zipzop')).toBeFalsy()  ```"
+          "description": "Check to see if a comment has an example within its structure.",
+          "name": [
+            " @example",
+            "```js test=true",
+            "expect(hasExample({structure: {example: [`test=true`]}})).toBeTruthy()",
+            "expect(hasExample({})).toBeFalsy()",
+            "expect(hasExample('zipzop')).toBeFalsy()",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -494,34 +467,31 @@
         "package": "doctor-general"
       },
       {
-        "start": 66,
-        "end": 85,
-        "lines": [
-          "Pull all imports from a given file, including `@curried` examples",
-          "@name getImportsForTests",
-          "@example",
-          "```js test=true",
-          "const file = { comments: [",
-          "  {",
-          "    structure: { curried: [",
-          "      { name: 'coolWithConfig', lines: ['test=true'] },",
-          "      { name: 'cool', lines: ['test=true'] }",
-          "    ] }",
-          "  },",
-          "  {",
-          "    structure: { name: 'otherFunc', example: ['test=true'] }",
-          "  }",
-          "] }",
-          " *",
-          "expect(getImportsForTests(file)).toEqual(['otherFunc', 'coolWithConfig', 'cool'])",
-          "```"
-        ],
-        "summary": " Pull all imports from a given file, including `@curried` examples  @name getImportsForTests  @example  ```js test=true  const file = { comments: [    {      structure: { curried: [        { name: 'coolWithConfig', lines: ['test=true'] },        { name: 'cool', lines: ['test=true'] }      ] }    },    {      structure: { name: 'otherFunc', example: ['test=true'] }    }  ] }  expect(getImportsForTests(file)).toEqual(['otherFunc', 'coolWithConfig', 'cool'])  ```",
+        "start": 65,
+        "end": 84,
+        "summary": "Pull all imports from a given file, including `@curried` examples",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Pull all imports from a given file, including `@curried` examples  @name getImportsForTests  @example  ```js test=true  const file = { comments: [    {      structure: { curried: [        { name: 'coolWithConfig', lines: ['test=true'] },        { name: 'cool', lines: ['test=true'] }      ] }    },    {      structure: { name: 'otherFunc', example: ['test=true'] }    }  ] }  expect(getImportsForTests(file)).toEqual(['otherFunc', 'coolWithConfig', 'cool'])  ```"
+          "description": "Pull all imports from a given file, including `@curried` examples",
+          "name": [
+            " @example",
+            "```js test=true",
+            "const file = { comments: [",
+            "{",
+            "structure: { curried: [",
+            "{ name: 'coolWithConfig', lines: ['test=true'] },",
+            "{ name: 'cool', lines: ['test=true'] }",
+            "] }",
+            "},",
+            "{",
+            "structure: { name: 'otherFunc', example: ['test=true'] }",
+            "}",
+            "] }",
+            "expect(getImportsForTests(file)).toEqual(['otherFunc', 'coolWithConfig', 'cool'])",
+            "```"
+          ]
         },
         "keywords": [
           "@curried",
@@ -532,24 +502,16 @@
         "package": "doctor-general"
       },
       {
-        "start": 115,
-        "end": 122,
-        "lines": [
-          "@name matchLinks",
-          "@example",
-          "```js test=true",
-          "expect(matchLinks([])).toEqual([])",
-          "expect(matchLinks([`{@link cool}`])).toEqual(['cool'])",
-          "```"
-        ],
-        "summary": " @name matchLinks  @example  ```js test=true  expect(matchLinks([])).toEqual([])  expect(matchLinks([`{@link cool}`])).toEqual(['cool'])  ```",
+        "start": 114,
+        "end": 121,
+        "summary": "matchLinks  @example ```js test=true expect(matchLinks([])).toEqual([]) expect(matchLinks([`{@link cool}`])).toEqual(['cool']) ```",
         "links": [
           "cool"
         ],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " @name matchLinks  @example  ```js test=true  expect(matchLinks([])).toEqual([])  expect(matchLinks([`{@link cool}`])).toEqual(['cool'])  ```"
+          "description": "matchLinks  @example ```js test=true expect(matchLinks([])).toEqual([]) expect(matchLinks([`{@link cool}`])).toEqual(['cool']) ```"
         },
         "keywords": [
           "@example",
@@ -560,36 +522,34 @@
         "package": "doctor-general"
       },
       {
-        "start": 181,
-        "end": 202,
-        "lines": [
-          "Grab the summary from raw lines, given some indices to slice",
-          "@name getPageSummary",
-          "@example",
-          "```js test=true",
-          "const rawLines = [",
-          "  ' * @pageSummary Hey cool this is a multi-line',",
-          "  ' * description of stuff in the whole file',",
-          "  ' * @page testPageSummary',",
-          "  ' * @huh notSure'",
-          "]",
-          "expect(",
-          "  getPageSummary(rawLines, Infinity, 0)",
-          ").toEqual([",
-          "  'Hey cool this is a multi-line',",
-          "  'description of stuff in the whole file'",
-          "])",
-          "expect(",
-          "  getPageSummary([' * hey', ' * there'], Infinity, 0)",
-          ").toEqual(['hey', 'there'])",
-          "```"
-        ],
-        "summary": " Grab the summary from raw lines, given some indices to slice  @name getPageSummary  @example  ```js test=true  const rawLines = [    ' * @pageSummary Hey cool this is a multi-line',    ' * description of stuff in the whole file',    ' * @page testPageSummary',    ' * @huh notSure'  ]  expect(    getPageSummary(rawLines, Infinity, 0)  ).toEqual([    'Hey cool this is a multi-line',    'description of stuff in the whole file'  ])  expect(    getPageSummary([' * hey', ' * there'], Infinity, 0)  ).toEqual(['hey', 'there'])  ```",
+        "start": 180,
+        "end": 201,
+        "summary": "Grab the summary from raw lines, given some indices to slice",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Grab the summary from raw lines, given some indices to slice  @name getPageSummary  @example  ```js test=true  const rawLines = [    ' * @pageSummary Hey cool this is a multi-line',    ' * description of stuff in the whole file',    ' * @page testPageSummary',    ' * @huh notSure'  ]  expect(    getPageSummary(rawLines, Infinity, 0)  ).toEqual([    'Hey cool this is a multi-line',    'description of stuff in the whole file'  ])  expect(    getPageSummary([' * hey', ' * there'], Infinity, 0)  ).toEqual(['hey', 'there'])  ```"
+          "description": "Grab the summary from raw lines, given some indices to slice",
+          "name": [
+            " @example",
+            "```js test=true",
+            "const rawLines = [",
+            "' * @pageSummary Hey cool this is a multi-line',",
+            "' * description of stuff in the whole file',",
+            "' * @page testPageSummary',",
+            "' * @huh notSure'",
+            "]",
+            "expect(",
+            "getPageSummary(rawLines, Infinity, 0)",
+            ").toEqual([",
+            "'Hey cool this is a multi-line',",
+            "'description of stuff in the whole file'",
+            "])",
+            "expect(",
+            "getPageSummary([' * hey', ' * there'], Infinity, 0)",
+            ").toEqual(['hey', 'there'])",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -602,24 +562,22 @@
         "package": "doctor-general"
       },
       {
-        "start": 216,
-        "end": 225,
-        "lines": [
-          "Is it an asterisk with maybe some whitespace around it?",
-          "@name isAsterisky",
-          "@example",
-          "```js test=true",
-          "expect(isAsterisky('     * ')).toBeTruthy()",
-          "expect(isAsterisky('*')).toBeTruthy()",
-          "expect(isAsterisky('obelisk')).toBeFalsy()",
-          "```"
-        ],
-        "summary": " Is it an asterisk with maybe some whitespace around it?  @name isAsterisky  @example  ```js test=true  expect(isAsterisky('     * ')).toBeTruthy()  expect(isAsterisky('*')).toBeTruthy()  expect(isAsterisky('obelisk')).toBeFalsy()  ```",
+        "start": 215,
+        "end": 224,
+        "summary": "Is it an asterisk with maybe some whitespace around it?",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Is it an asterisk with maybe some whitespace around it?  @name isAsterisky  @example  ```js test=true  expect(isAsterisky('     * ')).toBeTruthy()  expect(isAsterisky('*')).toBeTruthy()  expect(isAsterisky('obelisk')).toBeFalsy()  ```"
+          "description": "Is it an asterisk with maybe some whitespace around it?",
+          "name": [
+            " @example",
+            "```js test=true",
+            "expect(isAsterisky('     * ')).toBeTruthy()",
+            "expect(isAsterisky('*')).toBeTruthy()",
+            "expect(isAsterisky('obelisk')).toBeFalsy()",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -629,21 +587,14 @@
         "package": "doctor-general"
       },
       {
-        "start": 228,
-        "end": 234,
-        "lines": [
-          "@name stripEmptyCommentLines",
-          "@example",
-          "```js test=true",
-          "expect(stripEmptyCommentLines('     *')).toEqual('')",
-          "expect(stripEmptyCommentLines('hooray!')).toEqual('hooray!')"
-        ],
-        "summary": " @name stripEmptyCommentLines  @example  ```js test=true  expect(stripEmptyCommentLines('     *')).toEqual('')  expect(stripEmptyCommentLines('hooray!')).toEqual('hooray!')",
+        "start": 227,
+        "end": 233,
+        "summary": "stripEmptyCommentLines  @example ```js test=true expect(stripEmptyCommentLines('     *')).toEqual('') expect(stripEmptyCommentLines('hooray!')).toEqual('hooray!')",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " @name stripEmptyCommentLines  @example  ```js test=true  expect(stripEmptyCommentLines('     *')).toEqual('')  expect(stripEmptyCommentLines('hooray!')).toEqual('hooray!')"
+          "description": "stripEmptyCommentLines  @example ```js test=true expect(stripEmptyCommentLines('     *')).toEqual('') expect(stripEmptyCommentLines('hooray!')).toEqual('hooray!')"
         },
         "keywords": [
           "@example",
@@ -653,30 +604,29 @@
         "package": "doctor-general"
       },
       {
-        "start": 238,
-        "end": 253,
-        "lines": [
-          "@name getExample",
-          "@signature List String -> Integer -> Integer -> String",
-          "@example",
-          "```js test=true",
-          "const rawLines = [",
-          "  '* Ouroboric summary',",
-          "  '* @name getExample',",
-          "  '* @example',",
-          "  '* ```js',",
-          "  '* getExample(rawLines)',",
-          "  '* ```',",
-          "]",
-          "expect(getExample(rawLines, 5, 3)).toEqual('getExample(rawLines)')",
-          "```"
-        ],
-        "summary": " Grab the example from raw lines and some indices to slice  @name getExample  @signature List String -> Integer -> Integer -> String  @example  ```js test=true  const rawLines = [    '* Ouroboric summary',    '* @name getExample',    '* @example',    '* ```js',    '* getExample(rawLines)',    '* ```',  ]  expect(getExample(rawLines, 5, 3)).toEqual('getExample(rawLines)')  ```",
+        "start": 237,
+        "end": 252,
+        "summary": "Grab the example from raw lines and some indices to slice",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Grab the example from raw lines and some indices to slice  @name getExample  @signature List String -> Integer -> Integer -> String  @example  ```js test=true  const rawLines = [    '* Ouroboric summary',    '* @name getExample',    '* @example',    '* ```js',    '* getExample(rawLines)',    '* ```',  ]  expect(getExample(rawLines, 5, 3)).toEqual('getExample(rawLines)')  ```"
+          "description": "Grab the example from raw lines and some indices to slice",
+          "name": "getExample",
+          "signature": [
+            " @example",
+            "```js test=true",
+            "const rawLines = [",
+            "'* Ouroboric summary',",
+            "'* @name getExample',",
+            "   '* @example',",
+            "'* ```js',",
+            "'* getExample(rawLines)',",
+            "'* ```',",
+            "]",
+            "expect(getExample(rawLines, 5, 3)).toEqual('getExample(rawLines)')",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -687,26 +637,24 @@
         "package": "doctor-general"
       },
       {
-        "start": 282,
-        "end": 293,
-        "lines": [
-          "Given a line within a magic comment block, remove the leading asterisks",
-          "@name stripLeadingComment",
-          "@example",
-          "```js test=true",
-          "import { MAGIC_COMMENT_START as START, MAGIC_COMMENT_END as END } from '../constants'",
-          "// drgen-import-above",
-          "expect(stripLeadingComment('     ' + START)).toEqual('')",
-          "expect(stripLeadingComment(END)).toEqual('')",
-          "expect(stripLeadingComment(' * hey cool!')).toEqual('hey cool!')",
-          "```"
-        ],
-        "summary": " Given a line within a magic comment block, remove the leading asterisks  @name stripLeadingComment  @example  ```js test=true  import { MAGIC_COMMENT_START as START, MAGIC_COMMENT_END as END } from '../constants'  // drgen-import-above  expect(stripLeadingComment('     ' + START)).toEqual('')  expect(stripLeadingComment(END)).toEqual('')  expect(stripLeadingComment(' * hey cool!')).toEqual('hey cool!')  ```",
+        "start": 281,
+        "end": 292,
+        "summary": "Given a line within a magic comment block, remove the leading asterisks",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Given a line within a magic comment block, remove the leading asterisks  @name stripLeadingComment  @example  ```js test=true  import { MAGIC_COMMENT_START as START, MAGIC_COMMENT_END as END } from '../constants'  // drgen-import-above  expect(stripLeadingComment('     ' + START)).toEqual('')  expect(stripLeadingComment(END)).toEqual('')  expect(stripLeadingComment(' * hey cool!')).toEqual('hey cool!')  ```"
+          "description": "Given a line within a magic comment block, remove the leading asterisks",
+          "name": [
+            " @example",
+            "```js test=true",
+            "import { MAGIC_COMMENT_START as START, MAGIC_COMMENT_END as END } from '../constants'",
+            "// drgen-import-above",
+            "expect(stripLeadingComment('     ' + START)).toEqual('')",
+            "expect(stripLeadingComment(END)).toEqual('')",
+            "expect(stripLeadingComment(' * hey cool!')).toEqual('hey cool!')",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -718,20 +666,18 @@
       {
         "start": 386,
         "end": 393,
-        "lines": [
-          "@name objectifyComments",
-          "@signature String -> String -> List Comment -> List CommentBlock",
-          "@example",
-          "```js test=true",
-          "expect(objectifyComments('x', 'x', [])).toEqual([])",
-          "```"
-        ],
-        "summary": " @name objectifyComments  @signature String -> String -> List Comment -> List CommentBlock  @example  ```js test=true  expect(objectifyComments('x', 'x', [])).toEqual([])  ```",
+        "summary": "objectifyComments",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " @name objectifyComments  @signature String -> String -> List Comment -> List CommentBlock  @example  ```js test=true  expect(objectifyComments('x', 'x', [])).toEqual([])  ```"
+          "description": "objectifyComments",
+          "signature": [
+            " @example",
+            "```js test=true",
+            "expect(objectifyComments('x', 'x', [])).toEqual([])",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -744,25 +690,23 @@
       {
         "start": 498,
         "end": 510,
-        "lines": [
-          "Process comments given a processor and an error handler",
-          "@name processComments",
-          "@example",
-          "```js test=true",
-          "const input = Math.round(Math.random() * 1e3)",
-          "expect(",
-          "  processComments(() => 'huh?', {process: y => y * 2}, input)",
-          ").toEqual(input * 2)",
-          "const fn = jest.fn()",
-          "processComments(fn, false, input)",
-          "expect(fn).toHaveBeenCalled()"
-        ],
-        "summary": " Process comments given a processor and an error handler  @name processComments  @example  ```js test=true  const input = Math.round(Math.random() * 1e3)  expect(    processComments(() => 'huh?', {process: y => y * 2}, input)  ).toEqual(input * 2)  const fn = jest.fn()  processComments(fn, false, input)  expect(fn).toHaveBeenCalled()",
+        "summary": "Process comments given a processor and an error handler",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Process comments given a processor and an error handler  @name processComments  @example  ```js test=true  const input = Math.round(Math.random() * 1e3)  expect(    processComments(() => 'huh?', {process: y => y * 2}, input)  ).toEqual(input * 2)  const fn = jest.fn()  processComments(fn, false, input)  expect(fn).toHaveBeenCalled()"
+          "description": "Process comments given a processor and an error handler",
+          "name": [
+            " @example",
+            "```js test=true",
+            "const input = Math.round(Math.random() * 1e3)",
+            "expect(",
+            "processComments(() => 'huh?', {process: y => y * 2}, input)",
+            ").toEqual(input * 2)",
+            "const fn = jest.fn()",
+            "processComments(fn, false, input)",
+            "expect(fn).toHaveBeenCalled()"
+          ]
         },
         "keywords": [
           "@example",
@@ -787,22 +731,20 @@
       {
         "start": 25,
         "end": 34,
-        "lines": [
-          "Return the number of arguments a function expects",
-          "@name arity",
-          "@example",
-          "```js test=true",
-          "expect(arity((a,b,c) => {})).toEqual(3)",
-          "expect(arity(function tertiary(a,b,c) {})).toEqual(3)",
-          "expect(arity(a => b => c => c)).toEqual(1)",
-          "expect(arity('poo')).toEqual(-1)"
-        ],
-        "summary": " Return the number of arguments a function expects  @name arity  @example  ```js test=true  expect(arity((a,b,c) => {})).toEqual(3)  expect(arity(function tertiary(a,b,c) {})).toEqual(3)  expect(arity(a => b => c => c)).toEqual(1)  expect(arity('poo')).toEqual(-1)",
+        "summary": "Return the number of arguments a function expects",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Return the number of arguments a function expects  @name arity  @example  ```js test=true  expect(arity((a,b,c) => {})).toEqual(3)  expect(arity(function tertiary(a,b,c) {})).toEqual(3)  expect(arity(a => b => c => c)).toEqual(1)  expect(arity('poo')).toEqual(-1)"
+          "description": "Return the number of arguments a function expects",
+          "name": [
+            " @example",
+            "```js test=true",
+            "expect(arity((a,b,c) => {})).toEqual(3)",
+            "expect(arity(function tertiary(a,b,c) {})).toEqual(3)",
+            "expect(arity(a => b => c => c)).toEqual(1)",
+            "expect(arity('poo')).toEqual(-1)"
+          ]
         },
         "keywords": [
           "@example",
@@ -814,109 +756,107 @@
       {
         "start": 77,
         "end": 173,
-        "lines": [
-          "Apply tests to a given processor in order to assess its correctness.",
-          "@name interrogate",
-          "@exported",
-          "@example",
-          "```js test=true",
-          "// drgen-import-above",
-          "const myCoolProcessor = {",
-          "  output: () => {},",
-          "  group: '',",
-          "  process: () => {},",
-          "  postRender: (a, b) => b,",
-          "  renderer: (a, b) => b,",
-          "}",
-          "expect(interrogate({})).toEqual({",
-          "  additionalFieldCheck: {},",
-          "  additionalFields: [],",
-          "  meetsOptionalRequirements: false,",
-          "  meetsRequirements: false,",
-          "  incorrectFields: [",
-          "    'output',",
-          "    'group',",
-          "    'process',",
-          "    'renderer',",
-          "    'postRender',",
-          "    'postProcess'",
-          "  ],",
-          "  checked: {",
-          "    optional: { postProcess: false },",
-          "    required: {",
-          "      group: false,",
-          "      output: false,",
-          "      postRender: false,",
-          "      process: false,",
-          "      renderer: false",
-          "    }",
-          "  }",
-          "})",
-          "expect(interrogate(myCoolProcessor)).toEqual({",
-          "  additionalFieldCheck: {},",
-          "  additionalFields: [],",
-          "  meetsOptionalRequirements: false,",
-          "  meetsRequirements: true,",
-          "  incorrectFields: ['postProcess'],",
-          "  checked: {",
-          "    optional: { postProcess: false },",
-          "    required: {",
-          "      group: true,",
-          "      output: true,",
-          "      postRender: true,",
-          "      process: true,",
-          "      renderer: true",
-          "    }",
-          "  }",
-          "})",
-          "expect(interrogate({",
-          "  ...myCoolProcessor,",
-          "  postProcess: (a, b, c) => b",
-          "})).toEqual({",
-          "  additionalFieldCheck: { postProcess: true },",
-          "  additionalFields: [ 'postProcess' ],",
-          "  meetsOptionalRequirements: true,",
-          "  meetsRequirements: true,",
-          "  incorrectFields: [],",
-          "  checked: {",
-          "    optional: { postProcess: true },",
-          "    required: {",
-          "      group: true,",
-          "      output: true,",
-          "      postRender: true,",
-          "      process: true,",
-          "      renderer: true",
-          "    }",
-          "  }",
-          "})",
-          "expect(interrogate({",
-          "  ...myCoolProcessor,",
-          "  unsupportedFunction: (a, b) => b",
-          "})).toEqual({",
-          "  additionalFieldCheck: { unsupportedFunction: false },",
-          "  additionalFields: ['unsupportedFunction'],",
-          "  meetsOptionalRequirements: false,",
-          "  meetsRequirements: true,",
-          "  checked: {",
-          "    optional: { postProcess: false },",
-          "    required: {",
-          "      group: true,",
-          "      output: true,",
-          "      postRender: true,",
-          "      process: true,",
-          "      renderer: true",
-          "    }",
-          "  },",
-          "  incorrectFields: ['postProcess']",
-          "})",
-          "```"
-        ],
-        "summary": " Apply tests to a given processor in order to assess its correctness.  @name interrogate  @exported  @example  ```js test=true  // drgen-import-above  const myCoolProcessor = {    output: () => {},    group: '',    process: () => {},    postRender: (a, b) => b,    renderer: (a, b) => b,  }  expect(interrogate({})).toEqual({    additionalFieldCheck: {},    additionalFields: [],    meetsOptionalRequirements: false,    meetsRequirements: false,    incorrectFields: [      'output',      'group',      'process',      'renderer',      'postRender',      'postProcess'    ],    checked: {      optional: { postProcess: false },      required: {        group: false,        output: false,        postRender: false,        process: false,        renderer: false      }    }  })  expect(interrogate(myCoolProcessor)).toEqual({    additionalFieldCheck: {},    additionalFields: [],    meetsOptionalRequirements: false,    meetsRequirements: true,    incorrectFields: ['postProcess'],    checked: {      optional: { postProcess: false },      required: {        group: true,        output: true,        postRender: true,        process: true,        renderer: true      }    }  })  expect(interrogate({    ...myCoolProcessor,    postProcess: (a, b, c) => b  })).toEqual({    additionalFieldCheck: { postProcess: true },    additionalFields: [ 'postProcess' ],    meetsOptionalRequirements: true,    meetsRequirements: true,    incorrectFields: [],    checked: {      optional: { postProcess: true },      required: {        group: true,        output: true,        postRender: true,        process: true,        renderer: true      }    }  })  expect(interrogate({    ...myCoolProcessor,    unsupportedFunction: (a, b) => b  })).toEqual({    additionalFieldCheck: { unsupportedFunction: false },    additionalFields: ['unsupportedFunction'],    meetsOptionalRequirements: false,    meetsRequirements: true,    checked: {      optional: { postProcess: false },      required: {        group: true,        output: true,        postRender: true,        process: true,        renderer: true      }    },    incorrectFields: ['postProcess']  })  ```",
+        "summary": "Apply tests to a given processor in order to assess its correctness.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Apply tests to a given processor in order to assess its correctness.  @name interrogate  @exported  @example  ```js test=true  // drgen-import-above  const myCoolProcessor = {    output: () => {},    group: '',    process: () => {},    postRender: (a, b) => b,    renderer: (a, b) => b,  }  expect(interrogate({})).toEqual({    additionalFieldCheck: {},    additionalFields: [],    meetsOptionalRequirements: false,    meetsRequirements: false,    incorrectFields: [      'output',      'group',      'process',      'renderer',      'postRender',      'postProcess'    ],    checked: {      optional: { postProcess: false },      required: {        group: false,        output: false,        postRender: false,        process: false,        renderer: false      }    }  })  expect(interrogate(myCoolProcessor)).toEqual({    additionalFieldCheck: {},    additionalFields: [],    meetsOptionalRequirements: false,    meetsRequirements: true,    incorrectFields: ['postProcess'],    checked: {      optional: { postProcess: false },      required: {        group: true,        output: true,        postRender: true,        process: true,        renderer: true      }    }  })  expect(interrogate({    ...myCoolProcessor,    postProcess: (a, b, c) => b  })).toEqual({    additionalFieldCheck: { postProcess: true },    additionalFields: [ 'postProcess' ],    meetsOptionalRequirements: true,    meetsRequirements: true,    incorrectFields: [],    checked: {      optional: { postProcess: true },      required: {        group: true,        output: true,        postRender: true,        process: true,        renderer: true      }    }  })  expect(interrogate({    ...myCoolProcessor,    unsupportedFunction: (a, b) => b  })).toEqual({    additionalFieldCheck: { unsupportedFunction: false },    additionalFields: ['unsupportedFunction'],    meetsOptionalRequirements: false,    meetsRequirements: true,    checked: {      optional: { postProcess: false },      required: {        group: true,        output: true,        postRender: true,        process: true,        renderer: true      }    },    incorrectFields: ['postProcess']  })  ```"
+          "description": "Apply tests to a given processor in order to assess its correctness.",
+          "name": "interrogate",
+          "exported": [
+            " @example",
+            "```js test=true",
+            "// drgen-import-above",
+            "const myCoolProcessor = {",
+            "output: () => {},",
+            "group: '',",
+            "process: () => {},",
+            "postRender: (a, b) => b,",
+            "renderer: (a, b) => b,",
+            "}",
+            "expect(interrogate({})).toEqual({",
+            "additionalFieldCheck: {},",
+            "additionalFields: [],",
+            "meetsOptionalRequirements: false,",
+            "meetsRequirements: false,",
+            "incorrectFields: [",
+            "'output',",
+            "'group',",
+            "'process',",
+            "'renderer',",
+            "'postRender',",
+            "'postProcess'",
+            "],",
+            "checked: {",
+            "optional: { postProcess: false },",
+            "required: {",
+            "group: false,",
+            "output: false,",
+            "postRender: false,",
+            "process: false,",
+            "renderer: false",
+            "}",
+            "}",
+            "})",
+            "expect(interrogate(myCoolProcessor)).toEqual({",
+            "additionalFieldCheck: {},",
+            "additionalFields: [],",
+            "meetsOptionalRequirements: false,",
+            "meetsRequirements: true,",
+            "incorrectFields: ['postProcess'],",
+            "checked: {",
+            "optional: { postProcess: false },",
+            "required: {",
+            "group: true,",
+            "output: true,",
+            "postRender: true,",
+            "process: true,",
+            "renderer: true",
+            "}",
+            "}",
+            "})",
+            "expect(interrogate({",
+            "...myCoolProcessor,",
+            "postProcess: (a, b, c) => b",
+            "})).toEqual({",
+            "additionalFieldCheck: { postProcess: true },",
+            "additionalFields: [ 'postProcess' ],",
+            "meetsOptionalRequirements: true,",
+            "meetsRequirements: true,",
+            "incorrectFields: [],",
+            "checked: {",
+            "optional: { postProcess: true },",
+            "required: {",
+            "group: true,",
+            "output: true,",
+            "postRender: true,",
+            "process: true,",
+            "renderer: true",
+            "}",
+            "}",
+            "})",
+            "expect(interrogate({",
+            "...myCoolProcessor,",
+            "unsupportedFunction: (a, b) => b",
+            "})).toEqual({",
+            "additionalFieldCheck: { unsupportedFunction: false },",
+            "additionalFields: ['unsupportedFunction'],",
+            "meetsOptionalRequirements: false,",
+            "meetsRequirements: true,",
+            "checked: {",
+            "optional: { postProcess: false },",
+            "required: {",
+            "group: true,",
+            "output: true,",
+            "postRender: true,",
+            "process: true,",
+            "renderer: true",
+            "}",
+            "},",
+            "incorrectFields: ['postProcess']",
+            "})",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -929,43 +869,39 @@
       {
         "start": 211,
         "end": 239,
-        "lines": [
-          "Validate a given processor is correct.",
-          "If you want to see _why_ it is incorrect, use `interrogate` instead.",
-          "@name validate",
-          "@see {@link interrogate}",
-          "@exported",
-          "@example",
-          "```js test=true",
-          "// drgen-import-above",
-          "const myCoolProcessor = {",
-          "  output: () => {},",
-          "  group: '',",
-          "  process: () => {},",
-          "  postRender: (a, b) => b,",
-          "  renderer: (a, b) => b,",
-          "}",
-          " *",
-          "expect(validate({})).toBeFalsy()",
-          "expect(validate(myCoolProcessor)).toBeTruthy()",
-          "expect(validate({",
-          "  ...myCoolProcessor,",
-          "  postProcess: (a, b, c) => b",
-          "})).toBeTruthy()",
-          "expect(validate({",
-          "  ...myCoolProcessor,",
-          "  unsupportedFunction: (a, b) => b",
-          "})).toBeFalsy()",
-          "```"
-        ],
-        "summary": " Validate a given processor is correct.  If you want to see _why_ it is incorrect, use `interrogate` instead.  @name validate  @see {@link interrogate}  @exported  @example  ```js test=true  // drgen-import-above  const myCoolProcessor = {    output: () => {},    group: '',    process: () => {},    postRender: (a, b) => b,    renderer: (a, b) => b,  }  expect(validate({})).toBeFalsy()  expect(validate(myCoolProcessor)).toBeTruthy()  expect(validate({    ...myCoolProcessor,    postProcess: (a, b, c) => b  })).toBeTruthy()  expect(validate({    ...myCoolProcessor,    unsupportedFunction: (a, b) => b  })).toBeFalsy()  ```",
+        "summary": "Validate a given processor is correct. If you want to see _why_ it is incorrect, use `interrogate` instead.",
         "links": [
           "interrogate"
         ],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Validate a given processor is correct.  If you want to see _why_ it is incorrect, use `interrogate` instead.  @name validate  @see {@link interrogate}  @exported  @example  ```js test=true  // drgen-import-above  const myCoolProcessor = {    output: () => {},    group: '',    process: () => {},    postRender: (a, b) => b,    renderer: (a, b) => b,  }  expect(validate({})).toBeFalsy()  expect(validate(myCoolProcessor)).toBeTruthy()  expect(validate({    ...myCoolProcessor,    postProcess: (a, b, c) => b  })).toBeTruthy()  expect(validate({    ...myCoolProcessor,    unsupportedFunction: (a, b) => b  })).toBeFalsy()  ```"
+          "description": "Validate a given processor is correct. If you want to see _why_ it is incorrect, use `interrogate` instead.",
+          "name": "validate",
+          "see": "{@link interrogate}",
+          "exported": [
+            " @example",
+            "```js test=true",
+            "// drgen-import-above",
+            "const myCoolProcessor = {",
+            "output: () => {},",
+            "group: '',",
+            "process: () => {},",
+            "postRender: (a, b) => b,",
+            "renderer: (a, b) => b,",
+            "}",
+            "expect(validate({})).toBeFalsy()",
+            "expect(validate(myCoolProcessor)).toBeTruthy()",
+            "expect(validate({",
+            "...myCoolProcessor,",
+            "postProcess: (a, b, c) => b",
+            "})).toBeTruthy()",
+            "expect(validate({",
+            "...myCoolProcessor,",
+            "unsupportedFunction: (a, b) => b",
+            "})).toBeFalsy()",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -993,40 +929,38 @@
       {
         "start": 6,
         "end": 33,
-        "lines": [
-          "@name iterateOverWorkspacesAndReadFiles",
-          "@future",
-          "@example",
-          "```js test=true",
-          "import { fork, resolve as resolveF, parallel } from 'fluture'",
-          "// drgen-import-above",
-          "fork(done)(x => {",
-          "  expect(x).toEqual([",
-          "    \"tools/digested\",",
-          "    \"tools/doctor-general-cli\",",
-          "    \"tools/gitparty\",",
-          "    \"tools/spacework\",",
-          "    \"tools/superorganism\",",
-          "    \"tools/treacle\",",
-          "  ])",
-          "  done()",
-          "})(",
-          "  iterateOverWorkspacesAndReadFiles(",
-          "    {",
-          "      searchGlob: '*',",
-          "      ignore: []",
-          "    },",
-          "    '../..',",
-          "    resolveF(['tools/'])",
-          "  )",
-          ")"
-        ],
-        "summary": " @name iterateOverWorkspacesAndReadFiles  @future  @example  ```js test=true  import { fork, resolve as resolveF, parallel } from 'fluture'  // drgen-import-above  fork(done)(x => {    expect(x).toEqual([      \"tools/digested\",      \"tools/doctor-general-cli\",      \"tools/gitparty\",      \"tools/spacework\",      \"tools/superorganism\",      \"tools/treacle\",    ])    done()  })(    iterateOverWorkspacesAndReadFiles(      {        searchGlob: '*',        ignore: []      },      '../..',      resolveF(['tools/'])    )  )",
+        "summary": "iterateOverWorkspacesAndReadFiles",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " @name iterateOverWorkspacesAndReadFiles  @future  @example  ```js test=true  import { fork, resolve as resolveF, parallel } from 'fluture'  // drgen-import-above  fork(done)(x => {    expect(x).toEqual([      \"tools/digested\",      \"tools/doctor-general-cli\",      \"tools/gitparty\",      \"tools/spacework\",      \"tools/superorganism\",      \"tools/treacle\",    ])    done()  })(    iterateOverWorkspacesAndReadFiles(      {        searchGlob: '*',        ignore: []      },      '../..',      resolveF(['tools/'])    )  )"
+          "description": "iterateOverWorkspacesAndReadFiles",
+          "future": [
+            " @example",
+            "```js test=true",
+            "import { fork, resolve as resolveF, parallel } from 'fluture'",
+            "// drgen-import-above",
+            "fork(done)(x => {",
+            "expect(x).toEqual([",
+            "\"tools/digested\",",
+            "\"tools/doctor-general-cli\",",
+            "\"tools/gitparty\",",
+            "\"tools/spacework\",",
+            "\"tools/superorganism\",",
+            "\"tools/treacle\",",
+            "])",
+            "done()",
+            "})(",
+            "iterateOverWorkspacesAndReadFiles(",
+            "{",
+            "searchGlob: '*',",
+            "ignore: []",
+            "},",
+            "'../..',",
+            "resolveF(['tools/'])",
+            ")",
+            ")"
+          ]
         },
         "keywords": [
           "@example",
@@ -1050,26 +984,23 @@
       {
         "start": 18,
         "end": 31,
-        "lines": [
-          "For strings which look like extended jsdoc comment line (e.g. ` * whatever`),",
-          "eschew the comment decoration",
-          "@name trimComment",
-          "@signature String -> String",
-          "@example",
-          "```js test=true",
-          "expect(trimComment('          * zipzop')).toEqual('zipzop')",
-          "expect(trimComment(' * squiggle         ')).toEqual('squiggle')",
-          "const input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)",
-          "expect(trimComment(input)).toEqual(input)",
-          "expect(trimComment(29292)).toEqual(29292)",
-          "```"
-        ],
-        "summary": " For strings which look like extended jsdoc comment line (e.g. ` * whatever`),  eschew the comment decoration  @name trimComment  @signature String -> String  @example  ```js test=true  expect(trimComment('          * zipzop')).toEqual('zipzop')  expect(trimComment(' * squiggle         ')).toEqual('squiggle')  const input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)  expect(trimComment(input)).toEqual(input)  expect(trimComment(29292)).toEqual(29292)  ```",
+        "summary": "For strings which look like extended jsdoc comment line (e.g. ` * whatever`), eschew the comment decoration",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " For strings which look like extended jsdoc comment line (e.g. ` * whatever`),  eschew the comment decoration  @name trimComment  @signature String -> String  @example  ```js test=true  expect(trimComment('          * zipzop')).toEqual('zipzop')  expect(trimComment(' * squiggle         ')).toEqual('squiggle')  const input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)  expect(trimComment(input)).toEqual(input)  expect(trimComment(29292)).toEqual(29292)  ```"
+          "description": "For strings which look like extended jsdoc comment line (e.g. ` * whatever`), eschew the comment decoration",
+          "name": "trimComment",
+          "signature": [
+            " @example",
+            "```js test=true",
+            "expect(trimComment('          * zipzop')).toEqual('zipzop')",
+            "expect(trimComment(' * squiggle         ')).toEqual('squiggle')",
+            "const input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)",
+            "expect(trimComment(input)).toEqual(input)",
+            "expect(trimComment(29292)).toEqual(29292)",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1093,15 +1024,12 @@
       {
         "start": 15,
         "end": 17,
-        "lines": [
-          "@pageSummary A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system."
-        ],
-        "summary": " @pageSummary A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.",
+        "summary": "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " @pageSummary A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system."
+          "description": "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system."
         },
         "keywords": [
           "@pageSummary"
@@ -1112,22 +1040,20 @@
       {
         "start": 27,
         "end": 36,
-        "lines": [
-          "make a file string relative",
-          "@name localize",
-          "@example",
-          "```js",
-          "import { localize } from 'file-system'",
-          "console.log(`support ${localize('business')}`)",
-          "// support ./business",
-          "```"
-        ],
-        "summary": " make a file string relative  @name localize  @example  ```js  import { localize } from 'file-system'  console.log(`support ${localize('business')}`)  // support ./business  ```",
+        "summary": "make a file string relative",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " make a file string relative  @name localize  @example  ```js  import { localize } from 'file-system'  console.log(`support ${localize('business')}`)  // support ./business  ```"
+          "description": "make a file string relative",
+          "name": [
+            " @example",
+            "```js",
+            "import { localize } from 'file-system'",
+            "console.log(`support ${localize('business')}`)",
+            "// support ./business",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1139,44 +1065,39 @@
       {
         "start": 39,
         "end": 70,
-        "lines": [
-          "Read a file asynchronously as a Future-wrapped value.",
-          "@curried",
-          " *",
-          " 1. readFileWithFormatAndCancel - Can be given a file encoding and a cancellation function.",
-          "    @example",
-          "    ```js",
-          "    import { fork } from 'fluture'",
-          "    import { readFile } from 'file-system'",
-          "    fork(console.warn)(console.log)(",
-          "      readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')",
-          "    )",
-          "    ```",
-          " *",
-          " 2. readFileWithCancel - Reads `utf8` files only.",
-          "    @example",
-          "    ```js",
-          "    import { fork } from 'fluture'",
-          "    import { readFile } from 'file-system'",
-          "    fork(console.warn)(console.log)(",
-          "      readFileWithCancel(() => process.exit(), './README.md')",
-          "    )",
-          "    ```",
-          " *",
-          " 3. readFile - Eschews any custom cancellation.",
-          "    @example",
-          "    ```js",
-          "    import { fork } from 'fluture'",
-          "    import { readFile } from 'file-system'",
-          "    fork(console.warn)(console.log)(readFile('./README.md'))",
-          "    ```"
-        ],
-        "summary": " Read a file asynchronously as a Future-wrapped value.  @curried   1. readFileWithFormatAndCancel - Can be given a file encoding and a cancellation function.      @example      ```js      import { fork } from 'fluture'      import { readFile } from 'file-system'      fork(console.warn)(console.log)(        readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')      )      ```   2. readFileWithCancel - Reads `utf8` files only.      @example      ```js      import { fork } from 'fluture'      import { readFile } from 'file-system'      fork(console.warn)(console.log)(        readFileWithCancel(() => process.exit(), './README.md')      )      ```   3. readFile - Eschews any custom cancellation.      @example      ```js      import { fork } from 'fluture'      import { readFile } from 'file-system'      fork(console.warn)(console.log)(readFile('./README.md'))      ```",
+        "summary": "Read a file asynchronously as a Future-wrapped value.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Read a file asynchronously as a Future-wrapped value.  @curried   1. readFileWithFormatAndCancel - Can be given a file encoding and a cancellation function.      @example      ```js      import { fork } from 'fluture'      import { readFile } from 'file-system'      fork(console.warn)(console.log)(        readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')      )      ```   2. readFileWithCancel - Reads `utf8` files only.      @example      ```js      import { fork } from 'fluture'      import { readFile } from 'file-system'      fork(console.warn)(console.log)(        readFileWithCancel(() => process.exit(), './README.md')      )      ```   3. readFile - Eschews any custom cancellation.      @example      ```js      import { fork } from 'fluture'      import { readFile } from 'file-system'      fork(console.warn)(console.log)(readFile('./README.md'))      ```"
+          "description": "Read a file asynchronously as a Future-wrapped value.",
+          "curried": [
+            "1. readFileWithFormatAndCancel - Can be given a file encoding and a cancellation function.",
+            "     @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { readFile } from 'file-system'",
+            "fork(console.warn)(console.log)(",
+            "readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')",
+            ")",
+            "```",
+            "2. readFileWithCancel - Reads `utf8` files only.",
+            "     @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { readFile } from 'file-system'",
+            "fork(console.warn)(console.log)(",
+            "readFileWithCancel(() => process.exit(), './README.md')",
+            ")",
+            "```",
+            "3. readFile - Eschews any custom cancellation.",
+            "     @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { readFile } from 'file-system'",
+            "fork(console.warn)(console.log)(readFile('./README.md'))",
+            "```"
+          ]
         },
         "keywords": [
           "@curried",
@@ -1188,19 +1109,7 @@
       {
         "start": 82,
         "end": 93,
-        "lines": [
-          "Read a JSON file asynchronously as a Future-wrapped value, given a cancellation function",
-          "@name readJSONFileWithCancel",
-          "@see {@link readFile}",
-          "@see {@link readJSONFile}",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { readJSONFile } from 'file-system'",
-          "fork(console.warn)(console.log)(readJSONFile('./package.json'))",
-          "```"
-        ],
-        "summary": " Read a JSON file asynchronously as a Future-wrapped value, given a cancellation function  @name readJSONFileWithCancel  @see {@link readFile}  @see {@link readJSONFile}  @example  ```js  import { fork } from 'fluture'  import { readJSONFile } from 'file-system'  fork(console.warn)(console.log)(readJSONFile('./package.json'))  ```",
+        "summary": "Read a JSON file asynchronously as a Future-wrapped value, given a cancellation function",
         "links": [
           "readFile",
           "readJSONFile"
@@ -1208,7 +1117,18 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Read a JSON file asynchronously as a Future-wrapped value, given a cancellation function  @name readJSONFileWithCancel  @see {@link readFile}  @see {@link readJSONFile}  @example  ```js  import { fork } from 'fluture'  import { readJSONFile } from 'file-system'  fork(console.warn)(console.log)(readJSONFile('./package.json'))  ```"
+          "description": "Read a JSON file asynchronously as a Future-wrapped value, given a cancellation function",
+          "name": "readJSONFileWithCancel",
+          "see": [
+            "{@link readFile}",
+            "{@link readJSONFile}",
+            " @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { readJSONFile } from 'file-system'",
+            "fork(console.warn)(console.log)(readJSONFile('./package.json'))",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1222,19 +1142,7 @@
       {
         "start": 100,
         "end": 111,
-        "lines": [
-          "Read a JSON file asynchronously as a Future-wrapped value",
-          "@name readJSONFile",
-          "@see {@link readFile}",
-          "@see {@link readJSONFileWithCancel}",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { readJSONFile } from 'file-system'",
-          "fork(console.warn)(console.log)(readJSONFile('./package.json'))",
-          "```"
-        ],
-        "summary": " Read a JSON file asynchronously as a Future-wrapped value  @name readJSONFile  @see {@link readFile}  @see {@link readJSONFileWithCancel}  @example  ```js  import { fork } from 'fluture'  import { readJSONFile } from 'file-system'  fork(console.warn)(console.log)(readJSONFile('./package.json'))  ```",
+        "summary": "Read a JSON file asynchronously as a Future-wrapped value",
         "links": [
           "readFile",
           "readJSONFileWithCancel"
@@ -1242,7 +1150,18 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Read a JSON file asynchronously as a Future-wrapped value  @name readJSONFile  @see {@link readFile}  @see {@link readJSONFileWithCancel}  @example  ```js  import { fork } from 'fluture'  import { readJSONFile } from 'file-system'  fork(console.warn)(console.log)(readJSONFile('./package.json'))  ```"
+          "description": "Read a JSON file asynchronously as a Future-wrapped value",
+          "name": "readJSONFile",
+          "see": [
+            "{@link readFile}",
+            "{@link readJSONFileWithCancel}",
+            " @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { readJSONFile } from 'file-system'",
+            "fork(console.warn)(console.log)(readJSONFile('./package.json'))",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1256,24 +1175,7 @@
       {
         "start": 114,
         "end": 130,
-        "lines": [
-          "Read a glob asynchronously as a Future-wrapped value,",
-          "with configuration and a cancellation function.",
-          "Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
-          "@name readDirWithConfigAndCancel",
-          "@see {@link readDirWithConfig}",
-          "@see {@link readDir}",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { readDirWithConfigAndCancel } from 'file-system'",
-          "// [...]",
-          "pipe(",
-          "  fork(console.warn)(console.log)",
-          ")(readDirWithConfigAndCancel(cancellationFn, { ignore: ['node_modules/**'] }, 'src/*'))",
-          "```"
-        ],
-        "summary": " Read a glob asynchronously as a Future-wrapped value,  with configuration and a cancellation function.  Configuration is passed to [glob](https://www.npmjs.com/package/glob)  @name readDirWithConfigAndCancel  @see {@link readDirWithConfig}  @see {@link readDir}  @example  ```js  import { fork } from 'fluture'  import { readDirWithConfigAndCancel } from 'file-system'  // [...]  pipe(    fork(console.warn)(console.log)  )(readDirWithConfigAndCancel(cancellationFn, { ignore: ['node_modules/**'] }, 'src/*'))  ```",
+        "summary": "Read a glob asynchronously as a Future-wrapped value, with configuration and a cancellation function. Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
           "readDirWithConfig",
           "readDir"
@@ -1281,7 +1183,21 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Read a glob asynchronously as a Future-wrapped value,  with configuration and a cancellation function.  Configuration is passed to [glob](https://www.npmjs.com/package/glob)  @name readDirWithConfigAndCancel  @see {@link readDirWithConfig}  @see {@link readDir}  @example  ```js  import { fork } from 'fluture'  import { readDirWithConfigAndCancel } from 'file-system'  // [...]  pipe(    fork(console.warn)(console.log)  )(readDirWithConfigAndCancel(cancellationFn, { ignore: ['node_modules/**'] }, 'src/*'))  ```"
+          "description": "Read a glob asynchronously as a Future-wrapped value, with configuration and a cancellation function. Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
+          "name": "readDirWithConfigAndCancel",
+          "see": [
+            "{@link readDirWithConfig}",
+            "{@link readDir}",
+            " @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { readDirWithConfigAndCancel } from 'file-system'",
+            "// [...]",
+            "pipe(",
+            "fork(console.warn)(console.log)",
+            ")(readDirWithConfigAndCancel(cancellationFn, { ignore: ['node_modules/**'] }, 'src/*'))",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1295,23 +1211,7 @@
       {
         "start": 147,
         "end": 162,
-        "lines": [
-          "Read a glob asynchronously as a Future-wrapped value, with configuration.",
-          "Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
-          "@name readDirWithConfig",
-          "@see {@link readDirWithConfigAndCancel}",
-          "@see {@link readDir}",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { readDirWithConfig } from 'file-system'",
-          "// [...]",
-          "pipe(",
-          "  fork(console.warn)(console.log)",
-          ")(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))",
-          "```"
-        ],
-        "summary": " Read a glob asynchronously as a Future-wrapped value, with configuration.  Configuration is passed to [glob](https://www.npmjs.com/package/glob)  @name readDirWithConfig  @see {@link readDirWithConfigAndCancel}  @see {@link readDir}  @example  ```js  import { fork } from 'fluture'  import { readDirWithConfig } from 'file-system'  // [...]  pipe(    fork(console.warn)(console.log)  )(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))  ```",
+        "summary": "Read a glob asynchronously as a Future-wrapped value, with configuration. Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
           "readDirWithConfigAndCancel",
           "readDir"
@@ -1319,7 +1219,21 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Read a glob asynchronously as a Future-wrapped value, with configuration.  Configuration is passed to [glob](https://www.npmjs.com/package/glob)  @name readDirWithConfig  @see {@link readDirWithConfigAndCancel}  @see {@link readDir}  @example  ```js  import { fork } from 'fluture'  import { readDirWithConfig } from 'file-system'  // [...]  pipe(    fork(console.warn)(console.log)  )(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))  ```"
+          "description": "Read a glob asynchronously as a Future-wrapped value, with configuration. Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
+          "name": "readDirWithConfig",
+          "see": [
+            "{@link readDirWithConfigAndCancel}",
+            "{@link readDir}",
+            " @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { readDirWithConfig } from 'file-system'",
+            "// [...]",
+            "pipe(",
+            "fork(console.warn)(console.log)",
+            ")(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1333,21 +1247,7 @@
       {
         "start": 165,
         "end": 178,
-        "lines": [
-          "Read a glob asynchronously as a Future-wrapped value, default config assumed.",
-          "Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
-          "@name readDir",
-          "@see {@link readDirWithConfigAndCancel}",
-          "@see {@link readDirWithConfig}",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { readDir } from 'file-system'",
-          "// [...]",
-          "fork(console.warn)(console.log)(readDir('src/*'))",
-          "```"
-        ],
-        "summary": " Read a glob asynchronously as a Future-wrapped value, default config assumed.  Configuration is passed to [glob](https://www.npmjs.com/package/glob)  @name readDir  @see {@link readDirWithConfigAndCancel}  @see {@link readDirWithConfig}  @example  ```js  import { fork } from 'fluture'  import { readDir } from 'file-system'  // [...]  fork(console.warn)(console.log)(readDir('src/*'))  ```",
+        "summary": "Read a glob asynchronously as a Future-wrapped value, default config assumed. Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
           "readDirWithConfigAndCancel",
           "readDirWithConfig"
@@ -1355,7 +1255,19 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Read a glob asynchronously as a Future-wrapped value, default config assumed.  Configuration is passed to [glob](https://www.npmjs.com/package/glob)  @name readDir  @see {@link readDirWithConfigAndCancel}  @see {@link readDirWithConfig}  @example  ```js  import { fork } from 'fluture'  import { readDir } from 'file-system'  // [...]  fork(console.warn)(console.log)(readDir('src/*'))  ```"
+          "description": "Read a glob asynchronously as a Future-wrapped value, default config assumed. Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
+          "name": "readDir",
+          "see": [
+            "{@link readDirWithConfigAndCancel}",
+            "{@link readDirWithConfig}",
+            " @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { readDir } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(readDir('src/*'))",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1369,28 +1281,7 @@
       {
         "start": 181,
         "end": 201,
-        "lines": [
-          "Write to a file, with configuration and a cancellation function.",
-          "Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
-          "@name writeFileWithConfigAndCancel",
-          "@see {@link writeFileWithConfig}",
-          "@see {@link writeFile}",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { writeFileWithConfig } from 'file-system'",
-          "// [...]",
-          "fork(console.warn)(console.log)(",
-          "  writeFileWithConfigAndCancel(",
-          "    cancellationFunction,",
-          "    { ...fs.writeFileConfig },",
-          "    'my-file.txt',",
-          "    'hey I am a file'",
-          "  )",
-          ")",
-          "```"
-        ],
-        "summary": " Write to a file, with configuration and a cancellation function.  Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.  @name writeFileWithConfigAndCancel  @see {@link writeFileWithConfig}  @see {@link writeFile}  @example  ```js  import { fork } from 'fluture'  import { writeFileWithConfig } from 'file-system'  // [...]  fork(console.warn)(console.log)(    writeFileWithConfigAndCancel(      cancellationFunction,      { ...fs.writeFileConfig },      'my-file.txt',      'hey I am a file'    )  )  ```",
+        "summary": "Write to a file, with configuration and a cancellation function. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
           "writeFileWithConfig",
           "writeFile"
@@ -1398,7 +1289,26 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Write to a file, with configuration and a cancellation function.  Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.  @name writeFileWithConfigAndCancel  @see {@link writeFileWithConfig}  @see {@link writeFile}  @example  ```js  import { fork } from 'fluture'  import { writeFileWithConfig } from 'file-system'  // [...]  fork(console.warn)(console.log)(    writeFileWithConfigAndCancel(      cancellationFunction,      { ...fs.writeFileConfig },      'my-file.txt',      'hey I am a file'    )  )  ```"
+          "description": "Write to a file, with configuration and a cancellation function. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
+          "name": "writeFileWithConfigAndCancel",
+          "see": [
+            "{@link writeFileWithConfig}",
+            "{@link writeFile}",
+            " @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { writeFileWithConfig } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "writeFileWithConfigAndCancel(",
+            "cancellationFunction,",
+            "{ ...fs.writeFileConfig },",
+            "'my-file.txt',",
+            "'hey I am a file'",
+            ")",
+            ")",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1412,27 +1322,7 @@
       {
         "start": 217,
         "end": 236,
-        "lines": [
-          "Write to a file, with configuration.",
-          "Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
-          "@name writeFileWithConfig",
-          "@see {@link writeFileWithConfigAndCancel}",
-          "@see {@link writeFile}",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { writeFileWithConfig } from 'file-system'",
-          "// [...]",
-          "fork(console.warn)(console.log)(",
-          "  writeFileWithConfig(",
-          "    { encoding: 'utf8' },",
-          "    'my-file.txt',",
-          "    'hey I am a file'",
-          "  )",
-          ")",
-          "```"
-        ],
-        "summary": " Write to a file, with configuration.  Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.  @name writeFileWithConfig  @see {@link writeFileWithConfigAndCancel}  @see {@link writeFile}  @example  ```js  import { fork } from 'fluture'  import { writeFileWithConfig } from 'file-system'  // [...]  fork(console.warn)(console.log)(    writeFileWithConfig(      { encoding: 'utf8' },      'my-file.txt',      'hey I am a file'    )  )  ```",
+        "summary": "Write to a file, with configuration. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
           "writeFileWithConfigAndCancel",
           "writeFile"
@@ -1440,7 +1330,25 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Write to a file, with configuration.  Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.  @name writeFileWithConfig  @see {@link writeFileWithConfigAndCancel}  @see {@link writeFile}  @example  ```js  import { fork } from 'fluture'  import { writeFileWithConfig } from 'file-system'  // [...]  fork(console.warn)(console.log)(    writeFileWithConfig(      { encoding: 'utf8' },      'my-file.txt',      'hey I am a file'    )  )  ```"
+          "description": "Write to a file, with configuration. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
+          "name": "writeFileWithConfig",
+          "see": [
+            "{@link writeFileWithConfigAndCancel}",
+            "{@link writeFile}",
+            " @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { writeFileWithConfig } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "writeFileWithConfig(",
+            "{ encoding: 'utf8' },",
+            "'my-file.txt',",
+            "'hey I am a file'",
+            ")",
+            ")",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1454,26 +1362,7 @@
       {
         "start": 239,
         "end": 257,
-        "lines": [
-          "Write to a file, assuming `'utf8'`.",
-          "Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
-          "@name writeFile",
-          "@see {@link writeFileWithConfigAndCancel}",
-          "@see {@link writeFileWithConfig}",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { writeFileWithConfig } from 'file-system'",
-          "// [...]",
-          "fork(console.warn)(console.log)(",
-          "  writeFileWithConfig(",
-          "    'my-file.txt',",
-          "    'hey I am a file'",
-          "  )",
-          ")",
-          "```"
-        ],
-        "summary": " Write to a file, assuming `'utf8'`.  Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.  @name writeFile  @see {@link writeFileWithConfigAndCancel}  @see {@link writeFileWithConfig}  @example  ```js  import { fork } from 'fluture'  import { writeFileWithConfig } from 'file-system'  // [...]  fork(console.warn)(console.log)(    writeFileWithConfig(      'my-file.txt',      'hey I am a file'    )  )  ```",
+        "summary": "Write to a file, assuming `'utf8'`. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
           "writeFileWithConfigAndCancel",
           "writeFileWithConfig"
@@ -1481,7 +1370,24 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Write to a file, assuming `'utf8'`.  Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.  @name writeFile  @see {@link writeFileWithConfigAndCancel}  @see {@link writeFileWithConfig}  @example  ```js  import { fork } from 'fluture'  import { writeFileWithConfig } from 'file-system'  // [...]  fork(console.warn)(console.log)(    writeFileWithConfig(      'my-file.txt',      'hey I am a file'    )  )  ```"
+          "description": "Write to a file, assuming `'utf8'`. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
+          "name": "writeFile",
+          "see": [
+            "{@link writeFileWithConfigAndCancel}",
+            "{@link writeFileWithConfig}",
+            " @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { writeFileWithConfig } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "writeFileWithConfig(",
+            "'my-file.txt',",
+            "'hey I am a file'",
+            ")",
+            ")",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1495,61 +1401,52 @@
       {
         "start": 260,
         "end": 308,
-        "lines": [
-          "Remove a file, configurably, with cancellation.",
-          "Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
-          "@curried",
-          " 1. removeFileWithConfigAndCancel - Configuration and cancellation",
-          " *",
-          "    @example",
-          "     ```js",
-          "     import { fork } from 'fluture'",
-          "     import { removeFileWithConfigAndCancel } from 'file-system'",
-          " *",
-          "     fork(console.warn)(console.log)(",
-          "       removeFileWithConfigAndCancel(",
-          "         cancellationFn,",
-          "         { ...fs.removeFileConfig },",
-          "         'my-file.txt'",
-          "       )",
-          "     )",
-          "     ```",
-          " 2. removeFileWithConfig - No config, just cancellation",
-          " *",
-          "    @example",
-          "    ```js",
-          "    import { fork } from 'fluture'",
-          "    import { removeFileWithConfig } from 'file-system'",
-          "    // [...]",
-          "    fork(console.warn)(console.log)(",
-          "      removeFileWithConfig(",
-          "        { ...fs.removeFileConfig },",
-          "        'my-file.txt'",
-          "      )",
-          "    )",
-          "    ```",
-          " *",
-          " 3. removeFile - remove a file. Aliased to `rm`.",
-          " *",
-          "    @example",
-          "    ```js",
-          "    import { fork } from 'fluture'",
-          "    import { removeFile } from 'file-system'",
-          "    // [...]",
-          "    fork(console.warn)(console.log)(",
-          "      removeFile(",
-          "        'my-file.txt'",
-          "      )",
-          "    )",
-          "    ```",
-          " *"
-        ],
-        "summary": " Remove a file, configurably, with cancellation.  Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.  @curried   1. removeFileWithConfigAndCancel - Configuration and cancellation      @example       ```js       import { fork } from 'fluture'       import { removeFileWithConfigAndCancel } from 'file-system'       fork(console.warn)(console.log)(         removeFileWithConfigAndCancel(           cancellationFn,           { ...fs.removeFileConfig },           'my-file.txt'         )       )       ```   2. removeFileWithConfig - No config, just cancellation      @example      ```js      import { fork } from 'fluture'      import { removeFileWithConfig } from 'file-system'      // [...]      fork(console.warn)(console.log)(        removeFileWithConfig(          { ...fs.removeFileConfig },          'my-file.txt'        )      )      ```   3. removeFile - remove a file. Aliased to `rm`.      @example      ```js      import { fork } from 'fluture'      import { removeFile } from 'file-system'      // [...]      fork(console.warn)(console.log)(        removeFile(          'my-file.txt'        )      )      ```",
+        "summary": "Remove a file, configurably, with cancellation. Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Remove a file, configurably, with cancellation.  Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.  @curried   1. removeFileWithConfigAndCancel - Configuration and cancellation      @example       ```js       import { fork } from 'fluture'       import { removeFileWithConfigAndCancel } from 'file-system'       fork(console.warn)(console.log)(         removeFileWithConfigAndCancel(           cancellationFn,           { ...fs.removeFileConfig },           'my-file.txt'         )       )       ```   2. removeFileWithConfig - No config, just cancellation      @example      ```js      import { fork } from 'fluture'      import { removeFileWithConfig } from 'file-system'      // [...]      fork(console.warn)(console.log)(        removeFileWithConfig(          { ...fs.removeFileConfig },          'my-file.txt'        )      )      ```   3. removeFile - remove a file. Aliased to `rm`.      @example      ```js      import { fork } from 'fluture'      import { removeFile } from 'file-system'      // [...]      fork(console.warn)(console.log)(        removeFile(          'my-file.txt'        )      )      ```"
+          "description": "Remove a file, configurably, with cancellation. Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
+          "curried": [
+            "1. removeFileWithConfigAndCancel - Configuration and cancellation",
+            "     @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { removeFileWithConfigAndCancel } from 'file-system'",
+            "fork(console.warn)(console.log)(",
+            "removeFileWithConfigAndCancel(",
+            "cancellationFn,",
+            "{ ...fs.removeFileConfig },",
+            "'my-file.txt'",
+            ")",
+            ")",
+            "```",
+            "2. removeFileWithConfig - No config, just cancellation",
+            "     @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { removeFileWithConfig } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "removeFileWithConfig(",
+            "{ ...fs.removeFileConfig },",
+            "'my-file.txt'",
+            ")",
+            ")",
+            "```",
+            "3. removeFile - remove a file. Aliased to `rm`.",
+            "     @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { removeFile } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "removeFile(",
+            "'my-file.txt'",
+            ")",
+            ")",
+            "```"
+          ]
         },
         "keywords": [
           "@curried",
@@ -1561,26 +1458,7 @@
       {
         "start": 330,
         "end": 348,
-        "lines": [
-          "Remove multiple files, configurably, with a cancellation function.",
-          "@name removeFilesWithConfigAndCancel",
-          "@see {@link removeFilesWithConfig}",
-          "@see {@link removeFiles}",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { removeFilesWithConfig } from 'file-system'",
-          "// [...]",
-          "fork(console.warn)(console.log)(",
-          "  removeFilesWithConfigAndCancel(",
-          "    cancellationFn,",
-          "    { parallel: 30 },",
-          "    [...list, ...of, ...thirty, ...files]",
-          "  )",
-          ")",
-          "```"
-        ],
-        "summary": " Remove multiple files, configurably, with a cancellation function.  @name removeFilesWithConfigAndCancel  @see {@link removeFilesWithConfig}  @see {@link removeFiles}  @example  ```js  import { fork } from 'fluture'  import { removeFilesWithConfig } from 'file-system'  // [...]  fork(console.warn)(console.log)(    removeFilesWithConfigAndCancel(      cancellationFn,      { parallel: 30 },      [...list, ...of, ...thirty, ...files]    )  )  ```",
+        "summary": "Remove multiple files, configurably, with a cancellation function.",
         "links": [
           "removeFilesWithConfig",
           "removeFiles"
@@ -1588,7 +1466,25 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Remove multiple files, configurably, with a cancellation function.  @name removeFilesWithConfigAndCancel  @see {@link removeFilesWithConfig}  @see {@link removeFiles}  @example  ```js  import { fork } from 'fluture'  import { removeFilesWithConfig } from 'file-system'  // [...]  fork(console.warn)(console.log)(    removeFilesWithConfigAndCancel(      cancellationFn,      { parallel: 30 },      [...list, ...of, ...thirty, ...files]    )  )  ```"
+          "description": "Remove multiple files, configurably, with a cancellation function.",
+          "name": "removeFilesWithConfigAndCancel",
+          "see": [
+            "{@link removeFilesWithConfig}",
+            "{@link removeFiles}",
+            " @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { removeFilesWithConfig } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "removeFilesWithConfigAndCancel(",
+            "cancellationFn,",
+            "{ parallel: 30 },",
+            "[...list, ...of, ...thirty, ...files]",
+            ")",
+            ")",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1602,25 +1498,7 @@
       {
         "start": 358,
         "end": 375,
-        "lines": [
-          "Remove multiple files, configurably.",
-          "@name removeFilesWithConfig",
-          "@see {@link removeFilesWithConfigAndCancel}",
-          "@see {@link removeFiles}",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { DEFAULT_REMOVAL_CONFIG, removeFilesWithConfig } from 'file-system'",
-          "// [...]",
-          "fork(console.warn)(console.log)(",
-          "  removeFilesWithConfig(",
-          "    DEFAULT_REMOVAL_CONFIG,",
-          "    [...list, ...of, ...thirty, ...files]",
-          "  )",
-          ")",
-          "```"
-        ],
-        "summary": " Remove multiple files, configurably.  @name removeFilesWithConfig  @see {@link removeFilesWithConfigAndCancel}  @see {@link removeFiles}  @example  ```js  import { fork } from 'fluture'  import { DEFAULT_REMOVAL_CONFIG, removeFilesWithConfig } from 'file-system'  // [...]  fork(console.warn)(console.log)(    removeFilesWithConfig(      DEFAULT_REMOVAL_CONFIG,      [...list, ...of, ...thirty, ...files]    )  )  ```",
+        "summary": "Remove multiple files, configurably.",
         "links": [
           "removeFilesWithConfigAndCancel",
           "removeFiles"
@@ -1628,7 +1506,24 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Remove multiple files, configurably.  @name removeFilesWithConfig  @see {@link removeFilesWithConfigAndCancel}  @see {@link removeFiles}  @example  ```js  import { fork } from 'fluture'  import { DEFAULT_REMOVAL_CONFIG, removeFilesWithConfig } from 'file-system'  // [...]  fork(console.warn)(console.log)(    removeFilesWithConfig(      DEFAULT_REMOVAL_CONFIG,      [...list, ...of, ...thirty, ...files]    )  )  ```"
+          "description": "Remove multiple files, configurably.",
+          "name": "removeFilesWithConfig",
+          "see": [
+            "{@link removeFilesWithConfigAndCancel}",
+            "{@link removeFiles}",
+            " @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { DEFAULT_REMOVAL_CONFIG, removeFilesWithConfig } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "removeFilesWithConfig(",
+            "DEFAULT_REMOVAL_CONFIG,",
+            "[...list, ...of, ...thirty, ...files]",
+            ")",
+            ")",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1642,24 +1537,7 @@
       {
         "start": 378,
         "end": 394,
-        "lines": [
-          "Remove multiple files, configurably.",
-          "@name removeFilesWithConfig",
-          "@see {@link removeFilesWithConfigAndCancel}",
-          "@see {@link removeFiles}",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { removeFilesWithConfig } from 'file-system'",
-          "// [...]",
-          "fork(console.warn)(console.log)(",
-          "  removeFilesWithConfig(",
-          "    [...list, ...of, ...thirty, ...files]",
-          "  )",
-          ")",
-          "```"
-        ],
-        "summary": " Remove multiple files, configurably.  @name removeFilesWithConfig  @see {@link removeFilesWithConfigAndCancel}  @see {@link removeFiles}  @example  ```js  import { fork } from 'fluture'  import { removeFilesWithConfig } from 'file-system'  // [...]  fork(console.warn)(console.log)(    removeFilesWithConfig(      [...list, ...of, ...thirty, ...files]    )  )  ```",
+        "summary": "Remove multiple files, configurably.",
         "links": [
           "removeFilesWithConfigAndCancel",
           "removeFiles"
@@ -1667,7 +1545,23 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Remove multiple files, configurably.  @name removeFilesWithConfig  @see {@link removeFilesWithConfigAndCancel}  @see {@link removeFiles}  @example  ```js  import { fork } from 'fluture'  import { removeFilesWithConfig } from 'file-system'  // [...]  fork(console.warn)(console.log)(    removeFilesWithConfig(      [...list, ...of, ...thirty, ...files]    )  )  ```"
+          "description": "Remove multiple files, configurably.",
+          "name": "removeFilesWithConfig",
+          "see": [
+            "{@link removeFilesWithConfigAndCancel}",
+            "{@link removeFiles}",
+            " @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { removeFilesWithConfig } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "removeFilesWithConfig(",
+            "[...list, ...of, ...thirty, ...files]",
+            ")",
+            ")",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1681,27 +1575,7 @@
       {
         "start": 397,
         "end": 416,
-        "lines": [
-          "Make a directory, given a cancellation function.",
-          "Returns a Future-wrapped file path as a discrete value upon success.",
-          "@name mkdirWithCancel",
-          "@see {@link mkdir}",
-          "@see {@link mkdirp}",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { mkdirWithCancel } from 'file-system'",
-          "// [...]",
-          "fork(console.warn)(console.log)(",
-          "  mkdirWithCancel(",
-          "    () => {},",
-          "    {},",
-          "    'my-dir'",
-          "  )",
-          ")",
-          "```"
-        ],
-        "summary": " Make a directory, given a cancellation function.  Returns a Future-wrapped file path as a discrete value upon success.  @name mkdirWithCancel  @see {@link mkdir}  @see {@link mkdirp}  @example  ```js  import { fork } from 'fluture'  import { mkdirWithCancel } from 'file-system'  // [...]  fork(console.warn)(console.log)(    mkdirWithCancel(      () => {},      {},      'my-dir'    )  )  ```",
+        "summary": "Make a directory, given a cancellation function. Returns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdir",
           "mkdirp"
@@ -1709,7 +1583,25 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Make a directory, given a cancellation function.  Returns a Future-wrapped file path as a discrete value upon success.  @name mkdirWithCancel  @see {@link mkdir}  @see {@link mkdirp}  @example  ```js  import { fork } from 'fluture'  import { mkdirWithCancel } from 'file-system'  // [...]  fork(console.warn)(console.log)(    mkdirWithCancel(      () => {},      {},      'my-dir'    )  )  ```"
+          "description": "Make a directory, given a cancellation function. Returns a Future-wrapped file path as a discrete value upon success.",
+          "name": "mkdirWithCancel",
+          "see": [
+            "{@link mkdir}",
+            "{@link mkdirp}",
+            " @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { mkdirWithCancel } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "mkdirWithCancel(",
+            "() => {},",
+            "{},",
+            "'my-dir'",
+            ")",
+            ")",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1723,26 +1615,7 @@
       {
         "start": 426,
         "end": 444,
-        "lines": [
-          "Make a directory",
-          "Returns a Future-wrapped file path as a discrete value upon success.",
-          "@name mkdir",
-          "@see {@link mkdirWithCancel}",
-          "@see {@link mkdirp}",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { mkdir } from 'file-system'",
-          "// [...]",
-          "fork(console.warn)(console.log)(",
-          "  mkdir(",
-          "    {},",
-          "    'my-dir'",
-          "  )",
-          ")",
-          "```"
-        ],
-        "summary": " Make a directory  Returns a Future-wrapped file path as a discrete value upon success.  @name mkdir  @see {@link mkdirWithCancel}  @see {@link mkdirp}  @example  ```js  import { fork } from 'fluture'  import { mkdir } from 'file-system'  // [...]  fork(console.warn)(console.log)(    mkdir(      {},      'my-dir'    )  )  ```",
+        "summary": "Make a directory Returns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdirWithCancel",
           "mkdirp"
@@ -1750,7 +1623,24 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Make a directory  Returns a Future-wrapped file path as a discrete value upon success.  @name mkdir  @see {@link mkdirWithCancel}  @see {@link mkdirp}  @example  ```js  import { fork } from 'fluture'  import { mkdir } from 'file-system'  // [...]  fork(console.warn)(console.log)(    mkdir(      {},      'my-dir'    )  )  ```"
+          "description": "Make a directory Returns a Future-wrapped file path as a discrete value upon success.",
+          "name": "mkdir",
+          "see": [
+            "{@link mkdirWithCancel}",
+            "{@link mkdirp}",
+            " @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { mkdir } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "mkdir(",
+            "{},",
+            "'my-dir'",
+            ")",
+            ")",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1764,26 +1654,7 @@
       {
         "start": 447,
         "end": 465,
-        "lines": [
-          "Make a directory, recursively.",
-          "Returns a Future-wrapped file path as a discrete value upon success.",
-          "@name mkdirp",
-          "@see {@link mkdirWithCancel}",
-          "@see {@link mkdir}",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { mkdir } from 'file-system'",
-          "// [...]",
-          "fork(console.warn)(console.log)(",
-          "  mkdir(",
-          "    {},",
-          "    'my-dir'",
-          "  )",
-          ")",
-          "```"
-        ],
-        "summary": " Make a directory, recursively.  Returns a Future-wrapped file path as a discrete value upon success.  @name mkdirp  @see {@link mkdirWithCancel}  @see {@link mkdir}  @example  ```js  import { fork } from 'fluture'  import { mkdir } from 'file-system'  // [...]  fork(console.warn)(console.log)(    mkdir(      {},      'my-dir'    )  )  ```",
+        "summary": "Make a directory, recursively. Returns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdirWithCancel",
           "mkdir"
@@ -1791,7 +1662,24 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Make a directory, recursively.  Returns a Future-wrapped file path as a discrete value upon success.  @name mkdirp  @see {@link mkdirWithCancel}  @see {@link mkdir}  @example  ```js  import { fork } from 'fluture'  import { mkdir } from 'file-system'  // [...]  fork(console.warn)(console.log)(    mkdir(      {},      'my-dir'    )  )  ```"
+          "description": "Make a directory, recursively. Returns a Future-wrapped file path as a discrete value upon success.",
+          "name": "mkdirp",
+          "see": [
+            "{@link mkdirWithCancel}",
+            "{@link mkdir}",
+            " @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { mkdir } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "mkdir(",
+            "{},",
+            "'my-dir'",
+            ")",
+            ")",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1805,28 +1693,26 @@
       {
         "start": 481,
         "end": 496,
-        "lines": [
-          "Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`",
-          "@name writeFileWithAutoPath",
-          "@example",
-          "```js",
-          "import { fork } from 'fluture'",
-          "import { writeFileWithAutoPath } from 'file-system'",
-          "// [...]",
-          "fork(console.warn)(console.log)(",
-          "  writeFileWithAutoPath(",
-          "    \"folders/you/must/exist/file.biz\",",
-          "    \"my cool content\"",
-          "  )",
-          ")",
-          "```"
-        ],
-        "summary": " Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`  @name writeFileWithAutoPath  @example  ```js  import { fork } from 'fluture'  import { writeFileWithAutoPath } from 'file-system'  // [...]  fork(console.warn)(console.log)(    writeFileWithAutoPath(      \"folders/you/must/exist/file.biz\",      \"my cool content\"    )  )  ```",
+        "summary": "Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`  @name writeFileWithAutoPath  @example  ```js  import { fork } from 'fluture'  import { writeFileWithAutoPath } from 'file-system'  // [...]  fork(console.warn)(console.log)(    writeFileWithAutoPath(      \"folders/you/must/exist/file.biz\",      \"my cool content\"    )  )  ```"
+          "description": "Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`",
+          "name": [
+            " @example",
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { writeFileWithAutoPath } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "writeFileWithAutoPath(",
+            "\"folders/you/must/exist/file.biz\",",
+            "\"my cool content\"",
+            ")",
+            ")",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1878,33 +1764,12 @@
       {
         "start": 14,
         "end": 34,
-        "lines": [
-          "@name groupByIndex",
-          "@example",
-          "```js test=true",
-          "expect(groupByIndex(0, [",
-          "  ['spades', 'ace'],",
-          "  ['diamonds', 'seven'],",
-          "  ['hearts', 'eight'],",
-          "  ['clubs', 'jack'],",
-          "  ['diamonds', 'ace'],",
-          "  ['spades', 'king'],",
-          "  ['diamonds', 'four'],",
-          "  ['spades', 'eight'],",
-          "])).toEqual({",
-          "  clubs: [['jack']],",
-          "  diamonds: [['seven'], ['ace'], ['four']],",
-          "  hearts: [['eight']],",
-          "  spades: [['ace'], ['king'], ['eight']],",
-          "})",
-          "```"
-        ],
-        "summary": " @name groupByIndex  @example  ```js test=true  expect(groupByIndex(0, [    ['spades', 'ace'],    ['diamonds', 'seven'],    ['hearts', 'eight'],    ['clubs', 'jack'],    ['diamonds', 'ace'],    ['spades', 'king'],    ['diamonds', 'four'],    ['spades', 'eight'],  ])).toEqual({    clubs: [['jack']],    diamonds: [['seven'], ['ace'], ['four']],    hearts: [['eight']],    spades: [['ace'], ['king'], ['eight']],  })  ```",
+        "summary": "groupByIndex  @example ```js test=true expect(groupByIndex(0, [ ['spades', 'ace'], ['diamonds', 'seven'], ['hearts', 'eight'], ['clubs', 'jack'], ['diamonds', 'ace'], ['spades', 'king'], ['diamonds', 'four'], ['spades', 'eight'], ])).toEqual({ clubs: [['jack']], diamonds: [['seven'], ['ace'], ['four']], hearts: [['eight']], spades: [['ace'], ['king'], ['eight']], }) ```",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " @name groupByIndex  @example  ```js test=true  expect(groupByIndex(0, [    ['spades', 'ace'],    ['diamonds', 'seven'],    ['hearts', 'eight'],    ['clubs', 'jack'],    ['diamonds', 'ace'],    ['spades', 'king'],    ['diamonds', 'four'],    ['spades', 'eight'],  ])).toEqual({    clubs: [['jack']],    diamonds: [['seven'], ['ace'], ['four']],    hearts: [['eight']],    spades: [['ace'], ['king'], ['eight']],  })  ```"
+          "description": "groupByIndex  @example ```js test=true expect(groupByIndex(0, [ ['spades', 'ace'], ['diamonds', 'seven'], ['hearts', 'eight'], ['clubs', 'jack'], ['diamonds', 'ace'], ['spades', 'king'], ['diamonds', 'four'], ['spades', 'eight'], ])).toEqual({ clubs: [['jack']], diamonds: [['seven'], ['ace'], ['four']], hearts: [['eight']], spades: [['ace'], ['king'], ['eight']], }) ```"
         },
         "keywords": [
           "@example",
@@ -1916,33 +1781,12 @@
       {
         "start": 39,
         "end": 59,
-        "lines": [
-          "@name groupFlatByIndex",
-          "@example",
-          "```js test=true",
-          "expect(groupFlatByIndex(0, [",
-          "  ['spades', 'ace'],",
-          "  ['diamonds', 'seven'],",
-          "  ['hearts', 'eight'],",
-          "  ['clubs', 'jack'],",
-          "  ['diamonds', 'ace'],",
-          "  ['spades', 'king'],",
-          "  ['diamonds', 'four'],",
-          "  ['spades', 'eight'],",
-          "])).toEqual({",
-          "  clubs: ['jack'],",
-          "  diamonds: ['seven', 'ace', 'four'],",
-          "  hearts: ['eight'],",
-          "  spades: ['ace', 'king', 'eight'],",
-          "})",
-          "```"
-        ],
-        "summary": " @name groupFlatByIndex  @example  ```js test=true  expect(groupFlatByIndex(0, [    ['spades', 'ace'],    ['diamonds', 'seven'],    ['hearts', 'eight'],    ['clubs', 'jack'],    ['diamonds', 'ace'],    ['spades', 'king'],    ['diamonds', 'four'],    ['spades', 'eight'],  ])).toEqual({    clubs: ['jack'],    diamonds: ['seven', 'ace', 'four'],    hearts: ['eight'],    spades: ['ace', 'king', 'eight'],  })  ```",
+        "summary": "groupFlatByIndex  @example ```js test=true expect(groupFlatByIndex(0, [ ['spades', 'ace'], ['diamonds', 'seven'], ['hearts', 'eight'], ['clubs', 'jack'], ['diamonds', 'ace'], ['spades', 'king'], ['diamonds', 'four'], ['spades', 'eight'], ])).toEqual({ clubs: ['jack'], diamonds: ['seven', 'ace', 'four'], hearts: ['eight'], spades: ['ace', 'king', 'eight'], }) ```",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " @name groupFlatByIndex  @example  ```js test=true  expect(groupFlatByIndex(0, [    ['spades', 'ace'],    ['diamonds', 'seven'],    ['hearts', 'eight'],    ['clubs', 'jack'],    ['diamonds', 'ace'],    ['spades', 'king'],    ['diamonds', 'four'],    ['spades', 'eight'],  ])).toEqual({    clubs: ['jack'],    diamonds: ['seven', 'ace', 'four'],    hearts: ['eight'],    spades: ['ace', 'king', 'eight'],  })  ```"
+          "description": "groupFlatByIndex  @example ```js test=true expect(groupFlatByIndex(0, [ ['spades', 'ace'], ['diamonds', 'seven'], ['hearts', 'eight'], ['clubs', 'jack'], ['diamonds', 'ace'], ['spades', 'king'], ['diamonds', 'four'], ['spades', 'eight'], ])).toEqual({ clubs: ['jack'], diamonds: ['seven', 'ace', 'four'], hearts: ['eight'], spades: ['ace', 'king', 'eight'], }) ```"
         },
         "keywords": [
           "@example",
@@ -1965,29 +1809,25 @@
       {
         "start": 2,
         "end": 18,
-        "lines": [
-          "Generic comparison function.",
-          "This can be used to create a number of other more complex functions.",
-          "@name equalishBy",
-          "@example",
-          "```js test=true",
-          "const productIdSelector = z => {",
-          "  const d = z.indexOf('-')",
-          "  return d > -1 ? z.slice(0, d) : 'NO_MATCH'",
-          "}",
-          "const isProduct = equalishBy(productIdSelector, 'coolco')",
-          " *",
-          "expect(isProduct('coolco-10020')).toBeTruthy()",
-          "expect(isProduct('otherco-xkswn')).toBeFalsy()",
-          "expect(isProduct('blabbo')).toBeFalsy()",
-          "```"
-        ],
-        "summary": " Generic comparison function.  This can be used to create a number of other more complex functions.  @name equalishBy  @example  ```js test=true  const productIdSelector = z => {    const d = z.indexOf('-')    return d > -1 ? z.slice(0, d) : 'NO_MATCH'  }  const isProduct = equalishBy(productIdSelector, 'coolco')  expect(isProduct('coolco-10020')).toBeTruthy()  expect(isProduct('otherco-xkswn')).toBeFalsy()  expect(isProduct('blabbo')).toBeFalsy()  ```",
+        "summary": "Generic comparison function. This can be used to create a number of other more complex functions.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Generic comparison function.  This can be used to create a number of other more complex functions.  @name equalishBy  @example  ```js test=true  const productIdSelector = z => {    const d = z.indexOf('-')    return d > -1 ? z.slice(0, d) : 'NO_MATCH'  }  const isProduct = equalishBy(productIdSelector, 'coolco')  expect(isProduct('coolco-10020')).toBeTruthy()  expect(isProduct('otherco-xkswn')).toBeFalsy()  expect(isProduct('blabbo')).toBeFalsy()  ```"
+          "description": "Generic comparison function. This can be used to create a number of other more complex functions.",
+          "name": [
+            " @example",
+            "```js test=true",
+            "const productIdSelector = z => {",
+            "const d = z.indexOf('-')",
+            "return d > -1 ? z.slice(0, d) : 'NO_MATCH'",
+            "}",
+            "const isProduct = equalishBy(productIdSelector, 'coolco')",
+            "expect(isProduct('coolco-10020')).toBeTruthy()",
+            "expect(isProduct('otherco-xkswn')).toBeFalsy()",
+            "expect(isProduct('blabbo')).toBeFalsy()",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -1999,25 +1839,23 @@
       {
         "start": 35,
         "end": 47,
-        "lines": [
-          "Coerce values to boolean explicitly",
-          "@name coerce",
-          "@param {any} x Any value",
-          "@returns boolean",
-          "@example",
-          "```js test=true",
-          "expect(coerce(0)).toBeFalsy()",
-          "expect(coerce('')).toBeFalsy()",
-          "expect(coerce([])).toBeTruthy()",
-          "expect(coerce(1)).toBeTruthy()",
-          "```"
-        ],
-        "summary": " Coerce values to boolean explicitly  @name coerce  @param {any} x Any value  @returns boolean  @example  ```js test=true  expect(coerce(0)).toBeFalsy()  expect(coerce('')).toBeFalsy()  expect(coerce([])).toBeTruthy()  expect(coerce(1)).toBeTruthy()  ```",
+        "summary": "Coerce values to boolean explicitly",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Coerce values to boolean explicitly  @name coerce  @param {any} x Any value  @returns boolean  @example  ```js test=true  expect(coerce(0)).toBeFalsy()  expect(coerce('')).toBeFalsy()  expect(coerce([])).toBeTruthy()  expect(coerce(1)).toBeTruthy()  ```"
+          "description": "Coerce values to boolean explicitly",
+          "name": "coerce",
+          "param": "{any} x Any value",
+          "returns": [
+            " @example",
+            "```js test=true",
+            "expect(coerce(0)).toBeFalsy()",
+            "expect(coerce('')).toBeFalsy()",
+            "expect(coerce([])).toBeTruthy()",
+            "expect(coerce(1)).toBeTruthy()",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -2042,16 +1880,12 @@
       {
         "start": 11,
         "end": 14,
-        "lines": [
-          "@pageSummary Call external processes and consume them as a Future-wrapped value.",
-          "This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info."
-        ],
-        "summary": " @pageSummary Call external processes and consume them as a Future-wrapped value.  This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
+        "summary": "Call external processes and consume them as a Future-wrapped value. This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " @pageSummary Call external processes and consume them as a Future-wrapped value.  This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info."
+          "description": "Call external processes and consume them as a Future-wrapped value. This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info."
         },
         "keywords": [
           "@pageSummary"
@@ -2062,60 +1896,53 @@
       {
         "start": 17,
         "end": 64,
-        "lines": [
-          "Consume external commands as a Future-wrapped value.",
-          "@future",
-          "@curried",
-          " 1. execWithConfig - Passes all possible configuration values plus a cancellation function.",
-          " *",
-          "    @example",
-          "    ```js",
-          "    import { execWithConfig } from 'kiddo'",
-          "    import { fork } from 'fluture'",
-          "    fork(console.warn)(console.log)(",
-          "      execWithConfig(",
-          "        function customCancellationFunction() {},",
-          "        'echo',",
-          "        { cleanup: true },",
-          "        ['ahoy']",
-          "      )",
-          "    )",
-          "    ```",
-          " *",
-          " 2. execWithCancel - Eschews any configuration and instead only expects a cancellation function, command and arguments.",
-          " *",
-          "    @example",
-          "    ```js",
-          "    import { execWithCancel } from 'kiddo'",
-          "    import { fork } from 'fluture'",
-          "    fork(console.warn)(console.log)(",
-          "      execWithCancel(",
-          "        function customCancellationFunction() {},",
-          "        'echo',",
-          "        ['ahoy']",
-          "      )",
-          "    )",
-          "    ```",
-          " *",
-          " 3. exec - Eschews any configuration or cancellation function. Needs only command and arguments.",
-          " *",
-          "    @example",
-          "    ```js test=true",
-          "    import { fork } from 'fluture'",
-          "    // drgen-import-above",
-          "    const blah = Math.round(Math.random() * 100000)",
-          "    fork(done)(z => {",
-          "      expect(z.stdout).toEqual('' + blah)",
-          "      done()",
-          "    })(exec('echo', [blah]))",
-          "    ```"
-        ],
-        "summary": " Consume external commands as a Future-wrapped value.  @future  @curried   1. execWithConfig - Passes all possible configuration values plus a cancellation function.      @example      ```js      import { execWithConfig } from 'kiddo'      import { fork } from 'fluture'      fork(console.warn)(console.log)(        execWithConfig(          function customCancellationFunction() {},          'echo',          { cleanup: true },          ['ahoy']        )      )      ```   2. execWithCancel - Eschews any configuration and instead only expects a cancellation function, command and arguments.      @example      ```js      import { execWithCancel } from 'kiddo'      import { fork } from 'fluture'      fork(console.warn)(console.log)(        execWithCancel(          function customCancellationFunction() {},          'echo',          ['ahoy']        )      )      ```   3. exec - Eschews any configuration or cancellation function. Needs only command and arguments.      @example      ```js test=true      import { fork } from 'fluture'      // drgen-import-above      const blah = Math.round(Math.random() * 100000)      fork(done)(z => {        expect(z.stdout).toEqual('' + blah)        done()      })(exec('echo', [blah]))      ```",
+        "summary": "Consume external commands as a Future-wrapped value.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Consume external commands as a Future-wrapped value.  @future  @curried   1. execWithConfig - Passes all possible configuration values plus a cancellation function.      @example      ```js      import { execWithConfig } from 'kiddo'      import { fork } from 'fluture'      fork(console.warn)(console.log)(        execWithConfig(          function customCancellationFunction() {},          'echo',          { cleanup: true },          ['ahoy']        )      )      ```   2. execWithCancel - Eschews any configuration and instead only expects a cancellation function, command and arguments.      @example      ```js      import { execWithCancel } from 'kiddo'      import { fork } from 'fluture'      fork(console.warn)(console.log)(        execWithCancel(          function customCancellationFunction() {},          'echo',          ['ahoy']        )      )      ```   3. exec - Eschews any configuration or cancellation function. Needs only command and arguments.      @example      ```js test=true      import { fork } from 'fluture'      // drgen-import-above      const blah = Math.round(Math.random() * 100000)      fork(done)(z => {        expect(z.stdout).toEqual('' + blah)        done()      })(exec('echo', [blah]))      ```"
+          "description": "Consume external commands as a Future-wrapped value.",
+          "future": true,
+          "curried": [
+            "1. execWithConfig - Passes all possible configuration values plus a cancellation function.",
+            "     @example",
+            "```js",
+            "import { execWithConfig } from 'kiddo'",
+            "import { fork } from 'fluture'",
+            "fork(console.warn)(console.log)(",
+            "execWithConfig(",
+            "function customCancellationFunction() {},",
+            "'echo',",
+            "{ cleanup: true },",
+            "['ahoy']",
+            ")",
+            ")",
+            "```",
+            "2. execWithCancel - Eschews any configuration and instead only expects a cancellation function, command and arguments.",
+            "     @example",
+            "```js",
+            "import { execWithCancel } from 'kiddo'",
+            "import { fork } from 'fluture'",
+            "fork(console.warn)(console.log)(",
+            "execWithCancel(",
+            "function customCancellationFunction() {},",
+            "'echo',",
+            "['ahoy']",
+            ")",
+            ")",
+            "```",
+            "3. exec - Eschews any configuration or cancellation function. Needs only command and arguments.",
+            "     @example",
+            "```js test=true",
+            "import { fork } from 'fluture'",
+            "// drgen-import-above",
+            "const blah = Math.round(Math.random() * 100000)",
+            "fork(done)(z => {",
+            "expect(z.stdout).toEqual('' + blah)",
+            "done()",
+            "})(exec('echo', [blah]))",
+            "```"
+          ]
         },
         "keywords": [
           "@curried",
@@ -2128,33 +1955,31 @@
       {
         "start": 169,
         "end": 189,
-        "lines": [
-          "Add an `ora` indicator to a Future",
-          "@name signal",
-          "@future",
-          "@exported",
-          "@example",
-          "```js test=true",
-          "import { pipe, map } from 'ramda'",
-          "import { readFile } from 'file-system'",
-          "// drgen-import-above",
-          "const cancel = () => {}",
-          "pipe(",
-          "  signal(cancel, { text: 'Reading file...', successText: 'Read file!'}),",
-          "  map(JSON.parse),",
-          "  fork(done)(raw => {",
-          "    expect(raw.name).toEqual('kiddo')",
-          "    done()",
-          "  })",
-          ")(readFile('./package.json'))",
-          "```"
-        ],
-        "summary": " Add an `ora` indicator to a Future  @name signal  @future  @exported  @example  ```js test=true  import { pipe, map } from 'ramda'  import { readFile } from 'file-system'  // drgen-import-above  const cancel = () => {}  pipe(    signal(cancel, { text: 'Reading file...', successText: 'Read file!'}),    map(JSON.parse),    fork(done)(raw => {      expect(raw.name).toEqual('kiddo')      done()    })  )(readFile('./package.json'))  ```",
+        "summary": "Add an `ora` indicator to a Future",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Add an `ora` indicator to a Future  @name signal  @future  @exported  @example  ```js test=true  import { pipe, map } from 'ramda'  import { readFile } from 'file-system'  // drgen-import-above  const cancel = () => {}  pipe(    signal(cancel, { text: 'Reading file...', successText: 'Read file!'}),    map(JSON.parse),    fork(done)(raw => {      expect(raw.name).toEqual('kiddo')      done()    })  )(readFile('./package.json'))  ```"
+          "description": "Add an `ora` indicator to a Future",
+          "name": "signal",
+          "future": true,
+          "exported": [
+            " @example",
+            "```js test=true",
+            "import { pipe, map } from 'ramda'",
+            "import { readFile } from 'file-system'",
+            "// drgen-import-above",
+            "const cancel = () => {}",
+            "pipe(",
+            "signal(cancel, { text: 'Reading file...', successText: 'Read file!'}),",
+            "map(JSON.parse),",
+            "fork(done)(raw => {",
+            "expect(raw.name).toEqual('kiddo')",
+            "done()",
+            "})",
+            ")(readFile('./package.json'))",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -2179,25 +2004,23 @@
       {
         "start": 48,
         "end": 60,
-        "lines": [
-          "Slice a string by counted delimiters",
-          "@name nthIndex",
-          "@example",
-          "```js test=true",
-          "expect(",
-          "  nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j')",
-          ").toEqual(\"f/g/h/i/j\")",
-          "expect(",
-          "  nthIndex('/', 5, 'a/b/c/d/e/f/g/h/i/j')",
-          ").toEqual(\"a/b/c/d/e\")",
-          "```"
-        ],
-        "summary": " Slice a string by counted delimiters  @name nthIndex  @example  ```js test=true  expect(    nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j')  ).toEqual(\"f/g/h/i/j\")  expect(    nthIndex('/', 5, 'a/b/c/d/e/f/g/h/i/j')  ).toEqual(\"a/b/c/d/e\")  ```",
+        "summary": "Slice a string by counted delimiters",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Slice a string by counted delimiters  @name nthIndex  @example  ```js test=true  expect(    nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j')  ).toEqual(\"f/g/h/i/j\")  expect(    nthIndex('/', 5, 'a/b/c/d/e/f/g/h/i/j')  ).toEqual(\"a/b/c/d/e\")  ```"
+          "description": "Slice a string by counted delimiters",
+          "name": [
+            " @example",
+            "```js test=true",
+            "expect(",
+            "nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j')",
+            ").toEqual(\"f/g/h/i/j\")",
+            "expect(",
+            "nthIndex('/', 5, 'a/b/c/d/e/f/g/h/i/j')",
+            ").toEqual(\"a/b/c/d/e\")",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -2209,21 +2032,19 @@
       {
         "start": 65,
         "end": 73,
-        "lines": [
-          "A simple memoized utility for repeating a string and joining the array.",
-          "@name strepeat",
-          "@example",
-          "```js test=true",
-          "expect(strepeat('=', 5)).toEqual('=====')",
-          "expect(strepeat('/', -1)).toEqual('')",
-          "```"
-        ],
-        "summary": " A simple memoized utility for repeating a string and joining the array.  @name strepeat  @example  ```js test=true  expect(strepeat('=', 5)).toEqual('=====')  expect(strepeat('/', -1)).toEqual('')  ```",
+        "summary": "A simple memoized utility for repeating a string and joining the array.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " A simple memoized utility for repeating a string and joining the array.  @name strepeat  @example  ```js test=true  expect(strepeat('=', 5)).toEqual('=====')  expect(strepeat('/', -1)).toEqual('')  ```"
+          "description": "A simple memoized utility for repeating a string and joining the array.",
+          "name": [
+            " @example",
+            "```js test=true",
+            "expect(strepeat('=', 5)).toEqual('=====')",
+            "expect(strepeat('/', -1)).toEqual('')",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -2235,21 +2056,19 @@
       {
         "start": 78,
         "end": 86,
-        "lines": [
-          "Capitalize a string",
-          "@name capitalize",
-          "@example",
-          "```js test=true",
-          "expect(capitalize(\"nice\")).toEqual(\"Nice\")",
-          "expect(capitalize(\"\")).toEqual(\"\")",
-          "```"
-        ],
-        "summary": " Capitalize a string  @name capitalize  @example  ```js test=true  expect(capitalize(\"nice\")).toEqual(\"Nice\")  expect(capitalize(\"\")).toEqual(\"\")  ```",
+        "summary": "Capitalize a string",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Capitalize a string  @name capitalize  @example  ```js test=true  expect(capitalize(\"nice\")).toEqual(\"Nice\")  expect(capitalize(\"\")).toEqual(\"\")  ```"
+          "description": "Capitalize a string",
+          "name": [
+            " @example",
+            "```js test=true",
+            "expect(capitalize(\"nice\")).toEqual(\"Nice\")",
+            "expect(capitalize(\"\")).toEqual(\"\")",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -2261,27 +2080,25 @@
       {
         "start": 90,
         "end": 104,
-        "lines": [
-          "Take PascalCase and kebabCase inputs and replace them with slug-case",
-          "@name slugWord",
-          "@example",
-          "```js test=true",
-          "expect(slugWord('CoolFuckingShit')).toEqual('cool-fucking-shit')",
-          "expect(slugWord('hoorayNiceLife')).toEqual('hooray-nice-life')",
-          "expect(slugWord('Do nothingCool ever')).toEqual('do nothing-cool ever')",
-          "expect(",
-          "  slugWord('src/components/homepage/AugmentedDetailsDumbComponent')",
-          ").toEqual(",
-          "  'src-components-homepage-augmented-details-dumb-component'",
-          ")",
-          "```"
-        ],
-        "summary": " Take PascalCase and kebabCase inputs and replace them with slug-case  @name slugWord  @example  ```js test=true  expect(slugWord('CoolFuckingShit')).toEqual('cool-fucking-shit')  expect(slugWord('hoorayNiceLife')).toEqual('hooray-nice-life')  expect(slugWord('Do nothingCool ever')).toEqual('do nothing-cool ever')  expect(    slugWord('src/components/homepage/AugmentedDetailsDumbComponent')  ).toEqual(    'src-components-homepage-augmented-details-dumb-component'  )  ```",
+        "summary": "Take PascalCase and kebabCase inputs and replace them with slug-case",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Take PascalCase and kebabCase inputs and replace them with slug-case  @name slugWord  @example  ```js test=true  expect(slugWord('CoolFuckingShit')).toEqual('cool-fucking-shit')  expect(slugWord('hoorayNiceLife')).toEqual('hooray-nice-life')  expect(slugWord('Do nothingCool ever')).toEqual('do nothing-cool ever')  expect(    slugWord('src/components/homepage/AugmentedDetailsDumbComponent')  ).toEqual(    'src-components-homepage-augmented-details-dumb-component'  )  ```"
+          "description": "Take PascalCase and kebabCase inputs and replace them with slug-case",
+          "name": [
+            " @example",
+            "```js test=true",
+            "expect(slugWord('CoolFuckingShit')).toEqual('cool-fucking-shit')",
+            "expect(slugWord('hoorayNiceLife')).toEqual('hooray-nice-life')",
+            "expect(slugWord('Do nothingCool ever')).toEqual('do nothing-cool ever')",
+            "expect(",
+            "slugWord('src/components/homepage/AugmentedDetailsDumbComponent')",
+            ").toEqual(",
+            "'src-components-homepage-augmented-details-dumb-component'",
+            ")",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -2299,21 +2116,21 @@
     "package": "monorail",
     "slugName": "helpers",
     "filename": "packages/monorail/helpers.js",
+    "pageTitle": "helpers",
     "pageSummary": "",
     "comments": [
       {
         "start": 22,
         "end": 25,
-        "lines": [
-          "@pageSummary Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
-          "@page helpers"
-        ],
-        "summary": " @pageSummary Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.  @page helpers",
+        "summary": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " @pageSummary Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.  @page helpers"
+          "description": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
+          "page": "helpers",
+          "name": "helpers",
+          "detail": 22
         },
         "keywords": [
           "@page",
@@ -2325,24 +2142,22 @@
       {
         "start": 33,
         "end": 44,
-        "lines": [
-          "Use this helper to test a regex that matches against any single incidence on any line",
-          "@name any",
-          "@example",
-          "```js",
-          "const plugin = {",
-          "  name: 'get-const',",
-          "  fn: (state, file, { any }) => any(/const/)",
-          "}",
-          "export default plugin",
-          "```"
-        ],
-        "summary": " Use this helper to test a regex that matches against any single incidence on any line  @name any  @example  ```js  const plugin = {    name: 'get-const',    fn: (state, file, { any }) => any(/const/)  }  export default plugin  ```",
+        "summary": "Use this helper to test a regex that matches against any single incidence on any line",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Use this helper to test a regex that matches against any single incidence on any line  @name any  @example  ```js  const plugin = {    name: 'get-const',    fn: (state, file, { any }) => any(/const/)  }  export default plugin  ```"
+          "description": "Use this helper to test a regex that matches against any single incidence on any line",
+          "name": [
+            " @example",
+            "```js",
+            "const plugin = {",
+            "name: 'get-const',",
+            "fn: (state, file, { any }) => any(/const/)",
+            "}",
+            "export default plugin",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -2354,23 +2169,21 @@
       {
         "start": 47,
         "end": 57,
-        "lines": [
-          "Use this helper to test a regex that matches and filters against every line",
-          "@name lines",
-          "@example",
-          "```js",
-          "export default {",
-          "  name: 'unexported-consts',",
-          "  fn: (state, file, { lines }) => lines(/^const/)",
-          "}",
-          "```"
-        ],
-        "summary": " Use this helper to test a regex that matches and filters against every line  @name lines  @example  ```js  export default {    name: 'unexported-consts',    fn: (state, file, { lines }) => lines(/^const/)  }  ```",
+        "summary": "Use this helper to test a regex that matches and filters against every line",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Use this helper to test a regex that matches and filters against every line  @name lines  @example  ```js  export default {    name: 'unexported-consts',    fn: (state, file, { lines }) => lines(/^const/)  }  ```"
+          "description": "Use this helper to test a regex that matches and filters against every line",
+          "name": [
+            " @example",
+            "```js",
+            "export default {",
+            "name: 'unexported-consts',",
+            "fn: (state, file, { lines }) => lines(/^const/)",
+            "}",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -2382,23 +2195,21 @@
       {
         "start": 62,
         "end": 72,
-        "lines": [
-          "Use this helper to test a regex that matches and finds the first matching line",
-          "@name line",
-          "@example",
-          "```js",
-          "export default {",
-          "  name: 'exported-default',",
-          "  fn: (state, file, { line }) => line(/export default/g)",
-          "}",
-          "```"
-        ],
-        "summary": " Use this helper to test a regex that matches and finds the first matching line  @name line  @example  ```js  export default {    name: 'exported-default',    fn: (state, file, { line }) => line(/export default/g)  }  ```",
+        "summary": "Use this helper to test a regex that matches and finds the first matching line",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Use this helper to test a regex that matches and finds the first matching line  @name line  @example  ```js  export default {    name: 'exported-default',    fn: (state, file, { line }) => line(/export default/g)  }  ```"
+          "description": "Use this helper to test a regex that matches and finds the first matching line",
+          "name": [
+            " @example",
+            "```js",
+            "export default {",
+            "name: 'exported-default',",
+            "fn: (state, file, { line }) => line(/export default/g)",
+            "}",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -2410,23 +2221,21 @@
       {
         "start": 77,
         "end": 87,
-        "lines": [
-          "Use this helper to test a regex that matches and finds the last matching line",
-          "@name lastLine",
-          "@example",
-          "```js",
-          "export default {",
-          "  name: 'exported-last',",
-          "  fn: (state, file, { lastLine }) => lastLine(/export/g)",
-          "}",
-          "```"
-        ],
-        "summary": " Use this helper to test a regex that matches and finds the last matching line  @name lastLine  @example  ```js  export default {    name: 'exported-last',    fn: (state, file, { lastLine }) => lastLine(/export/g)  }  ```",
+        "summary": "Use this helper to test a regex that matches and finds the last matching line",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Use this helper to test a regex that matches and finds the last matching line  @name lastLine  @example  ```js  export default {    name: 'exported-last',    fn: (state, file, { lastLine }) => lastLine(/export/g)  }  ```"
+          "description": "Use this helper to test a regex that matches and finds the last matching line",
+          "name": [
+            " @example",
+            "```js",
+            "export default {",
+            "name: 'exported-last',",
+            "fn: (state, file, { lastLine }) => lastLine(/export/g)",
+            "}",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -2438,23 +2247,21 @@
       {
         "start": 92,
         "end": 102,
-        "lines": [
-          "Use this helper to select content between two repeating regular expressions",
-          "@name between",
-          "@example",
-          "```js",
-          "export default {",
-          "  name: 'expanded-imports',",
-          "  fn: (state, file, { between }) => between(/^import/, /from (.*)/)",
-          "}",
-          "```"
-        ],
-        "summary": " Use this helper to select content between two repeating regular expressions  @name between  @example  ```js  export default {    name: 'expanded-imports',    fn: (state, file, { between }) => between(/^import/, /from (.*)/)  }  ```",
+        "summary": "Use this helper to select content between two repeating regular expressions",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Use this helper to select content between two repeating regular expressions  @name between  @example  ```js  export default {    name: 'expanded-imports',    fn: (state, file, { between }) => between(/^import/, /from (.*)/)  }  ```"
+          "description": "Use this helper to select content between two repeating regular expressions",
+          "name": [
+            " @example",
+            "```js",
+            "export default {",
+            "name: 'expanded-imports',",
+            "fn: (state, file, { between }) => between(/^import/, /from (.*)/)",
+            "}",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -2466,24 +2273,22 @@
       {
         "start": 115,
         "end": 126,
-        "lines": [
-          "Use this helper to easily reduce over all lines and aggregate a value",
-          "@name reduce",
-          "@example",
-          "```js",
-          "const plugin = {",
-          "  name: 'select-specifics',",
-          "  fn: (state, file, { reduce }) => reduce((agg, [line, content]) => content.length > 10 : agg.concat(content) : agg, [])",
-          "}",
-          "export default plugin",
-          "```"
-        ],
-        "summary": " Use this helper to easily reduce over all lines and aggregate a value  @name reduce  @example  ```js  const plugin = {    name: 'select-specifics',    fn: (state, file, { reduce }) => reduce((agg, [line, content]) => content.length > 10 : agg.concat(content) : agg, [])  }  export default plugin  ```",
+        "summary": "Use this helper to easily reduce over all lines and aggregate a value",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Use this helper to easily reduce over all lines and aggregate a value  @name reduce  @example  ```js  const plugin = {    name: 'select-specifics',    fn: (state, file, { reduce }) => reduce((agg, [line, content]) => content.length > 10 : agg.concat(content) : agg, [])  }  export default plugin  ```"
+          "description": "Use this helper to easily reduce over all lines and aggregate a value",
+          "name": [
+            " @example",
+            "```js",
+            "const plugin = {",
+            "name: 'select-specifics',",
+            "fn: (state, file, { reduce }) => reduce((agg, [line, content]) => content.length > 10 : agg.concat(content) : agg, [])",
+            "}",
+            "export default plugin",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -2495,23 +2300,21 @@
       {
         "start": 131,
         "end": 141,
-        "lines": [
-          "Use this helper to select all content between two repeating regular expressions",
-          "@name selectAll",
-          "@example",
-          "```js",
-          "export default {",
-          "  name: 'expanded-imports',",
-          "  fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)",
-          "}",
-          "```"
-        ],
-        "summary": " Use this helper to select all content between two repeating regular expressions  @name selectAll  @example  ```js  export default {    name: 'expanded-imports',    fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)  }  ```",
+        "summary": "Use this helper to select all content between two repeating regular expressions",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Use this helper to select all content between two repeating regular expressions  @name selectAll  @example  ```js  export default {    name: 'expanded-imports',    fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)  }  ```"
+          "description": "Use this helper to select all content between two repeating regular expressions",
+          "name": [
+            " @example",
+            "```js",
+            "export default {",
+            "name: 'expanded-imports',",
+            "fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)",
+            "}",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -2523,26 +2326,24 @@
       {
         "start": 179,
         "end": 192,
-        "lines": [
-          "Use this helper to easily filter all lines related to a given regular expression",
-          "@name filter",
-          "@example",
-          "```js",
-          "const plugin = {",
-          "  name: 'keyword-match',",
-          "  fn: (state, file, { config, filter }) => filter(",
-          "    config?.keyword ?? /monorail/",
-          "  )",
-          "}",
-          "export default plugin",
-          "```"
-        ],
-        "summary": " Use this helper to easily filter all lines related to a given regular expression  @name filter  @example  ```js  const plugin = {    name: 'keyword-match',    fn: (state, file, { config, filter }) => filter(      config?.keyword ?? /monorail/    )  }  export default plugin  ```",
+        "summary": "Use this helper to easily filter all lines related to a given regular expression",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Use this helper to easily filter all lines related to a given regular expression  @name filter  @example  ```js  const plugin = {    name: 'keyword-match',    fn: (state, file, { config, filter }) => filter(      config?.keyword ?? /monorail/    )  }  export default plugin  ```"
+          "description": "Use this helper to easily filter all lines related to a given regular expression",
+          "name": [
+            " @example",
+            "```js",
+            "const plugin = {",
+            "name: 'keyword-match',",
+            "fn: (state, file, { config, filter }) => filter(",
+            "config?.keyword ?? /monorail/",
+            ")",
+            "}",
+            "export default plugin",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -2554,26 +2355,24 @@
       {
         "start": 206,
         "end": 219,
-        "lines": [
-          "The `config` value is patched in so that it is easier to pass values from the rulefile configuration to the plugins themselves, scoped to the plugin name.",
-          "@name config",
-          "@example",
-          "```js",
-          "const plugin = {",
-          "  name: 'keyword-match',",
-          "  fn: (state, file, { filter, config }) => filter(",
-          "    config?.keyword ?? /monorail/",
-          "  )",
-          "}",
-          "export default plugin",
-          "```"
-        ],
-        "summary": " The `config` value is patched in so that it is easier to pass values from the rulefile configuration to the plugins themselves, scoped to the plugin name.  @name config  @example  ```js  const plugin = {    name: 'keyword-match',    fn: (state, file, { filter, config }) => filter(      config?.keyword ?? /monorail/    )  }  export default plugin  ```",
+        "summary": "The `config` value is patched in so that it is easier to pass values from the rulefile configuration to the plugins themselves, scoped to the plugin name.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " The `config` value is patched in so that it is easier to pass values from the rulefile configuration to the plugins themselves, scoped to the plugin name.  @name config  @example  ```js  const plugin = {    name: 'keyword-match',    fn: (state, file, { filter, config }) => filter(      config?.keyword ?? /monorail/    )  }  export default plugin  ```"
+          "description": "The `config` value is patched in so that it is easier to pass values from the rulefile configuration to the plugins themselves, scoped to the plugin name.",
+          "name": [
+            " @example",
+            "```js",
+            "const plugin = {",
+            "name: 'keyword-match',",
+            "fn: (state, file, { filter, config }) => filter(",
+            "config?.keyword ?? /monorail/",
+            ")",
+            "}",
+            "export default plugin",
+            "```"
+          ]
         },
         "keywords": [
           "@example",
@@ -2596,86 +2395,78 @@
       {
         "start": 89,
         "end": 162,
-        "lines": [
-          "Summarize a project, given:",
-          " - the path to a `package.json` file",
-          " - the path to a `dr-generated.json` file",
-          " - the URI of a documentation site",
-          " - the URI of a repository",
-          " - (optional) a banner",
-          " - or (optional) the path to a file which represents a banner",
-          "@name summarize",
-          "@future",
-          "@example",
-          "```js test=true",
-          "import path from 'node:path'",
-          "import { fork } from 'fluture'",
-          "// drgen-import-above",
-          "fork(done)(x => {",
-          "  expect(x.split('\\n')).toEqual([",
-          "    \"this is a cool test!\",",
-          "    \"## apps\",",
-          "    \"\",",
-          "    \" * [docs](//repo.biz/apps/docs) - documentation site for monoculture\",",
-          "    \"\",",
-          "    \"## packages\",",
-          "    \"\",",
-          "    \" * [bloodline](//repo.biz/packages/bloodline) - determine the relationships between files 🩸\",",
-          "    \" * [climate](//repo.biz/packages/climate) - CLI utilities, friend 👯\",",
-          "    \" * [climate-json](//repo.biz/packages/climate-json) - JSON parser for climate 🐐\",",
-          "    \" * [climate-toml](//repo.biz/packages/climate-toml) - TOML parser for climate 🍅\",",
-          "    \" * [climate-yaml](//repo.biz/packages/climate-yaml) - YAML parser for climate 🍠\",",
-          "    \" * [clox](//repo.biz/packages/clox) - boxes for the terminal ⏰\",",
-          "    \" * [doctor-general](//repo.biz/packages/doctor-general) - documentation generation 🩻\",",
-          "    \" * [doctor-general-jest](//repo.biz/packages/doctor-general-jest) - documentation generation - jest 🃏\",",
-          "    \" * [doctor-general-mdx](//repo.biz/packages/doctor-general-mdx) - documentation generation - mdx 🩺\",",
-          "    \" * [file-system](//repo.biz/packages/file-system) - fs, but in the future 🔮\",",
-          "    \" * [inherent](//repo.biz/packages/inherent) - functional utilities for primitives ⛺️\",",
-          "    \" * [kiddo](//repo.biz/packages/kiddo) - child processes in the future 👶\",",
-          "    \" * [knot](//repo.biz/packages/knot) - functional utilities for strings 🪢\",",
-          "    \" * [manacle](//repo.biz/packages/manacle) - make conventions into rules, magically 🔒\",",
-          "    \" * [monocle](//repo.biz/packages/monocle) - inspect code and apply rules, magically 🧐\",",
-          "    \" * [monorail](//repo.biz/packages/monorail) - plugins for smug grins 🚂\",",
-          "    \" * [robot-tourist](//repo.biz/packages/robot-tourist) - human-centric source code interpreter 🤖\",",
-          "    \" * [water-wheel](//repo.biz/packages/water-wheel) - future-wrapping for streaming interfaces 🌊\",",
-          "    \"\",",
-          "    \"## shared\",",
-          "    \"\",",
-          "    \" * [eslint-config-monoculture](//repo.biz/shared/eslint-config-monoculture) - shared eslint configuration for monoculture packages 🧹\",",
-          "    \" * [jest-config](//repo.biz/shared/jest-config) - shared jest configuration for monoculture packages 🎪\",",
-          "    \" * [monoculture-tsconfig](//repo.biz/shared/monoculture-tsconfig) - shared tsconfig for monoculture packages 😵\",",
-          "    \"\",",
-          "    \"## tools\",",
-          "    \"\",",
-          "    \" * [digested](//repo.biz/tools/digested) - summarize and automatically generate information about your projects 🍽️\",",
-          "    \" * [doctor-general-cli](//repo.biz/tools/doctor-general-cli) - documentation generation in a nice CLI 🫡\",",
-          "    \" * [gitparty](//repo.biz/tools/gitparty) - visualize git logs with magical context 🎨\",",
-          "    \" * [spacework](//repo.biz/tools/spacework) - meta tools for monoculture ☄️\",",
-          "    \" * [superorganism](//repo.biz/tools/superorganism) - script runner from beyond the moon 🐁\",",
-          "    \" * [treacle](//repo.biz/tools/treacle) - command line interface tree visualization pun 🫠\",",
-          "    \"\",",
-          "  ])",
-          "  done()",
-          "})(summarize({",
-          "  readme: true,",
-          "  dirPath: process.cwd(),",
-          "  banner: 'this is a cool test!',",
-          "  // repoUrl: 'https://github.com/brekk/monoculture/tree/main',",
-          "  // docUrl: 'https://brekk.github.io/monoculture',",
-          "  // base package only!",
-          "  repoUrl: '//repo.biz',",
-          "  docUrl: '//repo.doc',",
-          "  pkgPath: '../../package.json',",
-          "  drGenPath: '../../apps/docs/dr-generated.json'",
-          "}))",
-          "```"
-        ],
-        "summary": " Summarize a project, given:   - the path to a `package.json` file   - the path to a `dr-generated.json` file   - the URI of a documentation site   - the URI of a repository   - (optional) a banner   - or (optional) the path to a file which represents a banner  @name summarize  @future  @example  ```js test=true  import path from 'node:path'  import { fork } from 'fluture'  // drgen-import-above  fork(done)(x => {    expect(x.split('\\n')).toEqual([      \"this is a cool test!\",      \"## apps\",      \"\",      \" * [docs](//repo.biz/apps/docs) - documentation site for monoculture\",      \"\",      \"## packages\",      \"\",      \" * [bloodline](//repo.biz/packages/bloodline) - determine the relationships between files 🩸\",      \" * [climate](//repo.biz/packages/climate) - CLI utilities, friend 👯\",      \" * [climate-json](//repo.biz/packages/climate-json) - JSON parser for climate 🐐\",      \" * [climate-toml](//repo.biz/packages/climate-toml) - TOML parser for climate 🍅\",      \" * [climate-yaml](//repo.biz/packages/climate-yaml) - YAML parser for climate 🍠\",      \" * [clox](//repo.biz/packages/clox) - boxes for the terminal ⏰\",      \" * [doctor-general](//repo.biz/packages/doctor-general) - documentation generation 🩻\",      \" * [doctor-general-jest](//repo.biz/packages/doctor-general-jest) - documentation generation - jest 🃏\",      \" * [doctor-general-mdx](//repo.biz/packages/doctor-general-mdx) - documentation generation - mdx 🩺\",      \" * [file-system](//repo.biz/packages/file-system) - fs, but in the future 🔮\",      \" * [inherent](//repo.biz/packages/inherent) - functional utilities for primitives ⛺️\",      \" * [kiddo](//repo.biz/packages/kiddo) - child processes in the future 👶\",      \" * [knot](//repo.biz/packages/knot) - functional utilities for strings 🪢\",      \" * [manacle](//repo.biz/packages/manacle) - make conventions into rules, magically 🔒\",      \" * [monocle](//repo.biz/packages/monocle) - inspect code and apply rules, magically 🧐\",      \" * [monorail](//repo.biz/packages/monorail) - plugins for smug grins 🚂\",      \" * [robot-tourist](//repo.biz/packages/robot-tourist) - human-centric source code interpreter 🤖\",      \" * [water-wheel](//repo.biz/packages/water-wheel) - future-wrapping for streaming interfaces 🌊\",      \"\",      \"## shared\",      \"\",      \" * [eslint-config-monoculture](//repo.biz/shared/eslint-config-monoculture) - shared eslint configuration for monoculture packages 🧹\",      \" * [jest-config](//repo.biz/shared/jest-config) - shared jest configuration for monoculture packages 🎪\",      \" * [monoculture-tsconfig](//repo.biz/shared/monoculture-tsconfig) - shared tsconfig for monoculture packages 😵\",      \"\",      \"## tools\",      \"\",      \" * [digested](//repo.biz/tools/digested) - summarize and automatically generate information about your projects 🍽️\",      \" * [doctor-general-cli](//repo.biz/tools/doctor-general-cli) - documentation generation in a nice CLI 🫡\",      \" * [gitparty](//repo.biz/tools/gitparty) - visualize git logs with magical context 🎨\",      \" * [spacework](//repo.biz/tools/spacework) - meta tools for monoculture ☄️\",      \" * [superorganism](//repo.biz/tools/superorganism) - script runner from beyond the moon 🐁\",      \" * [treacle](//repo.biz/tools/treacle) - command line interface tree visualization pun 🫠\",      \"\",    ])    done()  })(summarize({    readme: true,    dirPath: process.cwd(),    banner: 'this is a cool test!',    // repoUrl: 'https://github.com/brekk/monoculture/tree/main',    // docUrl: 'https://brekk.github.io/monoculture',    // base package only!    repoUrl: '//repo.biz',    docUrl: '//repo.doc',    pkgPath: '../../package.json',    drGenPath: '../../apps/docs/dr-generated.json'  }))  ```",
+        "summary": "Summarize a project, given: - the path to a `package.json` file - the path to a `dr-generated.json` file - the URI of a documentation site - the URI of a repository - (optional) a banner - or (optional) the path to a file which represents a banner",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": " Summarize a project, given:   - the path to a `package.json` file   - the path to a `dr-generated.json` file   - the URI of a documentation site   - the URI of a repository   - (optional) a banner   - or (optional) the path to a file which represents a banner  @name summarize  @future  @example  ```js test=true  import path from 'node:path'  import { fork } from 'fluture'  // drgen-import-above  fork(done)(x => {    expect(x.split('\\n')).toEqual([      \"this is a cool test!\",      \"## apps\",      \"\",      \" * [docs](//repo.biz/apps/docs) - documentation site for monoculture\",      \"\",      \"## packages\",      \"\",      \" * [bloodline](//repo.biz/packages/bloodline) - determine the relationships between files 🩸\",      \" * [climate](//repo.biz/packages/climate) - CLI utilities, friend 👯\",      \" * [climate-json](//repo.biz/packages/climate-json) - JSON parser for climate 🐐\",      \" * [climate-toml](//repo.biz/packages/climate-toml) - TOML parser for climate 🍅\",      \" * [climate-yaml](//repo.biz/packages/climate-yaml) - YAML parser for climate 🍠\",      \" * [clox](//repo.biz/packages/clox) - boxes for the terminal ⏰\",      \" * [doctor-general](//repo.biz/packages/doctor-general) - documentation generation 🩻\",      \" * [doctor-general-jest](//repo.biz/packages/doctor-general-jest) - documentation generation - jest 🃏\",      \" * [doctor-general-mdx](//repo.biz/packages/doctor-general-mdx) - documentation generation - mdx 🩺\",      \" * [file-system](//repo.biz/packages/file-system) - fs, but in the future 🔮\",      \" * [inherent](//repo.biz/packages/inherent) - functional utilities for primitives ⛺️\",      \" * [kiddo](//repo.biz/packages/kiddo) - child processes in the future 👶\",      \" * [knot](//repo.biz/packages/knot) - functional utilities for strings 🪢\",      \" * [manacle](//repo.biz/packages/manacle) - make conventions into rules, magically 🔒\",      \" * [monocle](//repo.biz/packages/monocle) - inspect code and apply rules, magically 🧐\",      \" * [monorail](//repo.biz/packages/monorail) - plugins for smug grins 🚂\",      \" * [robot-tourist](//repo.biz/packages/robot-tourist) - human-centric source code interpreter 🤖\",      \" * [water-wheel](//repo.biz/packages/water-wheel) - future-wrapping for streaming interfaces 🌊\",      \"\",      \"## shared\",      \"\",      \" * [eslint-config-monoculture](//repo.biz/shared/eslint-config-monoculture) - shared eslint configuration for monoculture packages 🧹\",      \" * [jest-config](//repo.biz/shared/jest-config) - shared jest configuration for monoculture packages 🎪\",      \" * [monoculture-tsconfig](//repo.biz/shared/monoculture-tsconfig) - shared tsconfig for monoculture packages 😵\",      \"\",      \"## tools\",      \"\",      \" * [digested](//repo.biz/tools/digested) - summarize and automatically generate information about your projects 🍽️\",      \" * [doctor-general-cli](//repo.biz/tools/doctor-general-cli) - documentation generation in a nice CLI 🫡\",      \" * [gitparty](//repo.biz/tools/gitparty) - visualize git logs with magical context 🎨\",      \" * [spacework](//repo.biz/tools/spacework) - meta tools for monoculture ☄️\",      \" * [superorganism](//repo.biz/tools/superorganism) - script runner from beyond the moon 🐁\",      \" * [treacle](//repo.biz/tools/treacle) - command line interface tree visualization pun 🫠\",      \"\",    ])    done()  })(summarize({    readme: true,    dirPath: process.cwd(),    banner: 'this is a cool test!',    // repoUrl: 'https://github.com/brekk/monoculture/tree/main',    // docUrl: 'https://brekk.github.io/monoculture',    // base package only!    repoUrl: '//repo.biz',    docUrl: '//repo.doc',    pkgPath: '../../package.json',    drGenPath: '../../apps/docs/dr-generated.json'  }))  ```"
+          "description": "Summarize a project, given: - the path to a `package.json` file - the path to a `dr-generated.json` file - the URI of a documentation site - the URI of a repository - (optional) a banner - or (optional) the path to a file which represents a banner",
+          "name": "summarize",
+          "future": [
+            " @example",
+            "```js test=true",
+            "import path from 'node:path'",
+            "import { fork } from 'fluture'",
+            "// drgen-import-above",
+            "fork(done)(x => {",
+            "expect(x.split('\\n')).toEqual([",
+            "\"this is a cool test!\",",
+            "\"## apps\",",
+            "\"\",",
+            "\" * [docs](//repo.biz/apps/docs) - documentation site for monoculture\",",
+            "\"\",",
+            "\"## packages\",",
+            "\"\",",
+            "\" * [bloodline](//repo.biz/packages/bloodline) - determine the relationships between files 🩸\",",
+            "\" * [climate](//repo.biz/packages/climate) - CLI utilities, friend 👯\",",
+            "\" * [climate-json](//repo.biz/packages/climate-json) - JSON parser for climate 🐐\",",
+            "\" * [climate-toml](//repo.biz/packages/climate-toml) - TOML parser for climate 🍅\",",
+            "\" * [climate-yaml](//repo.biz/packages/climate-yaml) - YAML parser for climate 🍠\",",
+            "\" * [clox](//repo.biz/packages/clox) - boxes for the terminal ⏰\",",
+            "\" * [doctor-general](//repo.biz/packages/doctor-general) - documentation generation 🩻\",",
+            "\" * [doctor-general-jest](//repo.biz/packages/doctor-general-jest) - documentation generation - jest 🃏\",",
+            "\" * [doctor-general-mdx](//repo.biz/packages/doctor-general-mdx) - documentation generation - mdx 🩺\",",
+            "\" * [file-system](//repo.biz/packages/file-system) - fs, but in the future 🔮\",",
+            "\" * [inherent](//repo.biz/packages/inherent) - functional utilities for primitives ⛺️\",",
+            "\" * [kiddo](//repo.biz/packages/kiddo) - child processes in the future 👶\",",
+            "\" * [knot](//repo.biz/packages/knot) - functional utilities for strings 🪢\",",
+            "\" * [manacle](//repo.biz/packages/manacle) - make conventions into rules, magically 🔒\",",
+            "\" * [monocle](//repo.biz/packages/monocle) - inspect code and apply rules, magically 🧐\",",
+            "\" * [monorail](//repo.biz/packages/monorail) - plugins for smug grins 🚂\",",
+            "\" * [robot-tourist](//repo.biz/packages/robot-tourist) - human-centric source code interpreter 🤖\",",
+            "\" * [water-wheel](//repo.biz/packages/water-wheel) - future-wrapping for streaming interfaces 🌊\",",
+            "\"\",",
+            "\"## shared\",",
+            "\"\",",
+            "\" * [eslint-config-monoculture](//repo.biz/shared/eslint-config-monoculture) - shared eslint configuration for monoculture packages 🧹\",",
+            "\" * [jest-config](//repo.biz/shared/jest-config) - shared jest configuration for monoculture packages 🎪\",",
+            "\" * [monoculture-tsconfig](//repo.biz/shared/monoculture-tsconfig) - shared tsconfig for monoculture packages 😵\",",
+            "\"\",",
+            "\"## tools\",",
+            "\"\",",
+            "\" * [digested](//repo.biz/tools/digested) - summarize and automatically generate information about your projects 🍽️\",",
+            "\" * [doctor-general-cli](//repo.biz/tools/doctor-general-cli) - documentation generation in a nice CLI 🫡\",",
+            "\" * [gitparty](//repo.biz/tools/gitparty) - visualize git logs with magical context 🎨\",",
+            "\" * [spacework](//repo.biz/tools/spacework) - meta tools for monoculture ☄️\",",
+            "\" * [superorganism](//repo.biz/tools/superorganism) - script runner from beyond the moon 🐁\",",
+            "\" * [treacle](//repo.biz/tools/treacle) - command line interface tree visualization pun 🫠\",",
+            "\"\",",
+            "])",
+            "done()",
+            "})(summarize({",
+            "readme: true,",
+            "dirPath: process.cwd(),",
+            "banner: 'this is a cool test!',",
+            "// repoUrl: 'https://github.com/brekk/monoculture/tree/main',",
+            "// docUrl: 'https://brekk.github.io/monoculture',",
+            "// base package only!",
+            "repoUrl: '//repo.biz',",
+            "docUrl: '//repo.doc',",
+            "pkgPath: '../../package.json',",
+            "drGenPath: '../../apps/docs/dr-generated.json'",
+            "}))",
+            "```"
+          ]
         },
         "keywords": [
           "@example",

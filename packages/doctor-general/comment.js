@@ -1,8 +1,9 @@
 import { join as pathJoin } from 'node:path'
 import { parallel } from 'fluture'
-import { isNotEmpty, autobox } from 'inherent'
+import { trimEnd, isNotEmpty, autobox } from 'inherent'
 import { TESTABLE_EXAMPLE } from './constants'
 import {
+  identity as I,
   prop,
   always as K,
   any,
@@ -288,14 +289,14 @@ export const handleEphemeralKeywords = curry(
  * // drgen-import-above
  * expect(stripLeadingComment('     ' + START)).toEqual('')
  * expect(stripLeadingComment(END)).toEqual('')
- * expect(stripLeadingComment(' * hey cool!')).toEqual('hey cool!')
+ * expect(stripLeadingComment(' * comment! ')).toEqual(' comment!')
  * ```
  */
 export const stripLeadingComment = pipe(
   trim,
   when(equals('/**'), K('')),
   when(equals('*/'), K('')),
-  when(startsWith('*'), pipe(slice(1, Infinity)))
+  when(startsWith('*'), pipe(slice(1, Infinity), trimEnd))
 )
 
 export function uncommentBlock(block) {
@@ -305,7 +306,7 @@ export function uncommentBlock(block) {
 const segmentBlock = pipe(
   reduce(
     function segmentLogicalGroupsOfCommentBlock(agg, [lineNum, line]) {
-      const lineParts = line.split(' ')
+      const lineParts = line.split(' ').filter(I)
       const { structure } = agg
       const { current } = agg
       // eslint-disable-next-line prefer-const
@@ -366,7 +367,8 @@ export const structureKeywords = curry(
     return pipe(
       uncommentBlock,
       filter(pipe(last, isNotEmpty)),
-      segmentBlock
+      segmentBlock,
+      log.comment('SEGMENT')
       /*
       map(function _handleSpecificRemap([i, [keyword, value = true, ...rest]]) {
         return [
