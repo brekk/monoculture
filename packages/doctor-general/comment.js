@@ -415,15 +415,6 @@ export const renderComments = curry(
 /**
  * Process comments given a processor and an error handler
  * @name processComments
- * @example
- * ```js test=true
- * const input = Math.round(Math.random() * 1e3)
- * expect(
- *   processComments(() => 'huh?', {process: y => y * 2}, input)
- * ).toEqual(input * 2)
- * const fn = jest.fn()
- * processComments(fn, false, input)
- * expect(fn).toHaveBeenCalled()
  */
 export const processComments = curry(
   function _processComments(bad, processor, x) {

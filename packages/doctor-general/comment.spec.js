@@ -1,5 +1,7 @@
 import { pipe, last, head } from 'ramda'
 import {
+  getCurriedDefinition,
+  processComments,
   uncommentBlock,
   stripLeadingComment,
   stripEmptyCommentLines,
@@ -243,5 +245,133 @@ test('uncommentBlock', () => {
     [5, ' describo'],
     [6, ' @name namo'],
     [7, ''],
+  ])
+})
+
+test('processComments', () => {
+  const input = Math.round(Math.random() * 1e3)
+  expect(processComments(() => 'huh?', { process: y => y * 2 }, input)).toEqual(
+    input * 2
+  )
+  const fn = jest.fn()
+  processComments(fn, false, input)
+  expect(fn).toHaveBeenCalled()
+})
+
+/* eslint-disable max-len */
+const CURRIED_EXAMPLE = `
+/**
+ * Consume external commands as a Future-wrapped value.
+ * @future
+ * @curried
+ *  1. execWithConfig - Passes all possible configuration values plus a cancellation function.
+ *
+ *     @example
+ *     \`\`\`js
+ *     import { execWithConfig } from 'kiddo'
+ *     import { fork } from 'fluture'
+ *     fork(console.warn)(console.log)(
+ *       execWithConfig(
+ *         function customCancellationFunction() {},
+ *         'echo',
+ *         { cleanup: true },
+ *         ['ahoy']
+ *       )
+ *     )
+ *     \`\`\`
+ *
+ *  2. execWithCancel - Eschews any configuration and instead only expects a cancellation function, command and arguments.
+ *
+ *     @example
+ *     \`\`\`js
+ *     import { execWithCancel } from 'kiddo'
+ *     import { fork } from 'fluture'
+ *     fork(console.warn)(console.log)(
+ *       execWithCancel(
+ *         function customCancellationFunction() {},
+ *         'echo',
+ *         ['ahoy']
+ *       )
+ *     )
+ *     \`\`\`
+ *
+ *  3. exec - Eschews any configuration or cancellation function. Needs only command and arguments.
+ *
+ *     @example
+ *     \`\`\`js test=true
+ *     import { fork } from 'fluture'
+ *     // drgen-import-above
+ *     const blah = Math.round(Math.random() * 100000)
+ *     fork(done)(z => {
+ *       expect(z.stdout).toEqual('' + blah)
+ *       done()
+ *     })(exec('echo', [blah]))
+ *     \`\`\`
+ */`
+
+test('getCurriedDefinition', () => {
+  const out = getCurriedDefinition(CURRIED_EXAMPLE.split('\n'), Infinity, 0)
+  expect(out).toEqual([
+    {
+      lines: `/**
+    Consume external commands as a Future-wrapped value.
+    @future
+    @curried"`,
+      name: '',
+      summary: undefined,
+    },
+    {
+      lines: `
+\`\`\`js
+import { execWithConfig } from 'kiddo'
+import { fork } from 'fluture'
+fork(console.warn)(console.log)(
+  execWithConfig(
+    function customCancellationFunction() {},
+      'echo',
+      { cleanup: true },
+      ['ahoy']
+    )
+  )
+\`\`\`
+`,
+      name: 'execWithConfig',
+      summary:
+        'Passes all possible configuration values plus a cancellation function.',
+    },
+    {
+      lines: `
+    \`\`\`js
+    import { execWithCancel } from 'kiddo'
+    import { fork } from 'fluture'
+    fork(console.warn)(console.log)(
+      execWithCancel(
+        function customCancellationFunction() {},
+        'echo',
+        ['ahoy']
+      )
+    )
+    \`\`\`
+    `,
+      name: 'execWithCancel',
+      summary:
+        'Eschews any configuration and instead only expects a cancellation function, command and arguments.',
+    },
+    {
+      lines: `
+    \`\`\`js test=true
+    import { fork } from 'fluture'
+    // drgen-import-above
+    const blah = Math.round(Math.random() * 100000)
+    fork(done)(z => {
+      expect(z.stdout).toEqual('' blah)
+      done()
+    })(exec('echo', [blah]))
+    \`\`\`
+     */`,
+      name: 'exec',
+      summary:
+        'Eschews any configuration or cancellation function. Needs only command and arguments.',
+    },
   ])
 })
