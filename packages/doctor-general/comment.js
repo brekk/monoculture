@@ -48,15 +48,10 @@ import { log } from './log'
 import { findJSDocKeywords } from './file'
 import { formatComment, trimComment } from './text'
 
-/**
- * Check to see if a comment has an example within its structure.
+/*
+ * Check to see if a comment object has an example with a `test=true`
+ * tag within its structure
  * @name hasExample
- * @example
- * ```js test=true
- * expect(hasExample({structure: {example: [`test=true`]}})).toBeTruthy()
- * expect(hasExample({})).toBeFalsy()
- * expect(hasExample('zipzop')).toBeFalsy()
- * ```
  */
 export const hasExample = ifElse(
   is(Object),
@@ -64,25 +59,9 @@ export const hasExample = ifElse(
   K(false)
 )
 
-/**
+/*
  * Pull all imports from a given file, including `@curried` examples
  * @name getImportsForTests
- * @example
- * ```js test=true
- * const file = { comments: [
- *   {
- *     structure: { curried: [
- *       { name: 'coolWithConfig', lines: ['test=true'] },
- *       { name: 'cool', lines: ['test=true'] }
- *     ] }
- *   },
- *   {
- *     structure: { name: 'otherFunc', example: ['test=true'] }
- *   }
- * ] }
- *
- * expect(getImportsForTests(file)).toEqual(['otherFunc', 'coolWithConfig', 'cool'])
- * ```
  */
 export const getImportsForTests = pipe(
   propOr([], 'comments'),
@@ -113,14 +92,6 @@ export const getImportsForTests = pipe(
 
 export const LINK_REGEX = /\{@link (.*)+\}/g
 
-/**
- * @name matchLinks
- * @example
- * ```js test=true
- * expect(matchLinks([])).toEqual([])
- * expect(matchLinks([`{@link cool}`])).toEqual(['cool'])
- * ```
- */
 export const matchLinks = pipe(
   chain(match(LINK_REGEX)),
   map(z => slice('{@link '.length, z.length - 1, z))
@@ -179,27 +150,9 @@ export const getCurriedDefinition = curry(
   }
 )
 
-/**
+/*
  * Grab the summary from raw lines, given some indices to slice
  * @name getPageSummary
- * @example
- * ```js test=true
- * const rawLines = [
- *   ' * @pageSummary Hey cool this is a multi-line',
- *   ' * description of stuff in the whole file',
- *   ' * @page testPageSummary',
- *   ' * @huh notSure'
- * ]
- * expect(
- *   getPageSummary(rawLines, Infinity, 0)
- * ).toEqual([
- *   'Hey cool this is a multi-line',
- *   'description of stuff in the whole file'
- * ])
- * expect(
- *   getPageSummary([' * hey', ' * there'], Infinity, 0)
- * ).toEqual(['hey', 'there'])
- * ```
  */
 export const getPageSummary = (rawLines, end, i) =>
   pipe(
@@ -214,24 +167,14 @@ export const getPageSummary = (rawLines, end, i) =>
     }
   )(rawLines)
 
-/**
+/*
  * Is it an asterisk with maybe some whitespace around it?
  * @name isAsterisky
- * @example
- * ```js test=true
- * expect(isAsterisky('     * ')).toBeTruthy()
- * expect(isAsterisky('*')).toBeTruthy()
- * expect(isAsterisky('obelisk')).toBeFalsy()
- * ```
  */
 export const isAsterisky = both(is(String), pipe(trim, equals('*')))
 
-/**
+/*
  * @name stripEmptyCommentLines
- * @example
- * ```js test=true
- * expect(stripEmptyCommentLines('     *')).toEqual('')
- * expect(stripEmptyCommentLines('hooray!')).toEqual('hooray!')
  */
 export const stripEmptyCommentLines = when(isAsterisky, K(''))
 
@@ -239,18 +182,6 @@ export const stripEmptyCommentLines = when(isAsterisky, K(''))
  * Grab the example from raw lines and some indices to slice
  * @name getExample
  * @signature List String -> Integer -> Integer -> String
- * @example
- * ```js test=true
- * const rawLines = [
- *   '* Ouroboric summary',
- *   '* @name getExample',
- *   '* @example',
- *   '* ```js',
- *   '* getExample(rawLines)',
- *   '* ```',
- * ]
- * expect(getExample(rawLines, 5, 3)).toEqual('getExample(rawLines)')
- * ```
  */
 export const getExample = curry(function _getExample(rawLines, end, i) {
   return pipe(
@@ -280,18 +211,6 @@ export const handleEphemeralKeywords = curry(
   }
 )
 
-/**
- * Given a line within a magic comment block, remove the leading asterisks
- * @name stripLeadingComment
- * @example
- * ```js test=true
- * import { MAGIC_COMMENT_START as START, MAGIC_COMMENT_END as END } from '../constants'
- * // drgen-import-above
- * expect(stripLeadingComment('     ' + START)).toEqual('')
- * expect(stripLeadingComment(END)).toEqual('')
- * expect(stripLeadingComment(' * comment! ')).toEqual(' comment!')
- * ```
- */
 export const stripLeadingComment = pipe(
   trim,
   when(equals('/**'), K('')),
@@ -303,7 +222,7 @@ export function uncommentBlock(block) {
   return map(([lineNum, line]) => [lineNum, stripLeadingComment(line)], block)
 }
 
-const segmentBlock = pipe(
+export const segmentBlock = pipe(
   reduce(
     function segmentLogicalGroupsOfCommentBlock(agg, [lineNum, line]) {
       const lineParts = line.split(' ').filter(I)
@@ -385,13 +304,9 @@ export const structureKeywords = curry(
 const getFileGroup = propOr('', 'group')
 const addTo = propOr('', 'addTo')
 
-/**
+/*
  * @name objectifyComments
  * @signature String -> String -> List Comment -> List CommentBlock
- * @example
- * ```js test=true
- * expect(objectifyComments('x', 'x', [])).toEqual([])
- * ```
  */
 export const objectifyComments = curry(
   function _objectifyComments(filename, file, comments) {
