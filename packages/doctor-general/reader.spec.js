@@ -2,6 +2,7 @@ import { fork, parallel, resolve as resolveF } from 'fluture'
 import { chain, map, pipe } from 'ramda'
 import { readFile } from 'file-system'
 import {
+  monorepoRunner,
   readPackageJsonWorkspaces,
   iterateOverWorkspacesAndReadFiles,
 } from './reader'
@@ -78,4 +79,28 @@ test('readPackageJsonWorkspaces', done => {
       done()
     })
   )('../../package.json')
+})
+
+test('monorepoRunner', done => {
+  const cancel = () => {
+    done()
+  }
+  const config = {
+    color: true,
+    ignore: [
+      '**/node_modules/**',
+      '**/coverage/**',
+      '**/*.spec.{js,jsx,ts,tsx}',
+      '**/fixture/**',
+      '**/fixture.*',
+    ],
+    searchGlob: '**/*.{js,jsx,ts,tsx}',
+    debug: false,
+    verifyProcessor: false,
+    showMatchOnly: false,
+  }
+  fork(done)(x => {
+    expect(x).toMatchSnapshot()
+    done()
+  })(monorepoRunner(cancel, config, '../..', '../../package.json'))
 })
