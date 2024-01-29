@@ -1,18 +1,29 @@
 import { join as pathJoin } from 'node:path'
 import { parallel } from 'fluture'
-import { trimEnd, isNotEmpty, autobox } from 'inherent'
+import {
+  search,
+  trimEnd,
+  trimStart,
+  isNotEmpty,
+  autobox,
+  repeat,
+} from 'inherent'
 import { TESTABLE_EXAMPLE } from './constants'
 import {
+  defaultTo,
+  mergeRight,
+  append,
+  addIndex,
   identity as I,
   prop,
   always as K,
+  objOf,
   any,
   ap,
   applySpec,
   both,
   chain,
   concat,
-  cond,
   curry,
   equals,
   filter,
@@ -30,7 +41,6 @@ import {
   pipe,
   propOr,
   reduce,
-  reject,
   replace,
   slice,
   split,
@@ -47,6 +57,9 @@ import { unlines } from 'knot'
 import { log } from './log'
 import { findJSDocKeywords } from './file'
 import { formatComment, trimComment } from './text'
+
+const imap = addIndex(map)
+const ireduce = addIndex(reduce)
 
 /*
  * Check to see if a comment object has an example with a `test=true`
@@ -100,55 +113,53 @@ const ORDERED_LIST_ITEM = /^\s\d*\.\s/g
 const CURRIED_LIST_ITEM = /^\d+\.\s(\w+)\s-\s(.*)/g
 const isListItem = testRegExp(ORDERED_LIST_ITEM)
 
-export const getCurriedDefinition = curry(
-  function _getCurriedDefinition(file, end, i) {
+const processCurriedItemSummary = pipe(split('-'), ([k, s]) => ({
+  name: pipe(replace(/\d*\.\s*(.*)/, '$1'), trim)(k),
+  summary: s.trim(),
+}))
+
+export function processCurriedComment(comment = {}) {
+  const { structure = {}, ...subcomment } = comment
+  const { example, curried = false, ...substructure } = structure
+  if (curried) {
     return pipe(
-      slice(i + 1, end),
-      map(
-        pipe(trimComment, when(pipe(trim, equals('*')), K('')), line => [
-          isListItem(line),
-          line,
-        ])
-      ),
+      imap(function _getIndex(y, i) {
+        return y === true ? i - 1 : false
+      }),
+      filter(I),
+      append(Infinity),
       reduce(
-        function findingCurriedDefinitions(
-          { subject, lines, defs },
-          [isDefinition, content]
-        ) {
-          return isDefinition
-            ? {
-                defs: lines.length ? [...defs, { lines, subject }] : defs,
-                lines: [],
-                subject: content,
-              }
-            : {
-                subject,
-                defs,
-                lines: [
-                  ...lines,
-                  content.startsWith('    ') ? content.slice(4) : content,
-                ],
-              }
+        function aggregateExamples(agg, i) {
+          const cut = example.slice(agg.prev, i)
+          agg.examples.push(cut)
+          agg.prev = i
+          return agg
         },
-        { subject: null, lines: [], defs: [] }
+        { prev: 0, examples: [] }
       ),
-      function handleFinalDefinition({ subject, defs, lines }) {
-        return [...defs, { lines, subject }]
-      },
-      map(function reformatCurriedDefs({ lines, subject }) {
-        const matched = subject
-          ? trim(subject).replace(CURRIED_LIST_ITEM, '$1⩇$2')
-          : ''
-        const [name, summary] = split('⩇', matched)
-        return {
-          name,
-          summary,
-          lines: pipe(reject(equals('@example')), unlines)(lines),
+      prop('examples'),
+      ireduce(function structureCurried(agg, x, i) {
+        if (i === 0) {
+          const first = processCurriedItemSummary(head(curried))
+          first.lines = trimStart(x.join('\n'))
+          return agg.concat(first)
         }
-      })
-    )(file)
+        const lead = head(x)
+        const lines = slice(2, Infinity, x)
+        const o = processCurriedItemSummary(lead)
+        o.lines = trimStart(lines.join('\n'))
+        return agg.concat(o)
+      }, []),
+      defaultTo([]),
+      objOf('curried'),
+      mergeRight(substructure),
+      defaultTo({}),
+      objOf('structure'),
+      mergeRight(subcomment)
+    )(example)
   }
-)
+  return comment
+}
 
 /*
  * Grab the summary from raw lines, given some indices to slice
@@ -200,16 +211,13 @@ export const getExample = curry(function _getExample(rawLines, end, i) {
 //    like `@group` / `@page` / `@pageSummary` / `@addTo` / `@curried`
 //    and some of these tags then are not present in the resulting structure
 
-export const handleEphemeralKeywords = curry(
-  function _handleEphemeralKeywords(keyword, value, rest, rawLines, end, i) {
-    return pipe(
-      cond([
-        [equals('pageSummary'), () => getPageSummary(rawLines, end, i)],
-        [equals('curried'), () => getCurriedDefinition(rawLines, end, i)],
-      ])
-    )(keyword)
+export const processEphemeral = comment => {
+  if (comment?.structure?.pageSummary) {
+    // eslint-disable-next-line no-console
+    console.log('comment', comment)
   }
-)
+  return comment
+}
 
 export const stripLeadingComment = pipe(
   trim,
@@ -222,9 +230,14 @@ export function uncommentBlock(block) {
   return map(([lineNum, line]) => [lineNum, stripLeadingComment(line)], block)
 }
 
+const leadingSpaces = search(/\S|$/)
+
+export const WHITESPACE_PRESERVING_TAGS = ['example', 'curried']
+
 export const segmentBlock = pipe(
   reduce(
     function segmentLogicalGroupsOfCommentBlock(agg, [lineNum, line]) {
+      const whitespace = leadingSpaces(line)
       const lineParts = line.split(' ').filter(I)
       const { structure } = agg
       const { current } = agg
@@ -236,7 +249,13 @@ export const segmentBlock = pipe(
       }
       const cleanTag = hasTag ? tag.slice(1) : tag
       const currentStructure = current ? structure?.[current] : []
-      const toAdd = additional.join(' ')
+      const indent =
+        additional.indexOf('```') === -1 &&
+        (WHITESPACE_PRESERVING_TAGS.includes(current) ||
+          WHITESPACE_PRESERVING_TAGS.includes(cleanTag))
+          ? repeat(' ', whitespace - 1)
+          : ''
+      const toAdd = indent + additional.join(' ')
       if (!current) {
         return {
           structure: {
@@ -286,8 +305,7 @@ export const structureKeywords = curry(
     return pipe(
       uncommentBlock,
       filter(pipe(last, isNotEmpty)),
-      segmentBlock,
-      log.comment('SEGMENT')
+      segmentBlock
       /*
       map(function _handleSpecificRemap([i, [keyword, value = true, ...rest]]) {
         return [
@@ -310,41 +328,52 @@ const addTo = propOr('', 'addTo')
  */
 export const objectifyComments = curry(
   function _objectifyComments(filename, file, comments) {
-    return reduce(
-      (agg, block) =>
-        agg.concat(
-          pipe(
-            // pass one
-            applySpec({
-              start: pipe(head, head),
-              end: pipe(last, head),
-              lines: formatComment,
-            }),
-            // pass two
-            gen => {
-              const structure = structureKeywords(file, block, gen.end)
-              if (structure.page && !structure.name) {
-                structure.name = structure.page
-                structure.detail = gen.start
+    return pipe(
+      reduce(
+        (agg, block) =>
+          agg.concat(
+            pipe(
+              // pass one
+              applySpec({
+                start: pipe(head, head),
+                end: pipe(last, head),
+                lines: formatComment,
+              }),
+              // pass two
+              gen => {
+                const structure = structureKeywords(file, block, gen.end)
+                if (structure.page && !structure.name) {
+                  structure.name = structure.page
+                  structure.detail = gen.start
+                }
+                return {
+                  ...gen,
+                  summary: structure.description, //  summarize(gen.lines),
+                  links: matchLinks(gen.lines),
+                  fileGroup: getFileGroup(structure),
+                  addTo: addTo(structure),
+                  structure,
+                  // this pulls @link, which isn't part of what is captured by the current parse
+                  keywords: pipe(unlines, findJSDocKeywords, uniq, z =>
+                    z.sort()
+                  )(gen.lines),
+                }
               }
-              return {
-                ...gen,
-                summary: structure.description, //  summarize(gen.lines),
-                links: matchLinks(gen.lines),
-                fileGroup: getFileGroup(structure),
-                addTo: addTo(structure),
-                structure,
-                // this pulls @link, which isn't part of what is captured by the current parse
-                keywords: pipe(unlines, findJSDocKeywords, uniq, z => z.sort())(
-                  gen.lines
-                ),
-              }
-            }
-          )(block)
-        ),
-      [],
-      comments
-    )
+            )(block)
+          ),
+        []
+      )
+    )(comments)
+  }
+)
+
+export const objectifyAllComments = curry(
+  function _objectifyComments(filename, file, x) {
+    return pipe(
+      objectifyComments(filename, file),
+      map(processCurriedComment),
+      map(processEphemeral)
+    )(x)
   }
 )
 

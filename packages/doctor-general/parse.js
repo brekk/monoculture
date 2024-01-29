@@ -28,7 +28,7 @@ import { wrap } from 'inherent'
 
 import { isJSDocComment, addLineNumbers, groupContiguousBlocks } from './file'
 import { stripRelative } from './text'
-import { objectifyComments } from './comment'
+import { objectifyAllComments } from './comment'
 
 const fromStructureOr = curry(function _fromStructureOr(def, crumbs, x) {
   return pathOr(def, ['structure', ...when(is(String), wrap)(crumbs)], x)
@@ -75,7 +75,7 @@ export const parse = curry(function _parse(rawFilename, content) {
         // List #[Integer, String]
         groupContiguousBlocks,
         // List #[Integer, String]
-        objectifyComments(filename, raw),
+        objectifyAllComments(filename, raw),
         // List CommentBlock
         applySpec({
           pageTitle: getPageTitle,

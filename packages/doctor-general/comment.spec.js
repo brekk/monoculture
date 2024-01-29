@@ -1,6 +1,6 @@
-import { pipe, last, head } from 'ramda'
+import { map, pipe, last, head } from 'ramda'
 import {
-  getCurriedDefinition,
+  processCurriedComment,
   processComments,
   uncommentBlock,
   stripLeadingComment,
@@ -147,7 +147,18 @@ test('structureKeywords', () => {
     )
   ).toEqual({
     description: 'Nice, we support multiline descriptions now',
-    example: ['```ts', "tsDrools = 'obviously'", '```'],
+    example: [
+      '```ts',
+      "const tsDrools = 'obviously'",
+      'const nowWithIndents = {',
+      '  a: {',
+      '    b: {',
+      '      c: true',
+      '    }',
+      '  }',
+      '}',
+      '```',
+    ],
     name: 'hooray',
     postExample: 'Really nice, proper parsies!',
     private: true,
@@ -308,70 +319,13 @@ const CURRIED_EXAMPLE = `
  *     })(exec('echo', [blah]))
  *     \`\`\`
  */`
+  .split('\n')
+  .map((x, i) => [i + 1, x])
 
-test('getCurriedDefinition', () => {
-  const out = getCurriedDefinition(CURRIED_EXAMPLE.split('\n'), Infinity, 0)
-  expect(out).toEqual([
-    {
-      lines: `/**
-    Consume external commands as a Future-wrapped value.
-    @future
-    @curried"`,
-      name: '',
-      summary: undefined,
-    },
-    {
-      lines: `
-\`\`\`js
-import { execWithConfig } from 'kiddo'
-import { fork } from 'fluture'
-fork(console.warn)(console.log)(
-  execWithConfig(
-    function customCancellationFunction() {},
-      'echo',
-      { cleanup: true },
-      ['ahoy']
-    )
-  )
-\`\`\`
-`,
-      name: 'execWithConfig',
-      summary:
-        'Passes all possible configuration values plus a cancellation function.',
-    },
-    {
-      lines: `
-    \`\`\`js
-    import { execWithCancel } from 'kiddo'
-    import { fork } from 'fluture'
-    fork(console.warn)(console.log)(
-      execWithCancel(
-        function customCancellationFunction() {},
-        'echo',
-        ['ahoy']
-      )
-    )
-    \`\`\`
-    `,
-      name: 'execWithCancel',
-      summary:
-        'Eschews any configuration and instead only expects a cancellation function, command and arguments.',
-    },
-    {
-      lines: `
-    \`\`\`js test=true
-    import { fork } from 'fluture'
-    // drgen-import-above
-    const blah = Math.round(Math.random() * 100000)
-    fork(done)(z => {
-      expect(z.stdout).toEqual('' blah)
-      done()
-    })(exec('echo', [blah]))
-    \`\`\`
-     */`,
-      name: 'exec',
-      summary:
-        'Eschews any configuration or cancellation function. Needs only command and arguments.',
-    },
-  ])
+test('processCurriedComment', () => {
+  const out = pipe(
+    objectifyComments('hey-there.js', 'filefile'),
+    map(processCurriedComment)
+  )([CURRIED_EXAMPLE])
+  expect(out).toMatchSnapshot()
 })
