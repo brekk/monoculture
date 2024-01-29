@@ -19,20 +19,13 @@ import {
   pipe,
   propOr,
   uniq,
-  when,
-  is,
 } from 'ramda'
 import { readFile } from 'file-system'
 import { nthIndex, lines } from 'knot'
-import { wrap } from 'inherent'
 
 import { isJSDocComment, addLineNumbers, groupContiguousBlocks } from './file'
 import { stripRelative } from './text'
 import { objectifyAllComments } from './comment'
-
-const fromStructureOr = curry(function _fromStructureOr(def, crumbs, x) {
-  return pathOr(def, ['structure', ...when(is(String), wrap)(crumbs)], x)
-})
 
 const getAny = curry(function _getAny(def, keyPath, comments) {
   return pipe(
@@ -109,9 +102,11 @@ export const parseFile = curry(function _parseFile(debugMode, filename) {
       return {
         ...p,
         comments: pipe(
+          /*
           filter(function skipEmptyComments({ lines: l, start, end, summary }) {
             return start !== end && !!summary && l.length > 0
           }),
+          */
           unless(
             K(debugMode),
             map(({ lines: __lines, ...rest }) => rest)

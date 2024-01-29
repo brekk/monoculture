@@ -62,7 +62,8 @@ export const capitalToKebab = s =>
   pipe(
     replace(/[A-Z]/g, match => `-` + match),
     replace(/\//g, '-'),
-    replace(/--/g, '-')
+    replace(/--/g, '-'),
+    z => (z[0] === '-' ? z.slice(1) : z)
     // lowercaseFirst
   )(s)
 

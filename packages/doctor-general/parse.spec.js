@@ -97,3 +97,12 @@ test('parseFile', done => {
     done()
   })(parseFile(false, input))
 })
+
+test('parseFile - debug', done => {
+  const input = relativePathJoin(__dirname, './file.js')
+  fork(done)(raw => {
+    const cleanFilename = raw.filename.split('/').slice(-3).join('/')
+    expect({ ...raw, filename: cleanFilename }).toMatchSnapshot()
+    done()
+  })(parseFile(true, input))
+})

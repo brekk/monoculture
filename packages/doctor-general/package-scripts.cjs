@@ -26,7 +26,7 @@ module.exports = {
     },
     lint: sd('eslint --fix .', 'lint!'),
     test: {
-      ...sd('jest --coverage --verbose', 'test!'),
+      ...sd('jest --coverage --verbose --testLocationInResults', 'test!'),
       snapshot: sd('jest -u', 'update snerpsherts'),
 
       silent: sd(

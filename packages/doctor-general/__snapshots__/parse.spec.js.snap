@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`parseFile - debug 1`] = `
+{
+  "comments": [],
+  "fileGroup": undefined,
+  "filename": "packages/doctor-general/file.js",
+  "links": [],
+  "order": NaN,
+  "package": "doctor-general",
+  "pageSummary": "",
+  "pageTitle": undefined,
+  "slugName": "file",
+}
+`;
+
 exports[`parseFile 1`] = `
 {
   "comments": [],
