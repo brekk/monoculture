@@ -38,44 +38,7 @@ test('readPackageJsonWorkspaces', done => {
     chain(parallel(10)),
     fork(done)(x => {
       expect(x).toMatchSnapshot()
-      /*
-      [
-        ['apps/docs/'],
-        [
-          'packages/bloodline/',
-          'packages/climate-json/',
-          'packages/climate-toml/',
-          'packages/climate-yaml/',
-          'packages/climate/',
-          'packages/clox/',
-          'packages/doctor-general-jest/',
-          'packages/doctor-general-mdx/',
-          'packages/doctor-general/',
-          'packages/file-system/',
-          'packages/inherent/',
-          'packages/kiddo/',
-          'packages/knot/',
-          'packages/manacle/',
-          'packages/monocle/',
-          'packages/monorail/',
-          'packages/robot-tourist/',
-          'packages/water-wheel/',
-        ],
-        [
-          'shared/eslint-config-monoculture/',
-          'shared/jest-config/',
-          'shared/monoculture-tsconfig/',
-        ],
-        [
-          'tools/digested/',
-          'tools/doctor-general-cli/',
-          'tools/gitparty/',
-          'tools/spacework/',
-          'tools/superorganism/',
-          'tools/treacle/',
-        ],
-      ]
-      */
+
       done()
     })
   )('../../package.json')

@@ -1,5 +1,9 @@
 import { map, pipe, last, head } from 'ramda'
+import { fork } from 'fluture'
+import { removeFileWithConfig } from 'file-system'
 import {
+  writeCommentsToFiles,
+  renderFileWith,
   processCurriedComment,
   processComments,
   uncommentBlock,
@@ -328,4 +332,79 @@ test('processCurriedComment', () => {
     map(processCurriedComment)
   )([CURRIED_EXAMPLE])
   expect(out).toMatchSnapshot()
+})
+
+test('renderFileWith', () => {
+  const processor = { renderer: (a, b) => b, postRender: (a, b) => b }
+  const rendered = renderFileWith(processor, { comments: 'abc'.split('') })
+  expect(rendered).toEqual(['a', 'b', 'c'])
+})
+const GENERATED_FILES = []
+
+test('writeCommentsToFiles', done => {
+  const processor = {
+    renderer: (a, b) => b,
+    postRender: (a, b) => {
+      return b.map(c => c.summary).join('\n')
+    },
+    output: y => {
+      const name = y.workspace + '/' + y.filename
+      GENERATED_FILES.push(name)
+      return name
+    },
+  }
+  const outputDir = __dirname
+  fork(done)(x => {
+    expect(x).toEqual([
+      '@pageSummary Built-in helpers for making custom plugins more robust. The "helpers" are the third parameter passed to a custom plugin\'s function.',
+    ])
+    done()
+  })(
+    writeCommentsToFiles(
+      { processor, outputDir },
+      {
+        'generated-fake': [
+          {
+            slugName: 'helpers',
+            package: 'monorail',
+            pageTitle: 'helpers',
+            pageSummary:
+              'Built-in helpers for making custom plugins more robust. The "helpers" are the third parameter passed to a custom plugin\'s function.',
+            filename: 'packages/monorail/helpers.js',
+            comments: [
+              {
+                start: 22,
+                end: 25,
+                summary:
+                  '@pageSummary Built-in helpers for making custom plugins more robust. The "helpers" are the third parameter passed to a custom plugin\'s function.',
+                links: [],
+                fileGroup: '',
+                addTo: '',
+                structure: {
+                  pageSummary: [
+                    'Built-in helpers for making custom plugins more robust. The "helpers" are the third parameter passed to a custom plugin\'s function.',
+                  ],
+                  page: 'helpers',
+                  name: 'helpers',
+                  detail: 22,
+                },
+                keywords: ['@page', '@pageSummary'],
+                filename: 'packages/monorail/helpers.js',
+                package: 'monorail',
+              },
+            ],
+            order: 0,
+            links: [],
+            workspace: 'generated-fake',
+          },
+        ],
+      }
+    )
+  )
+})
+
+afterAll(done => {
+  fork(done)(() => {
+    done()
+  })(removeFileWithConfig({ force: true, recursive: true }, 'generated-fake'))
 })

@@ -1,6 +1,16 @@
 import fs from 'node:fs'
-import { sep } from 'node:path'
-import { reduce, F, propOr, without, curry, pipe, map, __ as $ } from 'ramda'
+import { dirname, basename, sep } from 'node:path'
+import {
+  ifElse,
+  reduce,
+  F,
+  propOr,
+  without,
+  curry,
+  pipe,
+  map,
+  __ as $,
+} from 'ramda'
 import {
   Future,
   chain,
@@ -476,9 +486,6 @@ export const access = curry(function _access(permissions, filePath) {
 export const exists = access(constants.F_OK)
 export const readable = access(constants.R_OK)
 
-export const directoryOnly = filePath =>
-  filePath.slice(0, filePath.lastIndexOf('/'))
-
 /**
  * Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`
  * @name writeFileWithAutoPath
@@ -497,14 +504,18 @@ export const directoryOnly = filePath =>
  */
 export const writeFileWithAutoPath = curry(
   function _writeFileWithAutoPath(filePath, content) {
-    return pipe(
-      directoryOnly,
-      dir =>
-        pipe(
-          exists,
-          chainRej(() => mkdirp(dir))
-        )(dir),
-      chain(() => writeFile(filePath, content))
+    return ifElse(
+      f => basename(f) === f,
+      writeFile($, content),
+      pipe(
+        dirname,
+        dir =>
+          pipe(
+            exists,
+            chainRej(() => mkdirp(dir))
+          )(dir),
+        chain(() => writeFile(filePath, content))
+      )
     )(filePath)
   }
 )

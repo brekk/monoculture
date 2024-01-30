@@ -43,7 +43,11 @@ const getPageSummary = pipe(
   join(' ')
 )
 
-const getPageTitle = getAny('', ['structure', 'page'])
+const getPageTitle = pipe(
+  getAny('', ['structure', 'page']),
+  defaultTo([]),
+  join(' ')
+)
 
 const getPackage = i => {
   if (i.indexOf('/') > -1) {

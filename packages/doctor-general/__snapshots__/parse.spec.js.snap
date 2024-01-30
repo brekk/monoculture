@@ -9,7 +9,7 @@ exports[`parseFile - debug 1`] = `
   "order": NaN,
   "package": "doctor-general",
   "pageSummary": "",
-  "pageTitle": undefined,
+  "pageTitle": "",
   "slugName": "file",
 }
 `;
@@ -23,7 +23,7 @@ exports[`parseFile 1`] = `
   "order": NaN,
   "package": "doctor-general",
   "pageSummary": "",
-  "pageTitle": undefined,
+  "pageTitle": "",
   "slugName": "file",
 }
 `;

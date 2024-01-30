@@ -27,7 +27,7 @@ const handleInvalidProcessor = pipe(
   bad
 )
 
-export const handleMatches = curry(function _handleMatches(
+export const readAndProcessFiles = curry(function _readAndProcessFiles(
   cancel,
   config,
   { outputDir, relativeArtifact, relative },
@@ -103,7 +103,7 @@ export const drgen = curry(function _drgen(cancel, config) {
     ),
     unless(
       () => showMatchesOnly,
-      handleMatches(cancel, config, {
+      readAndProcessFiles(cancel, config, {
         outputDir,
         relativeArtifact,
         relative: r => (monorepoMode ? pathJoin(toLocal[0], r) : r),

@@ -211,14 +211,6 @@ export const getExample = curry(function _getExample(rawLines, end, i) {
 //    like `@group` / `@page` / `@pageSummary` / `@addTo` / `@curried`
 //    and some of these tags then are not present in the resulting structure
 
-export const processEphemeral = comment => {
-  if (comment?.structure?.pageSummary) {
-    // eslint-disable-next-line no-console
-    console.log('comment', comment)
-  }
-  return comment
-}
-
 export const stripLeadingComment = pipe(
   trim,
   when(equals('/**'), K('')),
@@ -248,7 +240,7 @@ export const segmentBlock = pipe(
         additional = lineParts
       }
       const cleanTag = hasTag ? tag.slice(1) : tag
-      const currentStructure = current ? structure?.[current] : []
+      const currentStructure = structure?.[current] ?? []
       const indent =
         additional.indexOf('```') === -1 &&
         (WHITESPACE_PRESERVING_TAGS.includes(current) ||
@@ -257,38 +249,46 @@ export const segmentBlock = pipe(
           : ''
       const toAdd = indent + additional.join(' ')
       if (!current) {
+        const key = hasTag ? cleanTag : 'description'
         return {
           structure: {
             ...structure,
-            description: [toAdd],
+            [key]: [toAdd],
           },
-          current: 'description',
+          current: key,
         }
       }
+
       if (hasTag) {
         const insert = additional.length ? toAdd : true
         const prev = structure?.[cleanTag] ?? false
+        const value = prev
+          ? // arrayify if there's a prior entry
+            [...autobox(prev), insert]
+          : insert
         return {
           structure: {
             ...structure,
-            [cleanTag]: prev
-              ? // arrayify if there's a prior entry
-                [...autobox(prev), insert]
-              : insert,
+            [cleanTag]: value,
           },
           current: cleanTag,
         }
       }
-
+      const prior = Array.isArray(currentStructure)
+        ? currentStructure
+        : currentStructure !== true
+          ? [currentStructure]
+          : []
+      const toInsert = [
+        // if there's a prior entry that is an array, merge with it,
+        // otherwise we inferred boolean on something multiline
+        ...prior,
+        toAdd,
+      ]
       return {
         structure: {
           ...structure,
-          [current]: [
-            // if there's a prior entry that is an array, merge with it,
-            // otherwise we inferred boolean on something multiline
-            ...(Array.isArray(currentStructure) ? currentStructure : []),
-            toAdd,
-          ],
+          [current]: toInsert,
         },
         current,
       }
@@ -296,12 +296,12 @@ export const segmentBlock = pipe(
     { structure: {}, current: false }
   ),
   prop('structure'),
-  z => ({ ...z, description: (z?.description ?? []).join(' ') })
+  ({ description: d = [], ...z }) => ({ ...z, description: d.join(' ') })
 )
 
 // structureKeywords :: List String -> CommentBlock -> Integer -> CommentStructure
 export const structureKeywords = curry(
-  function _structureKeywords(file, block, end) {
+  function _structureKeywords(file, block) {
     return pipe(
       uncommentBlock,
       filter(pipe(last, isNotEmpty)),
@@ -341,10 +341,9 @@ export const objectifyComments = curry(
               }),
               // pass two
               gen => {
-                const structure = structureKeywords(file, block, gen.end)
+                const structure = structureKeywords(file, block)
                 if (structure.page && !structure.name) {
                   structure.name = structure.page
-                  structure.detail = gen.start
                 }
                 return {
                   ...gen,
@@ -368,16 +367,16 @@ export const objectifyComments = curry(
 )
 
 export const objectifyAllComments = curry(
-  function _objectifyComments(filename, file, x) {
+  function _objectifyAllComments(filename, file, x) {
     return pipe(
       objectifyComments(filename, file),
-      map(processCurriedComment),
-      map(processEphemeral)
+      map(processCurriedComment)
+      // map(processEphemeral)
     )(x)
   }
 )
 
-const renderFileWith = curry(function _renderFileWith(
+export const renderFileWith = curry(function _renderFileWith(
   { renderer, postRender },
   file
 ) {
@@ -434,7 +433,7 @@ export const renderComments = curry(
   function _renderComments(processor, outputDir, x) {
     return chain(
       pipe(
-        groupBy(propOr('unknown', processor.group)),
+        groupBy(propOr('unknown', 'group', processor)),
         writeCommentsToFiles({ processor, outputDir })
       )
     )(x)
