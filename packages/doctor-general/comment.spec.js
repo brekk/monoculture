@@ -1,7 +1,8 @@
 import { map, pipe, last, head } from 'ramda'
-import { fork } from 'fluture'
+import { resolve as resolveF, fork, debugMode } from 'fluture'
 import { removeFileWithConfig } from 'file-system'
 import {
+  renderComments,
   writeCommentsToFiles,
   renderFileWith,
   processCurriedComment,
@@ -18,6 +19,8 @@ import {
   getExample,
   structureKeywords,
 } from './comment'
+
+debugMode(true)
 
 const CANONICAL_FILE = `
 
@@ -58,6 +61,11 @@ const CANONICAL_COMMENTS = [
     [25, ' * @see {@link secondary.link}'],
     [26, ' */'],
   ],
+  [
+    [28, ' /**'],
+    [29, ' * @page coolpage'],
+    [30, ' */'],
+  ],
 ]
 
 test('objectifyComments', () => {
@@ -67,7 +75,7 @@ test('objectifyComments', () => {
   ).toEqual([
     {
       addTo: '',
-      end: pipe(last, last, head)(CANONICAL_COMMENTS),
+      end: pipe(head, last, head)(CANONICAL_COMMENTS),
       fileGroup: '',
       keywords: [
         '@example',
@@ -99,7 +107,7 @@ test('objectifyComments', () => {
         `@see {@link secondary.link}`,
       ],
       links: ['hey-now.coolBiz', 'secondary.link'],
-      start: pipe(last, head, head)(CANONICAL_COMMENTS),
+      start: pipe(head, head, head)(CANONICAL_COMMENTS),
       structure: {
         description: 'Nice, we support multiline descriptions now',
         private: true,
@@ -120,6 +128,21 @@ test('objectifyComments', () => {
         ],
       },
       summary: 'Nice, we support multiline descriptions now',
+    },
+    {
+      addTo: '',
+      end: 30,
+      fileGroup: '',
+      keywords: ['@page'],
+      lines: ['@page coolpage'],
+      links: [],
+      start: 28,
+      structure: {
+        name: ['coolpage'],
+        description: '',
+        page: ['coolpage'],
+      },
+      summary: '',
     },
   ])
 })
@@ -334,12 +357,55 @@ test('processCurriedComment', () => {
   expect(out).toMatchSnapshot()
 })
 
+test('processCurriedComment - structure.curried not present', () => {
+  const out = pipe(map(processCurriedComment))([{ cool: 'so cool' }])
+  expect(out).toEqual([{ cool: 'so cool' }])
+})
+
 test('renderFileWith', () => {
   const processor = { renderer: (a, b) => b, postRender: (a, b) => b }
   const rendered = renderFileWith(processor, { comments: 'abc'.split('') })
   expect(rendered).toEqual(['a', 'b', 'c'])
 })
 const GENERATED_FILES = []
+
+const PROCESSED_COMMENT_BLOCK = {
+  'generated-fake': [
+    {
+      slugName: 'helpers',
+      package: 'monorail',
+      pageTitle: 'helpers',
+      pageSummary:
+        'Built-in helpers for making custom plugins more robust. The "helpers" are the third parameter passed to a custom plugin\'s function.',
+      filename: 'packages/monorail/helpers.js',
+      comments: [
+        {
+          start: 22,
+          end: 25,
+          summary:
+            '@pageSummary Built-in helpers for making custom plugins more robust. The "helpers" are the third parameter passed to a custom plugin\'s function.',
+          links: [],
+          fileGroup: '',
+          addTo: '',
+          structure: {
+            pageSummary: [
+              'Built-in helpers for making custom plugins more robust. The "helpers" are the third parameter passed to a custom plugin\'s function.',
+            ],
+            page: 'helpers',
+            name: 'helpers',
+            detail: 22,
+          },
+          keywords: ['@page', '@pageSummary'],
+          filename: 'packages/monorail/helpers.js',
+          package: 'monorail',
+        },
+      ],
+      order: 0,
+      links: [],
+      workspace: 'generated-fake',
+    },
+  ],
+}
 
 test('writeCommentsToFiles', done => {
   const processor = {
@@ -359,46 +425,37 @@ test('writeCommentsToFiles', done => {
       '@pageSummary Built-in helpers for making custom plugins more robust. The "helpers" are the third parameter passed to a custom plugin\'s function.',
     ])
     done()
+  })(writeCommentsToFiles({ processor, outputDir }, PROCESSED_COMMENT_BLOCK))
+})
+
+test.skip('renderComments', done => {
+  const processor = {
+    renderer: (a, b) => b,
+    postRender: (a, b) => {
+      return b.map(c => c.summary).join('\n')
+    },
+    group: 'cool',
+    output: y => {
+      const name = y.workspace + '/cool-' + y.filename
+      GENERATED_FILES.push(name)
+      return name
+    },
+  }
+  const outputDir = __dirname
+  fork(e => {
+    // eslint-disable-next-line no-console
+    console.log('WTF', e.toString(), e.stack)
+    done()
+  })(x => {
+    // eslint-disable-next-line no-console
+    console.log('XXXX', x)
+    expect(x).toBeTruthy()
+    done()
   })(
-    writeCommentsToFiles(
-      { processor, outputDir },
-      {
-        'generated-fake': [
-          {
-            slugName: 'helpers',
-            package: 'monorail',
-            pageTitle: 'helpers',
-            pageSummary:
-              'Built-in helpers for making custom plugins more robust. The "helpers" are the third parameter passed to a custom plugin\'s function.',
-            filename: 'packages/monorail/helpers.js',
-            comments: [
-              {
-                start: 22,
-                end: 25,
-                summary:
-                  '@pageSummary Built-in helpers for making custom plugins more robust. The "helpers" are the third parameter passed to a custom plugin\'s function.',
-                links: [],
-                fileGroup: '',
-                addTo: '',
-                structure: {
-                  pageSummary: [
-                    'Built-in helpers for making custom plugins more robust. The "helpers" are the third parameter passed to a custom plugin\'s function.',
-                  ],
-                  page: 'helpers',
-                  name: 'helpers',
-                  detail: 22,
-                },
-                keywords: ['@page', '@pageSummary'],
-                filename: 'packages/monorail/helpers.js',
-                package: 'monorail',
-              },
-            ],
-            order: 0,
-            links: [],
-            workspace: 'generated-fake',
-          },
-        ],
-      }
+    renderComments(
+      processor,
+      outputDir,
+      resolveF(PROCESSED_COMMENT_BLOCK['generated-fake'])
     )
   )
 })

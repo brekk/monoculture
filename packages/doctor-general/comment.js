@@ -403,6 +403,7 @@ export const writeCommentsToFiles = curry(function _writeCommentsToFiles(
 ) {
   const { output: $outputPath, postProcess: $postProcess = (_a, _b, c) => c } =
     processor
+  log.comment('RAW', x)
   return pipe(
     toPairs,
     map(([workspace, commentedFiles]) => {
@@ -433,7 +434,7 @@ export const renderComments = curry(
   function _renderComments(processor, outputDir, x) {
     return chain(
       pipe(
-        groupBy(propOr('unknown', 'group', processor)),
+        groupBy(processor?.group ?? 'unknown'),
         writeCommentsToFiles({ processor, outputDir })
       )
     )(x)

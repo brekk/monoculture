@@ -4,14 +4,14 @@ import { identity as I } from 'ramda'
 import { drgen } from './drgen'
 
 test('drgen - as little as possible', done => {
-  const config = {
+  const CONFIG = {
     search: '**/*.js',
     showMatchesOnly: true,
     processor: resolveF({
       process: I,
       renderer: (x, y) => y,
       group: 'cool',
-      output: () => {},
+      output: f => f.filename,
     }),
     monorepo: false,
     input: ['../../package.json'],
@@ -19,7 +19,7 @@ test('drgen - as little as possible', done => {
     cwd: '.',
   }
   fork(done)(x => {
-    expect(x).toEqual(config.input)
+    expect(x).toEqual(CONFIG.input)
     done()
-  })(drgen(function cancel() {}, config))
+  })(drgen(function cancel() {}, CONFIG))
 })
