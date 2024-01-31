@@ -18,6 +18,7 @@
     "ramda": "0.29.1"
   },
   "devDependencies": {
+    "doctor-general": "workspace:packages/doctor-general",
     "dotenv-cli": "7.3.0",
     "envtrace": "0.0.2",
     "esbuild": "0.19.10",

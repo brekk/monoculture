@@ -7422,6 +7422,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "doctor-general-jest@workspace:packages/doctor-general-jest"
   dependencies:
+    doctor-general: "workspace:packages/doctor-general"
     dotenv-cli: "npm:7.3.0"
     envtrace: "npm:0.0.2"
     esbuild: "npm:0.19.10"

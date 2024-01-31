@@ -277,8 +277,8 @@ export const segmentBlock = pipe(
       const prior = Array.isArray(currentStructure)
         ? currentStructure
         : currentStructure !== true
-          ? [currentStructure]
-          : []
+        ? [currentStructure]
+        : []
       const toInsert = [
         // if there's a prior entry that is an array, merge with it,
         // otherwise we inferred boolean on something multiline

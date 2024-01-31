@@ -1,11 +1,26 @@
 import MAIN from './index'
+import {
+  validatePlugin as validate,
+  checkPlugin as interrogate,
+} from 'doctor-general'
 
-test('default', () => {
-  expect(Object.keys(MAIN)).toEqual([
-    'output',
-    'group',
-    'process',
-    'renderer',
-    'postRender',
-  ])
+test('doctor-general-jest is statically valid', () => {
+  expect(validate(MAIN)).toBeTruthy()
+  expect(interrogate(MAIN)).toEqual({
+    additionalFieldCheck: {},
+    additionalFields: [],
+    checked: {
+      optional: { postProcess: false },
+      required: {
+        group: true,
+        output: true,
+        postRender: true,
+        process: true,
+        renderer: true,
+      },
+    },
+    incorrectFields: ['postProcess'],
+    meetsRequirements: true,
+    meetsOptionalRequirements: false,
+  })
 })
