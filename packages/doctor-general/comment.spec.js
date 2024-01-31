@@ -288,12 +288,7 @@ test('uncommentBlock', () => {
 
 test('processComments', () => {
   const input = Math.round(Math.random() * 1e3)
-  expect(processComments(() => 'huh?', { process: y => y * 2 }, input)).toEqual(
-    input * 2
-  )
-  const fn = jest.fn()
-  processComments(fn, false, input)
-  expect(fn).toHaveBeenCalled()
+  expect(processComments({ process: y => y * 2 }, input)).toEqual(input * 2)
 })
 
 /* eslint-disable max-len */

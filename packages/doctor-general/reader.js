@@ -36,7 +36,7 @@ export const readPackageJsonWorkspaces = curry(
 )
 
 export const monorepoRunner = curry(
-  function _monorepoRunner(cancel, config, root, pkgJsonPath) {
+  function _monorepoRunnerF(cancel, config, root, pkgJsonPath) {
     const { showMatchesOnly } = config
     log.core('CONFIG', config)
     return pipe(

@@ -277,8 +277,8 @@ export const segmentBlock = pipe(
       const prior = Array.isArray(currentStructure)
         ? currentStructure
         : currentStructure !== true
-          ? [currentStructure]
-          : []
+        ? [currentStructure]
+        : []
       const toInsert = [
         // if there's a prior entry that is an array, merge with it,
         // otherwise we inferred boolean on something multiline
@@ -445,12 +445,6 @@ export const renderComments = curry(
  * Process comments given a interpreter and an error handler
  * @name processComments
  */
-export const processComments = curry(
-  function _processComments(bad, interpreter, x) {
-    try {
-      return interpreter.process(x)
-    } catch (e) {
-      bad(e)
-    }
-  }
-)
+export const processComments = curry(function _processComments(interpreter, x) {
+  return interpreter.process(x)
+})
