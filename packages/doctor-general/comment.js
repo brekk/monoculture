@@ -277,8 +277,8 @@ export const segmentBlock = pipe(
       const prior = Array.isArray(currentStructure)
         ? currentStructure
         : currentStructure !== true
-        ? [currentStructure]
-        : []
+          ? [currentStructure]
+          : []
       const toInsert = [
         // if there's a prior entry that is an array, merge with it,
         // otherwise we inferred boolean on something multiline
@@ -383,13 +383,13 @@ export const renderFileWith = curry(function _renderFileWith(
   const info = { imports: getImportsForTests(file), file }
   return pipe(
     // XXX: we can't be tacit with this or we end up
-    // forcing our processor to remember to be curried
+    // forcing our interpreter to remember to be curried
     // which is a PITA to debug downstream
-    map(function applyProcessorRenderer(raw) {
+    map(function applyInterpreterRenderer(raw) {
       return renderer(info, raw)
     }),
     log.verbose('rendered'),
-    function applyProcessorPostRender(raw) {
+    function applyInterpreterPostRender(raw) {
       return postRender(info, raw)
     },
     log.verbose('postRendered')
@@ -398,11 +398,11 @@ export const renderFileWith = curry(function _renderFileWith(
 
 // hard to test until we set up a whole fixture + clean script
 export const writeCommentsToFiles = curry(function _writeCommentsToFiles(
-  { processor, outputDir },
+  { interpreter, outputDir },
   x
 ) {
   const { output: $outputPath, postProcess: $postProcess = (_a, _b, c) => c } =
-    processor
+    interpreter
   log.comment('RAW', x)
   return pipe(
     toPairs,
@@ -415,7 +415,7 @@ export const writeCommentsToFiles = curry(function _writeCommentsToFiles(
           $outputPath(file)
         )
         return pipe(
-          renderFileWith(processor),
+          renderFileWith(interpreter),
           writeFileWithAutoPath(filePathToWrite)
         )(file)
       })(commentedFiles)
@@ -431,24 +431,24 @@ export const writeCommentsToFiles = curry(function _writeCommentsToFiles(
 })
 
 export const renderComments = curry(
-  function _renderComments(processor, outputDir, x) {
+  function _renderComments(interpreter, outputDir, x) {
     return chain(
       pipe(
-        groupBy(processor?.group ?? 'unknown'),
-        writeCommentsToFiles({ processor, outputDir })
+        groupBy(interpreter?.group ?? 'unknown'),
+        writeCommentsToFiles({ interpreter, outputDir })
       )
     )(x)
   }
 )
 
 /**
- * Process comments given a processor and an error handler
+ * Process comments given a interpreter and an error handler
  * @name processComments
  */
 export const processComments = curry(
-  function _processComments(bad, processor, x) {
+  function _processComments(bad, interpreter, x) {
     try {
-      return processor.process(x)
+      return interpreter.process(x)
     } catch (e) {
       bad(e)
     }

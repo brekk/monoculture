@@ -59,7 +59,7 @@ test('monorepoRunner', done => {
     ],
     searchGlob: '**/*.{js,jsx,ts,tsx}',
     debug: false,
-    verifyProcessor: false,
+    verifyInterpreter: false,
     showMatchOnly: false,
   }
   fork(done)(x => {

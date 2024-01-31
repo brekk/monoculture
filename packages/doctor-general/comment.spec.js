@@ -363,8 +363,8 @@ test('processCurriedComment - structure.curried not present', () => {
 })
 
 test('renderFileWith', () => {
-  const processor = { renderer: (a, b) => b, postRender: (a, b) => b }
-  const rendered = renderFileWith(processor, { comments: 'abc'.split('') })
+  const interpreter = { renderer: (a, b) => b, postRender: (a, b) => b }
+  const rendered = renderFileWith(interpreter, { comments: 'abc'.split('') })
   expect(rendered).toEqual(['a', 'b', 'c'])
 })
 const GENERATED_FILES = []
@@ -408,7 +408,7 @@ const PROCESSED_COMMENT_BLOCK = {
 }
 
 test('writeCommentsToFiles', done => {
-  const processor = {
+  const interpreter = {
     renderer: (a, b) => b,
     postRender: (a, b) => {
       return b.map(c => c.summary).join('\n')
@@ -425,11 +425,11 @@ test('writeCommentsToFiles', done => {
       '@pageSummary Built-in helpers for making custom plugins more robust. The "helpers" are the third parameter passed to a custom plugin\'s function.',
     ])
     done()
-  })(writeCommentsToFiles({ processor, outputDir }, PROCESSED_COMMENT_BLOCK))
+  })(writeCommentsToFiles({ interpreter, outputDir }, PROCESSED_COMMENT_BLOCK))
 })
 
 test.skip('renderComments', done => {
-  const processor = {
+  const interpreter = {
     renderer: (a, b) => b,
     postRender: (a, b) => {
       return b.map(c => c.summary).join('\n')
@@ -453,7 +453,7 @@ test.skip('renderComments', done => {
     done()
   })(
     renderComments(
-      processor,
+      interpreter,
       outputDir,
       resolveF(PROCESSED_COMMENT_BLOCK['generated-fake'])
     )

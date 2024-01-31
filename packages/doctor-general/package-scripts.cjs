@@ -10,13 +10,13 @@ module.exports = {
       ),
       rebuild: sd(
         `drgen -i ${[
-          './processor.js',
+          './interpreter.js',
           './reader.js',
           './parse.js',
           './text.js',
           './file.js',
           './comment.js',
-        ].join(' ')} -o autotests --processor doctor-general-jest`,
+        ].join(' ')} -o autotests --interpreter doctor-general-jest`,
         'generate tests with `doctor-general`!'
       ),
     },

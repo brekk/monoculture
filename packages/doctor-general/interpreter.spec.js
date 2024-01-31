@@ -1,7 +1,7 @@
-import { interrogate, validate } from './processor'
+import { interrogate, validate } from './interpreter'
 
 test('interrogate', () => {
-  const myCoolProcessor = {
+  const myCoolInterpreter = {
     output: () => {},
     group: '',
     process: () => {},
@@ -32,7 +32,7 @@ test('interrogate', () => {
       },
     },
   })
-  expect(interrogate(myCoolProcessor)).toEqual({
+  expect(interrogate(myCoolInterpreter)).toEqual({
     additionalFieldCheck: {},
     additionalFields: [],
     meetsOptionalRequirements: false,
@@ -51,7 +51,7 @@ test('interrogate', () => {
   })
   expect(
     interrogate({
-      ...myCoolProcessor,
+      ...myCoolInterpreter,
       postProcess: (a, b, c) => b,
     })
   ).toEqual({
@@ -73,7 +73,7 @@ test('interrogate', () => {
   })
   expect(
     interrogate({
-      ...myCoolProcessor,
+      ...myCoolInterpreter,
       unsupportedFunction: (a, b) => b,
     })
   ).toEqual({
@@ -96,7 +96,7 @@ test('interrogate', () => {
 })
 
 test('validate', () => {
-  const myCoolProcessor = {
+  const myCoolInterpreter = {
     output: () => {},
     group: '',
     process: () => {},
@@ -105,16 +105,16 @@ test('validate', () => {
   }
 
   expect(validate({})).toBeFalsy()
-  expect(validate(myCoolProcessor)).toBeTruthy()
+  expect(validate(myCoolInterpreter)).toBeTruthy()
   expect(
     validate({
-      ...myCoolProcessor,
+      ...myCoolInterpreter,
       postProcess: (a, b, __c) => b,
     })
   ).toBeTruthy()
   expect(
     validate({
-      ...myCoolProcessor,
+      ...myCoolInterpreter,
       unsupportedFunction: (a, b) => b,
     })
   ).toBeFalsy()

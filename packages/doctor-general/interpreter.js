@@ -76,7 +76,7 @@ export const OPTIONAL_KEYS = keys(OPTIONAL)
 export const VALID_KEYS = [...REQUIRED_KEYS, ...OPTIONAL_KEYS]
 
 /*
- * Apply tests to a given processor in order to assess its correctness.
+ * Apply tests to a given interpreter in order to assess its correctness.
  * @name interrogate
  * @exported
  */
@@ -118,7 +118,7 @@ export const interrogate = raw =>
   )(raw)
 
 /**
- * Validate a given processor is correct.
+ * Validate a given interpreter is correct.
  * If you want to see _why_ it is incorrect, use `interrogate` instead.
  * @name validate
  * @see {@link interrogate}

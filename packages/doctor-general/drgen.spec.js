@@ -7,7 +7,7 @@ test('drgen - as little as possible', done => {
   const CONFIG = {
     search: '**/*.js',
     showMatchesOnly: true,
-    processor: resolveF({
+    interpreter: resolveF({
       process: I,
       renderer: (x, y) => y,
       group: 'cool',

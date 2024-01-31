@@ -18,16 +18,16 @@ import { parseFile } from './parse'
 import { renderComments, processComments } from './comment'
 import { monorepoRunner } from './reader'
 import { writeArtifact } from './writer'
-import { validate, interrogate } from './processor'
+import { validate, interrogate } from './interpreter'
 export {
-  validate as validatePlugin,
-  interrogate as checkPlugin,
-} from './processor'
+  validate as validateInterpreter,
+  interrogate as checkInterpreter,
+} from './interpreter'
 
-const handleInvalidProcessor = pipe(
+const handleInvalidInterpreter = pipe(
   interrogate,
   ({ incorrectFields }) =>
-    `Processor is invalid. Incorrect fields: ${incorrectFields}`
+    `Interpreter is invalid. Incorrect fields: ${incorrectFields}`
 )
 
 export const readAndProcessFiles = curry(function _readAndProcessFiles(
@@ -37,7 +37,7 @@ export const readAndProcessFiles = curry(function _readAndProcessFiles(
   raw
 ) {
   return new Future((bad, good) => {
-    const { processor, debug, input, output, artifact = false } = config
+    const { interpreter, debug, input, output, artifact = false } = config
     return pipe(
       map(pipe(map(relative), chain(parseFile(debug)))),
       chain(parallel(10)),
@@ -46,9 +46,9 @@ export const readAndProcessFiles = curry(function _readAndProcessFiles(
         successText: 'Parsed files!',
         failText: 'Unable to parse files!',
       }),
-      map(processComments(bad, processor)),
+      map(processComments(bad, interpreter)),
       when(K(artifact), writeArtifact(relativeArtifact)),
-      renderComments(processor, outputDir),
+      renderComments(interpreter, outputDir),
       signal(cancel, {
         text: 'Rendering comments...',
         successText:
@@ -71,7 +71,7 @@ export const readAndProcessFiles = curry(function _readAndProcessFiles(
 export const drgen = curry(function _drgen(cancel, config) {
   return new Future(function _drgenF(bad, good) {
     const {
-      processor,
+      interpreter,
       input,
       output,
       search: searchGlob,
@@ -82,9 +82,9 @@ export const drgen = curry(function _drgen(cancel, config) {
       cwd,
     } = config
     log.core('showMatchesOnly', showMatchesOnly)
-    log.core('processor!', processor)
-    if (!validate(processor)) {
-      pipe(handleInvalidProcessor, bad)(processor)
+    log.core('interpreter!', interpreter)
+    if (!validate(interpreter)) {
+      pipe(handleInvalidInterpreter, bad)(interpreter)
       return cancel
     }
     log.core('input', input)

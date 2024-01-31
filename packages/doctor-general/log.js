@@ -11,7 +11,7 @@ export const log = complextrace('doctor-general', [
   'stats',
   'string',
   'text',
-  'processor',
+  'interpreter',
   'validate',
   'error',
   'reader',

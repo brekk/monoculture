@@ -11,25 +11,25 @@ import { HELP_CONFIG, YARGS_CONFIG, CONFIG_DEFAULTS } from './config'
 import { log } from './log'
 
 const processHelpOrRun = curry(function _processHelpOrRun(cancel, config) {
-  const { HELP, help, input, output, processor } = config
+  const { HELP, help, input, output, interpreter } = config
   if (help || !input || !output) {
     return resolve(HELP)
   }
   return pipe(
     interpret,
     signal(cancel, {
-      text: `Loading processor: ${processor}...`,
-      successText: `Loaded processor: ${processor}...`,
-      failText: `Unable to load processor: ${processor}`,
+      text: `Loading interpreter: ${interpreter}...`,
+      successText: `Loaded interpreter: ${interpreter}...`,
+      failText: `Unable to load interpreter: ${interpreter}`,
     }),
-    log.cli('processor'),
+    log.cli('interpreter'),
     chain(p =>
       drgen(cancel, {
         ...config,
-        processor: p,
+        interpreter: p,
       })
     )
-  )(processor)
+  )(interpreter)
 })
 
 const { name: $NAME, description: $DESC } = PKG
