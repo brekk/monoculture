@@ -30,13 +30,22 @@ test('drgen - invalid interpreter', done => {
   })(done)(drgen(function cancel() {}, CONFIG))
 })
 
-test('drgen - as little as possible', done => {
+test('drgen - just matches', done => {
   const CONFIG = { ...RAW_CONFIG, showMatchesOnly: true }
   fork(done)(x => {
     expect(x).toEqual(CONFIG.input)
     done()
   })(drgen(function cancel() {}, CONFIG))
 })
+/*
+test('drgen - not just matches', done => {
+  const CONFIG = { ...RAW_CONFIG }
+  fork(done)(x => {
+    expect(x).toEqual(CONFIG.input)
+    done()
+  })(drgen(function cancel() {}, CONFIG))
+})
+*/
 
 test.skip('readAndProcessFiles', done => {
   fork(done)(x => {

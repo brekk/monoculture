@@ -12,7 +12,7 @@ module.exports = {
       rebuild: sd(
         `drgen -i ${['./kiddo.js'].join(
           ' '
-        )} -o autotests --processor doctor-general-jest`,
+        )} -o autotests --interpreter doctor-general-jest`,
         'generate tests with `doctor-general`!'
       ),
     },

@@ -37,8 +37,8 @@ module.exports = {
     autodoc: {
       script: 'nps -c ./package-scripts.cjs clean.build autodoc.regen',
       // eslint-disable-next-line max-len
-      regen: `doctor-general --monorepo --processor doctor-general-mdx -i ../../package.json -o pages -a dr-generated.json --ignore '**/coverage/**' --ignore '**/out/**' --ignore '**/fixture/**' --ignore '**/node_modules/**' --ignore '**/autotests/**' --ignore '**/*.spec.*'`,
-      debug: `doctor-general --monorepo --processor doctor-general-mdx -i ../../package.json -o pages -a dr-generated.json --ignore '**/coverage/**' --ignore '**/out/**' --ignore '**/fixture/**' --ignore '**/node_modules/**' --ignore '**/autotests/**' --ignore '**/*.spec.*' --debug`,
+      regen: `doctor-general --monorepo --interpreter doctor-general-mdx -i ../../package.json -o pages -a dr-generated.json --ignore '**/coverage/**' --ignore '**/out/**' --ignore '**/fixture/**' --ignore '**/node_modules/**' --ignore '**/autotests/**' --ignore '**/*.spec.*'`,
+      debug: `doctor-general --monorepo --interpreter doctor-general-mdx -i ../../package.json -o pages -a dr-generated.json --ignore '**/coverage/**' --ignore '**/out/**' --ignore '**/fixture/**' --ignore '**/node_modules/**' --ignore '**/autotests/**' --ignore '**/*.spec.*' --debug`,
     },
   },
 }

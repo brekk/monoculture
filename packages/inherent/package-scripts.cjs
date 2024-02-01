@@ -17,7 +17,7 @@ module.exports = {
           './inherent.js',
           './object.js',
           './primitives.js',
-        ].join(' ')} -o autotests --processor doctor-general-jest`,
+        ].join(' ')} -o autotests --interpreter doctor-general-jest`,
         'generate tests with `doctor-general`!'
       ),
     },

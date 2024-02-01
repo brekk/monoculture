@@ -13,7 +13,12 @@ import {
   map,
   pipe,
 } from 'ramda'
-import { parallel, resolve as resolveF, Future } from 'fluture'
+import {
+  parallel,
+  reject as rejectF,
+  resolve as resolveF,
+  Future,
+} from 'fluture'
 import { relativePathJoin } from 'file-system'
 import { parseFile } from './parse'
 import { renderComments, processComments } from './comment'
@@ -35,50 +40,35 @@ export const readAndProcessFiles = curry(function _readAndProcessFilesF(
   cancel,
   config,
   { outputDir, relativeArtifact, relative },
-  raw
+  rawF
 ) {
-  console.log(
-    'WHAT?',
-    cancel,
-    config,
-    { outputDir, relativeArtifact, relative },
-    '>>>',
-    raw
-  )
-  return new Future((bad, good) => {
-    try {
-      const { interpreter, debug, input, output, artifact = false } = config
-      pipe(
-        map(pipe(map(relative), chain(parseFile(debug)))),
-        chain(parallel(10)),
-        signal(cancel, {
-          text: 'Parsing files...',
-          successText: 'Parsed files!',
-          failText: 'Unable to parse files!',
-        }),
-        map(processComments(interpreter)),
-        when(K(artifact), writeArtifact(relativeArtifact)),
-        renderComments(interpreter, outputDir),
-        signal(cancel, {
-          text: 'Rendering comments...',
-          successText:
-            artifact || output
-              ? `Wrote to${
-                  output
-                    ? ' output: "' + output + '"' + (artifact ? ';' : '')
-                    : ''
-                }${artifact ? ' artifact: "' + artifact + '"' : ''}.`
-              : `Processed ${input.join(' ')}`,
-          failText: 'Unable to render comments!',
-        }),
-        map(K('')),
-        good
-      )(raw)
-      return cancel
-    } catch (e) {
-      bad(e)
-    }
-  })
+  console.log('WHAT?', { outputDir, relativeArtifact, relative }, '>>>', rawF)
+  const { interpreter, debug, input, output, artifact = false } = config
+
+  return pipe(
+    map(pipe(map(relative), chain(parseFile(debug)))),
+    chain(parallel(10)),
+    signal(cancel, {
+      text: 'Parsing files...',
+      successText: 'Parsed files!',
+      failText: 'Unable to parse files!',
+    }),
+    map(log.core('hey now!')),
+    map(processComments(interpreter)),
+    when(K(artifact), writeArtifact(relativeArtifact)),
+    renderComments(interpreter, outputDir),
+    signal(cancel, {
+      text: 'Rendering comments...',
+      successText:
+        artifact || output
+          ? `Wrote to${
+              output ? ' output: "' + output + '"' + (artifact ? ';' : '') : ''
+            }${artifact ? ' artifact: "' + artifact + '"' : ''}.`
+          : `Processed ${input.join(' ')}`,
+      failText: 'Unable to render comments!',
+    }),
+    map(K(''))
+  )(rawF)
 })
 
 export function getPartialForProcessing(config) {
@@ -121,7 +111,8 @@ export const monorepoPreRunner = curry(
 )
 
 export const drgen = curry(function _drgen(cancel, config) {
-  return new Future(function _drgenF(bad, good) {
+  // return new Future(function _drgenF(bad, good) {
+  try {
     const {
       interpreter = {},
       input,
@@ -131,18 +122,21 @@ export const drgen = curry(function _drgen(cancel, config) {
     log.core('showMatchesOnly', showMatchesOnly)
     log.core('interpreter!', interpreter)
     if (!validate(interpreter)) {
-      pipe(handleInvalidInterpreter, bad)(interpreter)
+      pipe(handleInvalidInterpreter, rejectF)(interpreter)
       return cancel
     }
     const partial = getPartialForProcessing(config)
-    const rawInput = monorepoMode ? monorepoPreRunner(cancel, config) : input
-    pipe(
-      unless(
-        () => showMatchesOnly,
-        readAndProcessFiles(cancel, config, partial)
-      ),
-      good
+    const rawInput = monorepoMode
+      ? monorepoPreRunner(cancel, config)
+      : resolveF(input)
+    return pipe(
+      // unless(
+      // () => showMatchesOnly,
+      showMatchesOnly ? I : readAndProcessFiles(cancel, config, partial),
+      map(log.core('hey doctor!'))
     )(rawInput)
-    return cancel
-  })
+  } catch (e) {
+    rejectF(e)
+  }
+  // })
 })
