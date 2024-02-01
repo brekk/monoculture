@@ -18,6 +18,7 @@ import {
   when,
 } from 'ramda'
 import { log } from './log'
+import { matchesTestable } from './comment-test'
 
 const fromStructureOr = curry((def, crumbs, x) =>
   pathOr(def, ['structure', ...when(is(String), wrap)(crumbs)], x)
@@ -37,11 +38,11 @@ const grabCommentData = applySpec({
 const getCurried = fromStructureOr([], 'curried')
 const MAGIC_IMPORT_KEY = 'drgen-import-above'
 const hasMagicImport = includes(MAGIC_IMPORT_KEY)
-const TEST_INDICATOR = 'test=true'
 const renderTest = ({ title, example, future: asyncCallback }) => {
+  console.log('RENDER TEST', title, example)
   log.renderer('inputs', { title, example })
-  if (!includes(TEST_INDICATOR, example)) return ''
-  const exlines = example.split('\n').filter(l => !l.startsWith('```'))
+  if (!matchesTestable(example)) return ''
+  const exlines = example.filter(l => !l.startsWith('```'))
   const hasImports = any(hasMagicImport, exlines)
   const importIndex = findIndex(hasMagicImport, exlines)
   const [imps, content] = hasImports
@@ -58,9 +59,9 @@ const renderTest = ({ title, example, future: asyncCallback }) => {
 const handleCurriedExample = pipe(
   wrap,
   ap([getCurried, grabCommentData]),
-  ([curried, { future, summary }]) =>
-    map(({ name: title, lines: example }) =>
-      pipe(
+  function processCurried([curried, { future, summary }]) {
+    return map(function processEachMorphism({ name: title, lines: example }) {
+      return pipe(
         log.curried('currious'),
         renderTest
       )({
@@ -69,16 +70,20 @@ const handleCurriedExample = pipe(
         example,
         future,
       })
-    )(curried),
+    })(curried)
+  },
   log.renderer('out?'),
   filter(isNotEmpty),
   join('\n')
 )
 
-export const commentToJestTest = handleSpecialCases(
-  ifElse(
-    pipe(getCurried, isNotEmpty),
-    handleCurriedExample,
-    pipe(grabCommentData, renderTest)
+export const commentToJestTest = pipe(
+  log.renderer('comment to jest'),
+  handleSpecialCases(
+    ifElse(
+      pipe(getCurried, isNotEmpty),
+      handleCurriedExample,
+      pipe(grabCommentData, renderTest)
+    )
   )
 )

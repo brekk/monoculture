@@ -404,9 +404,10 @@ export const writeCommentsToFiles = curry(function _writeCommentsToFiles(
   const { output: $outputPath, postProcess: $postProcess = (_a, _b, c) => c } =
     interpreter
   log.comment('RAW', x)
+  console.log('writing comments to files!', $outputPath, x.toString())
   return pipe(
     toPairs,
-    map(([workspace, commentedFiles]) => {
+    map(function processWorkspaceComments([workspace, commentedFiles]) {
       const filesToWrite = map(file => {
         const filePathToWrite = pathJoin(
           outputDir,
@@ -432,10 +433,20 @@ export const writeCommentsToFiles = curry(function _writeCommentsToFiles(
 
 export const renderComments = curry(
   function _renderComments(interpreter, outputDir, x) {
-    return chain(
-      pipe(
-        groupBy(interpreter?.group ?? 'unknown'),
-        writeCommentsToFiles({ interpreter, outputDir })
+    return pipe(
+      map(log.comment('RAW!')),
+      chain(
+        pipe(
+          reduce((agg, g) => {
+            const lookup = interpreter?.group ?? 'unknown'
+            const prev = agg[g[lookup]] ?? []
+            agg[g[lookup]] = [...prev, g]
+            return agg
+          }, {}),
+          // fuck off transducer issues
+          // groupBy(interpreter?.group ?? 'unknown'),
+          writeCommentsToFiles({ interpreter, outputDir })
+        )
       )
     )(x)
   }

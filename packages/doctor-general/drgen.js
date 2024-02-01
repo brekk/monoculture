@@ -42,33 +42,40 @@ export const readAndProcessFiles = curry(function _readAndProcessFilesF(
   { outputDir, relativeArtifact, relative },
   rawF
 ) {
-  console.log('WHAT?', { outputDir, relativeArtifact, relative }, '>>>', rawF)
-  const { interpreter, debug, input, output, artifact = false } = config
-
-  return pipe(
-    map(pipe(map(relative), chain(parseFile(debug)))),
-    chain(parallel(10)),
-    signal(cancel, {
-      text: 'Parsing files...',
-      successText: 'Parsed files!',
-      failText: 'Unable to parse files!',
-    }),
-    map(log.core('hey now!')),
-    map(processComments(interpreter)),
-    when(K(artifact), writeArtifact(relativeArtifact)),
-    renderComments(interpreter, outputDir),
-    signal(cancel, {
-      text: 'Rendering comments...',
-      successText:
-        artifact || output
-          ? `Wrote to${
-              output ? ' output: "' + output + '"' + (artifact ? ';' : '') : ''
-            }${artifact ? ' artifact: "' + artifact + '"' : ''}.`
-          : `Processed ${input.join(' ')}`,
-      failText: 'Unable to render comments!',
-    }),
-    map(K(''))
-  )(rawF)
+  try {
+    console.log('WHAT?', { outputDir, relativeArtifact, relative }, '>>>', rawF)
+    const { interpreter, debug, input, output, artifact = false } = config
+    return pipe(
+      map(pipe(map(relative), chain(parseFile(debug)))),
+      chain(parallel(10)),
+      signal(cancel, {
+        text: 'Parsing files...',
+        successText: 'Parsed files!',
+        failText: 'Unable to parse files!',
+      }),
+      map(log.core('hey now!')),
+      map(processComments(interpreter)),
+      map(log.core('hey process!')),
+      when(K(artifact), writeArtifact(relativeArtifact)),
+      map(log.core('hey art!')),
+      renderComments(interpreter, outputDir),
+      signal(cancel, {
+        text: 'Rendering comments...',
+        successText:
+          artifact || output
+            ? `Wrote to${
+                output
+                  ? ' output: "' + output + '"' + (artifact ? ';' : '')
+                  : ''
+              }${artifact ? ' artifact: "' + artifact + '"' : ''}.`
+            : `Processed ${input.join(' ')}`,
+        failText: 'Unable to render comments!',
+      }),
+      map(K(''))
+    )(rawF)
+  } catch (e) {
+    rejectF(e)
+  }
 })
 
 export function getPartialForProcessing(config) {
@@ -130,8 +137,6 @@ export const drgen = curry(function _drgen(cancel, config) {
       ? monorepoPreRunner(cancel, config)
       : resolveF(input)
     return pipe(
-      // unless(
-      // () => showMatchesOnly,
       showMatchesOnly ? I : readAndProcessFiles(cancel, config, partial),
       map(log.core('hey doctor!'))
     )(rawInput)
