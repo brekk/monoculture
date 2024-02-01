@@ -3,8 +3,6 @@ import { isNotEmpty } from 'inherent'
 import {
   head,
   endsWith,
-  startsWith,
-  tap,
   includes,
   curry,
   defaultTo,
@@ -18,7 +16,6 @@ import {
   replace,
   any,
 } from 'ramda'
-import { log } from './log'
 export const TESTABLE_EXAMPLE = 'test=true'
 export const matchesTestable = pipe(head, endsWith(TESTABLE_EXAMPLE))
 
@@ -85,7 +82,6 @@ export const filterAndStructureTests = pipe(
   }),
   reduce((agg, file) => {
     const filenames = map(prop('filename'), agg)
-    console.log('FILENAMES', filenames)
     const alreadyInList = filenames.includes(file.filename)
     const anyFile = file.comments.filter(({ structure }) => structure.asFile)
     const someFile = anyFile.length > 0 ? anyFile[0] : false

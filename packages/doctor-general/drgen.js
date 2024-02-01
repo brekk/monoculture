@@ -4,21 +4,14 @@ import { log } from './log'
 import {
   head,
   curry,
-  unless,
   when,
   always as K,
   chain,
   identity as I,
-  ifElse,
   map,
   pipe,
 } from 'ramda'
-import {
-  parallel,
-  reject as rejectF,
-  resolve as resolveF,
-  Future,
-} from 'fluture'
+import { parallel, reject as rejectF, resolve as resolveF } from 'fluture'
 import { relativePathJoin } from 'file-system'
 import { parseFile } from './parse'
 import { renderComments, processComments } from './comment'
@@ -43,7 +36,6 @@ export const readAndProcessFiles = curry(function _readAndProcessFilesF(
   rawF
 ) {
   try {
-    console.log('WHAT?', { outputDir, relativeArtifact, relative }, '>>>', rawF)
     const { interpreter, debug, input, output, artifact = false } = config
     return pipe(
       map(pipe(map(relative), chain(parseFile(debug)))),
@@ -53,11 +45,8 @@ export const readAndProcessFiles = curry(function _readAndProcessFilesF(
         successText: 'Parsed files!',
         failText: 'Unable to parse files!',
       }),
-      map(log.core('hey now!')),
       map(processComments(interpreter)),
-      map(log.core('hey process!')),
       when(K(artifact), writeArtifact(relativeArtifact)),
-      map(log.core('hey art!')),
       renderComments(interpreter, outputDir),
       signal(cancel, {
         text: 'Rendering comments...',

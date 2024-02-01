@@ -1,4 +1,4 @@
-import { resolve as resolveF, fork } from 'fluture'
+import { fork } from 'fluture'
 import { identity as I } from 'ramda'
 
 import { readAndProcessFiles, drgen } from './drgen'

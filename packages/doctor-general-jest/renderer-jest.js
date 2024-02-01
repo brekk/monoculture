@@ -39,8 +39,6 @@ const getCurried = fromStructureOr([], 'curried')
 const MAGIC_IMPORT_KEY = 'drgen-import-above'
 const hasMagicImport = includes(MAGIC_IMPORT_KEY)
 const renderTest = ({ title, example, future: asyncCallback }) => {
-  console.log('RENDER TEST', title, example)
-  log.renderer('inputs', { title, example })
   if (!matchesTestable(example)) return ''
   const exlines = example.filter(l => !l.startsWith('```'))
   const hasImports = any(hasMagicImport, exlines)

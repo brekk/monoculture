@@ -29,10 +29,8 @@ import {
   filter,
   findIndex,
   flatten,
-  groupBy,
   head,
   ifElse,
-  includes,
   is,
   last,
   map,
@@ -49,6 +47,7 @@ import {
   toPairs,
   trim,
   uniq,
+  endsWith,
   when,
 } from 'ramda'
 import { writeFileWithAutoPath } from 'file-system'
@@ -61,16 +60,17 @@ import { formatComment, trimComment } from './text'
 const imap = addIndex(map)
 const ireduce = addIndex(reduce)
 
+const hasTestableExample = pipe(
+  pathOr([''], ['structure', 'example']),
+  head,
+  endsWith(TESTABLE_EXAMPLE)
+)
 /*
  * Check to see if a comment object has an example with a `test=true`
  * tag within its structure
  * @name hasExample
  */
-export const hasExample = ifElse(
-  is(Object),
-  pipe(pathOr('', ['structure', 'example']), includes(TESTABLE_EXAMPLE)),
-  K(false)
-)
+export const hasExample = ifElse(is(Object), pipe(hasTestableExample), K(false))
 
 /*
  * Pull all imports from a given file, including `@curried` examples
@@ -93,7 +93,7 @@ export const getImportsForTests = pipe(
       concat(
         isNotEmpty(c)
           ? map(function _testCurriedExample({ name, lines: example }) {
-              return [name, includes(TESTABLE_EXAMPLE)(example)]
+              return [name, example]
             })(c)
           : [[a, b]]
       )
@@ -277,8 +277,8 @@ export const segmentBlock = pipe(
       const prior = Array.isArray(currentStructure)
         ? currentStructure
         : currentStructure !== true
-        ? [currentStructure]
-        : []
+          ? [currentStructure]
+          : []
       const toInsert = [
         // if there's a prior entry that is an array, merge with it,
         // otherwise we inferred boolean on something multiline
@@ -345,6 +345,9 @@ export const objectifyComments = curry(
                 if (structure.page && !structure.name) {
                   structure.name = structure.page
                 }
+                if (Array.isArray(structure.name)) {
+                  structure.name = structure.name.join(' ')
+                }
                 return {
                   ...gen,
                   summary: structure.description, //  summarize(gen.lines),
@@ -403,8 +406,6 @@ export const writeCommentsToFiles = curry(function _writeCommentsToFiles(
 ) {
   const { output: $outputPath, postProcess: $postProcess = (_a, _b, c) => c } =
     interpreter
-  log.comment('RAW', x)
-  console.log('writing comments to files!', $outputPath, x.toString())
   return pipe(
     toPairs,
     map(function processWorkspaceComments([workspace, commentedFiles]) {
@@ -434,7 +435,6 @@ export const writeCommentsToFiles = curry(function _writeCommentsToFiles(
 export const renderComments = curry(
   function _renderComments(interpreter, outputDir, x) {
     return pipe(
-      map(log.comment('RAW!')),
       chain(
         pipe(
           reduce((agg, g) => {
