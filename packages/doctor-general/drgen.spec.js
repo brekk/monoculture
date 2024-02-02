@@ -21,13 +21,14 @@ const RAW_CONFIG = {
 test('drgen - invalid interpreter', done => {
   const CONFIG = { ...RAW_CONFIG, showMatchesOnly: true }
   delete CONFIG.interpreter
+  const called = drgen(function cancel() {}, CONFIG)
   fork(e => {
     expect(e.toString()).toEqual(
       // eslint-disable-next-line max-len
       `Interpreter is invalid. Incorrect fields: output, group, process, renderer, postRender, postProcess`
     )
     done()
-  })(done)(drgen(function cancel() {}, CONFIG))
+  })(done)(called)
 })
 
 test('drgen - just matches', done => {

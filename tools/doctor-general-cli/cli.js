@@ -1,7 +1,7 @@
 import { cwd } from 'node:process'
 import { interpret } from 'file-system'
 import { configurate } from 'climate'
-import { map, chain, curry, pipe, slice } from 'ramda'
+import { chain, curry, pipe, slice } from 'ramda'
 import { resolve } from 'fluture'
 import { drgen } from 'doctor-general'
 import { signal } from 'kiddo'
@@ -40,7 +40,6 @@ export const cli = curry(function _cli(cancel, argv) {
       name: $NAME,
       description: $DESC,
     }),
-    chain(processHelpOrRun(cancel)),
-    map(log.cli('out!'))
+    chain(processHelpOrRun(cancel))
   )(argv)
 })

@@ -1,8 +1,5 @@
 import MAIN from './index'
-import {
-  validatePlugin as validate,
-  checkPlugin as interrogate,
-} from 'doctor-general'
+import { validate, interrogate } from 'doctor-general'
 
 test('doctor-general-jest is statically valid', () => {
   expect(validate(MAIN)).toBeTruthy()

@@ -60,10 +60,8 @@ export const monorepoRunner = curry(
       when(
         () => !showMatchesOnly,
         pipe(
-          log.core('READ READ'),
-          map(log.verbose('files read')),
           map(flatten),
-          log.core('heynongman'),
+          log.verbose('all files read'),
           signal(cancel, {
             text: 'Reading all files...',
             successText: 'Read all files!',

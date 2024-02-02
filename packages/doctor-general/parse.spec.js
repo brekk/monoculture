@@ -100,7 +100,7 @@ the content here will be thrown right in the trash
         start: 24,
         structure: {
           description: '',
-          name: ['This Page Title Is Custom!'],
+          name: 'This Page Title Is Custom!',
           page: ['This Page Title Is Custom!'],
           pageSummary: [
             'This is a comprehensive and explicit summary!',

@@ -1,5 +1,5 @@
 import { basename, extname } from 'node:path'
-
+import { autobox } from 'inherent'
 import {
   applySpec,
   identity as I,
@@ -43,11 +43,7 @@ const getPageSummary = pipe(
   join(' ')
 )
 
-const getPageTitle = pipe(
-  getAny('', ['structure', 'page']),
-  defaultTo([]),
-  join(' ')
-)
+const getPageTitle = pipe(getAny('', ['structure', 'page']), autobox, join(' '))
 
 const getPackage = i => {
   if (i.indexOf('/') > -1) {
@@ -71,6 +67,7 @@ export const parse = curry(function _parse(rawFilename, content) {
         filter(pipe(last, isJSDocComment)),
         // List #[Integer, String]
         groupContiguousBlocks,
+        // log.parse('grouped'),
         // List #[Integer, String]
         objectifyAllComments(filename, raw),
         // List CommentBlock
@@ -78,8 +75,8 @@ export const parse = curry(function _parse(rawFilename, content) {
           pageTitle: getPageTitle,
           pageSummary: getPageSummary,
           comments: I,
-          order: pipe(getAny('0', ['structure', 'order']), x =>
-            parseInt(x, 10)
+          order: pipe(getAny('0', ['structure', 'order']), n =>
+            parseInt(n, 10)
           ),
           fileGroup: getAny('', ['fileGroup']),
           links: pipe(map(propOr([], 'links')), flatten),

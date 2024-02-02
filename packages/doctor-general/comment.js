@@ -141,13 +141,13 @@ export function processCurriedComment(comment = {}) {
       ireduce(function structureCurried(agg, x, i) {
         if (i === 0) {
           const first = processCurriedItemSummary(head(curried))
-          first.lines = trimStart(x.join('\n'))
+          first.lines = trimStart(x.join('\n')).split('\n')
           return agg.concat(first)
         }
         const lead = head(x)
         const lines = slice(2, Infinity, x)
         const o = processCurriedItemSummary(lead)
-        o.lines = trimStart(lines.join('\n'))
+        o.lines = trimStart(lines.join('\n')).split('\n')
         return agg.concat(o)
       }, []),
       defaultTo([]),

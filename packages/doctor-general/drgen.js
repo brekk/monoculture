@@ -18,10 +18,6 @@ import { renderComments, processComments } from './comment'
 import { monorepoRunner } from './reader'
 import { writeArtifact } from './writer'
 import { validate, interrogate } from './interpreter'
-export {
-  validate as validateInterpreter,
-  interrogate as checkInterpreter,
-} from './interpreter'
 
 const handleInvalidInterpreter = pipe(
   interrogate,
@@ -118,8 +114,7 @@ export const drgen = curry(function _drgen(cancel, config) {
     log.core('showMatchesOnly', showMatchesOnly)
     log.core('interpreter!', interpreter)
     if (!validate(interpreter)) {
-      pipe(handleInvalidInterpreter, rejectF)(interpreter)
-      return cancel
+      return pipe(handleInvalidInterpreter, rejectF)(interpreter)
     }
     const partial = getPartialForProcessing(config)
     const rawInput = monorepoMode

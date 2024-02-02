@@ -138,7 +138,7 @@ test('objectifyComments', () => {
       links: [],
       start: 28,
       structure: {
-        name: ['coolpage'],
+        name: 'coolpage',
         description: '',
         page: ['coolpage'],
       },

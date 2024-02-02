@@ -32,13 +32,14 @@ const handleSpecialCases = ifElse(
 const grabCommentData = applySpec({
   title: fromStructureOr('Unknown', 'name'),
   example: fromStructureOr('', 'example'),
-  future: fromStructureOr('', 'future'),
+  future: fromStructureOr(false, 'future'),
 })
 
 const getCurried = fromStructureOr([], 'curried')
 const MAGIC_IMPORT_KEY = 'drgen-import-above'
 const hasMagicImport = includes(MAGIC_IMPORT_KEY)
-const renderTest = ({ title, example, future: asyncCallback }) => {
+
+const renderTest = ({ title, example, future }) => {
   if (!matchesTestable(example)) return ''
   const exlines = example.filter(l => !l.startsWith('```'))
   const hasImports = any(hasMagicImport, exlines)
@@ -47,7 +48,7 @@ const renderTest = ({ title, example, future: asyncCallback }) => {
     ? [exlines.slice(0, importIndex), exlines.slice(importIndex + 1)]
     : [[], exlines]
   return `${imps.length ? imps.join('\n') + '\n' : ''}test('${title}', (${
-    asyncCallback ? 'done' : ''
+    future ? 'done' : ''
   }) => {
   ${content.join('\n  ')}
 })
@@ -66,22 +67,19 @@ const handleCurriedExample = pipe(
         title,
         summary,
         example,
+        // example: example.split('\n'),
         future,
       })
     })(curried)
   },
-  log.renderer('out?'),
   filter(isNotEmpty),
   join('\n')
 )
 
-export const commentToJestTest = pipe(
-  log.renderer('comment to jest'),
-  handleSpecialCases(
-    ifElse(
-      pipe(getCurried, isNotEmpty),
-      handleCurriedExample,
-      pipe(grabCommentData, renderTest)
-    )
+export const commentToJestTest = handleSpecialCases(
+  ifElse(
+    pipe(getCurried, isNotEmpty),
+    handleCurriedExample,
+    pipe(grabCommentData, renderTest)
   )
 )
