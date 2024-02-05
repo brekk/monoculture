@@ -5,7 +5,12 @@ import { signal } from 'kiddo'
 import { readJSONFile, readDirWithConfig } from 'file-system'
 
 export const iterateOverWorkspacesAndReadFiles = curry(
-  function _iterateOverWorkspacesAndReadFiles({ searchGlob, ignore }, root, x) {
+  function _iterateOverWorkspacesAndReadFiles(
+    { search: searchGlob, ignore },
+    root,
+    x
+  ) {
+    log.reader('searchGlob?', searchGlob)
     return pipe(
       // look for specific file types
       map(workspace => workspace + searchGlob),

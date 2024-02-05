@@ -1,8 +1,35 @@
 [
   {
+    "package": "docs",
+    "slugName": "next.config",
+    "filename": "apps/docs/next.config.js",
+    "pageTitle": "",
+    "pageSummary": "",
+    "comments": [
+      {
+        "start": 0,
+        "end": 0,
+        "summary": "/** @type {import('next').NextConfig} */",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "description": "/** @type {import('next').NextConfig} */"
+        },
+        "keywords": [],
+        "filename": "apps/docs/next.config.js",
+        "package": "docs"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "docs"
+  },
+  {
     "package": "bloodline",
     "slugName": "executables",
     "filename": "packages/bloodline/executables.js",
+    "pageTitle": "",
     "pageSummary": "",
     "comments": [
       {
@@ -13,7 +40,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Check for the existence of a binary",
           "name": "checkForBinaryWithCancel",
           "example": [
             "```js",
@@ -28,7 +54,8 @@
             "  )",
             ")",
             "```"
-          ]
+          ],
+          "description": "Check for the existence of a binary"
         },
         "keywords": [
           "@example",
@@ -45,7 +72,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Check for multiple binaries in a single call",
           "name": "checkForBinaries",
           "example": [
             "```js",
@@ -59,7 +85,8 @@
             "  )",
             ")",
             "```"
-          ]
+          ],
+          "description": "Check for multiple binaries in a single call"
         },
         "keywords": [
           "@example",
@@ -77,6 +104,7 @@
     "package": "bloodline",
     "slugName": "tree",
     "filename": "packages/bloodline/tree.js",
+    "pageTitle": "",
     "pageSummary": "",
     "comments": [
       {
@@ -87,14 +115,14 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Generate a dependency tree, given a config, a directory, and a filename",
           "name": "plant",
           "example": [
             "```js",
             "import { plant } from 'bloodline'",
             "const tree = plant({}, '../..', '../monocle/cli.js')",
             "```"
-          ]
+          ],
+          "description": "Generate a dependency tree, given a config, a directory, and a filename"
         },
         "keywords": [
           "@example",
@@ -111,14 +139,14 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Test whether a path includes `'node_modules'` within it.",
           "name": "isNodeModule",
           "example": [
             "```js",
             "import { isNodeModule } from 'bloodline/tree'",
             "isNodeModule('./node_modules/ramda') // true",
             "```"
-          ]
+          ],
+          "description": "Test whether a path includes `'node_modules'` within it."
         },
         "keywords": [
           "@example",
@@ -135,14 +163,14 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Test whether a path includes `'.git'` within it.",
           "name": "isGitPath",
           "example": [
             "```js",
             "import { isGitPath } from 'bloodline/tree'",
             "isGitPath('.git/config') // true",
             "```"
-          ]
+          ],
+          "description": "Test whether a path includes `'.git'` within it."
         },
         "keywords": [
           "@example",
@@ -159,7 +187,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Grab an id from a cache if possible",
           "name": "getId",
           "example": [
             "```js",
@@ -169,7 +196,8 @@
             "const key = 'a'",
             "console.log(getId(basePath, cache, key)) // 'bloodline/a'",
             "```"
-          ]
+          ],
+          "description": "Grab an id from a cache if possible"
         },
         "keywords": [
           "@example",
@@ -188,7 +216,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Take a dependency tree and recursively walk it, returning a grouped set of dependencies.",
           "name": "groupTree",
           "see": "{@link flattenTree}",
           "example": [
@@ -199,7 +226,8 @@
             "const tree = plant(config, '..', '../monocle/cli.js')",
             "const grouped = groupTree(config, {}, {}, tree)",
             "```"
-          ]
+          ],
+          "description": "Take a dependency tree and recursively walk it, returning a grouped set of dependencies."
         },
         "keywords": [
           "@example",
@@ -220,7 +248,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Take a dependency tree and recursively walk it, returning flattened set of dependencies.",
           "name": "flattenTree",
           "see": "{@link groupTree}",
           "example": [
@@ -231,7 +258,8 @@
             "const tree = plant(config, '..', '../monocle/cli.js')",
             "const flattened = flattenTree(config, {}, {}, tree)",
             "```"
-          ]
+          ],
+          "description": "Take a dependency tree and recursively walk it, returning flattened set of dependencies."
         },
         "keywords": [
           "@example",
@@ -254,6 +282,7 @@
     "package": "climate",
     "slugName": "builder",
     "filename": "packages/climate/builder.js",
+    "pageTitle": "",
     "pageSummary": "",
     "comments": [
       {
@@ -264,7 +293,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Automatically create many of the fundamentals needed to build robust CLI tools, including help text.",
           "name": "configurate",
           "future": true,
           "example": [
@@ -307,29 +335,30 @@
             ")",
             "// renders in the failure channel",
             "fork(x => {",
-            "  expect(stripAnsi(x).split('\\n')).toEqual([",
-            "    \" dumbwaiter \",",
+            "  expect(stripAnsi(x).split('\\n').map(z => z.trim())).toEqual([",
+            "    \"dumbwaiter\",",
             "    \"\",",
             "    \"order food!\",",
             "    \"\",",
-            "    \" -m / --meal\",",
-            "    \" \tPass the name of the meal you want\",",
+            "    \"-m / --meal\",",
+            "    \"Pass the name of the meal you want\",",
             "    \"\",",
-            "    \" -h / --happyHour\",",
-            "    \" \tDoes happy hour apply here?\",",
+            "    \"-h / --happyHour\",",
+            "    \"Does happy hour apply here?\",",
             "    \"\",",
-            "    \" -x / --multiplier\",",
-            "    \" \tHow many units should we apply?\",",
+            "    \"-x / --multiplier\",",
+            "    \"How many units should we apply?\",",
             "    \"\",",
-            "    \" -h / --help\",",
-            "    \" \tThis text!\",",
+            "    \"-h / --help\",",
+            "    \"This text!\",",
             "  ])",
             "  done()",
             "})(done)(",
             "  parseArgs(['--help'])",
             ")",
             "```"
-          ]
+          ],
+          "description": "Automatically create many of the fundamentals needed to build robust CLI tools, including help text."
         },
         "keywords": [
           "@example",
@@ -349,14 +378,14 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "The default search space when running `configFileWithCancel`.",
           "name": "defaultNameTemplate",
           "see": "{@link configFileWithCancel}",
           "example": [
             "```js test=true",
             "expect(defaultNameTemplate('cool')).toEqual(['.coolrc', '.coolrc.json'])",
             "```"
-          ]
+          ],
+          "description": "The default search space when running `configFileWithCancel`."
         },
         "keywords": [
           "@example",
@@ -378,17 +407,17 @@
     "package": "doctor-general-jest",
     "slugName": "comment-test",
     "filename": "packages/doctor-general-jest/comment-test.js",
+    "pageTitle": "",
     "pageSummary": "",
     "comments": [
       {
-        "start": 18,
-        "end": 46,
+        "start": 21,
+        "end": 49,
         "summary": "Merge two file representations. Can be right or left associative",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Merge two file representations. Can be right or left associative",
           "name": "combineFiles",
           "exported": true,
           "param": [
@@ -417,7 +446,8 @@
             "  links: ['c', 'd', 'a', 'b']",
             "})",
             "```"
-          ]
+          ],
+          "description": "Merge two file representations. Can be right or left associative"
         },
         "keywords": [
           "@example",
@@ -439,18 +469,19 @@
     "package": "doctor-general",
     "slugName": "comment",
     "filename": "packages/doctor-general/comment.js",
+    "pageTitle": "",
     "pageSummary": "",
     "comments": [
       {
-        "start": 67,
-        "end": 70,
+        "start": 68,
+        "end": 71,
         "summary": "Check to see if a comment object has an example with a `test=true` tag within its structure",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Check to see if a comment object has an example with a `test=true` tag within its structure",
-          "name": "hasExample"
+          "name": "hasExample",
+          "description": "Check to see if a comment object has an example with a `test=true` tag within its structure"
         },
         "keywords": [
           "@name"
@@ -459,15 +490,15 @@
         "package": "doctor-general"
       },
       {
-        "start": 78,
-        "end": 80,
+        "start": 75,
+        "end": 77,
         "summary": "Pull all imports from a given file, including `@curried` examples",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Pull all imports from a given file, including `@curried` examples",
-          "name": "getImportsForTests"
+          "name": "getImportsForTests",
+          "description": "Pull all imports from a given file, including `@curried` examples"
         },
         "keywords": [
           "@name"
@@ -476,15 +507,15 @@
         "package": "doctor-general"
       },
       {
-        "start": 167,
-        "end": 169,
+        "start": 164,
+        "end": 166,
         "summary": "Grab the summary from raw lines, given some indices to slice",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Grab the summary from raw lines, given some indices to slice",
-          "name": "getPageSummary"
+          "name": "getPageSummary",
+          "description": "Grab the summary from raw lines, given some indices to slice"
         },
         "keywords": [
           "@name"
@@ -493,15 +524,15 @@
         "package": "doctor-general"
       },
       {
-        "start": 184,
-        "end": 186,
+        "start": 181,
+        "end": 183,
         "summary": "Is it an asterisk with maybe some whitespace around it?",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Is it an asterisk with maybe some whitespace around it?",
-          "name": "isAsterisky"
+          "name": "isAsterisky",
+          "description": "Is it an asterisk with maybe some whitespace around it?"
         },
         "keywords": [
           "@name"
@@ -510,16 +541,31 @@
         "package": "doctor-general"
       },
       {
-        "start": 195,
-        "end": 198,
+        "start": 187,
+        "end": 188,
+        "summary": "",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "stripEmptyCommentLines",
+          "description": ""
+        },
+        "keywords": [],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 192,
+        "end": 195,
         "summary": "Grab the example from raw lines and some indices to slice",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Grab the example from raw lines and some indices to slice",
           "name": "getExample",
-          "signature": "List String -> Integer -> Integer -> String"
+          "signature": "List String -> Integer -> Integer -> String",
+          "description": "Grab the example from raw lines and some indices to slice"
         },
         "keywords": [
           "@name",
@@ -529,15 +575,30 @@
         "package": "doctor-general"
       },
       {
-        "start": 327,
-        "end": 329,
-        "summary": "objectifyComments",
+        "start": 315,
+        "end": 315,
+        "summary": "",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "objectifyComments",
-          "signature": "String -> String -> List Comment -> List CommentBlock"
+          "description": ""
+        },
+        "keywords": [],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 325,
+        "end": 327,
+        "summary": "",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "objectifyComments",
+          "signature": "String -> String -> List Comment -> List CommentBlock",
+          "description": ""
         },
         "keywords": [
           "@signature"
@@ -546,15 +607,15 @@
         "package": "doctor-general"
       },
       {
-        "start": 445,
-        "end": 448,
-        "summary": "Process comments given a processor and an error handler",
+        "start": 454,
+        "end": 457,
+        "summary": "Process comments given a interpreter and an error handler",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Process comments given a processor and an error handler",
-          "name": "processComments"
+          "name": "processComments",
+          "description": "Process comments given a interpreter and an error handler"
         },
         "keywords": [
           "@name"
@@ -569,8 +630,9 @@
   },
   {
     "package": "doctor-general",
-    "slugName": "processor",
-    "filename": "packages/doctor-general/processor.js",
+    "slugName": "interpreter",
+    "filename": "packages/doctor-general/interpreter.js",
+    "pageTitle": "",
     "pageSummary": "",
     "comments": [
       {
@@ -581,7 +643,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Return the number of arguments a function expects",
           "name": "arity",
           "example": [
             "```js test=true",
@@ -589,50 +650,49 @@
             "expect(arity(function tertiary(a,b,c) {})).toEqual(3)",
             "expect(arity(a => b => c => c)).toEqual(1)",
             "expect(arity('poo')).toEqual(-1)"
-          ]
+          ],
+          "description": "Return the number of arguments a function expects"
         },
         "keywords": [
           "@example",
           "@name"
         ],
-        "filename": "packages/doctor-general/processor.js",
+        "filename": "packages/doctor-general/interpreter.js",
         "package": "doctor-general"
       },
       {
-        "start": 77,
-        "end": 82,
-        "summary": "Apply tests to a given processor in order to assess its correctness.",
+        "start": 78,
+        "end": 81,
+        "summary": "Apply tests to a given interpreter in order to assess its correctness.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Apply tests to a given processor in order to assess its correctness.",
           "name": "interrogate",
           "exported": true,
-          "example": true
+          "description": "Apply tests to a given interpreter in order to assess its correctness."
         },
         "keywords": [
-          "@example",
           "@exported",
           "@name"
         ],
-        "filename": "packages/doctor-general/processor.js",
+        "filename": "packages/doctor-general/interpreter.js",
         "package": "doctor-general"
       },
       {
-        "start": 120,
-        "end": 126,
-        "summary": "Validate a given processor is correct. If you want to see _why_ it is incorrect, use `interrogate` instead.",
+        "start": 119,
+        "end": 125,
+        "summary": "Validate a given interpreter is correct. If you want to see _why_ it is incorrect, use `interrogate` instead.",
         "links": [
           "interrogate"
         ],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Validate a given processor is correct. If you want to see _why_ it is incorrect, use `interrogate` instead.",
           "name": "validate",
           "see": "{@link interrogate}",
-          "exported": true
+          "exported": true,
+          "description": "Validate a given interpreter is correct. If you want to see _why_ it is incorrect, use `interrogate` instead."
         },
         "keywords": [
           "@exported",
@@ -640,7 +700,7 @@
           "@name",
           "@see"
         ],
-        "filename": "packages/doctor-general/processor.js",
+        "filename": "packages/doctor-general/interpreter.js",
         "package": "doctor-general"
       }
     ],
@@ -652,52 +712,23 @@
   },
   {
     "package": "doctor-general",
-    "slugName": "reader",
-    "filename": "packages/doctor-general/reader.js",
+    "slugName": "parse",
+    "filename": "packages/doctor-general/parse.js",
+    "pageTitle": "",
     "pageSummary": "",
     "comments": [
       {
-        "start": 6,
-        "end": 33,
-        "summary": "iterateOverWorkspacesAndReadFiles",
+        "start": 109,
+        "end": 109,
+        "summary": "",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "iterateOverWorkspacesAndReadFiles",
-          "future": true,
-          "example": [
-            "```js test=true",
-            "import { fork, resolve as resolveF, parallel } from 'fluture'",
-            "// drgen-import-above",
-            "fork(done)(x => {",
-            "  expect(x).toEqual([",
-            "    \"tools/digested\",",
-            "    \"tools/doctor-general-cli\",",
-            "    \"tools/gitparty\",",
-            "    \"tools/spacework\",",
-            "    \"tools/superorganism\",",
-            "    \"tools/treacle\",",
-            "  ])",
-            "  done()",
-            "})(",
-            "  iterateOverWorkspacesAndReadFiles(",
-            "    {",
-            "      searchGlob: '*',",
-            "      ignore: []",
-            "    },",
-            "    '../..',",
-            "    resolveF(['tools/'])",
-            "  )",
-            ")"
-          ]
+          "description": ""
         },
-        "keywords": [
-          "@example",
-          "@future",
-          "@name"
-        ],
-        "filename": "packages/doctor-general/reader.js",
+        "keywords": [],
+        "filename": "packages/doctor-general/parse.js",
         "package": "doctor-general"
       }
     ],
@@ -709,6 +740,7 @@
     "package": "doctor-general",
     "slugName": "text",
     "filename": "packages/doctor-general/text.js",
+    "pageTitle": "",
     "pageSummary": "",
     "comments": [
       {
@@ -719,7 +751,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "For strings which look like extended jsdoc comment line (e.g. ` * whatever`), eschew the comment decoration",
           "name": "trimComment",
           "signature": "String -> String",
           "example": [
@@ -730,7 +761,8 @@
             "expect(trimComment(input)).toEqual(input)",
             "expect(trimComment(29292)).toEqual(29292)",
             "```"
-          ]
+          ],
+          "description": "For strings which look like extended jsdoc comment line (e.g. ` * whatever`), eschew the comment decoration"
         },
         "keywords": [
           "@example",
@@ -749,17 +781,21 @@
     "package": "file-system",
     "slugName": "fs",
     "filename": "packages/file-system/fs.js",
-    "pageSummary": "",
+    "pageTitle": "",
+    "pageSummary": "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.",
     "comments": [
       {
-        "start": 15,
-        "end": 17,
-        "summary": "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.",
+        "start": 25,
+        "end": 27,
+        "summary": "",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system."
+          "pageSummary": [
+            "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system."
+          ],
+          "description": ""
         },
         "keywords": [
           "@pageSummary"
@@ -768,14 +804,13 @@
         "package": "file-system"
       },
       {
-        "start": 27,
-        "end": 36,
+        "start": 37,
+        "end": 46,
         "summary": "make a file string relative",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "make a file string relative",
           "name": "localize",
           "example": [
             "```js",
@@ -783,7 +818,8 @@
             "console.log(`support ${localize('business')}`)",
             "// support ./business",
             "```"
-          ]
+          ],
+          "description": "make a file string relative"
         },
         "keywords": [
           "@example",
@@ -793,8 +829,8 @@
         "package": "file-system"
       },
       {
-        "start": 39,
-        "end": 70,
+        "start": 49,
+        "end": 80,
         "summary": "Read a file asynchronously as a Future-wrapped value.",
         "links": [],
         "fileGroup": "",
@@ -809,17 +845,39 @@
             {
               "name": "readFileWithFormatAndCancel",
               "summary": "Can be given a file encoding and a cancellation function.",
-              "lines": "```js\n    import { fork } from 'fluture'\n    import { readFile } from 'file-system'\n    fork(console.warn)(console.log)(\n      readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')\n    )\n```"
+              "lines": [
+                "```js",
+                "    import { fork } from 'fluture'",
+                "    import { readFile } from 'file-system'",
+                "    fork(console.warn)(console.log)(",
+                "      readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')",
+                "    )",
+                "```"
+              ]
             },
             {
               "name": "readFileWithCancel",
               "summary": "Reads `utf8` files only.",
-              "lines": "```js\n    import { fork } from 'fluture'\n    import { readFile } from 'file-system'\n    fork(console.warn)(console.log)(\n      readFileWithCancel(() => process.exit(), './README.md')\n    )\n```"
+              "lines": [
+                "```js",
+                "    import { fork } from 'fluture'",
+                "    import { readFile } from 'file-system'",
+                "    fork(console.warn)(console.log)(",
+                "      readFileWithCancel(() => process.exit(), './README.md')",
+                "    )",
+                "```"
+              ]
             },
             {
               "name": "readFile",
               "summary": "Eschews any custom cancellation.",
-              "lines": "```js\n    import { fork } from 'fluture'\n    import { readFile } from 'file-system'\n    fork(console.warn)(console.log)(readFile('./README.md'))\n```"
+              "lines": [
+                "```js",
+                "    import { fork } from 'fluture'",
+                "    import { readFile } from 'file-system'",
+                "    fork(console.warn)(console.log)(readFile('./README.md'))",
+                "```"
+              ]
             }
           ]
         },
@@ -827,8 +885,8 @@
         "package": "file-system"
       },
       {
-        "start": 82,
-        "end": 93,
+        "start": 92,
+        "end": 103,
         "summary": "Read a JSON file asynchronously as a Future-wrapped value, given a cancellation function",
         "links": [
           "readFile",
@@ -837,7 +895,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Read a JSON file asynchronously as a Future-wrapped value, given a cancellation function",
           "name": "readJSONFileWithCancel",
           "see": [
             "{@link readFile}",
@@ -849,7 +906,8 @@
             "import { readJSONFile } from 'file-system'",
             "fork(console.warn)(console.log)(readJSONFile('./package.json'))",
             "```"
-          ]
+          ],
+          "description": "Read a JSON file asynchronously as a Future-wrapped value, given a cancellation function"
         },
         "keywords": [
           "@example",
@@ -861,8 +919,8 @@
         "package": "file-system"
       },
       {
-        "start": 100,
-        "end": 111,
+        "start": 110,
+        "end": 121,
         "summary": "Read a JSON file asynchronously as a Future-wrapped value",
         "links": [
           "readFile",
@@ -871,7 +929,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Read a JSON file asynchronously as a Future-wrapped value",
           "name": "readJSONFile",
           "see": [
             "{@link readFile}",
@@ -883,7 +940,8 @@
             "import { readJSONFile } from 'file-system'",
             "fork(console.warn)(console.log)(readJSONFile('./package.json'))",
             "```"
-          ]
+          ],
+          "description": "Read a JSON file asynchronously as a Future-wrapped value"
         },
         "keywords": [
           "@example",
@@ -895,8 +953,8 @@
         "package": "file-system"
       },
       {
-        "start": 114,
-        "end": 130,
+        "start": 124,
+        "end": 140,
         "summary": "Read a glob asynchronously as a Future-wrapped value, with configuration and a cancellation function. Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
           "readDirWithConfig",
@@ -905,7 +963,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Read a glob asynchronously as a Future-wrapped value, with configuration and a cancellation function. Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
           "name": "readDirWithConfigAndCancel",
           "see": [
             "{@link readDirWithConfig}",
@@ -920,7 +977,8 @@
             "  fork(console.warn)(console.log)",
             ")(readDirWithConfigAndCancel(cancellationFn, { ignore: ['node_modules/**'] }, 'src/*'))",
             "```"
-          ]
+          ],
+          "description": "Read a glob asynchronously as a Future-wrapped value, with configuration and a cancellation function. Configuration is passed to [glob](https://www.npmjs.com/package/glob)"
         },
         "keywords": [
           "@example",
@@ -932,8 +990,8 @@
         "package": "file-system"
       },
       {
-        "start": 147,
-        "end": 162,
+        "start": 157,
+        "end": 172,
         "summary": "Read a glob asynchronously as a Future-wrapped value, with configuration. Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
           "readDirWithConfigAndCancel",
@@ -942,7 +1000,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Read a glob asynchronously as a Future-wrapped value, with configuration. Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
           "name": "readDirWithConfig",
           "see": [
             "{@link readDirWithConfigAndCancel}",
@@ -957,7 +1014,8 @@
             "  fork(console.warn)(console.log)",
             ")(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))",
             "```"
-          ]
+          ],
+          "description": "Read a glob asynchronously as a Future-wrapped value, with configuration. Configuration is passed to [glob](https://www.npmjs.com/package/glob)"
         },
         "keywords": [
           "@example",
@@ -969,8 +1027,8 @@
         "package": "file-system"
       },
       {
-        "start": 165,
-        "end": 178,
+        "start": 175,
+        "end": 188,
         "summary": "Read a glob asynchronously as a Future-wrapped value, default config assumed. Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
           "readDirWithConfigAndCancel",
@@ -979,7 +1037,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Read a glob asynchronously as a Future-wrapped value, default config assumed. Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
           "name": "readDir",
           "see": [
             "{@link readDirWithConfigAndCancel}",
@@ -992,7 +1049,8 @@
             "// [...]",
             "fork(console.warn)(console.log)(readDir('src/*'))",
             "```"
-          ]
+          ],
+          "description": "Read a glob asynchronously as a Future-wrapped value, default config assumed. Configuration is passed to [glob](https://www.npmjs.com/package/glob)"
         },
         "keywords": [
           "@example",
@@ -1004,8 +1062,8 @@
         "package": "file-system"
       },
       {
-        "start": 181,
-        "end": 201,
+        "start": 191,
+        "end": 211,
         "summary": "Write to a file, with configuration and a cancellation function. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
           "writeFileWithConfig",
@@ -1014,7 +1072,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Write to a file, with configuration and a cancellation function. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
           "name": "writeFileWithConfigAndCancel",
           "see": [
             "{@link writeFileWithConfig}",
@@ -1034,7 +1091,8 @@
             "  )",
             ")",
             "```"
-          ]
+          ],
+          "description": "Write to a file, with configuration and a cancellation function. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value."
         },
         "keywords": [
           "@example",
@@ -1046,8 +1104,8 @@
         "package": "file-system"
       },
       {
-        "start": 217,
-        "end": 236,
+        "start": 227,
+        "end": 246,
         "summary": "Write to a file, with configuration. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
           "writeFileWithConfigAndCancel",
@@ -1056,7 +1114,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Write to a file, with configuration. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
           "name": "writeFileWithConfig",
           "see": [
             "{@link writeFileWithConfigAndCancel}",
@@ -1075,7 +1132,8 @@
             "  )",
             ")",
             "```"
-          ]
+          ],
+          "description": "Write to a file, with configuration. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value."
         },
         "keywords": [
           "@example",
@@ -1087,8 +1145,8 @@
         "package": "file-system"
       },
       {
-        "start": 239,
-        "end": 257,
+        "start": 249,
+        "end": 267,
         "summary": "Write to a file, assuming `'utf8'`. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
           "writeFileWithConfigAndCancel",
@@ -1097,7 +1155,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Write to a file, assuming `'utf8'`. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
           "name": "writeFile",
           "see": [
             "{@link writeFileWithConfigAndCancel}",
@@ -1115,7 +1172,8 @@
             "  )",
             ")",
             "```"
-          ]
+          ],
+          "description": "Write to a file, assuming `'utf8'`. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value."
         },
         "keywords": [
           "@example",
@@ -1127,8 +1185,8 @@
         "package": "file-system"
       },
       {
-        "start": 260,
-        "end": 308,
+        "start": 270,
+        "end": 318,
         "summary": "Remove a file, configurably, with cancellation. Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
         "links": [],
         "fileGroup": "",
@@ -1143,17 +1201,52 @@
             {
               "name": "removeFileWithConfigAndCancel",
               "summary": "Configuration and cancellation",
-              "lines": "```js\n     import { fork } from 'fluture'\n     import { removeFileWithConfigAndCancel } from 'file-system'\n     fork(console.warn)(console.log)(\n       removeFileWithConfigAndCancel(\n         cancellationFn,\n         { ...fs.removeFileConfig },\n         'my-file.txt'\n       )\n     )\n```"
+              "lines": [
+                "```js",
+                "     import { fork } from 'fluture'",
+                "     import { removeFileWithConfigAndCancel } from 'file-system'",
+                "     fork(console.warn)(console.log)(",
+                "       removeFileWithConfigAndCancel(",
+                "         cancellationFn,",
+                "         { ...fs.removeFileConfig },",
+                "         'my-file.txt'",
+                "       )",
+                "     )",
+                "```"
+              ]
             },
             {
               "name": "removeFileWithConfig",
               "summary": "No config, just cancellation",
-              "lines": "```js\n    import { fork } from 'fluture'\n    import { removeFileWithConfig } from 'file-system'\n    // [...]\n    fork(console.warn)(console.log)(\n      removeFileWithConfig(\n        { ...fs.removeFileConfig },\n        'my-file.txt'\n      )\n    )\n```"
+              "lines": [
+                "```js",
+                "    import { fork } from 'fluture'",
+                "    import { removeFileWithConfig } from 'file-system'",
+                "    // [...]",
+                "    fork(console.warn)(console.log)(",
+                "      removeFileWithConfig(",
+                "        { ...fs.removeFileConfig },",
+                "        'my-file.txt'",
+                "      )",
+                "    )",
+                "```"
+              ]
             },
             {
               "name": "removeFile",
               "summary": "remove a file. Aliased to `rm`.",
-              "lines": "```js\n    import { fork } from 'fluture'\n    import { removeFile } from 'file-system'\n    // [...]\n    fork(console.warn)(console.log)(\n      removeFile(\n        'my-file.txt'\n      )\n    )\n```"
+              "lines": [
+                "```js",
+                "    import { fork } from 'fluture'",
+                "    import { removeFile } from 'file-system'",
+                "    // [...]",
+                "    fork(console.warn)(console.log)(",
+                "      removeFile(",
+                "        'my-file.txt'",
+                "      )",
+                "    )",
+                "```"
+              ]
             }
           ]
         },
@@ -1161,8 +1254,8 @@
         "package": "file-system"
       },
       {
-        "start": 330,
-        "end": 348,
+        "start": 340,
+        "end": 358,
         "summary": "Remove multiple files, configurably, with a cancellation function.",
         "links": [
           "removeFilesWithConfig",
@@ -1171,7 +1264,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Remove multiple files, configurably, with a cancellation function.",
           "name": "removeFilesWithConfigAndCancel",
           "see": [
             "{@link removeFilesWithConfig}",
@@ -1190,7 +1282,8 @@
             "  )",
             ")",
             "```"
-          ]
+          ],
+          "description": "Remove multiple files, configurably, with a cancellation function."
         },
         "keywords": [
           "@example",
@@ -1202,8 +1295,8 @@
         "package": "file-system"
       },
       {
-        "start": 358,
-        "end": 375,
+        "start": 368,
+        "end": 385,
         "summary": "Remove multiple files, configurably.",
         "links": [
           "removeFilesWithConfigAndCancel",
@@ -1212,7 +1305,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Remove multiple files, configurably.",
           "name": "removeFilesWithConfig",
           "see": [
             "{@link removeFilesWithConfigAndCancel}",
@@ -1230,7 +1322,8 @@
             "  )",
             ")",
             "```"
-          ]
+          ],
+          "description": "Remove multiple files, configurably."
         },
         "keywords": [
           "@example",
@@ -1242,8 +1335,8 @@
         "package": "file-system"
       },
       {
-        "start": 378,
-        "end": 394,
+        "start": 388,
+        "end": 404,
         "summary": "Remove multiple files, configurably.",
         "links": [
           "removeFilesWithConfigAndCancel",
@@ -1252,7 +1345,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Remove multiple files, configurably.",
           "name": "removeFilesWithConfig",
           "see": [
             "{@link removeFilesWithConfigAndCancel}",
@@ -1269,7 +1361,8 @@
             "  )",
             ")",
             "```"
-          ]
+          ],
+          "description": "Remove multiple files, configurably."
         },
         "keywords": [
           "@example",
@@ -1281,8 +1374,8 @@
         "package": "file-system"
       },
       {
-        "start": 397,
-        "end": 416,
+        "start": 407,
+        "end": 426,
         "summary": "Make a directory, given a cancellation function. Returns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdir",
@@ -1291,7 +1384,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Make a directory, given a cancellation function. Returns a Future-wrapped file path as a discrete value upon success.",
           "name": "mkdirWithCancel",
           "see": [
             "{@link mkdir}",
@@ -1310,7 +1402,8 @@
             "  )",
             ")",
             "```"
-          ]
+          ],
+          "description": "Make a directory, given a cancellation function. Returns a Future-wrapped file path as a discrete value upon success."
         },
         "keywords": [
           "@example",
@@ -1322,8 +1415,8 @@
         "package": "file-system"
       },
       {
-        "start": 426,
-        "end": 444,
+        "start": 436,
+        "end": 454,
         "summary": "Make a directory Returns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdirWithCancel",
@@ -1332,7 +1425,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Make a directory Returns a Future-wrapped file path as a discrete value upon success.",
           "name": "mkdir",
           "see": [
             "{@link mkdirWithCancel}",
@@ -1350,7 +1442,8 @@
             "  )",
             ")",
             "```"
-          ]
+          ],
+          "description": "Make a directory Returns a Future-wrapped file path as a discrete value upon success."
         },
         "keywords": [
           "@example",
@@ -1362,8 +1455,8 @@
         "package": "file-system"
       },
       {
-        "start": 447,
-        "end": 465,
+        "start": 457,
+        "end": 475,
         "summary": "Make a directory, recursively. Returns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdirWithCancel",
@@ -1372,7 +1465,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Make a directory, recursively. Returns a Future-wrapped file path as a discrete value upon success.",
           "name": "mkdirp",
           "see": [
             "{@link mkdirWithCancel}",
@@ -1390,7 +1482,8 @@
             "  )",
             ")",
             "```"
-          ]
+          ],
+          "description": "Make a directory, recursively. Returns a Future-wrapped file path as a discrete value upon success."
         },
         "keywords": [
           "@example",
@@ -1402,14 +1495,13 @@
         "package": "file-system"
       },
       {
-        "start": 481,
-        "end": 496,
+        "start": 488,
+        "end": 503,
         "summary": "Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`",
           "name": "writeFileWithAutoPath",
           "example": [
             "```js",
@@ -1423,7 +1515,8 @@
             "  )",
             ")",
             "```"
-          ]
+          ],
+          "description": "Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`"
         },
         "keywords": [
           "@example",
@@ -1470,17 +1563,32 @@
     "package": "inherent",
     "slugName": "groupByIndex",
     "filename": "packages/inherent/groupByIndex.js",
+    "pageTitle": "",
     "pageSummary": "",
     "comments": [
       {
-        "start": 14,
-        "end": 34,
-        "summary": "groupByIndex",
+        "start": 12,
+        "end": 12,
+        "summary": "",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "groupByIndex",
+          "description": ""
+        },
+        "keywords": [],
+        "filename": "packages/inherent/groupByIndex.js",
+        "package": "inherent"
+      },
+      {
+        "start": 14,
+        "end": 34,
+        "summary": "",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "groupByIndex",
           "example": [
             "```js test=true",
             "expect(groupByIndex(0, [",
@@ -1499,7 +1607,8 @@
             "  spades: [['ace'], ['king'], ['eight']],",
             "})",
             "```"
-          ]
+          ],
+          "description": ""
         },
         "keywords": [
           "@example",
@@ -1511,12 +1620,12 @@
       {
         "start": 39,
         "end": 59,
-        "summary": "groupFlatByIndex",
+        "summary": "",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "groupFlatByIndex",
+          "name": "groupFlatByIndex",
           "example": [
             "```js test=true",
             "expect(groupFlatByIndex(0, [",
@@ -1535,7 +1644,8 @@
             "  spades: ['ace', 'king', 'eight'],",
             "})",
             "```"
-          ]
+          ],
+          "description": ""
         },
         "keywords": [
           "@example",
@@ -1553,6 +1663,7 @@
     "package": "inherent",
     "slugName": "primitives",
     "filename": "packages/inherent/primitives.js",
+    "pageTitle": "",
     "pageSummary": "",
     "comments": [
       {
@@ -1563,7 +1674,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Generic comparison function. This can be used to create a number of other more complex functions.",
           "name": "equalishBy",
           "example": [
             "```js test=true",
@@ -1576,7 +1686,8 @@
             "expect(isProduct('otherco-xkswn')).toBeFalsy()",
             "expect(isProduct('blabbo')).toBeFalsy()",
             "```"
-          ]
+          ],
+          "description": "Generic comparison function. This can be used to create a number of other more complex functions."
         },
         "keywords": [
           "@example",
@@ -1593,7 +1704,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Coerce values to boolean explicitly",
           "name": "coerce",
           "param": "{any} x Any value",
           "returns": "boolean",
@@ -1604,7 +1714,8 @@
             "expect(coerce([])).toBeTruthy()",
             "expect(coerce(1)).toBeTruthy()",
             "```"
-          ]
+          ],
+          "description": "Coerce values to boolean explicitly"
         },
         "keywords": [
           "@example",
@@ -1624,17 +1735,22 @@
     "package": "kiddo",
     "slugName": "kiddo",
     "filename": "packages/kiddo/kiddo.js",
-    "pageSummary": "",
+    "pageTitle": "",
+    "pageSummary": "Call external processes and consume them as a Future-wrapped value. This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
     "comments": [
       {
         "start": 11,
         "end": 14,
-        "summary": "Call external processes and consume them as a Future-wrapped value. This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
+        "summary": "",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Call external processes and consume them as a Future-wrapped value. This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info."
+          "pageSummary": [
+            "Call external processes and consume them as a Future-wrapped value.",
+            "This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info."
+          ],
+          "description": ""
         },
         "keywords": [
           "@pageSummary"
@@ -1655,23 +1771,58 @@
           "@future"
         ],
         "structure": {
-          "description": "Consume external commands as a Future-wrapped value.",
           "future": true,
+          "description": "Consume external commands as a Future-wrapped value.",
           "curried": [
             {
               "name": "execWithConfig",
               "summary": "Passes all possible configuration values plus a cancellation function.",
-              "lines": "```js\n    import { execWithConfig } from 'kiddo'\n    import { fork } from 'fluture'\n    fork(console.warn)(console.log)(\n      execWithConfig(\n        function customCancellationFunction() {},\n        'echo',\n        { cleanup: true },\n        ['ahoy']\n      )\n    )\n```"
+              "lines": [
+                "```js",
+                "    import { execWithConfig } from 'kiddo'",
+                "    import { fork } from 'fluture'",
+                "    fork(console.warn)(console.log)(",
+                "      execWithConfig(",
+                "        function customCancellationFunction() {},",
+                "        'echo',",
+                "        { cleanup: true },",
+                "        ['ahoy']",
+                "      )",
+                "    )",
+                "```"
+              ]
             },
             {
               "name": "execWithCancel",
               "summary": "Eschews any configuration and instead only expects a cancellation function, command and arguments.",
-              "lines": "```js\n    import { execWithCancel } from 'kiddo'\n    import { fork } from 'fluture'\n    fork(console.warn)(console.log)(\n      execWithCancel(\n        function customCancellationFunction() {},\n        'echo',\n        ['ahoy']\n      )\n    )\n```"
+              "lines": [
+                "```js",
+                "    import { execWithCancel } from 'kiddo'",
+                "    import { fork } from 'fluture'",
+                "    fork(console.warn)(console.log)(",
+                "      execWithCancel(",
+                "        function customCancellationFunction() {},",
+                "        'echo',",
+                "        ['ahoy']",
+                "      )",
+                "    )",
+                "```"
+              ]
             },
             {
               "name": "exec",
               "summary": "Eschews any configuration or cancellation function. Needs only command and arguments.",
-              "lines": "```js test=true\n    import { fork } from 'fluture'\n    // drgen-import-above\n    const blah = Math.round(Math.random() * 100000)\n    fork(done)(z => {\n      expect(z.stdout).toEqual('' + blah)\n      done()\n    })(exec('echo', [blah]))\n```"
+              "lines": [
+                "```js test=true",
+                "    import { fork } from 'fluture'",
+                "    // drgen-import-above",
+                "    const blah = Math.round(Math.random() * 100000)",
+                "    fork(done)(z => {",
+                "      expect(z.stdout).toEqual('' + blah)",
+                "      done()",
+                "    })(exec('echo', [blah]))",
+                "```"
+              ]
             }
           ]
         },
@@ -1686,7 +1837,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Add an `ora` indicator to a Future",
           "name": "signal",
           "future": true,
           "exported": true,
@@ -1705,7 +1855,8 @@
             "  })",
             ")(readFile('./package.json'))",
             "```"
-          ]
+          ],
+          "description": "Add an `ora` indicator to a Future"
         },
         "keywords": [
           "@example",
@@ -1725,6 +1876,7 @@
     "package": "knot",
     "slugName": "knot",
     "filename": "packages/knot/knot.js",
+    "pageTitle": "",
     "pageSummary": "",
     "comments": [
       {
@@ -1735,7 +1887,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Slice a string by counted delimiters",
           "name": "nthIndex",
           "example": [
             "```js test=true",
@@ -1746,7 +1897,8 @@
             "  nthIndex('/', 5, 'a/b/c/d/e/f/g/h/i/j')",
             ").toEqual(\"a/b/c/d/e\")",
             "```"
-          ]
+          ],
+          "description": "Slice a string by counted delimiters"
         },
         "keywords": [
           "@example",
@@ -1763,14 +1915,14 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "A simple memoized utility for repeating a string and joining the array.",
           "name": "strepeat",
           "example": [
             "```js test=true",
             "expect(strepeat('=', 5)).toEqual('=====')",
             "expect(strepeat('/', -1)).toEqual('')",
             "```"
-          ]
+          ],
+          "description": "A simple memoized utility for repeating a string and joining the array."
         },
         "keywords": [
           "@example",
@@ -1787,14 +1939,14 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Capitalize a string",
           "name": "capitalize",
           "example": [
             "```js test=true",
             "expect(capitalize(\"nice\")).toEqual(\"Nice\")",
             "expect(capitalize(\"\")).toEqual(\"\")",
             "```"
-          ]
+          ],
+          "description": "Capitalize a string"
         },
         "keywords": [
           "@example",
@@ -1811,7 +1963,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Take PascalCase and kebabCase inputs and replace them with slug-case",
           "name": "slugWord",
           "example": [
             "```js test=true",
@@ -1824,7 +1975,8 @@
             "  'src-components-homepage-augmented-details-dumb-component'",
             ")",
             "```"
-          ]
+          ],
+          "description": "Take PascalCase and kebabCase inputs and replace them with slug-case"
         },
         "keywords": [
           "@example",
@@ -1843,20 +1995,22 @@
     "slugName": "helpers",
     "filename": "packages/monorail/helpers.js",
     "pageTitle": "helpers",
-    "pageSummary": "",
+    "pageSummary": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
     "comments": [
       {
         "start": 22,
         "end": 25,
-        "summary": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
+        "summary": "",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
+          "pageSummary": [
+            "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function."
+          ],
           "page": "helpers",
-          "name": "helpers",
-          "detail": 22
+          "description": "",
+          "name": "helpers"
         },
         "keywords": [
           "@page",
@@ -1873,7 +2027,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Use this helper to test a regex that matches against any single incidence on any line",
           "name": "any",
           "example": [
             "```js",
@@ -1883,7 +2036,8 @@
             "}",
             "export default plugin",
             "```"
-          ]
+          ],
+          "description": "Use this helper to test a regex that matches against any single incidence on any line"
         },
         "keywords": [
           "@example",
@@ -1900,7 +2054,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Use this helper to test a regex that matches and filters against every line",
           "name": "lines",
           "example": [
             "```js",
@@ -1909,7 +2062,8 @@
             "  fn: (state, file, { lines }) => lines(/^const/)",
             "}",
             "```"
-          ]
+          ],
+          "description": "Use this helper to test a regex that matches and filters against every line"
         },
         "keywords": [
           "@example",
@@ -1926,7 +2080,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Use this helper to test a regex that matches and finds the first matching line",
           "name": "line",
           "example": [
             "```js",
@@ -1935,7 +2088,8 @@
             "  fn: (state, file, { line }) => line(/export default/g)",
             "}",
             "```"
-          ]
+          ],
+          "description": "Use this helper to test a regex that matches and finds the first matching line"
         },
         "keywords": [
           "@example",
@@ -1952,7 +2106,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Use this helper to test a regex that matches and finds the last matching line",
           "name": "lastLine",
           "example": [
             "```js",
@@ -1961,7 +2114,8 @@
             "  fn: (state, file, { lastLine }) => lastLine(/export/g)",
             "}",
             "```"
-          ]
+          ],
+          "description": "Use this helper to test a regex that matches and finds the last matching line"
         },
         "keywords": [
           "@example",
@@ -1978,7 +2132,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Use this helper to select content between two repeating regular expressions",
           "name": "between",
           "example": [
             "```js",
@@ -1987,7 +2140,8 @@
             "  fn: (state, file, { between }) => between(/^import/, /from (.*)/)",
             "}",
             "```"
-          ]
+          ],
+          "description": "Use this helper to select content between two repeating regular expressions"
         },
         "keywords": [
           "@example",
@@ -2004,7 +2158,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Use this helper to easily reduce over all lines and aggregate a value",
           "name": "reduce",
           "example": [
             "```js",
@@ -2014,7 +2167,8 @@
             "}",
             "export default plugin",
             "```"
-          ]
+          ],
+          "description": "Use this helper to easily reduce over all lines and aggregate a value"
         },
         "keywords": [
           "@example",
@@ -2031,7 +2185,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Use this helper to select all content between two repeating regular expressions",
           "name": "selectAll",
           "example": [
             "```js",
@@ -2040,7 +2193,8 @@
             "  fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)",
             "}",
             "```"
-          ]
+          ],
+          "description": "Use this helper to select all content between two repeating regular expressions"
         },
         "keywords": [
           "@example",
@@ -2057,7 +2211,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Use this helper to easily filter all lines related to a given regular expression",
           "name": "filter",
           "example": [
             "```js",
@@ -2069,7 +2222,8 @@
             "}",
             "export default plugin",
             "```"
-          ]
+          ],
+          "description": "Use this helper to easily filter all lines related to a given regular expression"
         },
         "keywords": [
           "@example",
@@ -2086,7 +2240,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "The `config` value is patched in so that it is easier to pass values from the rulefile configuration to the plugins themselves, scoped to the plugin name.",
           "name": "config",
           "example": [
             "```js",
@@ -2098,7 +2251,8 @@
             "}",
             "export default plugin",
             "```"
-          ]
+          ],
+          "description": "The `config` value is patched in so that it is easier to pass values from the rulefile configuration to the plugins themselves, scoped to the plugin name."
         },
         "keywords": [
           "@example",
@@ -2113,9 +2267,36 @@
     "workspace": "monorail"
   },
   {
+    "package": "jest-config",
+    "slugName": "jest.config",
+    "filename": "shared/jest-config/jest.config.js",
+    "pageTitle": "",
+    "pageSummary": "",
+    "comments": [
+      {
+        "start": 21,
+        "end": 21,
+        "summary": "",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "description": ""
+        },
+        "keywords": [],
+        "filename": "shared/jest-config/jest.config.js",
+        "package": "jest-config"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "jest-config"
+  },
+  {
     "package": "digested",
     "slugName": "summary",
     "filename": "tools/digested/summary.js",
+    "pageTitle": "",
     "pageSummary": "",
     "comments": [
       {
@@ -2126,7 +2307,6 @@
         "fileGroup": "",
         "addTo": "",
         "structure": {
-          "description": "Summarize a project, given: - the path to a `package.json` file - the path to a `dr-generated.json` file - the URI of a documentation site - the URI of a repository - (optional) a banner - or (optional) the path to a file which represents a banner",
           "name": "summarize",
           "future": true,
           "example": [
@@ -2192,7 +2372,8 @@
             "  drGenPath: '../../apps/docs/dr-generated.json'",
             "}))",
             "```"
-          ]
+          ],
+          "description": "Summarize a project, given: - the path to a `package.json` file - the path to a `dr-generated.json` file - the URI of a documentation site - the URI of a repository - (optional) a banner - or (optional) the path to a file which represents a banner"
         },
         "keywords": [
           "@example",
@@ -2206,5 +2387,31 @@
     "order": 0,
     "links": [],
     "workspace": "digested"
+  },
+  {
+    "package": "src",
+    "slugName": "runner",
+    "filename": "tools/superorganism/src/runner.js",
+    "pageTitle": "",
+    "pageSummary": "",
+    "comments": [
+      {
+        "start": 151,
+        "end": 151,
+        "summary": "",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "description": ""
+        },
+        "keywords": [],
+        "filename": "tools/superorganism/src/runner.js",
+        "package": "src"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "src"
   }
 ]

@@ -2,54 +2,40 @@
 
 
 
-## Unknown
+## hasExample
 
- Check to see if a comment has an example within its structure.  @name hasExample  @example  ```js test=true  expect(hasExample({structure: {example: [`test=true`]}})).toBeTruthy()  expect(hasExample({})).toBeFalsy()  expect(hasExample('zipzop')).toBeFalsy()  ```
-
-
-## Unknown
-
- Pull all imports from a given file, including `@curried` examples  @name getImportsForTests  @example  ```js test=true  const file = { comments: [    {      structure: { curried: [        { name: 'coolWithConfig', lines: ['test=true'] },        { name: 'cool', lines: ['test=true'] }      ] }    },    {      structure: { name: 'otherFunc', example: ['test=true'] }    }  ] }  expect(getImportsForTests(file)).toEqual(['otherFunc', 'coolWithConfig', 'cool'])  ```
+Check to see if a comment object has an example with a `test=true` tag within its structure
 
 
-## Unknown
+## getImportsForTests
 
- @name matchLinks  @example  ```js test=true  expect(matchLinks([])).toEqual([])  expect(matchLinks([`{@link cool}`])).toEqual(['cool'])  ```
-
-
-### See also
- - cool
-
-## Unknown
-
- Grab the summary from raw lines, given some indices to slice  @name getPageSummary  @example  ```js test=true  const rawLines = [    ' * @pageSummary Hey cool this is a multi-line',    ' * description of stuff in the whole file',    ' * @page testPageSummary',    ' * @huh notSure'  ]  expect(    getPageSummary(rawLines, Infinity, 0)  ).toEqual([    'Hey cool this is a multi-line',    'description of stuff in the whole file'  ])  expect(    getPageSummary([' * hey', ' * there'], Infinity, 0)  ).toEqual(['hey', 'there'])  ```
+Pull all imports from a given file, including `@curried` examples
 
 
-## Unknown
+## getPageSummary
 
- Is it an asterisk with maybe some whitespace around it?  @name isAsterisky  @example  ```js test=true  expect(isAsterisky('     * ')).toBeTruthy()  expect(isAsterisky('*')).toBeTruthy()  expect(isAsterisky('obelisk')).toBeFalsy()  ```
+Grab the summary from raw lines, given some indices to slice
 
 
-## Unknown
+## isAsterisky
 
- @name stripEmptyCommentLines  @example  ```js test=true  expect(stripEmptyCommentLines('     *')).toEqual('')  expect(stripEmptyCommentLines('hooray!')).toEqual('hooray!')
+Is it an asterisk with maybe some whitespace around it?
+
+
+## stripEmptyCommentLines
+
+
+## getExample
+
+Grab the example from raw lines and some indices to slice
 
 
 ## Unknown
 
- Grab the example from raw lines and some indices to slice  @name getExample  @signature List String -> Integer -> Integer -> String  @example  ```js test=true  const rawLines = [    '* Ouroboric summary',    '* @name getExample',    '* @example',    '* ```js',    '* getExample(rawLines)',    '* ```',  ]  expect(getExample(rawLines, 5, 3)).toEqual('getExample(rawLines)')  ```
+
+## objectifyComments
 
 
-## Unknown
+## processComments
 
- Given a line within a magic comment block, remove the leading asterisks  @name stripLeadingComment  @example  ```js test=true  import { MAGIC_COMMENT_START as START, MAGIC_COMMENT_END as END } from '../constants'  // drgen-import-above  expect(stripLeadingComment('     ' + START)).toEqual('')  expect(stripLeadingComment(END)).toEqual('')  expect(stripLeadingComment(' * hey cool!')).toEqual('hey cool!')  ```
-
-
-## Unknown
-
- @name objectifyComments  @signature String -> String -> List Comment -> List CommentBlock  @example  ```js test=true  expect(objectifyComments('x', 'x', [])).toEqual([])  ```
-
-
-## Unknown
-
- Process comments given a processor and an error handler  @name processComments  @example  ```js test=true  const input = Math.round(Math.random() * 1e3)  expect(    processComments(() => 'huh?', {process: y => y * 2}, input)  ).toEqual(input * 2)  const fn = jest.fn()  processComments(fn, false, input)  expect(fn).toHaveBeenCalled()
+Process comments given a interpreter and an error handler

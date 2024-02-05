@@ -4,9 +4,45 @@
 
 ## Unknown
 
- @name groupByIndex  @example  ```js test=true  expect(groupByIndex(0, [    ['spades', 'ace'],    ['diamonds', 'seven'],    ['hearts', 'eight'],    ['clubs', 'jack'],    ['diamonds', 'ace'],    ['spades', 'king'],    ['diamonds', 'four'],    ['spades', 'eight'],  ])).toEqual({    clubs: [['jack']],    diamonds: [['seven'], ['ace'], ['four']],    hearts: [['eight']],    spades: [['ace'], ['king'], ['eight']],  })  ```
 
+## groupByIndex
 
-## Unknown
+### Usage
+```js test=true
+expect(groupByIndex(0, [
+  ['spades', 'ace'],
+  ['diamonds', 'seven'],
+  ['hearts', 'eight'],
+  ['clubs', 'jack'],
+  ['diamonds', 'ace'],
+  ['spades', 'king'],
+  ['diamonds', 'four'],
+  ['spades', 'eight'],
+])).toEqual({
+  clubs: [['jack']],
+  diamonds: [['seven'], ['ace'], ['four']],
+  hearts: [['eight']],
+  spades: [['ace'], ['king'], ['eight']],
+})
+```
 
- @name groupFlatByIndex  @example  ```js test=true  expect(groupFlatByIndex(0, [    ['spades', 'ace'],    ['diamonds', 'seven'],    ['hearts', 'eight'],    ['clubs', 'jack'],    ['diamonds', 'ace'],    ['spades', 'king'],    ['diamonds', 'four'],    ['spades', 'eight'],  ])).toEqual({    clubs: ['jack'],    diamonds: ['seven', 'ace', 'four'],    hearts: ['eight'],    spades: ['ace', 'king', 'eight'],  })  ```
+## groupFlatByIndex
+
+### Usage
+```js test=true
+expect(groupFlatByIndex(0, [
+  ['spades', 'ace'],
+  ['diamonds', 'seven'],
+  ['hearts', 'eight'],
+  ['clubs', 'jack'],
+  ['diamonds', 'ace'],
+  ['spades', 'king'],
+  ['diamonds', 'four'],
+  ['spades', 'eight'],
+])).toEqual({
+  clubs: ['jack'],
+  diamonds: ['seven', 'ace', 'four'],
+  hearts: ['eight'],
+  spades: ['ace', 'king', 'eight'],
+})
+```

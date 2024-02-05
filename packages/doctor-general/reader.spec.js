@@ -21,7 +21,7 @@ test('iterateOverWorkspacesAndReadFiles', done => {
   })(
     iterateOverWorkspacesAndReadFiles(
       {
-        searchGlob: '*',
+        search: '*',
         ignore: [],
       },
       '../..',
@@ -57,7 +57,7 @@ test('monorepoRunner', done => {
       '**/fixture/**',
       '**/fixture.*',
     ],
-    searchGlob: '**/*.{js,jsx,ts,tsx}',
+    search: '**/*.{js,jsx,ts,tsx}',
     debug: false,
     verifyInterpreter: false,
     showMatchOnly: false,

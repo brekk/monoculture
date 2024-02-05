@@ -1,0 +1,27 @@
+# interpreter
+
+
+
+## arity
+
+Return the number of arguments a function expects
+
+### Usage
+```js test=true
+expect(arity((a,b,c) => {})).toEqual(3)
+expect(arity(function tertiary(a,b,c) {})).toEqual(3)
+expect(arity(a => b => c => c)).toEqual(1)
+expect(arity('poo')).toEqual(-1)
+
+## interrogate
+
+Apply tests to a given interpreter in order to assess its correctness.
+
+
+## validate
+
+Validate a given interpreter is correct. If you want to see _why_ it is incorrect, use `interrogate` instead.
+
+
+### See also
+ - interrogate

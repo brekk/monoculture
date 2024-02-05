@@ -2,11 +2,37 @@
 
 
 
-## Unknown
+## checkForBinaryWithCancel
 
- Check for the existence of a binary  @name checkForBinaryWithCancel  @example  ```js  import { checkForBinaryWithCancel } from 'bloodline'  import { fork } from 'fluture'  fork(console.warn)(console.log)(    checkForBinaryWithCancel(      cancellationFn,      'gvpr',      ['-V'],      ''    )  )  ```
+Check for the existence of a binary
 
+### Usage
+```js
+import { checkForBinaryWithCancel } from 'bloodline'
+import { fork } from 'fluture'
+fork(console.warn)(console.log)(
+  checkForBinaryWithCancel(
+    cancellationFn,
+    'gvpr',
+    ['-V'],
+    ''
+  )
+)
+```
 
-## Unknown
+## checkForBinaries
 
- Check for multiple binaries in a single call  @name checkForBinaries  @example  ```js  import { checkForBinaries } from 'bloodline'  import { fork } from 'fluture'  fork(console.warn)(console.log)(    checkForBinaries(      cancellationFn,      '/usr/bin',      { gvpr: ['-V'], dot: ['-V'] }    )  )  ```
+Check for multiple binaries in a single call
+
+### Usage
+```js
+import { checkForBinaries } from 'bloodline'
+import { fork } from 'fluture'
+fork(console.warn)(console.log)(
+  checkForBinaries(
+    cancellationFn,
+    '/usr/bin',
+    { gvpr: ['-V'], dot: ['-V'] }
+  )
+)
+```

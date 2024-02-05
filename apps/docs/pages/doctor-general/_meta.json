@@ -1,6 +1,6 @@
 {
   "comment": "comment",
-  "processor": "processor",
-  "reader": "reader",
+  "interpreter": "interpreter",
+  "parse": "parse",
   "text": "text"
 }

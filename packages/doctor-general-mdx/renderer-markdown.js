@@ -1,4 +1,5 @@
 import { wrap } from 'inherent'
+import { log } from './log'
 import {
   uniq,
   curry,
@@ -49,7 +50,9 @@ const flattenCommentData = applySpec({
   summary: propOr('?', 'summary'),
   links: propOr([], 'links'),
   example: pipe(
-    pathOr('', ['structure', 'example']),
+    pathOr([], ['structure', 'example']),
+    unlines,
+    log.renderer('hey!'),
     replace(new RegExp('// ' + MAGIC_IMPORT_KEY, 'g'), '')
   ),
   exported: pathOr(false, ['structure', 'exported']),
