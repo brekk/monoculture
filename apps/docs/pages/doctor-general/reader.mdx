@@ -1,7 +1,0 @@
-# reader
-
-
-
-## Unknown
-
- @name iterateOverWorkspacesAndReadFiles  @future  @example  ```js test=true  import { fork, resolve as resolveF, parallel } from 'fluture'  // drgen-import-above  fork(done)(x => {    expect(x).toEqual([      "tools/digested",      "tools/doctor-general-cli",      "tools/gitparty",      "tools/spacework",      "tools/superorganism",      "tools/treacle",    ])    done()  })(    iterateOverWorkspacesAndReadFiles(      {        searchGlob: '*',        ignore: []      },      '../..',      resolveF(['tools/'])    )  )
