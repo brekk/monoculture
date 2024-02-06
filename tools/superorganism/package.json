@@ -23,6 +23,7 @@
     "ramda": "0.29.1"
   },
   "devDependencies": {
+    "doctor-general-cli": "portal:../../tools/doctor-general-cli",
     "esbuild": "0.19.10",
     "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
     "fastest-levenshtein": "1.0.16",
