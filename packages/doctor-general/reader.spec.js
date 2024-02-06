@@ -51,6 +51,7 @@ test('monorepoRunner', done => {
     color: true,
     ignore: [
       '**/dist/**',
+      '**/_next/**',
       '**/node_modules/**',
       '**/coverage/**',
       '**/*.spec.{js,jsx,ts,tsx}',
