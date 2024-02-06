@@ -10,9 +10,10 @@ export const YARGS_CONFIG = {
     // these are things we've added
     future: ['f'],
     color: ['k'],
+    commonjs: ['cjs', 'p'],
   },
   array: ['require'],
-  boolean: ['silent', 'scripts', 'future', 'color'],
+  boolean: ['silent', 'scripts', 'future', 'color', 'commonjs'],
   configuration: {
     'strip-aliased': true,
   },
@@ -29,6 +30,7 @@ export const HELP_CONFIG = {
   helpStyle: `Choose the level of detail displayed by the help command`,
   future: `Use Futures instead of Promises`,
   color: `Render things with color`,
+  commonjs: `For backwards compatibility with \`nps\`, use this with cjs config files`,
 }
 /* eslint-enable max-len */
 
@@ -37,4 +39,5 @@ export const CONFIG_DEFAULTS = {
   future: false,
   helpStyle: 'all',
   color: true,
+  commonjs: false,
 }

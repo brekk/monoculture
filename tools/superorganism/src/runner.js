@@ -1,6 +1,7 @@
 import { Chalk } from 'chalk'
 import { closest, distance } from 'fastest-levenshtein'
 import {
+  identity as I,
   __,
   split,
   filter,
@@ -15,7 +16,11 @@ import {
   uniq,
 } from 'ramda'
 import { configurate } from 'climate'
-import { interpret } from 'file-system'
+import {
+  interpretWithCancel,
+  relativePathJoin,
+  demandWithCancel,
+} from 'file-system'
 import { execWithConfig, signal } from 'kiddo'
 import { log } from './log'
 import { recurse } from './recursive'
@@ -169,14 +174,17 @@ export const runnerWithCancel = curry(function _runnerWithCancel(cancel, argv) {
       ({
         basePath,
         config: source = `${basePath}/package-scripts.js`,
+        commonjs: cjs = false,
         ...parsedConfig
       }) => {
         return pipe(
+          cjs ? relativePathJoin(basePath) : I,
           log.config('reading...'),
-          interpret,
+          (cjs ? demandWithCancel : interpretWithCancel)(cancel),
+          log.config('read...'),
           map(
             pipe(pathOr({}, ['scripts']), loadedScripts => ({
-              config: parsedConfig,
+              config: { ...parsedConfig, source, commonjs: cjs },
               scripts: loadedScripts,
               tasks: getNestedTasks(loadedScripts),
               source,
