@@ -22,7 +22,7 @@ test('iterateOverWorkspacesAndReadFiles', done => {
     iterateOverWorkspacesAndReadFiles(
       {
         search: '*',
-        ignore: [],
+        ignore: ['**/dist/**'],
       },
       '../..',
       resolveF(['tools/'])
@@ -38,7 +38,6 @@ test('readPackageJsonWorkspaces', done => {
     chain(parallel(10)),
     fork(done)(x => {
       expect(x).toMatchSnapshot()
-
       done()
     })
   )('../../package.json')
@@ -51,6 +50,7 @@ test('monorepoRunner', done => {
   const config = {
     color: true,
     ignore: [
+      '**/dist/**',
       '**/node_modules/**',
       '**/coverage/**',
       '**/*.spec.{js,jsx,ts,tsx}',
