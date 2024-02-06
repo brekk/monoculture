@@ -1,4 +1,10 @@
-import { trimComment, nixKeyword, wipeComment, formatComment } from './text'
+import {
+  capitalToKebab,
+  trimComment,
+  nixKeyword,
+  wipeComment,
+  formatComment,
+} from './text'
 
 test('trimComment', () => {
   expect(trimComment('        * zipzop')).toEqual('zipzop')
@@ -28,4 +34,11 @@ test('trimComment', () => {
   const input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)
   expect(trimComment(input)).toEqual(input)
   expect(trimComment(29292)).toEqual(29292)
+})
+
+test('capitalToKebab', () => {
+  expect(capitalToKebab('CoolNiceDopeScience')).toEqual(
+    'Cool-Nice-Dope-Science'
+  )
+  expect(capitalToKebab('')).toEqual('')
 })

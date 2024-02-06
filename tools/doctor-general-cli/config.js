@@ -16,10 +16,12 @@ export const YARGS_CONFIG = {
     color: ['k'],
     debug: ['d'],
     monorepo: ['m'],
-    processor: ['p'],
+    interpreter: ['p'],
+    verifyInterpreter: ['f'],
+    showMatchOnly: ['w'],
   },
-  array: ['input'],
-  boolean: ['color', 'debug', 'monorepo'],
+  array: ['input', 'ignore'],
+  boolean: ['color', 'debug', 'monorepo', 'verifyInterpreter', 'showMatchOnly'],
   configuration: {
     'strip-aliased': true,
   },
@@ -38,7 +40,10 @@ export const HELP_CONFIG = {
   ignore: 'Files to ignore when searching, can be specified multiple times',
   debug: 'Generate additional information when processing content.',
   monorepo: 'Process content for a monorepo (walking all "workspaces")',
-  processor: 'Specify a processor to use when running doctor-general',
+  interpreter: 'Specify a interpreter to use when running doctor-general',
+  verifyInterpreter: 'Validate a given interpreter is correct (modal behavior)',
+  showMatchOnly:
+    "If set, show the files we would read, but don't actually read them. Helpful for debugging.",
 }
 
 export const CONFIG_DEFAULTS = {
@@ -52,4 +57,6 @@ export const CONFIG_DEFAULTS = {
   ],
   search: '**/*.{js,jsx,ts,tsx}',
   debug: false,
+  verifyInterpreter: false,
+  showMatchOnly: false,
 }

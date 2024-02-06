@@ -6,4 +6,5 @@ export const log = complextrace('doctor-general-jest', [
   'verbose',
   'renderer',
   'curried',
+  'filter',
 ])

@@ -1,0 +1,49 @@
+{
+  "name": "manacle",
+  "version": "0.0.0",
+  "description": "make conventions into rules, magically 🔒",
+  "bin": "./dist/cli.cjs",
+  "type": "module",
+  "repository": "brekk/monoculture",
+  "author": "brekk",
+  "license": "ISC",
+  "private": true,
+  "exports": {
+    ".": "./dist/cli.cjs"
+  },
+  "dependencies": {
+    "climate": "workspace:packages/climate",
+    "climate-json": "workspace:packages/climate-json",
+    "climate-toml": "workspace:packages/climate-toml",
+    "envtrace": "0.0.2",
+    "fluture": "14.0.0",
+    "inherent": "workspace:packages/inherent",
+    "knot": "workspace:packages/knot",
+    "monorail": "workspace:packages/monorail",
+    "ramda": "0.29.1"
+  },
+  "devDependencies": {
+    "doctor-general-cli": "portal:../../tools/doctor-general-cli",
+    "dotenv-cli": "7.3.0",
+    "esbuild": "0.19.10",
+    "eslint-config-monoculture": "workspace:shared/eslint-config-monoculture",
+    "execa": "8.0.1",
+    "jest": "29.7.0",
+    "jest-config": "workspace:shared/jest-config",
+    "nps": "^5.10.0"
+  },
+  "scripts": {
+    "nps": "dotenv -- nps -c ./package-scripts.cjs",
+    "build": "dotenv -- nps -c ./package-scripts.cjs build",
+    "clean": "dotenv -- nps -c ./package-scripts.cjs clean",
+    "lint": "dotenv -- nps -c ./package-scripts.cjs lint",
+    "meta": "dotenv -- nps -c ./package-scripts.cjs meta",
+    "meta:graph": "dotenv -- nps -c ./package-scripts.cjs meta.graph",
+    "test": "dotenv -- nps -c ./package-scripts.cjs test",
+    "test:ci": "dotenv -- nps -c ./package-scripts.cjs test.ci",
+    "test:integration": "dotenv -- nps -c ./package-scripts.cjs test.integration",
+    "test:silent": "dotenv -- nps -c ./package-scripts.cjs test.silent",
+    "test:snapshot": "dotenv -- nps -c ./package-scripts.cjs test.snapshot",
+    "test:watch": "dotenv -- nps -c ./package-scripts.cjs test.watch"
+  }
+}

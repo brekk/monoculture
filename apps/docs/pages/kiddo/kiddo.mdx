@@ -9,20 +9,7 @@ Call external processes and consume them as a Future-wrapped value. This is a li
 Consume external commands as a Future-wrapped value.
 
 ### Usage
-
-```js
-import { execWithConfig } from 'kiddo'
-import { fork } from 'fluture'
-fork(console.warn)(console.log)(
-  execWithConfig(
-    function customCancellationFunction() {},
-    'echo',
-    { cleanup: true },
-    ['ahoy']
-  )
-)
-```
-
+```js,    import { execWithConfig } from 'kiddo',    import { fork } from 'fluture',    fork(console.warn)(console.log)(,      execWithConfig(,        function customCancellationFunction() {},,        'echo',,        { cleanup: true },,        ['ahoy'],      ),    ),```
 
 ### See also
  - execWithCancel
@@ -32,19 +19,7 @@ fork(console.warn)(console.log)(
 Consume external commands as a Future-wrapped value.
 
 ### Usage
-
-```js
-import { execWithCancel } from 'kiddo'
-import { fork } from 'fluture'
-fork(console.warn)(console.log)(
-  execWithCancel(
-    function customCancellationFunction() {},
-    'echo',
-    ['ahoy']
-  )
-)
-```
-
+```js,    import { execWithCancel } from 'kiddo',    import { fork } from 'fluture',    fork(console.warn)(console.log)(,      execWithCancel(,        function customCancellationFunction() {},,        'echo',,        ['ahoy'],      ),    ),```
 
 ### See also
  - execWithConfig
@@ -54,16 +29,7 @@ fork(console.warn)(console.log)(
 Consume external commands as a Future-wrapped value.
 
 ### Usage
-
-```js test=true
-import { fork } from 'fluture'
-// drgen-import-above
-const blah = Math.round(Math.random() * 100000)
-fork(done)(z => {
-  expect(z.stdout).toEqual('' + blah)
-  done()
-})(exec('echo', [blah]))
-```
+```js test=true,    import { fork } from 'fluture',    // drgen-import-above,    const blah = Math.round(Math.random() * 100000),    fork(done)(z => {,      expect(z.stdout).toEqual('' + blah),      done(),    })(exec('echo', [blah])),```
 
 ### See also
  - execWithConfig
@@ -75,7 +41,7 @@ Add an `ora` indicator to a Future
 
 ### Usage
 ```js test=true
-import { signal } from 'kiddo'
+import { signal, execWithConfig, execWithCancel, exec } from 'kiddo'
 
 import { pipe, map } from 'ramda'
 import { readFile } from 'file-system'

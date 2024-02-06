@@ -1,5 +1,7 @@
 import { join as pathJoin, basename } from 'node:path'
 import {
+  when,
+  prepend,
   curry,
   map,
   pipe,
@@ -51,6 +53,12 @@ export const prepareMetaFiles = curry(
           // TODO: this broke when we moved away from consolidation in doctor-general,
           // metaName should also yield to title, but this is a temp fix
           map(([title, { metaName }]) => [metaName, metaName]),
+          // TODO: this is also a minor hack in order to make
+          // indexes work while we fix things further downstream
+          when(
+            () => workspace !== 'doctor-general',
+            raw => prepend(['index', last(head(raw))], raw)
+          ),
           fromPairs
         )
       ),

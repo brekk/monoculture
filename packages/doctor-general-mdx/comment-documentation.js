@@ -52,50 +52,52 @@ export const slug = name => {
 // TODO: we should consolidate this eventually
 export const stripRelative = replace(/\.\.\/|\.\//g, '')
 
-export const filterAndStructureComments = pipe(
-  filter(pipe(propOr([], 'comments'), isNotEmpty)),
-  map(raw => {
-    const filename = stripRelative(raw.filename)
-    return {
-      ...raw,
-      comments: raw.comments.map(r => ({
-        ...r,
+export function filterAndStructureComments(x) {
+  return pipe(
+    filter(pipe(propOr([], 'comments'), isNotEmpty)),
+    map(function addBaseToComment(raw) {
+      const filename = stripRelative(raw.filename)
+      return {
+        ...raw,
+        comments: raw.comments.map(r => ({
+          ...r,
+          filename,
+          package: raw.package,
+        })),
         filename,
-        package: raw.package,
-      })),
-      filename,
-      workspace: raw.package,
-    }
-  }),
-  reduce((agg, file) => {
-    const filenames = map(prop('filename'), agg)
-    const alreadyInList = filenames.includes(file.filename)
-    const anyFile = file.comments.filter(({ structure }) => structure.asFile)
-    const someFile = anyFile.length > 0 ? anyFile[0] : false
-    const asFilePath = pipe(
-      defaultTo({}),
-      pathOr('???', ['structure', 'asFile'])
-    )(someFile)
-    const withOrder = pipe(pathOr('0', ['structure', 'order']), x =>
-      parseInt(x, 10)
-    )(someFile)
-    const dir = dirname(file.filename)
-    const newFile = someFile ? pathJoin(dir, asFilePath) : '???'
-    return alreadyInList
-      ? map(raw => {
-          const check = raw.filename === file.filename
-          return check ? combineFiles(raw.order < withOrder, raw, file) : raw
-        })(agg)
-      : [
-          ...agg,
-          someFile
-            ? {
-                ...file,
-                filename: newFile,
-                order: withOrder,
-                originalFilename: file.filename,
-              }
-            : file,
-        ]
-  }, [])
-)
+        workspace: raw.package,
+      }
+    }),
+    reduce(function walkComments(agg, file) {
+      const filenames = map(prop('filename'), agg)
+      const alreadyInList = filenames.includes(file.filename)
+      const anyFile = file.comments.filter(({ structure }) => structure.asFile)
+      const someFile = anyFile.length > 0 ? anyFile[0] : false
+      const asFilePath = pipe(
+        defaultTo({}),
+        pathOr('???', ['structure', 'asFile'])
+      )(someFile)
+      const withOrder = pipe(pathOr('0', ['structure', 'order']), y =>
+        parseInt(y, 10)
+      )(someFile)
+      const dir = dirname(file.filename)
+      const newFile = someFile ? pathJoin(dir, asFilePath) : '???'
+      return alreadyInList
+        ? map(raw => {
+            const check = raw.filename === file.filename
+            return check ? combineFiles(raw.order < withOrder, raw, file) : raw
+          })(agg)
+        : [
+            ...agg,
+            someFile
+              ? {
+                  ...file,
+                  filename: newFile,
+                  order: withOrder,
+                  originalFilename: file.filename,
+                }
+              : file,
+          ]
+    }, [])
+  )(x)
+}

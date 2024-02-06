@@ -7,7 +7,7 @@ module.exports = {
       rebuild: sd(
         `drgen -i ${['./knot.js'].join(
           ' '
-        )} -o autotests --processor doctor-general-jest`,
+        )} -o autotests --interpreter doctor-general-jest`,
         'use doctor-general to create tests for us!'
       ),
     },

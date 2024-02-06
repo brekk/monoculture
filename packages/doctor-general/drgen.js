@@ -1,73 +1,130 @@
-import { join as pathJoin } from 'node:path'
-import { cwd } from 'node:process'
+import { join as pathJoin, dirname } from 'node:path'
 import { signal } from 'kiddo'
 import { log } from './log'
 import {
+  head,
+  curry,
   when,
   always as K,
   chain,
   identity as I,
-  ifElse,
   map,
   pipe,
 } from 'ramda'
-import { resolve, parallel } from 'fluture'
+import { parallel, reject as rejectF, resolve as resolveF } from 'fluture'
 import { relativePathJoin } from 'file-system'
 import { parseFile } from './parse'
 import { renderComments, processComments } from './comment'
 import { monorepoRunner } from './reader'
 import { writeArtifact } from './writer'
+import { validate, interrogate } from './interpreter'
 
-export const drgen = config => {
+const handleInvalidInterpreter = pipe(
+  interrogate,
+  ({ incorrectFields }) =>
+    `Interpreter is invalid. Incorrect fields: ${incorrectFields.join(', ')}`
+)
+
+export const readAndProcessFiles = curry(function _readAndProcessFilesF(
+  cancel,
+  config,
+  { outputDir, relativeArtifact, relative },
+  rawF
+) {
+  try {
+    const { interpreter, debug, input, output, artifact = false } = config
+    return pipe(
+      map(pipe(map(relative), chain(parseFile(debug)))),
+      chain(parallel(10)),
+      signal(cancel, {
+        text: 'Parsing files...',
+        successText: 'Parsed files!',
+        failText: 'Unable to parse files!',
+      }),
+      map(processComments(interpreter)),
+      when(K(artifact), writeArtifact(relativeArtifact)),
+      renderComments(interpreter, outputDir),
+      signal(cancel, {
+        text: 'Rendering comments...',
+        successText:
+          artifact || output
+            ? `Wrote to${
+                output
+                  ? ' output: "' + output + '"' + (artifact ? ';' : '')
+                  : ''
+              }${artifact ? ' artifact: "' + artifact + '"' : ''}.`
+            : `Processed ${input.join(' ')}`,
+        failText: 'Unable to render comments!',
+      }),
+      map(K(''))
+    )(rawF)
+  } catch (e) {
+    rejectF(e)
+  }
+})
+
+export function getPartialForProcessing(config) {
   const {
-    processor,
-    debug,
     input,
     output,
-    search: searchGlob,
-    ignore,
     artifact = false,
     monorepo: monorepoMode = false,
+    cwd,
   } = config
-  log.core('processor!', processor)
-  // TODO: come back to this modality
-  // const testMode = mode === 'test'
-  log.core('input', input)
-  log.core('monorepoMode', monorepoMode)
-  // log.core('testMode', testMode)
-  const current = cwd()
-  const rel = relativePathJoin(current)
+
+  const rel = relativePathJoin(cwd)
   const outputDir = rel(output)
   const relativeArtifact = artifact ? rel(artifact) : false
-  const relativeInput = map(rel, input)
-  const pkgJson = monorepoMode ? relativeInput[0] : 'NOT RELEVANT'
-  log.core('relating...', `${current} -> ${output}`)
-  const root = pkgJson.slice(0, pkgJson.lastIndexOf('/'))
-  const toLocal = map(ii => ii.slice(0, ii.lastIndexOf('/')), input)
-  const relativize = r => (monorepoMode ? pathJoin(toLocal[0], r) : r)
-  const cancel = () => {}
-  return pipe(
-    log.core(`monorepoMode?`),
-    ifElse(
-      I,
-      () => monorepoRunner(searchGlob, ignore, root, pkgJson),
-      () => resolve(input)
-    ),
-    map(pipe(map(relativize), chain(parseFile(debug, root)))),
-    chain(parallel(10)),
-    map(processComments(processor)),
-    when(K(artifact), writeArtifact(relativeArtifact)),
-    renderComments(processor, outputDir),
-    signal(cancel, {
-      text: 'Rendering comments...',
-      successText:
-        artifact || output
-          ? `Wrote to${
-              output ? ' output: "' + output + '"' + (artifact ? ';' : '') : ''
-            }${artifact ? ' artifact: "' + artifact + '"' : ''}.`
-          : `Processed ${input.join(' ')}`,
-      failText: 'Unable to render comments!',
-    }),
-    map(K(''))
-  )(monorepoMode)
+
+  // TODO: we ought to segment the monorepoMode out further
+  log.core('relating...', `${cwd} -> ${output}`)
+  const localPath = pipe(head, dirname)(input)
+
+  return {
+    outputDir,
+    relativeArtifact,
+    relative: r => (monorepoMode ? pathJoin(localPath, r) : r),
+  }
 }
+
+export const monorepoPreRunner = curry(
+  function _monorepoPreRunner(cancel, config) {
+    const { input, output, cwd } = config
+
+    const rel = relativePathJoin(cwd)
+    const relativeInput = map(rel, input)
+
+    const pkgJson = relativeInput[0]
+    const root = dirname(pkgJson)
+
+    log.core('relating...', `${cwd} -> ${output}`)
+    return monorepoRunner(cancel, config, root, pkgJson)
+  }
+)
+
+export const drgen = curry(function _drgen(cancel, config) {
+  // return new Future(function _drgenF(bad, good) {
+  try {
+    const {
+      interpreter = {},
+      input,
+      monorepo: monorepoMode = false,
+      showMatchesOnly = false,
+    } = config
+    log.core('showMatchesOnly', showMatchesOnly)
+    log.core('interpreter!', interpreter)
+    if (!validate(interpreter)) {
+      return pipe(handleInvalidInterpreter, rejectF)(interpreter)
+    }
+    const partial = getPartialForProcessing(config)
+    const rawInput = monorepoMode
+      ? monorepoPreRunner(cancel, config)
+      : resolveF(input)
+    return pipe(
+      showMatchesOnly ? I : readAndProcessFiles(cancel, config, partial)
+    )(rawInput)
+  } catch (e) {
+    rejectF(e)
+  }
+  // })
+})

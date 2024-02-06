@@ -12,11 +12,12 @@ module.exports = {
       rebuild: sd(
         `drgen -i ${[
           './array.js',
+          './groupByIndex.js',
           './common.js',
           './inherent.js',
           './object.js',
           './primitives.js',
-        ].join(' ')} -o autotests --processor doctor-general-jest`,
+        ].join(' ')} -o autotests --interpreter doctor-general-jest`,
         'generate tests with `doctor-general`!'
       ),
     },

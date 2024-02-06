@@ -48,6 +48,7 @@
   "scripts": {
     "nps": "dotenv -- nps -c ./package-scripts.cjs",
     "autodoc": "dotenv -- nps -c ./package-scripts.cjs autodoc",
+    "autodoc:debug": "dotenv -- nps -c ./package-scripts.cjs autodoc.debug",
     "autodoc:regen": "dotenv -- nps -c ./package-scripts.cjs autodoc.regen",
     "build": "dotenv -- nps -c ./package-scripts.cjs build",
     "clean": "dotenv -- nps -c ./package-scripts.cjs clean",

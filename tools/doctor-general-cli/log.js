@@ -1,6 +1,6 @@
 import { complextrace } from 'envtrace'
 export const log = complextrace('doctor-general', [
-  'core',
+  'cli',
   'parse',
   'render',
   'stats',

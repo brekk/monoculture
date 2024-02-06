@@ -4,13 +4,12 @@
 
 ## trimComment
 
-For strings which look like extended jsdoc comment line (e.g. ` * whatever`),
-eschew the comment decoration
+For strings which look like extended jsdoc comment line (e.g. ` * whatever`), eschew the comment decoration
 
 ### Usage
-```js
-expect(trimComment('          * zipzop')).toEqual('zipzop')
-expect(trimComment(' * squiggle         ')).toEqual('squiggle')
+```js test=true
+expect(trimComment(' * zipzop')).toEqual('zipzop')
+expect(trimComment(' * squiggle ')).toEqual('squiggle')
 const input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)
 expect(trimComment(input)).toEqual(input)
 expect(trimComment(29292)).toEqual(29292)

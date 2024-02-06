@@ -9,7 +9,8 @@ const build = ([infile, outfile]) =>
     `--bundle`,
     `--format=cjs`,
     `--platform=node`,
-    // `--packages=external`,
+    // when debugging, this is helpful
+    `--keep-names`,
     `--banner:js="#!/usr/bin/env node"`,
   ].join(' ')
 

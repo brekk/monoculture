@@ -1,9 +1,10 @@
 [
   {
-    "slugName": "executables",
     "package": "bloodline",
-    "pageSummary": "",
+    "slugName": "executables",
     "filename": "packages/bloodline/executables.js",
+    "pageTitle": "",
+    "pageSummary": "",
     "comments": [
       {
         "start": 17,
@@ -14,7 +15,21 @@
         "addTo": "",
         "structure": {
           "name": "checkForBinaryWithCancel",
-          "example": "```js\nimport { checkForBinaryWithCancel } from 'bloodline'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  checkForBinaryWithCancel(\n    cancellationFn,\n    'gvpr',\n    ['-V'],\n    ''\n  )\n)\n```"
+          "example": [
+            "```js",
+            "import { checkForBinaryWithCancel } from 'bloodline'",
+            "import { fork } from 'fluture'",
+            "fork(console.warn)(console.log)(",
+            "  checkForBinaryWithCancel(",
+            "    cancellationFn,",
+            "    'gvpr',",
+            "    ['-V'],",
+            "    ''",
+            "  )",
+            ")",
+            "```"
+          ],
+          "description": "Check for the existence of a binary"
         },
         "keywords": [
           "@example",
@@ -32,7 +47,20 @@
         "addTo": "",
         "structure": {
           "name": "checkForBinaries",
-          "example": "```js\nimport { checkForBinaries } from 'bloodline'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  checkForBinaries(\n    cancellationFn,\n    '/usr/bin',\n    { gvpr: ['-V'], dot: ['-V'] }\n  )\n)\n```"
+          "example": [
+            "```js",
+            "import { checkForBinaries } from 'bloodline'",
+            "import { fork } from 'fluture'",
+            "fork(console.warn)(console.log)(",
+            "  checkForBinaries(",
+            "    cancellationFn,",
+            "    '/usr/bin',",
+            "    { gvpr: ['-V'], dot: ['-V'] }",
+            "  )",
+            ")",
+            "```"
+          ],
+          "description": "Check for multiple binaries in a single call"
         },
         "keywords": [
           "@example",
@@ -47,10 +75,11 @@
     "workspace": "bloodline"
   },
   {
-    "slugName": "tree",
     "package": "bloodline",
-    "pageSummary": "",
+    "slugName": "tree",
     "filename": "packages/bloodline/tree.js",
+    "pageTitle": "",
+    "pageSummary": "",
     "comments": [
       {
         "start": 28,
@@ -61,7 +90,13 @@
         "addTo": "",
         "structure": {
           "name": "plant",
-          "example": "```js\nimport { plant } from 'bloodline'\nconst tree = plant({}, '../..', '../monocle/cli.js')\n```"
+          "example": [
+            "```js",
+            "import { plant } from 'bloodline'",
+            "const tree = plant({}, '../..', '../monocle/cli.js')",
+            "```"
+          ],
+          "description": "Generate a dependency tree, given a config, a directory, and a filename"
         },
         "keywords": [
           "@example",
@@ -79,7 +114,13 @@
         "addTo": "",
         "structure": {
           "name": "isNodeModule",
-          "example": "```js\nimport { isNodeModule } from 'bloodline/tree'\nisNodeModule('./node_modules/ramda') // true\n```"
+          "example": [
+            "```js",
+            "import { isNodeModule } from 'bloodline/tree'",
+            "isNodeModule('./node_modules/ramda') // true",
+            "```"
+          ],
+          "description": "Test whether a path includes `'node_modules'` within it."
         },
         "keywords": [
           "@example",
@@ -97,7 +138,13 @@
         "addTo": "",
         "structure": {
           "name": "isGitPath",
-          "example": "```js\nimport { isGitPath } from 'bloodline/tree'\nisGitPath('.git/config') // true\n```"
+          "example": [
+            "```js",
+            "import { isGitPath } from 'bloodline/tree'",
+            "isGitPath('.git/config') // true",
+            "```"
+          ],
+          "description": "Test whether a path includes `'.git'` within it."
         },
         "keywords": [
           "@example",
@@ -115,7 +162,16 @@
         "addTo": "",
         "structure": {
           "name": "getId",
-          "example": "```js\nimport { getId } from 'bloodline/tree'\nconst basePath = '..'\nconst cache = {}\nconst key = 'a'\nconsole.log(getId(basePath, cache, key)) // 'bloodline/a'\n```"
+          "example": [
+            "```js",
+            "import { getId } from 'bloodline/tree'",
+            "const basePath = '..'",
+            "const cache = {}",
+            "const key = 'a'",
+            "console.log(getId(basePath, cache, key)) // 'bloodline/a'",
+            "```"
+          ],
+          "description": "Grab an id from a cache if possible"
         },
         "keywords": [
           "@example",
@@ -135,10 +191,17 @@
         "addTo": "",
         "structure": {
           "name": "groupTree",
-          "see": [
-            "flattenTree"
+          "see": "{@link flattenTree}",
+          "example": [
+            "```js",
+            "import { plant } from 'bloodline'",
+            "// drgen-import-above",
+            "const config = { basePath: '../..' }",
+            "const tree = plant(config, '..', '../monocle/cli.js')",
+            "const grouped = groupTree(config, {}, {}, tree)",
+            "```"
           ],
-          "example": "```js\nimport { plant } from 'bloodline'\n// drgen-import-above\nconst config = { basePath: '../..' }\nconst tree = plant(config, '..', '../monocle/cli.js')\nconst grouped = groupTree(config, {}, {}, tree)\n```"
+          "description": "Take a dependency tree and recursively walk it, returning a grouped set of dependencies."
         },
         "keywords": [
           "@example",
@@ -160,10 +223,17 @@
         "addTo": "",
         "structure": {
           "name": "flattenTree",
-          "see": [
-            "groupTree"
+          "see": "{@link groupTree}",
+          "example": [
+            "```js",
+            "import { plant } from 'bloodline'",
+            "// drgen-import-above",
+            "const config = { basePath: '../..' }",
+            "const tree = plant(config, '..', '../monocle/cli.js')",
+            "const flattened = flattenTree(config, {}, {}, tree)",
+            "```"
           ],
-          "example": "```js\nimport { plant } from 'bloodline'\n// drgen-import-above\nconst config = { basePath: '../..' }\nconst tree = plant(config, '..', '../monocle/cli.js')\nconst flattened = flattenTree(config, {}, {}, tree)\n```"
+          "description": "Take a dependency tree and recursively walk it, returning flattened set of dependencies."
         },
         "keywords": [
           "@example",
@@ -183,22 +253,86 @@
     "workspace": "bloodline"
   },
   {
-    "slugName": "builder",
     "package": "climate",
-    "pageSummary": "",
+    "slugName": "builder",
     "filename": "packages/climate/builder.js",
+    "pageTitle": "",
+    "pageSummary": "",
     "comments": [
       {
         "start": 23,
         "end": 94,
-        "summary": "Automatically create many of the fundamentals needed to build robust CLI tools,\nincluding help text.",
+        "summary": "Automatically create many of the fundamentals needed to build robust CLI tools, including help text.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
           "name": "configurate",
           "future": true,
-          "example": "```js test=true\nimport { fork } from 'fluture'\nimport stripAnsi from 'strip-ansi'\n// drgen-import-above\nconst YARGS_CONFIG = {\n  alias: {\n    meal: ['m'],\n    happyHour: ['h'],\n    multiplier: ['x'],\n  },\n  boolean: ['happyHour'],\n  number: ['multiplier'],\n  configuration: {\n    'strip-aliased': true,\n  },\n}\n\nconst HELP_CONFIG = {\n  help: 'This text!',\n  // optional\n  color: 'Render stuff in color',\n  meal: 'Pass the name of the meal you want',\n  happyHour: 'Does happy hour apply here?',\n  multiplier: 'How many units should we apply?'\n}\n\nconst CONFIG_DEFAULTS = {\n  color: true,\n  happyHour: false\n}\n\nconst parseArgs = (args) => configurate(\n  YARGS_CONFIG,\n  // closured so that we can pass cwd at runtime\n  {...CONFIG_DEFAULTS, cwd: process.cwd() },\n  HELP_CONFIG,\n  { name: \"dumbwaiter\", description: \"order food!\" },\n  // process.argv.slice(2)\n  args\n)\n\n// renders in the failure channel\nfork(x => {\n  expect(stripAnsi(x).split('\\n')).toEqual([\n    \" dumbwaiter \",\n    \"\",\n    \"order food!\",\n    \"\",\n    \"  -m / --meal\",\n    \"  \tPass the name of the meal you want\",\n    \"\",\n    \"  -h / --happyHour\",\n    \"  \tDoes happy hour apply here?\",\n    \"\",\n    \"  -x / --multiplier\",\n    \"  \tHow many units should we apply?\",\n    \"\",\n    \"  -h / --help\",\n    \"  \tThis text!\",\n  ])\n  done()\n})(done)(\n  parseArgs(['--help'])\n)\n```"
+          "example": [
+            "```js test=true",
+            "import { fork } from 'fluture'",
+            "import stripAnsi from 'strip-ansi'",
+            "// drgen-import-above",
+            "const YARGS_CONFIG = {",
+            "  alias: {",
+            "    meal: ['m'],",
+            "    happyHour: ['h'],",
+            "    multiplier: ['x'],",
+            "  },",
+            "  boolean: ['happyHour'],",
+            "  number: ['multiplier'],",
+            "  configuration: {",
+            "    'strip-aliased': true,",
+            "  },",
+            "}",
+            "const HELP_CONFIG = {",
+            "  help: 'This text!',",
+            "  // optional",
+            "  color: 'Render stuff in color',",
+            "  meal: 'Pass the name of the meal you want',",
+            "  happyHour: 'Does happy hour apply here?',",
+            "  multiplier: 'How many units should we apply?'",
+            "}",
+            "const CONFIG_DEFAULTS = {",
+            "  color: true,",
+            "  happyHour: false",
+            "}",
+            "const parseArgs = (args) => configurate(",
+            "  YARGS_CONFIG,",
+            "  // closured so that we can pass cwd at runtime",
+            "  {...CONFIG_DEFAULTS, cwd: process.cwd() },",
+            "  HELP_CONFIG,",
+            "  { name: \"dumbwaiter\", description: \"order food!\" },",
+            "  // process.argv.slice(2)",
+            "  args",
+            ")",
+            "// renders in the failure channel",
+            "fork(x => {",
+            "  expect(stripAnsi(x).split('\\n').map(z => z.trim())).toEqual([",
+            "    \"dumbwaiter\",",
+            "    \"\",",
+            "    \"order food!\",",
+            "    \"\",",
+            "    \"-m / --meal\",",
+            "    \"Pass the name of the meal you want\",",
+            "    \"\",",
+            "    \"-h / --happyHour\",",
+            "    \"Does happy hour apply here?\",",
+            "    \"\",",
+            "    \"-x / --multiplier\",",
+            "    \"How many units should we apply?\",",
+            "    \"\",",
+            "    \"-h / --help\",",
+            "    \"This text!\",",
+            "  ])",
+            "  done()",
+            "})(done)(",
+            "  parseArgs(['--help'])",
+            ")",
+            "```"
+          ],
+          "description": "Automatically create many of the fundamentals needed to build robust CLI tools, including help text."
         },
         "keywords": [
           "@example",
@@ -219,10 +353,13 @@
         "addTo": "",
         "structure": {
           "name": "defaultNameTemplate",
-          "see": [
-            "configFileWithCancel"
+          "see": "{@link configFileWithCancel}",
+          "example": [
+            "```js test=true",
+            "expect(defaultNameTemplate('cool')).toEqual(['.coolrc', '.coolrc.json'])",
+            "```"
           ],
-          "example": "```js test=true\nexpect(defaultNameTemplate('cool')).toEqual(['.coolrc', '.coolrc.json'])\n```"
+          "description": "The default search space when running `configFileWithCancel`."
         },
         "keywords": [
           "@example",
@@ -241,14 +378,15 @@
     "workspace": "climate"
   },
   {
-    "slugName": "comment-test",
     "package": "doctor-general-jest",
-    "pageSummary": "",
+    "slugName": "comment-test",
     "filename": "packages/doctor-general-jest/comment-test.js",
+    "pageTitle": "",
+    "pageSummary": "",
     "comments": [
       {
-        "start": 17,
-        "end": 45,
+        "start": 21,
+        "end": 49,
         "summary": "Merge two file representations. Can be right or left associative",
         "links": [],
         "fileGroup": "",
@@ -257,42 +395,33 @@
           "name": "combineFiles",
           "exported": true,
           "param": [
-            [
-              "{boolean}",
-              "leftToRight",
-              "Associate",
-              "left",
-              "to",
-              "right"
-            ],
-            [
-              "{File}",
-              "a",
-              "left",
-              "file"
-            ],
-            [
-              "{File}",
-              "b",
-              "right",
-              "file"
-            ]
+            "{boolean} leftToRight Associate left to right",
+            "{File} a left file",
+            "{File} b right file"
           ],
-          "returns": [
-            "{File}",
-            "Merged",
-            "file"
+          "returns": "{File} Merged file",
+          "signature": "boolean -> File -> File -> File",
+          "example": [
+            "```js",
+            "const a = { a: true, greeting: 'hello', comments: ['one', 'two'], links: ['a', 'b'] }",
+            "const b = { b: true, greeting: 'ahoy', comments: ['three', 'four'], links: ['c', 'd'] }",
+            "expect(combineFiles(true, a, b)).toEqual({",
+            "  a: true,",
+            "  b: true,",
+            "  greeting: 'ahoy',",
+            "  comments: ['one', 'two', 'three', 'four'],",
+            "  links: ['a', 'b', 'c', 'd']",
+            "})",
+            "expect(combineFiles(false, a, b)).toEqual({",
+            "  a: true,",
+            "  b: true,",
+            "  greeting: 'hello',",
+            "  comments: ['three', 'four', 'one', 'two'],",
+            "  links: ['c', 'd', 'a', 'b']",
+            "})",
+            "```"
           ],
-          "signature": [
-            "boolean",
-            "->",
-            "File",
-            "->",
-            "File",
-            "->",
-            "File"
-          ],
-          "example": "```js\nconst a = { a: true, greeting: 'hello', comments: ['one', 'two'], links: ['a', 'b'] }\nconst b = { b: true, greeting: 'ahoy', comments: ['three', 'four'], links: ['c', 'd'] }\nexpect(combineFiles(true, a, b)).toEqual({\n  a: true,\n  b: true,\n  greeting: 'ahoy',\n  comments: ['one', 'two', 'three', 'four'],\n  links: ['a', 'b', 'c', 'd']\n})\nexpect(combineFiles(false, a, b)).toEqual({\n  a: true,\n  b: true,\n  greeting: 'hello',\n  comments: ['three', 'four', 'one', 'two'],\n  links: ['c', 'd', 'a', 'b']\n})\n```"
+          "description": "Merge two file representations. Can be right or left associative"
         },
         "keywords": [
           "@example",
@@ -311,26 +440,263 @@
     "workspace": "doctor-general-jest"
   },
   {
-    "slugName": "text",
     "package": "doctor-general",
+    "slugName": "comment",
+    "filename": "packages/doctor-general/comment.js",
+    "pageTitle": "",
     "pageSummary": "",
-    "filename": "packages/doctor-general/text.js",
     "comments": [
       {
-        "start": 20,
-        "end": 33,
-        "summary": "For strings which look like extended jsdoc comment line (e.g. ` * whatever`),\neschew the comment decoration",
+        "start": 69,
+        "end": 72,
+        "summary": "Check to see if a comment object has an example with a `test=true` tag within its structure",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "hasExample",
+          "description": "Check to see if a comment object has an example with a `test=true` tag within its structure"
+        },
+        "keywords": [
+          "@name"
+        ],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 76,
+        "end": 78,
+        "summary": "Pull all imports from a given file, including `@curried` examples",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "getImportsForTests",
+          "description": "Pull all imports from a given file, including `@curried` examples"
+        },
+        "keywords": [
+          "@name"
+        ],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 165,
+        "end": 167,
+        "summary": "Grab the summary from raw lines, given some indices to slice",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "getPageSummary",
+          "description": "Grab the summary from raw lines, given some indices to slice"
+        },
+        "keywords": [
+          "@name"
+        ],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 182,
+        "end": 184,
+        "summary": "Is it an asterisk with maybe some whitespace around it?",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "isAsterisky",
+          "description": "Is it an asterisk with maybe some whitespace around it?"
+        },
+        "keywords": [
+          "@name"
+        ],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 188,
+        "end": 189,
+        "summary": "",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "stripEmptyCommentLines",
+          "description": ""
+        },
+        "keywords": [],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 193,
+        "end": 196,
+        "summary": "Grab the example from raw lines and some indices to slice",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "getExample",
+          "signature": "List String -> Integer -> Integer -> String",
+          "description": "Grab the example from raw lines and some indices to slice"
+        },
+        "keywords": [
+          "@name",
+          "@signature"
+        ],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 326,
+        "end": 328,
+        "summary": "",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "objectifyComments",
+          "signature": "String -> String -> List Comment -> List CommentBlock",
+          "description": ""
+        },
+        "keywords": [
+          "@signature"
+        ],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 456,
+        "end": 459,
+        "summary": "Process comments given a interpreter and an error handler",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "processComments",
+          "description": "Process comments given a interpreter and an error handler"
+        },
+        "keywords": [
+          "@name"
+        ],
+        "filename": "packages/doctor-general/comment.js",
+        "package": "doctor-general"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "doctor-general"
+  },
+  {
+    "package": "doctor-general",
+    "slugName": "interpreter",
+    "filename": "packages/doctor-general/interpreter.js",
+    "pageTitle": "",
+    "pageSummary": "",
+    "comments": [
+      {
+        "start": 25,
+        "end": 34,
+        "summary": "Return the number of arguments a function expects",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "arity",
+          "example": [
+            "```js test=true",
+            "expect(arity((a,b,c) => {})).toEqual(3)",
+            "expect(arity(function tertiary(a,b,c) {})).toEqual(3)",
+            "expect(arity(a => b => c => c)).toEqual(1)",
+            "expect(arity('poo')).toEqual(-1)"
+          ],
+          "description": "Return the number of arguments a function expects"
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/doctor-general/interpreter.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 78,
+        "end": 81,
+        "summary": "Apply tests to a given interpreter in order to assess its correctness.",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "interrogate",
+          "exported": true,
+          "description": "Apply tests to a given interpreter in order to assess its correctness."
+        },
+        "keywords": [
+          "@exported",
+          "@name"
+        ],
+        "filename": "packages/doctor-general/interpreter.js",
+        "package": "doctor-general"
+      },
+      {
+        "start": 119,
+        "end": 125,
+        "summary": "Validate a given interpreter is correct. If you want to see _why_ it is incorrect, use `interrogate` instead.",
+        "links": [
+          "interrogate"
+        ],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "validate",
+          "see": "{@link interrogate}",
+          "exported": true,
+          "description": "Validate a given interpreter is correct. If you want to see _why_ it is incorrect, use `interrogate` instead."
+        },
+        "keywords": [
+          "@exported",
+          "@link",
+          "@name",
+          "@see"
+        ],
+        "filename": "packages/doctor-general/interpreter.js",
+        "package": "doctor-general"
+      }
+    ],
+    "order": 0,
+    "links": [
+      "interrogate"
+    ],
+    "workspace": "doctor-general"
+  },
+  {
+    "package": "doctor-general",
+    "slugName": "text",
+    "filename": "packages/doctor-general/text.js",
+    "pageTitle": "",
+    "pageSummary": "",
+    "comments": [
+      {
+        "start": 18,
+        "end": 31,
+        "summary": "For strings which look like extended jsdoc comment line (e.g. ` * whatever`), eschew the comment decoration",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
           "name": "trimComment",
-          "signature": [
-            "String",
-            "->",
-            "String"
+          "signature": "String -> String",
+          "example": [
+            "```js test=true",
+            "expect(trimComment(' * zipzop')).toEqual('zipzop')",
+            "expect(trimComment(' * squiggle ')).toEqual('squiggle')",
+            "const input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)",
+            "expect(trimComment(input)).toEqual(input)",
+            "expect(trimComment(29292)).toEqual(29292)",
+            "```"
           ],
-          "example": "```js\nexpect(trimComment('          * zipzop')).toEqual('zipzop')\nexpect(trimComment(' * squiggle         ')).toEqual('squiggle')\nconst input = ' ~~kljlkjlk2j32lkj3 ' + Math.round(Math.random() * 1000)\nexpect(trimComment(input)).toEqual(input)\nexpect(trimComment(29292)).toEqual(29292)\n```"
+          "description": "For strings which look like extended jsdoc comment line (e.g. ` * whatever`), eschew the comment decoration"
         },
         "keywords": [
           "@example",
@@ -346,22 +712,24 @@
     "workspace": "doctor-general"
   },
   {
-    "slugName": "fs",
     "package": "file-system",
-    "pageSummary": "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.",
+    "slugName": "fs",
     "filename": "packages/file-system/fs.js",
+    "pageTitle": "",
+    "pageSummary": "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.",
     "comments": [
       {
-        "start": 15,
-        "end": 17,
-        "summary": "@pageSummary A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system.",
+        "start": 25,
+        "end": 27,
+        "summary": "",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
           "pageSummary": [
             "A Future-wrapped `fs` API, for future-based, lazy, easy-to-model asynchrony that makes it easy to manipulate the file system."
-          ]
+          ],
+          "description": ""
         },
         "keywords": [
           "@pageSummary"
@@ -370,15 +738,22 @@
         "package": "file-system"
       },
       {
-        "start": 27,
-        "end": 36,
+        "start": 37,
+        "end": 46,
         "summary": "make a file string relative",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
           "name": "localize",
-          "example": "```js\nimport { localize } from 'file-system'\nconsole.log(`support ${localize('business')}`)\n// support ./business\n```"
+          "example": [
+            "```js",
+            "import { localize } from 'file-system'",
+            "console.log(`support ${localize('business')}`)",
+            "// support ./business",
+            "```"
+          ],
+          "description": "make a file string relative"
         },
         "keywords": [
           "@example",
@@ -388,45 +763,64 @@
         "package": "file-system"
       },
       {
-        "start": 39,
-        "end": 70,
+        "start": 49,
+        "end": 80,
         "summary": "Read a file asynchronously as a Future-wrapped value.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
-        "structure": {
-          "curried": [
-            {
-              "name": "",
-              "lines": ""
-            },
-            {
-              "name": "readFileWithFormatAndCancel",
-              "summary": "Can be given a file encoding and a cancellation function.",
-              "lines": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\n  readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')\n)\n```\n"
-            },
-            {
-              "name": "readFileWithCancel",
-              "summary": "Reads `utf8` files only.",
-              "lines": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(\n  readFileWithCancel(() => process.exit(), './README.md')\n)\n```\n"
-            },
-            {
-              "name": "readFile",
-              "summary": "Eschews any custom cancellation.",
-              "lines": "```js\nimport { fork } from 'fluture'\nimport { readFile } from 'file-system'\nfork(console.warn)(console.log)(readFile('./README.md'))\n```"
-            }
-          ]
-        },
         "keywords": [
           "@curried",
           "@example"
         ],
+        "structure": {
+          "description": "Read a file asynchronously as a Future-wrapped value.",
+          "curried": [
+            {
+              "name": "readFileWithFormatAndCancel",
+              "summary": "Can be given a file encoding and a cancellation function.",
+              "lines": [
+                "```js",
+                "    import { fork } from 'fluture'",
+                "    import { readFile } from 'file-system'",
+                "    fork(console.warn)(console.log)(",
+                "      readFileWithFormatAndCancel(() => process.exit(), 'utf8', './README.md')",
+                "    )",
+                "```"
+              ]
+            },
+            {
+              "name": "readFileWithCancel",
+              "summary": "Reads `utf8` files only.",
+              "lines": [
+                "```js",
+                "    import { fork } from 'fluture'",
+                "    import { readFile } from 'file-system'",
+                "    fork(console.warn)(console.log)(",
+                "      readFileWithCancel(() => process.exit(), './README.md')",
+                "    )",
+                "```"
+              ]
+            },
+            {
+              "name": "readFile",
+              "summary": "Eschews any custom cancellation.",
+              "lines": [
+                "```js",
+                "    import { fork } from 'fluture'",
+                "    import { readFile } from 'file-system'",
+                "    fork(console.warn)(console.log)(readFile('./README.md'))",
+                "```"
+              ]
+            }
+          ]
+        },
         "filename": "packages/file-system/fs.js",
         "package": "file-system"
       },
       {
-        "start": 82,
-        "end": 93,
+        "start": 92,
+        "end": 103,
         "summary": "Read a JSON file asynchronously as a Future-wrapped value, given a cancellation function",
         "links": [
           "readFile",
@@ -437,10 +831,17 @@
         "structure": {
           "name": "readJSONFileWithCancel",
           "see": [
-            "readFile",
-            "readJSONFile"
+            "{@link readFile}",
+            "{@link readJSONFile}"
           ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { readJSONFile } from 'file-system'\nfork(console.warn)(console.log)(readJSONFile('./package.json'))\n```"
+          "example": [
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { readJSONFile } from 'file-system'",
+            "fork(console.warn)(console.log)(readJSONFile('./package.json'))",
+            "```"
+          ],
+          "description": "Read a JSON file asynchronously as a Future-wrapped value, given a cancellation function"
         },
         "keywords": [
           "@example",
@@ -452,8 +853,8 @@
         "package": "file-system"
       },
       {
-        "start": 100,
-        "end": 111,
+        "start": 110,
+        "end": 121,
         "summary": "Read a JSON file asynchronously as a Future-wrapped value",
         "links": [
           "readFile",
@@ -464,10 +865,17 @@
         "structure": {
           "name": "readJSONFile",
           "see": [
-            "readFile",
-            "readJSONFileWithCancel"
+            "{@link readFile}",
+            "{@link readJSONFileWithCancel}"
           ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { readJSONFile } from 'file-system'\nfork(console.warn)(console.log)(readJSONFile('./package.json'))\n```"
+          "example": [
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { readJSONFile } from 'file-system'",
+            "fork(console.warn)(console.log)(readJSONFile('./package.json'))",
+            "```"
+          ],
+          "description": "Read a JSON file asynchronously as a Future-wrapped value"
         },
         "keywords": [
           "@example",
@@ -479,9 +887,9 @@
         "package": "file-system"
       },
       {
-        "start": 114,
-        "end": 130,
-        "summary": "Read a glob asynchronously as a Future-wrapped value,\nwith configuration and a cancellation function.\nConfiguration is passed to [glob](https://www.npmjs.com/package/glob)",
+        "start": 124,
+        "end": 140,
+        "summary": "Read a glob asynchronously as a Future-wrapped value, with configuration and a cancellation function. Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
           "readDirWithConfig",
           "readDir"
@@ -491,10 +899,20 @@
         "structure": {
           "name": "readDirWithConfigAndCancel",
           "see": [
-            "readDirWithConfig",
-            "readDir"
+            "{@link readDirWithConfig}",
+            "{@link readDir}"
           ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { readDirWithConfigAndCancel } from 'file-system'\n// [...]\npipe(\n  fork(console.warn)(console.log)\n)(readDirWithConfigAndCancel(cancellationFn, { ignore: ['node_modules/**'] }, 'src/*'))\n```"
+          "example": [
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { readDirWithConfigAndCancel } from 'file-system'",
+            "// [...]",
+            "pipe(",
+            "  fork(console.warn)(console.log)",
+            ")(readDirWithConfigAndCancel(cancellationFn, { ignore: ['node_modules/**'] }, 'src/*'))",
+            "```"
+          ],
+          "description": "Read a glob asynchronously as a Future-wrapped value, with configuration and a cancellation function. Configuration is passed to [glob](https://www.npmjs.com/package/glob)"
         },
         "keywords": [
           "@example",
@@ -506,9 +924,9 @@
         "package": "file-system"
       },
       {
-        "start": 147,
-        "end": 162,
-        "summary": "Read a glob asynchronously as a Future-wrapped value, with configuration.\nConfiguration is passed to [glob](https://www.npmjs.com/package/glob)",
+        "start": 157,
+        "end": 172,
+        "summary": "Read a glob asynchronously as a Future-wrapped value, with configuration. Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
           "readDirWithConfigAndCancel",
           "readDir"
@@ -518,10 +936,20 @@
         "structure": {
           "name": "readDirWithConfig",
           "see": [
-            "readDirWithConfigAndCancel",
-            "readDir"
+            "{@link readDirWithConfigAndCancel}",
+            "{@link readDir}"
           ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { readDirWithConfig } from 'file-system'\n// [...]\npipe(\n  fork(console.warn)(console.log)\n)(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))\n```"
+          "example": [
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { readDirWithConfig } from 'file-system'",
+            "// [...]",
+            "pipe(",
+            "  fork(console.warn)(console.log)",
+            ")(readDirWithConfig({ ignore: ['node_modules/**'] }, 'src/*'))",
+            "```"
+          ],
+          "description": "Read a glob asynchronously as a Future-wrapped value, with configuration. Configuration is passed to [glob](https://www.npmjs.com/package/glob)"
         },
         "keywords": [
           "@example",
@@ -533,9 +961,9 @@
         "package": "file-system"
       },
       {
-        "start": 165,
-        "end": 178,
-        "summary": "Read a glob asynchronously as a Future-wrapped value, default config assumed.\nConfiguration is passed to [glob](https://www.npmjs.com/package/glob)",
+        "start": 175,
+        "end": 188,
+        "summary": "Read a glob asynchronously as a Future-wrapped value, default config assumed. Configuration is passed to [glob](https://www.npmjs.com/package/glob)",
         "links": [
           "readDirWithConfigAndCancel",
           "readDirWithConfig"
@@ -545,10 +973,18 @@
         "structure": {
           "name": "readDir",
           "see": [
-            "readDirWithConfigAndCancel",
-            "readDirWithConfig"
+            "{@link readDirWithConfigAndCancel}",
+            "{@link readDirWithConfig}"
           ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { readDir } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(readDir('src/*'))\n```"
+          "example": [
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { readDir } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(readDir('src/*'))",
+            "```"
+          ],
+          "description": "Read a glob asynchronously as a Future-wrapped value, default config assumed. Configuration is passed to [glob](https://www.npmjs.com/package/glob)"
         },
         "keywords": [
           "@example",
@@ -560,9 +996,9 @@
         "package": "file-system"
       },
       {
-        "start": 181,
-        "end": 201,
-        "summary": "Write to a file, with configuration and a cancellation function.\nUnlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
+        "start": 191,
+        "end": 211,
+        "summary": "Write to a file, with configuration and a cancellation function. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
           "writeFileWithConfig",
           "writeFile"
@@ -572,10 +1008,25 @@
         "structure": {
           "name": "writeFileWithConfigAndCancel",
           "see": [
-            "writeFileWithConfig",
-            "writeFile"
+            "{@link writeFileWithConfig}",
+            "{@link writeFile}"
           ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { writeFileWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  writeFileWithConfigAndCancel(\n    cancellationFunction,\n    { ...fs.writeFileConfig },\n    'my-file.txt',\n    'hey I am a file'\n  )\n)\n```"
+          "example": [
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { writeFileWithConfig } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "  writeFileWithConfigAndCancel(",
+            "    cancellationFunction,",
+            "    { ...fs.writeFileConfig },",
+            "    'my-file.txt',",
+            "    'hey I am a file'",
+            "  )",
+            ")",
+            "```"
+          ],
+          "description": "Write to a file, with configuration and a cancellation function. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value."
         },
         "keywords": [
           "@example",
@@ -587,9 +1038,9 @@
         "package": "file-system"
       },
       {
-        "start": 217,
-        "end": 236,
-        "summary": "Write to a file, with configuration.\nUnlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
+        "start": 227,
+        "end": 246,
+        "summary": "Write to a file, with configuration. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
           "writeFileWithConfigAndCancel",
           "writeFile"
@@ -599,10 +1050,24 @@
         "structure": {
           "name": "writeFileWithConfig",
           "see": [
-            "writeFileWithConfigAndCancel",
-            "writeFile"
+            "{@link writeFileWithConfigAndCancel}",
+            "{@link writeFile}"
           ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { writeFileWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  writeFileWithConfig(\n    { encoding: 'utf8' },\n    'my-file.txt',\n    'hey I am a file'\n  )\n)\n```"
+          "example": [
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { writeFileWithConfig } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "  writeFileWithConfig(",
+            "    { encoding: 'utf8' },",
+            "    'my-file.txt',",
+            "    'hey I am a file'",
+            "  )",
+            ")",
+            "```"
+          ],
+          "description": "Write to a file, with configuration. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value."
         },
         "keywords": [
           "@example",
@@ -614,9 +1079,9 @@
         "package": "file-system"
       },
       {
-        "start": 239,
-        "end": 257,
-        "summary": "Write to a file, assuming `'utf8'`.\nUnlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
+        "start": 249,
+        "end": 267,
+        "summary": "Write to a file, assuming `'utf8'`. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value.",
         "links": [
           "writeFileWithConfigAndCancel",
           "writeFileWithConfig"
@@ -626,10 +1091,23 @@
         "structure": {
           "name": "writeFile",
           "see": [
-            "writeFileWithConfigAndCancel",
-            "writeFileWithConfig"
+            "{@link writeFileWithConfigAndCancel}",
+            "{@link writeFileWithConfig}"
           ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { writeFileWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  writeFileWithConfig(\n    'my-file.txt',\n    'hey I am a file'\n  )\n)\n```"
+          "example": [
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { writeFileWithConfig } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "  writeFileWithConfig(",
+            "    'my-file.txt',",
+            "    'hey I am a file'",
+            "  )",
+            ")",
+            "```"
+          ],
+          "description": "Write to a file, assuming `'utf8'`. Unlike `fs.writeFile`, this will return the written value as a Future-wrapped value."
         },
         "keywords": [
           "@example",
@@ -641,41 +1119,77 @@
         "package": "file-system"
       },
       {
-        "start": 260,
-        "end": 308,
-        "summary": "Remove a file, configurably, with cancellation.\nUnlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
+        "start": 270,
+        "end": 318,
+        "summary": "Remove a file, configurably, with cancellation. Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
-        "structure": {
-          "curried": [
-            {
-              "name": "removeFileWithConfigAndCancel",
-              "summary": "Configuration and cancellation",
-              "lines": "\n ```js\n import { fork } from 'fluture'\n import { removeFileWithConfigAndCancel } from 'file-system'\n\n fork(console.warn)(console.log)(\n   removeFileWithConfigAndCancel(\n     cancellationFn,\n     { ...fs.removeFileConfig },\n     'my-file.txt'\n   )\n )\n ```"
-            },
-            {
-              "name": "removeFileWithConfig",
-              "summary": "No config, just cancellation",
-              "lines": "\n```js\nimport { fork } from 'fluture'\nimport { removeFileWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFileWithConfig(\n    { ...fs.removeFileConfig },\n    'my-file.txt'\n  )\n)\n```\n"
-            },
-            {
-              "name": "removeFile",
-              "summary": "remove a file. Aliased to `rm`.",
-              "lines": "\n```js\nimport { fork } from 'fluture'\nimport { removeFile } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFile(\n    'my-file.txt'\n  )\n)\n```\n"
-            }
-          ]
-        },
         "keywords": [
           "@curried",
           "@example"
         ],
+        "structure": {
+          "description": "Remove a file, configurably, with cancellation. Unlike `fs.rm`, this returns the path of the deleted file as a Future-wrapped string.",
+          "curried": [
+            {
+              "name": "removeFileWithConfigAndCancel",
+              "summary": "Configuration and cancellation",
+              "lines": [
+                "```js",
+                "     import { fork } from 'fluture'",
+                "     import { removeFileWithConfigAndCancel } from 'file-system'",
+                "     fork(console.warn)(console.log)(",
+                "       removeFileWithConfigAndCancel(",
+                "         cancellationFn,",
+                "         { ...fs.removeFileConfig },",
+                "         'my-file.txt'",
+                "       )",
+                "     )",
+                "```"
+              ]
+            },
+            {
+              "name": "removeFileWithConfig",
+              "summary": "No config, just cancellation",
+              "lines": [
+                "```js",
+                "    import { fork } from 'fluture'",
+                "    import { removeFileWithConfig } from 'file-system'",
+                "    // [...]",
+                "    fork(console.warn)(console.log)(",
+                "      removeFileWithConfig(",
+                "        { ...fs.removeFileConfig },",
+                "        'my-file.txt'",
+                "      )",
+                "    )",
+                "```"
+              ]
+            },
+            {
+              "name": "removeFile",
+              "summary": "remove a file. Aliased to `rm`.",
+              "lines": [
+                "```js",
+                "    import { fork } from 'fluture'",
+                "    import { removeFile } from 'file-system'",
+                "    // [...]",
+                "    fork(console.warn)(console.log)(",
+                "      removeFile(",
+                "        'my-file.txt'",
+                "      )",
+                "    )",
+                "```"
+              ]
+            }
+          ]
+        },
         "filename": "packages/file-system/fs.js",
         "package": "file-system"
       },
       {
-        "start": 330,
-        "end": 348,
+        "start": 340,
+        "end": 358,
         "summary": "Remove multiple files, configurably, with a cancellation function.",
         "links": [
           "removeFilesWithConfig",
@@ -686,10 +1200,24 @@
         "structure": {
           "name": "removeFilesWithConfigAndCancel",
           "see": [
-            "removeFilesWithConfig",
-            "removeFiles"
+            "{@link removeFilesWithConfig}",
+            "{@link removeFiles}"
           ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { removeFilesWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFilesWithConfigAndCancel(\n    cancellationFn,\n    { parallel: 30 },\n    [...list, ...of, ...thirty, ...files]\n  )\n)\n```"
+          "example": [
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { removeFilesWithConfig } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "  removeFilesWithConfigAndCancel(",
+            "    cancellationFn,",
+            "    { parallel: 30 },",
+            "    [...list, ...of, ...thirty, ...files]",
+            "  )",
+            ")",
+            "```"
+          ],
+          "description": "Remove multiple files, configurably, with a cancellation function."
         },
         "keywords": [
           "@example",
@@ -701,8 +1229,8 @@
         "package": "file-system"
       },
       {
-        "start": 358,
-        "end": 375,
+        "start": 368,
+        "end": 385,
         "summary": "Remove multiple files, configurably.",
         "links": [
           "removeFilesWithConfigAndCancel",
@@ -713,10 +1241,23 @@
         "structure": {
           "name": "removeFilesWithConfig",
           "see": [
-            "removeFilesWithConfigAndCancel",
-            "removeFiles"
+            "{@link removeFilesWithConfigAndCancel}",
+            "{@link removeFiles}"
           ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { DEFAULT_REMOVAL_CONFIG, removeFilesWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFilesWithConfig(\n    DEFAULT_REMOVAL_CONFIG,\n    [...list, ...of, ...thirty, ...files]\n  )\n)\n```"
+          "example": [
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { DEFAULT_REMOVAL_CONFIG, removeFilesWithConfig } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "  removeFilesWithConfig(",
+            "    DEFAULT_REMOVAL_CONFIG,",
+            "    [...list, ...of, ...thirty, ...files]",
+            "  )",
+            ")",
+            "```"
+          ],
+          "description": "Remove multiple files, configurably."
         },
         "keywords": [
           "@example",
@@ -728,8 +1269,8 @@
         "package": "file-system"
       },
       {
-        "start": 378,
-        "end": 394,
+        "start": 388,
+        "end": 404,
         "summary": "Remove multiple files, configurably.",
         "links": [
           "removeFilesWithConfigAndCancel",
@@ -740,10 +1281,22 @@
         "structure": {
           "name": "removeFilesWithConfig",
           "see": [
-            "removeFilesWithConfigAndCancel",
-            "removeFiles"
+            "{@link removeFilesWithConfigAndCancel}",
+            "{@link removeFiles}"
           ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { removeFilesWithConfig } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  removeFilesWithConfig(\n    [...list, ...of, ...thirty, ...files]\n  )\n)\n```"
+          "example": [
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { removeFilesWithConfig } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "  removeFilesWithConfig(",
+            "    [...list, ...of, ...thirty, ...files]",
+            "  )",
+            ")",
+            "```"
+          ],
+          "description": "Remove multiple files, configurably."
         },
         "keywords": [
           "@example",
@@ -755,9 +1308,9 @@
         "package": "file-system"
       },
       {
-        "start": 397,
-        "end": 416,
-        "summary": "Make a directory, given a cancellation function.\nReturns a Future-wrapped file path as a discrete value upon success.",
+        "start": 407,
+        "end": 426,
+        "summary": "Make a directory, given a cancellation function. Returns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdir",
           "mkdirp"
@@ -767,10 +1320,24 @@
         "structure": {
           "name": "mkdirWithCancel",
           "see": [
-            "mkdir",
-            "mkdirp"
+            "{@link mkdir}",
+            "{@link mkdirp}"
           ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { mkdirWithCancel } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  mkdirWithCancel(\n    () => {},\n    {},\n    'my-dir'\n  )\n)\n```"
+          "example": [
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { mkdirWithCancel } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "  mkdirWithCancel(",
+            "    () => {},",
+            "    {},",
+            "    'my-dir'",
+            "  )",
+            ")",
+            "```"
+          ],
+          "description": "Make a directory, given a cancellation function. Returns a Future-wrapped file path as a discrete value upon success."
         },
         "keywords": [
           "@example",
@@ -782,9 +1349,9 @@
         "package": "file-system"
       },
       {
-        "start": 426,
-        "end": 444,
-        "summary": "Make a directory\nReturns a Future-wrapped file path as a discrete value upon success.",
+        "start": 436,
+        "end": 454,
+        "summary": "Make a directory Returns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdirWithCancel",
           "mkdirp"
@@ -794,10 +1361,23 @@
         "structure": {
           "name": "mkdir",
           "see": [
-            "mkdirWithCancel",
-            "mkdirp"
+            "{@link mkdirWithCancel}",
+            "{@link mkdirp}"
           ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { mkdir } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  mkdir(\n    {},\n    'my-dir'\n  )\n)\n```"
+          "example": [
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { mkdir } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "  mkdir(",
+            "    {},",
+            "    'my-dir'",
+            "  )",
+            ")",
+            "```"
+          ],
+          "description": "Make a directory Returns a Future-wrapped file path as a discrete value upon success."
         },
         "keywords": [
           "@example",
@@ -809,9 +1389,9 @@
         "package": "file-system"
       },
       {
-        "start": 447,
-        "end": 465,
-        "summary": "Make a directory, recursively.\nReturns a Future-wrapped file path as a discrete value upon success.",
+        "start": 457,
+        "end": 475,
+        "summary": "Make a directory, recursively. Returns a Future-wrapped file path as a discrete value upon success.",
         "links": [
           "mkdirWithCancel",
           "mkdir"
@@ -821,10 +1401,23 @@
         "structure": {
           "name": "mkdirp",
           "see": [
-            "mkdirWithCancel",
-            "mkdir"
+            "{@link mkdirWithCancel}",
+            "{@link mkdir}"
           ],
-          "example": "```js\nimport { fork } from 'fluture'\nimport { mkdir } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  mkdir(\n    {},\n    'my-dir'\n  )\n)\n```"
+          "example": [
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { mkdir } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "  mkdir(",
+            "    {},",
+            "    'my-dir'",
+            "  )",
+            ")",
+            "```"
+          ],
+          "description": "Make a directory, recursively. Returns a Future-wrapped file path as a discrete value upon success."
         },
         "keywords": [
           "@example",
@@ -836,15 +1429,28 @@
         "package": "file-system"
       },
       {
-        "start": 481,
-        "end": 496,
+        "start": 488,
+        "end": 503,
         "summary": "Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
           "name": "writeFileWithAutoPath",
-          "example": "```js\nimport { fork } from 'fluture'\nimport { writeFileWithAutoPath } from 'file-system'\n// [...]\nfork(console.warn)(console.log)(\n  writeFileWithAutoPath(\n    \"folders/you/must/exist/file.biz\",\n    \"my cool content\"\n  )\n)\n```"
+          "example": [
+            "```js",
+            "import { fork } from 'fluture'",
+            "import { writeFileWithAutoPath } from 'file-system'",
+            "// [...]",
+            "fork(console.warn)(console.log)(",
+            "  writeFileWithAutoPath(",
+            "    \"folders/you/must/exist/file.biz\",",
+            "    \"my cool content\"",
+            "  )",
+            ")",
+            "```"
+          ],
+          "description": "Write a file to a nested folder and automatically create needed folders, akin to `mkdir -p`"
         },
         "keywords": [
           "@example",
@@ -888,21 +1494,120 @@
     "workspace": "file-system"
   },
   {
-    "slugName": "primitives",
     "package": "inherent",
+    "slugName": "groupByIndex",
+    "filename": "packages/inherent/groupByIndex.js",
+    "pageTitle": "",
     "pageSummary": "",
+    "comments": [
+      {
+        "start": 14,
+        "end": 34,
+        "summary": "",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "groupByIndex",
+          "example": [
+            "```js test=true",
+            "expect(groupByIndex(0, [",
+            "  ['spades', 'ace'],",
+            "  ['diamonds', 'seven'],",
+            "  ['hearts', 'eight'],",
+            "  ['clubs', 'jack'],",
+            "  ['diamonds', 'ace'],",
+            "  ['spades', 'king'],",
+            "  ['diamonds', 'four'],",
+            "  ['spades', 'eight'],",
+            "])).toEqual({",
+            "  clubs: [['jack']],",
+            "  diamonds: [['seven'], ['ace'], ['four']],",
+            "  hearts: [['eight']],",
+            "  spades: [['ace'], ['king'], ['eight']],",
+            "})",
+            "```"
+          ],
+          "description": ""
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/inherent/groupByIndex.js",
+        "package": "inherent"
+      },
+      {
+        "start": 39,
+        "end": 59,
+        "summary": "",
+        "links": [],
+        "fileGroup": "",
+        "addTo": "",
+        "structure": {
+          "name": "groupFlatByIndex",
+          "example": [
+            "```js test=true",
+            "expect(groupFlatByIndex(0, [",
+            "  ['spades', 'ace'],",
+            "  ['diamonds', 'seven'],",
+            "  ['hearts', 'eight'],",
+            "  ['clubs', 'jack'],",
+            "  ['diamonds', 'ace'],",
+            "  ['spades', 'king'],",
+            "  ['diamonds', 'four'],",
+            "  ['spades', 'eight'],",
+            "])).toEqual({",
+            "  clubs: ['jack'],",
+            "  diamonds: ['seven', 'ace', 'four'],",
+            "  hearts: ['eight'],",
+            "  spades: ['ace', 'king', 'eight'],",
+            "})",
+            "```"
+          ],
+          "description": ""
+        },
+        "keywords": [
+          "@example",
+          "@name"
+        ],
+        "filename": "packages/inherent/groupByIndex.js",
+        "package": "inherent"
+      }
+    ],
+    "order": 0,
+    "links": [],
+    "workspace": "inherent"
+  },
+  {
+    "package": "inherent",
+    "slugName": "primitives",
     "filename": "packages/inherent/primitives.js",
+    "pageTitle": "",
+    "pageSummary": "",
     "comments": [
       {
         "start": 2,
         "end": 18,
-        "summary": "Generic comparison function.\nThis can be used to create a number of other more complex functions.",
+        "summary": "Generic comparison function. This can be used to create a number of other more complex functions.",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
           "name": "equalishBy",
-          "example": "```js test=true\nconst productIdSelector = z => {\n  const d = z.indexOf('-')\n  return d > -1 ? z.slice(0, d) : 'NO_MATCH'\n}\nconst isProduct = equalishBy(productIdSelector, 'coolco')\n\nexpect(isProduct('coolco-10020')).toBeTruthy()\nexpect(isProduct('otherco-xkswn')).toBeFalsy()\nexpect(isProduct('blabbo')).toBeFalsy()\n```"
+          "example": [
+            "```js test=true",
+            "const productIdSelector = z => {",
+            "  const d = z.indexOf('-')",
+            "  return d > -1 ? z.slice(0, d) : 'NO_MATCH'",
+            "}",
+            "const isProduct = equalishBy(productIdSelector, 'coolco')",
+            "expect(isProduct('coolco-10020')).toBeTruthy()",
+            "expect(isProduct('otherco-xkswn')).toBeFalsy()",
+            "expect(isProduct('blabbo')).toBeFalsy()",
+            "```"
+          ],
+          "description": "Generic comparison function. This can be used to create a number of other more complex functions."
         },
         "keywords": [
           "@example",
@@ -920,14 +1625,17 @@
         "addTo": "",
         "structure": {
           "name": "coerce",
-          "param": [
-            "{any}",
-            "x",
-            "Any",
-            "value"
-          ],
+          "param": "{any} x Any value",
           "returns": "boolean",
-          "example": "```js test=true\nexpect(coerce(0)).toBeFalsy()\nexpect(coerce('')).toBeFalsy()\nexpect(coerce([])).toBeTruthy()\nexpect(coerce(1)).toBeTruthy()\n```"
+          "example": [
+            "```js test=true",
+            "expect(coerce(0)).toBeFalsy()",
+            "expect(coerce('')).toBeFalsy()",
+            "expect(coerce([])).toBeTruthy()",
+            "expect(coerce(1)).toBeTruthy()",
+            "```"
+          ],
+          "description": "Coerce values to boolean explicitly"
         },
         "keywords": [
           "@example",
@@ -944,15 +1652,16 @@
     "workspace": "inherent"
   },
   {
-    "slugName": "kiddo",
     "package": "kiddo",
-    "pageSummary": "Call external processes and consume them as a Future-wrapped value. This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
+    "slugName": "kiddo",
     "filename": "packages/kiddo/kiddo.js",
+    "pageTitle": "",
+    "pageSummary": "Call external processes and consume them as a Future-wrapped value. This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
     "comments": [
       {
         "start": 11,
         "end": 14,
-        "summary": "@pageSummary Call external processes and consume them as a Future-wrapped value.\nThis is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info.",
+        "summary": "",
         "links": [],
         "fileGroup": "",
         "addTo": "",
@@ -960,7 +1669,8 @@
           "pageSummary": [
             "Call external processes and consume them as a Future-wrapped value.",
             "This is a light wrapper around `execa`, so please see [execa](https://github.com/sindresorhus/execa)'s documentation for more info."
-          ]
+          ],
+          "description": ""
         },
         "keywords": [
           "@pageSummary"
@@ -975,37 +1685,73 @@
         "links": [],
         "fileGroup": "",
         "addTo": "",
-        "structure": {
-          "future": true,
-          "curried": [
-            {
-              "name": "execWithConfig",
-              "summary": "Passes all possible configuration values plus a cancellation function.",
-              "lines": "\n```js\nimport { execWithConfig } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithConfig(\n    function customCancellationFunction() {},\n    'echo',\n    { cleanup: true },\n    ['ahoy']\n  )\n)\n```\n"
-            },
-            {
-              "name": "execWithCancel",
-              "summary": "Eschews any configuration and instead only expects a cancellation function, command and arguments.",
-              "lines": "\n```js\nimport { execWithCancel } from 'kiddo'\nimport { fork } from 'fluture'\nfork(console.warn)(console.log)(\n  execWithCancel(\n    function customCancellationFunction() {},\n    'echo',\n    ['ahoy']\n  )\n)\n```\n"
-            },
-            {
-              "name": "exec",
-              "summary": "Eschews any configuration or cancellation function. Needs only command and arguments.",
-              "lines": "\n```js test=true\nimport { fork } from 'fluture'\n// drgen-import-above\nconst blah = Math.round(Math.random() * 100000)\nfork(done)(z => {\n  expect(z.stdout).toEqual('' + blah)\n  done()\n})(exec('echo', [blah]))\n```"
-            }
-          ]
-        },
         "keywords": [
           "@curried",
           "@example",
           "@future"
         ],
+        "structure": {
+          "future": true,
+          "description": "Consume external commands as a Future-wrapped value.",
+          "curried": [
+            {
+              "name": "execWithConfig",
+              "summary": "Passes all possible configuration values plus a cancellation function.",
+              "lines": [
+                "```js",
+                "    import { execWithConfig } from 'kiddo'",
+                "    import { fork } from 'fluture'",
+                "    fork(console.warn)(console.log)(",
+                "      execWithConfig(",
+                "        function customCancellationFunction() {},",
+                "        'echo',",
+                "        { cleanup: true },",
+                "        ['ahoy']",
+                "      )",
+                "    )",
+                "```"
+              ]
+            },
+            {
+              "name": "execWithCancel",
+              "summary": "Eschews any configuration and instead only expects a cancellation function, command and arguments.",
+              "lines": [
+                "```js",
+                "    import { execWithCancel } from 'kiddo'",
+                "    import { fork } from 'fluture'",
+                "    fork(console.warn)(console.log)(",
+                "      execWithCancel(",
+                "        function customCancellationFunction() {},",
+                "        'echo',",
+                "        ['ahoy']",
+                "      )",
+                "    )",
+                "```"
+              ]
+            },
+            {
+              "name": "exec",
+              "summary": "Eschews any configuration or cancellation function. Needs only command and arguments.",
+              "lines": [
+                "```js test=true",
+                "    import { fork } from 'fluture'",
+                "    // drgen-import-above",
+                "    const blah = Math.round(Math.random() * 100000)",
+                "    fork(done)(z => {",
+                "      expect(z.stdout).toEqual('' + blah)",
+                "      done()",
+                "    })(exec('echo', [blah]))",
+                "```"
+              ]
+            }
+          ]
+        },
         "filename": "packages/kiddo/kiddo.js",
         "package": "kiddo"
       },
       {
-        "start": 80,
-        "end": 100,
+        "start": 169,
+        "end": 189,
         "summary": "Add an `ora` indicator to a Future",
         "links": [],
         "fileGroup": "",
@@ -1014,7 +1760,23 @@
           "name": "signal",
           "future": true,
           "exported": true,
-          "example": "```js test=true\nimport { pipe, map } from 'ramda'\nimport { readFile } from 'file-system'\n// drgen-import-above\nconst cancel = () => {}\npipe(\n  signal(cancel, { text: 'Reading file...', successText: 'Read file!'}),\n  map(JSON.parse),\n  fork(done)(raw => {\n    expect(raw.name).toEqual('kiddo')\n    done()\n  })\n)(readFile('./package.json'))\n```"
+          "example": [
+            "```js test=true",
+            "import { pipe, map } from 'ramda'",
+            "import { readFile } from 'file-system'",
+            "// drgen-import-above",
+            "const cancel = () => {}",
+            "pipe(",
+            "  signal(cancel, { text: 'Reading file...', successText: 'Read file!'}),",
+            "  map(JSON.parse),",
+            "  fork(done)(raw => {",
+            "    expect(raw.name).toEqual('kiddo')",
+            "    done()",
+            "  })",
+            ")(readFile('./package.json'))",
+            "```"
+          ],
+          "description": "Add an `ora` indicator to a Future"
         },
         "keywords": [
           "@example",
@@ -1031,10 +1793,11 @@
     "workspace": "kiddo"
   },
   {
-    "slugName": "knot",
     "package": "knot",
-    "pageSummary": "",
+    "slugName": "knot",
     "filename": "packages/knot/knot.js",
+    "pageTitle": "",
+    "pageSummary": "",
     "comments": [
       {
         "start": 48,
@@ -1045,7 +1808,17 @@
         "addTo": "",
         "structure": {
           "name": "nthIndex",
-          "example": "```js test=true\nexpect(\n  nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j')\n).toEqual(\"f/g/h/i/j\")\nexpect(\n  nthIndex('/', 5, 'a/b/c/d/e/f/g/h/i/j')\n).toEqual(\"a/b/c/d/e\")\n```"
+          "example": [
+            "```js test=true",
+            "expect(",
+            "  nthIndex('/', -5, 'a/b/c/d/e/f/g/h/i/j')",
+            ").toEqual(\"f/g/h/i/j\")",
+            "expect(",
+            "  nthIndex('/', 5, 'a/b/c/d/e/f/g/h/i/j')",
+            ").toEqual(\"a/b/c/d/e\")",
+            "```"
+          ],
+          "description": "Slice a string by counted delimiters"
         },
         "keywords": [
           "@example",
@@ -1063,7 +1836,13 @@
         "addTo": "",
         "structure": {
           "name": "strepeat",
-          "example": "```js test=true\nexpect(strepeat('=', 5)).toEqual('=====')\nexpect(strepeat('/', -1)).toEqual('')\n```"
+          "example": [
+            "```js test=true",
+            "expect(strepeat('=', 5)).toEqual('=====')",
+            "expect(strepeat('/', -1)).toEqual('')",
+            "```"
+          ],
+          "description": "A simple memoized utility for repeating a string and joining the array."
         },
         "keywords": [
           "@example",
@@ -1081,7 +1860,13 @@
         "addTo": "",
         "structure": {
           "name": "capitalize",
-          "example": "```js test=true\nexpect(capitalize(\"nice\")).toEqual(\"Nice\")\nexpect(capitalize(\"\")).toEqual(\"\")\n```"
+          "example": [
+            "```js test=true",
+            "expect(capitalize(\"nice\")).toEqual(\"Nice\")",
+            "expect(capitalize(\"\")).toEqual(\"\")",
+            "```"
+          ],
+          "description": "Capitalize a string"
         },
         "keywords": [
           "@example",
@@ -1099,7 +1884,19 @@
         "addTo": "",
         "structure": {
           "name": "slugWord",
-          "example": "```js test=true\nexpect(slugWord('CoolFuckingShit')).toEqual('cool-fucking-shit')\nexpect(slugWord('hoorayNiceLife')).toEqual('hooray-nice-life')\nexpect(slugWord('Do nothingCool ever')).toEqual('do nothing-cool ever')\nexpect(\n  slugWord('src/components/homepage/AugmentedDetailsDumbComponent')\n).toEqual(\n  'src-components-homepage-augmented-details-dumb-component'\n)\n```"
+          "example": [
+            "```js test=true",
+            "expect(slugWord('CoolFuckingShit')).toEqual('cool-fucking-shit')",
+            "expect(slugWord('hoorayNiceLife')).toEqual('hooray-nice-life')",
+            "expect(slugWord('Do nothingCool ever')).toEqual('do nothing-cool ever')",
+            "expect(",
+            "  slugWord('src/components/homepage/AugmentedDetailsDumbComponent')",
+            ").toEqual(",
+            "  'src-components-homepage-augmented-details-dumb-component'",
+            ")",
+            "```"
+          ],
+          "description": "Take PascalCase and kebabCase inputs and replace them with slug-case"
         },
         "keywords": [
           "@example",
@@ -1114,16 +1911,16 @@
     "workspace": "knot"
   },
   {
-    "slugName": "helpers",
     "package": "monorail",
+    "slugName": "helpers",
+    "filename": "packages/monorail/helpers.js",
     "pageTitle": "helpers",
     "pageSummary": "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
-    "filename": "packages/monorail/helpers.js",
     "comments": [
       {
         "start": 22,
         "end": 25,
-        "summary": "@pageSummary Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function.",
+        "summary": "",
         "links": [],
         "fileGroup": "",
         "addTo": "",
@@ -1132,8 +1929,8 @@
             "Built-in helpers for making custom plugins more robust. The \"helpers\" are the third parameter passed to a custom plugin's function."
           ],
           "page": "helpers",
-          "name": "helpers",
-          "detail": 22
+          "description": "",
+          "name": "helpers"
         },
         "keywords": [
           "@page",
@@ -1151,7 +1948,16 @@
         "addTo": "",
         "structure": {
           "name": "any",
-          "example": "```js\nconst plugin = {\n  name: 'get-const',\n  fn: (state, file, { any }) => any(/const/)\n}\nexport default plugin\n```"
+          "example": [
+            "```js",
+            "const plugin = {",
+            "  name: 'get-const',",
+            "  fn: (state, file, { any }) => any(/const/)",
+            "}",
+            "export default plugin",
+            "```"
+          ],
+          "description": "Use this helper to test a regex that matches against any single incidence on any line"
         },
         "keywords": [
           "@example",
@@ -1169,7 +1975,15 @@
         "addTo": "",
         "structure": {
           "name": "lines",
-          "example": "```js\nexport default {\n  name: 'unexported-consts',\n  fn: (state, file, { lines }) => lines(/^const/)\n}\n```"
+          "example": [
+            "```js",
+            "export default {",
+            "  name: 'unexported-consts',",
+            "  fn: (state, file, { lines }) => lines(/^const/)",
+            "}",
+            "```"
+          ],
+          "description": "Use this helper to test a regex that matches and filters against every line"
         },
         "keywords": [
           "@example",
@@ -1187,7 +2001,15 @@
         "addTo": "",
         "structure": {
           "name": "line",
-          "example": "```js\nexport default {\n  name: 'exported-default',\n  fn: (state, file, { line }) => line(/export default/g)\n}\n```"
+          "example": [
+            "```js",
+            "export default {",
+            "  name: 'exported-default',",
+            "  fn: (state, file, { line }) => line(/export default/g)",
+            "}",
+            "```"
+          ],
+          "description": "Use this helper to test a regex that matches and finds the first matching line"
         },
         "keywords": [
           "@example",
@@ -1205,7 +2027,15 @@
         "addTo": "",
         "structure": {
           "name": "lastLine",
-          "example": "```js\nexport default {\n  name: 'exported-last',\n  fn: (state, file, { lastLine }) => lastLine(/export/g)\n}\n```"
+          "example": [
+            "```js",
+            "export default {",
+            "  name: 'exported-last',",
+            "  fn: (state, file, { lastLine }) => lastLine(/export/g)",
+            "}",
+            "```"
+          ],
+          "description": "Use this helper to test a regex that matches and finds the last matching line"
         },
         "keywords": [
           "@example",
@@ -1223,7 +2053,15 @@
         "addTo": "",
         "structure": {
           "name": "between",
-          "example": "```js\nexport default {\n  name: 'expanded-imports',\n  fn: (state, file, { between }) => between(/^import/, /from (.*)/)\n}\n```"
+          "example": [
+            "```js",
+            "export default {",
+            "  name: 'expanded-imports',",
+            "  fn: (state, file, { between }) => between(/^import/, /from (.*)/)",
+            "}",
+            "```"
+          ],
+          "description": "Use this helper to select content between two repeating regular expressions"
         },
         "keywords": [
           "@example",
@@ -1241,7 +2079,16 @@
         "addTo": "",
         "structure": {
           "name": "reduce",
-          "example": "```js\nconst plugin = {\n  name: 'select-specifics',\n  fn: (state, file, { reduce }) => reduce((agg, [line, content]) => content.length > 10 : agg.concat(content) : agg, [])\n}\nexport default plugin\n```"
+          "example": [
+            "```js",
+            "const plugin = {",
+            "  name: 'select-specifics',",
+            "  fn: (state, file, { reduce }) => reduce((agg, [line, content]) => content.length > 10 : agg.concat(content) : agg, [])",
+            "}",
+            "export default plugin",
+            "```"
+          ],
+          "description": "Use this helper to easily reduce over all lines and aggregate a value"
         },
         "keywords": [
           "@example",
@@ -1259,7 +2106,15 @@
         "addTo": "",
         "structure": {
           "name": "selectAll",
-          "example": "```js\nexport default {\n  name: 'expanded-imports',\n  fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)\n}\n```"
+          "example": [
+            "```js",
+            "export default {",
+            "  name: 'expanded-imports',",
+            "  fn: (state, file, { selectAll }) => selectAll(/^import/, /from (.*)/)",
+            "}",
+            "```"
+          ],
+          "description": "Use this helper to select all content between two repeating regular expressions"
         },
         "keywords": [
           "@example",
@@ -1277,7 +2132,18 @@
         "addTo": "",
         "structure": {
           "name": "filter",
-          "example": "```js\nconst plugin = {\n  name: 'keyword-match',\n  fn: (state, file, { config, filter }) => filter(\n    config?.keyword ?? /monorail/\n  )\n}\nexport default plugin\n```"
+          "example": [
+            "```js",
+            "const plugin = {",
+            "  name: 'keyword-match',",
+            "  fn: (state, file, { config, filter }) => filter(",
+            "    config?.keyword ?? /monorail/",
+            "  )",
+            "}",
+            "export default plugin",
+            "```"
+          ],
+          "description": "Use this helper to easily filter all lines related to a given regular expression"
         },
         "keywords": [
           "@example",
@@ -1295,7 +2161,18 @@
         "addTo": "",
         "structure": {
           "name": "config",
-          "example": "```js\nconst plugin = {\n  name: 'keyword-match',\n  fn: (state, file, { filter, config }) => filter(\n    config?.keyword ?? /monorail/\n  )\n}\nexport default plugin\n```"
+          "example": [
+            "```js",
+            "const plugin = {",
+            "  name: 'keyword-match',",
+            "  fn: (state, file, { filter, config }) => filter(",
+            "    config?.keyword ?? /monorail/",
+            "  )",
+            "}",
+            "export default plugin",
+            "```"
+          ],
+          "description": "The `config` value is patched in so that it is easier to pass values from the rulefile configuration to the plugins themselves, scoped to the plugin name."
         },
         "keywords": [
           "@example",
@@ -1310,22 +2187,87 @@
     "workspace": "monorail"
   },
   {
-    "slugName": "summary",
     "package": "digested",
-    "pageSummary": "",
+    "slugName": "summary",
     "filename": "tools/digested/summary.js",
+    "pageTitle": "",
+    "pageSummary": "",
     "comments": [
       {
         "start": 89,
-        "end": 161,
-        "summary": "Summarize a project, given:\n - the path to a `package.json` file\n - the path to a `dr-generated.json` file\n - the URI of a documentation site\n - the URI of a repository\n - (optional) a banner\n - or (optional) the path to a file which represents a banner",
+        "end": 162,
+        "summary": "Summarize a project, given: - the path to a `package.json` file - the path to a `dr-generated.json` file - the URI of a documentation site - the URI of a repository - (optional) a banner - or (optional) the path to a file which represents a banner",
         "links": [],
         "fileGroup": "",
         "addTo": "",
         "structure": {
           "name": "summarize",
           "future": true,
-          "example": "```js test=true\nimport path from 'node:path'\nimport { fork } from 'fluture'\n// drgen-import-above\nfork(done)(x => {\n  expect(x.split('\\n')).toEqual([\n    \"this is a cool test!\",\n    \"## apps\",\n    \"\",\n    \" * [docs](//repo.biz/apps/docs) - documentation site for monoculture\",\n    \"\",\n    \"## packages\",\n    \"\",\n    \" * [bloodline](//repo.biz/packages/bloodline) - determine the relationships between files 🩸\",\n    \" * [climate](//repo.biz/packages/climate) - CLI utilities, friend 👯\",\n    \" * [climate-json](//repo.biz/packages/climate-json) - JSON parser for climate 🐐\",\n    \" * [climate-toml](//repo.biz/packages/climate-toml) - TOML parser for climate 🍅\",\n    \" * [climate-yaml](//repo.biz/packages/climate-yaml) - YAML parser for climate 🍠\",\n    \" * [clox](//repo.biz/packages/clox) - boxes for the terminal ⏰\",\n    \" * [doctor-general](//repo.biz/packages/doctor-general) - documentation generation 🩻\",\n    \" * [doctor-general-jest](//repo.biz/packages/doctor-general-jest) - documentation generation - jest 🃏\",\n    \" * [doctor-general-mdx](//repo.biz/packages/doctor-general-mdx) - documentation generation - mdx 🩺\",\n    \" * [file-system](//repo.biz/packages/file-system) - fs, but in the future 🔮\",\n    \" * [inherent](//repo.biz/packages/inherent) - functional utilities for primitives ⛺️\",\n    \" * [kiddo](//repo.biz/packages/kiddo) - child processes in the future 👶\",\n    \" * [knot](//repo.biz/packages/knot) - functional utilities for strings 🪢\",\n    \" * [monocle](//repo.biz/packages/monocle) - inspect code and apply rules, magically 🧐\",\n    \" * [monorail](//repo.biz/packages/monorail) - plugins for smug grins 🚂\",\n    \" * [robot-tourist](//repo.biz/packages/robot-tourist) - human-centric source code interpreter 🤖\",\n    \" * [water-wheel](//repo.biz/packages/water-wheel) - future-wrapping for streaming interfaces 🌊\",\n    \"\",\n    \"## shared\",\n    \"\",\n    \" * [eslint-config-monoculture](//repo.biz/shared/eslint-config-monoculture) - shared eslint configuration for monoculture packages 🧹\",\n    \" * [jest-config](//repo.biz/shared/jest-config) - shared jest configuration for monoculture packages 🎪\",\n    \" * [monoculture-tsconfig](//repo.biz/shared/monoculture-tsconfig) - shared tsconfig for monoculture packages 😵\",\n    \"\",\n    \"## tools\",\n    \"\",\n    \" * [digested](//repo.biz/tools/digested) - summarize and automatically generate information about your projects 🍽️\",\n    \" * [doctor-general-cli](//repo.biz/tools/doctor-general-cli) - documentation generation in a nice CLI 🫡\",\n    \" * [gitparty](//repo.biz/tools/gitparty) - visualize git logs with magical context 🎨\",\n    \" * [spacework](//repo.biz/tools/spacework) - meta tools for monoculture ☄️\",\n    \" * [superorganism](//repo.biz/tools/superorganism) - script runner from beyond the moon 🐁\",\n    \" * [treacle](//repo.biz/tools/treacle) - command line interface tree visualization pun 🫠\",\n    \"\",\n  ])\n  done()\n})(summarize({\n  readme: true,\n  dirPath: process.cwd(),\n  banner: 'this is a cool test!',\n  // repoUrl: 'https://github.com/brekk/monoculture/tree/main',\n  // docUrl: 'https://brekk.github.io/monoculture',\n  // base package only!\n  repoUrl: '//repo.biz',\n  docUrl: '//repo.doc',\n  pkgPath: '../../package.json',\n  drGenPath: '../../apps/docs/dr-generated.json'\n}))\n```"
+          "example": [
+            "```js test=true",
+            "import path from 'node:path'",
+            "import { fork } from 'fluture'",
+            "// drgen-import-above",
+            "fork(done)(x => {",
+            "  expect(x.split('\\n')).toEqual([",
+            "    \"this is a cool test!\",",
+            "    \"## apps\",",
+            "    \"\",",
+            "    \" * [docs](//repo.biz/apps/docs) - documentation site for monoculture\",",
+            "    \"\",",
+            "    \"## packages\",",
+            "    \"\",",
+            "    \" * [bloodline](//repo.biz/packages/bloodline) - determine the relationships between files 🩸\",",
+            "    \" * [climate](//repo.biz/packages/climate) - CLI utilities, friend 👯\",",
+            "    \" * [climate-json](//repo.biz/packages/climate-json) - JSON parser for climate 🐐\",",
+            "    \" * [climate-toml](//repo.biz/packages/climate-toml) - TOML parser for climate 🍅\",",
+            "    \" * [climate-yaml](//repo.biz/packages/climate-yaml) - YAML parser for climate 🍠\",",
+            "    \" * [clox](//repo.biz/packages/clox) - boxes for the terminal ⏰\",",
+            "    \" * [doctor-general](//repo.biz/packages/doctor-general) - documentation generation 🩻\",",
+            "    \" * [doctor-general-jest](//repo.biz/packages/doctor-general-jest) - documentation generation - jest 🃏\",",
+            "    \" * [doctor-general-mdx](//repo.biz/packages/doctor-general-mdx) - documentation generation - mdx 🩺\",",
+            "    \" * [file-system](//repo.biz/packages/file-system) - fs, but in the future 🔮\",",
+            "    \" * [inherent](//repo.biz/packages/inherent) - functional utilities for primitives ⛺️\",",
+            "    \" * [kiddo](//repo.biz/packages/kiddo) - child processes in the future 👶\",",
+            "    \" * [knot](//repo.biz/packages/knot) - functional utilities for strings 🪢\",",
+            "    \" * [manacle](//repo.biz/packages/manacle) - make conventions into rules, magically 🔒\",",
+            "    \" * [monocle](//repo.biz/packages/monocle) - inspect code and apply rules, magically 🧐\",",
+            "    \" * [monorail](//repo.biz/packages/monorail) - plugins for smug grins 🚂\",",
+            "    \" * [robot-tourist](//repo.biz/packages/robot-tourist) - human-centric source code interpreter 🤖\",",
+            "    \" * [water-wheel](//repo.biz/packages/water-wheel) - future-wrapping for streaming interfaces 🌊\",",
+            "    \"\",",
+            "    \"## shared\",",
+            "    \"\",",
+            "    \" * [eslint-config-monoculture](//repo.biz/shared/eslint-config-monoculture) - shared eslint configuration for monoculture packages 🧹\",",
+            "    \" * [jest-config](//repo.biz/shared/jest-config) - shared jest configuration for monoculture packages 🎪\",",
+            "    \" * [monoculture-tsconfig](//repo.biz/shared/monoculture-tsconfig) - shared tsconfig for monoculture packages 😵\",",
+            "    \"\",",
+            "    \"## tools\",",
+            "    \"\",",
+            "    \" * [digested](//repo.biz/tools/digested) - summarize and automatically generate information about your projects 🍽️\",",
+            "    \" * [doctor-general-cli](//repo.biz/tools/doctor-general-cli) - documentation generation in a nice CLI 🫡\",",
+            "    \" * [gitparty](//repo.biz/tools/gitparty) - visualize git logs with magical context 🎨\",",
+            "    \" * [spacework](//repo.biz/tools/spacework) - meta tools for monoculture ☄️\",",
+            "    \" * [superorganism](//repo.biz/tools/superorganism) - script runner from beyond the moon 🐁\",",
+            "    \" * [treacle](//repo.biz/tools/treacle) - command line interface tree visualization pun 🫠\",",
+            "    \"\",",
+            "  ])",
+            "  done()",
+            "})(summarize({",
+            "  readme: true,",
+            "  dirPath: process.cwd(),",
+            "  banner: 'this is a cool test!',",
+            "  // repoUrl: 'https://github.com/brekk/monoculture/tree/main',",
+            "  // docUrl: 'https://brekk.github.io/monoculture',",
+            "  // base package only!",
+            "  repoUrl: '//repo.biz',",
+            "  docUrl: '//repo.doc',",
+            "  pkgPath: '../../package.json',",
+            "  drGenPath: '../../apps/docs/dr-generated.json'",
+            "}))",
+            "```"
+          ],
+          "description": "Summarize a project, given: - the path to a `package.json` file - the path to a `dr-generated.json` file - the URI of a documentation site - the URI of a repository - (optional) a banner - or (optional) the path to a file which represents a banner"
         },
         "keywords": [
           "@example",

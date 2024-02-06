@@ -1,6 +1,5 @@
 // export * from './comment-documentation'
 import { prepareMetaFiles } from './next-meta-files'
-import { curry } from 'ramda'
 import { commentToMarkdown } from './renderer-markdown'
 import { slugWord } from 'knot'
 import {
@@ -18,13 +17,10 @@ export default {
   },
   group: 'workspace',
   process: filterAndStructureComments,
-  postProcess: curry(({ outputDir, workspace }, commentedFiles, filesToWrite) =>
-    filesToWrite.concat(prepareMetaFiles(outputDir, workspace, commentedFiles))
-  ),
-  renderer: curry(({ file, imports }, raw) =>
-    commentToMarkdown(file.slugName, imports, raw)
-  ),
-  postRender: curry(({ file }, raw) =>
-    [`# ${file.slugName}`, file.pageSummary, ...raw].join('\n\n')
-  ),
+  postProcess: ({ outputDir, workspace }, commentedFiles, filesToWrite) =>
+    filesToWrite.concat(prepareMetaFiles(outputDir, workspace, commentedFiles)),
+  renderer: ({ file, imports }, raw) =>
+    commentToMarkdown(file.slugName, imports, raw),
+  postRender: ({ file }, raw) =>
+    [`# ${file.slugName}`, file.pageSummary, ...raw].join('\n\n'),
 }

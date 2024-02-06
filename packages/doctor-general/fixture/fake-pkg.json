@@ -1,0 +1,5 @@
+{
+  "name": "doctor-general-fixture",
+  "description": "it's a fixture for doctor-general to use in testing!",
+  "workspaces": ["pkg/*", "tools/*"]
+}

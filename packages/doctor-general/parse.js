@@ -1,6 +1,9 @@
 import { basename, extname } from 'node:path'
-
+import { autobox } from 'inherent'
 import {
+  applySpec,
+  identity as I,
+  mergeRight,
   unless,
   always as K,
   defaultTo,
@@ -19,9 +22,10 @@ import {
 } from 'ramda'
 import { readFile } from 'file-system'
 import { nthIndex, lines } from 'knot'
+
 import { isJSDocComment, addLineNumbers, groupContiguousBlocks } from './file'
 import { stripRelative } from './text'
-import { objectifyComments } from './comment'
+import { objectifyAllComments } from './comment'
 
 const getAny = curry(function _getAny(def, keyPath, comments) {
   return pipe(
@@ -39,7 +43,7 @@ const getPageSummary = pipe(
   join(' ')
 )
 
-const getPageTitle = getAny('', ['structure', 'page'])
+const getPageTitle = pipe(getAny('', ['structure', 'page']), autobox, join(' '))
 
 const getPackage = i => {
   if (i.indexOf('/') > -1) {
@@ -49,61 +53,68 @@ const getPackage = i => {
   return i
 }
 
-export const parse = curry(function _parse(root, filename, content) {
-  const newName = stripRelative(filename)
-  const slugName = basename(newName, extname(newName))
+export const parse = curry(function _parse(rawFilename, content) {
+  const filename = stripRelative(rawFilename)
+  const slugName = basename(filename, extname(filename))
   return pipe(
     // String
     lines,
     // List String
-    raw =>
-      pipe(
+    function processLines(raw) {
+      return pipe(
         addLineNumbers,
         // List #[Integer, String]
         filter(pipe(last, isJSDocComment)),
         // List #[Integer, String]
         groupContiguousBlocks,
+        // log.parse('grouped'),
         // List #[Integer, String]
-        objectifyComments(newName, raw),
+        objectifyAllComments(filename, raw),
         // List CommentBlock
-        comments => ({
+        applySpec({
+          pageTitle: getPageTitle,
+          pageSummary: getPageSummary,
+          comments: I,
+          order: pipe(getAny('0', ['structure', 'order']), n =>
+            parseInt(n, 10)
+          ),
+          fileGroup: getAny('', ['fileGroup']),
+          links: pipe(map(propOr([], 'links')), flatten),
+        }),
+        mergeRight({
+          package: getPackage(filename),
           slugName,
-          package: getPackage(newName),
-          pageTitle: getPageTitle(comments),
-          pageSummary: getPageSummary(comments),
-          filename: newName,
-          comments,
-          order: pipe(getAny('0', ['structure', 'order']), x =>
-            parseInt(x, 10)
-          )(comments),
-          fileGroup: getAny('', ['fileGroup'], comments),
-          links: pipe(map(propOr([], 'links')), flatten)(comments),
+          filename,
         })
       )(raw)
+    }
     // CommentedFile
   )(content)
 })
 
-export const parseFile = curry(function _parseFile(debugMode, root, filename) {
+export const parseFile = curry(function _parseFile(debugMode, filename) {
   return pipe(
     // String
     readFile,
     // Future<Error, String>
-    map(parse(root, filename)),
-    // remove orphan comments (parser found it but its not well-formed)
-    map(p => ({
-      ...p,
-      comments: pipe(
-        filter(
-          ({ lines: l, start, end, summary }) =>
-            start !== end && !!summary && l.length > 0
-        ),
-        unless(
-          K(debugMode),
-          map(({ lines: __lines, ...rest }) => rest)
-        )
-      )(p.comments),
-    }))
+    map(parse(filename)),
+    // remove orphan comments (parser found it but it's not well-formed)
+    map(function exciseOrphanComments(p) {
+      return {
+        ...p,
+        comments: pipe(
+          /*
+          filter(function skipEmptyComments({ lines: l, start, end, summary }) {
+            return start !== end && !!summary && l.length > 0
+          }),
+          */
+          unless(
+            K(debugMode),
+            map(({ lines: __lines, ...rest }) => rest)
+          )
+        )(p.comments),
+      }
+    })
     // CommentedFile
   )(filename)
 })

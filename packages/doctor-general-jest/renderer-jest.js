@@ -13,36 +13,42 @@ import {
   pathOr,
   always as K,
   map,
+  is,
+  curry,
+  when,
 } from 'ramda'
 import { log } from './log'
+import { matchesTestable } from './comment-test'
+
+const fromStructureOr = curry((def, crumbs, x) =>
+  pathOr(def, ['structure', ...when(is(String), wrap)(crumbs)], x)
+)
 
 const handleSpecialCases = ifElse(
-  either(
-    pathOr(false, ['structure', 'page']),
-    pathOr(false, ['structure', 'pageSummary'])
-  ),
+  either(fromStructureOr(false, 'page'), fromStructureOr(false, 'pageSummary')),
   K('')
 )
 
 const grabCommentData = applySpec({
-  title: pathOr('Unknown', ['structure', 'name']),
-  example: pathOr('', ['structure', 'example']),
-  future: pathOr('', ['structure', 'future']),
+  title: fromStructureOr('Unknown', 'name'),
+  example: fromStructureOr('', 'example'),
+  future: fromStructureOr(false, 'future'),
 })
 
-const getCurried = pathOr([], ['structure', 'curried'])
+const getCurried = fromStructureOr([], 'curried')
 const MAGIC_IMPORT_KEY = 'drgen-import-above'
-const renderTest = ({ title, example, future: asyncCallback }) => {
-  log.renderer('inputs', { title, example })
-  if (!includes('test=true', example)) return ''
-  const exlines = example.split('\n').filter(l => !l.startsWith('```'))
-  const hasImports = any(includes(MAGIC_IMPORT_KEY), exlines)
-  const importIndex = findIndex(includes(MAGIC_IMPORT_KEY), exlines)
+const hasMagicImport = includes(MAGIC_IMPORT_KEY)
+
+const renderTest = ({ title, example, future }) => {
+  if (!matchesTestable(example)) return ''
+  const exlines = example.filter(l => !l.startsWith('```'))
+  const hasImports = any(hasMagicImport, exlines)
+  const importIndex = findIndex(hasMagicImport, exlines)
   const [imps, content] = hasImports
     ? [exlines.slice(0, importIndex), exlines.slice(importIndex + 1)]
     : [[], exlines]
   return `${imps.length ? imps.join('\n') + '\n' : ''}test('${title}', (${
-    asyncCallback ? 'done' : ''
+    future ? 'done' : ''
   }) => {
   ${content.join('\n  ')}
 })
@@ -52,19 +58,20 @@ const renderTest = ({ title, example, future: asyncCallback }) => {
 const handleCurriedExample = pipe(
   wrap,
   ap([getCurried, grabCommentData]),
-  ([curried, { future, summary }]) =>
-    map(({ name: title, lines: example }) =>
-      pipe(
+  function processCurried([curried, { future, summary }]) {
+    return map(function processEachMorphism({ name: title, lines: example }) {
+      return pipe(
         log.curried('currious'),
         renderTest
       )({
         title,
         summary,
         example,
+        // example: example.split('\n'),
         future,
       })
-    )(curried),
-  log.renderer('out?'),
+    })(curried)
+  },
   filter(isNotEmpty),
   join('\n')
 )

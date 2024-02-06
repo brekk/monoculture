@@ -10,13 +10,14 @@ module.exports = {
       rebuild: sd(
         `drgen -i ${['./builder.js', './help.js'].join(
           ' '
-        )} -o autotests --processor doctor-general-jest`,
+        )} -o autotests --interpreter doctor-general-jest`,
         'use doctor-general to create tests for us!'
       ),
     },
     lint: sd('eslint --fix .', 'lint!'),
     test: {
       ...sd('jest --coverage --verbose', 'test!'),
+      snapshot: sd('jest -u', 'test with snapshottsssss'),
       silent: sd(
         'jest --silent --reporters=jest-silent-reporter --coverageReporters=none',
         'test, quietly.'

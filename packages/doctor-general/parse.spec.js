@@ -11,6 +11,7 @@ test('parse', () => {
  * @name cool
  * @private
  * @see {@link emoji.sunglasses}
+ * @see {@link other.thing}
  * @example
  * \`\`\`ts
  * import { cool } from './parse'
@@ -27,12 +28,18 @@ the content here will be thrown right in the trash
  * import { nice } from './parse'
  * \`\`\`
  */
+
+/**
+ * @page This Page Title Is Custom!
+ * @pageSummary This is a comprehensive and explicit summary!
+ * Inflammable is flammable? 
+ */ 
 `
-  expect(parse('root', filename, content)).toEqual({
+  expect(parse(filename, content)).toEqual({
     comments: [
       {
         addTo: '',
-        end: 10,
+        end: 11,
         fileGroup: '',
         keywords: ['@example', '@link', '@name', '@private', '@see'],
         lines: [
@@ -40,26 +47,26 @@ the content here will be thrown right in the trash
           '@name cool',
           '@private',
           '@see {@link emoji.sunglasses}',
+          '@see {@link other.thing}',
           '@example',
           '```ts',
           "import { cool } from './parse'",
           '```',
         ],
-        links: ['emoji.sunglasses'],
+        links: ['emoji.sunglasses', 'other.thing'],
         start: 1,
         structure: {
-          example: `\`\`\`ts
-import { cool } from './parse'
-\`\`\``,
+          description: 'Very cool',
+          example: ['```ts', "import { cool } from './parse'", '```'],
           name: 'cool',
           private: true,
-          see: ['emoji.sunglasses'],
+          see: ['{@link emoji.sunglasses}', '{@link other.thing}'],
         },
         summary: 'Very cool',
       },
       {
         addTo: '',
-        end: 21,
+        end: 22,
         fileGroup: '',
         keywords: ['@example', '@name'],
         lines: [
@@ -71,23 +78,46 @@ import { cool } from './parse'
           '```',
         ],
         links: [],
-        start: 14,
+        start: 15,
         structure: {
-          example: `\`\`\`ts
-import { nice } from './parse'
-\`\`\``,
+          description: 'Nice',
+          example: ['```ts', "import { nice } from './parse'", '```'],
           name: 'nice',
         },
         summary: 'Nice',
       },
+      {
+        addTo: '',
+        end: 28,
+        fileGroup: '',
+        keywords: ['@page', '@pageSummary'],
+        lines: [
+          '@page This Page Title Is Custom!',
+          '@pageSummary This is a comprehensive and explicit summary!',
+          'Inflammable is flammable?',
+        ],
+        links: [],
+        start: 24,
+        structure: {
+          description: '',
+          name: 'This Page Title Is Custom!',
+          page: ['This Page Title Is Custom!'],
+          pageSummary: [
+            'This is a comprehensive and explicit summary!',
+            'Inflammable is flammable?',
+          ],
+        },
+        summary: '',
+      },
     ],
     fileGroup: undefined,
     filename: 'i-yam-what-i.yaml',
-    links: ['emoji.sunglasses'],
+    links: ['emoji.sunglasses', 'other.thing'],
     order: 0,
     package: 'i-yam-what-i.yaml',
-    pageSummary: '',
-    pageTitle: undefined,
+    pageSummary:
+      'This is a comprehensive and explicit summary! Inflammable is flammable?',
+    pageTitle: 'This Page Title Is Custom!',
     slugName: 'i-yam-what-i',
   })
 })
@@ -97,5 +127,14 @@ test('parseFile', done => {
     const cleanFilename = raw.filename.split('/').slice(-3).join('/')
     expect({ ...raw, filename: cleanFilename }).toMatchSnapshot()
     done()
-  })(parseFile(false, 'root', input))
+  })(parseFile(false, input))
+})
+
+test('parseFile - debug', done => {
+  const input = relativePathJoin(__dirname, './file.js')
+  fork(done)(raw => {
+    const cleanFilename = raw.filename.split('/').slice(-3).join('/')
+    expect({ ...raw, filename: cleanFilename }).toMatchSnapshot()
+    done()
+  })(parseFile(true, input))
 })

@@ -70,22 +70,22 @@ export const showHelpWhen = curry(function _showHelpWhen(check, parsed) {
  *
  * // renders in the failure channel
  * fork(x => {
- *   expect(stripAnsi(x).split('\n')).toEqual([
- *     " dumbwaiter ",
+ *   expect(stripAnsi(x).split('\n').map(z => z.trim())).toEqual([
+ *     "dumbwaiter",
  *     "",
  *     "order food!",
  *     "",
- *     "  -m / --meal",
- *     "  	Pass the name of the meal you want",
+ *     "-m / --meal",
+ *     "Pass the name of the meal you want",
  *     "",
- *     "  -h / --happyHour",
- *     "  	Does happy hour apply here?",
+ *     "-h / --happyHour",
+ *     "Does happy hour apply here?",
  *     "",
- *     "  -x / --multiplier",
- *     "  	How many units should we apply?",
+ *     "-x / --multiplier",
+ *     "How many units should we apply?",
  *     "",
- *     "  -h / --help",
- *     "  	This text!",
+ *     "-h / --help",
+ *     "This text!",
  *   ])
  *   done()
  * })(done)(

@@ -1,6 +1,8 @@
 import { extname, basename, dirname, join as pathJoin } from 'node:path'
 import { isNotEmpty } from 'inherent'
 import {
+  head,
+  endsWith,
   includes,
   curry,
   defaultTo,
@@ -12,8 +14,10 @@ import {
   propOr,
   reduce,
   replace,
+  any,
 } from 'ramda'
 export const TESTABLE_EXAMPLE = 'test=true'
+export const matchesTestable = pipe(head, endsWith(TESTABLE_EXAMPLE))
 
 /**
  * Merge two file representations. Can be right or left associative
@@ -58,14 +62,17 @@ export const stripRelative = replace(/\.\.\/|\.\//g, '')
 
 export const hasExample = pipe(
   pathOr('', ['structure', 'example']),
-  includes(TESTABLE_EXAMPLE)
+  matchesTestable
 )
+
+export const testUsesImport = curry((imp, ex) => any(includes(imp), ex))
 
 export const filterAndStructureTests = pipe(
   filter(pipe(propOr([], 'comments'), filter(hasExample), isNotEmpty)),
   map(raw => {
     const filename = stripRelative(raw.filename)
     const ext = extname(filename)
+    // log.filter('raw', raw)
     return {
       ...raw,
       comments: raw.comments.map(r => ({ ...r, filename })),

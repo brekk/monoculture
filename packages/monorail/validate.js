@@ -55,12 +55,14 @@ export const noExtraKeys = x =>
 export const testPlugin = pipe(
   of,
   ap([applySpec(PLUGIN_SHAPE), noExtraKeys]),
-  ([x, error]) => (error ? { ...x, error } : x)
+  function mashErrors([x, error]) {
+    return error ? { ...x, error } : x
+  }
 )
 
 export const checkPlugin = pipe(testPlugin, values, all(equals(true)))
 
-export const validatePlugins = reduce((agg, plugin) => {
+export const validatePlugins = reduce(function _validatePlugins(agg, plugin) {
   const check = checkPlugin(plugin)
   const name = propOr('unnamed', 'name', plugin)
   if (!check) {

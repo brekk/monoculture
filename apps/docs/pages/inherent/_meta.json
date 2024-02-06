@@ -1,3 +1,5 @@
 {
+  "index": "groupByIndex",
+  "groupByIndex": "groupByIndex",
   "primitives": "primitives"
 }

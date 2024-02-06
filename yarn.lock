@@ -7304,6 +7304,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"doctor-general-cli@portal:../../tools/doctor-general-cli::locator=doctor-general%40workspace%3Apackages%2Fdoctor-general":
+  version: 0.0.0-use.local
+  resolution: "doctor-general-cli@portal:../../tools/doctor-general-cli::locator=doctor-general%40workspace%3Apackages%2Fdoctor-general"
+  dependencies:
+    climate: "workspace:packages/climate"
+    doctor-general: "workspace:packages/doctor-general"
+    inherent: "workspace:packages/inherent"
+    kiddo: "workspace:packages/kiddo"
+    ramda: "npm:0.29.1"
+  bin:
+    doctor-general: ./dist/doctor-general.cjs
+    drgen: ./dist/doctor-general.cjs
+  languageName: node
+  linkType: soft
+
 "doctor-general-cli@portal:../../tools/doctor-general-cli::locator=inherent%40workspace%3Apackages%2Finherent":
   version: 0.0.0-use.local
   resolution: "doctor-general-cli@portal:../../tools/doctor-general-cli::locator=inherent%40workspace%3Apackages%2Finherent"
@@ -7322,6 +7337,21 @@ __metadata:
 "doctor-general-cli@portal:../../tools/doctor-general-cli::locator=knot%40workspace%3Apackages%2Fknot":
   version: 0.0.0-use.local
   resolution: "doctor-general-cli@portal:../../tools/doctor-general-cli::locator=knot%40workspace%3Apackages%2Fknot"
+  dependencies:
+    climate: "workspace:packages/climate"
+    doctor-general: "workspace:packages/doctor-general"
+    inherent: "workspace:packages/inherent"
+    kiddo: "workspace:packages/kiddo"
+    ramda: "npm:0.29.1"
+  bin:
+    doctor-general: ./dist/doctor-general.cjs
+    drgen: ./dist/doctor-general.cjs
+  languageName: node
+  linkType: soft
+
+"doctor-general-cli@portal:../../tools/doctor-general-cli::locator=manacle%40workspace%3Apackages%2Fmanacle":
+  version: 0.0.0-use.local
+  resolution: "doctor-general-cli@portal:../../tools/doctor-general-cli::locator=manacle%40workspace%3Apackages%2Fmanacle"
   dependencies:
     climate: "workspace:packages/climate"
     doctor-general: "workspace:packages/doctor-general"
@@ -7392,6 +7422,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "doctor-general-jest@workspace:packages/doctor-general-jest"
   dependencies:
+    doctor-general: "workspace:packages/doctor-general"
     dotenv-cli: "npm:7.3.0"
     envtrace: "npm:0.0.2"
     esbuild: "npm:0.19.10"
@@ -7435,6 +7466,7 @@ __metadata:
   resolution: "doctor-general@workspace:packages/doctor-general"
   dependencies:
     climate: "workspace:packages/climate"
+    doctor-general-cli: "portal:../../tools/doctor-general-cli"
     dotenv-cli: "npm:7.3.0"
     envtrace: "npm:0.0.2"
     esbuild: "npm:0.19.10"
@@ -12525,6 +12557,32 @@ __metadata:
   checksum: b0e6e599780ce6bab49cc413eba822f7d1f0dfebd1c103eaa3785c59e43e22c59018323cf9e1708f0ef5329e94a745d163fcbb6bff8e4c6742f9be9e86f3500c
   languageName: node
   linkType: hard
+
+"manacle@workspace:packages/manacle":
+  version: 0.0.0-use.local
+  resolution: "manacle@workspace:packages/manacle"
+  dependencies:
+    climate: "workspace:packages/climate"
+    climate-json: "workspace:packages/climate-json"
+    climate-toml: "workspace:packages/climate-toml"
+    doctor-general-cli: "portal:../../tools/doctor-general-cli"
+    dotenv-cli: "npm:7.3.0"
+    envtrace: "npm:0.0.2"
+    esbuild: "npm:0.19.10"
+    eslint-config-monoculture: "workspace:shared/eslint-config-monoculture"
+    execa: "npm:8.0.1"
+    fluture: "npm:14.0.0"
+    inherent: "workspace:packages/inherent"
+    jest: "npm:29.7.0"
+    jest-config: "workspace:shared/jest-config"
+    knot: "workspace:packages/knot"
+    monorail: "workspace:packages/monorail"
+    nps: "npm:^5.10.0"
+    ramda: "npm:0.29.1"
+  bin:
+    manacle: ./dist/cli.cjs
+  languageName: unknown
+  linkType: soft
 
 "manage-path@npm:^2.0.0":
   version: 2.0.0
