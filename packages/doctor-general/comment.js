@@ -10,6 +10,7 @@ import {
 } from 'inherent'
 import { TESTABLE_EXAMPLE } from './constants'
 import {
+  reject,
   defaultTo,
   mergeRight,
   append,
@@ -364,7 +365,8 @@ export const objectifyComments = curry(
             )(block)
           ),
         []
-      )
+      ),
+      reject(y => y.start === y.end)
     )(comments)
   }
 )
@@ -409,7 +411,7 @@ export const writeCommentsToFiles = curry(function _writeCommentsToFiles(
   return pipe(
     toPairs,
     map(function processWorkspaceComments([workspace, commentedFiles]) {
-      const filesToWrite = map(file => {
+      const filesToWrite = map(function writeFileForWorkspace(file) {
         const filePathToWrite = pathJoin(
           outputDir,
           workspace,

@@ -11,6 +11,12 @@ introspection and organization tools for monorepos
 
  * [docs](https://github.com/brekk/monoculture/tree/main/apps/docs) - documentation site for monoculture
 
+   <details><summary>API</summary>
+
+    - [next](https://brekk.github.io/monoculture/docs/next)
+
+   </details>
+
    <details><summary>Dependencies</summary>
 
     - [@chakra-ui/react](https://www.npmjs.com/package/@chakra-ui/react)
@@ -178,8 +184,8 @@ introspection and organization tools for monorepos
 
     - [comment-test](https://brekk.github.io/monoculture/doctor-general-jest/comment-test)
     - [comment](https://brekk.github.io/monoculture/doctor-general/comment)
-    - [processor](https://brekk.github.io/monoculture/doctor-general/processor)
-    - [reader](https://brekk.github.io/monoculture/doctor-general/reader)
+    - [interpreter](https://brekk.github.io/monoculture/doctor-general/interpreter)
+    - [parse](https://brekk.github.io/monoculture/doctor-general/parse)
     - [text](https://brekk.github.io/monoculture/doctor-general/text)
 
    </details>
@@ -221,6 +227,7 @@ introspection and organization tools for monorepos
     - [inherent](https://github.com/brekk/monoculture/tree/main/packages/inherent) 🦴
     - [knot](https://github.com/brekk/monoculture/tree/main/packages/knot) 🦴
     - [ramda](https://www.npmjs.com/package/ramda)
+    - [doctor-general](https://github.com/brekk/monoculture/tree/main/packages/doctor-general) 🦴 🧪
     - [dotenv-cli](https://www.npmjs.com/package/dotenv-cli) 🧪
     - [envtrace](https://www.npmjs.com/package/envtrace) 🧪
     - [esbuild](https://www.npmjs.com/package/esbuild) 🧪
@@ -478,6 +485,12 @@ introspection and organization tools for monorepos
 
  * [jest-config](https://github.com/brekk/monoculture/tree/main/shared/jest-config) - shared jest configuration for monoculture packages 🎪
 
+   <details><summary>API</summary>
+
+    - [jest](https://brekk.github.io/monoculture/jest-config/jest)
+
+   </details>
+
    <details><summary>Dependencies</summary>
 
     - [@swc/core](https://www.npmjs.com/package/@swc/core)
@@ -582,6 +595,12 @@ introspection and organization tools for monorepos
    </details>
 
  * [superorganism](https://github.com/brekk/monoculture/tree/main/tools/superorganism) - script runner from beyond the moon 🐁
+
+   <details><summary>API</summary>
+
+    - [src/runner](https://brekk.github.io/monoculture/superorganism/src/runner)
+
+   </details>
 
    <details><summary>Dependencies</summary>
 

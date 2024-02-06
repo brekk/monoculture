@@ -1,31 +1,5 @@
 [
   {
-    "package": "docs",
-    "slugName": "next.config",
-    "filename": "apps/docs/next.config.js",
-    "pageTitle": "",
-    "pageSummary": "",
-    "comments": [
-      {
-        "start": 0,
-        "end": 0,
-        "summary": "/** @type {import('next').NextConfig} */",
-        "links": [],
-        "fileGroup": "",
-        "addTo": "",
-        "structure": {
-          "description": "/** @type {import('next').NextConfig} */"
-        },
-        "keywords": [],
-        "filename": "apps/docs/next.config.js",
-        "package": "docs"
-      }
-    ],
-    "order": 0,
-    "links": [],
-    "workspace": "docs"
-  },
-  {
     "package": "bloodline",
     "slugName": "executables",
     "filename": "packages/bloodline/executables.js",
@@ -473,8 +447,8 @@
     "pageSummary": "",
     "comments": [
       {
-        "start": 68,
-        "end": 71,
+        "start": 71,
+        "end": 74,
         "summary": "Check to see if a comment object has an example with a `test=true` tag within its structure",
         "links": [],
         "fileGroup": "",
@@ -490,8 +464,8 @@
         "package": "doctor-general"
       },
       {
-        "start": 75,
-        "end": 77,
+        "start": 78,
+        "end": 80,
         "summary": "Pull all imports from a given file, including `@curried` examples",
         "links": [],
         "fileGroup": "",
@@ -507,8 +481,8 @@
         "package": "doctor-general"
       },
       {
-        "start": 164,
-        "end": 166,
+        "start": 167,
+        "end": 169,
         "summary": "Grab the summary from raw lines, given some indices to slice",
         "links": [],
         "fileGroup": "",
@@ -524,8 +498,8 @@
         "package": "doctor-general"
       },
       {
-        "start": 181,
-        "end": 183,
+        "start": 184,
+        "end": 186,
         "summary": "Is it an asterisk with maybe some whitespace around it?",
         "links": [],
         "fileGroup": "",
@@ -541,8 +515,8 @@
         "package": "doctor-general"
       },
       {
-        "start": 187,
-        "end": 188,
+        "start": 190,
+        "end": 191,
         "summary": "",
         "links": [],
         "fileGroup": "",
@@ -556,8 +530,8 @@
         "package": "doctor-general"
       },
       {
-        "start": 192,
-        "end": 195,
+        "start": 195,
+        "end": 198,
         "summary": "Grab the example from raw lines and some indices to slice",
         "links": [],
         "fileGroup": "",
@@ -575,22 +549,8 @@
         "package": "doctor-general"
       },
       {
-        "start": 315,
-        "end": 315,
-        "summary": "",
-        "links": [],
-        "fileGroup": "",
-        "addTo": "",
-        "structure": {
-          "description": ""
-        },
-        "keywords": [],
-        "filename": "packages/doctor-general/comment.js",
-        "package": "doctor-general"
-      },
-      {
-        "start": 325,
-        "end": 327,
+        "start": 328,
+        "end": 330,
         "summary": "",
         "links": [],
         "fileGroup": "",
@@ -607,8 +567,8 @@
         "package": "doctor-general"
       },
       {
-        "start": 454,
-        "end": 457,
+        "start": 458,
+        "end": 461,
         "summary": "Process comments given a interpreter and an error handler",
         "links": [],
         "fileGroup": "",
@@ -708,32 +668,6 @@
     "links": [
       "interrogate"
     ],
-    "workspace": "doctor-general"
-  },
-  {
-    "package": "doctor-general",
-    "slugName": "parse",
-    "filename": "packages/doctor-general/parse.js",
-    "pageTitle": "",
-    "pageSummary": "",
-    "comments": [
-      {
-        "start": 109,
-        "end": 109,
-        "summary": "",
-        "links": [],
-        "fileGroup": "",
-        "addTo": "",
-        "structure": {
-          "description": ""
-        },
-        "keywords": [],
-        "filename": "packages/doctor-general/parse.js",
-        "package": "doctor-general"
-      }
-    ],
-    "order": 0,
-    "links": [],
     "workspace": "doctor-general"
   },
   {
@@ -1567,20 +1501,6 @@
     "pageSummary": "",
     "comments": [
       {
-        "start": 12,
-        "end": 12,
-        "summary": "",
-        "links": [],
-        "fileGroup": "",
-        "addTo": "",
-        "structure": {
-          "description": ""
-        },
-        "keywords": [],
-        "filename": "packages/inherent/groupByIndex.js",
-        "package": "inherent"
-      },
-      {
         "start": 14,
         "end": 34,
         "summary": "",
@@ -2267,32 +2187,6 @@
     "workspace": "monorail"
   },
   {
-    "package": "jest-config",
-    "slugName": "jest.config",
-    "filename": "shared/jest-config/jest.config.js",
-    "pageTitle": "",
-    "pageSummary": "",
-    "comments": [
-      {
-        "start": 21,
-        "end": 21,
-        "summary": "",
-        "links": [],
-        "fileGroup": "",
-        "addTo": "",
-        "structure": {
-          "description": ""
-        },
-        "keywords": [],
-        "filename": "shared/jest-config/jest.config.js",
-        "package": "jest-config"
-      }
-    ],
-    "order": 0,
-    "links": [],
-    "workspace": "jest-config"
-  },
-  {
     "package": "digested",
     "slugName": "summary",
     "filename": "tools/digested/summary.js",
@@ -2387,31 +2281,5 @@
     "order": 0,
     "links": [],
     "workspace": "digested"
-  },
-  {
-    "package": "src",
-    "slugName": "runner",
-    "filename": "tools/superorganism/src/runner.js",
-    "pageTitle": "",
-    "pageSummary": "",
-    "comments": [
-      {
-        "start": 151,
-        "end": 151,
-        "summary": "",
-        "links": [],
-        "fileGroup": "",
-        "addTo": "",
-        "structure": {
-          "description": ""
-        },
-        "keywords": [],
-        "filename": "tools/superorganism/src/runner.js",
-        "package": "src"
-      }
-    ],
-    "order": 0,
-    "links": [],
-    "workspace": "src"
   }
 ]

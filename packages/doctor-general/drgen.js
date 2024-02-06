@@ -121,8 +121,7 @@ export const drgen = curry(function _drgen(cancel, config) {
       ? monorepoPreRunner(cancel, config)
       : resolveF(input)
     return pipe(
-      showMatchesOnly ? I : readAndProcessFiles(cancel, config, partial),
-      map(log.core('hey doctor!'))
+      showMatchesOnly ? I : readAndProcessFiles(cancel, config, partial)
     )(rawInput)
   } catch (e) {
     rejectF(e)

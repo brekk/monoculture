@@ -136,20 +136,7 @@ export const executeWithCancel = curry(function _executeWithCancel(
   )
 })
 const { name: $NAME, description: $DESC } = PKG
-/*
-const $BANNER = `,-. . . ,-. ,-. ,-. ,-. ,-. ,-. ,-. ,-. . ,-. ,-,-.
-\`-. | | | | |-' |   | | |   | | ,-| | | | \`-. | | |
-\`-' \`-^ |-' \`-' '   \`-' '   \`-| \`-^ ' ' ' \`-' ' ' '
-        |                    ,|
-        '                    \`'`
 
-const $BANNER = ` (q\\_/p)
-  /❤ ❤\\.-""""-.     __
- =\\_y_/=    /  \`\\  (( \`
-   )) ))____\\    )☐☐)
-  'mm-mm\`  \`mm---'
-`
-*/
 const $BANNER = `.--,       .--,
 {{  \\.^^^./  }}
 '\\__/ ✖︎ ✖︎ \\__/'
