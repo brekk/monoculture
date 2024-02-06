@@ -11,8 +11,6 @@ export interface EqualishBy<F, T> {
 }
 
 export const equalishBy = curry(
-  <F, T>(transform: Transformer<F, T>, expected: T, x: F) => {
-    const t = transform(x)
-    return t === expected
-  }
+  <F, T>(transform: Transformer<F, T>, expected: T, x: F) =>
+    transform(x) === expected
 )

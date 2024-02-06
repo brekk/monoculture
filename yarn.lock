@@ -3905,6 +3905,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/ramda@npm:^0.29.10":
+  version: 0.29.10
+  resolution: "@types/ramda@npm:0.29.10"
+  dependencies:
+    types-ramda: "npm:^0.29.7"
+  checksum: 3aaa75e172a75ad4f236a348cd26c15ff80e71111c9d6e434e0c9acff71f5c9485ff41c6b62fb77bcca771c0942c6443e9fc46b611363c3d867f83a8d856301a
+  languageName: node
+  linkType: hard
+
 "@types/ramda@npm:^0.29.9":
   version: 0.29.9
   resolution: "@types/ramda@npm:0.29.9"
@@ -13505,6 +13514,7 @@ __metadata:
     "@swc/register": "npm:0.1.10"
     "@types/jest": "npm:29.5.11"
     "@types/node": "npm:20.10.5"
+    "@types/ramda": "npm:^0.29.10"
     dotenv-cli: "npm:7.3.0"
     esbuild: "npm:0.19.10"
     eslint: "npm:8.56.0"
@@ -17781,6 +17791,15 @@ __metadata:
   dependencies:
     ts-toolbelt: "npm:^9.6.0"
   checksum: 89857597ea3242437a97f35980fd022e9ab388ee99ec51eb5a808bea51fbe84df211b32f8f04fedbd246c16fb4820d1944e2ac7e416932e9655bcfb1b9c70d7b
+  languageName: node
+  linkType: hard
+
+"types-ramda@npm:^0.29.7":
+  version: 0.29.7
+  resolution: "types-ramda@npm:0.29.7"
+  dependencies:
+    ts-toolbelt: "npm:^9.6.0"
+  checksum: 605c5a4be09f3e3617da99c129ccff7af0ead2e1c5f62b0756af77e574225479d2842b4577dd217f89063583310d71cefe2d7c4687a76a85b7bd23c9f1dea48b
   languageName: node
   linkType: hard
 
