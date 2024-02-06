@@ -7379,6 +7379,21 @@ __metadata:
   languageName: node
   linkType: soft
 
+"doctor-general-cli@portal:../../tools/doctor-general-cli::locator=superorganism%40workspace%3Atools%2Fsuperorganism":
+  version: 0.0.0-use.local
+  resolution: "doctor-general-cli@portal:../../tools/doctor-general-cli::locator=superorganism%40workspace%3Atools%2Fsuperorganism"
+  dependencies:
+    climate: "workspace:packages/climate"
+    doctor-general: "workspace:packages/doctor-general"
+    inherent: "workspace:packages/inherent"
+    kiddo: "workspace:packages/kiddo"
+    ramda: "npm:0.29.1"
+  bin:
+    doctor-general: ./dist/doctor-general.cjs
+    drgen: ./dist/doctor-general.cjs
+  languageName: node
+  linkType: soft
+
 "doctor-general-cli@portal:../doctor-general-cli::locator=digested%40workspace%3Atools%2Fdigested":
   version: 0.0.0-use.local
   resolution: "doctor-general-cli@portal:../doctor-general-cli::locator=digested%40workspace%3Atools%2Fdigested"
@@ -17431,6 +17446,7 @@ __metadata:
   dependencies:
     chalk: "npm:5.3.0"
     climate: "workspace:packages/climate"
+    doctor-general-cli: "portal:../../tools/doctor-general-cli"
     dotenv-cli: "npm:7.3.0"
     envtrace: "npm:0.0.2"
     esbuild: "npm:0.19.10"
